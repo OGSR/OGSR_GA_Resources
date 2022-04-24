@@ -1,0 +1,727 @@
+
+;--------------------------------------
+; инфопоршены игры
+;--------------------------------------
+;bar_arena_fight		; infoportion на вступление к бою (из игры)
+;bar_arena_fight_begin		; infoportion на начало боя (из игры)
+
+;--------------------------------------
+; инфопоршены мода (основные)
+;--------------------------------------
+[info]
+aem_startup			; мод инициализирован
+aem_open			; арена открыта
+aem_ready			; бои сгенерились 
+aem_done			; все бои завершены
+aem_fight_done			; текущий бой завершён
+aem_fight_wait			; отложенный запуск для тотализатора
+aem_stake_team1			; ставка сделана на команду 1
+aem_stake_team2			; 
+aem_stake1			; размер ставки 1
+aem_stake2			; 
+aem_stake3			; 
+aem_bonus			; бой с ограничением по времени
+aem_bonus_5s			; ограничение 5 сек
+aem_bonus_10s			;
+aem_bonus_15s			;
+aem_bonus_20s			; 
+aem_bonus_30s			; 
+aem_bonus_40s			; 
+aem_bonus_50s			; 
+aem_bonus_60s			; 
+aem_5s				; проиграть звук завершения 5 сек
+aem_10s				;
+aem_15s				;
+aem_20s				; 
+aem_30s				; 
+aem_40s				; 
+aem_50s				; 
+aem_60s				; 
+aem_timeover			; время истекло
+aem_megafone			; для проигрывания рекламы на мегафоне Бара
+aem_spam			; регулировка отсылки сообщений
+aem_lights			; -регулировка освещение арены
+aem_fight_foul			; убийство после истечения времени
+aem_arny_dead			; убийство Арни
+aem_admin_dead			; убийство нового админа
+aem_arny_spread_out		; смерть Арни в аномалии
+aem_admin_spread_out		; смерть нового админа в аномалии
+aem_go_bar			; инфо для смены рестрикта
+aem_arny_dis_1			; инфо отсутствия Арни по причине убийства
+aem_arny_dis_2			; инфо отсутствия Арни по причине разрыва в аномалии
+
+;--------------------------------------
+; переменные мода, запоминаемые в хранилище актёра (основные)
+;($) - постоянно находятся в хранилище
+;(*) - удаляются из хранилища
+;--------------------------------------
+[pstor]
+aem_lt			; num	"aem_last_time" время последнего обновления (update)($)
+aem_nt			; num	"aem_next_time" время последнего/следующего открытия арены($)
+aem_it			; num	"aem_init_time" время последней реальной активации($)
+aem_mt			; num	"aem_mons_time" время последнего сражения с монстрами($)
+aem_mk			; num	"aem_mask" битовая маска уничтоженных группировок($)
+aem_id			; num	id админа($)
+aem_team1		; num	счётчик команды 1(*)
+aem_team2		; num	счётчик команды 2(*)
+aem_cr			; str	"aem_current" имя текущего боя(*)
+aem_cm			; str	"aem_community" группировка актёра(*)
+aem_rt			; num	время - за сколько часов до открытия арены заспавнится админ(*)
+aem_ct			; num	время закрытия арены в минутах(*)
+
+
+;--------------------------------------
+; звуковое вступление к бою (aem\sound.ltx)
+;--------------------------------------
+;[intro]
+;*		- И так, гонг, бой начался
+;fight1		- сегодня на арене два свежайших куска мяса, кто-то из них станет мясом на корм собакам в буквальном смысле, начнём
+;fight2		- два претиндента на цинковый дом, оба прошли первый круг, так покажите чему вы научились, поехали
+;fight3		- поприветствуем нашевого нового бойца, сталкера Меченого, сегодня мы узнаем кто он претиндент на звание чемпиона или просто кусок мяса
+;fight4		- сегодня на арене бандиты грабят новичков, в роли новичков Меченый и его мясо
+;fight5		- сегодня у нас особенный бой, специально приглашённые гости из доблестного ОМОНа будут пытаться задержать неповторимого Меченого, покажи им чего ты стоишь
+;fight6		- преступление и наказание, неповторимый Меченый в роли мента наводит правосудие против 6-ых преступников и негодяев
+;-fight7		- за участие в смертельном бою, неповторимый Меченый против Мастера, но с небольшими изменениями...
+;fight8		- сегодня и только сегодня, бой за звание чемпиона арены, в нём участвуют пятеро финалистов...
+;pseudodog
+;snork 
+;bloodsucker
+;burer
+;savage
+
+
+;--------------------------------------
+; звуковое оформление окончания боя (aem\sound.ltx)
+;--------------------------------------
+;[extro]
+;*		- победа
+;fight1		- выпустите собак, одним неудачником стало меньше
+;fight2		- врача, врача, хотя ему уже не поможешь, мясник
+;fight3		- да, у этих парней не было даже шанса
+;fight4		- даже коса находит на камень
+;fight5		- господа военные покинули наше мероприятие
+;fight6		- свершилось правосудие, никому из этих 6-ых не суждено было оказаться на воле
+;fight7		- не может быть, Меченый завалил его, в очередной раз доказав, что ни важно каким оружием пользоваться, главное как
+;-fight8		- браво, браво новому чемпиону арены...
+
+
+;--------------------------------------
+; аренное оружее, убираемое из инвентаря ГГ по завершению боя
+;--------------------------------------
+[arena_items]
+wpn_pm_arena
+wpn_mp5_arena
+wpn_toz34_arena
+wpn_saiga12_arena
+wpn_ak74_arena
+wpn_bm16_arena
+wpn_ak74u_arena
+wpn_val_arena
+wpn_groza_arena
+wpn_l85_arena
+wpn_p90_arena
+
+
+;--------------------------------------
+; вещи, запрещённые для боя на арене
+;--------------------------------------
+[remove_items]
+grenade_rgd5
+grenade_f1
+wpn_rpg7
+wpn_gauss
+ammo_m209
+ammo_vog-25
+ammo_vog-25p
+wpn_addon_grenade_launcher
+wpn_addon_grenade_launcher_m203
+
+;--------------------------------------
+; вещи, которые оставляются ГГ при тотализаторе
+;--------------------------------------
+[keep_items]
+bolt
+detector_simple
+device_torch
+device_pda
+gunslinger_flash
+wpn_binoc
+;wpn_knife
+af_blood_tutorial
+esc_wounded_flash
+quest_case_02
+dar_document4
+kruglov_flash
+lab_x16_documents
+good_psy_helmet
+bad_psy_helmet
+decoder
+dynamite
+quest_case_01
+;hunters_toz
+bar_ecolog_flash
+bar_tiran_pda
+bar_lucky_pda
+
+
+;--------------------------------------
+; места спавна на арене
+;--------------------------------------
+[places]
+;--SPAWN_V1
+side1_01 = 151.2141, -21.0374, 129.5184, 53954, 1302
+side1_02 = 149.8551, -20.999, 131.6488, 53635, 1302
+side1_03 = 152.6738, -20.9972, 131.75, 54231, 1302
+side1_04 = 151.2744, -20.9973, 131.7438, 53958, 1302
+side1_05 = 154.0509, -21.0114, 130.9617, 54491, 1302
+side1_06 = 148.4156, -21.0248, 130.8685, 53354, 1302
+side1_07 = 164.01463317871,-21.059213638306,121.03875732422, 56254, 1195
+side1_08 = 161.17163085938,-21.058824539185,121.33232879639, 55753, 1224
+side1_09 = 152.1978302002,-21.059213638306,117.76689147949, 54063, 1224
+side1_10 = 150.04598999023,-21.059213638306,117.86529541016, 53601, 1217
+side1_11 = 138.1353302002,-21.058824539185,114.51142883301, 50617, 1217
+side1_12 = 139.88655090332,-21.058824539185,116.54931640625, 51163, 1217
+
+side2_01 = 153.47901916504,-20.933946609497,76.790229797363, 54274, 1193
+side2_02 = 150.77351379395,-21.066175460815,77.194114685059, 53699, 1193
+side2_03 = 151.42037963867,-21.066270828247,79.606620788574, 53873, 1193
+side2_04 = 155.16046142578,-21.058963775635,78.878547668457, 54669, 1193
+side2_05 = 155.78215026855,-21.059701919556,81.967376708984, 54807, 1223
+side2_06 = 150.88903808594,-21.061052322388,82.936317443848, 53877, 1193
+
+;--------------------------------------
+; команды
+;--------------------------------------
+;[name]
+;name			= "aem_" .. name
+;name1			= "aem_" .. name .. "1"
+;name2			= "aem_" .. name .. "2"
+;spawn1			= nil
+;spawn2			= nil
+;place1			= *
+;place2			= *
+;mutants_min		= 6
+;mutant_max		= 6
+;humans_min		= 6
+;humans_max		= 6
+;intro			= nil
+;extro			= nil
+;--------------------------------------
+
+[teams]
+team_military
+team_killer
+team_freedom
+team_dolg
+team_neutral
+team_bandit
+team_pseudodog
+team_boar
+team_snork
+team_bloodsucker
+team_zombie
+team_chimera
+team_burer
+team_gigant
+
+[team_places]
+place1			= side1_01, side1_02, side1_03, side1_04, side1_05, side1_06
+place2			= side2_01, side2_02, side2_03, side2_04, side2_05, side2_06
+
+[team_military]:team_places
+spawn1			= aem_military_t1_1_1, aem_military_t1_2_1, aem_military_t1_2_2, aem_military_t1_3_1, aem_military_t1_3_2, aem_military_t1_3_3
+spawn2			= aem_military_t2_1_1, aem_military_t2_2_1, aem_military_t2_2_2, aem_military_t2_3_1, aem_military_t2_3_2, aem_military_t2_3_3
+extro			= fight5
+
+[team_killer]:team_places
+spawn1			= aem_killer_t1_1_1, aem_killer_t1_2_1, aem_killer_t1_2_2, aem_killer_t1_3_1, aem_killer_t1_3_2, aem_killer_t1_3_3
+spawn2			= aem_killer_t2_1_1, aem_killer_t2_2_1, aem_killer_t2_2_2, aem_killer_t2_3_1, aem_killer_t2_3_2, aem_killer_t2_3_3
+extro			= fight6
+
+[team_freedom]:team_places
+spawn1			= aem_freedom_t1_1_1, aem_freedom_t1_2_1, aem_freedom_t1_2_2, aem_freedom_t1_3_1, aem_freedom_t1_3_2, aem_freedom_t1_3_3
+spawn2			= aem_freedom_t2_1_1, aem_freedom_t2_2_1, aem_freedom_t2_2_2, aem_freedom_t2_3_1, aem_freedom_t2_3_2, aem_freedom_t2_3_3
+extro			= fight3
+
+[team_dolg]:team_places
+spawn1			= aem_dolg_t1_1_1, aem_dolg_t1_2_1, aem_dolg_t1_2_2, aem_dolg_t1_3_1, aem_dolg_t1_3_2, aem_dolg_t1_3_3
+spawn2			= aem_dolg_t2_1_1, aem_dolg_t2_2_1, aem_dolg_t2_2_2, aem_dolg_t2_3_1, aem_dolg_t2_3_2, aem_dolg_t2_3_3
+extro			= fight4
+
+[team_neutral]:team_places
+spawn1			= aem_neutral_t1_1_1, aem_neutral_t1_2_1, aem_neutral_t1_2_2, aem_neutral_t1_3_1, aem_neutral_t1_3_2, aem_neutral_t1_3_3
+spawn2			= aem_neutral_t2_1_1, aem_neutral_t2_2_1, aem_neutral_t2_2_2, aem_neutral_t2_3_1, aem_neutral_t2_3_2, aem_neutral_t2_3_3
+extro			= fight2
+
+[team_bandit]:team_places
+spawn1			= aem_bandit_t1_1_1, aem_bandit_t1_2_1, aem_bandit_t1_2_2, aem_bandit_t1_3_1, aem_bandit_t1_3_2, aem_bandit_t1_3_3
+spawn2			= aem_bandit_t2_1_1, aem_bandit_t2_2_1, aem_bandit_t2_2_2, aem_bandit_t2_3_1, aem_bandit_t2_3_2, aem_bandit_t2_3_3
+extro			= fight1
+
+[team_pseudodog]:team_places
+mutants_min			= 5
+mutants_max			= 6
+humans_min			= 3
+humans_max			= 4
+spawn1				= aem_pseudodog_stk_1, aem_pseudodog_stk_2, aem_pseudodog_stk_3, aem_pseudodog_stk_4, aem_pseudodog_stk_1, aem_pseudodog_stk_2
+
+[team_boar]:team_places
+mutants_min			= 4
+mutants_max			= 5
+humans_min			= 3
+humans_max			= 4
+spawn1				= aem_boar_stk_1, aem_boar_stk_2, aem_boar_stk_3, aem_boar_stk_4, aem_boar_stk_5, aem_boar_stk_6
+
+[team_snork]:team_places
+mutants_min			= 3
+mutants_max			= 5
+humans_min			= 3
+humans_max			= 4
+spawn1				= aem_snork_stk_1, aem_snork_stk_2, aem_snork_stk_3, aem_snork_stk_1, aem_snork_stk_2
+
+[team_bloodsucker]:team_places
+mutants_min			= 1
+mutants_max			= 1
+humans_min			= 3
+humans_max			= 4
+spawn1				= aem_bloodsucker_stk_1
+
+[team_zombie]:team_places
+mutants_min			= 5
+mutants_max			= 6
+humans_min			= 4
+humans_max			= 4
+spawn1				= aem_zombie_stk_1, aem_zombie_stk_2, aem_zombie_stk_3, aem_zombie_stk_4, aem_zombie_stk_5,	aem_zombie_stk_6
+
+[team_chimera]:team_places
+mutants_min			= 1
+mutants_max			= 1
+humans_min			= 3
+humans_max			= 4
+spawn1				= aem_chimera_stk_1
+
+[team_burer]:team_places
+mutants_min			= 1
+mutants_max			= 1
+humans_min			= 3
+humans_max			= 4
+spawn1				= aem_burer_stk_1
+
+[team_gigant]:team_places
+mutants_min			= 1
+mutants_max			= 1
+humans_min			= 5
+humans_max			= 6
+spawn1				= aem_gigant_stk_1
+
+;--------------------------------------
+; порядок следования групп
+;--------------------------------------
+[groups]
+order			= mutants, military, killer, freedom, dolg, neutral, bandit, special
+
+
+;--------------------------------------
+; описания групп
+;--------------------------------------
+;[name]
+;title			= "aem_" .. name
+;info			= "aem_" .. name .. "_info"
+;done			= "aem_" .. name .. "_done"
+;fights			= *
+;--------------------------------------
+
+[mutants]
+fights			= mutants_dog, mutants_boar, mutants_tushkano, mutants_snork, mutants_bloodsucker, mutants_zombie, mutants_chimera, mutants_burer, mutants_gigant
+
+[military]
+fights			= military_1, military_2, military_3, military_6
+
+[killer]
+fights			= killer_1, killer_2, killer_3, killer_6
+
+[freedom]
+fights			= freedom_1, freedom_2, freedom_3, freedom_6
+
+[dolg]
+fights			= dolg_1, dolg_2, dolg_3, dolg_6
+
+[neutral]
+fights			= neutral_1, neutral_2, neutral_3, neutral_6
+
+[bandit]
+fights			= bandit_1, bandit_2, bandit_3, bandit_6
+
+[special]
+fights			= special_1
+
+
+
+;--------------------------------------
+; описание боёв
+;--------------------------------------
+;[name]
+;title			= "aem_" .. name
+;done			= "aem_" .. name .. "_done"
+;intro			= nil
+;extro			= nil
+;spawn			= *
+;place			= *
+;money			= *
+;bonus_10s		= 0
+;bonus_20s		= 0
+;bonus_30s		= 0
+;bonus_40s		= 0
+;bonus_50s		= 0
+;bonus_60s		= 0
+;bonus			= nil			"Сколько времени?"
+;unlimit		= nil			"Как пойдёт."
+;nounlimit		= nil			если не nil, то ветка unlimit будет отсутствовоть
+;--------------------------------------
+
+;--------------------------------------
+; mutants
+;--------------------------------------
+
+[mutants_dog]
+intro			= pseudodog
+spawn			= aem_pseudodog_1,	aem_pseudodog_2,	aem_pseudodog_1,	aem_dog_1,	aem_dog_2,	aem_dog_3
+place			= side1_01,	side1_02,	side1_03,	side1_04,	side1_05,	side1_06
+money			= 2000
+bonus_15s		= 2000
+bonus_20s		= 1000
+bonus_30s		= 500
+
+[mutants_boar]
+spawn			= aem_boar_1,	aem_boar_2,	aem_boar_3,	aem_boar_4
+place			= side1_01,	side1_02,	side1_03,	side1_04
+money			= 2000
+bonus_15s		= 2000
+bonus_20s		= 1000
+bonus_30s		= 500
+
+[mutants_tushkano]
+spawn			= aem_tushkano_1,	aem_tushkano_2,	aem_tushkano_3,	aem_tushkano_4,	aem_tushkano_5,	aem_tushkano_6,	aem_tushkano_7,	aem_tushkano_8,	aem_tushkano_9,	aem_tushkano_10,	aem_tushkano_11,	aem_tushkano_12
+place			= side1_01,	side1_02,	side1_03,	side1_04,	side1_05,	side1_06,	side1_07,	side1_08,	side1_09,	side1_10,side1_11,side1_12
+money			= 2000
+bonus_20s		= 2000
+bonus_30s		= 1000
+bonus_40s		= 500
+
+[mutants_snork]
+intro			= snork
+spawn			= aem_snork_1,	aem_snork_2,	aem_snork_3
+place			= side1_01,	side1_02,	side1_03
+money			= 3000
+bonus_20s		= 3000
+bonus_30s		= 1500
+bonus_40s		= 750
+
+[mutants_bloodsucker]
+intro			= bloodsucker
+spawn			= aem_bloodsucker_1
+place			= side1_01
+money			= 3000
+bonus_10s		= 3000
+bonus_15s		= 1500
+bonus_20s		= 750
+
+[mutants_zombie]
+spawn			= aem_controller_1,	aem_zombie_1,	aem_zombie_2,	aem_zombie_3,	aem_zombie_4,	aem_zombie_5
+place			= side1_01,	side1_02,	side1_03,	side1_04,	side1_05,	side1_06
+money			= 5000
+bonus_20s		= 5000
+bonus_30s		= 2000
+bonus_40s		= 750
+
+[mutants_chimera]
+spawn			= aem_chimera_1
+place			= side1_01
+money			= 5000
+bonus_15s		= 5000
+bonus_20s		= 2000
+bonus_30s		= 750
+
+[mutants_burer]
+intro			= burer
+spawn			= aem_burer_1
+place			= side1_01
+money			= 5000
+bonus_10s		= 5000
+bonus_15s		= 1000
+bonus_20s		= 750
+
+[mutants_gigant]
+intro			= savage
+spawn			= aem_gigant_1
+place			= side1_01
+money			= 8000
+bonus_20s		= 8000
+bonus_30s		= 2000
+bonus_40s		= 750
+
+
+;--------------------------------------
+
+[fight_1on1]
+title			= aem_fight_1on1
+place			= side1_01
+money			= 1500
+bonus_10s		= 500
+
+[fight_1on2]
+title			= aem_fight_1on2
+place			= side1_02, side1_03
+money			= 2000
+bonus_10s		= 1500
+bonus_15s		= 750
+
+[fight_1on3]
+title			= aem_fight_1on3
+place			= side1_04, side1_05, side1_06
+money			= 3000
+bonus_10s		= 3000
+bonus_15s		= 1000
+bonus_20s		= 750
+
+[fight_1on6]
+title			= aem_fight_1on6
+place			= side1_01, side1_02, side1_03, side1_04, side1_05, side1_06
+money			= 5000
+bonus_15s		= 3500
+bonus_20s		= 1500
+bonus_30s		= 750
+
+
+;--------------------------------------
+; military
+;--------------------------------------
+
+[military_1]:fight_1on1
+intro			= fight1
+extro			= fight2
+spawn			= aem_military_t1_1_1
+
+[military_2]:fight_1on2
+intro			= fight5
+extro			= fight5
+spawn			= aem_military_t1_2_1, aem_military_t1_2_2
+
+[military_3]:fight_1on3
+intro			= fight5
+extro			= fight5
+spawn			= aem_military_t1_3_1, aem_military_t1_3_2, aem_military_t1_3_3
+
+[military_6]:fight_1on6
+intro			= fight5
+extro			= fight5
+spawn			= aem_military_t1_1_1, aem_military_t1_2_1, aem_military_t1_2_2, aem_military_t1_3_1, aem_military_t1_3_2, aem_military_t1_3_3
+
+
+;--------------------------------------
+; killer
+;--------------------------------------
+
+[killer_1]:fight_1on1
+intro			= fight1
+extro			= fight1
+spawn			= aem_killer_t1_1_1
+
+[killer_2]:fight_1on2
+intro			= fight2
+extro			= fight3
+spawn			= aem_killer_t1_2_1, aem_killer_t1_2_2
+
+[killer_3]:fight_1on3
+spawn			= aem_killer_t1_3_1, aem_killer_t1_3_2, aem_killer_t1_3_3
+
+[killer_6]:fight_1on6
+intro			= fight6
+extro			= fight6
+spawn			= aem_killer_t1_1_1, aem_killer_t1_2_1, aem_killer_t1_2_2, aem_killer_t1_3_1, aem_killer_t1_3_2, aem_killer_t1_3_3
+
+
+;--------------------------------------
+; freedom
+;--------------------------------------
+
+[freedom_1]:fight_1on1
+intro			= fight1
+extro			= fight1
+spawn			= aem_freedom_t1_1_1
+
+[freedom_2]:fight_1on2
+intro			= fight2
+extro			= fight3
+spawn			= aem_freedom_t1_2_1, aem_freedom_t1_2_2
+
+[freedom_3]:fight_1on3
+spawn			= aem_freedom_t1_3_1, aem_freedom_t1_3_2, aem_freedom_t1_3_3
+
+[freedom_6]:fight_1on6
+intro			= fight6
+extro			= fight3
+spawn			= aem_freedom_t1_1_1, aem_freedom_t1_2_1, aem_freedom_t1_2_2, aem_freedom_t1_3_1, aem_freedom_t1_3_2, aem_freedom_t1_3_3
+
+
+;--------------------------------------
+; dolg
+;--------------------------------------
+
+[dolg_1]:fight_1on1
+intro			= fight1
+extro			= fight2
+spawn			= aem_dolg_t1_1_1
+
+[dolg_2]:fight_1on2
+intro			= fight2
+extro			= fight4
+spawn			= aem_dolg_t1_2_1, aem_dolg_t1_2_2
+
+[dolg_3]:fight_1on3
+spawn			= aem_dolg_t1_3_1, aem_dolg_t1_3_2, aem_dolg_t1_3_3
+
+[dolg_6]:fight_1on6
+extro			= fight4
+spawn			= aem_dolg_t1_1_1, aem_dolg_t1_2_1, aem_dolg_t1_2_2, aem_dolg_t1_3_1, aem_dolg_t1_3_2, aem_dolg_t1_3_3
+
+
+;--------------------------------------
+; neutral
+;--------------------------------------
+
+[neutral_1]:fight_1on1
+intro			= fight1
+extro			= fight2
+spawn			= aem_neutral_t1_1_1
+
+[neutral_2]:fight_1on2
+intro			= fight2
+extro			= fight3
+spawn			= aem_neutral_t1_2_1, aem_neutral_t1_2_2
+
+[neutral_3]:fight_1on3
+spawn			= aem_neutral_t1_3_1, aem_neutral_t1_3_2, aem_neutral_t1_3_3
+
+[neutral_6]:fight_1on6
+extro			= fight7
+spawn			= aem_neutral_t1_1_1, aem_neutral_t1_2_1, aem_neutral_t1_2_2, aem_neutral_t1_3_1, aem_neutral_t1_3_2, aem_neutral_t1_3_3
+
+
+;--------------------------------------
+; bandit
+;--------------------------------------
+
+[bandit_1]:fight_1on1
+intro			= fight1
+extro			= fight1
+spawn			= aem_bandit_t1_1_1
+
+[bandit_2]:fight_1on2
+intro			= fight2
+extro			= fight3
+spawn			= aem_bandit_t1_2_1, aem_bandit_t1_2_2
+
+[bandit_3]:fight_1on3
+spawn			= aem_bandit_t1_3_1, aem_bandit_t1_3_2, aem_bandit_t1_3_3
+
+[bandit_6]:fight_1on6
+intro			= fight6
+extro			= fight6
+spawn			= aem_bandit_t1_1_1, aem_bandit_t1_2_1, aem_bandit_t1_2_2, aem_bandit_t1_3_1, aem_bandit_t1_3_2, aem_bandit_t1_3_3
+
+
+;--------------------------------------
+; special
+;--------------------------------------
+
+[special_1]
+bonus			= aem_special_warning
+unlimit			= aem_special_continue
+intro			= fight8
+extro			= fight7
+spawn			= aem_military_t1_1_1,	aem_military_t1_2_1,	aem_military_t1_2_2,		aem_killer_t1_3_1,		aem_killer_t1_3_2,	aem_killer_t1_3_3,	aem_freedom_sp1,	aem_freedom_sp2,	aem_dolg_sp1,	aem_dolg_sp2,	aem_neutral_sp1,	aem_neutral_sp2
+place			= side1_01,side1_02,side1_03,side1_04,side1_05,side1_06,side1_07,	side1_08,	side1_09,side1_10,side1_11,	side1_12
+money			= 10000
+
+
+
+;--------------------------------------
+; stakes
+;--------------------------------------
+; особый вид боёв, при котором одна из команд из списка <teams1>
+; будет сражаться с одной из команд из списка <teams2>
+; - в диалоге будет создано (teams1 * teams2) веток боёв
+;--------------------------------------
+;title			= "aem_" .. name
+;info			= "aem_" .. name .. "_info"
+;done			= "aem_" .. name .. "_done"
+;teams1			= *
+;teams2			= *
+;fights			= *
+;--------------------------------------
+
+[stakes]
+teams1			= team_pseudodog, team_boar, team_snork, team_bloodsucker, team_zombie, team_chimera, team_burer, team_gigant
+teams2			= team_dolg, team_neutral,team_military, team_killer, team_freedom, team_bandit
+fights			= stakes_1, stakes_2, stakes_3, stakes_4, stakes_5
+
+;--------------------------------------
+; описание боя для stakes
+;--------------------------------------
+;[name]
+;done			= "aem_" .. name .. "_done"
+;intro			= nil
+;extro			= nil
+;team1			= "aem_" .. name .. "_1"
+;team2			= "aem_" .. name .. "_2"
+;--------------------------------------
+
+[stakes_1]
+
+[stakes_2]
+
+[stakes_3]
+
+[stakes_4]
+
+[stakes_5]
+
+
+
+;--------------------------------------
+; turnament
+;--------------------------------------
+; особый вид боёв, при котором 4 случайных команды
+; будут последовательно биться за звание чемпионов
+; - в диалоге будет создано (teams * (teams-1)) веток боёв
+;--------------------------------------
+;info			= "aem_" .. name .. "_info"
+;done			= "aem_" .. name .. "_done"
+;teams			= *
+;fights			= *
+;--------------------------------------
+
+[turnament]
+teams			= team_military, team_killer, team_freedom, team_dolg, team_neutral, team_bandit
+fights			= turnament_1, turnament_2, turnament_3
+
+;--------------------------------------
+; описание боя для turnament
+;--------------------------------------
+;[name]
+;done			= "aem_" .. name .. "_done"
+;intro			= nil
+;extro			= nil
+;team1			= "aem_" .. name .. "_1"
+;team2			= "aem_" .. name .. "_2"
+;winer			= nil
+;--------------------------------------
+
+[turnament_1]
+winer			= aem_turnament_3_1
+
+[turnament_2]
+winer			= aem_turnament_3_2
+
+[turnament_3]

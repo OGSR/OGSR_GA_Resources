@@ -1,0 +1,20 @@
+
+
+[logic]
+active = walker
+on_death = death
+
+[death]
+on_info = %+esc_kvest_iscelenie_search_zakazchik_complete%
+
+[walker]
+path_walk =	esc_hitryi_walk
+path_look =	esc_hitryi_look
+danger = danger_condition
+
+[smart_terrains]
+none = true
+
+[danger_condition]
+ignore_distance = 0
+

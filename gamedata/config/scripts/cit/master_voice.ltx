@@ -1,0 +1,61 @@
+[logic]
+active = walker
+combat_ignore = combat_ignore
+threshold = threshold
+danger = danger_condition
+
+[walker]
+path_walk = master_voice_walk
+path_look = master_voice_look
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_ignore
+on_timer = 10 | %=make_invulnerable%
+on_info = {+master_quest_know_your_master} walker1 %=make_invulnerable%
+on_info2 = {+master_quest_talked_master} walker2 %=unmake_invulnerable%
+
+[walker1]
+path_walk = master_voice_walk
+path_look = master_voice_look
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_ignore
+on_info = {+master_quest_talked_master} walker2 %=unmake_invulnerable%
+on_actor_dist_le_nvis = 25 | walker3
+
+[walker3]
+path_walk = master_voice_walk
+path_look = master_voice_look
+meet = meet
+combat_ignore_cond = always
+danger = danger_ignore
+on_actor_dist_ge_nvis = 25 | walker1
+on_info = {-master_quest_talked_master !talking =dist_to_actor_le(3)} %=master_init_dialod%
+on_info2 = {+master_quest_talked_master} walker2 %=unmake_invulnerable%
+
+[walker2]
+path_walk = master_voice_walk
+path_look = master_voice_look
+meet = no_meet
+combat_ignore_cond = always
+
+[meet]
+meet_state = 20|ward
+meet_state_wpn = 20|ward
+victim = 20|actor
+victim_wpn = 20|actor
+use = true
+use_wpn = true
+combat_ignore_cond = always
+meet_dialog		=  deadcity_master_intro_dialog
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always

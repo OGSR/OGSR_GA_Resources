@@ -1,0 +1,582 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+
+function weather_class(avail_types, npc)
+	return level.rain_factor() < 0.07 and "weather_good" or "weather_bad"
+end
+
+function combat_class(avail_types, npc)
+	return ( npc:best_enemy() or npc:best_danger() ) and "" or "state"
+end
+
+-------------------------------------------------------------------------
+-- ЗВУКИ СТАЛКЕРОВ
+-------------------------------------------------------------------------
+local sounds_base = stalker_ids.sound_script + 10000
+function id()
+	sounds_base = sounds_base + 1
+	return sounds_base - 1
+end
+
+theme = {
+	-- погода
+	weather = {	exec = this.weather_class, 
+				types = {weather_bad	= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+						 weather_good	= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}} }},
+
+	-- состояния тела
+	state = {	exec = this.combat_class, 
+				types = {state	= {min_snd = 60, max_snd = 90, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}}} },
+	
+
+	sleep				= {min_snd = 10, max_snd = 15, rnd = 75, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- просьба о помощи
+	help				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	help_see			= {min_snd = 5, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	help_see_tutor		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	help_heavy			= {min_snd = 5, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	help_thanx			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	wounded_psy			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	wounded_psy_shoot	= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- окрик
+	hail				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- ожидание
+	wait				= {min_snd = 7, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- speech
+    speech				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    speech1				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    
+	-- угрозы
+	threat_weap			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	threat_back			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	threat_stop			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- реакции
+--	reac_hear				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	reac_see				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+--	reac_crps_monstr		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+--	reac_crps_enemy			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+--	reac_crps_neutral		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+--	reac_crps_friend		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	reac_nothing			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	reac_box				= {min_snd = 1, max_snd = 2, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	reac_music				= {min_snd = 1, max_snd = 2, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	reac_joke				= {min_snd = 1, max_snd = 2, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- болтовня
+	talk_hello				= {min_snd = 5, max_snd = 7, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	talk_hello_friend		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	talk_bye				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	talk_accept				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	talk_reject				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	talk_abuse				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- реакции на юзание
+	use_yes_fight			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	use_yes_sleep			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	use_yes_kamp			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	use_yes_default			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	use_no_fight			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	use_no_sleep			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	use_no_weapon			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	use_no_default			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	use_abuse				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- бой
+	fight_attack			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_search			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_enemy				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_attack_many		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_attack_one		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_backup			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_detour			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_enemy_down		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_enemy_hit			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_friend_hitted		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_friendly_fire		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_enemy_lost		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_threat_close		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_threat_distant	= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	fight_tolls				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	
+	beware_grenade			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	zombied_fight_attack	= {min_snd = 5, max_snd = 10,rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	-- торговля
+	trade_yes				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	trade_no				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- игра на губной гармошке
+	intro_music				= {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	harmonica				= {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- игра на гитаре
+	guitar					= {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	-- шутки, прибаутки
+	intro_joke				= {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	joke					= {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- Истории
+	story_01				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {},
+					depence	= {	[2] = {theme = "story_reac_cool_info", min = 1, max = 1},
+								[3] = {theme = "story_reac_continue", min = 2, max = 3},
+								[5] = {theme = "story_reac_laughter", type = "all"}}},
+	story_02				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {},
+					depence	= {	[2] = {theme = "story_reac_yes", min = 1, max = 2},
+								[3] = {theme = "story_reac_continue", min = 1, max = 1},
+								[4] = {theme = "story_reac_action_right", min = 1, max = 1},
+								[5] = {theme = "story_reac_cool_teller", min = 1, max = 1},
+								[6] = {theme = "story_reac_continue", min = 1, max = 1},
+								[7] = {theme = "story_reac_belief_story, story_reac_final_happy, story_reac_yes", min = 2, max = 4}}},											
+	story_03				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {},
+					depence	= {	[1] = {theme = "story_reac_continue", min = 1, max = 1},
+								[2] = {theme = "story_reac_final_tragic", min = 1, max = 1},
+								[3] = {theme = "story_reac_belief_story", min = 2, max = 3}}},
+	story_04				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {},
+					depence	= {	[1] = {theme = "story_reac_continue", min = 1, max = 1},
+								[2] = {theme = "story_reac_final_tragic", min = 1, max = 1},
+								[3] = {theme = "story_reac_belief_story", min = 2, max = 3}}},
+	story_05				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {},
+					depence	= {	[1] = {theme = "story_reac_advice_sceptic, story_reac_advice_support", min = 1, max = 1}}},
+	story_06				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {},
+					depence	= {	[2] = {theme = "story_reac_continue", min = 1, max = 1},
+								[3] = {theme = "story_reac_cool_teller", min = 1, max = 1},
+								[4] = {theme = "story_reac_action_right", min = 1, max = 1},
+								[5] = {theme = "story_reac_yes", min = 1, max = 1},
+								[6] = {theme = "story_reac_disbelief_teller, story_reac_belief_story", min = 2, max = 3},
+								[7] = {theme = "story_reac_cool_teller", min = 1, max = 1},
+								[8] = {theme = "story_reac_wonder", min = 1, max = 1},
+								[9] = {theme = "story_reac_disbelief_story, story_reac_belief_story, story_reac_yes", min = 2, max = 4}}},
+
+	legend_01				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {},
+					depence	= { [1] = {theme = "story_reac_doubt", min = 1, max = 1},
+								[2] = {theme = "story_reac_wonder, story_reac_disbelief_story", min = 1, max = 1},
+								[3] = {theme = "story_reac_yes", min = 2, max = 3},
+								[4] = {theme = "story_reac_yes, story_reac_belief_story", min = 2, max = 4}}},
+	legend_02				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {},
+					depence	= { [1] = {theme = "story_reac_doubt", min = 1, max = 1},
+								[2] = {theme = "story_reac_disbelief_story", min = 1, max = 1},
+								[3] = {theme = "story_reac_wonder", min = 1, max = 1},
+								[4] = {theme = "story_reac_laughter", min = 1, max = 1},
+								[5] = {theme = "story_reac_yes, story_reac_belief_story", min = 2, max = 4}}},
+	legend_03				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {},
+					depence	= { [1] = {theme = "story_reac_cool_info", min = 1, max = 1},
+								[2] = {theme = "story_reac_yes, story_reac_doubt", min = 2, max = 4}}},								
+	legend_04				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {},
+					depence	= { [1] = {theme = "story_reac_fear", min = 1, max = 1},
+								[2] = {theme = "story_reac_yes, story_reac_belief_story", min = 2, max = 4}}},
+								
+	legend_05				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {},
+					depence	= { [1] = {theme = "story_reac_yes", min = 2, max = 3},
+								[2] = {theme = "story_reac_doubt", min = 1, max = 1},
+								[3] = {theme = "story_reac_disbelief_story, story_reac_belief_story", min = 2, max = 4}}},
+
+	story_reac_action_right		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_action_wrong		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_advice_sceptic	= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_advice_support	= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_belief_story		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_continue			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_cool_info		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_cool_teller		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_disbelief		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_disbelief_story	= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_disbelief_teller	= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_doubt			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_fear				= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_final_happy		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_final_tragic		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_laughter			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_old_story		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_uncertain		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_wonder			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	story_reac_yes				= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+
+	-- УНИКАЛЬНЫЕ ТЕМЫ	
+	-- Escape
+	esc_tolik_help				= {min_snd = 7, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_guard_camp				= {min_snd = 7, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_factory_raid			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_factory_attack			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_factory_victory			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_factory_go				= {min_snd = 3, max_snd = 7, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_fox_alert				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_tolik_to_wolf			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_tolik_to_lager			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_tolik_thanks			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_wolf_thanks				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_wolf_say_thanks			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_lager_killer			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_fanat_dialog			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_fanat_ready				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_direction_fire			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_bridge_soldiers			= {min_snd = 10, max_snd = 25, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_bandit_shustryi			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_shustryi_help			= {min_snd = 5, max_snd = 15, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_wolf_radio				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_wolf_radio_1			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_petruha_raport			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_petruha_raport_radio	= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_petruha_call			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_fox_thanks				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	esc_shustryi_thanks			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+			
+	-- Garbage DramMoment
+	gar_dm_bandit_backoff1		= {min_snd = 5, max_snd = 8, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_dm_bandit_backoff2		= {min_snd = 5, max_snd = 8, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_dm_bandit_demand		= {min_snd = 8, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_dm_newbie_no_money		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_dm_newbie_help_me		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_dm_newbie_thank_you		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	gar_hellcar_alarm			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_hellcar_ambush			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_bandits_seryi			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_grey_grey				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_seryi_see_actor			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_dolg_blokpost			= {min_snd = 10, max_snd = 25, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_direction_fire			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_hellcar_to_battle		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	gar_hellcar_victory			= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	-- DarkValley
+	val_prisoner_captive_help_me    = {min_snd = 6, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_prisoner_captive_come_here  = {min_snd = 4, max_snd = 7, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_prisoner_captive_open       = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_prisoner_captive_thanx      = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_rob_leader_call             = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_rob_leader_jeer             = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_rob_guard_jeer              = {min_snd = 6, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	--val_gate_soldiers               = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	--val_chase_soldiers              = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	--val_opendoor_soldier            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_guards               = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_captive_phrase1      = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_captive_phrase2      = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_captive_phrase3      = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_nap1_phrase1         = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_nap1_phrase2         = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_nap1_phrase3         = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_nap1_phrase4         = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_nap1_phrase5         = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_nap1_phrase6         = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_nap1_phrase7         = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_dead                 = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_nap1_go_home         = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	val_escort_phrase_invite        = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- Pripyat
+	pri_followers_leader_phrase1_1  = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	pri_followers_leader_phrase1_2  = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	pri_followers_leader_phrase1_3  = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	pri_followers_final_phrase1     = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	pri_followers_final_phrase2     = {min_snd = 6, max_snd = 9, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	-- DeadCity
+	cit_doctor_start_dlg            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	cit_doctor_end_dlg              = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	cit_jail_guard_sneer            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	cit_base_guard                  = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	cit_base_guard_talk_to_actor2   = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	cit_jail_guard_sleep            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- Agroprom
+	agr_factory_soldiers		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	-- desertir
+	agr_dont_shoot			= {min_snd = 5, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	agr_desertir_spam		= {min_snd = 5, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	agr_stalker_help_1		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	agr_stalker_help_2		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	agr_stalker_help_3		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    agr_stalker_help_4		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    agr_krot_thanks_2		= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	agr_krot_fear			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	agr_doctor_1			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+-- Radar
+
+	-- Bar Rostok Duty Guards
+	bar_dolg_base_guard_backoff		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bar_dolg_base_guard_no_talk		= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bar_bar_osvedomitel_hello		= {min_snd = 15, max_snd = 15, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bar_bar_barmen_hello			= {min_snd = 2, max_snd = 15, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bar_bar_barmen_hello_room		= {min_snd = 10, max_snd = 15, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bar_dolg_leader_hello			= {min_snd = 10, max_snd = 15, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- Bar dolg guard
+	bar_dolg_guard_stop				= {min_snd = 15, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bar_guard_prohodi				= {min_snd = 7, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bar_dolg_guard_busy				= {min_snd = 7, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	-- Bar dolg hangar bridge
+	bar_dolg_hangar_bridge_hello	= {min_snd = 16, max_snd = 25, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	bar_guard_enter					= {min_snd = 6, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},      
+	bar_guard_stop					= {min_snd = 6, max_snd = 10, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},      
+
+	-- Bar dolg Petrenko
+	bar_dolg_petrenko_hello			= {min_snd = 3, max_snd = 15, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	-- Bar psyh
+	bar_psycho_pain					= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bar_psycho_goodluck				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bar_barman_psycho				= {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bar_arena_public				= {min_snd = 5, max_snd = 7, rnd = 80, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	-- Rostok volkodav
+	rostok_volkodav_talk_1						= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},      
+	rostok_volkodav_talk_2						= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	rostok_volkodav_assistant_talk_1			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	rostok_volkodav_assistant_talk_2			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	rostok_volkodav_assistant_talk_3			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	-- Rostok kruglov
+	rostok_kruglov_help_1                       = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	rostok_kruglov_help_2                       = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	rostok_kruglov_help_3                       = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	rostok_kruglov_help_4                       = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	rostok_kruglov_help_5                       = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	rostok_kruglov_help_6                       = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    rostok_kruglov_torrid                       = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	kruglov_stop_enemy_1                        = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	kruglov_stop_enemy_2                        = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+	--yantar sounds
+	yantar_professor_idle						= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_professor_to_kruglov_1				= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_professor_to_kruglov_2				= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_kruglov_to_professor_1				= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_kruglov_to_professor_2				= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_kruglov_to_actor						= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_dream_talk_1							= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_dream_talk_2							= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_dream_talk_3							= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_professor_talk_1						= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_professor_radiation_quest_1			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_professor_radiation_quest_2			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_kruglov_radiation_quest_1			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_kruglov_radiation_quest_2			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_kruglov_radiation_quest_3			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_kruglov_radiation_quest_4			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_kruglov_radiation_quest_5			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_kruglov_radiation_quest_6			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_kruglov_radiation_quest_7			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_kruglov_radiation_quest_8			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_kruglov_radiation_quest_9			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_kruglov_radiation_quest_10			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_professor_brain_quest_bad_1			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_professor_brain_quest_bad_2			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_professor_brain_quest_good_1			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_professor_brain_quest_good_2			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yantar_professor_brain_quest_good_3			= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_probe_1								= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_probe_2								= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	yantar_probe_3								= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+	test_mega_remark							= {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+    
+    -- Brainlab sounds
+    
+    brainlab_system_message_1                   = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    brainlab_system_message_2                   = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    brainlab_system_message_3                   = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    brainlab_system_message_4                   = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    brainlab_system_message_5                   = {min_snd = 1, max_snd = 1, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+
+--  Jek@n's_work
+
+    muzikant_play_1                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    muzikant_play_2                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    muzikant_play_3                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    muzikant_play_4                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    muzikant_play_5                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    muzikant_play_6                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    muzikant_play_7                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    muzikant_play_8                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    nese_galya_vodu                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    first_neutral_bred_2                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    kulg_agent_meet                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    kulg_agent_goodbye                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    hohol_drink_replik                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    secret_villager_birth                   = {min_snd = 3, max_snd = 5, rnd = 25, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    hohol_scary_replik                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    garb_arthunter_phrase_1                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    garb_arthunter_phrase_2                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    garb_arthunter_phrase_3                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    garb_arthunter_phrase_4                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    garb_arthunter_phrase_5                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    garb_arthunter_phrase_6                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    garb_arthunter_phrase_7                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    dolg_sergant_speech                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    i_am_surrend1                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    i_am_surrend2                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    dar_merc_hello1                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    dar_merc_hello2                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    izgoy_pomoshnik_meet                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    dar_officer_naezd                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    izgoy_patient_ston                   = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    izgoy_lider_speech                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    gorbovsky_talking                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    somewater                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    getout                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    drifter_dog_howling                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    drifter_scream                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    drifter_to_dog                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    drifter_helpme                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    hunter_hello                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    cleaner_hello                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    bratstvo_lider_hello                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    vrach_hello                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    orujeinik_hello                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    drifter_yes                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    kolbasa_i_batony                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    shesterka_hello                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    ds_telohr1_hello                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    agent_ston                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    vrach_port_goodbye                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    gaz_dolg_lider_talk                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+pervert_song                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   pervert_smeh                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   pervert_metamorph                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   girl_smeh                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   girl_metamorph                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   girl_talking                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   tikar_common                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   brother_cry                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   freezer_smeh                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   freezer_terror                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   bro2_scare                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   yan_soldier_sad                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   yan_sold_see                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   yan_sold_scary                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   stalin_meet                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   atp_lider_punch                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   swamp_doc_hello                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   trabantnoise                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   sinyak_hello                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   sinyak_drink                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   digger_hello                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   digger_laugh                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   gop_stop                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+   potsik_talk                 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    yan_captain_punch                = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	patrol_bored                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	car_engine_work                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	kulgband_trader_car_snd                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bridge_kulgband_shoot                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bridge_kulgband_glavar_talk1                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bridge_kulgband_glavar_talk2                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bridge_kulgband_glavar_talk3                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bridge_kulgband_speech                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	kulgband_hutor_radio_snd                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	drunk                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	kulgband_hutor_deadman_hello                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	kulgband_scout_hush                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	kulgband_informer_deal1                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	kulgband_informer_deal2                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bandit_fight                  = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	bandit_idle					 = {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	cit_kulgband_glavar_klondike_action		= {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	cit_kulgband_glavar_klondike_action2		= {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	dar_samogon_trance		= {min_snd = 10, max_snd = 20, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+	
+
+-- УНИКАЛЬНЫЕ ТЕМЫ 
+-- Escape
+
+-- Escape охранник Сидора 
+ esc_guard_hello   = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+ esc_guard_pristrely  = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+ esc_guard_kozly   = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+ esc_guard_nemeschaj  = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+ esc_guard_stop   = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+ esc_guard_prohodi  = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    -- Military sounds
+    mil_max_thanx                  = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_max_before_collect         = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_kolyan                     = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_max_to_kolyan              = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_max_to_tolyan              = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_laugh1             = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_laugh2             = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_laugh3             = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_laugh4             = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_laugh5             = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_phrase1            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_phrase2            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_phrase3            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_phrase4            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_phrase5            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_phrase6            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_phrase7            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_crazy                      = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_about_sniper          = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_go_attack             = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_patrol             = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_after_kill1           = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_after_kill2           = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_after_kill3           = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_zoneguard          = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_patrol_base        = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_max_khutor_attack          = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_guard_to_max               = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_lukash_to_guard            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_lukash_to_actor            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_paul_frost                 = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_killer                = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_scull                 = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_max_to_actor               = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_collect_phrases            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_pavlik_to_ara              = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_ara_to_pavlik              = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_ara_ambush                 = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_hunter1                    = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_hunter2                    = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_hunter3                    = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_getready              = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_lukash_done           = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_ambush1            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_ambush2            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_ambush3            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_ambush4            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_ambush5            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_ambush6            = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_victory1           = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_victory2           = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_victory3           = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_victory4           = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_freedom_victory5           = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_before_attack1        = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}}, 
+    mil_dolg_before_attack2        = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_fight                 = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_dolg_silent                = {min_snd = 3, max_snd = 5, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}},
+    mil_cherep_hi                 = {min_snd = 1, max_snd = 3, rnd = 100, prior = 5, rnd_id = id(), into_id = id(), max_ids = {}}
+}
+   
+--' В темах для игрока интервал задается в миллисекундах!!!
+actor_theme = {
+	level_border_detector = {
+		min_snd = 10,
+		max_snd = 100,
+		sounds = {
+			xr_sound.get_safe_sound_object([[detectors\geiger_1]]),
+			xr_sound.get_safe_sound_object([[detectors\geiger_1]]),
+			xr_sound.get_safe_sound_object([[detectors\geiger_1]]),
+			xr_sound.get_safe_sound_object([[detectors\geiger_1]]),
+			xr_sound.get_safe_sound_object([[detectors\geiger_2]]),
+			xr_sound.get_safe_sound_object([[detectors\geiger_2]]),
+			xr_sound.get_safe_sound_object([[detectors\geiger_4]]),
+			xr_sound.get_safe_sound_object([[detectors\geiger_5]]),
+			xr_sound.get_safe_sound_object([[detectors\geiger_6]])
+		}
+	}
+}

@@ -1,0 +1,1586 @@
+[wpn_groza]:identity_immunities,base_wpn_zoom
+GroupControlSection     = spawn_group
+$spawn					= "weapons\groza"                ; option for Level Editor
+$npc                    = on                                ; option for Level Editor
+$prefetch               = 8
+scheduled               = off                                ; option for ALife Simulator
+cform                   = skeleton
+class                   = WP_GROZA
+description             = gunsl_wpn_groza_descr
+
+ef_main_weapon_type     = 2
+ef_weapon_type          = 6
+
+hidden_bones = scope1, scope2, scope3, scope4, scope5, mag30, mag45, mag45_black, mag60, flash, light, sight, grip, laser, foregrip_rail, launcher_scope_static, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, handler2
+silencer_bone = wpn_silencer
+launcher_bone = wpn_launcher
+
+;-------------------------------------------------------------------------------
+cost                    = 10000
+weapon_class            = assault_rifle        ; Type of the weapon
+inv_weight              = 2.7
+
+;--TTX----------------------------------------------------------------------------
+hit_power				= 0.95, 0.95, 0.95, 0.95
+hit_impulse				= 100
+hit_type				= fire_wound
+fire_distance           = 100
+bullet_speed            = 300
+rpm                     = 650
+rpm_empty_click         = 200
+
+use_aim_bullet          = false                ;Поддерживается ли первая суппер пуля
+time_to_aim             = 3.0
+
+hud                     = wpn_groza_hud
+
+misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.7
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.2
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.005
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.044
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.0003
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.00033
+
+
+ammo_elapsed            = 20
+ammo_mag_size           = 20
+ammo_class              = ammo_9x39_pab9, ammo_9x39_ap
+grenade_class           = ammo_vog-25, ammo_vog-25p
+
+fire_modes              = 1, -1
+grenade_vel 			= 32 ;76
+launch_speed            = 32
+
+hand_dependence         = 1
+single_handed           = 0
+
+;---DOF-------------------------------------------------------------------------
+zoom_dof				= 0.05, 0.1, 180
+reload_dof				= 0.0, 0.5, 5, 2
+
+;-дисперсия-----------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base    = 0.23        ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor = 1.2f
+crosshair_inertion		= 6.80
+
+;отдача
+cam_return              = 0
+cam_relax_speed         = 5        ;скорость возврата в исходное положение
+cam_relax_speed_ai      = 360     ;скорость возврата в исходное положение
+cam_dispersion          = 0.4        ;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc      = 0.2       ;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac     = 0.7       ;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle           = 50.0        ;максимальный угол отдачи
+cam_max_angle_horz      = 50.0        ;(degree) maximum shot horizontal degree
+cam_step_angle_horz     = 1.35        ;(degree) size of step camera moved in horizontal position while shooting
+
+PDM_disp_base 				= 1.2
+PDM_disp_vel_factor 		= 1.5
+PDM_disp_accel_factor 		= 1.5
+PDM_disp_crouch	 			= 1.0
+PDM_disp_crouch_no_acc 		= 1.0
+
+zoom_cam_relax_speed         = 5	    ; scope & ironsight
+zoom_cam_relax_speed_ai      = 360
+zoom_cam_dispersion          = 0.2
+zoom_cam_dispersion_inc      = 0.15
+zoom_cam_dispersion_frac     = 1.0
+zoom_cam_max_angle           = 50.0
+zoom_cam_max_angle_horz      = 50.0
+zoom_cam_step_angle_horz     = 1.25
+
+fire_dispersion_condition_factor = 11        ;увеличение дисперсии в процентах при максимальном износе
+
+;-------------------------------------------------------------------------------
+holder_range_modifier   = 1.0                       ; во сколько раз увеличивается eye_range
+holder_fov_modifier     = 1.0              ; во сколько раз увеличивается eye_fov
+
+min_radius              = 3
+max_radius              = 100
+
+hit_probability_gd_novice  = 0.80
+hit_probability_gd_stalker = 0.80
+hit_probability_gd_veteran = 0.80
+hit_probability_gd_master  = 0.80
+
+;-------------------------------------------------------------------------------
+slot                    = 2                ; // secondary
+animation_slot          = 8                ; type of the animation that will be used
+
+inv_name                = gunsl_wpn_groza
+inv_name_short          = gunsl_wpn_groza
+
+
+inv_grid_width          = 4
+inv_grid_height         = 2
+inv_grid_x              = 0
+inv_grid_y              = 14
+
+kill_msg_x              = 67
+kill_msg_y              = 123
+kill_msg_width          = 64
+kill_msg_height         = 30
+
+;-------------------------------------------------------------------------------
+position                         = -0.018500, -0.135500, 0.175500
+orientation                      = 0.000000, 0.000000, 0.000000
+
+fire_point              = 0.000000,0.194,0.274
+fire_point2             = 0.0, 0.156, 0.285
+
+flame_particles         = weapons\generic_weapon05
+smoke_particles         = weapons\generic_shoot_00
+grenade_flame_particles = weapons\generic_weapon01
+silencer_smoke_particles   = weapons\generic_shoot_00
+
+shell_point             = 0.0, 0.194, 0.04
+shell_dir               = 0.0, 0.0, 0.4
+shell_particles         = ;
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;под мишкой
+strap_position          = -0.15,-0.38,0.35			; position (offset) and orientation of the weapon when it is strapped
+strap_orientation       = -10,-5,10					; (3rd person view in degrees)
+strap_bone0             = bip01_spine2
+strap_bone1             = bip01_spine1
+
+startup_ammo            = 90
+visual                  = dynamics\weapons\wpn_groza\wpn_groza.ogf
+
+light_disabled				= false
+light_color             = 0.6,0.5,0.3
+light_range             = 5
+light_var_color         = 0.05
+light_var_range         = 0.5
+light_time              = 0.2
+
+ph_mass                 = 5
+;cost                   = 2100
+
+;addons
+scope_status            = 2
+silencer_status         = 0
+grenade_launcher_status = 2
+
+zoom_enabled            = true                                                ; (on,off)zoom mode (right mouse button)
+zoom_rotate_time		= 0.25
+
+scope_name              = wpn_addon_scope
+scope_names             = wpn_addon_scope_po4x34, wpn_addon_scope_eotech, wpn_addon_scope_susat_dusk, wpn_addon_scope_elcan, wpn_addon_scope_susat_night
+scope_x                 = 100
+scope_y                 = 100
+
+scope_respawn                                        = wpn_groza
+scope_respawn_wpn_addon_scope_po4x34                 = wpn_groza_po4x34
+scope_respawn_wpn_addon_scope_eotech                 = wpn_groza_eotech
+scope_respawn_wpn_addon_scope_susat_dusk             = wpn_groza_susat_dusk
+scope_respawn_wpn_addon_scope_elcan                  = wpn_groza_elcan
+scope_respawn_wpn_addon_scope_susat_night            = wpn_groza_susat_night
+
+silencer_name  		= wpn_addon_sil_939			; section name for the attachable silencer
+silencer_x              = 135
+silencer_y              = 17
+grenade_launcher_name   = wpn_addon_grenade_launcher_groza  ; section name for the attachable grenade launcher
+grenade_launcher_x      = 69
+grenade_launcher_y      = 23
+
+;звуки
+snd_draw		= weapons\ak74\ak74_draw
+snd_holster		= weapons\p90\p90_hide
+snd_shoot		= weapons\groza\groza_shoot
+snd_empty		= weapons\glock17\glock17_dry
+snd_reload              = weapons\groza\groza_reload
+snd_reload_empty        = weapons\groza\groza_reload_empty
+snd_reload_jammed       = weapons\groza\groza_revival
+snd_reload_jammed_last  = weapons\groza\groza_revival
+snd_shoot_grenade       = weapons\ak74\ak74_gl_shoot
+snd_reload_grenade      = weapons\ak74\ak74_gl_reload
+snd_switch              = weapons\groza\groza_gl_activate_scope
+snd_silncer_shot        = weapons\groza\groza_shoot_silencer
+snd_fire_modes          = weapons\vss\vss_firemode
+
+silencer_light_color    = 0.6,0.5,0.3
+silencer_light_range    = 0.01
+silencer_light_var_color= 0.05
+silencer_light_var_range= 0.01
+silencer_light_time     = 0.01
+
+
+
+[wpn_groza_hud]:hud_base
+zoom_hide_crosshair        = true
+attach_place_idx           = 0
+item_visual					= dynamics\weapons\wpn_groza\wpn_groza_hud.ogf
+
+hud_fov_factor = 1.25
+
+zoom_dof_near = 0.19
+zoom_dof_focus = 0.22
+
+hands_position				= 0.0,0.0,-0.04
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.0,0.0,-0.09
+hands_orientation_16x9		= 0.0,0.0,0.0
+
+item_position				= 0.0,0.0,0.0
+item_orientation			= 0.0,0.0,0.0
+
+aim_hud_offset_pos         = 0.000220,0.000800,0.0
+aim_hud_offset_rot         = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9    = 0.000220,0.000800,0.0
+aim_hud_offset_rot_16x9    = 0.0,0.0,0.0
+
+gl_hud_offset_pos          = 0.000240,0.000160,0.0
+gl_hud_offset_rot          = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9     = 0.000240,0.000160,0.0
+gl_hud_offset_rot_16x9     = 0.0,0.0,0.0
+
+lean_hud_offset_pos        = 0,0,0
+lean_hud_offset_rot        = 0,0,0
+
+
+shell_point			= 0.0,-9.0,0.0
+shell_dir           = 0.0,0.0,0.0
+shell_bone			= wpn_body
+
+
+fire_point		= 0,0.006,0.315
+fire_bone      	= wpn_body
+fire_point2		= 0,-0.054,0.358
+fire_bone2		= wpn_body
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = groza_draw
+anm_show_empty             = groza_draw
+anm_show_jammed            = groza_draw, idle_jammed
+anm_show_w_gl              = groza_gloff_draw
+anm_show_empty_w_gl        = groza_gloff_draw
+anm_show_jammed_w_gl       = groza_gloff_draw, idle_jammed
+anm_show_g                 = groza_glon_draw, groza_glon_idle
+anm_show_empty_g           = groza_glon_draw, groza_glon_idle
+anm_show_jammed_g          = groza_glon_draw, groza_glon_idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = groza_hide
+anm_hide_empty             = groza_hide
+anm_hide_jammed            = groza_hide, idle_jammed
+anm_hide_w_gl              = groza_gloff_hide
+anm_hide_empty_w_gl        = groza_gloff_hide
+anm_hide_jammed_w_gl       = groza_gloff_hide, idle_jammed
+anm_hide_g                 = groza_glon_hide, groza_glon_idle
+anm_hide_empty_g           = groza_glon_hide, groza_glon_idle
+anm_hide_jammed_g          = groza_glon_hide, groza_glon_idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = groza_idle
+anm_idle_empty                      = groza_idle
+anm_idle_jammed                     = groza_idle, idle_jammed
+anm_idle_slow                       = groza_idle
+anm_idle_slow_empty                 = groza_idle
+anm_idle_slow_jammed                = groza_idle, idle_jammed
+anm_idle_crouch                     = groza_idle
+anm_idle_crouch_empty               = groza_idle
+anm_idle_crouch_jammed              = groza_idle, idle_jammed
+anm_idle_crouch_slow                = groza_idle
+anm_idle_crouch_slow_empty          = groza_idle
+anm_idle_crouch_slow_jammed         = groza_idle, idle_jammed
+
+anm_idle_w_gl                            = groza_gloff_idle
+anm_idle_empty_w_gl                      = groza_gloff_idle
+anm_idle_jammed_w_gl                     = groza_gloff_idle, idle_jammed
+anm_idle_slow_w_gl                       = groza_gloff_idle
+anm_idle_slow_empty_w_gl                 = groza_gloff_idle
+anm_idle_slow_jammed_w_gl                = groza_gloff_idle, idle_jammed
+anm_idle_crouch_w_gl                     = groza_gloff_idle
+anm_idle_crouch_empty_w_gl               = groza_gloff_idle
+anm_idle_crouch_jammed_w_gl              = groza_gloff_idle, idle_jammed
+anm_idle_crouch_slow_w_gl                = groza_gloff_idle
+anm_idle_crouch_slow_empty_w_gl          = groza_gloff_idle
+anm_idle_crouch_slow_jammed_w_gl         = groza_gloff_idle, idle_jammed
+
+anm_idle_g                            = groza_glon_idle
+anm_idle_empty_g                      = groza_glon_idle
+anm_idle_jammed_g                     = groza_glon_idle, groza_glon_idle_jammed
+anm_idle_slow_g                       = groza_glon_idle
+anm_idle_slow_empty_g                 = groza_glon_idle
+anm_idle_slow_jammed_g                = groza_glon_idle, groza_glon_idle_jammed
+anm_idle_crouch_g                     = groza_glon_idle
+anm_idle_crouch_empty_g               = groza_glon_idle
+anm_idle_crouch_jammed_g              = groza_glon_idle, groza_glon_idle_jammed
+anm_idle_crouch_slow_g                = groza_glon_idle
+anm_idle_crouch_slow_empty_g          = groza_glon_idle
+anm_idle_crouch_slow_jammed_g         = groza_glon_idle, groza_glon_idle_jammed
+
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = groza_aim_start
+anm_idle_aim_start_empty       = groza_aim_start
+anm_idle_aim_start_jammed      = groza_aim_start, groza_aim_start_jammed
+
+anm_idle_aim_start_w_gl        = groza_gloff_aim_start, groza_aim_start
+anm_idle_aim_start_empty_w_gl  = groza_gloff_aim_start, groza_aim_start
+anm_idle_aim_start_jammed_w_gl = groza_gloff_aim_start, groza_aim_start_jammed
+
+anm_idle_aim_start_g           = groza_glon_aim_start, groza_glon_idle
+anm_idle_aim_start_empty_g     = groza_glon_aim_start, groza_glon_idle
+anm_idle_aim_start_jammed_g    = groza_glon_aim_start, groza_glon_idle_jammed
+
+anm_idle_aim                   = groza_aim
+anm_idle_aim_empty             = groza_aim
+anm_idle_aim_jammed            = groza_aim, groza_aim_jammed
+anm_idle_aim_scope             = groza_aim
+anm_idle_aim_scope_empty       = groza_aim
+anm_idle_aim_scope_jammed      = groza_aim, groza_aim_jammed
+
+anm_idle_aim_w_gl                   = groza_gloff_aim, groza_aim
+anm_idle_aim_empty_w_gl             = groza_gloff_aim, groza_aim
+anm_idle_aim_jammed_w_gl            = groza_gloff_aim, groza_aim_jammed
+anm_idle_aim_scope_w_gl             = groza_gloff_aim, groza_aim
+anm_idle_aim_scope_empty_w_gl       = groza_gloff_aim, groza_aim
+anm_idle_aim_scope_jammed_w_gl      = groza_gloff_aim, groza_aim_jammed
+
+anm_idle_aim_g                   = groza_glon_aim, groza_glon_idle
+anm_idle_aim_empty_g             = groza_glon_aim, groza_glon_idle
+anm_idle_aim_jammed_g            = groza_glon_aim, groza_glon_idle_jammed
+anm_idle_aim_scope_g             = groza_glon_aim, groza_glon_idle
+anm_idle_aim_scope_empty_g       = groza_glon_aim, groza_glon_idle
+anm_idle_aim_scope_jammed_g      = groza_glon_aim, groza_glon_idle_jammed
+
+anm_idle_aim_end               = groza_aim_end
+anm_idle_aim_end_empty         = groza_aim_end
+anm_idle_aim_end_jammed        = groza_aim_end, groza_aim_end_jammed
+
+anm_idle_aim_end_w_gl          = groza_gloff_aim_end, groza_aim_end
+anm_idle_aim_end_empty_w_gl    = groza_gloff_aim_end, groza_aim_end
+anm_idle_aim_end_jammed_w_gl   = groza_gloff_aim_end, groza_aim_end_jammed
+
+anm_idle_aim_end_g             = groza_glon_aim_end, groza_glon_idle
+anm_idle_aim_end_empty_g       = groza_glon_aim_end, groza_glon_idle
+anm_idle_aim_end_jammed_g      = groza_glon_aim_end, groza_glon_idle_jammed
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					= groza_walk
+anm_idle_moving_jammed 					= groza_walk, idle_jammed
+anm_idle_moving_empty					= groza_walk
+
+anm_idle_moving_w_gl 					= groza_gloff_walk
+anm_idle_moving_jammed_w_gl 				= groza_gloff_walk, idle_jammed
+anm_idle_moving_empty_w_gl				= groza_gloff_walk
+
+anm_idle_moving_g 					= groza_glon_walk, groza_glon_idle
+anm_idle_moving_jammed_g 				= groza_glon_walk, groza_glon_idle_jammed
+anm_idle_moving_empty_g					= groza_glon_walk, groza_glon_idle
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= groza_walk_slow
+anm_idle_moving_slow_jammed 				= groza_walk_slow, idle_jammed
+anm_idle_moving_slow_empty				= groza_walk_slow
+
+anm_idle_moving_slow_w_gl 				= groza_gloff_walk_slow
+anm_idle_moving_slow_jammed_w_gl 			= groza_gloff_walk_slow, idle_jammed
+anm_idle_moving_slow_empty_w_gl				= groza_gloff_walk_slow
+
+anm_idle_moving_slow_g 					= groza_glon_walk_slow, groza_glon_idle
+anm_idle_moving_slow_jammed_g 				= groza_glon_walk_slow, groza_glon_idle_jammed
+anm_idle_moving_slow_empty_g				= groza_glon_walk_slow, groza_glon_idle
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					= groza_walk_slow_down
+anm_idle_moving_crouch_jammed 				= groza_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty				= groza_walk_slow_down
+
+anm_idle_moving_crouch_w_gl 			        = groza_gloff_walk_slow_down
+anm_idle_moving_crouch_jammed_w_gl 			= groza_gloff_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty_w_gl			= groza_gloff_walk_slow_down
+
+anm_idle_moving_crouch_g 				= groza_glon_walk_slow_down, groza_glon_idle
+anm_idle_moving_crouch_jammed_g 			= groza_glon_walk_slow_down, groza_glon_idle_jammed
+anm_idle_moving_crouch_empty_g				= groza_glon_walk_slow_down, groza_glon_idle
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 				= groza_walk_slow_super
+anm_idle_moving_crouch_slow_jammed 			= groza_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty			= groza_walk_slow_super
+
+anm_idle_moving_crouch_slow_w_gl 			= groza_gloff_walk_slow_super
+anm_idle_moving_crouch_slow_jammed_w_gl 		= groza_gloff_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty_w_gl			= groza_gloff_walk_slow_super
+
+anm_idle_moving_crouch_slow_g 				= groza_glon_walk_slow_super, groza_glon_idle
+anm_idle_moving_crouch_slow_jammed_g 			= groza_glon_walk_slow_super, groza_glon_idle_jammed
+anm_idle_moving_crouch_slow_empty_g			= groza_glon_walk_slow_super, groza_glon_idle
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                             = groza_aim_walk, groza_aim
+anm_idle_aim_moving_forward_empty                       = groza_aim_walk, groza_aim
+anm_idle_aim_moving_forward_jammed                      = groza_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_forward_w_gl                        = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_forward_empty_w_gl                  = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_forward_jammed_w_gl                 = groza_gloff_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_forward_g                           = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_forward_empty_g                     = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_forward_jammed_g                    = groza_glon_aim_walk, groza_glon_idle_jammed
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                                = groza_aim_walk, groza_aim
+anm_idle_aim_moving_back_empty                          = groza_aim_walk, groza_aim
+anm_idle_aim_moving_back_jammed                         = groza_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_back_w_gl                           = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_back_empty_w_gl                     = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_back_jammed_w_gl                    = groza_gloff_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_back_g                              = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_back_empty_g                        = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_back_jammed_g                       = groza_glon_aim_walk, groza_glon_idle_jammed
+
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                                = groza_aim_walk_left, groza_aim
+anm_idle_aim_moving_left_empty                          = groza_aim_walk_left, groza_aim
+anm_idle_aim_moving_left_jammed                         = groza_aim_walk_left, groza_aim_jammed
+
+anm_idle_aim_moving_left_w_gl                           = groza_gloff_aim_walk_left, groza_aim
+anm_idle_aim_moving_left_empty_w_gl                     = groza_gloff_aim_walk_left, groza_aim
+anm_idle_aim_moving_left_jammed_w_gl                    = groza_gloff_aim_walk_left, groza_aim_jammed
+
+anm_idle_aim_moving_left_g                              = groza_glon_aim_walk_left, groza_glon_idle
+anm_idle_aim_moving_left_empty_g                        = groza_glon_aim_walk_left, groza_glon_idle
+anm_idle_aim_moving_left_jammed_g                       = groza_glon_aim_walk_left, groza_glon_idle_jammed
+
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                               = groza_aim_walk_right, groza_aim
+anm_idle_aim_moving_right_empty                         = groza_aim_walk_right, groza_aim
+anm_idle_aim_moving_right_jammed                        = groza_aim_walk_right, groza_aim_jammed
+
+anm_idle_aim_moving_right_w_gl                          = groza_gloff_aim_walk_right, groza_aim
+anm_idle_aim_moving_right_empty_w_gl                    = groza_gloff_aim_walk_right, groza_aim
+anm_idle_aim_moving_right_jammed_w_gl                   = groza_gloff_aim_walk_right, groza_aim_jammed
+
+anm_idle_aim_moving_right_g                             = groza_glon_aim_walk_right, groza_glon_idle
+anm_idle_aim_moving_right_empty_g                       = groza_glon_aim_walk_right, groza_glon_idle
+anm_idle_aim_moving_right_jammed_g                      = groza_glon_aim_walk_right, groza_glon_idle_jammed
+ 
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                        = groza_aim_walk, groza_aim
+anm_idle_aim_moving_forward_left_empty                  = groza_aim_walk, groza_aim
+anm_idle_aim_moving_forward_left_jammed                 = groza_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_forward_left_w_gl                   = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_forward_left_empty_w_gl             = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_forward_left_jammed_w_gl            = groza_gloff_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_forward_left_g                      = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_forward_left_empty_g                = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_forward_left_jammed_g               = groza_glon_aim_walk, groza_glon_idle_jammed
+
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                       = groza_aim_walk, groza_aim
+anm_idle_aim_moving_forward_right_empty                 = groza_aim_walk, groza_aim
+anm_idle_aim_moving_forward_right_jammed                = groza_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_forward_right_w_gl                  = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_forward_right_empty_w_gl            = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_forward_right_jammed_w_gl           = groza_gloff_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_forward_right_g                     = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_forward_right_empty_g               = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_forward_right_jammed_g              = groza_glon_aim_walk, groza_glon_idle_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                           = groza_aim_walk, groza_aim
+anm_idle_aim_moving_back_left_empty                     = groza_aim_walk, groza_aim
+anm_idle_aim_moving_back_left_jammed                    = groza_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_back_left_w_gl                      = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_back_left_empty_w_gl                = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_back_left_jammed_w_gl               = groza_gloff_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_back_left_g                         = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_back_left_empty_g                   = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_back_left_jammed_g                  = groza_glon_aim_walk, groza_glon_idle_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                          = groza_aim_walk, groza_aim
+anm_idle_aim_moving_back_right_empty                    = groza_aim_walk, groza_aim
+anm_idle_aim_moving_back_right_jammed                   = groza_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_back_right_w_gl                     = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_back_right_empty_w_gl               = groza_gloff_aim_walk, groza_aim
+anm_idle_aim_moving_back_right_jammed_w_gl              = groza_gloff_aim_walk, groza_aim_jammed
+
+anm_idle_aim_moving_back_right_g                        = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_back_right_empty_g                  = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_moving_back_right_jammed_g                 = groza_glon_aim_walk, groza_glon_idle_jammed
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving	                        = groza_aim_walk_scope, groza_aim
+anm_idle_aim_scope_moving_empty		                = groza_aim_walk_scope, groza_aim
+anm_idle_aim_scope_moving_jammed	                = groza_aim_walk_scope, groza_aim_jammed
+
+anm_idle_aim_scope_moving_w_gl	                        = groza_gloff_aim_walk_scope, groza_aim
+anm_idle_aim_scope_moving_empty_w_gl		        = groza_gloff_aim_walk_scope, groza_aim
+anm_idle_aim_scope_moving_jammed_w_gl	                = groza_gloff_aim_walk_scope, groza_aim_jammed
+
+anm_idle_aim_scope_moving_g	                        = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_scope_moving_empty_g		        = groza_glon_aim_walk, groza_glon_idle
+anm_idle_aim_scope_moving_jammed_g	                = groza_glon_aim_walk, groza_glon_idle_jammed
+
+
+;Бег//////////////////////////////////////////////////////////////////
+anm_idle_sprint_start             = groza_sprint_start
+anm_idle_sprint_start_empty       = groza_sprint_start
+anm_idle_sprint_start_jammed      = groza_sprint_start, idle_jammed
+
+anm_idle_sprint_start_w_gl        = groza_gloff_sprint_start
+anm_idle_sprint_start_empty_w_gl  = groza_gloff_sprint_start
+anm_idle_sprint_start_jammed_w_gl = groza_gloff_sprint_start, idle_jammed
+
+anm_idle_sprint_start_g           = groza_glon_sprint_start, groza_glon_idle
+anm_idle_sprint_start_empty_g     = groza_glon_sprint_start, groza_glon_idle
+anm_idle_sprint_start_jammed_g    = groza_glon_sprint_start, groza_glon_idle_jammed
+
+anm_idle_sprint                   = groza_sprint
+anm_idle_sprint_empty             = groza_sprint
+anm_idle_sprint_jammed            = groza_sprint, idle_jammed
+
+anm_idle_sprint_w_gl              = groza_sprint
+anm_idle_sprint_empty_w_gl        = groza_sprint
+anm_idle_sprint_jammed_w_gl       = groza_sprint, idle_jammed
+
+anm_idle_sprint_g                 = groza_sprint, groza_glon_idle
+anm_idle_sprint_empty_g           = groza_sprint, groza_glon_idle
+anm_idle_sprint_jammed_g          = groza_sprint, groza_glon_idle_jammed
+
+anm_idle_sprint_end              = groza_sprint_end
+anm_idle_sprint_end_empty        = groza_sprint_end
+anm_idle_sprint_end_jammed       = groza_sprint_end, idle_jammed
+
+anm_idle_sprint_end_w_gl         = groza_gloff_sprint_end
+anm_idle_sprint_end_empty_w_gl   = groza_gloff_sprint_end
+anm_idle_sprint_end_jammed_w_gl  = groza_gloff_sprint_end, idle_jammed
+
+anm_idle_sprint_end_g            = groza_glon_sprint_end, groza_glon_idle
+anm_idle_sprint_end_empty_g      = groza_glon_sprint_end, groza_glon_idle
+anm_idle_sprint_end_jammed_g     = groza_glon_sprint_end, groza_glon_idle_jammed
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = groza_draw
+anm_bore_empty             = groza_draw
+anm_bore_jammed            = groza_draw, idle_jammed
+anm_bore_w_gl              = groza_gloff_draw
+anm_bore_empty_w_gl        = groza_gloff_draw
+anm_bore_jammed_w_gl       = groza_gloff_draw, idle_jammed
+anm_bore_g                 = groza_glon_draw, groza_glon_idle
+anm_bore_empty_g           = groza_glon_draw, groza_glon_idle
+anm_bore_jammed_g          = groza_glon_draw, groza_glon_idle_jammed
+
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                      = groza_shoot
+anm_shoot_sil                  = groza_shoot
+anm_shoot_jammed	           = groza_shoot, idle_jammed
+anm_shoot_jammed_sil	       = groza_shoot, idle_jammed
+anm_shoot_last                 = groza_shoot
+anm_shoot_last_sil             = groza_shoot
+anm_shoot_aim                  = groza_aim_shoot
+anm_shoot_aim_sil              = groza_aim_shoot
+anm_shoot_aim_jammed	       = groza_aim_shoot, groza_aim_jammed
+anm_shoot_aim_jammed_sil       = groza_aim_shoot, groza_aim_jammed
+anm_shoot_aim_last             = groza_aim_shoot
+anm_shoot_aim_last_sil         = groza_aim_shoot
+anm_shoot_aim_scope            = groza_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_sil        = groza_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_last       = groza_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_last_sil   = groza_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_jammed     = groza_aim_shoot_scope, groza_aim_jammed
+anm_shoot_aim_scope_jammed_sil = groza_aim_shoot_scope, groza_aim_jammed
+
+anm_shoot_w_gl                      = groza_gloff_shoot
+anm_shoot_sil_w_gl                  = groza_gloff_shoot
+anm_shoot_jammed_w_gl	            = groza_gloff_shoot, idle_jammed
+anm_shoot_jammed_sil_w_gl	        = groza_gloff_shoot, idle_jammed
+anm_shoot_last_w_gl                 = groza_gloff_shoot
+anm_shoot_last_sil_w_gl             = groza_gloff_shoot
+anm_shoot_aim_w_gl                  = groza_gloff_aim_shoot
+anm_shoot_aim_sil_w_gl              = groza_gloff_aim_shoot
+anm_shoot_aim_jammed_w_gl	        = groza_gloff_aim_shoot, groza_aim_jammed
+anm_shoot_aim_jammed_sil_w_gl       = groza_gloff_aim_shoot, groza_aim_jammed
+anm_shoot_aim_last_w_gl             = groza_gloff_aim_shoot
+anm_shoot_aim_last_sil_w_gl         = groza_gloff_aim_shoot
+anm_shoot_aim_scope_w_gl            = groza_gloff_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_sil_w_gl        = groza_gloff_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_last_w_gl       = groza_gloff_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_last_sil_w_gl   = groza_gloff_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_jammed_w_gl     = groza_gloff_aim_shoot_scope, groza_aim_jammed
+anm_shoot_aim_scope_jammed_sil_w_gl = groza_gloff_aim_shoot_scope, groza_aim_jammed
+
+
+;Cтрельба с подствола////////////////////////////////////////////////////////////////////
+anm_shoot_g              = groza_glon_shoot
+anm_shoot_empty_g        = groza_glon_shoot
+anm_shoot_jammed_g       = groza_glon_shoot, groza_glon_shoot_jammed
+anm_shoot_aim_g          = groza_glon_aim_shoot, groza_glon_shoot
+anm_shoot_aim_empty_g    = groza_glon_aim_shoot, groza_glon_shoot
+anm_shoot_aim_jammed_g   = groza_glon_aim_shoot, groza_glon_shoot_jammed
+
+;Перезарядка подствола///////////////////////////////////////////////////////////////////
+anm_reload_g                   = groza_gl_reload
+anm_reload_empty_g             = groza_gl_reload
+anm_reload_jammed_g            = groza_gl_reload, groza_gl_reload_jammed
+
+;Переключение на патроны/////////////////////////////////////////////////////////////////
+anm_switch                 = groza_gl_deactivate
+anm_switch_w_gl            = groza_gl_deactivate
+anm_switch_empty_w_gl      = groza_gl_deactivate
+anm_switch_jammed_w_gl     = groza_gl_deactivate, groza_gl_deactivate_jammed
+
+;Переключение на гранаты/////////////////////////////////////////////////////////////////
+anm_switch_g              = groza_gl_activate
+anm_switch_empty_g        = groza_gl_activate
+anm_switch_jammed_g       = groza_gl_activate, groza_gl_activate_jammed
+
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty                = groza_dry_empty
+anm_fakeshoot_aim_empty            = groza_aim_dry, groza_aim
+anm_fakeshoot_jammed               = groza_dry, idle_jammed
+anm_fakeshoot_aim_jammed           = groza_aim_dry, groza_aim_jammed
+
+anm_fakeshoot_empty_w_gl                = groza_gloff_dry_empty
+anm_fakeshoot_aim_empty_w_gl            = groza_gloff_aim_dry, groza_aim
+anm_fakeshoot_jammed_w_gl               = groza_gloff_dry, idle_jammed
+anm_fakeshoot_aim_jammed_w_gl           = groza_gloff_aim_dry, groza_aim_jammed
+
+anm_fakeshoot_g               = groza_glon_dry_empty, groza_glon_idle
+anm_fakeshoot_aim_g           = groza_glon_aim_dry, groza_glon_idle
+
+anm_fakeshoot_jammed_g               = groza_glon_dry_empty, groza_glon_idle_jammed
+anm_fakeshoot_aim_jammed_g           = groza_glon_aim_dry, groza_glon_idle_jammed
+
+anm_fakeshoot_empty_g               = groza_glon_dry_empty, groza_glon_idle
+anm_fakeshoot_aim_empty_g           = groza_glon_aim_dry, groza_glon_idle
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                           = groza_reload
+anm_reload_empty                     = groza_reload_empty
+anm_reload_jammed                    = groza_revival
+anm_reload_jammed_last               = groza_revival
+anm_reload_ammochange                = groza_reload
+
+anm_reload_w_gl                      = groza_gloff_reload, groza_reload
+anm_reload_empty_w_gl                = groza_gloff_reload_empty, groza_reload_empty
+anm_reload_jammed_w_gl               = groza_gloff_revival, groza_revival
+anm_reload_jammed_last_w_gl          = groza_gloff_revival, groza_revival
+anm_reload_ammochange_w_gl           = groza_gloff_reload, groza_reload
+
+;Смена режима огня//////////////////////////////////////////////////////////////////////////
+use_firemode_change_anim = true
+
+;1-a
+lock_time_anm_changefiremode_from_1_to_a = 1.17
+anm_changefiremode_from_1_to_a			             = groza_firemode_1_to_a
+lock_time_anm_changefiremode_from_1_to_a_jammed = 1.17
+anm_changefiremode_from_1_to_a_jammed		             = groza_firemode_1_to_a, idle_jammed
+lock_time_anm_changefiremode_from_1_to_a_empty = 1.17
+anm_changefiremode_from_1_to_a_empty		             = groza_firemode_1_to_a
+
+lock_time_anm_changefiremode_from_1_to_a_w_gl = 1.17
+anm_changefiremode_from_1_to_a_w_gl			     = groza_gloff_firemode_1_to_a
+lock_time_anm_changefiremode_from_1_to_a_jammed_w_gl = 1.17
+anm_changefiremode_from_1_to_a_jammed_w_gl		     = groza_gloff_firemode_1_to_a, idle_jammed
+lock_time_anm_changefiremode_from_1_to_a_empty_w_gl = 1.17
+anm_changefiremode_from_1_to_a_empty_w_gl		     = groza_gloff_firemode_1_to_a
+
+lock_time_anm_changefiremode_from_1_to_a_g = 1.17
+anm_changefiremode_from_1_to_a_g			     = groza_glon_firemode_1_to_a, groza_glon_idle
+lock_time_anm_changefiremode_from_1_to_a_jammed_g = 1.17
+anm_changefiremode_from_1_to_a_jammed_g		             = groza_glon_firemode_1_to_a, groza_glon_idle_jammed
+lock_time_anm_changefiremode_from_1_to_a_empty_g = 1.17
+anm_changefiremode_from_1_to_a_empty_g		             = groza_glon_firemode_1_to_a, groza_glon_idle
+
+;a-1
+lock_time_anm_changefiremode_from_a_to_1 = 1.17
+anm_changefiremode_from_a_to_1			             = groza_firemode_a_to_1
+lock_time_anm_changefiremode_from_a_to_1_jammed = 1.17
+anm_changefiremode_from_a_to_1_jammed		             = groza_firemode_a_to_1, idle_jammed
+lock_time_anm_changefiremode_from_a_to_1_empty = 1.17
+anm_changefiremode_from_a_to_1_empty		             = groza_firemode_a_to_1
+
+lock_time_anm_changefiremode_from_a_to_1_w_gl = 1.17
+anm_changefiremode_from_a_to_1_w_gl			     = groza_gloff_firemode_a_to_1
+lock_time_anm_changefiremode_from_a_to_1_jammed_w_gl = 1.17
+anm_changefiremode_from_a_to_1_jammed_w_gl		     = groza_gloff_firemode_a_to_1, idle_jammed
+lock_time_anm_changefiremode_from_a_to_1_empty_w_gl = 1.17
+snd_anm_changefiremode_from_a_to_1_empty_w_gl = weapons\groza\groza_firemode_a_to_1
+
+lock_time_anm_changefiremode_from_a_to_1_g = 1.17
+anm_changefiremode_from_a_to_1_g			     = groza_glon_firemode_1_to_a, groza_glon_idle
+lock_time_anm_changefiremode_from_a_to_1_jammed_g = 1.17
+anm_changefiremode_from_a_to_1_jammed_g		             = groza_glon_firemode_1_to_a, groza_glon_idle_jammed
+lock_time_anm_changefiremode_from_a_to_1_empty_g = 1.17
+anm_changefiremode_from_a_to_1_empty_g		             = groza_glon_firemode_1_to_a, groza_glon_idle
+
+;Разрядка//////////////////////////////////////////////////////////////////////////
+use_unloadmag_anim = true
+lock_time_anm_unload_mag = 0.8
+anm_unload_mag                               = groza_draw
+lock_time_anm_unload_mag_jammed = 0.8
+anm_unload_mag_jammed                        = groza_draw  
+lock_time_anm_unload_mag_empty = 0.8
+anm_unload_mag_empty                         = groza_draw
+
+lock_time_anm_unload_mag_w_gl = 0.8
+anm_unload_mag_w_gl                               = groza_gloff_draw
+lock_time_anm_unload_mag_jammed_w_gl = 0.8
+anm_unload_mag_jammed_w_gl                        = groza_gloff_draw
+lock_time_anm_unload_mag_empty_w_gl = 0.8
+anm_unload_mag_empty_w_gl                         = groza_gloff_draw
+
+lock_time_anm_unload_mag_g = 0.8
+anm_unload_mag_g                               = groza_glon_draw, groza_glon_idle
+lock_time_anm_unload_mag_jammed_g = 0.8
+anm_unload_mag_jammed_g                        = groza_glon_draw, groza_glon_idle
+lock_time_anm_unload_mag_empty_g = 0.8
+anm_unload_mag_empty_g                         = groza_glon_draw, groza_glon_idle
+
+
+;Включение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_on                                = groza_lam
+lock_time_start_anm_laser_on = 0.35
+lock_time_end_anm_laser_on = 0.55
+
+anm_laser_on_empty                          = groza_lam
+lock_time_start_anm_laser_on_empty = 0.35
+lock_time_end_anm_laser_on_empty = 0.55
+
+anm_laser_on_jammed                         = groza_lam, idle_jammed
+lock_time_start_anm_laser_on_jammed = 0.35
+lock_time_end_anm_laser_on_jammed = 0.55
+
+
+anm_laser_on_w_gl                           = groza_gloff_lam
+lock_time_start_anm_laser_on_w_gl = 0.35
+lock_time_end_anm_laser_on_w_gl = 0.55
+
+anm_laser_on_empty_w_gl                     = groza_gloff_lam
+lock_time_start_anm_laser_on_empty_w_gl = 0.35
+lock_time_end_anm_laser_on_empty_w_gl = 0.55
+
+anm_laser_on_jammed_w_gl                    = groza_gloff_lam, idle_jammed
+lock_time_start_anm_laser_on_jammed_w_gl = 0.35
+lock_time_end_anm_laser_on_jammed_w_gl = 0.55
+
+
+anm_laser_on_g                           = groza_glon_lam, groza_glon_idle
+lock_time_start_anm_laser_on_g = 0.35
+lock_time_end_anm_laser_on_g = 0.55
+
+anm_laser_on_empty_g                     = groza_glon_lam, groza_glon_idle
+lock_time_start_anm_laser_on_empty_g = 0.35
+lock_time_end_anm_laser_on_empty_g = 0.55
+
+anm_laser_on_jammed_g                    = groza_glon_lam, groza_glon_idle_jammed
+lock_time_start_anm_laser_on_jammed_g = 0.35
+lock_time_end_anm_laser_on_jammed_g = 0.55
+
+
+;Выключение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_off                               = groza_lam
+lock_time_start_anm_laser_off = 0.35
+lock_time_end_anm_laser_off = 0.55
+
+anm_laser_off_empty                         = groza_lam
+lock_time_start_anm_laser_off_empty = 0.35
+lock_time_end_anm_laser_off_empty = 0.55
+
+anm_laser_off_jammed                        = groza_lam, idle_jammed
+lock_time_start_anm_laser_off_jammed = 0.35
+lock_time_end_anm_laser_off_jammed = 0.55
+
+
+anm_laser_off_w_gl                          = groza_gloff_lam
+lock_time_start_anm_laser_off_w_gl = 0.35
+lock_time_end_anm_laser_off_w_gl = 0.55
+
+anm_laser_off_empty_w_gl                    = groza_gloff_lam
+lock_time_start_anm_laser_off_empty_w_gl = 0.35
+lock_time_end_anm_laser_off_empty_w_gl = 0.55
+
+anm_laser_off_jammed_w_gl                   = groza_gloff_lam, idle_jammed
+lock_time_start_anm_laser_off_jammed_w_gl = 0.35
+lock_time_end_anm_laser_off_jammed_w_gl = 0.55
+
+
+anm_laser_off_g                          = groza_glon_lam, groza_glon_idle
+lock_time_start_anm_laser_off_g = 0.35
+lock_time_end_anm_laser_off_g = 0.55
+
+anm_laser_off_empty_g                    = groza_glon_lam, groza_glon_idle
+lock_time_start_anm_laser_off_empty_g = 0.35
+lock_time_end_anm_laser_off_empty_g = 0.55
+
+anm_laser_off_jammed_g                   = groza_glon_lam, groza_glon_idle_jammed
+lock_time_start_anm_laser_off_jammed_g = 0.35
+lock_time_end_anm_laser_off_jammed_g = 0.55
+
+;Включение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_on                                = groza_lam
+lock_time_start_anm_torch_on = 0.35
+lock_time_end_anm_torch_on = 0.55
+
+anm_torch_on_empty                          = groza_lam
+lock_time_start_anm_torch_on_empty = 0.35
+lock_time_end_anm_torch_on_empty = 0.55
+
+anm_torch_on_jammed                         = groza_lam, idle_jammed
+lock_time_start_anm_torch_on_jammed = 0.35
+lock_time_end_anm_torch_on_jammed = 0.55
+
+
+anm_torch_on_w_gl                           = groza_gloff_lam
+lock_time_start_anm_torch_on_w_gl = 0.35
+lock_time_end_anm_torch_on_w_gl = 0.55
+
+anm_torch_on_empty_w_gl                     = groza_gloff_lam
+lock_time_start_anm_torch_on_empty_w_gl = 0.35
+lock_time_end_anm_torch_on_empty_w_gl = 0.55
+
+anm_torch_on_jammed_w_gl                    = groza_gloff_lam, idle_jammed
+lock_time_start_anm_torch_on_jammed_w_gl = 0.35
+lock_time_end_anm_torch_on_jammed_w_gl = 0.55
+
+
+anm_torch_on_g                           = groza_glon_lam, groza_glon_idle
+lock_time_start_anm_torch_on_g = 0.35
+lock_time_end_anm_torch_on_g = 0.55
+
+anm_torch_on_empty_g                     = groza_glon_lam, groza_glon_idle
+lock_time_start_anm_torch_on_empty_g = 0.35
+lock_time_end_anm_torch_on_empty_g = 0.55
+
+anm_torch_on_jammed_g                    = groza_glon_lam, groza_glon_idle_jammed
+lock_time_start_anm_torch_on_jammed_g = 0.35
+lock_time_end_anm_torch_on_jammed_g = 0.55
+
+;Выключение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_off                               = groza_lam
+lock_time_start_anm_torch_off = 0.35
+lock_time_end_anm_torch_off = 0.55
+
+anm_torch_off_empty                         = groza_lam
+lock_time_start_anm_torch_off_empty = 0.35
+lock_time_end_anm_torch_off_empty = 0.55
+
+anm_torch_off_jammed                        = groza_lam, idle_jammed
+lock_time_start_anm_torch_off_jammed = 0.35
+lock_time_end_anm_torch_off_jammed = 0.55
+
+
+anm_torch_off_w_gl                          = groza_gloff_lam
+lock_time_start_anm_torch_off_w_gl = 0.35
+lock_time_end_anm_torch_off_w_gl = 0.55
+
+anm_torch_off_empty_w_gl                    = groza_gloff_lam
+lock_time_start_anm_torch_off_empty_w_gl = 0.35
+lock_time_end_anm_torch_off_empty_w_gl = 0.55
+
+anm_torch_off_jammed_w_gl                   = groza_gloff_lam, idle_jammed
+lock_time_start_anm_torch_off_jammed_w_gl = 0.35
+lock_time_end_anm_torch_off_jammed_w_gl = 0.55
+
+
+anm_torch_off_g                          = groza_glon_lam, groza_glon_idle
+lock_time_start_anm_torch_off_g = 0.35
+lock_time_end_anm_torch_off_g = 0.55
+
+anm_torch_off_empty_g                    = groza_glon_lam, groza_glon_idle
+lock_time_start_anm_torch_off_empty_g = 0.35
+lock_time_end_anm_torch_off_empty_g = 0.55
+
+anm_torch_off_jammed_g                   = groza_glon_lam, groza_glon_idle_jammed
+lock_time_start_anm_torch_off_jammed_g = 0.35
+lock_time_end_anm_torch_off_jammed_g = 0.55
+
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on                             = groza_headflash
+lock_time_start_anm_headlamp_on = 0.58
+lock_time_end_anm_headlamp_on = 0.5
+
+anm_headlamp_on_empty                       = groza_headflash
+lock_time_start_anm_headlamp_on_empty = 0.58
+lock_time_end_anm_headlamp_on_empty = 0.5
+
+anm_headlamp_on_jammed                      = groza_headflash, idle_jammed
+lock_time_start_anm_headlamp_on_jammed = 0.58
+lock_time_end_anm_headlamp_on_jammed = 0.5
+
+
+anm_headlamp_on_w_gl                        = groza_gloff_headflash
+lock_time_start_anm_headlamp_on_w_gl = 0.58
+lock_time_end_anm_headlamp_on_w_gl = 0.5
+
+anm_headlamp_on_empty_w_gl                  = groza_gloff_headflash
+lock_time_start_anm_headlamp_on_empty_w_gl = 0.58
+lock_time_end_anm_headlamp_on_empty_w_gl = 0.5
+
+anm_headlamp_on_jammed_w_gl                 = groza_gloff_headflash, idle_jammed
+lock_time_start_anm_headlamp_on_jammed_w_gl = 0.58
+lock_time_end_anm_headlamp_on_jammed_w_gl = 0.5
+
+
+anm_headlamp_on_g                        = groza_glon_headflash, groza_glon_idle
+lock_time_start_anm_headlamp_on_g = 0.58
+lock_time_end_anm_headlamp_on_g = 0.5
+
+anm_headlamp_on_empty_g                  = groza_glon_headflash, groza_glon_idle
+lock_time_start_anm_headlamp_on_empty_g = 0.58
+lock_time_end_anm_headlamp_on_empty_g = 0.5
+
+anm_headlamp_on_jammed_g                 = groza_glon_headflash, groza_glon_idle_jammed
+lock_time_start_anm_headlamp_on_jammed_g = 0.58
+lock_time_end_anm_headlamp_on_jammed_g = 0.5
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off                            = groza_headflash
+lock_time_start_anm_headlamp_off = 0.58
+lock_time_end_anm_headlamp_off = 0.5
+
+anm_headlamp_off_empty                      = groza_headflash
+lock_time_start_anm_headlamp_off_empty = 0.58
+lock_time_end_anm_headlamp_off_empty = 0.5
+
+anm_headlamp_off_jammed                     = groza_headflash, idle_jammed
+lock_time_start_anm_headlamp_off_jammed = 0.58
+lock_time_end_anm_headlamp_off_jammed = 0.5
+
+
+anm_headlamp_off_w_gl                       = groza_gloff_headflash
+lock_time_start_anm_headlamp_off_w_gl = 0.58
+lock_time_end_anm_headlamp_off_w_gl = 0.5
+
+anm_headlamp_off_empty_w_gl                 = groza_gloff_headflash
+lock_time_start_anm_headlamp_off_empty_w_gl = 0.58
+lock_time_end_anm_headlamp_off_empty_w_gl = 0.5
+
+anm_headlamp_off_jammed_w_gl                = groza_gloff_headflash, idle_jammed
+lock_time_start_anm_headlamp_off_jammed_w_gl = 0.58
+lock_time_end_anm_headlamp_off_jammed_w_gl = 0.5
+
+
+anm_headlamp_off_g                       = groza_glon_headflash, groza_glon_idle
+lock_time_start_anm_headlamp_off_g = 0.58
+lock_time_end_anm_headlamp_off_g = 0.5
+
+anm_headlamp_off_empty_g                 = groza_glon_headflash, groza_glon_idle
+lock_time_start_anm_headlamp_off_empty_g = 0.58
+lock_time_end_anm_headlamp_off_empty_g = 0.5
+
+anm_headlamp_off_jammed_g                = groza_glon_headflash, groza_glon_idle_jammed
+lock_time_start_anm_headlamp_off_jammed_g = 0.58
+lock_time_end_anm_headlamp_off_jammed_g = 0.5
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on                                   = groza_headflash
+anm_nv_on_empty                             = groza_headflash
+anm_nv_on_jammed                            = groza_headflash, idle_jammed
+
+anm_nv_on_w_gl                              = groza_gloff_headflash
+anm_nv_on_empty_w_gl                        = groza_gloff_headflash
+anm_nv_on_jammed_w_gl                       = groza_gloff_headflash, idle_jammed
+
+anm_nv_on_g                                 = groza_glon_headflash, groza_glon_idle
+anm_nv_on_empty_g                           = groza_glon_headflash, groza_glon_idle
+anm_nv_on_jammed_g                          = groza_glon_headflash, groza_glon_idle_jammed
+
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off                                  = groza_headflash
+anm_nv_off_empty                            = groza_headflash
+anm_nv_off_jammed                           = groza_headflash, idle_jammed
+
+anm_nv_off_w_gl                             = groza_gloff_headflash
+anm_nv_off_empty_w_gl                       = groza_gloff_headflash
+anm_nv_off_jammed_w_gl                      = groza_gloff_headflash, idle_jammed
+
+anm_nv_off_g                                = groza_glon_headflash, groza_glon_idle
+anm_nv_off_empty_g                          = groza_glon_headflash, groza_glon_idle
+anm_nv_off_jammed_g                         = groza_glon_headflash, groza_glon_idle_jammed
+
+[wpn_groza_scope_hud]:wpn_groza_hud
+
+;Переключение на патроны/////////////////////////////////////////////////////////////////
+anm_switch                 = groza_gl_deactivate_scope
+anm_switch_w_gl            = groza_gl_deactivate_scope
+anm_switch_empty_w_gl      = groza_gl_deactivate_scope
+anm_switch_jammed_w_gl     = groza_gl_deactivate_scope, groza_gl_deactivate_scope_jammed
+
+;Переключение на гранаты/////////////////////////////////////////////////////////////////
+anm_switch_g              = groza_gl_activate_scope
+anm_switch_empty_g        = groza_gl_activate_scope
+anm_switch_jammed_g       = groza_gl_activate_scope, groza_gl_activate_scope_jammed
+
+[wpn_groza_po4x34]:wpn_groza
+
+hidden_bones = scope1, scope2, scope3, scope4, mag30, mag45, mag45_black, mag60, flash, light, sight, grip, laser, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, launcher_scope, foregrip, handler2
+scope_bone = scope5
+
+hud = wpn_groza_po4x34_hud
+
+scope_name              = wpn_addon_scope_po4x34
+scope_x              	= 80                 ; offset in inventory icon
+scope_y                 = -17
+
+
+[wpn_groza_po4x34_hud]:wpn_groza_scope_hud
+
+aim_hud_offset_pos = 0.0,-0.032,-0.12
+aim_hud_offset_rot = 0.007000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.0,-0.032,-0.12
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_groza_eotech]:wpn_groza
+
+hidden_bones = scope2, scope3, scope4, scope5, mag30, mag45, mag45_black, mag60, flash, light, sight, grip, laser, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, planka, launcher_scope, foregrip, handler2
+scope_bone = scope1
+
+hud                      			= wpn_groza_eotech_hud
+
+scope_name              = wpn_addon_scope_eotech
+scope_x              	= 89                 ; offset in inventory icon
+scope_y                 = -6
+
+
+[wpn_groza_eotech_hud]:wpn_groza_scope_hud
+
+aim_hud_offset_pos = 0.000266,0.004670,0.0
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.000266,0.004670,0.0
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+gl_hud_offset_pos = 0.0,-0.001,-0.1
+gl_hud_offset_rot = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.0,-0.001,-0.05
+gl_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 8
+
+
+[wpn_groza_susat_dusk]:wpn_groza
+
+hidden_bones = scope1, scope3, scope4, scope5, mag30, mag45, mag45_black, mag60, flash, light, sight, grip, laser, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, planka, launcher_scope, foregrip, handler2
+scope_bone = scope2
+
+hud                      			= wpn_groza_susat_dusk_hud
+
+scope_name              = wpn_addon_scope_susat_dusk
+scope_x              	= 90                ; offset in inventory icon
+scope_y                 = -11
+
+
+[wpn_groza_susat_dusk_hud]:wpn_groza_scope_hud
+
+aim_hud_offset_pos = 0.000356,0.001420,-0.11
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.000356,0.001420,-0.11
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+gl_hud_offset_pos = 0.0,-0.001,-0.1
+gl_hud_offset_rot = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.0,-0.001,-0.05
+gl_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_groza_elcan]:wpn_groza
+
+hidden_bones = scope1, scope2, scope4, scope5, mag30, mag45, mag45_black, mag60, flash, light, sight, grip, laser, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, planka, launcher_scope, foregrip, handler2
+scope_bone = scope3
+
+hud = wpn_groza_elcan_hud
+
+scope_name              = wpn_addon_scope_elcan
+scope_x              	= 62               ; offset in inventory icon
+scope_y                 = -9
+
+
+[wpn_groza_elcan_hud]:wpn_groza_scope_hud
+
+aim_hud_offset_pos = -0.0,-0.00055,-0.12
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = -0.0,-0.00055,-0.12
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+gl_hud_offset_pos = 0.0,-0.001,-0.1
+gl_hud_offset_rot = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.0,-0.001,-0.05
+gl_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_groza_susat_night]:wpn_groza
+
+hidden_bones = scope1, scope2, scope3, scope5, mag30, mag45, mag45_black, mag60, flash, light, sight, grip, laser, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, planka, launcher_scope, foregrip, handler2
+scope_bone = scope4
+
+hud = wpn_groza_susat_night_hud
+
+scope_name              = wpn_addon_scope_susat_night
+scope_x              	= 47                ; offset in inventory icon
+scope_y                 = -8
+
+scope_lense_hud_fov = 0.2
+
+[wpn_groza_susat_night_hud]:wpn_groza_scope_hud
+
+aim_hud_offset_pos =  -0.000094,-0.023240,0.1
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = -0.000094,-0.023240,0.1
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+gl_hud_offset_pos = 0.0,-0.001,-0.1
+gl_hud_offset_rot = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.0,-0.001,-0.05
+gl_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_groza_tact]:wpn_groza, red_laser, tactical_torch
+
+hidden_bones = scope1, scope2, scope3, scope4, scope5, mag_20, mag30, mag45, mag60, dtc, foregrip, launcher_scope_static, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, handler
+
+ammo_elapsed            = 45
+ammo_mag_size           = 45
+
+crosshair_inertion		= 5.8
+cam_relax_speed         = 6
+
+cam_max_angle           = 30  
+cam_max_angle_horz      = 30
+
+cam_dispersion          = 0.3 
+cam_dispersion_inc      = 0.1
+
+zoom_cam_dispersion = 0.17
+zoom_cam_dispersion_inc = 0.10
+
+PDM_disp_base = 1
+
+inv_name                = gunsl_wpn_groza_tact
+
+inv_grid_width          = 4
+inv_grid_height         = 2
+inv_grid_x              = 20
+inv_grid_y              = 20
+
+hud = wpn_groza_tact_hud
+
+scope_respawn                                        = wpn_groza_tact
+scope_respawn_wpn_addon_scope_po4x34                 = wpn_groza_tact_po4x34
+scope_respawn_wpn_addon_scope_eotech                 = wpn_groza_tact_eotech
+scope_respawn_wpn_addon_scope_susat_dusk             = wpn_groza_tact_susat_dusk
+scope_respawn_wpn_addon_scope_elcan                  = wpn_groza_tact_elcan
+scope_respawn_wpn_addon_scope_susat_night            = wpn_groza_tact_susat_night
+
+;addons
+scope_status            = 2
+silencer_status         = 0
+grenade_launcher_status = 0
+
+laserdot_world_attach_offset_x = -0.044
+laserdot_world_attach_offset_y = 0.225
+laserdot_world_attach_offset_z = 0.057
+
+laserdot_attach_offset_x = 0.002000
+laserdot_attach_offset_y = 0.003500
+laserdot_attach_offset_z = -0.258500
+
+torch_world_attach_offset_x = 0.055
+torch_world_attach_offset_y = 0.222
+torch_world_attach_offset_z = 0.063
+
+torch_omni_world_attach_offset_x = 0.055
+torch_omni_world_attach_offset_y = 0.222
+torch_omni_world_attach_offset_z = 0.063
+
+position                         = -0.022500, -0.139500, 0.139000
+
+[wpn_groza_tact_hud]:wpn_groza_hud
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = groza_tac_draw
+anm_show_empty             = groza_tac_draw
+anm_show_jammed            = groza_tac_draw, idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = groza_tac_hide
+anm_hide_empty             = groza_tac_hide
+anm_hide_jammed            = groza_tac_hide, idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = groza_tac_idle
+anm_idle_empty                      = groza_tac_idle
+anm_idle_jammed                     = groza_tac_idle, idle_jammed
+anm_idle_slow                       = groza_tac_idle
+anm_idle_slow_empty                 = groza_tac_idle
+anm_idle_slow_jammed                = groza_tac_idle, idle_jammed
+anm_idle_crouch                     = groza_tac_idle
+anm_idle_crouch_empty               = groza_tac_idle
+anm_idle_crouch_jammed              = groza_tac_idle, idle_jammed
+anm_idle_crouch_slow                = groza_tac_idle
+anm_idle_crouch_slow_empty          = groza_tac_idle
+anm_idle_crouch_slow_jammed         = groza_tac_idle, idle_jammed
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = groza_tac_aim_start, groza_aim_start
+anm_idle_aim_start_empty       = groza_tac_aim_start, groza_aim_start
+anm_idle_aim_start_jammed      = groza_tac_aim_start, groza_aim_start_jammed
+
+anm_idle_aim                   = groza_tac_aim, groza_aim
+anm_idle_aim_empty             = groza_tac_aim, groza_aim
+anm_idle_aim_jammed            = groza_tac_aim, groza_aim_jammed
+anm_idle_aim_scope             = groza_tac_aim, groza_aim
+anm_idle_aim_scope_empty       = groza_tac_aim, groza_aim
+anm_idle_aim_scope_jammed      = groza_tac_aim, groza_aim_jammed
+
+anm_idle_aim_end               = groza_tac_aim_end, groza_aim_end
+anm_idle_aim_end_empty         = groza_tac_aim_end, groza_aim_end
+anm_idle_aim_end_jammed        = groza_tac_aim_end, groza_aim_end_jammed
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					    = groza_tac_walk
+anm_idle_moving_jammed 					= groza_tac_walk, idle_jammed
+anm_idle_moving_empty					= groza_tac_walk
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= groza_tac_walk_slow
+anm_idle_moving_slow_jammed 			= groza_tac_walk_slow, idle_jammed
+anm_idle_moving_slow_empty				= groza_tac_walk_slow
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					    = groza_tac_walk_slow_down
+anm_idle_moving_crouch_jammed 				= groza_tac_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty				= groza_tac_walk_slow_down
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 				= groza_tac_walk_slow_super
+anm_idle_moving_crouch_slow_jammed 			= groza_tac_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty			= groza_tac_walk_slow_super
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                             = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_forward_empty                       = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_forward_jammed                      = groza_tac_aim_walk, groza_aim_jammed
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                                = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_back_empty                          = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_back_jammed                         = groza_tac_aim_walk, groza_aim_jammed
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                                = groza_tac_aim_walk_left, groza_aim
+anm_idle_aim_moving_left_empty                          = groza_tac_aim_walk_left, groza_aim
+anm_idle_aim_moving_left_jammed                         = groza_tac_aim_walk_left, groza_aim_jammed
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                               = groza_tac_aim_walk_right, groza_aim
+anm_idle_aim_moving_right_empty                         = groza_tac_aim_walk_right, groza_aim
+anm_idle_aim_moving_right_jammed                        = groza_tac_aim_walk_right, groza_aim_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                        = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_forward_left_empty                  = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_forward_left_jammed                 = groza_tac_aim_walk, groza_aim_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                       = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_forward_right_empty                 = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_forward_right_jammed                = groza_tac_aim_walk, groza_aim_jammed
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                           = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_back_left_empty                     = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_back_left_jammed                    = groza_tac_aim_walk, groza_aim_jammed
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                          = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_back_right_empty                    = groza_tac_aim_walk, groza_aim
+anm_idle_aim_moving_back_right_jammed                   = groza_tac_aim_walk, groza_aim_jammed
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving	                        = groza_tac_aim_walk_scope, groza_aim
+anm_idle_aim_scope_moving_empty		                = groza_tac_aim_walk_scope, groza_aim
+anm_idle_aim_scope_moving_jammed	                = groza_tac_aim_walk_scope, groza_aim_jammed
+
+;Бег//////////////////////////////////////////////////////////////////
+anm_idle_sprint_start             = groza_tac_sprint_start
+anm_idle_sprint_start_empty       = groza_tac_sprint_start
+anm_idle_sprint_start_jammed      = groza_tac_sprint_start, idle_jammed
+
+anm_idle_sprint                   = groza_sprint
+anm_idle_sprint_empty             = groza_sprint
+anm_idle_sprint_jammed            = groza_sprint, idle_jammed
+
+anm_idle_sprint_end              = groza_tac_sprint_end
+anm_idle_sprint_end_empty        = groza_tac_sprint_end
+anm_idle_sprint_end_jammed       = groza_tac_sprint_end, idle_jammed
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = groza_tac_draw
+anm_bore_empty             = groza_tac_draw
+anm_bore_jammed            = groza_tac_draw, idle_jammed
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                      = groza_tac_shoot
+anm_shoot_sil                  = groza_tac_shoot
+anm_shoot_jammed	           = groza_tac_shoot, idle_jammed
+anm_shoot_jammed_sil	       = groza_tac_shoot, idle_jammed
+anm_shoot_last                 = groza_tac_shoot
+anm_shoot_last_sil             = groza_tac_shoot
+anm_shoot_aim                  = groza_tac_aim_shoot
+anm_shoot_aim_sil              = groza_tac_aim_shoot
+anm_shoot_aim_jammed	       = groza_tac_aim_shoot, groza_aim_jammed
+anm_shoot_aim_jammed_sil       = groza_tac_aim_shoot, groza_aim_jammed
+anm_shoot_aim_last             = groza_tac_aim_shoot
+anm_shoot_aim_last_sil         = groza_tac_aim_shoot
+anm_shoot_aim_scope            = groza_tac_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_sil        = groza_tac_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_last       = groza_tac_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_last_sil   = groza_tac_aim_shoot_scope, groza_aim_shoot
+anm_shoot_aim_scope_jammed     = groza_tac_aim_shoot_scope, groza_aim_jammed
+anm_shoot_aim_scope_jammed_sil = groza_tac_aim_shoot_scope, groza_aim_jammed
+
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty                = groza_tac_dry_empty
+anm_fakeshoot_aim_empty            = groza_tac_aim_dry, groza_aim
+anm_fakeshoot_jammed               = groza_tac_dry, idle_jammed
+anm_fakeshoot_aim_jammed           = groza_tac_aim_dry, groza_aim_jammed
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                           = groza_tac_reload, groza_reload
+anm_reload_empty                     = groza_tac_reload_empty, groza_reload_empty
+anm_reload_jammed                    = groza_tac_revival, groza_revival
+anm_reload_jammed_last               = groza_tac_revival, groza_revival
+anm_reload_ammochange                = groza_tac_reload, groza_reload
+anm_reload_empty_ammochange          = groza_tac_reload_empty, groza_reload_empty
+
+;Смена режима огня//////////////////////////////////////////////////////////////////////////
+
+;1-a
+anm_changefiremode_from_1_to_a			                 = groza_tac_firemode_1_to_a
+anm_changefiremode_from_1_to_a_jammed		             = groza_tac_firemode_1_to_a, idle_jammed
+anm_changefiremode_from_1_to_a_empty		             = groza_tac_firemode_1_to_a
+
+;a-1
+anm_changefiremode_from_a_to_1			                 = groza_tac_firemode_a_to_1
+anm_changefiremode_from_a_to_1_jammed		             = groza_tac_firemode_a_to_1, idle_jammed
+anm_changefiremode_from_a_to_1_empty		             = groza_tac_firemode_a_to_1
+
+;Разрядка//////////////////////////////////////////////////////////////////////////
+anm_unload_mag                               = groza_tac_draw
+anm_unload_mag_jammed                        = groza_tac_draw  
+anm_unload_mag_empty                         = groza_tac_draw
+
+;ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_on                                = groza_tac_lam
+anm_laser_on_empty                          = groza_tac_lam
+anm_laser_on_jammed                         = groza_tac_lam, idle_jammed
+
+anm_laser_off                               = groza_tac_lam
+anm_laser_off_empty                         = groza_tac_lam
+anm_laser_off_jammed                        = groza_tac_lam, idle_jammed
+
+;Фонарь//////////////////////////////////////////////////////////////////////////
+anm_torch_on                                = groza_tac_lam
+anm_torch_on_empty                          = groza_tac_lam
+anm_torch_on_jammed                         = groza_tac_lam, idle_jammed
+
+anm_torch_off                               = groza_tac_lam
+anm_torch_off_empty                         = groza_tac_lam
+anm_torch_off_jammed                        = groza_tac_lam, idle_jammed
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on                             = groza_tac_headflash
+anm_headlamp_on_empty                       = groza_tac_headflash
+anm_headlamp_on_jammed                      = groza_tac_headflash, idle_jammed
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off                            = groza_tac_headflash
+anm_headlamp_off_empty                      = groza_tac_headflash
+anm_headlamp_off_jammed                     = groza_tac_headflash, idle_jammed
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on                                   = groza_tac_headflash
+anm_nv_on_empty                             = groza_tac_headflash
+anm_nv_on_jammed                            = groza_tac_headflash, idle_jammed
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off                                  = groza_tac_headflash
+anm_nv_off_empty                            = groza_tac_headflash
+anm_nv_off_jammed                           = groza_tac_headflash, idle_jammed
+
+[wpn_groza_tact_po4x34]:wpn_groza_tact
+
+hidden_bones = scope1, scope2, scope3, scope4, mag_20, mag30, mag45, mag60, dtc, foregrip, launcher_scope, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, handler
+
+scope_bone = scope5
+
+hud = wpn_groza_tact_po4x34_hud
+
+scope_name              = wpn_addon_scope_po4x34
+scope_x              	= 80                 ; offset in inventory icon
+scope_y                 = -17
+
+
+[wpn_groza_tact_po4x34_hud]:wpn_groza_tact_hud
+
+aim_hud_offset_pos = 0.0,-0.032,-0.12
+aim_hud_offset_rot = 0.007000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.0,-0.032,-0.12
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_groza_tact_eotech]:wpn_groza_tact
+
+hidden_bones = scope2, scope3, scope4, scope5, mag_20, mag30, mag45, mag60, dtc, foregrip, launcher_scope, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, planka, handler
+
+scope_bone = scope1
+
+hud                      			= wpn_groza_tact_eotech_hud
+
+scope_name              = wpn_addon_scope_eotech
+scope_x              	= 89                 ; offset in inventory icon
+scope_y                 = -6
+
+
+[wpn_groza_tact_eotech_hud]:wpn_groza_tact_hud
+
+aim_hud_offset_pos = 0.000266,0.004670,0.0
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.000266,0.004670,0.0
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+gl_hud_offset_pos = 0.0,-0.001,-0.1
+gl_hud_offset_rot = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.0,-0.001,-0.05
+gl_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+inertion_aim_origin_offset = 0.015
+inertion_aim_speed = 8
+
+
+[wpn_groza_tact_susat_dusk]:wpn_groza_tact
+
+hidden_bones = scope1, scope3, scope4, scope5, mag_20, mag30, mag45, mag60, dtc, foregrip, launcher_scope, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, planka, handler
+scope_bone = scope2
+
+hud                      			= wpn_groza_tact_susat_dusk_hud
+
+scope_name              = wpn_addon_scope_susat_dusk
+scope_x              	= 90                ; offset in inventory icon
+scope_y                 = -11
+
+
+[wpn_groza_tact_susat_dusk_hud]:wpn_groza_tact_hud
+
+aim_hud_offset_pos = 0.000356,0.001420,-0.11
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.000356,0.001420,-0.11
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+gl_hud_offset_pos = 0.0,-0.001,-0.1
+gl_hud_offset_rot = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.0,-0.001,-0.05
+gl_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_groza_tact_elcan]:wpn_groza_tact
+
+hidden_bones = scope1, scope2, scope4, scope5, mag_20, mag30, mag45, mag60, dtc, foregrip, launcher_scope, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, planka, handler
+scope_bone = scope3
+
+hud = wpn_groza_tact_elcan_hud
+
+scope_name              = wpn_addon_scope_elcan
+scope_x              	= 62               ; offset in inventory icon
+scope_y                 = -9
+
+
+[wpn_groza_tact_elcan_hud]:wpn_groza_tact_hud
+
+aim_hud_offset_pos = -0.0,-0.00055,-0.12
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = -0.0,-0.00055,-0.12
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+gl_hud_offset_pos = 0.0,-0.001,-0.1
+gl_hud_offset_rot = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.0,-0.001,-0.05
+gl_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_groza_tact_susat_night]:wpn_groza_tact
+
+hidden_bones = scope1, scope2, scope3, scope5, mag_20, mag30, mag45, mag60, dtc, foregrip, launcher_scope, shell5x45, bullet5x45, bullet5x45_2, ammo_chamber_5x45, planka, handler
+scope_bone = scope4
+
+hud = wpn_groza_tact_susat_night_hud
+
+scope_name              = wpn_addon_scope_susat_night
+scope_x              	= 47                ; offset in inventory icon
+scope_y                 = -8
+
+scope_lense_hud_fov = 0.2
+
+[wpn_groza_tact_susat_night_hud]:wpn_groza_tact_hud
+
+aim_hud_offset_pos =  -0.000094,-0.023240,0.1
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = -0.000094,-0.023240,0.1
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+gl_hud_offset_pos = 0.0,-0.001,-0.1
+gl_hud_offset_rot = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9 = 0.0,-0.001,-0.05
+gl_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+[wpn_groza_arena]:wpn_groza

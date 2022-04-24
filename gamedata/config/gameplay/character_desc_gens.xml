@@ -1,0 +1,339 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<xml>
+
+  <specific_character id="gen_monolit_sniper" team_default = "1">
+    <name>GENERATE_NAME_stalker</name>
+    <icon>ui_npc_u_stalker_militari_2</icon>
+    <map_icon x="3" y="0"></map_icon>
+    <bio>Сталкер группировки "Монолит". Детальная информация отсутствует.</bio>
+
+    <class>gen_monolit_sniper</class>
+    <community>monolith</community>
+
+    <rank>1000</rank>
+    <reputation>0</reputation>
+
+    <snd_config>characters_voice\human_01\monolith\</snd_config> 
+	<crouch_type>-1</crouch_type>
+
+	<panic_threshold>0.0</panic_threshold>
+
+    <visual>actors\militari\stalker_warlab_guard</visual>
+    <supplies>
+      [spawn] \n
+	  		wpn_gauss \n
+            ammo_gauss \n
+			grenade_f1 = 2 \n
+            device_torch \n
+#include "gameplay\character_drugs.xml"
+    </supplies>
+
+#include "gameplay\character_criticals_1.xml"
+					
+		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
+  </specific_character>
+  
+  <specific_character id="gen_monolit_assault" team_default = "1">
+    <name>GENERATE_NAME_stalker</name>
+    <icon>ui_npc_u_stalker_militari_2</icon>
+    <map_icon x="3" y="0"></map_icon>
+    <bio>Сталкер группировки "Монолит". Детальная информация отсутствует.</bio>
+
+    <class>gen_monolit_assault</class>
+    <community>monolith</community>
+
+    <rank>1000</rank>
+    <reputation>0</reputation>
+
+    <snd_config>characters_voice\human_03\monolith\</snd_config> 
+	<crouch_type>-1</crouch_type>
+
+	<panic_threshold>0.0</panic_threshold>
+
+    <visual>actors\militari\stalker_warlab_guard</visual>
+    <supplies>
+      [spawn] \n
+	  		wpn_val \n
+            ammo_9x39_ap \n
+			wpn_beretta \n
+			ammo_9x19_pbp \n
+			grenade_f1 = 2 \n
+            device_torch \n
+#include "gameplay\character_drugs.xml"
+    </supplies>
+
+#include "gameplay\character_criticals_1.xml"
+					
+		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
+  </specific_character>
+  
+  <specific_character id="gen_monolit_patrol" team_default = "1">
+    <name>GENERATE_NAME_stalker</name>
+    <icon>ui_npc_u_stalker_militari_2</icon>
+    <map_icon x="3" y="0"></map_icon>
+    <bio>Сталкер группировки "Монолит". Детальная информация отсутствует.</bio>
+
+    <class>gen_monolit_patrol</class>
+    <community>monolith</community>
+
+    <rank>1000</rank>
+    <reputation>0</reputation>
+
+    <snd_config>characters_voice\human_03\monolith\</snd_config> 
+	<crouch_type>-1</crouch_type>
+
+	<panic_threshold>0.0</panic_threshold>
+
+    <visual>actors\militari\stalker_warlab_guard</visual>
+    <supplies>
+      [spawn] \n
+	  		wpn_ak101_cobra = 1, scope \n
+            ammo_5.56x45_ap \n
+			wpn_beretta \n
+			ammo_9x19_pbp \n
+			grenade_f1 = 2 \n
+            device_torch \n
+#include "gameplay\character_drugs.xml"
+    </supplies>
+
+#include "gameplay\character_criticals_1.xml"
+					
+		<start_dialog>hello_dialog</start_dialog>
+#include "gameplay\character_dialogs.xml"
+  </specific_character>  
+
+	<specific_character id="gen_freedom_leader" team_default = "1">
+		<name>mil_Svoboda_blockpost_leader_name</name>
+		<icon>ui_npc_u_stalker_sv_balon_10</icon>
+		<map_icon x="2" y="0"></map_icon>
+		<bio>mil_Svoboda_blockpost_leader_bio</bio>
+		
+		<class>gen_freedom_leader</class>
+		<community>freedom</community> <terrain_sect>stalker_freedom_terrain</terrain_sect>
+
+		<rank>950</rank>
+		<reputation>149</reputation>
+
+        <snd_config>characters_voice\human_02\freedom\</snd_config>
+		<crouch_type>-1</crouch_type>
+		
+		<panic_threshold>0.0</panic_threshold>
+
+		<visual>actors\unic\npc_kap</visual>
+		<supplies>
+			[spawn] \n
+	  		wpn_val \n
+            ammo_9x39_ap \n
+			wpn_beretta \n
+			ammo_9x19_pbp \n
+			grenade_f1 \n			
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_food.xml"	
+		</supplies>
+
+#include "gameplay\character_criticals_5.xml"
+#include "gameplay\character_dialogs_unic.xml"
+</specific_character>
+ 
+ 	<specific_character id="gen_freedom_assault" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_sv_heavy</icon>
+		<map_icon x="5" y="0"></map_icon>
+		<bio>sim_Svoboda_master_bio</bio>
+		
+		<class>gen_freedom_assault</class>
+		<community>freedom</community> <terrain_sect>stalker_freedom_terrain</terrain_sect>
+
+        <snd_config>characters_voice\human_03\freedom\</snd_config>
+		
+		<rank>925</rank>
+		<reputation>142</reputation>
+
+		<visual>actors\stalker_svoboda\stalker_light_exo_sv_spec</visual>
+		<crouch_type>0</crouch_type>
+		
+		<panic_threshold>0.0</panic_threshold>
+		
+		<supplies>
+			[spawn] \n
+	  		wpn_val \n
+            ammo_9x39_ap \n
+			wpn_beretta \n
+			ammo_9x19_pbp \n
+			grenade_f1 \n				
+#include "gameplay\character_items.xml"	\n
+#include "gameplay\character_food.xml" \n
+#include "gameplay\character_drugs.xml"			
+		</supplies>
+
+#include "gameplay\character_criticals_2.xml"
+#include "gameplay\character_dialogs.xml"			
+	</specific_character>
+	
+	<specific_character id="gen_freedom_sniper" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_sv_rukzak_3_1</icon>
+		<map_icon x="5" y="0"></map_icon>
+		<bio>sim_Svoboda_sniper_bio</bio>
+		
+		<class>gen_freedom_sniper</class>
+		<community>freedom</community> <terrain_sect>stalker_freedom_terrain</terrain_sect>		
+		
+		<rank>925</rank>
+		<reputation>125</reputation>		
+
+        <snd_config>characters_voice\human_02\freedom\</snd_config>
+		<crouch_type>-1</crouch_type>
+		
+		<panic_threshold>0.0</panic_threshold>
+
+		<visual>actors\stalker_svoboda\stalker_svoboda_skat</visual>
+		<supplies>
+			[spawn] \n
+	  		wpn_sig552 \n
+            ammo_5.56x45_ap \n
+            device_torch \n
+#include "gameplay\character_drugs.xml"
+		</supplies>
+		
+#include "gameplay\character_criticals_5.xml"	
+#include "gameplay\character_dialogs.xml"
+	</specific_character>
+	
+	<specific_character id="gen_dolg_leader" team_default = "1">
+		<name>dolg_sergant_name</name>
+		<icon>ui_npc_u_stalker_do_exoskeleton</icon>
+		<map_icon x="4" y="0"></map_icon>
+		<bio>mil_Dolg_specnaz_cherep_bio</bio>
+
+		<class>gen_dolg_leader</class>
+		<community>dolg</community> <terrain_sect>stalker_dolg_terrain</terrain_sect>
+
+		<rank>915</rank>
+		<reputation>135</reputation>
+		
+		<panic_threshold>0.0</panic_threshold>
+
+        <snd_config>characters_voice\human_03\dolg\</snd_config>
+  		<crouch_type>0</crouch_type>
+
+		<visual>actors\unic\npc_cherep</visual>
+		<supplies>
+			[spawn] \n
+	  		wpn_val \n
+            ammo_9x39_ap \n
+			grenade_f1 \n				
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_food.xml"	
+		</supplies>		
+
+#include "gameplay\character_criticals_2.xml"
+#include "gameplay\character_dialogs_unic.xml"
+	</specific_character>
+
+	<specific_character id="gen_dolg_assault" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_do_exoskeleton</icon>
+		<map_icon x="4" y="0"></map_icon>
+		<bio>mil_Dolg_specnaz_silence_bio</bio>
+
+		<class>gen_dolg_assault</class>
+		<community>dolg</community> <terrain_sect>stalker_dolg_terrain</terrain_sect>
+
+        <snd_config>characters_voice\human_03\dolg\</snd_config>
+  		<crouch_type>0</crouch_type>
+
+		<rank>932</rank>
+		<reputation>79</reputation>
+		
+		<panic_threshold>0.0</panic_threshold>
+
+		<visual>actors\stalker_dolg\stalker_do_exoskeleton_spec</visual>
+		<supplies>
+			[spawn] \n
+	  		wpn_val \n
+            ammo_9x39_ap \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+			grenade_f1 \n				
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_food.xml"
+		</supplies>
+
+#include "gameplay\character_criticals_2.xml"
+#include "gameplay\character_dialogs_unic.xml"				
+	</specific_character>	
+
+	<specific_character id="gen_dolg_sniper" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_do_exoskeleton</icon>
+		<map_icon x="4" y="0"/>
+		<bio>sim_dolg_master_bio</bio>
+
+		<class>gen_dolg_sniper</class>
+		<community>dolg</community>
+		<terrain_sect>stalker_dolg_terrain</terrain_sect>
+		<money min="12000" max="15000" infinitive="0"/>
+
+		<rank>914</rank>
+		<reputation>60</reputation>
+		
+		<panic_threshold>0.0</panic_threshold>
+
+		<visual>actors\stalker_dolg\dolg_light_exo_spec</visual>
+		<snd_config>characters_voice\human_03\dolg\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+	  		wpn_abakan \n
+            ammo_5.45x39_ap \n
+            device_torch \n
+#include "gameplay\character_drugs.xml"
+		</supplies>		
+
+#include "gameplay\character_criticals_2.xml"
+#include "gameplay\character_dialogs.xml"
+
+	</specific_character>	
+	
+	
+	<specific_character id="run_forrest_run" team_default="1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_duplet</icon>
+		<map_icon x="0" y="0"></map_icon>
+		<bio>dar_explorer_bio</bio>
+
+		<class>run_forrest_run</class>
+		<community>stalker</community> <terrain_sect>stalker_terrain</terrain_sect>
+		
+		<rank>500</rank>
+		<reputation>0</reputation>
+		
+		<panic_threshold>0.0</panic_threshold>
+		
+		<snd_config>characters_voice\human_02\stalker\</snd_config>
+ 
+		<visual>actors\unic\npc_duplet</visual>
+		<crouch_type>-1</crouch_type>
+		<supplies>
+			[spawn] \n
+	  		wpn_abakan \n
+            ammo_5.45x39_ap \n
+#include "gameplay\character_items.xml"\n
+#include "gameplay\character_food.xml" \n
+#include "gameplay\character_drugs.xml"
+		</supplies>
+		
+#include "gameplay\character_criticals_4.xml"
+		<start_dialog>final_battle_run_run_run_dialog</start_dialog>
+#include "gameplay\character_dialogs_unic.xml"		
+	</specific_character>
+	
+ 
+</xml>

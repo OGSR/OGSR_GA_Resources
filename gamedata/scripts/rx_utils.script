@@ -1,0 +1,210 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--------------------------------------ini---------------------------------------
+function read_from_ini(ini,sec,lin,def,typ)
+	if not ini then
+		ini = sys_ini
+	end
+	if sec and lin and ini:section_exist(sec) and ini:line_exist(sec,lin) then
+		if typ == 0 then
+			return ini:r_bool(sec,lin)
+		elseif typ == 1 then
+			return ini:r_string(sec,lin)
+		elseif typ == 2 then
+			return ini:r_string_wq(sec,lin)
+		else
+			return ini:r_float(sec,lin)
+		end
+	else
+		return def
+	end
+end
+
+function collect_sections(ini,sections)
+	local r,p = {},{}
+	for k,v in ipairs(sections) do
+		if ini:section_exist(v) then
+			local n = ini:line_count(v)
+			if n > 0 then
+				for i = 0,n-1 do
+					local res,id,val = ini:r_line(v,i)
+					if r[id] == nil then
+						r[id] = val
+					end
+				end
+			end
+			p[k] = n
+		else
+			p[k] = 0
+		end
+	end
+	return r,p
+end
+
+function parse_list(ini,sec,val,convert)
+	local tmp = string.explode(",",read_from_ini(ini,sec,val,"",1),true)
+	if convert and #tmp ~= 0 then
+		local t = {}
+		for i,v in ipairs(tmp) do
+			t[v] = true
+		end
+		return t
+	end
+	return tmp
+end
+
+
+function is_weapon(object)
+	return (object:is_weapon() and not object:is_binoculars())
+end
+
+
+--------------------------------------sch---------------------------------------
+function add_anim(npc,anim,move)
+	if anim then
+		npc:add_animation(anim)
+	end
+end
+
+function get_sound(snd)
+	if snd then
+		return xr_sound.get_safe_sound_object(snd)
+	end
+end
+
+--------------------------------------ai-----------------------------------------
+function npc_in_cover(npc)
+	local st = rx_ai.get_storage(npc:id(),"in_cover")
+	local tg = time_global()
+	if (st.wait or 0) < tg then
+		st.wait = tg+300
+		local be = xrs_battle_ai.get_target(npc) or npc:best_enemy()
+		if xr_companion.is_companion(npc:id()) then
+			be = xr_combat_companion.get_target(npc)
+		end		
+		local enemies = {}
+		if be and not xr_wounded.is_wounded(be) then
+			enemies[1] = be
+		else
+			st.evn = true
+			return st.evn
+		end
+		local tt = {}
+		for o in npc:memory_visible_objects() do
+			local obj = o:object()
+			local id = obj:id()
+			if obj and obj.clsid and (( obj:is_stalker() or obj:is_actor() ) or obj:is_monster()) and obj:alive() and npc:relation(obj) == game_object.enemy and not xr_wounded.is_wounded(obj) then
+				table.insert(enemies,obj)
+				tt[id] = true
+			end
+		end
+		for o in npc:memory_sound_objects() do
+			local obj = o:object()
+			local id = obj:id()
+			if not tt[id] then
+				if obj and obj.clsid and (( obj:is_stalker() or obj:is_actor() ) or obj:is_monster()) and obj:alive() and npc:relation(obj) == game_object.enemy and not xr_wounded.is_wounded(obj) then
+					table.insert(enemies,obj)
+				end
+			end
+		end
+		for i,enemy in ipairs(enemies) do
+			local dist = npc:position():distance_to_sqr(enemy:position())
+			local seez = (enemy:alive() and enemy:see(npc)) or (npc:alive() and npc:see(enemy))
+			local cover = level.cover_in_direction(npc:level_vertex_id(),enemy:position():sub(npc:position()))
+			if dist < 25 
+			or seez 
+			or (dist >= 25 and cover < 0.8)
+			then
+				st.evn = false
+				st.wait = tg+2000
+				return st.evn
+			end
+		end
+		st.evn = true
+	end
+	return st.evn
+end
+
+function eat_medkit(npc,medkit)
+	if npc and medkit then
+		local sect = tostring(medkit:section())
+		if medkit then
+			local id = medkit:id()
+			if id then
+				local medkit_to_eat = level.object_by_id(id)
+				if medkit_to_eat then
+					npc:eat(medkit_to_eat)
+				end
+			end
+		end
+		if sect == "medkit" then 
+			npc.health = 0.25
+		elseif sect == "medkit_army" then
+			npc.health = 0.6
+		elseif sect == "medkit_scientic" then
+			npc.health = 0.9
+		end
+		local bandage = alife():create("bandage",npc:position(),npc:level_vertex_id(),npc:game_vertex_id(),npc:id())
+		local bandage_l = level.object_by_id(bandage.id)
+		if bandage_l then
+			npc:eat(bandage_l)
+		end
+	end
+end
+
+function IsTrader(npc)
+	local st = rx_ai and rx_ai.get_storage(npc:id()) or false
+	if not st or st.is_trader == nil then
+		local trader = false
+		if npc:character_community() == "trader" or npc:clsid() == clsid.script_trader or npc:clsid() == clsid.trader then
+			trader = true
+		end
+		if string.find(npc:section(),"trader") then
+			trader = true
+		end
+		local cini = db.storage[npc:id()].ini
+		local logic = db.storage[npc:id()].section_logic
+		if not logic and not trader then
+			return false
+		end
+		if cini and logic and cini:section_exist(logic) and cini:line_exist(logic,"trade") then
+			trader = true
+		end
+		if st then
+			st.is_trader = trader
+		else
+			return trader == true
+		end
+	end
+	return st.is_trader == true
+end
+
+--------------------------------------output---------------------------------------
+function give_game_news(t,d)
+	if db.actor then
+		db.actor:give_game_news(t,"ui\\ui_iconsTotal",Frect():set(0,235,83,47),0,d)
+	end
+end
+
+--------------------------------------weapon---------------------------------------
+function get_weapon(npc)
+	return rx_wmgr and rx_wmgr.get_wm(npc):get_weapon() or npc:best_weapon()
+end
+
+--------------------------------------switch---------------------------------------
+function switch_online(id)
+	if id == -1 then return end
+	local sim = alife()
+	if sim then
+		sim:set_switch_online(id,true)
+		sim:set_switch_offline(id,false)
+	end
+end
+
+function switch_offline(id)
+	local sim = alife()
+	if sim then
+		sim:set_switch_online(id,false)
+		sim:set_switch_offline(id,true)
+	end
+end

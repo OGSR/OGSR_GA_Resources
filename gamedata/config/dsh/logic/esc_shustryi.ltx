@@ -1,0 +1,59 @@
+;Шустрый
+
+[logic]
+active = {-tutorial_wounded_give_info} camper@esc_lager_prisoner, nil
+combat_ignore = combat_ignore
+on_death = death
+
+[death]
+on_info = %+shustriy_dead%
+
+[camper@esc_lager_prisoner]
+path_walk = esc_lager_prisoner_walk
+path_look = esc_lager_prisoner_look
+combat_ignore_cond = always
+def_state_campering = prisoner
+on_info = {=esc_bandits_die} remark@esc_lager_help, {+atp_prisoner_freedom} remark@esc_shustryi_wait
+meet = no_meet
+danger = danger_condition@shustryi
+
+[remark@esc_lager_help]
+snd = esc_shustryi_help
+anim = prisoner
+meet = no_meet
+target = esc_lager_prisoner_look, 0
+on_actor_dist_le = 5| remark@esc_lager_prisoner
+combat_ignore_cond = always
+danger = danger_condition@shustryi
+on_signal = sound_end| remark@esc_shustryi_wait
+
+[remark@esc_shustryi_wait]
+anim = prisoner
+meet = no_meet
+target = esc_lager_prisoner_look, 0
+on_actor_dist_le = 5| remark@esc_lager_prisoner
+combat_ignore_cond = always
+danger = danger_condition@shustryi
+on_timer = 10000| remark@esc_lager_help
+
+[remark@esc_lager_prisoner]
+anim = wait
+anim_reset = false
+target = esc_lager_prisoner_look, 0
+snd = esc_shustryi_thanks
+on_signal = sound_end| remark@wait_player_at_lager
+combat_ignore_cond = always
+meet = meet@no_meet
+danger = danger_condition@shustryi
+
+[remark@wait_player_at_lager]
+anim = wait
+anim_reset = false
+target = actor
+meet = meet@friend
+danger = danger_condition@shustryi
+combat_ignore_cond = always
+on_info = {+tutorial_wounded_give_info =shustriy_bugfix} nil
+
+[danger_condition@shustryi]
+ignore_distance = 0

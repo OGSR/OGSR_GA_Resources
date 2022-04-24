@@ -1,0 +1,13 @@
+[logic]
+active = sr_idle
+ 
+[sr_idle]
+on_actor_inside = sr_idle@1
+ 
+[sr_idle@1] 
+on_actor_dist_le_nvis = 20|sr_idle@2 %=val_filin_shron_spawn_in%
+
+[sr_idle@2] 
+on_info = {=actor_has_item(val_filin_diary)} nil %=remove_item(val_filin_diary) +val_filin_diary_info%
+
+

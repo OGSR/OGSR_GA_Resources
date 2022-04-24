@@ -1,0 +1,2562 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<game_dialogs>
+	<!--Dialogi dlya zombirovannyh stalkerov-->
+	<dialog id="delaete">
+		<phrase_list>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>delaete</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>skuchno</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="chto_novenk">
+		<phrase_list>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>chto_novenk</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>kontroller_poselilsja</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="privet">
+		<phrase_list>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>privet</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>obana</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>necogda</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>zrja</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="ti_novenkii">
+		<dont_has_info>meet_tompson</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>ti_novenkii</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>kak_vi_jivete</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>prokajennii</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="tompsona_vidal">
+		<dont_has_info>meet_tompson</dont_has_info>
+		<has_info>find_gold_fish_start</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>tompsona_vidal</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>za_zavodom</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="hochu_est">
+		<phrase_list>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>zombie_kak_dela</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>hochu_est</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="benito">
+		<phrase_list>
+			<phrase id="0">
+				<text>benito</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>kto_etot</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>odin_is_nas</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>ne_slishal</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--Dialogi dlya zombirovannyh stalkerov-->
+	<!--Dialogi s doktorom Tompsonom-->
+	<dialog id="bbb_tompson">
+		<precondition>dialogs.is_friend_or_zombied</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>mojno_vas</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>bbb</text>
+				<next>3</next>
+				<action>soundtrack.tompson_bbb</action>
+			</phrase>
+			<phrase id="3">
+				<text>vi_tompson</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>da_eto_ya</text>
+				<give_info>meet_tompson</give_info>
+				<next>5</next>
+				<action>soundtrack.tompson_da</action>
+			</phrase>
+			<phrase id="5">
+				<text>saharov_skazal</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>ne_pugaj</text>
+				<next>7</next>
+				<action>soundtrack.tompson_saharov</action>
+			</phrase>
+			<phrase id="7">
+				<text>u_teba_est_artef</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>est</text>
+				<action>soundtrack.tompson_nado</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--Dialogi s doktorom Tompsonom-->
+	<!--Zombirovaniy Mecheniy beseduet s Saharovim-->
+	<dialog id="saharov_actor_set_zombied">
+		<has_info>actor_set_zombied</has_info>
+		<dont_has_info>find_gold_fish_start</dont_has_info>
+		<dont_has_info>af_gold_fish_have</dont_has_info>
+		<dont_has_info>buddte_ostorojney</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>pomogi</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>viju</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>chto_delat</text>
+				<next>31</next>
+			</phrase>
+			<phrase id="31">
+				<text>est_sposob</text>
+				<next>311</next>
+			</phrase>
+			<phrase id="311">
+				<text>gde_naiti</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>tompson</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>pochem</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>zombi</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>popr</text>
+				<give_info>find_gold_fish_start</give_info>
+				<action>dialogs_yantar.saharov_af_gold_fish_have</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="saharov_actor_set_zombied_again">
+		<has_info>actor_set_zombied</has_info>
+		<has_info>buddte_ostorojney</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>pomogi_opat</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>chto_opat</text>
+				<next>3</next>
+				<next>4</next>
+			</phrase>
+			<phrase id="3">
+				<text>ya_pomnu</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="4">
+				<text>vot_ona</text>
+				<precondition>dialogs_yantar.saharov_af_gold_fish_have</precondition>
+				<action>dialogs.break_dialog</action>
+				<action>dialogs_yantar.actor_not_zombie</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="saharov_actor_set_actor">
+		<has_info>actor_set_zombied</has_info>
+		<has_info>saharov_af_gold_fish_have</has_info>
+		<precondition>dialogs_yantar.saharov_af_gold_fish_have</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>find_gold_fish</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>usnete</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>goodfine</text>
+				<give_info>buddte_ostorojney</give_info>
+				<action>dialogs.break_dialog</action>
+				<action>dialogs_yantar.actor_not_zombie</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--Zombirovaniy Mecheniy beseduet s Saharovim-->
+	<dialog id="yantar_zombie_hand">
+		<dont_has_info>actor_set_zombied</dont_has_info>
+		<precondition>ogsm_quests.has_zombie_hand</precondition>
+		<phrase_list>
+			<phrase id="1">
+				<text>4to_imenno</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>raspravilsa_s_zombi</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>neuzheli_ruka</text>
+				<next>31</next>
+				<next>32</next>
+			</phrase>
+			<phrase id="31">
+				<text>horosho</text>
+				<action>ogsm_quests.sell_zombie_hand</action>
+				<next>311</next>
+			</phrase>
+			<phrase id="32">
+				<text>priberegu</text>
+				<next>312</next>
+			</phrase>
+			<phrase id="311">
+				<text>provedu_issledovanie</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>okay</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="312">
+				<text>podumai_horoshenko</text>
+			</phrase>
+			<phrase id="0">
+				<text>nashel_vesh</text>
+				<next>1</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yantar_zombie_hand_comeback">
+		<dont_has_info>actor_set_zombied</dont_has_info>
+		<precondition>ogsm_quests.zombie_hand_sold</precondition>
+		<phrase_list>
+			<phrase id="1">
+				<text>kak_raz_vovremja</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>prodolzhai</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>prodolzhaju</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>a_gde_nagrada</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>ah_da</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>zabavno</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>eta_vintovka</text>
+				<action>ogsm_quests.zombie_hand_research</action>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>spasibo</text>
+			</phrase>
+			<phrase id="0">
+				<text>nu_kak_tam</text>
+				<next>1</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yantar_wounded_scientist">
+		<phrase_list>
+			<phrase id="21">
+				<text>yantar_wounded_scientist_21</text>
+			</phrase>
+			<phrase id="1">
+				<text/>
+				<dont_has_info>yan_find_scientist_done</dont_has_info>
+				<dont_has_info>yan_scientist_return_to_bunker</dont_has_info>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>yantar_wounded_scientist_11</text>
+				<next>111</next>
+			</phrase>
+			<phrase id="111">
+				<text>yantar_wounded_scientist_111</text>
+				<action>dialogs.break_dialog</action>
+				<give_info>yan_scientist_return_to_bunker</give_info>
+			</phrase>
+			<phrase id="2">
+				<text/>
+				<dont_has_info>yan_find_scientist_done</dont_has_info>
+				<has_info>yan_scientist_return_to_bunker</has_info>
+				<next>211</next>
+			</phrase>
+			<phrase id="211">
+				<text>yantar_wounded_scientist_211</text>
+			</phrase>
+			<phrase id="3">
+				<text/>
+				<has_info>yan_find_scientist_done</has_info>
+				<next>31</next>
+			</phrase>
+			<phrase id="31">
+				<text>yantar_wounded_scientist_31</text>
+			</phrase>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+				<next>2</next>
+				<next>3</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yantar_help_scientist">
+		<phrase_list>
+			<phrase id="4">
+				<text/>
+				<dont_has_info>yan_find_scientist_start</dont_has_info>
+				<has_info>yan_kruglov_hello</has_info>
+				<has_info>yantar_professor_phrase_2</has_info>
+				<next>41</next>
+			</phrase>
+			<phrase id="41">
+				<text>yantar_help_scientist_41</text>
+			</phrase>
+			<phrase id="71">
+				<text>yantar_help_scientist_71</text>
+			</phrase>
+			<phrase id="8">
+				<text/>
+				<dont_has_info>yantar_professor_phrase_2</dont_has_info>
+				<next>81</next>
+			</phrase>
+			<phrase id="81">
+				<text>yantar_help_scientist_81</text>
+			</phrase>
+			<phrase id="9">
+				<text/>
+				<dont_has_info>yan_spawn_ghost</dont_has_info>
+				<has_info>yan_scientist_researching</has_info>
+				<next>91</next>
+			</phrase>
+			<phrase id="91">
+				<text>yantar_help_scientist_91</text>
+			</phrase>
+			<phrase id="31">
+				<text>yantar_help_scientist_31</text>
+			</phrase>
+			<phrase id="3">
+				<text/>
+				<dont_has_info>yan_scientist_researching</dont_has_info>
+				<has_info>yan_scientist_point_to_1</has_info>
+				<next>31</next>
+			</phrase>
+			<phrase id="2">
+				<text/>
+				<dont_has_info>yan_find_scientist_start</dont_has_info>
+				<dont_has_info>yan_kruglov_hello</dont_has_info>
+				<dont_has_info>bar_heli_scene_professor_die</dont_has_info>
+				<give_info>yan_kruglov_hello</give_info>
+				<has_info>yantar_professor_phrase_2</has_info>
+				<next>21</next>
+			</phrase>
+			<phrase id="7">
+				<text/>
+				<has_info>yan_find_scientist_done</has_info>
+				<next>71</next>
+			</phrase>
+			<phrase id="21">
+				<text>yantar_help_scientist_21</text>
+			</phrase>
+			<phrase id="61">
+				<text>yantar_help_scientist_61</text>
+			</phrase>
+			<phrase id="101">
+				<text>yantar_help_scientist_101</text>
+			</phrase>
+			<phrase id="51">
+				<text>yantar_help_scientist_51</text>
+				<next>511</next>
+			</phrase>
+			<phrase id="511">
+				<text>yantar_help_scientist_511</text>
+				<next>512</next>
+			</phrase>
+			<phrase id="512">
+				<text>yantar_help_scientist_512</text>
+				<next>513</next>
+			</phrase>
+			<phrase id="514">
+				<text>yantar_help_scientist_514</text>
+				<next>515</next>
+			</phrase>
+			<phrase id="515">
+				<text>yantar_help_scientist_515</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="513">
+				<text>yantar_help_scientist_513</text>
+				<give_info>yan_kruglov_after_actor</give_info>
+				<next>514</next>
+			</phrase>
+			<phrase id="6">
+				<text/>
+				<dont_has_info>yan_find_scientist_semenov_start</dont_has_info>
+				<dont_has_info>yan_kruglov_hello</dont_has_info>
+				<has_info>bar_heli_scene_professor_die</has_info>
+				<has_info>yantar_professor_phrase_2</has_info>
+				<next>61</next>
+			</phrase>
+			<phrase id="10">
+				<text/>
+				<dont_has_info>yan_scientist_point_to_1</dont_has_info>
+				<has_info>yan_kruglov_after_actor</has_info>
+				<next>101</next>
+			</phrase>
+			<phrase id="5">
+				<text/>
+				<dont_has_info>yan_scientist_point_to_1</dont_has_info>
+				<dont_has_info>yan_kruglov_after_actor</dont_has_info>
+				<has_info>yan_find_scientist_semenov_start</has_info>
+				<next>51</next>
+			</phrase>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+				<next>2</next>
+				<next>7</next>
+				<next>8</next>
+				<next>9</next>
+				<next>3</next>
+				<next>4</next>
+				<next>5</next>
+				<next>6</next>
+				<next>10</next>
+			</phrase>
+			<phrase id="111">
+				<text>yantar_help_scientist_111</text>
+				<next>1111</next>
+			</phrase>
+			<phrase id="1111111">
+				<text>yantar_help_scientist_1111111</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="111111">
+				<text>yantar_help_scientist_111111</text>
+				<next>1111111</next>
+			</phrase>
+			<phrase id="1111">
+				<text>yantar_help_scientist_1111</text>
+				<next>11111</next>
+			</phrase>
+			<phrase id="11111">
+				<text>yantar_help_scientist_11111</text>
+				<give_info>yan_kruglov_after_actor</give_info>
+				<next>111111</next>
+			</phrase>
+			<phrase id="11">
+				<text>yantar_help_scientist_11</text>
+				<next>111</next>
+			</phrase>
+			<phrase id="1">
+				<text/>
+				<dont_has_info>yan_scientist_point_to_1</dont_has_info>
+				<dont_has_info>yan_kruglov_after_actor</dont_has_info>
+				<has_info>yan_find_scientist_task_start</has_info>
+				<next>11</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yantar_general_ucheniy_talk_start">
+		<dont_has_info>actor_set_zombied</dont_has_info>
+		<phrase_list>
+			<phrase id="11_1_1_1">
+				<text>yantar_general_ucheniy_talk_start_11_1_1_1</text>
+				<next>101_1_1</next>
+				<next>11_1</next>				
+			</phrase>
+			<phrase id="11_1_1">
+				<precondition>dialogs_yantar.precondition_stage_0a</precondition>
+				<next>11_1_1_1</next>
+			</phrase>
+			<phrase id="11_1_2">
+				<precondition>dialogs_yantar.precondition_stage_1a</precondition>
+				<next>11_1_1_1</next>
+			</phrase>			
+			<phrase id="11_1">
+				<give_info>yantar_hello_scientist</give_info>
+				<text>yantar_general_ucheniy_talk_start_11_1</text>
+			</phrase>
+			<phrase id="241_1">
+				<precondition>dialogs_yantar.precondition_stage_1</precondition>
+				<next>101_1</next>
+			</phrase>
+			<phrase id="101_1_1_1_1">
+				<give_info>loschina_task_start</give_info>
+				<text>yantar_general_ucheniy_talk_start_101_1_1_1_1</text>
+			</phrase>
+			<phrase id="101_1_1_1">
+				<next>101_1_1_1_1</next>
+				<text>yantar_general_ucheniy_talk_start_101_1_1_1</text>
+			</phrase>
+			<phrase id="101_1_1">
+				<next>101_1_1_1</next>
+				<give_info>yantar_hello_scientist</give_info>
+				<text>yantar_general_ucheniy_talk_start_101_1_1</text>
+			</phrase>
+			<phrase id="101_2_1_1_1_1_1_1">
+				<give_info>loschina_task_finished</give_info>
+				<give_info>yantar_professor_talk_about_brain</give_info>
+				<next>1011</next>
+				<text>yantar_general_ucheniy_talk_start_101_2_1_1_1_1_1_1</text>
+			</phrase>
+			<phrase id="101_2_1_1_1_1_1">
+				<next>101_2_1_1_1_1_1_1</next>
+				<action>dialogs_yantar.give_professor_loschina_doc</action>
+				<text>yantar_general_ucheniy_talk_start_101_2_1_1_1_1_1</text>
+			</phrase>
+			<phrase id="101_2_1_1_1_1">
+				<next>101_2_1_1_1_1_1</next>
+				<text>yantar_general_ucheniy_talk_start_101_2_1_1_1_1</text>
+			</phrase>
+			<phrase id="101_2_1_1_1">
+				<next>101_2_1_1_1_1</next>
+				<text>yantar_general_ucheniy_talk_start_101_2_1_1_1</text>
+			</phrase>
+			<phrase id="101_2_1_1">
+				<next>101_2_1_1_1</next>
+				<text>yantar_general_ucheniy_talk_start_101_2_1_1</text>
+			</phrase>
+			<phrase id="101_2_2_1">
+				<text>yantar_general_ucheniy_talk_start_101_2_2_1</text>
+			</phrase>
+			<phrase id="101_2_2">
+				<next>101_2_2_1</next>
+				<text>yantar_general_ucheniy_talk_start_101_2_2</text>
+			</phrase>
+			<phrase id="101_2_1">
+				<precondition>dialogs_yantar.yan_professor_task_loschina_precond</precondition>
+				<next>101_2_1_1</next>
+				<text>yantar_general_ucheniy_talk_start_101_2_1</text>
+			</phrase>
+			<phrase id="101_2">
+				<next>101_2_2</next>
+				<text>yantar_general_ucheniy_talk_start_101_2</text>
+			</phrase>
+			<phrase id="101_1">
+				<text>yantar_general_ucheniy_talk_start_101_1</text>
+				<action>dialogs_yantar.give_ecolog_outfit</action>
+				<next>101_1_1</next>
+				<next>11_1</next>
+			</phrase>
+			<phrase id="2311_1_1">
+				<text>yantar_general_ucheniy_talk_start_2311_1_1</text>
+				<action>yantar_dialog.yantar_give_autodoc</action>
+			</phrase>
+			<phrase id="2311_1">
+				<next>2311_1_1</next>
+				<text>yantar_general_ucheniy_talk_start_2311_1</text>
+			</phrase>
+			<phrase id="101422">
+				<text>yantar_general_ucheniy_talk_start_101422</text>
+				<action>dialogs.break_dialog</action>
+				<give_info>yan_find_scientist_semenov_start</give_info>
+				<give_info>yan_find_scientist_task_start</give_info>
+			</phrase>
+			<phrase id="101412">
+				<text>yantar_general_ucheniy_talk_start_101412</text>
+				<action>dialogs.break_dialog</action>
+				<give_info>yan_find_scientist_start</give_info>
+				<give_info>yan_find_scientist_task_start</give_info>
+			</phrase>
+			<phrase id="9112">
+				<text>yantar_general_ucheniy_talk_start_9112</text>
+				<next>9113</next>
+			</phrase>
+			<phrase id="41111">
+				<text>yantar_general_ucheniy_talk_start_41111</text>
+				<next>411111</next>
+			</phrase>
+			<phrase id="41113">
+				<text>yantar_general_ucheniy_talk_start_41113</text>
+				<next>41114</next>
+			</phrase>
+			<phrase id="41114">
+				<text>yantar_general_ucheniy_talk_start_41114</text>
+				<action>dialogs.break_dialog</action>
+				<action>yantar_dialog.yantar_give_bad_psy_helmet</action>
+				<give_info>yan_find_vasilyev_start</give_info>
+			</phrase>
+			<phrase id="9116">
+				<text>yantar_general_ucheniy_talk_start_9116</text>
+				<action>dialogs.break_dialog</action>
+				<action>yantar_dialog.yantar_give_good_psy_helmet</action>
+				<give_info>yan_find_vasilyev_start</give_info>
+			</phrase>
+			<phrase id="311114">
+				<text>yantar_general_ucheniy_talk_start_311114</text>
+				<!--Mecheniy oboydetsa bez artefacta. Itak poluchaet horoshiy PSI shlem. Vosmosno v budushem, kogda artov budet malo, to razblokiruem-->
+				<!--<action>yantar_dialog.yantar_give_quest_artefact</action>-->
+				<action>yantar_dialog.yantar_give_good_psy_helmet</action>
+				<give_info>yan_find_vasilyev_start</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="911">
+				<text>yantar_general_ucheniy_talk_start_911</text>
+				<next>9111</next>
+			</phrase>
+			<phrase id="9111">
+				<text>yantar_general_ucheniy_talk_start_9111</text>
+				<next>9112</next>
+			</phrase>
+			<phrase id="4111">
+				<text>yantar_general_ucheniy_talk_start_4111</text>
+				<next>41111</next>
+			</phrase>
+			<phrase id="411">
+				<text>yantar_general_ucheniy_talk_start_411</text>
+				<next>4111</next>
+			</phrase>
+			<phrase id="4111111">
+				<text>yantar_general_ucheniy_talk_start_4111111</text>
+				<next>41111111</next>
+			</phrase>
+			<phrase id="411111">
+				<text>yantar_general_ucheniy_talk_start_411111</text>
+				<next>4111111</next>
+			</phrase>
+			<phrase id="41112">
+				<text>yantar_general_ucheniy_talk_start_41112</text>
+				<next>41113</next>
+			</phrase>
+			<phrase id="41111111">
+				<text>yantar_general_ucheniy_talk_start_41111111</text>
+				<next>41112</next>
+			</phrase>
+			<phrase id="511111111">
+				<text>yantar_general_ucheniy_talk_start_511111111</text>
+				<next>51112</next>
+			</phrase>
+			<phrase id="51112">
+				<text>yantar_general_ucheniy_talk_start_51112</text>
+				<next>51113</next>
+			</phrase>
+			<phrase id="51113">
+				<text>yantar_general_ucheniy_talk_start_51113</text>
+				<next>51114</next>
+			</phrase>
+			<phrase id="51114">
+				<text>yantar_general_ucheniy_talk_start_51114</text>
+				<action>yantar_dialog.yantar_give_bad_psy_helmet</action>
+				<action>dialogs.break_dialog</action>
+				<give_info>yan_find_vasilyev_start</give_info>
+			</phrase>
+			<phrase id="5111111">
+				<text>yantar_general_ucheniy_talk_start_5111111</text>
+				<next>511111111</next>
+			</phrase>
+			<phrase id="511111">
+				<text>yantar_general_ucheniy_talk_start_511111</text>
+				<next>5111111</next>
+			</phrase>
+			<phrase id="51111">
+				<text>yantar_general_ucheniy_talk_start_51111</text>
+				<next>511111</next>
+			</phrase>
+			<phrase id="9115">
+				<text>yantar_general_ucheniy_talk_start_9115</text>
+				<next>9116</next>
+			</phrase>
+			<phrase id="9114">
+				<text>yantar_general_ucheniy_talk_start_9114</text>
+				<next>9115</next>
+			</phrase>
+			<phrase id="9113">
+				<text>yantar_general_ucheniy_talk_start_9113</text>
+				<next>9114</next>
+			</phrase>
+			<phrase id="1014">
+				<text>yantar_general_ucheniy_talk_start_1014</text>
+				<next>10141</next>
+				<next>10142</next>
+				<next>10143</next>
+			</phrase>
+			<phrase id="101431">
+				<text>yantar_general_ucheniy_talk_start_101431</text>
+			</phrase>
+			<phrase id="10143">
+				<text>yantar_general_ucheniy_talk_start_10143</text>
+				<next>101431</next>
+			</phrase>
+			<phrase id="3111">
+				<text>yantar_general_ucheniy_talk_start_3111</text>
+				<next>31111</next>
+			</phrase>
+			<phrase id="31111">
+				<text>yantar_general_ucheniy_talk_start_31111</text>
+				<next>311111</next>
+			</phrase>
+			<phrase id="311111">
+				<text>yantar_general_ucheniy_talk_start_311111</text>
+				<next>311112</next>
+			</phrase>
+			<phrase id="311112">
+				<text>yantar_general_ucheniy_talk_start_311112</text>
+				<next>311113</next>
+			</phrase>
+			<phrase id="511">
+				<text>yantar_general_ucheniy_talk_start_511</text>
+				<next>5111</next>
+			</phrase>
+			<phrase id="5111">
+				<text>yantar_general_ucheniy_talk_start_5111</text>
+				<next>51111</next>
+			</phrase>
+			<phrase id="10141">
+				<text>yantar_general_ucheniy_talk_start_10141</text>
+				<dont_has_info>bar_heli_scene_professor_die</dont_has_info>
+				<next>101411</next>
+			</phrase>
+			<phrase id="10142">
+				<text>yantar_general_ucheniy_talk_start_10142</text>
+				<has_info>bar_heli_scene_professor_die</has_info>
+				<next>101421</next>
+			</phrase>
+			<phrase id="101421">
+				<text>yantar_general_ucheniy_talk_start_101421</text>
+				<next>101422</next>
+			</phrase>
+			<phrase id="101411">
+				<text>yantar_general_ucheniy_talk_start_101411</text>
+				<next>101412</next>
+			</phrase>
+			<phrase id="811">
+				<text>yantar_general_ucheniy_talk_start_811</text>
+				<precondition>dialogs_yantar.have_kruglov_flash</precondition>
+				<action>dialogs_yantar.give_kruglov_flash</action>
+				<give_info>yantar_scientist_talk_helmet</give_info>
+				<give_info>yan_find_scientist_done</give_info>
+				<next>8111</next>
+			</phrase>
+			<phrase id="8111">
+				<text>yantar_general_ucheniy_talk_start_8111</text>
+				<next>81111</next>
+			</phrase>
+			<phrase id="81111">
+				<text>yantar_general_ucheniy_talk_start_81111</text>
+				<action>yantar_dialog.yantar_give_quest_artefact</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="812">
+				<text>yantar_general_ucheniy_talk_start_812</text>
+				<next>8121</next>
+			</phrase>
+			<phrase id="8121">
+				<text>yantar_general_ucheniy_talk_start_8121</text>
+			</phrase>
+			<phrase id="311">
+				<text>yantar_general_ucheniy_talk_start_311</text>
+				<next>3111</next>
+			</phrase>
+			<phrase id="1011">
+				<text>yantar_general_ucheniy_talk_start_1011</text>
+				<next>1012</next>
+			</phrase>
+			<phrase id="1012">
+				<text>yantar_general_ucheniy_talk_start_1012</text>
+				<next>1013</next>
+			</phrase>
+			<phrase id="1013">
+				<text>yantar_general_ucheniy_talk_start_1013</text>
+				<next>1014</next>
+			</phrase>
+			<phrase id="311113">
+				<text>yantar_general_ucheniy_talk_start_311113</text>
+				<next>311114</next>
+			</phrase>
+			<phrase id="21">
+				<text>yantar_general_ucheniy_talk_start_21</text>
+			</phrase>
+			<phrase id="24">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_8</precondition>
+				<next>241</next>
+			</phrase>
+			<phrase id="241">
+				<text>yantar_general_ucheniy_talk_start_241</text>
+			</phrase>
+			<phrase id="11">
+				<dont_has_info>loschina_task_start</dont_has_info>
+				<text>yantar_general_ucheniy_talk_start_11</text>
+				<next>101_1_1</next>
+				<next>11_1</next>
+			</phrase>
+			<phrase id="221">
+				<text>yantar_general_ucheniy_talk_start_221</text>
+				<action>dialogs_yantar.give_ecolog_outfit</action>				
+			</phrase>
+			<phrase id="22">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_za</precondition>
+				<next>221</next>
+			</phrase>
+			<phrase id="3">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_5</precondition>
+				<next>31</next>
+			</phrase>
+			<phrase id="31">
+				<text>yantar_general_ucheniy_talk_start_31</text>
+				<next>311</next>
+			</phrase>
+			<phrase id="4">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_4a</precondition>
+				<next>41</next>
+			</phrase>
+			<phrase id="41">
+				<text>yantar_general_ucheniy_talk_start_41</text>
+				<next>411</next>
+			</phrase>
+			<phrase id="51">
+				<text>yantar_general_ucheniy_talk_start_51</text>
+				<next>511</next>
+			</phrase>
+			<phrase id="6">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_6</precondition>
+				<next>61</next>
+			</phrase>
+			<phrase id="61">
+				<text>yantar_general_ucheniy_talk_start_61</text>
+			</phrase>
+			<phrase id="7">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_4</precondition>
+				<next>71</next>
+			</phrase>
+			<phrase id="71">
+				<text>yantar_general_ucheniy_talk_start_71</text>
+			</phrase>
+			<phrase id="81">
+				<text>yantar_general_ucheniy_talk_start_81</text>
+				<next>811</next>
+				<next>812</next>
+			</phrase>
+			<phrase id="81_1">
+				<text>yantar_general_ucheniy_talk_start_81_1</text>
+				<next>811</next>
+				<next>812</next>
+			</phrase>			
+			<phrase id="91">
+				<text>yantar_general_ucheniy_talk_start_91</text>
+				<next>911</next>
+			</phrase>
+			<phrase id="101">
+				<next>101_2_1</next>
+				<next>101_2</next>
+				<text>yantar_general_ucheniy_talk_start_101</text>
+			</phrase>
+			<phrase id="10">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_2</precondition>
+				<next>101</next>
+			</phrase>
+			<phrase id="231">
+				<text>yantar_general_ucheniy_talk_start_231</text>
+				<next>2311</next>
+			</phrase>
+			<phrase id="2311">
+				<next>2311_1</next>
+				<text>yantar_general_ucheniy_talk_start_2311</text>
+				<give_info>yan_kill_brain_done</give_info>
+			</phrase>
+			<phrase id="23">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_7</precondition>
+				<next>231</next>
+			</phrase>
+			<phrase id="2">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_z</precondition>
+				<next>21</next>
+			</phrase>
+			<phrase id="25">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_za1</precondition>
+				<next>21</next>
+			</phrase>			
+			<phrase id="1">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_0</precondition>
+				<next>11</next>
+			</phrase>
+			<phrase id="1014_1">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_3</precondition>
+				<next>1014</next>
+			</phrase>
+			<phrase id="5">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_4b</precondition>
+				<next>51</next>
+			</phrase>	
+			<phrase id="8">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_5a</precondition>
+				<next>81</next>
+			</phrase>
+			<phrase id="8_1">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_5b</precondition>
+				<next>81_1</next>
+			</phrase>
+			<phrase id="9">
+				<text/>
+				<precondition>dialogs_yantar.precondition_stage_5c</precondition>
+				<next>91</next>
+			</phrase>			
+			<phrase id="0">
+				<text/>
+				<next>2</next> <!-- Стадия Z: Игрок приходит с Сахарову НЕ имея квест бармена на доки Х16, потеряв Круглова в бою -->
+				<next>22</next> <!-- Стадия ZА: Игрок приходит с Сахарову НЕ имея квест бармена на доки Х16, и спас Круглова в бою -->
+				<next>25</next> <!-- Стадия ZА1: Игрок приходит с Сахарову НЕ имея квест бармена на доки Х16, и спас Круглова в бою (уже получил скафандр) -->
+				<next>1</next>	<!-- Стадия 0: Игрок приходит с Сахарову ИМЕЯ квест бармена на доки Х16, потеряв Круглова в бою -->
+				<next>11_1_1</next> <!-- Стадия 0А: Сахаров познакомился с ГГ но ГГ не взял задание на лощину, имея квест бармена на доки Х16, потеряв Круглова в бою -->
+				<next>241_1</next>	<!-- Стадия 1: Игрок приходит с Сахарову после спасения Круглова, взяв квест бармена на доки Х16 (ещё не получил скафандр) -->
+				<next>11_1_2</next>	<!-- Стадия 1А: Сахаров познакомился с ГГ но ГГ не взял задание на лощину, после спасения Круглова (уже получил скафандр) -->
+				<next>10</next>	<!-- Стадия 2: Игрок взял задание на Лощину но не выполнил его -->
+				<next>1014_1</next>	<!-- Стадия 3: Игрок взял задание на Лощину И ВЫПОЛНИЛ его -->
+				<next>7</next>	<!-- Стадия 4: Игрок взял задание на ЗАМЕРЫ но ещё не ушел их делать, никто не погиб -->
+				<next>4</next>	<!-- Стадия 4A: Игрок взял задание на ЗАМЕРЫ, ушел их делать и Круглов ПОГИБ по дороге ТУДА -->
+				<next>5</next>	<!-- Стадия 4Б: Игрок взял задание на ЗАМЕРЫ, ушел их делать и Семенов ПОГИБ по дороге ТУДА -->
+				<next>3</next>	<!-- Стадия 5: Игрок взял задание на ЗАМЕРЫ И ВЫПОЛНИЛ ЕГО ПОЛНОСТЬЮ, Круглов/Семенов вернулся к Сахароову и поговорил с ним -->
+				<next>8</next> <!-- Стадия 5А: Игрок взял задание на ЗАМЕРЫ, Круглов ПОГИБ по дороге НАЗАД -->
+				<next>8_1</next> <!-- Стадия 5Б: Игрок взял задание на ЗАМЕРЫ, Семенов ПОГИБ по дороге НАЗАД -->
+				<next>9</next>	<!-- Стадия 5В: Игрок взял задание на ЗАМЕРЫ, один из ученых погиб по дороге назад, ГГ отдал шлем -->
+				<next>6</next>	<!-- Стадия 6: Игрок получил шлем и взял задание на БРЕЙНЛАБ -->
+				<next>23</next>	<!-- Стадия 7: Игрок взял задание на БРЕЙНЛАБ и ВЫПОЛНИЛ его награда ещё НЕ получена -->
+				<next>24</next>	<!-- Стадия 8: Игрок взял задание на БРЕЙНЛАБ и ВЫПОЛНИЛ его -->
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="horror_time_ecolog_story">
+		<dont_has_info>actor_set_zombied</dont_has_info>
+		<has_info>horror_time_has_story</has_info>
+		<dont_has_info>horror_time_has_ecolog_story</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>horror_time_ecolog_story_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>horror_time_ecolog_story_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>horror_time_ecolog_story_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>horror_time_ecolog_story_3</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>horror_time_ecolog_story_4</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>horror_time_ecolog_story_5</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>horror_time_ecolog_story_6</text>
+				<give_info>horror_time_has_ecolog_story</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!-- yan_random_quest_first_talk -->
+	<dialog id="yan_random_quest_first_talk">
+		<dont_has_info>yan_rq_permission</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_random_quest_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_random_quest_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_random_quest_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_random_quest_3</text>
+				<give_info>yan_rq_permission</give_info>
+				<action>ogse_yan_random_quest.init_item_lists</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!-- yan_random_quest_give_item_list -->
+	<dialog id="yan_random_quest_give_item_list">
+		<has_info>yan_rq_permission</has_info>
+		<init_func>ogse_yan_random_quest.show_quest_items</init_func>
+	</dialog>
+	<!-- teleport_trap find_art -->
+	<dialog id="teleport_trap_research_art_dialog">
+		<has_info>yan_kill_brain_done</has_info>
+		<dont_has_info>ogse_teleport_trap_research_art_start</dont_has_info>
+		<!--dont_has_info>ogse_teleport_trap_quest_denied</dont_has_info-->
+		<phrase_list>
+			<phrase id="0">
+				<text>teleport_trap_research_art_dialog_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>teleport_trap_research_art_dialog_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>teleport_trap_research_art_dialog_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>teleport_trap_research_art_dialog_3</text>
+				<next>31</next>
+				<next>32</next>
+			</phrase>
+			<phrase id="31">
+				<text>teleport_trap_research_art_dialog_31</text>
+				<next>311</next>
+			</phrase>
+			<phrase id="311">
+				<text>teleport_trap_research_art_dialog_311</text>
+				<give_info>ogse_teleport_trap_research_art_start</give_info>
+				<action>ogse_teleport_art_quest.init_teleport_art_and_zone</action>
+				<action>ogse_teleport_art_quest.give_aac_to_actor</action>
+			</phrase>
+			<phrase id="32">
+				<text>teleport_trap_research_art_dialog_32</text>
+				<next>321</next>
+			</phrase>
+			<phrase id="321">
+				<text>teleport_trap_research_art_dialog_321</text>
+				<!--give_info>ogse_teleport_trap_quest_denied</give_info-->
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--
+<dialog id="teleport_trap_research_art_dialog">
+	<has_info>ogse_teleport_trap_find_art_get_trouble</has_info>
+	<dont_has_info>ogse_teleport_trap_find_art_actor_finish</dont_has_info>
+	<phrase_list>
+		<phrase id="0">
+			<text>teleport_trap_research_art_0</text>
+			<next>1</next>
+		</phrase>
+		<phrase id="1">
+			<text>teleport_trap_research_art_1</text>
+			<next>11</next>
+			<next>12</next>
+		</phrase>
+		<phrase id="11">
+			<text>teleport_trap_research_art_11</text>
+			<next>111</next>
+		</phrase>
+		<phrase id="111">
+			<text>teleport_trap_research_art_111</text>
+			<give_info>ogse_teleport_trap_find_art_actor_finish</give_info>
+			<give_info>ogse_teleport_trap_research_art_start</give_info>
+			<action>ogse_teleport_art_quest.give_aac_to_actor</action>
+		</phrase>
+		<phrase id="12">
+			<text>teleport_trap_research_art_12</text>
+			<next>121</next>
+		</phrase>
+		<phrase id="121">
+			<text>teleport_trap_research_art_121</text>
+			<give_info>ogse_teleport_trap_quest_denied</give_info>
+		</phrase>
+	</phrase_list>
+</dialog>
+-->
+	<dialog id="teleport_trap_catch_art_dialog">
+		<has_info>ogse_teleport_trap_research_art_actor_finish_dead_zone</has_info>
+		<!--dont_has_info>ogse_teleport_trap_quest_denied</dont_has_info-->
+		<dont_has_info>ogse_teleport_trap_catch_art_start</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>teleport_trap_catch_art_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>teleport_trap_catch_art_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>teleport_trap_catch_art_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>teleport_trap_catch_art_3</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>teleport_trap_catch_art_4</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>teleport_trap_catch_art_5</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>teleport_trap_catch_art_6</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>teleport_trap_catch_art_7</text>
+				<give_info>ogse_teleport_trap_research_art_finish</give_info>
+				<action>ogse_teleport_art_quest.pick_up_aac_from_actor</action>
+				<next>71</next>
+				<next>72</next>
+			</phrase>
+			<phrase id="71">
+				<text>teleport_trap_catch_art_71</text>
+				<next>711</next>
+			</phrase>
+			<phrase id="72">
+				<text>teleport_trap_catch_art_72</text>
+				<next>721</next>
+			</phrase>
+			<phrase id="711">
+				<give_info>ogse_teleport_trap_catch_art_start</give_info>
+				<action>ogse_teleport_art_quest.give_telekill_box_to_actor</action>
+				<text>teleport_trap_catch_art_711</text>
+			</phrase>
+			<phrase id="721">
+				<!--give_info>ogse_teleport_trap_quest_denied</give_info-->
+				<text>teleport_trap_catch_art_721</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="teleport_trap_finish_dialog">
+		<precondition>ogse_teleport_art_quest.have_actor_telekill_case_with_art</precondition>
+		<dont_has_info>ogse_teleport_trap_catch_art_finish</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>teleport_trap_finish_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>teleport_trap_finish_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>teleport_trap_finish_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<give_info>ogse_teleport_trap_catch_art_finish</give_info>
+				<action>ogse_teleport_art_quest.give_reward_and_pick_up_items</action>
+				<text>teleport_trap_finish_3</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="teleport_trap_art_destiny_dialog">
+		<has_info>ogse_teleport_trap_art_destiny</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>teleport_trap_art_destiny_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>teleport_trap_art_destiny_1</text>
+				<action>ogse_teleport_art_quest.disable_info_destiny</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="military_psycho_talk_about_psycho">
+		<precondition>tasks_functor.military_psycho_talk_about_psycho_precondition</precondition>
+		<dont_has_info>military_psycho_ask_denied</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>military_psycho_talk_about_psycho_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>military_psycho_talk_about_psycho_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>military_psycho_talk_about_psycho_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>military_psycho_talk_about_psycho_3</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>military_psycho_talk_about_psycho_4</text>
+				<give_info>military_psycho_ask_denied</give_info>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>military_psycho_talk_about_psycho_5</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_start_dialog">
+		<dont_has_info>strangezones_on</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_start_dialog_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_start_dialog_phrase_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_start_dialog_phrase_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_soldier_start_dialog_phrase_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_start_dialog_phrase_5</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>yan_soldier_start_dialog_phrase_6</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>yan_soldier_start_dialog_phrase_7</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>yan_soldier_start_dialog_phrase_8</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>yan_soldier_start_dialog_phrase_9</text>
+				<next>9</next>
+			</phrase>
+			<phrase id="9">
+				<text>yan_soldier_start_dialog_phrase_10</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>yan_soldier_start_dialog_phrase_11</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>yan_soldier_start_dialog_phrase_12</text>
+				<next>12</next>
+			</phrase>
+			<phrase id="12">
+				<text>yan_soldier_start_dialog_phrase_13</text>
+				<next>13</next>
+			</phrase>
+			<phrase id="13">
+				<text>yan_soldier_start_dialog_phrase_14</text>
+				<next>14</next>
+			</phrase>
+			<phrase id="14">
+				<text>yan_soldier_start_dialog_phrase_15</text>
+				<next>15</next>
+			</phrase>
+			<phrase id="15">
+				<text>yan_soldier_start_dialog_phrase_16</text>
+				<next>16</next>
+			</phrase>
+			<phrase id="16">
+				<text>yan_soldier_start_dialog_phrase_17</text>
+				<next>17</next>
+			</phrase>
+			<phrase id="17">
+				<text>yan_soldier_start_dialog_phrase_18</text>
+				<next>18</next>
+			</phrase>
+			<phrase id="18">
+				<text>yan_soldier_start_dialog_phrase_19</text>
+				<next>19</next>
+			</phrase>
+			<phrase id="19">
+				<text>yan_soldier_start_dialog_phrase_20</text>
+				<next>20</next>
+			</phrase>
+			<phrase id="20">
+				<text>yan_soldier_start_dialog_phrase_21</text>
+				<next>21</next>
+			</phrase>
+			<phrase id="21">
+				<text>yan_soldier_start_dialog_phrase_22</text>
+				<next>22</next>
+			</phrase>
+			<phrase id="22">
+				<text>yan_soldier_start_dialog_phrase_23</text>
+				<next>23</next>
+				<next>24</next>
+			</phrase>
+			<phrase id="23">
+				<dont_has_info>pre_blowout</dont_has_info>
+				<text>yan_soldier_start_dialog_phrase_24</text>
+				<give_info>strangezones_on</give_info>
+				<!--				<give_info>yan_sold_opendoor</give_info>-->
+				<!--				<action>jekan_work.spawn_sciense_item3</action>
+				<action>jekan_work.spawn_sciense_item4</action>
+				<action>jekan_work.spawn_sciense_item5</action> -->
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="24">
+				<has_info>pre_blowout</has_info>
+				<text>yan_soldier_start_dialog_phrase_25</text>
+				<next>22</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_lager_dialog1">
+		<has_info>yan_sold_in_lager</has_info>
+		<dont_has_info>lager_search</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_lager_dialog1_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_lager_dialog1_phrase_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_lager_dialog1_phrase_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_soldier_lager_dialog1_phrase_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_lager_dialog1_phrase_5</text>
+				<give_info>lager_search</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_lager_dialog2">
+		<has_info>yan_sold_nahodka</has_info>
+		<dont_has_info>yan_sold_reading</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_lager_dialog2_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_lager_dialog2_phrase_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_lager_dialog2_phrase_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_soldier_lager_dialog2_phrase_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_lager_dialog2_phrase_5</text>
+				<give_info>yan_sold_reading</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_lager_dialog3">
+		<has_info>yan_sold_read_info</has_info>
+		<dont_has_info>yan_find_diplomat</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_lager_dialog3_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_lager_dialog3_phrase_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_lager_dialog3_phrase_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_soldier_lager_dialog3_phrase_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_lager_dialog3_phrase_5</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>yan_soldier_lager_dialog3_phrase_6</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>yan_soldier_lager_dialog3_phrase_7</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>yan_soldier_lager_dialog3_phrase_8</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>yan_soldier_lager_dialog3_phrase_9</text>
+				<next>9</next>
+			</phrase>
+			<phrase id="9">
+				<text>yan_soldier_lager_dialog3_phrase_10</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>yan_soldier_lager_dialog3_phrase_11</text>
+				<give_info>yan_find_diplomat</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_anomaly_dialog">
+		<has_info>yan_sold_anomaly_info</has_info>
+		<dont_has_info>yan_sold_anomaly_info_talked</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_anomaly_dialog_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_anomaly_dialog_phrase_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_anomaly_dialog_phrase_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_soldier_anomaly_dialog_phrase_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_anomaly_dialog_phrase_5</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>yan_soldier_anomaly_dialog_phrase_6</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>yan_soldier_anomaly_dialog_phrase_7</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>yan_soldier_anomaly_dialog_phrase_8</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>yan_soldier_anomaly_dialog_phrase_9</text>
+				<next>9</next>
+			</phrase>
+			<phrase id="9">
+				<text>yan_soldier_anomaly_dialog_phrase_10</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>yan_soldier_anomaly_dialog_phrase_11</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>yan_soldier_anomaly_dialog_phrase_12</text>
+				<next>12</next>
+			</phrase>
+			<phrase id="12">
+				<text>yan_soldier_anomaly_dialog_phrase_13</text>
+				<next>13</next>
+			</phrase>
+			<phrase id="13">
+				<text>yan_soldier_anomaly_dialog_phrase_14</text>
+				<give_info>yan_sold_anomaly_info_talked</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_map_dialog">
+		<precondition>jekan_work.have_kommander_map</precondition>
+		<has_info>yan_sold_anomaly_info_talked</has_info>
+		<dont_has_info>yan_sold_goto_post</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_map_dialog_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_map_dialog_phrase_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_map_dialog_phrase_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_soldier_map_dialog_phrase_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_map_dialog_phrase_5</text>
+				<action>jekan_work.kommander_map_out</action>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>yan_soldier_map_dialog_phrase_6</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>yan_soldier_map_dialog_phrase_7</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>yan_soldier_map_dialog_phrase_8</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>yan_soldier_map_dialog_phrase_9</text>
+				<give_info>yan_sold_goto_post</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_sign_dialog">
+		<dont_has_info>check_yan_sign_place</dont_has_info>
+		<has_info>yan_sold_goto_post</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_sign_dialog_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_sign_dialog_phrase_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_sign_dialog_phrase_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_soldier_sign_dialog_phrase_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_sign_dialog_phrase_5</text>
+				<give_info>check_yan_sign_place</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_zombsold_dialog">
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_zombsold_dialog_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_zombsold_dialog_phrase_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_zombsold_dialog_phrase_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_zombsold_dialog_phrase_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_zombsold_dialog_phrase_5</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>yan_zombsold_dialog_phrase_6</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>yan_zombsold_dialog_phrase_7</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>yan_zombsold_dialog_phrase_8</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>yan_zombsold_dialog_phrase_9</text>
+				<next>9</next>
+			</phrase>
+			<phrase id="9">
+				<text>yan_zombsold_dialog_phrase_10</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>yan_zombsold_dialog_phrase_11</text>
+				<action>jekan_work.yan_zombsold_death</action>
+				<action>dialogs.break_dialog</action>
+				<action>jekan_work.yan_zombsold_death_tip</action>
+				<action>soundtrack.svd_shot</action>
+				<give_info>kill_yan_zombsold</give_info>
+				<give_info>get_afscanner</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_demask_dialog">
+		<has_info>get_afscanner</has_info>
+		<dont_has_info>yan_sold_demask</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_demask_dialog_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_demask_dialog_phrase_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_demask_dialog_phrase_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_soldier_demask_dialog_phrase_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_demask_dialog_phrase_5</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>yan_soldier_demask_dialog_phrase_6</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>yan_soldier_demask_dialog_phrase_7</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>yan_soldier_demask_dialog_phrase_8</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>yan_soldier_demask_dialog_phrase_9</text>
+				<next>9</next>
+			</phrase>
+			<phrase id="9">
+				<text>yan_soldier_demask_dialog_phrase_10</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>yan_soldier_demask_dialog_phrase_11</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>yan_soldier_demask_dialog_phrase_12</text>
+				<next>12</next>
+			</phrase>
+			<phrase id="12">
+				<text>yan_soldier_demask_dialog_phrase_13</text>
+				<give_info>yan_sold_demask</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_say_true_dialog">
+		<has_info>yan_sold_stop_run</has_info>
+		<dont_has_info>yan_sold_say_true</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_say_true_dialog_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_say_true_dialog_phrase_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_say_true_dialog_phrase_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_soldier_say_true_dialog_phrase_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_say_true_dialog_phrase_5</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>yan_soldier_say_true_dialog_phrase_6</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>yan_soldier_say_true_dialog_phrase_7</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>yan_soldier_say_true_dialog_phrase_8</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>yan_soldier_say_true_dialog_phrase_9</text>
+				<next>9</next>
+			</phrase>
+			<phrase id="9">
+				<text>yan_soldier_say_true_dialog_phrase_10</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>yan_soldier_say_true_dialog_phrase_11</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>yan_soldier_say_true_dialog_phrase_12</text>
+				<next>12</next>
+			</phrase>
+			<phrase id="12">
+				<text>yan_soldier_say_true_dialog_phrase_13</text>
+				<next>13</next>
+			</phrase>
+			<phrase id="13">
+				<text>yan_soldier_say_true_dialog_phrase_14</text>
+				<next>14</next>
+			</phrase>
+			<phrase id="14">
+				<text>yan_soldier_say_true_dialog_phrase_15</text>
+				<next>15</next>
+			</phrase>
+			<phrase id="15">
+				<text>yan_soldier_say_true_dialog_phrase_16</text>
+				<next>16</next>
+			</phrase>
+			<phrase id="16">
+				<text>yan_soldier_say_true_dialog_phrase_17</text>
+				<next>17</next>
+			</phrase>
+			<phrase id="17">
+				<text>yan_soldier_say_true_dialog_phrase_18</text>
+				<next>18</next>
+			</phrase>
+			<phrase id="18">
+				<text>yan_soldier_say_true_dialog_phrase_19</text>
+				<next>19</next>
+			</phrase>
+			<phrase id="19">
+				<text>yan_soldier_say_true_dialog_phrase_20</text>
+				<next>20</next>
+			</phrase>
+			<phrase id="20">
+				<text>yan_soldier_say_true_dialog_phrase_21</text>
+				<next>21</next>
+			</phrase>
+			<phrase id="21">
+				<text>yan_soldier_say_true_dialog_phrase_22</text>
+				<next>22</next>
+			</phrase>
+			<phrase id="22">
+				<text>yan_soldier_say_true_dialog_phrase_23</text>
+				<next>23</next>
+			</phrase>
+			<phrase id="23">
+				<text>yan_soldier_say_true_dialog_phrase_24</text>
+				<next>24</next>
+			</phrase>
+			<phrase id="24">
+				<text>yan_soldier_say_true_dialog_phrase_25</text>
+				<next>25</next>
+			</phrase>
+			<phrase id="25">
+				<text>yan_soldier_say_true_dialog_phrase_26</text>
+				<next>26</next>
+			</phrase>
+			<phrase id="26">
+				<text>yan_soldier_say_true_dialog_phrase_27</text>
+				<next>27</next>
+			</phrase>
+			<phrase id="27">
+				<text>yan_soldier_say_true_dialog_phrase_28</text>
+				<next>28</next>
+			</phrase>
+			<phrase id="28">
+				<text>yan_soldier_say_true_dialog_phrase_29</text>
+				<next>29</next>
+			</phrase>
+			<phrase id="29">
+				<text>yan_soldier_say_true_dialog_phrase_30</text>
+				<next>30</next>
+			</phrase>
+			<phrase id="30">
+				<text>yan_soldier_say_true_dialog_phrase_31</text>
+				<next>31</next>
+			</phrase>
+			<phrase id="31">
+				<text>yan_soldier_say_true_dialog_phrase_32</text>
+				<next>32</next>
+			</phrase>
+			<phrase id="32">
+				<text>yan_soldier_say_true_dialog_phrase_33</text>
+				<next>33</next>
+			</phrase>
+			<phrase id="33">
+				<text>yan_soldier_say_true_dialog_phrase_34</text>
+				<next>34</next>
+			</phrase>
+			<phrase id="34">
+				<text>yan_soldier_say_true_dialog_phrase_35</text>
+				<next>35</next>
+			</phrase>
+			<phrase id="35">
+				<text>yan_soldier_say_true_dialog_phrase_36</text>
+				<next>36</next>
+			</phrase>
+			<phrase id="36">
+				<text>yan_soldier_say_true_dialog_phrase_37</text>
+				<next>37</next>
+			</phrase>
+			<phrase id="37">
+				<text>yan_soldier_say_true_dialog_phrase_38</text>
+				<next>38</next>
+			</phrase>
+			<phrase id="38">
+				<text>yan_soldier_say_true_dialog_phrase_39</text>
+				<next>39</next>
+			</phrase>
+			<phrase id="39">
+				<text>yan_soldier_say_true_dialog_phrase_40</text>
+				<next>40</next>
+			</phrase>
+			<phrase id="40">
+				<text>yan_soldier_say_true_dialog_phrase_41</text>
+				<next>41</next>
+			</phrase>
+			<phrase id="41">
+				<text>yan_soldier_say_true_dialog_phrase_42</text>
+				<next>42</next>
+			</phrase>
+			<phrase id="42">
+				<text>yan_soldier_say_true_dialog_phrase_43</text>
+				<give_info>yan_sold_say_true</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_suit_dialog">
+		<has_info>ecolog_outfit_finded</has_info>
+		<dont_has_info>yan_sold_goto_rostok</dont_has_info>
+		<precondition>jekan_work.have_ecolog_outfit</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_suit_dialog_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_suit_dialog_phrase_2</text>
+				<action>jekan_work.ecolog_suit_out</action>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_suit_dialog_phrase_3</text>
+				<give_info>yan_sold_goto_rostok</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="ros_soldier_start_dialog">
+		<dont_has_info>ros_soldier_start_search</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>ros_soldier_start_dialog_phrase_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>ros_soldier_start_dialog_phrase_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>ros_soldier_start_dialog_phrase_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>ros_soldier_start_dialog_phrase_4</text>
+				<give_info>ros_soldier_start_search</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="ros_soldier_search_first_dialog">
+		<dont_has_info>ros_soldier_go_deal_with_killers</dont_has_info>
+		<has_info>ros_sold_near_constructions</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>ros_soldier_search_first_dialog_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>ros_soldier_search_first_dialog_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>ros_soldier_search_first_dialog_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>ros_soldier_search_first_dialog_4</text>
+				<give_info>ros_soldier_go_deal_with_killers</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="ros_soldier_search_dialog_killers">
+		<dont_has_info>ros_sold_no_killers</dont_has_info>
+		<has_info>ros_soldier_go_deal_with_killers</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>ros_soldier_search_dialog_killers_1</text>
+				<next>1</next>
+				<next>2</next>
+				<next>4</next>
+				<next>9</next>
+			</phrase>
+			<phrase id="1">
+				<has_info>ros_soldier_constructions_empty</has_info>
+				<text>ros_soldier_search_dialog_killers_2</text>
+				<give_info>ros_sold_no_killers</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="2">
+				<dont_has_info>ros_soldier_constructions_empty</dont_has_info>
+				<dont_has_info>ros_soldier_constructions_killers</dont_has_info>
+				<text>ros_soldier_search_dialog_killers_8</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>ros_soldier_search_dialog_killers_9</text>
+			</phrase>
+			<phrase id="4">
+				<has_info>ros_soldier_constructions_killers</has_info>
+				<text>ros_soldier_search_dialog_killers_3</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>ros_soldier_search_dialog_killers_4</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>ros_soldier_search_dialog_killers_5</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>ros_soldier_search_dialog_killers_6</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>ros_soldier_search_dialog_killers_7</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="9">
+				<has_info>ros_soldier_constructions_killers_killed</has_info>
+				<text>ros_soldier_search_dialog_killers_10</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>ros_soldier_search_dialog_killers_11</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>ros_soldier_search_dialog_killers_12</text>
+				<give_info>ros_sold_no_killers</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="ros_soldier_search_dialog_first_spot">
+		<dont_has_info>ros_sold_first_spot_go_search</dont_has_info>
+		<has_info>ros_sold_first_spot</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>ros_soldier_search_dialog_first_spot_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>ros_soldier_search_dialog_first_spot_2</text>
+				<give_info>ros_sold_first_spot_go_search</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="ros_soldier_search_dialog_first_spot_search">
+		<dont_has_info>ros_sold_first_spot_searched</dont_has_info>
+		<has_info>ros_sold_first_spot_go_search</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>ros_soldier_search_dialog_first_spot_search_1</text>
+				<next>1</next>
+				<next>2</next>
+			</phrase>
+			<phrase id="1">
+				<text>ros_soldier_search_dialog_first_spot_search_2</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="2">
+				<has_info>ros_sold_first_spot_nothing_found</has_info>
+				<text>ros_soldier_search_dialog_first_spot_search_3</text>
+			</phrase>
+			<phrase id="3">
+				<text>ros_soldier_search_dialog_first_spot_search_4</text>
+			</phrase>
+			<phrase id="4">
+				<text>ros_soldier_search_dialog_first_spot_search_5</text>
+				<give_info>ros_sold_first_spot_searched</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="ros_soldier_search_dialog_second_spot">
+		<dont_has_info>ros_sold_second_spot_go_search</dont_has_info>
+		<has_info>ros_sold_second_spot</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>ros_soldier_search_dialog_second_spot_1</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>ros_soldier_search_dialog_second_spot_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>ros_soldier_search_dialog_second_spot_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>ros_soldier_search_dialog_second_spot_4</text>
+				<give_info>ros_sold_second_spot_go_search</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="ros_soldier_search_dialog_second_spot_search">
+		<dont_has_info>ros_sold_second_spot_searched</dont_has_info>
+		<has_info>ros_sold_second_spot_go_search</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>ros_soldier_search_dialog_second_spot_search_1</text>
+				<next>1</next>
+				<next>2</next>
+			</phrase>
+			<phrase id="1">
+				<text>ros_soldier_search_dialog_second_spot_search_2</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="2">
+				<has_info>ros_sold_second_spot_found</has_info>
+				<text>ros_soldier_search_dialog_second_spot_search_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>ros_soldier_search_dialog_second_spot_search_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>ros_soldier_search_dialog_second_spot_search_5</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>ros_soldier_search_dialog_second_spot_search_6</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>ros_soldier_search_dialog_second_spot_search_7</text>
+				<give_info>ros_sold_second_spot_searched</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_second_generator_dialog">
+		<dont_has_info>yan_sold_generator_prepare</dont_has_info>
+		<has_info>yan_sold_strange_zones_searched</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_second_generator_dialog_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_second_generator_dialog_1</text>
+				<next>2</next>
+				<next>3</next>
+			</phrase>
+			<phrase id="2">
+				<dont_has_info>yan_sold_strange_zones_searched</dont_has_info>
+				<text>yan_soldier_second_generator_dialog_2</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="3">
+				<has_info>yan_sold_strange_zones_searched</has_info>
+				<text>yan_soldier_second_generator_dialog_3</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_second_generator_dialog_4</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>yan_soldier_second_generator_dialog_5</text>
+				<give_info>yan_sold_generator_prepare</give_info>
+				<action>jekan_work.give_arts_to_soldier</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_lets_go_final_dialog">
+		<dont_has_info>yan_sold_go_to_dark_zone</dont_has_info>
+		<has_info>yan_sold_generator_ready</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_lets_go_final_dialog_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_lets_go_final_dialog_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_lets_go_final_dialog_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_soldier_lets_go_final_dialog_3</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_lets_go_final_dialog_4</text>
+				<give_info>yan_sold_go_to_dark_zone</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_place_generator_dialog">
+		<has_info>yan_sold_in_lager_final</has_info>
+		<dont_has_info>yan_sold_actor_wait_too_long</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_place_generator_dialog_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_place_generator_dialog_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_place_generator_dialog_2</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_soldier_explain_dialog">
+		<has_info>yan_sold_actor_wait_too_long</has_info>
+		<dont_has_info>yan_sold_explained_to_actor</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_soldier_explain_dialog_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>yan_soldier_explain_dialog_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_soldier_explain_dialog_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_soldier_explain_dialog_3</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_soldier_explain_dialog_4</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>yan_soldier_explain_dialog_5</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>yan_soldier_explain_dialog_6</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>yan_soldier_explain_dialog_7</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>yan_soldier_explain_dialog_8</text>
+				<next>9</next>
+			</phrase>
+			<phrase id="9">
+				<text>yan_soldier_explain_dialog_9</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>yan_soldier_explain_dialog_10</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>yan_soldier_explain_dialog_11</text>
+				<next>12</next>
+				<next>13</next>
+			</phrase>
+			<phrase id="12">
+				<text>yan_soldier_explain_dialog_12</text>
+				<next>14</next>
+			</phrase>
+			<phrase id="13">
+				<text>yan_soldier_explain_dialog_21</text>
+				<action>jekan_work.make_yan_soldier_enemy</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="14">
+				<text>yan_soldier_explain_dialog_13</text>
+				<next>15</next>
+				<next>16</next>
+			</phrase>
+			<phrase id="15">
+				<text>yan_soldier_explain_dialog_14</text>
+				<next>20</next>
+			</phrase>
+			<phrase id="16">
+				<text>yan_soldier_explain_dialog_15</text>
+				<next>17</next>
+			</phrase>
+			<phrase id="17">
+				<text>yan_soldier_explain_dialog_16</text>
+				<next>18</next>
+				<next>19</next>
+			</phrase>
+			<phrase id="18">
+				<text>yan_soldier_explain_dialog_17</text>
+				<give_info>yan_sold_explained_to_actor</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="19">
+				<text>yan_soldier_explain_dialog_18</text>
+				<action>jekan_work.make_yan_soldier_enemy</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="20">
+				<text>yan_soldier_explain_dialog_19</text>
+				<action>jekan_work.give_radist_flash_to_actor</action>
+				<next>21</next>
+			</phrase>
+			<phrase id="21">
+				<text>yan_soldier_explain_dialog_20</text>
+				<action>jekan_work.make_yan_soldier_enemy</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_dz_perepelkin_dialog">
+		<dont_has_info>yan_sold_talked_with_perepelkin</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_dz_perepelkin_dialog_1</text>
+				<next>1</next>
+				<next>2</next>
+			</phrase>
+			<phrase id="1">
+				<has_info>yan_sold_talked_with_captain</has_info>
+				<text>yan_dz_perepelkin_dialog_2</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_dz_perepelkin_dialog_3</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="2">
+				<dont_has_info>yan_sold_talked_with_captain</dont_has_info>
+				<text>yan_dz_perepelkin_dialog_9</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_dz_perepelkin_dialog_10</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>yan_dz_perepelkin_dialog_4</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>yan_dz_perepelkin_dialog_5</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>yan_dz_perepelkin_dialog_6</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>yan_dz_perepelkin_dialog_7</text>
+				<next>9</next>
+			</phrase>
+			<phrase id="9">
+				<text>yan_dz_perepelkin_dialog_8</text>
+				<give_info>yan_sold_talked_with_perepelkin</give_info>
+				<action>jekan_work.delete_yan_party</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="yan_dz_captain_dialog">
+		<dont_has_info>yan_sold_talked_with_captain</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>yan_dz_captain_dialog_1</text>
+				<next>1</next>
+				<next>14</next>
+			</phrase>
+			<phrase id="1">
+				<dont_has_info>yan_sold_talked_with_perepelkin</dont_has_info>
+				<text>yan_dz_captain_dialog_2</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>yan_dz_captain_dialog_3</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>yan_dz_captain_dialog_4</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>yan_dz_captain_dialog_5</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>yan_dz_captain_dialog_6</text>
+				<next>6</next>
+				<next>17</next>
+			</phrase>
+			<phrase id="6">
+				<dont_has_info>yan_soldier_dead</dont_has_info>
+				<text>yan_dz_captain_dialog_7</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>yan_dz_captain_dialog_8</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>yan_dz_captain_dialog_9</text>
+				<next>9</next>
+				<next>18</next>
+			</phrase>
+			<phrase id="9">
+				<precondition>jekan_work.actor_has_no_flash_3</precondition>
+				<text>yan_dz_captain_dialog_10</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>yan_dz_captain_dialog_11</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>yan_dz_captain_dialog_12</text>
+				<next>12</next>
+			</phrase>
+			<phrase id="12">
+				<text>yan_dz_captain_dialog_13</text>
+				<action>jekan_work.give_yan_captain_reward</action>
+				<give_info>yan_sold_talked_with_captain</give_info>
+				<next>13</next>
+			</phrase>
+			<phrase id="13">
+				<text>yan_dz_captain_dialog_14</text>
+				<action>jekan_work.delete_yan_party</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="14">
+				<has_info>yan_sold_talked_with_perepelkin</has_info>
+				<text>yan_dz_captain_dialog_15</text>
+				<next>15</next>
+			</phrase>
+			<phrase id="15">
+				<text>yan_dz_captain_dialog_16</text>
+				<next>16</next>
+			</phrase>
+			<phrase id="16">
+				<text>yan_dz_captain_dialog_17</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="17">
+				<has_info>yan_soldier_dead</has_info>
+				<text>yan_dz_captain_dialog_18</text>
+				<next>9</next>
+				<next>18</next>
+			</phrase>
+			<phrase id="18">
+				<precondition>jekan_work.actor_already_has_flash_3</precondition>
+				<text>yan_dz_captain_dialog_19</text>
+				<next>19</next>
+			</phrase>
+			<phrase id="19">
+				<text>yan_dz_captain_dialog_20</text>
+				<action>jekan_work.give_yan_captain_reward_no_flash</action>
+				<give_info>yan_sold_talked_with_captain</give_info>
+				<next>20</next>
+			</phrase>
+			<phrase id="20">
+				<text>yan_dz_captain_dialog_21</text>
+				<action>jekan_work.delete_yan_party</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--Аномальная кухонная утварь-->
+	<dialog id="anom_house_items_task_start_dialog">
+		<precondition>jekan_work.check_avail_six_anom_house_items</precondition>
+		<!--		<has_info>yan_anom_house_items_start</has_info> 
+		<dont_has_info>yan_anom_house_items_find</dont_has_info> 
+		<dont_has_info>yan_anom_house_items_continue</dont_has_info> -->
+		<dont_has_info>yan_anom_house_items_complete</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>anom_house_items_task_start_dialog_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>anom_house_items_task_start_dialog_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>anom_house_items_task_start_dialog_2</text>
+				<!--				<next>3</next>
+				<next>4</next>-->
+				<next>5</next>
+			</phrase>
+			<phrase id="3">
+				<text>anom_house_items_task_start_dialog_3</text>
+				<precondition>jekan_work.check_avail_anom_house_items</precondition>
+				<give_info>yan_anom_house_items_find</give_info>
+				<next>6</next>
+			</phrase>
+			<phrase id="4">
+				<text>anom_house_items_task_start_dialog_4</text>
+				<precondition>jekan_work.check_avail_1to6_anom_house_items</precondition>
+				<give_info>yan_anom_house_items_find</give_info>
+				<next>6</next>
+			</phrase>
+			<phrase id="5">
+				<text>anom_house_items_task_start_dialog_5</text>
+				<precondition>jekan_work.check_avail_six_anom_house_items</precondition>
+				<give_info>yan_anom_house_items_find</give_info>
+				<give_info>yan_anom_house_items_continue</give_info>
+				<give_info>yan_anom_house_items_complete</give_info>
+				<action>jekan_work.money_give_anom_house_items</action>
+			</phrase>
+			<phrase id="6">
+				<text>anom_house_items_task_start_dialog_6</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--	<dialog id="anom_house_items_task_end_dialog">
+		<precondition>jekan_work.check_avail_six_anom_house_items</precondition>
+		<has_info>yan_anom_house_items_start</has_info> 
+		<has_info>yan_anom_house_items_find</has_info> 
+		<has_info>yan_anom_house_items_continue</has_info> 
+		<dont_has_info>yan_anom_house_items_complete</dont_has_info> 
+		<phrase_list>
+			<phrase id="0">
+				<text>anom_house_items_task_end_dialog_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>anom_house_items_task_end_dialog_1</text>
+				<give_info>yan_anom_house_items_complete</give_info>
+				<action>jekan_work.money_give_anom_house_items</action>
+			</phrase>
+		</phrase_list>
+	</dialog>-->
+</game_dialogs>
+

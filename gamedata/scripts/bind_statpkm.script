@@ -1,0 +1,263 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-- By Charsi
+-- edited by Jek@n-Lim0n
+-- edited by Malandrinus
+
+function attach(sm)
+	sm:subscribe({signal = "on_use", fun = this.on_item_use})
+end
+
+
+class "se_turret_mgun" (cse_alife_helicopter)
+function se_turret_mgun:__init(section) super(section)
+	self.spawner_present = false
+	self.health = 1.0
+	self.direction = vector():set(0, 0, 0)
+end
+
+function se_turret_mgun:can_switch_offline()
+	return cse_alife_helicopter.can_switch_offline(self)
+end
+
+function se_turret_mgun:can_switch_online()
+	if self.health <= 0.005 then
+		return false
+	end
+	if self.spawner_present == nil then
+		local ini = self:spawn_ini()
+		self.spawner_present = ini:section_exist("spawner")
+	end
+	if self.spawner_present == true then
+		return cse_alife_helicopter.can_switch_online(self)
+	end
+	return xr_spawner.check_spawn(self)
+end    
+
+function se_turret_mgun:STATE_Read(packet, size)
+	cse_alife_helicopter.STATE_Read(self, packet, size)
+	self.health = packet:r_float()
+	self.direction = packet:r_vec3()
+end
+
+function se_turret_mgun:STATE_Write(packet)
+	cse_alife_helicopter.STATE_Write(self, packet)
+	packet:w_float(self.health)
+	packet:w_vec3(self.direction)
+end
+
+
+class "turret_mount_delay" (ogse_qt.quick_timer)
+function turret_mount_delay:__init(delay) super(delay)
+	level.disable_input()
+end
+function turret_mount_delay:taction()
+	level.enable_input()
+end
+
+function on_item_use(item)
+	--if item == nil or alife():object(item:id()) == nil then return end
+	local section = item:section()
+
+	if section == "turret_pkm" then -- если это турель
+		create_stat_pkm_on_actor()
+		soundtrack.pkm_activate()
+		local wnd = level.get_inventory_wnd()
+		if wnd then
+			level.start_stop_menu(wnd, true)
+		end
+		ogse.autohiding_msg("pkm_mounting", 5000)
+		turret_mount_delay(5000):start()
+		return true
+	end
+end
+
+pkm_captured = false
+
+-- таблица соответствий команд и слотов, которые ими активируютс€
+local activation_cmds = {
+	[key_bindings.kWPN_1] = 0,
+	[key_bindings.kWPN_2] = 1,
+	[key_bindings.kWPN_3] = 2,
+	[key_bindings.kWPN_4] = 3,
+	[key_bindings.kWPN_5] = 4,
+	[key_bindings.kWPN_6] = 5,
+	[key_bindings.kWPN_8] = 8,
+}
+-- таймер, который ждёт активации оружия, чтобы переключить активный слот на заданный
+class "activate_slot_after_wpn_restore" (ogse_qt.quick_timer)
+function activate_slot_after_wpn_restore:__init(slot_num)
+	self.slot_num = slot_num
+end
+function activate_slot_after_wpn_restore:condition()
+	if db.actor:active_slot() == 255 then
+		return false
+	end
+	db.actor:activate_slot(self.slot_num)
+	return true
+end
+-- специальный управляющий таймер. Активируется при использовании пулемёта,
+-- после чего подписывается на события нажатия клавиш, что использует для включени/выключения огня
+-- событие проверки выхода также использует дл€ контроля направления ствола
+class "turret_control" (ogse_qt.quick_timer)
+function turret_control:__init(turret_binder)
+	self.binder = turret_binder
+	self.turret = turret_binder.object
+	self.turret:set_tip_text("")
+	self.heli = self.turret:get_helicopter()
+	self.heli.m_use_mgun_on_attack = false
+	bind_stalker.hide_weapon()
+	self.initial_actor_pos = db.actor:position()
+	pkm_captured = self.turret:id()
+	self.key_down_desc = {signal = "on_key_down", self = self, fun = self.on_key_down}
+	ogse_signals.get_mgr():subscribe(self.key_down_desc)
+	self.key_up_desc = {signal = "on_key_up", self = self, fun = self.on_key_up}
+	ogse_signals.get_mgr():subscribe(self.key_up_desc)
+end
+-- проверка условия окончания использования
+function turret_control:condition()
+	-- если актор сошёл с места, где стоял
+	if db.actor:position():distance_to(self.initial_actor_pos) > 0.1 then
+		return true
+	elseif self.stop_using then -- если нажал клавишу переключения слотов
+		return true
+	elseif not self.binder.alive then -- если турель загнулась
+		return true
+	elseif not db.actor:alive() then -- если сам актор помре
+		return true
+	end
+	-- продолжаем использовать, синхронизируем направление ствола и взгляда актора
+	local dev = device()
+	local dist = math.min(math.max(3, level.get_target_dist()), 50)
+	local target_pos = dev.cam_pos:mad(dev.cam_dir,dist)
+	self.heli:SetEnemy(target_pos)
+	return false
+end
+function turret_control:start_fire()
+	self.heli.m_use_mgun_on_attack = true
+end
+function turret_control:stop_fire()
+	self.heli.m_use_mgun_on_attack = false
+	self.heli:ClearEnemy()
+end
+function turret_control:on_key_down(key, bind)
+	if level.main_input_receiver() then return end
+	if bind == key_bindings.kWPN_FIRE then -- начинаем стрельбу
+		self:start_fire()
+	elseif activation_cmds[bind] then -- переключаемся на своё оружие
+		activate_slot_after_wpn_restore(activation_cmds[bind]):start()
+		self.stop_using = true
+	end
+end
+function turret_control:on_key_up(key, bind)
+	if level.main_input_receiver() then return end
+	if bind == key_bindings.kWPN_FIRE then -- заканчиваем стрельбу
+		self:stop_fire()
+	end
+end
+-- обработка действий окончания использования пулемёта
+function turret_control:action()
+	-- заканчиваем стрельбу
+	self:stop_fire()
+	-- отписываемся от сигналов клавиш
+	ogse_signals.get_mgr():unsubscribe(self.key_down_desc)
+	ogse_signals.get_mgr():unsubscribe(self.key_up_desc)
+	self.key_down_desc = nil
+	self.key_up_desc = nil
+	-- возвращаем актора в исходное состояние
+	bind_stalker.restore_weapon()
+	-- возвращаем турель в исходное состояние
+	pkm_captured = false
+	self.turret:set_tip_text("tip_pkm_use")
+end
+
+-- биндер турели
+function bind(obj)
+	obj:bind_object(pkm_binder(obj))
+end
+
+class "pkm_binder" (object_binder)
+
+function pkm_binder:__init(obj, ini) super(obj)
+	self.object:set_tip_text("tip_pkm_use")
+end
+
+function pkm_binder:reinit()
+	db.storage[self.object:id()] = {}
+	self.st = db.storage[self.object:id()]
+	self.heli = self.object:get_helicopter()
+	self.object:set_callback(callback.use_object, self.on_use, self)
+	self.heli.m_use_mgun_on_attack = false
+end
+
+function pkm_binder:net_spawn(data)
+	self.se_obj = alife():object(self.object:id())
+	self.heli:SetfHealth(self.se_obj.health)
+	--self.alive = self.se_obj.health > 0.005
+	--if self.se_obj.setup_direction then
+		--log1("setup_direction")
+	--end
+	return true
+end
+
+function pkm_binder:update(delta)
+	self:check_health()
+end
+-- событие использования
+function pkm_binder:on_use(obj,who)
+	if pkm_captured then -- если используем сейчас, 
+		return -- то ничего не делаем
+	elseif GetShift() then -- если при нажатом Shift
+		alife():release(self.se_obj, true) -- то сворачиваем обратно в инвентарь
+		ogse.spawn_item_in_inv("turret_pkm") 
+		soundtrack.pkm_activate()
+		ogse.autohiding_msg("pkm_dismounting", 5000)
+		turret_mount_delay(5000):start()
+		--
+	else -- стандартный случай, просто нажали 'F'
+		turret_control(self):start() -- переключаемся в режим использования
+	end
+end
+
+function pkm_binder:check_health()
+	self.alive = self.heli:GetfHealth() > 0.005
+	if not self.alive then
+		self.heli:ClearEnemy()
+		self.heli:Die()
+		ogse_st_mgr.start_gtimer(nil, math.random(150, 300), script_name()..".release_pkm", self.object:id())
+	end
+end
+
+function release_pkm(id)
+	local sobj = alife():object(id)
+	if sobj then
+		alife():release(sobj, true)
+	end
+end
+
+function create_stat_pkm_on_actor()   ----  это для переносной турели
+	local level_vertex_id = db.actor:level_vertex_id()
+	local game_vertex_id = db.actor:game_vertex_id()
+	local position = db.actor:position()
+	local sim = alife()
+	local se_obj = alife():create("stationary_pkm", position:add(vector():set(0,1.05,0)), level_vertex_id, game_vertex_id)
+	se_obj.setup_direction = device().cam_dir
+	local pk = get_netpk(se_obj, 1)
+	ASSERT( pk:isOk(), "can't read netpacket of %s", se_obj:name() )
+	local data = pk:get()
+	data.startup_animation = 'idle'
+	data.engine_sound = '$no_sound'
+	pk:set(data)
+end
+
+
+function create_stat_pkm(level_name, position)     ----------   а это дл€ посто€нных
+	local level_vertex_id, game_vertex_id = utils2.get_top_graph_ids(level_name)
+	local se_obj = alife():create("stationary_pkm", position:add(vector():set(0,1.05,0)), level_vertex_id, game_vertex_id)
+	local pk = get_netpk(se_obj, 1)
+	ASSERT( pk:isOk(), "can't read netpacket of %s", se_obj:name() )
+	local data = pk:get()
+	data.startup_animation = 'idle'
+	data.engine_sound = '$no_sound'
+	pk:set(data)
+end

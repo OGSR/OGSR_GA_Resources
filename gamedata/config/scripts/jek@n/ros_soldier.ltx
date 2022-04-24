@@ -1,0 +1,116 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = remark@start_way
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@ros_soldier_threshold
+
+[walker@begin]
+path_walk = ros_soldier_walk1
+path_look = ros_soldier_look1
+on_timer = 10 | walker@talk
+
+[walker@talk]
+path_walk = ros_soldier_walk1
+path_look = ros_soldier_look1
+meet = meet
+danger = danger_condition
+combat_ignore_cond = always
+
+[remark@start_way]
+anim = binocular
+no_move = true
+target = 605
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_info = {+ros_soldier_start_search} walker@run_through_tunnel
+
+[walker@run_through_tunnel]
+path_walk = bar_ecolog_crush_torrid_walk_reversed
+path_look = ros_soldier_look3
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+invulnerable = true
+on_signal = arrived |walker@wait_for_killers
+
+[walker@run_to_constructions]
+path_walk = ros_soldier_walk3
+path_look = ros_soldier_look3
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal = arrived | walker@wait_for_killers %+ros_sold_near_constructions%
+
+[walker@wait_for_killers]
+path_walk = ros_soldier_walk3
+path_look = ros_soldier_look3
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+ros_sold_no_killers} walker@run_to_first_spot
+
+[walker@run_to_first_spot]
+path_walk = ros_soldier_walk4
+path_look = ros_soldier_look4
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal = arrived | walker@first_spot %+ros_sold_first_spot%
+
+[walker@first_spot]
+path_walk = ros_soldier_walk4
+path_look = ros_soldier_look4
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+ros_sold_first_spot_searched} walker@run_to_second_spot
+
+[walker@run_to_second_spot]
+path_walk = ros_soldier_walk5
+path_look = ros_soldier_look5
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal = arrived | walker@run_to_platform
+
+[walker@run_to_platform]
+path_walk = ros_soldier_walk6
+path_look = ros_soldier_look6
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal = arrived | walker@wait_for_actor %+ros_sold_second_spot%
+
+[walker@wait_for_actor]
+path_walk = ros_soldier_walk6
+path_look = ros_soldier_look6
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+ros_sold_talked_with_actor} walker@run_to_bunker
+
+[walker@run_to_bunker]
+path_walk = ros_soldier_walk1
+path_look = ros_soldier_look1
+meet = no_meet
+invulnerable = true
+danger = danger_condition
+combat_ignore_cond = always
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@ros_soldier_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+ros_soldier_dead%
+

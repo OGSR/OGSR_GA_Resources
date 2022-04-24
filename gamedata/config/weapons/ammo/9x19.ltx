@@ -1,0 +1,58 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[ammo_9x19_fmj]:ammo_base
+$spawn			= "weapons\ammo\ammo_9x19_fmj" ; option for Level Editor
+$prefetch 		= 64
+visual                  = dynamics\weapons\wpn_ammo\ammo_9x19_fmj.ogf
+description		= gunsl_ammo_9x19_fmj_descr
+inv_name		= gunsl_ammo_9x19_fmj
+inv_name_short	= gunsl_ammo_9x19_fmj_short
+inv_grid_width	= 1
+inv_grid_height	= 1
+inv_grid_x		= 15
+inv_grid_y		= 12
+
+cost			= 310
+box_size		= 25
+inv_weight		= 0.3		;+(12,0*25=300.0г.), -(12,0*20=240.0г.), -(12,0*50=600.0г.)
+
+k_disp			= 2.0
+k_hit			= 1.55				;1.0
+k_impulse		= 1.65				;1.5
+;k_pierce		= 1.0				;1.1
+;impair			= 1.1
+wm_size         = 0.0919
+;tracer			= on
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;+Р+/ПС (7Н21)
+[ammo_9x19_pbp]:ammo_base
+$spawn			= "weapons\ammo\ammo_9x19_pbp" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_9x19_pbp.ogf
+description		= gunsl_ammo_9x19_pbp_descr
+inv_name		= gunsl_ammo_9x19_pbp
+inv_name_short	= gunsl_ammo_9x19_pbp_short
+inv_grid_width	= 1
+inv_grid_height	= 1
+inv_grid_x		= 14
+inv_grid_y		= 12
+
+cost			= 330
+box_size		= 25
+inv_weight		= 0.3		;+(12,0*25=300.0г.), -(12,0*20=240.0г.), -(12,0*50=600.0г.)
+
+k_disp			= 2.0
+k_hit			= 1.65				;1.5
+k_impulse		= 1.7				;2.5
+k_pierce		= 1.1				;1.0
+impair			= 1.45
+wm_size         = 0.0919
+;tracer			= on
+;explosive		= on
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;ПБП (7Н31) для ГШ-18
+;box_size		= 34
+;k_disp			= 2
+;k_hit			= 1.5
+;k_impulse		= 1.8
+;k_pierce		= 1.1
+;impair			= 2.5
+;wm_size         = 0.0919

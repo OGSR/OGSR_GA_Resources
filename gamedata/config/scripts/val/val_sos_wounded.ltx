@@ -1,0 +1,38 @@
+[logic]
+active        = remark@wal_sos_wounded
+on_death      = death
+combat_ignore = combat_ignore
+
+[death]
+on_info = %+val_sos_dead%
+
+[remark@wal_sos_wounded]
+anim               	= wounded_heavy
+no_move 			= true
+no_rotate 			= true
+snd 				= help
+reactions 			= ignore
+meet               	= meet@wal_sos_wounded
+wounded				= wounded@wal_sos_wounded
+danger 				= danger_condition@wal_sos_wounded
+on_info            	= {+val_sos_got_medkit} nil
+combat_ignore_cond 	= always
+
+[danger_condition@wal_sos_wounded]
+ignore_distance = 1
+
+[meet@wal_sos_wounded]
+use = true
+use_wpn = true
+meet_dialog    = val_sos_dialog
+precond			= visibility
+
+[wounded@wal_sos_wounded]
+hp_state          = 50|wounded_heavy@help
+hp_state_see      = 50|wounded_heavy@help_see
+hp_victim         = 50|nil
+hp_cover          = 50|false
+hp_fight          = 50|false
+help_start_dialog = val_sos_dialog
+
+[combat_ignore]

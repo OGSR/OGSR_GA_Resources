@@ -1,0 +1,69 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker
+; combat_ignore = combat_ignore
+on_death = death
+; on_combat = combat
+threshold = threshold@dolg_palach2_threshold
+
+[combat]
+combat_type = camper
+
+[walker]
+path_walk = dolg_palach2_walk
+path_look = dolg_palach_look
+meet = no_meet
+danger = danger_condition
+on_info = {+rasstrel_start} walker@rasstr1
+
+[walker@rasstr1]
+path_walk = dolg_palach2_walk
+path_look = dolg_palach_look
+meet = no_meet
+danger = danger_condition
+on_timer = 900 | walker@rasstr2 %=rasstrel_start2%
+
+[walker@rasstr2]
+path_walk = dolg_palach2_walk
+path_look = dolg_palach_look
+meet = no_meet
+danger = danger_condition
+on_timer = 900 | walker@rasstr1 %=rasstrel_start2%
+
+
+
+
+
+[camper]
+path_walk = dolg_palach2_walk
+path_look = dolg_palach_fire
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+; def_state_campering = threat
+; def_state_campering_fire = threat_sniper_fire
+attack_sound = dolg_sergant_speech
+no_retreat = true
+radius = 50
+shoot = always
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_grenade = 0
+ignore_distance_corpse = 0
+ignore_distance_hit = 0
+ignore_distance_sound = 0
+danger_inertion_time = 1
+
+[threshold@dolg_palach2_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+dolg_palach2_dead%
+

@@ -1,0 +1,33 @@
+
+-- дл€ получени€ режима подствольника
+function get_gl_mode(wpn) return wpn:get_gl_mode() end
+
+
+-- дл€ получени€ статуса установленных аддонов
+-- прицел
+function get_scope_status(wpn) return get_u32(wpn:section(), "scope_status") end
+-- глушитель
+function get_silencer_status(wpn) return get_u32(wpn:section(), "silencer_status") end
+-- подствольник
+function get_grenade_launcher_status(wpn) return get_u32(wpn:section(), "grenade_launcher_status") end
+
+
+-- флаги аддонов
+addons_flags = { --ѕо уму надо это читать из движка
+	["scope"]    = 1,
+	["gl"]       = 2,
+	["silencer"] = 4,
+}
+
+
+-- дл€ получени€ флагов установленных аддонов
+-- прицел
+function get_scope_flag(wpn) return bit_and(wpn:get_addon_flags(), addons_flags.scope) ~= 0 end
+-- подствольник
+function get_grenade_launcher_flag(wpn) return bit_and(wpn:get_addon_flags(), addons_flags.gl) ~= 0 end
+-- глушитель
+function get_silencer_flag(wpn) return bit_and(wpn:get_addon_flags(), addons_flags.silencer) ~= 0 end
+
+
+-- получение состо€ни€ прицеливани€
+function is_aiming_complete(wpn) return wpn:get_weapon().zoom_rotation_factor >= 1 end

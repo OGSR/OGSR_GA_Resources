@@ -1,0 +1,63 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = kamp
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@loader_threshold
+on_hit = hit
+
+[patrol]
+;path_walk = test_place_1
+;path_look = test_place_1
+path_walk = gar_dolg_blokpost_zoneguard_walk1
+path_look = gar_dolg_blokpost_zoneguard_walk1
+commander           = true
+formation           = back
+combat_ignore_cond = always
+danger = danger_condition
+
+[walker]
+path_walk = test_place_1
+path_look = test_place_1
+combat_ignore_cond = always
+danger = danger_condition
+
+[kamp]
+center_point = test_place_1
+radius = 3 
+def_state_moving = sprint
+danger = danger_condition
+meet = no_meet
+
+[remark]
+anim = wait
+target = nil
+no_move = true
+;meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_grenade = 0
+ignore_distance_corpse = 0
+ignore_distance_hit = 0
+ignore_distance_sound = 0
+danger_inertion_time = 1
+
+[threshold@loader_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+caravan_loader_dead%
+
+[hit]
+on_info = {=hit_by_actor} %+caravan_hit_by_actor =caravan_hit_by_actor1 =caravan_hit_by_actor2%
+

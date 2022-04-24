@@ -1,0 +1,76 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker
+on_death = death
+
+[walker]
+path_walk = freezer_bandos_walk1
+path_look = freezer_bandos_look1
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_signal = arrived | remark@smeh2 %=make_invulnerable%
+
+[remark@smeh2]
+anim = smeh
+snd = freezer_smeh
+snd_anim_sync = true
+target = 7084
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_signal = action_end | walker@idle
+on_info = {+bro2_on_place} walker@house
+
+[walker@idle]
+path_walk = freezer_bandos_walk1
+path_look = freezer_bandos_look1
+def_state_moving = sprint
+combat_ignore_cond = always
+danger = danger_condition
+on_timer = 30000 | remark@smeh2
+on_info = {+bro2_on_place} walker@house
+on_info2 = {+freezer_bandos_kulg_band_info =dist_to_actor_ge(20)} %=release%
+on_info3 = {+freezer_bandos_kulg_band_info2 =dist_to_actor_ge(20)} %=release%
+
+
+[walker@house]
+path_walk = freezer_bandos_walk2
+path_look = brother_house_camp
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | remark@beat1  %+freez_band_terror_start =unmake_invulnerable%
+
+[remark@beat1]
+anim = boxing
+no_move = true
+target = 7085
+meet = no_meet
+combat_ignore_cond = always
+reactions  = ignore
+on_info = {+bro2_finish} camper@house, {+zona_brother2_dead} nil
+on_timer = 2600 | remark@beat2
+
+[remark@beat2]
+anim = punch
+snd = freezer_terror
+no_move = true
+target = 7085
+meet = no_meet
+combat_ignore_cond = always
+reactions  = ignore
+on_info = {+bro2_finish} camper@house, {+zona_brother2_dead} nil
+on_timer = 2600 | remark@beat1
+
+
+[camper@house]
+path_walk = brother_house_camp
+path_look = brother_house_camp
+def_state_campering = sit
+radius = 3
+
+[death]
+on_info = %+freezer_bandos_dead%

@@ -1,0 +1,55 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+threshold = threshold@dar_bridge_kulgband_man2_threshold
+
+[walker@begin]
+path_walk =	dar_bridge_kulgband_man2_walk
+path_look =	dar_bridge_kulgband_assist_look
+show_spot = false
+on_timer = 1|walker@1 %=make_invulnerable%
+
+
+[walker@1]
+path_walk =	dar_bridge_kulgband_man2_walk
+path_look =	dar_bridge_kulgband_assist_look
+combat_ignore_cond = always
+show_spot = false
+meet = no_meet
+on_info = {+bridge_kulgband_man_shoot2} walker@2
+
+[walker@2]
+path_walk =	dar_bridge_kulgband_man2_walk
+path_look =	dar_bridge_kulgband_assist_look_shoot
+combat_ignore_cond = always
+show_spot = false
+meet = no_meet
+on_timer = 3000|walker@3 %=dar_bridge_kulgband_man2shoot%
+
+[walker@3]
+path_walk =	dar_bridge_kulgband_man2_walk
+path_look =	dar_bridge_kulgband_assist_look_shoot
+combat_ignore_cond = always
+show_spot = false
+meet = no_meet
+on_info = {=dist_to_actor_ge(50) +bridge_kulgband_man_info} %=release%
+
+
+
+
+
+
+
+[threshold@dar_bridge_kulgband_man2_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+
+
+
+
+
+
+

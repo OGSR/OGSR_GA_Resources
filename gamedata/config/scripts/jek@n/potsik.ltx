@@ -1,0 +1,27 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = remark
+combat_ignore = combat_ignore
+
+[remark@punch1]
+snd = potsik_talk
+no_move = true
+target = actor
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+;on_signal = sound_end | nil
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[combat_ignore]
+combat_ignore = always
+
+
+

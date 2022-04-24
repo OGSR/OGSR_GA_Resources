@@ -1,0 +1,46 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+function has_dolg_bribe(actor, npc)
+    return actor:money() >= 100000
+end
+
+function has_dolg_bribe1(actor, npc)
+    return actor:money() >= 40000
+end
+
+function give_dolg_bribe(actor, npc)
+    dialogs.relocate_money(npc, 100000, "out")    
+end
+
+function give_dolg_thanks(actor, npc)
+    dialogs.relocate_money(actor, 5200, "in")    
+end
+
+function give_dolg_bribe1(actor, npc)
+    dialogs.relocate_money(npc, 40000, "out")    
+end
+
+function hellcar_payment (stalker, player)
+    dialogs.relocate_money(stalker, 3500, "in")
+    db.actor:give_info_portion("gar_hellcar_thanks")
+end
+
+function seryi_payment (stalker, player)
+	if not has_alife_info("agr_krot_task_complete") and
+	not has_alife_info("agr_krot_band_done") then
+		dialogs.relocate_money(stalker, 3500, "in")
+	end
+end
+
+function blokpost_pass (actor, npc)
+     if dialogs.actor_in_dolg() == true or
+          has_alife_info("gar_free_pass")
+     then
+          return true
+     end
+     return false
+end
+
+function give_money_from_newbie(first_speaker, second_speaker)    
+    dialogs.relocate_money(first_speaker, 2200, "in")
+end

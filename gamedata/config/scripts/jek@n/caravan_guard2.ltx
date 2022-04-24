@@ -1,0 +1,44 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = follower
+on_death = death
+combat_ignore = combat_ignore
+threshold = threshold@caravan_guard2_threshold
+
+[patrol@1]
+;path_walk = test_place_1
+;path_look = test_place_1
+path_walk = gar_dolg_blokpost_zoneguard_walk1
+path_look = gar_dolg_blokpost_zoneguard_walk1
+commander           = false
+formation           = around
+combat_ignore_cond = always
+danger = danger_condition
+on_info = {+caravan_loader_dead} nil, {+caravan_hit_by_actor} %killactor%
+
+[follower]
+leader = 7131
+;leader = logic@caravan_loader
+formation_line = true
+distance = 1
+anim_sprint = sprint
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+caravan_loader_dead} nil, {+caravan_hit_by_actor} %killactor%
+
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@caravan_guard2_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+caravan_guard2_dead%

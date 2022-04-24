@@ -1,0 +1,128 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+on_death = death
+
+[walker@begin]
+path_walk =	city_kulgband_glavar_walk1
+path_look =	city_kulgband_kamp_point
+on_timer = 1|walker@1 %=set_neutral =make_invulnerable%
+
+[walker@1]
+path_walk =	city_kulgband_glavar_walk1
+path_look =	city_kulgband_kamp_point
+combat_ignore_cond = always
+on_info = {+cit_kulgband_goto_klondike} walker@2
+
+
+;Двигаем к месту засады:
+[walker@2]
+path_walk =	city_kulgband_glavar_walk2
+path_look =	city_kulgband_glavar_look2
+combat_ignore_cond = always
+meet = no_meet
+on_signal     = arrived|walker@3 %=spawn_cit_kulgband_ambush2 =play_snd(characters_voice\scenario\request_help_vs_mutant_1_pda)%
+
+[walker@3]
+path_walk =	city_kulgband_glavar_walk2
+path_look =	city_kulgband_glavar_look2
+;combat_ignore_cond = always
+meet = no_meet
+on_timer = 10000|walker@4 %+cit_kulgband_glavar_to_klondike%
+
+;Идём к Клондайку:
+[walker@4]
+path_walk =	city_kulgband_glavar_walk3
+path_look =	city_kulgband_glavar_look3
+meet = no_meet
+on_info = {+cit_kulgband_goto_klondike} walker@5
+
+[walker@5]
+path_walk =	city_kulgband_glavar_walk3
+path_look =	city_kulgband_glavar_look3
+combat_ignore_cond = always
+meet = no_meet
+on_signal     = arrived|walker@6
+
+[walker@6]
+path_walk =	city_kulgband_glavar_walk3
+path_look =	city_kulgband_glavar_look3
+combat_ignore_cond = always
+on_info = {+klondike_pre_acess} walker@7 %=disable_ui =run_postprocess(agr_u_fade)%
+
+;Влезаем в Клондайк:
+[walker@7]
+path_walk =	city_kulgband_glavar_look3
+path_look =	city_kulgband_glavar_walk3
+combat_ignore_cond = always
+meet = no_meet
+on_signal     = arrived|walker@8
+
+[walker@8]
+path_walk =	city_kulgband_glavar_look3
+path_look =	city_kulgband_glavar_walk3
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 2000|walker@9 %=actor_set_klondike_direction%
+
+[walker@9]
+path_walk =	city_kulgband_glavar_look3
+path_look =	city_kulgband_glavar_walk3
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 2000|remark@1
+
+[remark@1]
+anim = artefact_activation
+snd = cit_kulgband_glavar_klondike_action
+target = 7351
+meet = no_meet
+no_move = true
+combat_ignore_cond = always
+on_signal = action_end | walker@10 %+klondike_acess%
+
+[walker@10]
+path_walk =	city_kulgband_glavar_look3
+path_look =	city_kulgband_glavar_walk3
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 4000|walker@11 %+klondike_on%
+
+[walker@11]
+path_walk =	city_kulgband_glavar_look3
+path_look =	city_kulgband_glavar_walk3
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 29000|remark@2
+
+[remark@2]
+anim = dynamite
+snd = cit_kulgband_glavar_klondike_action2
+target = 7351
+meet = no_meet
+no_move = true
+combat_ignore_cond = always
+on_signal = action_end | walker@12 %=disable_ui =run_postprocess(agr_u_fade)%
+
+[walker@12]
+path_walk =	city_kulgband_glavar_walk3
+path_look =	city_kulgband_glavar_look3
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 2000|walker@13 %=delete_klondike_arts2 =enable_ui%
+
+[walker@13]
+path_walk =	city_kulgband_glavar_walk3
+path_look =	city_kulgband_glavar_look3
+combat_ignore_cond = always
+
+
+[death]
+on_info = {+klondike_on} %+cit_kulgband_glavar2_dead =give_items(ds_glavar_bag)%
+
+
+
+
+

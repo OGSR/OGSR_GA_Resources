@@ -1,0 +1,68 @@
+[logic]
+active = sr_idle@wait_begin
+
+[sr_idle@wait_begin]
+on_info = {+bar_arena_fight_begin} sr_idle@begin
+
+[sr_idle@begin]
+on_info = {+aem_bonus_60s} sr_timer@60, {+aem_bonus_50s} sr_timer@50, {+aem_bonus_40s} sr_timer@40, {+aem_bonus_30s} sr_timer@30, {+aem_bonus_20s} sr_timer@20, {+aem_bonus_15s} sr_timer@15, {+aem_bonus_10s} sr_timer@10, {+aem_bonus_5s} sr_timer@5, sr_idle@wait_finish
+
+[sr_timer@60]
+type = dec
+start_value = 60000
+on_value = 50000|%+aem_10s%|48000|%-aem_10s%|40000|%+aem_20s%|38000|%-aem_20s%|30000|%+aem_30s%|28000|%-aem_30s%|20000|%+aem_40s%|18000|%-aem_40s%|10000|%+aem_50s%|8000|%-aem_50s%|0|sr_idle@timeover
+on_info = {+aem_fight_done} sr_idle@break
+
+[sr_timer@50]
+type = dec
+start_value = 50000
+on_value = 40000|%+aem_10s%|38000|%-aem_10s%|30000|%+aem_20s%|28000|%-aem_20s%|20000|%+aem_30s%|18000|%-aem_30s%|10000|%+aem_40s%|8000|%-aem_40s%|0|sr_idle@timeover
+on_info = {+aem_fight_done} sr_idle@break
+
+[sr_timer@40]
+type = dec
+start_value = 40000
+on_value = 30000|%+aem_10s%|28000|%-aem_10s%|20000|%+aem_20s%|18000|%-aem_20s%|10000|%+aem_30s%|8000|%-aem_30s%|0|sr_idle@timeover
+on_info = {+aem_fight_done} sr_idle@break
+
+[sr_timer@30]
+type = dec
+start_value = 30000
+on_value = 20000|%+aem_10s%|18000|%-aem_10s%|10000|%+aem_20s%|8000|%-aem_20s%|0|sr_idle@timeover
+on_info = {+aem_fight_done} sr_idle@break
+
+[sr_timer@20]
+type = dec
+start_value = 20000
+on_value = 10000|%+aem_10s%|8000|%-aem_10s%|0|sr_idle@timeover
+on_info = {+aem_fight_done} sr_idle@break
+
+[sr_timer@15]
+type = dec
+start_value = 15000
+on_value = 5000|%+aem_10s%|3000|%-aem_10s%|0|sr_idle@timeover
+on_info = {+aem_fight_done} sr_idle@break
+
+[sr_timer@10]
+type = dec
+start_value = 10000
+on_value = 0|sr_idle@timeover
+on_info = {+aem_fight_done} sr_idle@break
+
+[sr_timer@5]
+type = dec
+start_value = 5000
+on_value = 0|sr_idle@timeover
+on_info = {+aem_fight_done} sr_idle@break
+
+
+[sr_idle@timeover]
+on_info = sr_idle@wait_finish %+aem_timeover +aem_fight_done =aem_draw%
+
+
+[sr_idle@break]
+on_info = sr_idle@wait_finish %-aem_10s -aem_20s -aem_30s -aem_40s -aem_50s%
+
+
+[sr_idle@wait_finish]
+on_info = {-bar_arena_fight_begin} sr_idle@wait_begin

@@ -1,0 +1,111 @@
+[smart_terrains]
+none = true
+
+
+[logic]
+active = walker
+;combat_ignore = combat_ignore
+danger = danger_ignore
+on_death = death
+threshold = threshold@patruln_threshold
+on_hit = hit
+
+
+[walker]
+path_walk =	patruln_zabor_walk
+path_look =	patruln_zabor_look
+def_state_moving = walk
+meet = meet@kolbasa_i_batony
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+on_info = {+kulg_band_hutor_attacked} %=killactor%
+on_info2 = {+ds_telohr_2_go_out -ds_glavar_blamed} walker@1
+on_timer = 50000 | walker1
+
+
+[walker1]
+path_walk =	patruln_kriltso_walk
+path_look =	patruln_kriltso_look
+def_state_moving = walk
+meet = meet@kolbasa_i_batony
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+on_info = {+kulg_band_hutor_attacked} %=killactor%
+;on_info2 = {+kulg_band_meet_speech_loose} walker@goodbye %=make_invulnerable%
+on_info2 = {+ds_telohr_2_go_out -ds_glavar_blamed} walker@1
+on_timer = 50000 | walker2
+
+
+[walker2]
+path_walk =	patruln_sortir_walk
+path_look =	patruln_sortir_look
+def_state_moving = walk
+on_info = {+kulg_band_hutor_attacked} %=killactor%
+;on_info2 = {+kulg_band_meet_speech_loose} walker@goodbye %=make_invulnerable%
+on_timer = 50000 | walker
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+on_info2 = {+ds_telohr_2_go_out -ds_glavar_blamed} walker@1
+
+
+; Секция ожидания перед удалением:
+[walker@goodbye]
+path_walk =	patruln_sortir_walk
+path_look =	patruln_sortir_look
+combat_ignore_cond = always
+on_actor_dist_ge_nvis = 30|%=release%
+
+
+; У крыльца:
+[walker@1]
+path_walk =	patruln_kriltso_walk1
+path_look =	patruln_kriltso_look1
+def_state_moving = walk
+meet = no_meet
+on_info = {+ds_glavar_blamed} walker
+
+
+
+
+
+
+[meet@kolbasa_i_batony]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 4|actor
+victim_wpn = 4|actor
+meet_state = 4|wait@bandit_idle|1|wait@bandit_idle
+meet_state_wpn = 4|wait@bandit_idle|1|wait@bandit_idle
+
+
+[danger_ignore]
+ignore_distance = 10
+
+
+[threshold@patruln_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+
+[combat_ignore]
+combat_ignore_cond = always
+
+
+[death]
+on_info = %+ds_patruln_dead%
+
+
+[hit]
+on_info = {=hit_by_actor} %+kulg_band_hutor_attacked%
+
+
+
+
+
+
+
+
+
+
+
+
+
+

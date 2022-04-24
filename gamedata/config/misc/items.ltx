@@ -1,0 +1,1350 @@
+#include "food.ltx"
+#include "medicin.ltx"
+#include "detectors\detectors.ltx"
+#include "hud_items\pda.ltx"
+
+[attch_a]:identity_immunities ;то, что неписи держат в руках
+GroupControlSection	= spawn_group
+discovery_dependency	=
+cform               = skeleton
+class				= II_ATTCH
+auto_attach			= false
+
+[antir_f]:identity_immunities ;то, что ГГ может использовать
+GroupControlSection	= spawn_group
+discovery_dependency	=
+cform               = skeleton
+class				= II_ANTIR
+; eatable item
+eat_health 			= 0
+eat_satiety 		= 0
+eat_power 			= 0
+eat_radiation 		= 0
+eat_alcohol 		= 0
+wounds_heal_perc 	= 0
+eat_portions_num 	= 1
+; food item
+animation_slot  	= 4
+;hud item
+hud 				= wpn_vodka_hud
+
+;-------------------------------------------------------
+; Музыкальный инструмент
+;-------------------------------------------------------
+[guitar_a]:attch_a
+$spawn				= "food and drugs\guitar_a"
+visual              = Equipments\item_guitar.ogf
+description			= enc_equipment_food_guitar1
+cost				= 700
+inv_name			= guitar
+inv_name_short		= guitar
+inv_weight			= 1.5
+inv_grid_width		= 4
+inv_grid_height		= 2
+inv_grid_x			= 10
+inv_grid_y			= 19
+attach_angle_offset		= -1.651084, -1.341824, 1.200789
+attach_position_offset	= 0.077492, -0.030020, 0.090059
+attach_bone_name	= bip01_l_hand
+
+[guitar_f]:antir_f
+$spawn				= "food and drugs\guitar_f"
+visual              = equipments\item_guitar.ogf
+description         = enc_equipment_food_guitar1
+cost				= 700
+inv_name			= guitar
+inv_name_short		= guitar
+inv_weight			= 1.5
+inv_grid_width		= 4
+inv_grid_height		= 2
+inv_grid_x			= 10
+inv_grid_y			= 19
+
+[harmonica_a]:attch_a
+$spawn					= "food and drugs\harmonica_a"
+visual                  = Equipments\item_harmonica.ogf
+description             = enc_equipment_food_harmonica1
+cost					= 200
+inv_name				= harmonica
+inv_name_short			= harmonica
+inv_weight				= 0.15
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 11
+inv_grid_y				= 2
+attach_angle_offset		= 0.000000, -1.204452, -1.262921
+attach_position_offset	= 0.081856, -0.035081, 0.011694
+attach_bone_name		= bip01_l_hand
+
+[harmonica_f]:antir_f
+$spawn					= "food and drugs\harmonica_f"
+visual                  = equipments\item_harmonica.ogf
+description             = enc_equipment_food_harmonica1
+cost					= 200
+inv_name				= harmonica
+inv_name_short			= harmonica
+inv_weight				= 0.15
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 11
+inv_grid_y				= 2
+
+;-------------------------------------------------------
+;	Устройства
+;-------------------------------------------------------
+[binocular_a]:attch_a
+$spawn				= "devices\binocular_a"
+visual              = dynamics\devices\dev_binoculars\dev_binoculars.ogf
+cost				= 0
+inv_name			= "binocular"
+inv_name_short		= "binocular"
+inv_weight			= 0.5
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 12
+attach_angle_offset	= 3.080506,-1.493053,-1.202040   ;устанавливается в радианах Angle*PI/180
+attach_position_offset	        = 0.080000,0.021273,0.100000
+attach_bone_name	= bip01_r_hand
+
+; Рация для НПС (в инвентори идет как сломанная)
+[hand_radio]:attch_a
+$spawn				= "equipment\hand_radio"
+visual              = equipments\item_fmradio.ogf
+description         = enc_equipment_devic_hand_radio1
+cost				= 100
+inv_name			= hand_radio1
+inv_name_short		= hand_radio1
+inv_weight			= 0.2
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 8
+inv_grid_y			= 14
+attach_angle_offset	= -1.5708,0.1919,3.1416    ;устанавливается в радианах Angle*PI/180
+attach_position_offset	= 0.075, 0.066, 0.023
+attach_bone_name	= bip01_l_hand
+
+; Рация для ГГ
+[hand_radio_f]:antir_f
+$spawn				= "devices\hand_radio_f"
+visual              = equipments\item_fmradio.ogf
+description         = enc_equipment_devic_hand_radio
+inv_name			= hand_radio
+inv_name_short		= hand_radio
+inv_weight			= 0.2
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 8
+inv_grid_y			= 14
+cost				= 750
+
+
+[device_torch]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn				= "devices\torch"
+$prefetch 			= 32
+class				= TORCH_S
+cform				= skeleton
+visual				= equipments\light_night.ogf ;ogse\item_fonarik.ogf фонарик советский
+description			= enc_equipment_devic_device-torch1
+cost				= 100
+inv_name			= device-torch
+inv_name_short		= device-torch
+inv_weight			= 0.3
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 12
+
+;вещью нельзя торговать
+can_trade			= true
+
+default_to_ruck = false
+
+position			= 0.35,0.25,0.0
+light_trace_bone	= cone_bone
+attach_angle_offset	= 0, -3.14, 1.6 ;-0.4, 3.14, 1.6 фонарик советский
+attach_position_offset	=  0.12, 0.0, 0.08 ;-0.1, 0, 0.16 фонарик советский
+attach_bone_name		= bip01_head; bip01_spine2 фонарик советский
+auto_attach			= false
+
+night_vision		= off ;Выключаем движковый ПНВ, чтобы избежать дублирования эффектов со скриптовым.
+night_vision_texture		= wpn\wpn_night
+night_vision_effector		= postprocess_night
+
+snd_night_vision_on		= weapons\nv_start
+snd_night_vision_off		= weapons\nv_off
+snd_night_vision_idle		= weapons\nv_loop
+snd_night_vision_broken		= weapons\nv_off
+
+night_vision_recharge_time	= 6		;(c) время зарядки аккамулятора
+night_vision_recharge_time_min	= 2		;(c) мин. время зарядки аккамулятора, после которого уст-во уже может работать
+night_vision_discharge_time	= 20	;(c) время разрядки (работы) устройства после полной зарядки
+slot				= 9
+disabled_maps			= ai_test,ai_test2, andy_test_
+
+[device_torch_bad]:device_torch
+visual				= equipments\light_night_bad.ogf
+
+; Начало описания детекторов
+[detector_simple]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn 				= "devices\detector_simple"
+;$prefetch 			= 32
+class				= D_SIMDET
+cform				= skeleton
+visual				= equipments\item_datchik1.ogf
+description			= enc_equipment_devic_detect1
+radius				= 10	;15
+buzzer_radius		= 1.5
+noise				= zone_mosquito_bald       ;detectors\geiger_noise_loop
+buzzer				= zone_mosquito_bald       ;detectors\DA-2_alarm_loop
+slot				= 8
+ef_detector_type	= 1
+
+inv_name			= detect
+inv_name_short		= detect
+inv_weight			= 0.1
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 9
+inv_grid_y			= 14
+cost				= 1500
+belt				= false
+default_to_ruck		= true
+
+detect_actor_radiation = true
+
+;описание распознаваемых детектором зон
+zone_class_1		= zone_mosquito_bald
+zone_sound_1_		= $no_sound
+zone_min_freq_1		= 0.1	;0.5
+zone_max_freq_1		= 40
+
+zone_class_2		= zone_mincer
+zone_sound_2_		= $no_sound
+zone_min_freq_2		= 0.1
+zone_max_freq_2		= 20
+
+zone_class_3		= zone_radioactive
+;zone_sound_3_		= detectors\DA-2_beep1
+zone_sound_3_		= detectors\geiger_1
+zone_sound_3_1		= detectors\geiger_2
+zone_sound_3_2		= detectors\geiger_3
+zone_sound_3_3		= detectors\geiger_4
+zone_sound_3_4		= detectors\geiger_5
+zone_sound_3_5		= detectors\geiger_6
+zone_sound_3_6		= detectors\geiger_1
+zone_sound_3_7		= detectors\geiger_1
+zone_sound_3_8		= detectors\geiger_1
+zone_min_freq_3		= 1
+zone_max_freq_3		= 20
+
+zone_class_4		= zone_gravi_zone
+zone_sound_4_		= $no_sound
+zone_min_freq_4		= 0.5
+zone_max_freq_4		= 30
+
+zone_class_5		= zone_zharka_static
+zone_sound_5_		= $no_sound
+zone_min_freq_5		= 0.5
+zone_max_freq_5		= 30
+
+zone_class_6		= zone_buzz
+zone_sound_6_		= $no_sound
+zone_min_freq_6		= 0.5
+zone_max_freq_6		= 30
+
+zone_class_7		= zone_burning_fuzz
+zone_sound_7_		= $no_sound
+zone_min_freq_7		= 0.5
+zone_max_freq_7		= 30
+
+[detector_mine_finder]:detector_simple
+$spawn 				= "devices\detector_mine_finder"
+visual				= equipments\motion_tracker.ogf 
+description			= enc_equipment_devic_minefinder
+radius				= 7
+
+slot			= 12
+
+inv_name			= detector_minefinder
+inv_name_short		= detector_minefinder_s
+inv_weight			= 0.3
+
+inv_grid_x			= 13
+inv_grid_y			= 27
+cost				= 7500	
+
+attach_angle_offset	= 3.080506,-1.493053,-1.202040   
+attach_position_offset	= 0.080000,0.021273,0.100000
+attach_bone_name	= bip01_r_hand
+
+auto_attach			= false
+
+;описание распознаваемых детектором зон
+
+zone_class_1			= zone_mine_field
+zone_sound_1_			= weapons\mine\mine_find
+zone_min_freq_1			= 1
+zone_max_freq_1			= 50
+zone_map_location_1 	= anomaly_mine_location
+
+zone_class_2			= caps_mine_field
+zone_sound_2_			= weapons\mine\mine_find
+zone_min_freq_2			= 1
+zone_max_freq_2			= 50
+zone_map_location_2 	= anomaly_mine_location
+
+
+[separator]:bread
+$spawn				= 
+inv_grid_width		= 0
+inv_grid_height		= 0
+inv_weight			= 0
+
+
+[bio]:identity_immunities
+hud							= bio_hud
+animation_slot				= 11
+allow_inertion				= true
+attach_angle_offset			= 0,0,0
+attach_position_offset		= -0.1,-0.1,0
+attach_bone_name			= bip01_root
+inv_grid_width				= 1
+inv_grid_height				= 1
+belt						= false
+af_actor_properties			= on
+actor_properties			= on
+
+;скорости увеличения (уменьшения) 
+health_restore_speed		= 0.0			
+radiation_restore_speed 	= 0.0 
+thirst_restore_speed		= 0.0
+satiety_restore_speed		= 0.0
+power_restore_speed			= 0.0
+bleeding_restore_speed		= 0.0
+hit_absorbation_sect		= af_bio
+inventory_radiation		    = 0.0
+
+[bio_hud]
+orientation             	= 0, 0, 0		
+position                	= 0, 0, 0
+visual                  	= dynamics\artefacts\artefact_electra_green_hud.ogf
+anim_idle					= idle
+anim_idle_sprint			= idle_sprint
+anim_hide					= holster
+anim_show					= draw
+anim_activate				= activate
+
+;коэффициенты иммунитета 
+[af_bio]
+burn_immunity = 1.0				
+strike_immunity = 1.0
+shock_immunity = 1.0
+wound_immunity = 1.0		
+radiation_immunity = 1.0
+telepatic_immunity = 1.0
+chemical_burn_immunity = 1.0
+explosion_immunity = 1.0
+fire_wound_immunity = 1.0 
+
+[bioradar]:bio
+GroupControlSection	= spawn_group
+$spawn				= "devices\bioradar"
+
+$prefetch 			= 64
+cform				= skeleton
+class				= ARTEFACT
+
+visual				= detectors\item_bioradar.ogf  
+description			= enc_bioradar
+inv_name			= bioradar
+inv_name_short		= bioradar
+inv_weight 			= 1.0
+
+inv_grid_x			= 50
+inv_grid_y			= 38
+slot			= 12
+
+cost 				= 65000
+jump_height			= 0
+
+;подсветка арта
+lights_enabled = false	
+trail_light_color = 2.5, 2.4, 0
+trail_light_range = 1.0
+belt				= false
+default_to_ruck		= true
+
+; Окончание описания детекторов
+
+;автоаптечка
+[autodoctor]:bio
+GroupControlSection	= spawn_group
+$spawn				= "devices\autodoctor"
+cform				= skeleton
+class				= II_ANTIR ;ARTEFACT
+
+visual				= detectors\auto_doctor.ogf
+description			= enc_autodoctor
+inv_name			= autodoctor
+inv_name_short		= autodoctor
+inv_weight 			= 1.0
+
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 10
+inv_grid_y         = 14
+
+cost 				= 17000
+lights_enabled      = false
+
+belt				= true
+default_to_ruck		= true
+
+; eatable item
+eat_health 			= 0
+eat_satiety 		= 0
+eat_power 			= 0
+eat_radiation 		= 0
+eat_alcohol 		= 0
+wounds_heal_perc 	= 0
+eat_portions_num 	= 10000
+
+;animation_slot = 4
+
+; params for healing.script
+; Merc13
+ad_full_charges	= 20	; Полное количество зарядов препаратов
+ad_health_dlt		= 0.5	; Шаг лечения
+ad_stamina_dlt		= 0.5	; Шаг восстановления энергии
+ad_radiation_dlt	= 0.7	; Шаг уменьшения радиации
+
+ad_health_max_charge     = 10.0	; Максимальный заряд лечения
+ad_power_max_charge      = 10.0	; Максимальный заряд энергии
+ad_antirad_max_charge    = 14.0	; Максимальный заряд антирада
+
+; скорости изменения параметров заданы с учётом фактора времени 6
+; т.е. уменьшены в 6 раз, чтобы соответствовать реальному времени при таком факторе
+; также принимается, что время полного излечения - 20 секунд реального времени
+; таким образом, скорость изменения соответствующего параметра будет:
+; 1.0/(6 * 20.0) == 0.00833
+
+ad_health_restore_rate   = 0.00833	; Шаг лечения (единиц/сек)
+; скорость уменьшения кровотечения будет определяться как (ad_health_restore_rate*ad_bleading_bleeding_rate_k)
+; масштабирубщий фактор введён потому, что кровотечение не ограничено сверху единицой и может быть много больше
+ad_bleading_bleeding_rate_k = 2.0
+ad_power_restore_rate    = 0.00833	; Шаг восстановления энергии (единиц/сек)
+ad_radiation_reduce_rate = 0.00833	; Шаг уменьшения радиации (единиц/сек)
+
+ad_threshold_h		= 0.5	; Порог включения процедуры лечения
+ad_threshold_s		= 0.15; Порог включения процедуры энергонакачки
+ad_threshold_r		= 0.9	; Порог срабатывания процедуры ввода антирада
+ad_threshold_r_min= 0.1	; Мин. доза радиации, при воздействии которой дольше времени max_radiated_seconds, ИДЛК введёт антирад
+ad_max_rad_seconds= 15	; Макс. время воздействия радиации, превышающей значение threshold_r_min, но меньше ad_threshold_r
+
+;картридж для автоаптечки. Заполняет все три системы
+[cartridge_a]:antir_f
+$spawn			= "devices\autodoctor"
+visual			= dynamics\devices\dev_antirad\dev_antirad.ogf
+radius			= 1
+description		= enc_cart_a
+inv_name		= cart_a
+inv_name_short		= cart_a
+inv_weight		= 0.01
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 25
+inv_grid_y		= 6
+cost			= 10000
+
+;картридж для автоаптечки. Содержит препарат лечения ран
+[cartridge_h]:antir_f
+$spawn			= "devices\autodoctor"
+visual			= dynamics\devices\dev_antirad\dev_antirad.ogf
+radius			= 1
+description		= enc_cart_h
+inv_name		= cart_h
+inv_name_short		= cart_h
+inv_weight		= 0.01
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 25
+inv_grid_y		= 7
+cost			= 5000
+
+;картридж для автоаптечки. Содержит препарат-энергетик
+[cartridge_s]:antir_f
+$spawn			= "devices\autodoctor"
+visual			= dynamics\equipments\medical\drug_coagulant.ogf
+radius			= 1
+description		= enc_cart_s
+inv_name		= cart_s
+inv_name_short		= cart_s
+inv_weight		= 0.01
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 25
+inv_grid_y		= 8
+cost			= 750
+
+;картридж для автоаптечки. Содержит препарат вывода радиации
+[cartridge_r]:antir_f
+$spawn			= "devices\autodoctor"
+visual			= dynamics\devices\dev_antirad\dev_antirad.ogf
+radius			= 1
+description		= enc_cart_r
+inv_name		= cart_r
+inv_name_short		= cart_r
+inv_weight		= 0.01
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 25
+inv_grid_y		= 9
+cost			= 2500
+
+
+
+;----------->> Софт для биодетектора
+
+[firmware_dog]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_dog_name_desc
+inv_name		= bioradar_dog_name
+inv_name_short		= bioradar_dog_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 1500
+
+[firmware_psevdodog]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_psevdodog_name_desc
+inv_name		= bioradar_psevdodog_name
+inv_name_short		= bioradar_psevdodog_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 5000
+
+[firmware_flesh]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_flesh_name_desc
+inv_name		= bioradar_flesh_name
+inv_name_short		= bioradar_flesh_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 2500
+
+[firmware_boar]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_boar_name_desc
+inv_name		= bioradar_boar_name
+inv_name_short		= bioradar_boar_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 2500
+
+[firmware_tushkano]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_tushkano_name_desc
+inv_name		= bioradar_tushkano_name
+inv_name_short		= bioradar_tushkano_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 3000
+
+[firmware_krovosos]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_krovosos_name_desc
+inv_name		= bioradar_krovosos_name
+inv_name_short		= bioradar_krovosos_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 15000
+
+[firmware_burer]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_burer_name_desc
+inv_name		= bioradar_burer_name
+inv_name_short		= bioradar_burer_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 5000
+
+[firmware_zombie]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_zombie_name_desc
+inv_name		= bioradar_zombie_name
+inv_name_short		= bioradar_zombie_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 2500
+
+[firmware_snork]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_snork_name_desc
+inv_name		= bioradar_snork_name
+inv_name_short		= bioradar_snork_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 10000
+
+[firmware_kontroler]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_kontroler_name_desc
+inv_name		= bioradar_kontroler_name
+inv_name_short		= bioradar_kontroler_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 25000
+
+[firmware_poltergeist]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_poltergeist_name_desc
+inv_name		= bioradar_poltergeist_name
+inv_name_short		= bioradar_poltergeist_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 5000
+
+[firmware_psevdogigant]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_psevdogigant_name_desc
+inv_name		= bioradar_psevdogigant_name
+inv_name_short		= bioradar_psevdogigant_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 25000
+
+[firmware_cat]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_cat_name_desc
+inv_name		= bioradar_cat_name
+inv_name_short		= bioradar_cat_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 1500
+
+[firmware_chimera]:antir_f
+$spawn			= "devices\bioradar"
+visual			= equipments\item_datchik3.ogf
+radius			= 1
+description		= bioradar_chimera_name_desc
+inv_name		= bioradar_chimera_name
+inv_name_short		= bioradar_chimera_name_short_name
+inv_weight		= 0.01
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 11
+inv_grid_y         = 28
+cost			= 25000
+
+;-----------<< Софт для биодетектора
+
+;KRodin: нафига метка была сделана на классе патронов???
+[amk_metka]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency	= 
+$spawn			= "devices\amk_metka" ; option for Level Editor
+class			= II_ATTCH
+cform			= skeleton
+visual          = equipments\item_amk_gps.ogf
+radius			= 1
+inv_name		= amk_metka
+inv_name_short	= amk_metka_s
+description		= enc_amk_metka
+inv_weight		= 0.05
+can_trade		= on
+inv_grid_width	= 1
+inv_grid_height	= 1
+inv_grid_x		= 10
+inv_grid_y		= 26
+cost			= 2100
+
+;-------------------------------------------------------
+; Другое
+;-------------------------------------------------------
+[wpn_vodka_hud]:identity_immunities
+fire_point               = 0.0, 0.0, 0.06
+fire_bone                = bip01_head
+orientation              = 0, 0, 0
+position                 = 0, 0, 0
+visual                   = dynamics\devices\dev_vodka\dev_vodka_hud.ogf
+
+anim_idle			= vodka_2
+anim_show			= vodka_1
+anim_hide			= vodka_4
+anim_play			= vodka_5
+anim_prepare		= vodka_5
+anim_eat			= vodka_3
+
+[sigaret]:antir_f
+$spawn				= "food and drugs\sigaret"
+visual              = weapons\sigaret\sigaret.ogf
+description		    = enc_equipment_sigaret
+
+cost					= 50
+inv_name				= sigaret
+inv_name_short			= sigaret
+inv_weight				= 0.1
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 12
+inv_grid_y				= 28
+
+attach_angle_offset		= 9.0, 0.0, 0.0
+attach_position_offset	= 0.025, -0.02, 0.0
+attach_bone_name		= bip01_r_finger11
+auto_attach				= false
+
+; eatable item
+eat_health = -0.01
+eat_satiety = 0.05
+eat_power = -0.1
+eat_alcohol	= -0.1
+eat_radiation = 0
+wounds_heal_perc = 0
+eat_portions_num = 20
+
+; food item
+; slot				= 6
+animation_slot		= 4
+
+;hud item
+hud = wpn_sigaret_hud
+
+[sigaret_quest]:sigaret
+visual = equipments\item_cigarette.ogf
+
+[wpn_sigaret_hud]:identity_immunities
+fire_point               = 0.0, 0.0, 0.06
+fire_bone                = bip01_head
+orientation              = 0, 0, 0
+position                 = 0, 0, 0
+visual                   = weapons\sigaret\sigaret_hud.ogf
+
+anim_idle			= kurit_2
+anim_show			= kurit_1
+anim_hide			= kurit_4
+anim_play			= kurit_5
+anim_prepare		= kurit_5
+anim_eat			= kurit_3
+
+[matras]:antir_f
+$spawn    	= "food and drugs\matras"
+visual      = ogse\sleeping_bag.ogf
+description = enc_amk_matras
+
+inv_name   = amk_matras
+inv_name_short  = amk_matras_s
+inv_weight   = 1
+
+inv_grid_width  = 2
+inv_grid_height  = 2
+inv_grid_x   = 16
+inv_grid_y   = 32
+cost    = 250
+eat_portions_num 	= 1000000
+
+;Ремкомплект
+[repair_kit]:antir_f
+$spawn			= "devices\quest_items\repair_kit"
+visual			= equipments\repbox.ogf
+radius			= 1
+description		= enc_equipment_repairkit
+inv_name		= repairkit
+inv_name_short		= repairkit
+inv_weight		= 1.0
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x		= 21
+inv_grid_y		= 12
+cost			= 2500
+
+; Респиратор
+[af_maska_1]:bio
+GroupControlSection	= spawn_group
+$spawn 			= "artifacts\af_maska_1"
+$npc			= off				; option for Level Editor
+;$prefetch 		= 3
+cform           = skeleton
+class   		= ARTEFACT
+
+visual			= equipments\gasmask3.ogf
+inv_name		= af_maska_1
+inv_name_short	= af_maska_1
+description		= enc_zone_af_maska_1
+inv_weight		= 1.2
+inv_grid_width	= 2
+inv_grid_height	= 2
+inv_grid_x		= 18
+inv_grid_y		= 30
+cost			= 150
+jump_height		= 0
+slot			= 10
+
+lights_enabled  = false
+default_to_ruck = true
+
+;скорости увеличения (уменьшения) 
+health_restore_speed = 0.0			
+radiation_restore_speed = 0.0
+satiety_restore_speed = 0.0
+power_restore_speed = -0.003
+bleeding_restore_speed = 0.0
+hit_absorbation_sect = af_maska_1_absorbation
+
+[af_maska_1_absorbation]
+burn_immunity = 1.0				;коэффициенты иммунитета 
+strike_immunity = 1.0
+shock_immunity = 1.0
+wound_immunity = 1.0		
+radiation_immunity = 0.85
+telepatic_immunity = 1.0
+chemical_burn_immunity = 0.75
+explosion_immunity = 1.0
+fire_wound_immunity  = 1.0
+
+; Противогаз ГП-5
+[af_maska_2]:af_maska_1
+$spawn 			= "artifacts\af_maska_2"
+visual			= equipments\gasmask1.ogf
+description		= enc_zone_af_maska_2
+inv_name		= af_maska_2
+inv_name_short	= af_maska_2
+inv_weight		= 1.3
+inv_grid_x      = 18
+inv_grid_y      = 32
+cost			= 350
+
+power_restore_speed = -0.002
+hit_absorbation_sect = af_maska_2_absorbation
+
+[af_maska_2_absorbation]:af_maska_1_absorbation
+radiation_immunity = 0.83
+chemical_burn_immunity = 0.7
+
+[mobile_changer]:identity_immunities
+GroupControlSection = spawn_group
+discovery_dependency =
+$spawn			= "devices\mobile_changer"
+$prefetch   	= 32
+class			= II_FOOD
+cform           = skeleton
+visual          = equipments\item_pda.ogf
+radius			= 1
+description  	= teleport
+inv_name   		= teleport
+inv_name_short  = teleport
+inv_weight   	= 0.2
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+cost    = 10
+
+; eatable item
+eat_health = 0
+eat_satiety = 0
+eat_power = 0
+eat_radiation = 0
+eat_alcohol = 0
+wounds_heal_perc = 0
+eat_portions_num = -1
+
+; food item
+animation_slot  = 4
+
+;hud item
+hud = wpn_vodka_hud
+
+; ---------------------------------------------------------
+[device_pnv_1]:identity_immunities
+GroupControlSection	= spawn_group
+$spawn 			= "device\device_pnv_1"
+$npc			= off				; option for Level Editor
+;$prefetch 		= 3
+cform           = skeleton
+class   		= ARTEFACT
+visual			= dynamics\devices\dev_binoculars\dev_binoculars.ogf
+inv_name		= item_pnv_1
+inv_name_short	= item_pnv_1
+description		= item_pnv_1_description
+inv_weight		= 2.2
+inv_grid_width	= 2
+inv_grid_height	= 1
+inv_grid_x		= 18
+inv_grid_y		= 34
+cost			= 1500
+slot			= 11
+jump_height		= 0
+
+lights_enabled  = false
+
+hud							= device_pnv_1_hud
+allow_inertion				= true
+attach_angle_offset			= 0,0,0
+attach_position_offset		= -0.1,-0.1,0
+attach_bone_name			= bip01_root
+animation_slot				= 11
+belt						= false
+
+;nightvision_sect            = effector_nightvision_good
+nightvision_sect	= effector_nightvision
+
+;скорости увеличения (уменьшения) 
+health_restore_speed = 0.0			
+radiation_restore_speed = 0.0
+thirst_restore_speed = 0.0
+satiety_restore_speed = 0.0
+power_restore_speed = 0.0
+bleeding_restore_speed = 0.0
+hit_absorbation_sect = device_pnv_1_absorbation
+
+[device_pnv_1_absorbation];коэффициенты иммунитета 
+burn_immunity = 1.0				
+strike_immunity = 1.0
+shock_immunity = 1.0
+wound_immunity = 1.0		
+radiation_immunity = 1.0
+telepatic_immunity = 1.0
+chemical_burn_immunity = 1.0
+explosion_immunity = 1.0
+fire_wound_immunity  = 1.0
+
+[device_pnv_1_hud]
+orientation             	= 0, 0, 0		
+position                	= 0, 0, 0
+visual                  	= dynamics\artefacts\artefact_electra_green_hud.ogf
+anim_idle					= idle
+anim_idle_sprint			= idle_sprint
+anim_hide					= holster
+anim_show					= draw
+anim_activate				= activate
+
+[device_pnv_2]:device_pnv_1
+$spawn 			= "device\device_pnv_2"
+visual          = weapons\upgrade\pvs.ogf
+inv_name		= item_pnv_2
+inv_name_short	= item_pnv_2
+description		= item_pnv_2_description
+inv_weight		= 1.7
+
+inv_grid_x		= 18
+inv_grid_y		= 35
+cost			= 10000
+
+nightvision_sect    = effector_nightvision_grey
+
+[device_termovizor]:device_pnv_2
+;$spawn 			= "device\device_termovizor"
+;inv_name		= item_termovizor
+;inv_name_short	= item_termovizor
+;description		= item_termovizor_description
+;inv_weight		= 1.2
+
+;inv_grid_x		= 18
+;inv_grid_y		= 29
+;cost			= 15000
+
+;nightvision_sect    = thermal
+
+;---------------------------------------------------------------------------------------------
+;Секции МОНТИРУЕМОГО ЭКЗОКАРКАСА
+;---------------------------------------------------------------------------------------------
+; ЛЁГКАЯ ЭКЗА
+;---------------------------------------------------------------------------------------------
+[exo1]:antir_f
+$spawn			= "devices\exo1"
+visual          = equipments\exoskelet	
+radius			= 1
+inv_name		= exo1_outfit_name
+inv_name_short	= exo1_outfit_name
+description		= exo1_outfit_description
+inv_weight		= 15
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 20
+inv_grid_y			= 17
+cost			= 75000
+exoskeleton_type = exo1
+
+jump_speed_dif			= -1.5
+sprint_koef_dif			= -0.3
+run_coef_dif			= -0.2
+run_back_coef_dif		= -0.2
+
+;---------------------------------------------------------------------------------------------
+; ЭКЗА МАСТЕРА
+;---------------------------------------------------------------------------------------------
+[exo2]:exo1
+$spawn			= "devices\exo2"
+inv_name		= exo2_outfit_name
+inv_name_short	= exo2_outfit_name
+description		= exo2_outfit_description
+inv_weight		= 20
+inv_grid_width		= 2
+inv_grid_height		= 3
+inv_grid_x			= 22
+inv_grid_y			= 17
+cost			= 120000
+exoskeleton_type = exo2
+
+jump_speed_dif			= -0.75
+sprint_koef_dif			= -0.15
+run_coef_dif			= -0.1
+run_back_coef_dif		= -0.1
+
+;---------------------------------------------------------------------------------------------
+; ????? НЕ ИСПОЛЬЗУЕТСЯ
+;---------------------------------------------------------------------------------------------
+[exo3]:exo1
+$spawn			= "devices\exo3"
+inv_name		= 
+inv_name_short	= 
+description		= 
+inv_weight		= 0
+inv_grid_width		= 3
+inv_grid_height		= 4
+inv_grid_x			= 23
+inv_grid_y			= 17
+cost			= 0
+exoskeleton_type = 
+
+jump_speed_dif			= -1.5
+sprint_koef_dif			= -0.25
+run_coef_dif			= -0.07
+run_back_coef_dif		= -0.07
+
+
+[arsenal_key]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency = 
+;$prefetch 			= 32
+class				= II_ATTCH
+cform				= skeleton
+visual				= equipments\item_document_2.ogf
+radius				= 1
+quest_item			= false
+inv_name			= item_arsenal_key_name
+inv_name_short			= item_arsenal_key_name
+description		= item_arsenal_key_desc
+inv_weight			= 0.07
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 15
+inv_grid_y         = 28
+cost				= 0
+
+
+[book_1]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+$spawn				= "devices\mobile_changer"
+visual				= equipments\item_zapiska.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= book_1_desc
+cost				= 0
+inv_name			= book_1_name
+inv_name_short			= book_1_name
+inv_weight			= 0
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 11
+inv_grid_y		= 25
+quest_item			= true
+can_trade			= false
+
+
+[book_2]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+$spawn				= "devices\mobile_changer"
+visual				= equipments\item_book_03.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= book_2_desc
+cost				= 1000
+inv_name			= book_2_name
+inv_name_short			= book_2_name
+inv_weight			= 0
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x		= 40
+inv_grid_y		= 39
+quest_item			= false
+can_trade			= true
+
+[book_3]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+$spawn				= "devices\mobile_changer"
+visual				= equipments\item_book_03.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= book_2_desc
+cost				= 1000
+inv_name			= book_3_name
+inv_name_short			= book_3_name
+inv_weight			= 0
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x		= 42
+inv_grid_y		= 39
+quest_item			= false
+can_trade			= true
+
+[book_4]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+$spawn				= "devices\mobile_changer"
+visual				= equipments\item_book_03.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= book_2_desc
+cost				= 1000
+inv_name			= book_4_name
+inv_name_short			= book_4_name
+inv_weight			= 0
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x		= 44
+inv_grid_y		= 39
+quest_item			= false
+can_trade			= true
+
+
+[book_5]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+$spawn				= "devices\mobile_changer"
+visual				= equipments\item_book_03.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= book_2_desc
+cost				= 1000
+inv_name			= book_5_name
+inv_name_short			= book_5_name
+inv_weight			= 0
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x		= 46
+inv_grid_y		= 39
+quest_item			= false
+can_trade			= true
+
+
+[book_7]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+$spawn				= "devices\mobile_changer"
+visual				= equipments\item_book_03.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= book_2_desc
+cost				= 0
+inv_name			= book_7_name
+inv_name_short			= book_7_name
+inv_weight			= 0
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x		= 48
+inv_grid_y		= 39
+;KRodin: а какой смысл её постоянно таскать с собой?
+;quest_item			= true
+;can_trade			= false
+
+[book_8]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+$spawn				= "devices\mobile_changer"
+visual				= equipments\item_book_03.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= book_8_desc
+cost				= 0
+inv_name			= book_8_name
+inv_name_short			= book_8_name
+inv_weight			= 0
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 42
+inv_grid_y		= 36
+quest_item			= true
+can_trade			= false
+
+[book_9]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+$spawn				= "devices\mobile_changer"
+visual				= equipments\item_zapiska.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= book_9_name
+cost				= 0
+inv_name			= book_9_name
+inv_name_short			= book_9_name
+inv_weight			= 0
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 11
+inv_grid_y		= 25
+quest_item			= false
+can_trade			= false
+
+[book_10]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+$spawn				= "devices\mobile_changer"
+visual				= equipments\item_zapiska.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= book_10_desc
+cost				= 0
+inv_name			= book_10_name
+inv_name_short			= book_10_name
+inv_weight			= 0
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x		= 12
+inv_grid_y		= 37
+quest_item			= false
+can_trade			= false
+
+[book_11]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+$spawn				= "devices\mobile_changer"
+visual				= equipments\item_zapiska.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= book_11_desc
+cost				= 0
+inv_name			= book_11_name
+inv_name_short			= book_11_name
+inv_weight			= 0
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 42
+inv_grid_y		= 36
+quest_item			= false
+can_trade			= false
+
+[book_12]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+$spawn				= "devices\mobile_changer"
+visual				= equipments\item_zapiska.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= book_12_desc
+cost				= 0
+inv_name			= book_12_name
+inv_name_short			= book_12_name
+inv_weight			= 0
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 43
+inv_grid_y		= 35
+quest_item			= true
+can_trade			= false
+
+
+[turret_pkm]:antir_f
+GroupControlSection		= spawn_group
+discovery_dependency		=
+visual				= physics\box\inv_box_zelen.ogf
+$prefetch			= 32
+cform				= skeleton
+radius				= 1
+description			= turret_pkm_desc
+inv_name			= turret_pkm_name
+inv_name_short			= turret_pkm_name
+inv_weight			= 17
+inv_grid_width		= 6
+inv_grid_height		= 2
+inv_grid_x			= 11
+inv_grid_y			= 13
+cost				= 15000
+
+

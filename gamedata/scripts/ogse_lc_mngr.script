@@ -1,0 +1,464 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+----------------------- Менеджер level_changer --------------------------
+------------------------- Copyright 20011-20011 OGSE, на основе концепции OGSM. ---------------------------
+function attach(sm)
+	sm:subscribe({signal = "on_storyline_start",	fun = this.on_storyline_start})
+	sm:subscribe({signal = "on_info",				fun = this.on_info})
+	sm:subscribe({signal = "on_save",				fun = this.on_save})
+	sm:subscribe({signal = "on_first_update",		fun = this.lc_restore_location})
+end
+
+local spawn_db = ogse_spawn_db.script_spawn_registry.ogse_lc_mngr
+
+-- Спавним левел-чейнджер
+-- Level Changer Spawn.
+
+local lcmode = {ask = 0, silent = 1,}
+
+function create_level_changer(sid, position, lvid, gvid, spot, hint, dest_position, dest_lvid, dest_gvid, dest_dir_v, mode, shapes)
+	--log1(debug.traceback())
+	local sobj = alife():create("level_changer", vector():set(unpack(position)), lvid, gvid)
+	--log1(debug.traceback())
+	ASSERT(sobj, "create_level_changer: failed to create level changer")
+	
+	if spot ~= nil and hint ~= nil then 
+		level_tasks.add_location_by_id(sobj.id, spot, hint)		
+	end
+	
+	local initial_packet = get_netpk(sobj, 1)
+	ASSERT( initial_packet:isOk(), "can't read netpacket of %s", sobj:name() )
+	local table_lc = initial_packet:get()
+	
+	table_lc.dest_position = vector():set(unpack(dest_position))
+	table_lc.dest_level_vertex_id = dest_lvid
+	table_lc.dest_game_vertex_id = dest_gvid
+	table_lc.dest_direction = vector():set(unpack(dest_dir_v))
+	table_lc.dest_level_name = level_system_name_by_gvid(gvid)
+	table_lc.silent_mode = mode
+	table_lc.story_id = sid 
+	table_lc.restrictor_type = 3 
+	
+	
+	if type(shapes) == "number" then
+		table_lc.shapes:addSphere(shapes)
+	elseif type(shapes) == "table" then
+		for i,shp in ipairs(shapes) do
+			if shp.shtype == 0 then --/ sphere
+				table_lc.shapes:addSphere(shp.radius, vector():set(unpack(shp.center)))
+			else --/ box
+				table_lc.shapes:addBox(
+					vector():set(unpack(shp.box[1])), 
+					vector():set(unpack(shp.box[2])), 
+					vector():set(unpack(shp.box[3])), 
+					vector():set(unpack(shp.offset))
+				)
+			end
+		end
+	else
+		abort("create_level_changer: unknown shape type")
+	end
+
+	initial_packet:set(table_lc)
+end
+ 
+function create_level_changer_ex(spawn_item)
+	create_level_changer(
+		spawn_item.sid,
+		spawn_item.from.pos, spawn_item.from.lvid, spawn_item.from.gvid,
+		spawn_item.spot, spawn_item.hint,
+		spawn_item.to.pos, spawn_item.to.lvid, spawn_item.to.gvid,
+		spawn_item.dir,
+		lcmode[spawn_item.mode],
+		spawn_item.shapes
+	)
+end
+
+function create_actor_teleporter(destination)
+	level.change_level(
+		destination.gvid,
+		destination.lvid,
+		vector():set(unpack(destination.pos)),
+		vector():set(unpack(destination.dir or {0,0,0}))
+	)
+end
+
+-- перенос актора на заданный уровень в первый доступный там вертекс
+function teleport_actor_to_level(level_name)
+	local lvid, gvid = utils2.get_top_graph_ids(level_name)
+	create_actor_teleporter({pos = {0,0,0}, ["lvid"] = lvid, ["gvid"] = gvid})
+end
+
+
+-- ogse.script прошерстить... 
+
+-- dialogs_agroprom.xml - 247
+function lc1_agr_esc() 
+	-- Кордон - Агропром
+--	create_level_changer_ex(spawn_db.esc_agr)
+	-- Агропром - Кордон
+--	create_level_changer_ex(spawn_db.agr_esc)
+end
+
+-- dialogs_yantar.xml - 985
+function lc2_yan_agr() 
+ -- выдаются по инфо ниже
+end
+
+-- dialogs_military.xml - 2899
+function lc3_mil_ros()
+	-- Дикая Т. - Милитари
+--	create_level_changer_ex(spawn_db.ros_mil)
+	--Милитари - Дикая Т.
+--	create_level_changer_ex(spawn_db.mil_ros)
+end
+
+-- dialogs_military.xml - 223
+function lc4_mil_val() 
+	-- ТД - Милитари
+	--create_level_changer_ex(spawn_db.val_mil)
+	this.lc_val_to_mil_create()
+	-- Милитари - ТД
+	--create_level_changer_ex(spawn_db.mil_val)
+	this.lc_mil_to_val_create()
+end
+
+-- dialogs_radar.xml - 255 
+function lc5_yan_val_rad() 
+	-- Янтарь - Радар
+	--create_level_changer_ex(spawn_db.yan_rad)
+	this.lc_yan_to_rad_create()
+	-- Радар - Янтарь
+	--create_level_changer_ex(spawn_db.rad_yan)
+	this.lc_rad_to_yan_create()
+	-- ТД - Радар
+	--create_level_changer_ex(spawn_db.darval_rad)
+	--Радар - ТД
+	--create_level_changer_ex(spawn_db.rad_darval)
+end
+
+-- xr_effects
+function lc6_esc_dscape()
+	--create_level_changer_ex(spawn_db.esc_dscape)
+	this.lc_esc_to_ds_create()
+end
+
+-- К релизу удалить - функция нужна исключительно для теста!
+function lc7_aes_pripyat()
+	-- ЧАЭС - Припять
+	create_level_changer_ex(spawn_db.aes_pripyat_test1)
+	-- ЧАЭС2 - ЧАЭС
+	create_level_changer_ex(spawn_db.aes_pripyat_test2)
+	-- ЧАЭС - ЧАЭС2
+	create_level_changer_ex(spawn_db.aes_pripyat_test3)
+end
+
+
+--== addon by O.G.S.E ==================================================
+local news_table = {
+	[081]		=	game.translate_string("lc_mngr_string2"),
+	[097]		=	game.translate_string("lc_mngr_string3"),
+	[381]		=	game.translate_string("lc_mngr_string4"),
+	[382]		=	game.translate_string("lc_mngr_string5"),
+	[440]		=	game.translate_string("lc_mngr_string6"),
+	[482]		=	game.translate_string("lc_mngr_string7"),
+	[772]		=	game.translate_string("lc_mngr_string8"),
+	[776]		=	game.translate_string("lc_mngr_string9"),
+	[926]		=	game.translate_string("lc_mngr_string10"),
+	[927]		=	game.translate_string("lc_mngr_string11"),
+	[942]		=	game.translate_string("lc_mngr_string12"),
+	[1010]		=	game.translate_string("lc_mngr_string13"),
+	[1012]		=	game.translate_string("lc_mngr_string14"),
+	[1131]		=	game.translate_string("lc_mngr_string15"),
+	[1133]		=	game.translate_string("lc_mngr_string16"),
+	[1134]		=	game.translate_string("lc_mngr_string17"),
+	[1212]		=	game.translate_string("lc_mngr_string18"),
+	[1213]		=	game.translate_string("lc_mngr_string19"),
+	[1214]		=	game.translate_string("lc_mngr_string20"),
+	[1801]		=	game.translate_string("lc_mngr_string21"),
+	[1802]		=	game.translate_string("lc_mngr_string22"),
+}
+
+function give_tip(sid)
+	local str = news_table[sid]
+	if str == nil then
+		return
+	end
+	news_manager.send_tip(db.actor, "%c[25,25,240,25]"..game.translate_string("lc_mngr_string1").." "..str, nil, nil, 7000)
+end
+
+function lc_create(sid, spot, hint)
+	local sim = alife()
+	if not sim:story_object(sid) then
+		local spawn_id = sim:spawn_id(sid)
+		local lc       = sim:create  (spawn_id)
+		if lc then
+			if not spot[2] then
+				level_tasks.add_location_by_sid(sid, spot[1], hint)
+			end
+			give_tip(sid)
+		end
+	end
+end
+
+function lc_remove(sid)
+	local sim = alife()
+	local lc  = sim:story_object(sid)
+	if lc then
+		sim:release(lc, true)
+	end
+end
+
+function lc_show(sid, spot, hint)
+	level_tasks.add_location_by_sid(sid, spot[1], hint)
+end
+
+function lc_hide(sid, spot)
+	level_tasks.remove_location_by_sid(sid, spot[1])
+end
+
+--[[function lc_get_spot_state(lc_name, show)
+    show = ogse.load_var(lc_name, false, "bool") or toBoolean(show)
+    return show
+end]]
+
+local lc_common_list = -- I preference to use array
+{   -- [1] - 'string'  - name level changer from 'story_ids'('spawn_story_ids')
+	-- [2] - 'table'   - {'string' - name spot, 'boolean' - hide spot at spawn}
+	-- [3] - 'string'  - hint id from string table
+	-- [4] - 'boolean' - hide on storyline start
+	{"lc_ds_to_esc"   , {"level_changer_left"        }, "to_escape"                }, -- 1551 -- "ds_exit_to_escape"
+	{"lc_ds_to_val"   , {"level_changer_up"          }, "to_darkvalley"            }, -- 1552 -- "ds_exit_to_darkvalley"
+	{"lc_esc_to_ds"   , {"level_changer_right"       }, "to_darkscape"       , true}, --  097 -- "esc_exit_to_darkscape"
+	{"lc_esc_to_gar_1", {"level_changer_up"          }, "to_garbage"               }, --  091 -- "esc_exit_to_garbage_01"
+	{"lc_esc_to_gar_2", {"level_changer_up"   , true }, "to_garbage"               }, --  096 -- "esc_exit_to_garbage_02"
+	{"lc_esc_to_mar"  , {"level_changer_left"        }, "to_marsh"           , true}, --  081 -- "esc_exit_to_marsh"
+	{"lc_gar_to_agr"  , {"level_changer_left"        }, "to_agroprom"              }, --  192 -- "gar_exit_to_agroprom_02"
+	{"lc_gar_to_bar"  , {"level_changer_up"          }, "to_bar"                   }, --  194 -- "gar_exit_to_bar"
+	{"lc_gar_to_val"  , {"level_changer_right"       }, "to_darkvalley"            }, --  196 -- "gar_exit_to_darkvalley_high"
+	{"lc_gar_to_esc"  , {"level_changer_down"        }, "to_escape"                }, --  193 -- "gar_exit_to_escape"
+	{"lc_agr_to_und_1", {"level_changer_right", true }, "to_agroprom_underground"  }, --  383 -- "agr_exit_to_agr_undegr_02"
+	{"lc_agr_to_und_2", {"level_changer_right", true }, "to_agroprom_underground"  }, --  384 -- "agr_exit_to_agr_undegr_03"
+	{"lc_agr_to_und_3", {"level_changer_right", true }, "to_agroprom_underground"  }, --  385 -- "agr_exit_to_agr_undegr_05"
+	{"lc_agr_to_gar"  , {"level_changer_right"       }, "to_garbage"               }, --  392 -- "agr_exit_to_garbage_02"
+	{"lc_agr_to_mar"  , {"level_changer_down"        }, "to_marsh"           , true}, --  381 -- "agr_exit_to_marsh"
+	{"lc_agr_to_yan"  , {"level_changer_up"          }, "to_yantar"          , true}, --  382 -- "agr_exit_to_yantar"
+	{"lc_und_to_agr_1", {"level_changer_right", true }, "to_agroprom"              }, --  386 -- "agr_und_exit_to_agr_00"
+	{"lc_und_to_agr_2", {"level_changer_up"   , true }, "to_agroprom"              }, --  387 -- "agr_und_exit_to_agr_01"
+	{"lc_val_to_ds"   , {"level_changer_down"        }, "to_darkscape"             }, --  417 -- "val_exit_to_darkscape"
+	{"lc_val_to_gar"  , {"level_changer_left"        }, "to_garbage"               }, --  416 -- "val_exit_to_garbage"
+	{"lc_val_to_x18"  , {"level_changer_left" , true }, "to_x18"                   }, --  439 -- "val_exit_to_x18"
+	{"lc_x18_to_val"  , {"level_changer_right", true }, "to_darkvalley"            }, --  481 -- "x18_exit_to_val"
+	{"lc_bar_to_gar"  , {"level_changer_down"        }, "to_garbage"               }, --  593 -- "bar_exit_to_garbage"
+	{"lc_bar_to_mil"  , {"level_changer_up"          }, "to_military"              }, --  592 -- "bar_exit_to_military"
+	{"lc_bar_to_ros"  , {"level_changer_left"        }, "to_rostok"                }, --  594 -- "bar_exit_to_rostok"
+	{"lc_ros_to_bar"  , {"level_changer_right"       }, "to_bar"                   }, --  591 -- "rostok_exit_to_bar"
+	{"lc_ros_to_yan"  , {"level_changer_down"        }, "to_yantar"                }, --  608 -- "rostok_exit_to_yantar"
+	{"lc_mil_to_bar"  , {"level_changer_left"        }, "to_bar"                   }, --  771 -- "Mil_Exit_to_Bar"
+	{"lc_mil_to_cit"  , {"level_changer_left"        }, "to_deadcity"        , true}, --  772 -- "Mil_Exit_to_DeadCity"
+	{"lc_mil_to_rad"  , {"level_changer_right"       }, "to_radar"                 }, --  773 -- "Mil_Exit_to_Radar"
+	{"lc_yan_to_agr"  , {"level_changer_down"        }, "to_agroprom"        , true}, --  926 -- "yan_exit_to_agroprom"
+	{"lc_yan_to_x16"  , {"level_changer_right", true }, "to_labx16"          , true}, --  928 -- "yan_exit_to_labx16"
+	{"lc_yan_to_cit"  , {"level_changer_left"        }, "to_deadcity"        , true}, --  927 -- "yan_exit_to_deadcity"
+	{"lc_yan_to_ros"  , {"level_changer_right"       }, "to_rostok"                }, --  925 -- "yan_exit_to_rostok"
+	{"lc_x16_to_yan_1", {"level_changer_right", true }, "to_yantar"                }, --  940 -- "brain_to_yantar"
+	{"lc_x16_to_yan_2", {"level_changer_left" , true }, "to_yantar"                }, --  941 -- "brain_to_yantar_tunnel"
+	{"lc_cit_to_gen"  , {"level_changer_up"          }, "to_generators"      , true}, -- 1213 -- "cit_exit_to_generators"
+	{"lc_cit_to_mil"  , {"level_changer_right", true }, "to_military"              }, -- 1212 -- "cit_exit_to_military"
+	{"lc_cit_to_yan"  , {"level_changer_down" , true }, "to_yantar"                }, -- 1211 -- "cit_exit_to_yantar"
+	{"lc_rad_to_bun"  , {"level_changer_down" , true }, "to_bunker"                }, -- 1009 -- "rad_exit_to_bunker"
+	{"lc_rad_to_mil"  , {"level_changer_down"        }, "to_military"              }, -- 1008 -- "rad_exit_to_military"
+	{"lc_rad_to_pri"  , {"level_changer_up"          }, "to_pripyat"         , true}, -- 1007 -- "rad_exit_to_pripyat"
+	{"lc_rad_to_x9"   , {"level_changer_right"		 }, "to_labx9"           , true}, -- 1010 -- "rad_exit_to_labx9"
+	{"lc_bun_to_rad"  , {"level_changer_up"   , true }, "to_radar"                 }, -- 1011 -- "bun_exit_to_rad"
+	{"lc_pri_to_rad"  , {"level_changer_down"        }, "to_radar"                 }, --  833 -- "pri_exit_to_radar"
+	{"lc_pri_to_aes"  , {"level_changer_up"          }, "to_aes"                   }, --  832 -- "pri_exit_to_aes"
+	{"lc_aes_to_sar"  , {"level_changer_up"          }, "to_sarcofag"              }, -- 1129 -- "aes_exit_to_sarcofag"
+	{"lc_aes_to_pri"  , {"level_changer_down"        }, "to_pripyat"               }, -- 1130 -- "aes_exit_to_pripyat"
+	{"lc_aes_to_aes2" , {"level_changer_up"          }, "to_aes2"            , true}, -- 1131 -- "aes_exit_to_aes2"
+	{"lc_aes2_to_con" , {"level_changer_down" , true }, "to_control_monolith"      }, -- 1132 -- "aes2_exit_to_control_monolith"
+	{"lc_aes2_to_gen" , {"level_changer_up"          }, "to_generators"      , true}, -- 1133 -- "aes2_exit_to_generators"
+	{"lc_aes2_to_aes" , {"level_changer_up"          }, "to_aes"             , true}, -- 1134 -- "aes2_exit_to_aes"
+	{"lc_con_to_sar"  , {"level_changer_down"        }, "to_sarcofag"              }, -- 1320 -- "con_exit_to_sarcofag"
+	{"lc_con_to_aes2" , {"level_changer_up"          }, "to_aes2"                  }, -- 1321 -- "con_exit_to_stancia_2"
+	{"lc_sar_to_con"  , {"level_changer_down"        }, "to_control_monolith"      }, -- 1322 -- "sar_exit_to_con"
+	{"lc_gen_to_aes2" , {"level_changer_up"   , true }, "to_aes2"                  }, -- 1600 -- "gen_exit_to_aes2"
+	{"lc_gen_to_cit"  , {"level_changer_down" , true }, "to_deadcity"              }, -- 1601 -- "gen_exit_to_deadcity"
+	{"lc_mar_to_agr"  , {"level_changer_up"   , true }, "to_agroprom"              }, -- 1701 -- "marsh_exit_to_agroprom"
+	{"lc_mar_to_esc"  , {"level_changer_right", true }, "to_escape"                }, -- 1700 -- "marsh_exit_to_escape"
+	{"lc_x9_to_rad"   , {"level_changer_left" , true }, "to_radar"                 }, -- 1800 -- "x9_exit_to_radar"
+	-- from scripts
+	{"lc_mil_to_val"  , {"level_changer_down"        }, "to_darkvalley"      , true}, --  776
+	{"lc_val_to_mil"  , {"level_changer_up"          }, "to_military"        , true}, --  482
+	{"lc_yan_to_rad"  , {"level_changer_up"          }, "to_radar"           , true}, --  942
+	{"lc_rad_to_yan"  , {"level_changer_down"        }, "to_yantar"          , true}, -- 1012
+	
+	{"lc_x9_to_val"   , {"level_changer_left"		 }, "to_darkvalley"      , true}, -- 1801 -- "x9_exit_to_darkvalley"
+	{"lc_val_to_x9"   , {"level_changer_left"		 }, "to_labx9"           , true}, -- 440 -- "darkvalley_exit_to_x9"
+	{"lc_x9_to_cit"   , {"level_changer_left"		 }, "to_deadcity"        , true}, -- 1802 -- "x9_exit_to_deadcity"
+	{"lc_cit_to_x9"   , {"level_changer_left"		 }, "to_labx9"           , true}, -- 1214 -- "deadcity_exit_to_x9"
+}
+
+for i = 1, #lc_common_list do
+	local sid  = lc_common_list[i][1]
+	local spot = lc_common_list[i][2]
+	local hint = lc_common_list[i][3]
+	local spawn_sid = spawn_story_ids[sid]
+	this[sid..'_create'] = function() lc_create(spawn_sid, spot, hint) end
+	this[sid..'_remove'] = function() lc_remove(spawn_sid)             end
+	this[sid..'_show']   = function() lc_show  (spawn_sid, spot, hint) end
+	this[sid..'_hide']   = function() lc_hide  (spawn_sid, spot)       end
+end
+
+function on_storyline_start()
+	local sim = alife()
+	for i = 1, #lc_common_list do 
+		local name_sid  = lc_common_list[i][1]
+		local spot_show = lc_common_list[i][2][2]
+		ogse.save_var(name_sid, not spot_show , "bool")
+		if sim:story_object(story_ids[name_sid]) then
+			if lc_common_list[i][4] then
+				this[name_sid..'_remove']()
+			end
+		end
+	end
+end
+
+function lc_restore_location()
+	local sim = alife()
+	for i = 1, #lc_common_list do 
+		local sid  = lc_common_list[i][1]
+		local spot = lc_common_list[i][2]
+		local show = ogse.load_var(sid, false, "bool")
+		if show then
+		    local hint = lc_common_list[i][3]
+		    lc_show(spawn_story_ids[sid], spot, hint)
+		else
+		    lc_hide(spawn_story_ids[sid], spot)
+		end
+	end
+end
+
+local story_infos = {
+	-- ["test_info"] = this.lc_esc_to_gar_2_create, -- чисто для примера
+	-- ["test_info_2"] = {
+		-- [1] = this.lc_esc_to_gar_2_create,
+		-- [2] = this.lc_esc_to_gar_1_create,
+	--}
+	
+	["esc_trader_speak"] = {
+		[1] = this.lc_esc_to_ds_create,
+	},
+	
+	["mil_miser_task_complete"] = {
+		[1] = this.lc_mil_to_val_create,
+		[2] = this.lc_val_to_mil_create,
+	},
+
+	["agr_dezerter_report_read"] = {
+		[1] = this.lc_esc_to_mar_create,
+		[2] = this.lc_agr_to_mar_create,
+		[3] = this.lc_mar_to_agr_show,
+		[4] = this.lc_mar_to_esc_show,
+	},
+	
+	["yantar_attack_start"] = {
+		[1] = this.lc_yan_to_agr_create,
+		[2] = this.lc_agr_to_yan_create,
+		
+	},
+	
+	["pri_talk_about_real_ending"] = {
+		[1] = this.lc_cit_to_gen_create,
+		[2] = this.lc_aes2_to_gen_create,
+		[3] = this.lc_gen_to_aes2_show,
+		[4] = this.lc_gen_to_cit_show,
+		
+	},
+	
+	["pri_what_the_fuck"] = {
+		[1] = this.lc_aes_to_aes2_create,
+		[2] = this.lc_aes2_to_aes_create,	
+	
+	},
+	
+--[[	["mikluha_final_reward"] = {
+		[1] = this.lc_rad_to_x9_create,
+		[2] = this.lc_x9_to_rad_show,	
+	},]]
+	
+	["btr_quest_start"] = {
+		[1] = this.lc_mil_to_cit_create,
+		[2] = this.lc_mil_to_cit_show,
+		[3] = this.lc_cit_to_mil_show,
+	},
+	
+	["rad_kvest_dobrozhelatel_help_to_svyaznoy_spawn_mon"] = {
+		[1] = this.lc_mil_to_cit_create,
+		[2] = this.lc_mil_to_cit_show,
+		[3] = this.lc_cit_to_mil_show,
+	},	
+	
+	["agr_doc_wakeup"] = {	-- при встрече с доктором в Агро
+		[1] = this.lc_yan_to_cit_create,
+		[2] = this.lc_cit_to_yan_show,	
+		[3] = this.lc_yan_to_cit_show,	
+	},	
+	
+	["lukash_give_lc"] = {
+		[1] = this.lc_rad_to_x9_create,
+		[2] = this.lc_x9_to_rad_show,	
+		[3] = this.lc_x9_to_val_create,
+		[4] = this.lc_val_to_x9_create,	
+		[5] = this.lc_x9_to_cit_create,
+		[6] = this.lc_cit_to_x9_create,	
+	},
+	
+	
+	["freeplay"] = {
+		[1] = this.lc_cit_to_gen_hide,
+		[2] = this.lc_cit_to_gen_remove,
+		[3] = this.lc_aes2_to_gen_hide,
+		[4] = this.lc_aes2_to_gen_remove,		
+	},
+	
+	["bar_deactivate_radar_done"] = {
+		[1] = this.lc_rad_to_pri_create,
+	},	
+	
+	["yan_find_vasilyev_start"] = {
+		[1] = this.lc_yan_to_x16_create,
+		[2] = this.lc_yan_to_x16_show,	
+	},		
+	
+}
+
+function on_info(npc, info_id)
+	if info_id then -- and not has_alife_info(info_id) then -- эту проверку нельзя делать, так как если инфо выдается вещью, то обработка стартует только после того, как будет закрыт инвентарь, и проверка покажет что инфо уже есть
+		local function_name = story_infos[info_id]
+		if function_name and type(function_name) == "function" then
+			function_name()
+		elseif function_name and type(function_name) == "table" then
+			local subtable = function_name
+			local subfuct = nil
+			for i = 1, #subtable do
+				subfuct = subtable[i]
+				if subfuct and type(subfuct) == "function" then
+					subfuct()
+				end			
+			end			
+		end	
+	end
+end
+
+
+function on_save()
+    for i = 1, #lc_common_list do
+	    local name_sid  = lc_common_list[i][1]
+		local spawn_sid = spawn_story_ids[name_sid]
+		local location  = lc_common_list[i][2][1]
+		local spot_show = level_tasks.is_map_spot_present(spawn_sid, location)
+		ogse.save_var(name_sid, spot_show , "bool")
+	end
+end
+

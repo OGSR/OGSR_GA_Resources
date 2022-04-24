@@ -1,0 +1,187 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+----------------------------------------------------------------------------------------------------
+-- Dream manager
+----------------------------------------------------------------------------------------------------
+-- Author: Oleg Kreptul (Haron) haronk@ukr.net 2005
+----------------------------------------------------------------------------------------------------
+
+can_sleep   = false
+dream_prob  = -1
+type        = "all"
+dream_types = {all = 2}
+
+local def_global_regular_probability = 80
+local def_regular_probability = 2
+local def_regular_type = "normal"
+
+class "dream_mgr"
+
+function dream_mgr:__init()
+    self.regular = nil
+    self.scenario = {}
+
+    if sys_ini:section_exist("drm_dreams") then
+        self.regular_probability = def_global_regular_probability
+        if sys_ini:line_exist("drm_dreams", "regular_probability") then
+            local rp = sys_ini:r_float("drm_dreams", "regular_probability")
+            if rp >= 0 or rp <= 100 then
+                self.regular_probability = rp
+            end
+        end
+        if sys_ini:line_exist("drm_dreams", "dream_types") then
+            local rt_str = sys_ini:r_string("drm_dreams", "dream_types")
+            if rt_str then
+                for rt in string.gmatch(rt_str, "([%w_]+)") do
+                    dream_types[rt] = 1
+                end
+            end
+        end
+        if sys_ini:line_exist("drm_dreams", "regular") then
+            self.regular = {}
+            local rd_str = sys_ini:r_string("drm_dreams", "regular")
+
+            if rd_str then
+                for rd_sect in string.gmatch(rd_str, "([%w_]+)") do
+                    if sys_ini:section_exist("drm_"..rd_sect) then
+                        if sys_ini:line_exist("drm_"..rd_sect, "dream") then
+                            local dream_path = sys_ini:r_string("drm_"..rd_sect, "dream")
+                            local prob = def_regular_probability
+                            local tp = def_regular_type
+
+                            if sys_ini:line_exist("drm_"..rd_sect, "probability") then
+                                local p = sys_ini:r_float("drm_"..rd_sect, "probability")
+                                if p >= 0 then
+                                    prob = p
+                                end
+                            end
+
+                            if sys_ini:line_exist("drm_"..rd_sect, "type") then
+                                local t = sys_ini:r_float("drm_"..rd_sect, "type")
+                                if dream_types[t] == 1 then
+                                    tp = t
+                                end
+                            end
+
+                            self.regular[rd_sect] = {dream_path, prob, tp}
+                        else
+                        end
+                    else
+                    end
+                end
+            end
+        else
+        end
+
+        if sys_ini:line_exist("drm_dreams", "scenario") then
+            self.scenario = {}
+            local sd_str = sys_ini:r_string("drm_dreams", "scenario")
+
+            if sd_str then
+                for sd_sect in string.gmatch(sd_str, "([%w_]+)") do
+                    if sys_ini:section_exist("drm_"..sd_sect) then
+                        if sys_ini:line_exist("drm_"..sd_sect, "dream") then
+                            local dream_path = sys_ini:r_string("drm_"..sd_sect, "dream")
+
+                            if sys_ini:line_exist("drm_"..sd_sect, "cond") then
+                                local cond = xr_logic.cfg_get_condlist(sys_ini, "drm_"..sd_sect, "cond", self)
+                                local to_regular = nil
+
+                                if sys_ini:line_exist("drm_"..sd_sect, "to_regular") then
+                                    local prob = def_regular_probability
+                                    local tp = def_regular_type
+                                    local tr = sys_ini:r_string("drm_"..sd_sect, "to_regular")
+                                    local at, to, p, t = string.find(tr, "(%d+),(%w+)")
+                                    p = tonumber(p)
+                                    if p then
+                                        prob = p
+                                    end
+                                    if dream_types[t] == 1 then
+                                        tp = t
+                                    end
+                                    to_regular = {prob, tp}
+                                end
+
+                                self.scenario[sd_sect] = {dream_path, cond, to_regular}
+                            else
+                            end
+                        else
+                        end
+                    else
+                    end
+                end
+            end
+        else
+        end
+    else
+    end
+
+end
+
+function dream_mgr:name()
+    return "dream_mgr"
+end
+
+function dream_mgr:get_dream()
+    local k, v
+    local dream = nil
+
+    for k, v in pairs(self.scenario) do
+	    local c = xr_logic.pick_section_from_condlist(db.actor, self, v[2].condlist)
+	    if c == "true" or c == "" then
+	        dream = k
+	        break
+	    end
+    end
+    
+    if not dream then -- check regular dream
+        local rval = math.random(100)
+        local rp = self.regular_probability
+
+        if dream_prob >= 0 then
+            rp = dream_prob
+        end
+
+        if rval < rp and dream_types[type] then
+            local prob_power = 0
+
+            for k, v in pairs(self.regular) do
+                if type == "all" or type == v[3] then
+                    prob_power = prob_power + v[2]
+                end
+            end
+            
+            if prob_power > 0 then
+                local cur_prob = 0
+
+                rval = math.random(prob_power)
+                for k, v in pairs(self.regular) do
+                    if type == "all" or type == v[3] then
+                        if rval <  cur_prob + v[2] then
+                            return v[1]
+                        else
+                            cur_prob = cur_prob + v[2]
+                        end
+                    end
+                end
+            end
+        end
+    else
+        v = self.scenario[dream]
+        if v[3] then -- put this dream into regular
+            self.regular[dream] = {v[1], v[3][1], v[3][2]}
+            self.scenario[dream] = nil
+        end
+        return v[1]
+    end
+
+    return "" -- no dreams
+end
+
+
+local dream_manager = dream_mgr()
+
+function sleep_video_name_callback()
+	-- function returns video file name or empty string
+    return dream_manager:get_dream()
+end

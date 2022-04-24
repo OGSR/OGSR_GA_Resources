@@ -1,0 +1,92 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-- Игнорирование врагов
+-- Чугай Александр
+
+function attach( sm )
+  sm:subscribe({ signal = "on_npc_enemy_callback", fun = this.enemy_callback })
+end
+
+function enemy_callback( obj, enemy, result )
+  if obj:critically_wounded() then return end
+
+  if xr_companion.is_companion(obj:id()) then --Если напарник хочет атаковать кого-то, делаем проверку, может ли этот кто-то атаковать актора. Если нет - запрещаем атаку.
+	obj = enemy
+	enemy = db.actor
+  elseif xr_companion.is_companion(enemy:id()) then --Кто-то хочет атаковать напарника, делаем проверку, может ли этот кто-то атаковать актора. Если нет - запрещаем атаку.
+	enemy = db.actor
+  end
+
+  local st = db.storage[ obj:id() ].combat_ignore
+  if not st or not st.enabled then return end
+
+  local overrides = xr_logic.generic_scheme_overrides( obj )
+  db.storage[ obj:id() ].enemy = enemy
+  if
+    overrides
+    and overrides.combat_ignore
+    and xr_logic.pick_section_from_condlist(
+      db.actor, obj, overrides.combat_ignore.condlist
+    ) ~= nil
+  then
+    table.insert( result, false )
+    return true
+  end
+end
+
+
+function is_enemy( obj ) --Используется в xrs_battle_ai
+  if obj:critically_wounded() then return true end
+
+  local st = db.storage[ obj:id() ].combat_ignore
+  if not st or not st.enabled then return true end
+
+  local overrides = xr_logic.generic_scheme_overrides( obj )
+  if overrides and overrides.combat_ignore then
+    return overrides.combat_ignore.cached_condlist
+      :pick_section_from_condlist( db.actor, obj ) == nil
+  end
+
+  return true
+end
+
+
+class "action_process_enemy"
+function action_process_enemy:__init( obj, storage )
+	self.object = obj
+	self.st     = storage
+end
+
+function action_process_enemy:hit_callback(obj, amount, local_direction, who, bone_index)
+	if not who then	return end
+	--if amount == 0 then return end --Кто-то стрельнул в воздух
+
+	if who:is_actor() then
+		local overrides = xr_logic.generic_scheme_overrides( obj )
+		if not overrides or not overrides.combat_ignore_keep_when_attacked then
+			self.st.enabled = false
+		end
+	end
+end
+
+
+function add_to_binder( npc, ini, scheme, section, storage )
+	local new_action = this.action_process_enemy( npc, storage )
+	storage.action = new_action
+end
+
+function set_combat_ignore_checker( npc, ini, scheme, section )
+	local st = xr_logic.assign_storage_and_bind( npc, ini, scheme, section )
+	st.enabled = true
+
+	xr_logic.subscribe_action_for_events( npc, st, st.action ) --Подписываемся на hit callback-и
+end
+
+function disable_scheme( npc, scheme )
+	-- Отписываемся от hit callback. Это делать обязательно, потому что иначе при переключении на другой набор
+	-- схем, в котором нет перехвата боя, продолжится вызываться callback в старом подписанном action-е.
+	local st = db.storage[npc:id()][scheme]
+	if st then
+		xr_logic.unsubscribe_action_from_events(npc, st, st.action)
+	end
+end

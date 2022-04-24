@@ -1,0 +1,678 @@
+[logic]
+active = ph_sound@off
+on_hit = hit
+
+[hit]
+on_info = %+mbox_off%
+
+; ящик молчит
+[ph_sound@off] 
+snd = mbox_quiet
+on_info = {+mbox_play1_1} ph_sound@1_1
+on_info2 = {+mbox_play1_2} ph_sound@1_2
+on_info3 = {+mbox_play1_3} ph_sound@1_3
+on_info4 = {+mbox_play1_4} ph_sound@1_4
+on_info5 = {+mbox_play1_5} ph_sound@1_5
+on_info6 = {+mbox_play1all} ph_sound@1all
+
+on_info7 = {+mbox_play2_1} ph_sound@2_1
+on_info8 = {+mbox_play2_2} ph_sound@2_2
+on_info9 = {+mbox_play2_3} ph_sound@2_3
+on_info10 = {+mbox_play2_4} ph_sound@2_4
+on_info11 = {+mbox_play2_5} ph_sound@2_5
+on_info12 = {+mbox_play2all} ph_sound@2all
+
+on_info13 = {+mbox_play3_1} ph_sound@3_1
+on_info14 = {+mbox_play3_2} ph_sound@3_2
+on_info15 = {+mbox_play3_3} ph_sound@3_3
+on_info16 = {+mbox_play3_4} ph_sound@3_4
+on_info17 = {+mbox_play3_5} ph_sound@3_5
+on_info18 = {+mbox_play3all} ph_sound@3all
+
+on_info19 = {+mbox_play4_1} ph_sound@4_1
+on_info20 = {+mbox_play4_2} ph_sound@4_2
+on_info21 = {+mbox_play4_3} ph_sound@4_3
+on_info22 = {+mbox_play4_4} ph_sound@4_4
+on_info23 = {+mbox_play4_5} ph_sound@4_5
+on_info24 = {+mbox_play4all} ph_sound@4all
+
+on_info25 = {+mbox_play5_1} ph_sound@5_1
+on_info26 = {+mbox_play5_2} ph_sound@5_2
+on_info27 = {+mbox_play5_3} ph_sound@5_3
+on_info28 = {+mbox_play5_4} ph_sound@5_4
+on_info29 = {+mbox_play5_5} ph_sound@5_5
+on_info30 = {+mbox_play5all} ph_sound@5all
+
+on_info31 = {+mbox_play6_1} ph_sound@6_1
+on_info32 = {+mbox_play6_2} ph_sound@6_2
+on_info33 = {+mbox_play6_3} ph_sound@6_3
+on_info34 = {+mbox_play6_4} ph_sound@6_4
+on_info35 = {+mbox_play6_5} ph_sound@6_5
+on_info36 = {+mbox_play6all} ph_sound@6all
+
+on_info37 = {+mbox_play7_1} ph_sound@7_1
+on_info38 = {+mbox_play7_2} ph_sound@7_2
+on_info39 = {+mbox_play7_3} ph_sound@7_3
+on_info40 = {+mbox_play7_4} ph_sound@7_4
+on_info41 = {+mbox_play7_5} ph_sound@7_5
+on_info42 = {+mbox_play7all} ph_sound@7all
+
+on_info43 = {+mbox_play8_1} ph_sound@8_1
+on_info44 = {+mbox_play8_2} ph_sound@8_2
+on_info45 = {+mbox_play8_3} ph_sound@8_3
+on_info46 = {+mbox_play8_4} ph_sound@8_4
+on_info47 = {+mbox_play8_5} ph_sound@8_5
+on_info48 = {+mbox_play8all} ph_sound@8all
+
+on_info49 = {+mbox_play9_1} ph_sound@9_1
+on_info50 = {+mbox_play9_2} ph_sound@9_2
+on_info51 = {+mbox_play9_3} ph_sound@9_3
+on_info52 = {+mbox_play9_4} ph_sound@9_4
+on_info53 = {+mbox_play9_5} ph_sound@9_5
+on_info54 = {+mbox_play9all} ph_sound@9all
+
+
+
+
+; ящик пилит Цоя и компаню
+[ph_sound@1_1] 
+snd = mbox_play1_1
+on_info = {+mbox_play1_1} ph_sound@1_1
+on_info2 = {+mbox_play1_2} ph_sound@1_2
+on_info3 = {+mbox_play1_3} ph_sound@1_3
+on_info4 = {+mbox_play1_4} ph_sound@1_4
+on_info5 = {+mbox_play1_5} ph_sound@1_5
+on_info6 = {+mbox_play1all} ph_sound@1all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@1_2] 
+snd = mbox_play1_2
+on_info = {+mbox_play1_1} ph_sound@1_1
+on_info2 = {+mbox_play1_2} ph_sound@1_2
+on_info3 = {+mbox_play1_3} ph_sound@1_3
+on_info4 = {+mbox_play1_4} ph_sound@1_4
+on_info5 = {+mbox_play1_5} ph_sound@1_5
+on_info6 = {+mbox_play1all} ph_sound@1all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@1_3] 
+snd = mbox_play1_3
+on_info = {+mbox_play1_1} ph_sound@1_1
+on_info2 = {+mbox_play1_2} ph_sound@1_2
+on_info3 = {+mbox_play1_3} ph_sound@1_3
+on_info4 = {+mbox_play1_4} ph_sound@1_4
+on_info5 = {+mbox_play1_5} ph_sound@1_5
+on_info6 = {+mbox_play1all} ph_sound@1all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@1_4] 
+snd = mbox_play1_4
+on_info = {+mbox_play1_1} ph_sound@1_1
+on_info2 = {+mbox_play1_2} ph_sound@1_2
+on_info3 = {+mbox_play1_3} ph_sound@1_3
+on_info4 = {+mbox_play1_4} ph_sound@1_4
+on_info5 = {+mbox_play1_5} ph_sound@1_5
+on_info6 = {+mbox_play1all} ph_sound@1all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@1_5] 
+snd = mbox_play1_5
+on_info = {+mbox_play1_1} ph_sound@1_1
+on_info2 = {+mbox_play1_2} ph_sound@1_2
+on_info3 = {+mbox_play1_3} ph_sound@1_3
+on_info4 = {+mbox_play1_4} ph_sound@1_4
+on_info5 = {+mbox_play1_5} ph_sound@1_5
+on_info6 = {+mbox_play1all} ph_sound@1all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@1all] 
+snd = mbox_play1all
+on_info = {+mbox_play1_1} ph_sound@1_1
+on_info2 = {+mbox_play1_2} ph_sound@1_2
+on_info3 = {+mbox_play1_3} ph_sound@1_3
+on_info4 = {+mbox_play1_4} ph_sound@1_4
+on_info5 = {+mbox_play1_5} ph_sound@1_5
+on_info6 = {+mbox_play1all} ph_sound@1all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+
+
+
+; ящик играет Чайковского
+[ph_sound@2_1] 
+snd = mbox_play2_1
+on_info = {+mbox_play2_1} ph_sound@2_1
+on_info2 = {+mbox_play2_2} ph_sound@2_2
+on_info3 = {+mbox_play2_3} ph_sound@2_3
+on_info4 = {+mbox_play2_4} ph_sound@2_4
+on_info5 = {+mbox_play2_5} ph_sound@2_5
+on_info6 = {+mbox_play2all} ph_sound@2all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@2_2] 
+snd = mbox_play2_2
+on_info = {+mbox_play2_1} ph_sound@2_1
+on_info2 = {+mbox_play2_2} ph_sound@2_2
+on_info3 = {+mbox_play2_3} ph_sound@2_3
+on_info4 = {+mbox_play2_4} ph_sound@2_4
+on_info5 = {+mbox_play2_5} ph_sound@2_5
+on_info6 = {+mbox_play2all} ph_sound@2all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@2_3] 
+snd = mbox_play2_3
+on_info = {+mbox_play2_1} ph_sound@2_1
+on_info2 = {+mbox_play2_2} ph_sound@2_2
+on_info3 = {+mbox_play2_3} ph_sound@2_3
+on_info4 = {+mbox_play2_4} ph_sound@2_4
+on_info5 = {+mbox_play2_5} ph_sound@2_5
+on_info6 = {+mbox_play2all} ph_sound@2all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@2_4] 
+snd = mbox_play2_4
+on_info = {+mbox_play2_1} ph_sound@2_1
+on_info2 = {+mbox_play2_2} ph_sound@2_2
+on_info3 = {+mbox_play2_3} ph_sound@2_3
+on_info4 = {+mbox_play2_4} ph_sound@2_4
+on_info5 = {+mbox_play2_5} ph_sound@2_5
+on_info6 = {+mbox_play2all} ph_sound@2all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@2_5] 
+snd = mbox_play2_5
+on_info = {+mbox_play2_1} ph_sound@2_1
+on_info2 = {+mbox_play2_2} ph_sound@2_2
+on_info3 = {+mbox_play2_3} ph_sound@2_3
+on_info4 = {+mbox_play2_4} ph_sound@2_4
+on_info5 = {+mbox_play2_5} ph_sound@2_5
+on_info6 = {+mbox_play2all} ph_sound@2all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@2all] 
+snd = mbox_play2all
+on_info = {+mbox_play2_1} ph_sound@2_1
+on_info2 = {+mbox_play2_2} ph_sound@2_2
+on_info3 = {+mbox_play2_3} ph_sound@2_3
+on_info4 = {+mbox_play2_4} ph_sound@2_4
+on_info5 = {+mbox_play2_5} ph_sound@2_5
+on_info6 = {+mbox_play2all} ph_sound@2all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+
+
+; ящик играет блатняк
+[ph_sound@3_1] 
+snd = mbox_play3_1
+on_info = {+mbox_play3_1} ph_sound@3_1
+on_info2 = {+mbox_play3_2} ph_sound@3_2
+on_info3 = {+mbox_play3_3} ph_sound@3_3
+on_info4 = {+mbox_play3_4} ph_sound@3_4
+on_info5 = {+mbox_play3_5} ph_sound@3_5
+on_info6 = {+mbox_play3all} ph_sound@3all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@3_2] 
+snd = mbox_play3_2
+on_info = {+mbox_play3_1} ph_sound@3_1
+on_info2 = {+mbox_play3_2} ph_sound@3_2
+on_info3 = {+mbox_play3_3} ph_sound@3_3
+on_info4 = {+mbox_play3_4} ph_sound@3_4
+on_info5 = {+mbox_play3_5} ph_sound@3_5
+on_info6 = {+mbox_play3all} ph_sound@3all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@3_3] 
+snd = mbox_play3_3
+on_info = {+mbox_play3_1} ph_sound@3_1
+on_info2 = {+mbox_play3_2} ph_sound@3_2
+on_info3 = {+mbox_play3_3} ph_sound@3_3
+on_info4 = {+mbox_play3_4} ph_sound@3_4
+on_info5 = {+mbox_play3_5} ph_sound@3_5
+on_info6 = {+mbox_play3all} ph_sound@3all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@3_4] 
+snd = mbox_play3_4
+on_info = {+mbox_play3_1} ph_sound@3_1
+on_info2 = {+mbox_play3_2} ph_sound@3_2
+on_info3 = {+mbox_play3_3} ph_sound@3_3
+on_info4 = {+mbox_play3_4} ph_sound@3_4
+on_info5 = {+mbox_play3_5} ph_sound@3_5
+on_info6 = {+mbox_play3all} ph_sound@3all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@3_5] 
+snd = mbox_play3_5
+on_info = {+mbox_play3_1} ph_sound@3_1
+on_info2 = {+mbox_play3_2} ph_sound@3_2
+on_info3 = {+mbox_play3_3} ph_sound@3_3
+on_info4 = {+mbox_play3_4} ph_sound@3_4
+on_info5 = {+mbox_play3_5} ph_sound@3_5
+on_info6 = {+mbox_play3all} ph_sound@3all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@3all] 
+snd = mbox_play3all
+on_info = {+mbox_play3_1} ph_sound@3_1
+on_info2 = {+mbox_play3_2} ph_sound@3_2
+on_info3 = {+mbox_play3_3} ph_sound@3_3
+on_info4 = {+mbox_play3_4} ph_sound@3_4
+on_info5 = {+mbox_play3_5} ph_sound@3_5
+on_info6 = {+mbox_play3all} ph_sound@3all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+
+
+; ящик играет хэви
+[ph_sound@4_1] 
+snd = mbox_play4_1
+on_info = {+mbox_play4_1} ph_sound@4_1
+on_info2 = {+mbox_play4_2} ph_sound@4_2
+on_info3 = {+mbox_play4_3} ph_sound@4_3
+on_info4 = {+mbox_play4_4} ph_sound@4_4
+on_info5 = {+mbox_play4_5} ph_sound@4_5
+on_info6 = {+mbox_play4all} ph_sound@4all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@4_2] 
+snd = mbox_play4_2
+on_info = {+mbox_play4_1} ph_sound@4_1
+on_info2 = {+mbox_play4_2} ph_sound@4_2
+on_info3 = {+mbox_play4_3} ph_sound@4_3
+on_info4 = {+mbox_play4_4} ph_sound@4_4
+on_info5 = {+mbox_play4_5} ph_sound@4_5
+on_info6 = {+mbox_play4all} ph_sound@4all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@4_3] 
+snd = mbox_play4_3
+on_info = {+mbox_play4_1} ph_sound@4_1
+on_info2 = {+mbox_play4_2} ph_sound@4_2
+on_info3 = {+mbox_play4_3} ph_sound@4_3
+on_info4 = {+mbox_play4_4} ph_sound@4_4
+on_info5 = {+mbox_play4_5} ph_sound@4_5
+on_info6 = {+mbox_play4all} ph_sound@4all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@4_4] 
+snd = mbox_play4_4
+on_info = {+mbox_play4_1} ph_sound@4_1
+on_info2 = {+mbox_play4_2} ph_sound@4_2
+on_info3 = {+mbox_play4_3} ph_sound@4_3
+on_info4 = {+mbox_play4_4} ph_sound@4_4
+on_info5 = {+mbox_play4_5} ph_sound@4_5
+on_info6 = {+mbox_play4all} ph_sound@4all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@4_5] 
+snd = mbox_play4_5
+on_info = {+mbox_play4_1} ph_sound@4_1
+on_info2 = {+mbox_play4_2} ph_sound@4_2
+on_info3 = {+mbox_play4_3} ph_sound@4_3
+on_info4 = {+mbox_play4_4} ph_sound@4_4
+on_info5 = {+mbox_play4_5} ph_sound@4_5
+on_info6 = {+mbox_play4all} ph_sound@4all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@4all] 
+snd = mbox_play4all
+on_info = {+mbox_play4_1} ph_sound@4_1
+on_info2 = {+mbox_play4_2} ph_sound@4_2
+on_info3 = {+mbox_play4_3} ph_sound@4_3
+on_info4 = {+mbox_play4_4} ph_sound@4_4
+on_info5 = {+mbox_play4_5} ph_sound@4_5
+on_info6 = {+mbox_play4all} ph_sound@4all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+
+
+; ящик играет Челентано
+[ph_sound@5_1] 
+snd = mbox_play5_1
+on_info = {+mbox_play5_1} ph_sound@5_1
+on_info2 = {+mbox_play5_2} ph_sound@5_2
+on_info3 = {+mbox_play5_3} ph_sound@5_3
+on_info4 = {+mbox_play5_4} ph_sound@5_4
+on_info5 = {+mbox_play5_5} ph_sound@5_5
+on_info6 = {+mbox_play5all} ph_sound@5all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@5_2] 
+snd = mbox_play5_2
+on_info = {+mbox_play5_1} ph_sound@5_1
+on_info2 = {+mbox_play5_2} ph_sound@5_2
+on_info3 = {+mbox_play5_3} ph_sound@5_3
+on_info4 = {+mbox_play5_4} ph_sound@5_4
+on_info5 = {+mbox_play5_5} ph_sound@5_5
+on_info6 = {+mbox_play5all} ph_sound@5all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@5_3] 
+snd = mbox_play5_3
+on_info = {+mbox_play5_1} ph_sound@5_1
+on_info2 = {+mbox_play5_2} ph_sound@5_2
+on_info3 = {+mbox_play5_3} ph_sound@5_3
+on_info4 = {+mbox_play5_4} ph_sound@5_4
+on_info5 = {+mbox_play5_5} ph_sound@5_5
+on_info6 = {+mbox_play5all} ph_sound@5all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@5_4] 
+snd = mbox_play5_4
+on_info = {+mbox_play5_1} ph_sound@5_1
+on_info2 = {+mbox_play5_2} ph_sound@5_2
+on_info3 = {+mbox_play5_3} ph_sound@5_3
+on_info4 = {+mbox_play5_4} ph_sound@5_4
+on_info5 = {+mbox_play5_5} ph_sound@5_5
+on_info6 = {+mbox_play5all} ph_sound@5all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@5_5] 
+snd = mbox_play5_5
+on_info = {+mbox_play5_1} ph_sound@5_1
+on_info2 = {+mbox_play5_2} ph_sound@5_2
+on_info3 = {+mbox_play5_3} ph_sound@5_3
+on_info4 = {+mbox_play5_4} ph_sound@5_4
+on_info5 = {+mbox_play5_5} ph_sound@5_5
+on_info6 = {+mbox_play5all} ph_sound@5all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@5all] 
+snd = mbox_play5all
+on_info = {+mbox_play5_1} ph_sound@5_1
+on_info2 = {+mbox_play5_2} ph_sound@5_2
+on_info3 = {+mbox_play5_3} ph_sound@5_3
+on_info4 = {+mbox_play5_4} ph_sound@5_4
+on_info5 = {+mbox_play5_5} ph_sound@5_5
+on_info6 = {+mbox_play5all} ph_sound@5all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+
+
+; ящик играет Space
+[ph_sound@6_1] 
+snd = mbox_play6_1
+on_info = {+mbox_play6_1} ph_sound@6_1
+on_info2 = {+mbox_play6_2} ph_sound@6_2
+on_info3 = {+mbox_play6_3} ph_sound@6_3
+on_info4 = {+mbox_play6_4} ph_sound@6_4
+on_info5 = {+mbox_play6_5} ph_sound@6_5
+on_info6 = {+mbox_play6all} ph_sound@6all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@6_2] 
+snd = mbox_play6_2
+on_info = {+mbox_play6_1} ph_sound@6_1
+on_info2 = {+mbox_play6_2} ph_sound@6_2
+on_info3 = {+mbox_play6_3} ph_sound@6_3
+on_info4 = {+mbox_play6_4} ph_sound@6_4
+on_info5 = {+mbox_play6_5} ph_sound@6_5
+on_info6 = {+mbox_play6all} ph_sound@6all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@6_3] 
+snd = mbox_play6_3
+on_info = {+mbox_play6_1} ph_sound@6_1
+on_info2 = {+mbox_play6_2} ph_sound@6_2
+on_info3 = {+mbox_play6_3} ph_sound@6_3
+on_info4 = {+mbox_play6_4} ph_sound@6_4
+on_info5 = {+mbox_play6_5} ph_sound@6_5
+on_info6 = {+mbox_play6all} ph_sound@6all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@6_4] 
+snd = mbox_play6_4
+on_info = {+mbox_play6_1} ph_sound@6_1
+on_info2 = {+mbox_play6_2} ph_sound@6_2
+on_info3 = {+mbox_play6_3} ph_sound@6_3
+on_info4 = {+mbox_play6_4} ph_sound@6_4
+on_info5 = {+mbox_play6_5} ph_sound@6_5
+on_info6 = {+mbox_play6all} ph_sound@6all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@6_5] 
+snd = mbox_play6_5
+on_info = {+mbox_play6_1} ph_sound@6_1
+on_info2 = {+mbox_play6_2} ph_sound@6_2
+on_info3 = {+mbox_play6_3} ph_sound@6_3
+on_info4 = {+mbox_play6_4} ph_sound@6_4
+on_info5 = {+mbox_play6_5} ph_sound@6_5
+on_info6 = {+mbox_play6all} ph_sound@6all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@6all] 
+snd = mbox_play6all
+on_info = {+mbox_play6_1} ph_sound@6_1
+on_info2 = {+mbox_play6_2} ph_sound@6_2
+on_info3 = {+mbox_play6_3} ph_sound@6_3
+on_info4 = {+mbox_play6_4} ph_sound@6_4
+on_info5 = {+mbox_play6_5} ph_sound@6_5
+on_info6 = {+mbox_play6all} ph_sound@6all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+
+
+; ящик играет баллады
+[ph_sound@7_1] 
+snd = mbox_play7_1
+on_info = {+mbox_play7_1} ph_sound@7_1
+on_info2 = {+mbox_play7_2} ph_sound@7_2
+on_info3 = {+mbox_play7_3} ph_sound@7_3
+on_info4 = {+mbox_play7_4} ph_sound@7_4
+on_info5 = {+mbox_play7_5} ph_sound@7_5
+on_info6 = {+mbox_play1all} ph_sound@1all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@7_2] 
+snd = mbox_play7_2
+on_info = {+mbox_play7_1} ph_sound@7_1
+on_info2 = {+mbox_play7_2} ph_sound@7_2
+on_info3 = {+mbox_play7_3} ph_sound@7_3
+on_info4 = {+mbox_play7_4} ph_sound@7_4
+on_info5 = {+mbox_play7_5} ph_sound@7_5
+on_info6 = {+mbox_play7all} ph_sound@7all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@7_3] 
+snd = mbox_play7_3
+on_info = {+mbox_play7_1} ph_sound@7_1
+on_info2 = {+mbox_play7_2} ph_sound@7_2
+on_info3 = {+mbox_play7_3} ph_sound@7_3
+on_info4 = {+mbox_play7_4} ph_sound@7_4
+on_info5 = {+mbox_play7_5} ph_sound@7_5
+on_info6 = {+mbox_play7all} ph_sound@7all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@7_4] 
+snd = mbox_play7_4
+on_info = {+mbox_play7_1} ph_sound@7_1
+on_info2 = {+mbox_play7_2} ph_sound@7_2
+on_info3 = {+mbox_play7_3} ph_sound@7_3
+on_info4 = {+mbox_play7_4} ph_sound@7_4
+on_info5 = {+mbox_play7_5} ph_sound@7_5
+on_info6 = {+mbox_play7all} ph_sound@7all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@7_5] 
+snd = mbox_play7_5
+on_info = {+mbox_play7_1} ph_sound@7_1
+on_info2 = {+mbox_play7_2} ph_sound@7_2
+on_info3 = {+mbox_play7_3} ph_sound@7_3
+on_info4 = {+mbox_play7_4} ph_sound@7_4
+on_info5 = {+mbox_play7_5} ph_sound@7_5
+on_info6 = {+mbox_play7all} ph_sound@7all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@7all] 
+snd = mbox_play7all
+on_info = {+mbox_play7_1} ph_sound@7_1
+on_info2 = {+mbox_play7_2} ph_sound@7_2
+on_info3 = {+mbox_play7_3} ph_sound@7_3
+on_info4 = {+mbox_play7_4} ph_sound@7_4
+on_info5 = {+mbox_play7_5} ph_sound@7_5
+on_info6 = {+mbox_play7all} ph_sound@7all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+
+
+; ящик играет СССР
+[ph_sound@8_1] 
+snd = mbox_play8_1
+on_info = {+mbox_play8_1} ph_sound@8_1
+on_info2 = {+mbox_play8_2} ph_sound@8_2
+on_info3 = {+mbox_play8_3} ph_sound@8_3
+on_info4 = {+mbox_play8_4} ph_sound@8_4
+on_info5 = {+mbox_play8_5} ph_sound@8_5
+on_info6 = {+mbox_play8all} ph_sound@8all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@8_2] 
+snd = mbox_play8_2
+on_info = {+mbox_play8_1} ph_sound@8_1
+on_info2 = {+mbox_play8_2} ph_sound@8_2
+on_info3 = {+mbox_play8_3} ph_sound@8_3
+on_info4 = {+mbox_play8_4} ph_sound@8_4
+on_info5 = {+mbox_play8_5} ph_sound@8_5
+on_info6 = {+mbox_play8all} ph_sound@8all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@8_3] 
+snd = mbox_play8_3
+on_info = {+mbox_play8_1} ph_sound@8_1
+on_info2 = {+mbox_play8_2} ph_sound@8_2
+on_info3 = {+mbox_play8_3} ph_sound@8_3
+on_info4 = {+mbox_play8_4} ph_sound@8_4
+on_info5 = {+mbox_play8_5} ph_sound@8_5
+on_info6 = {+mbox_play8all} ph_sound@8all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@8_4] 
+snd = mbox_play8_4
+on_info = {+mbox_play8_1} ph_sound@8_1
+on_info2 = {+mbox_play8_2} ph_sound@8_2
+on_info3 = {+mbox_play8_3} ph_sound@8_3
+on_info4 = {+mbox_play8_4} ph_sound@8_4
+on_info5 = {+mbox_play8_5} ph_sound@8_5
+on_info6 = {+mbox_play8all} ph_sound@8all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@8_5] 
+snd = mbox_play8_5
+on_info = {+mbox_play8_1} ph_sound@8_1
+on_info2 = {+mbox_play8_2} ph_sound@8_2
+on_info3 = {+mbox_play8_3} ph_sound@8_3
+on_info4 = {+mbox_play8_4} ph_sound@8_4
+on_info5 = {+mbox_play8_5} ph_sound@8_5
+on_info6 = {+mbox_play8all} ph_sound@8all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@8all] 
+snd = mbox_play8all
+on_info = {+mbox_play8_1} ph_sound@8_1
+on_info2 = {+mbox_play8_2} ph_sound@8_2
+on_info3 = {+mbox_play8_3} ph_sound@8_3
+on_info4 = {+mbox_play8_4} ph_sound@8_4
+on_info5 = {+mbox_play8_5} ph_sound@8_5
+on_info6 = {+mbox_play8all} ph_sound@8all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+
+
+; ящик играет аномальный альбом
+[ph_sound@9_1] 
+snd = mbox_play9_1
+on_info = {+mbox_play9_1} ph_sound@9_1
+on_info2 = {+mbox_play9_2} ph_sound@9_2
+on_info3 = {+mbox_play9_3} ph_sound@9_3
+on_info4 = {+mbox_play9_4} ph_sound@9_4
+on_info5 = {+mbox_play9_5} ph_sound@9_5
+on_info6 = {+mbox_play9all} ph_sound@9all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@9_2] 
+snd = mbox_play9_2
+on_info = {+mbox_play9_1} ph_sound@9_1
+on_info2 = {+mbox_play9_2} ph_sound@9_2
+on_info3 = {+mbox_play9_3} ph_sound@9_3
+on_info4 = {+mbox_play9_4} ph_sound@9_4
+on_info5 = {+mbox_play9_5} ph_sound@9_5
+on_info6 = {+mbox_play9all} ph_sound@9all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@9_3] 
+snd = mbox_play9_3
+on_info = {+mbox_play9_1} ph_sound@9_1
+on_info2 = {+mbox_play9_2} ph_sound@9_2
+on_info3 = {+mbox_play9_3} ph_sound@9_3
+on_info4 = {+mbox_play9_4} ph_sound@9_4
+on_info5 = {+mbox_play9_5} ph_sound@9_5
+on_info6 = {+mbox_play9all} ph_sound@9all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@9_4] 
+snd = mbox_play9_4
+on_info = {+mbox_play9_1} ph_sound@9_1
+on_info2 = {+mbox_play9_2} ph_sound@9_2
+on_info3 = {+mbox_play9_3} ph_sound@9_3
+on_info4 = {+mbox_play9_4} ph_sound@9_4
+on_info5 = {+mbox_play9_5} ph_sound@9_5
+on_info6 = {+mbox_play9all} ph_sound@9all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@9_5] 
+snd = mbox_play9_5
+on_info = {+mbox_play9_1} ph_sound@9_1
+on_info2 = {+mbox_play9_2} ph_sound@9_2
+on_info3 = {+mbox_play9_3} ph_sound@9_3
+on_info4 = {+mbox_play9_4} ph_sound@9_4
+on_info5 = {+mbox_play9_5} ph_sound@9_5
+on_info6 = {+mbox_play9all} ph_sound@9all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off
+;on_signal = sound_end| nil
+
+[ph_sound@9all] 
+snd = mbox_play9all
+on_info = {+mbox_play9_1} ph_sound@9_1
+on_info2 = {+mbox_play9_2} ph_sound@9_2
+on_info3 = {+mbox_play9_3} ph_sound@9_3
+on_info4 = {+mbox_play9_4} ph_sound@9_4
+on_info5 = {+mbox_play9_5} ph_sound@9_5
+on_info6 = {+mbox_play9all} ph_sound@9all
+on_info7 = {-mbox_play1_1 -mbox_play1_2 -mbox_play1_3 -mbox_play1_4 -mbox_play1_5 -mbox_play1all -mbox_play2_1 -mbox_play2_2 -mbox_play2_3 -mbox_play2_4 -mbox_play1_5 -mbox_play2all -mbox_play3_1 -mbox_play3_2 -mbox_play3_3 -mbox_play3_4 -mbox_play3_5 -mbox_play3all -mbox_play4_1 -mbox_play4_2 -mbox_play4_3 -mbox_play4_4 -mbox_play4_5 -mbox_play4all -mbox_play5_1 -mbox_play5_2 -mbox_play5_3 -mbox_play5_4 -mbox_play5_5 -mbox_play5all -mbox_play6_1 -mbox_play6_2 -mbox_play6_3 -mbox_play6_4 -mbox_play6_5 -mbox_play6all -mbox_play7_1 -mbox_play7_2 -mbox_play7_3 -mbox_play1_4 -mbox_play7_5 -mbox_play7all -mbox_play8_1 -mbox_play8_2 -mbox_play8_3 -mbox_play8_4 -mbox_play8_5 -mbox_play8all -mbox_play9_1 -mbox_play9_2 -mbox_play9_3 -mbox_play9_4 -mbox_play9_5 -mbox_play9all} ph_sound@off

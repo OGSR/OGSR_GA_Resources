@@ -1,0 +1,47 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+function arrived_to_loschina()
+	if has_alife_info("loschina_task_start") and level.name() == "k01_darkscape_ogse" then
+		return true
+	end
+	return false
+end
+function actor_in_labs_zone()
+	if has_alife_info("loschina_task_start") and xr_conditions.actor_in_zone(nil,nil,{"darkscape_lab_space_restrictor"}) then
+		return true
+	end
+end
+function actor_have_lablog()
+if has_alife_info("loschina_task_start") and db.actor:object("ds_lablog")  then return true end
+return false
+end
+function yan_labx16_mapspot (actor, npc)
+    	level_tasks.add_location_by_sid (story_ids.yan_mapspot_from_vasilyev, "green_location")
+end
+function has_labx16_documents ()
+	if db.actor:object ("lab_x16_documents") ~= nil then
+		if not has_alife_info("yantar_find_ghost_task_end") then
+			news_manager.send_tip(db.actor, "storyline_ghost_tip", nil, "wolf")
+		end
+		db.actor:give_info_portion ("yantar_find_ghost_task_end")
+		db.actor:give_info_portion ("yan_x16_documents_gain")
+		return true
+	end    
+	return false
+end
+function switchers_off ()
+		return has_alife_info("yan_labx16_switcher_1_off") and has_alife_info("yan_labx16_switcher_2_off") and has_alife_info("yan_labx16_switcher_3_off") 
+end
+function has_kruglov_flash ()
+		return db.actor:object ("kruglov_flash") ~= nil
+end
+function yan_scientist_task_fail ()
+		return has_alife_info("yan_scientist_die") and not has_alife_info("yan_scientist_return_to_bunker")
+end
+
+function yantar_vasilyev_spam (actor, npc)
+    if has_alife_info("yan_find_vasilyev_end") and not has_alife_info("yan_vasilyev_record_played") and level.name() == "l08_yantar" then
+		news_manager.send_tip(db.actor, "storyline_vasilyev_tip", nil, "ecolog", nil, 903)
+		db.actor:give_info_portion("yan_vasilyev_record_played")
+	end
+end

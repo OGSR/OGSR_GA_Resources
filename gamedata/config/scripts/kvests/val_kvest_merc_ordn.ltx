@@ -1,0 +1,27 @@
+[logic]
+active = remark
+combat_ignore = combat_ignore
+on_death = death
+on_hit = hit
+
+[hit]
+on_info = {=hit_by_actor} %+val_killers_kvest_on_combat%
+
+[death]
+on_info = {=killed_by_actor} %+val_killers_kvest_on_combat%
+
+[remark]
+anim = wait
+no_move = true
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = {-val_killers_kvest_on_combat =actor_in_outfit(killer_outfit)}
+
+[danger_condition]
+ignore_distance = 0
+
+[combat_ignore]
+combat_ignore_cond = {-val_killers_kvest_on_combat =actor_in_outfit(killer_outfit)}
+
+[smart_terrains]
+none = true

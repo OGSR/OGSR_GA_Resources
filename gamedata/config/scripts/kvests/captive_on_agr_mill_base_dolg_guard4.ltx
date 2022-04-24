@@ -1,0 +1,33 @@
+[logic]
+active = camper
+
+[smart_terrains]
+none = true
+
+;[remark]
+;anim = hello_wpn
+;no_rotate = true
+;no_move = true
+;target = actor
+;reactions = ignore
+;meet = meet
+;on_info = {+bar_kvest_friend_of_barman_on_freedom_strike} camper
+;danger = danger_condition
+
+[meet]
+meet_state = 10|hello@talk_hello| 5|ward@wait
+meet_state_wpn = 10|hello@talk_hello| 5|ward@wait
+victim = 30|actor
+victim_wpn = 30|actor
+use = true
+use_wpn = false
+
+[camper]
+path_walk = captive_on_agr_mill_base_dolg_guard4_point
+path_look = captive_on_agr_mill_base_dolg_guard_look_point2
+on_actor_dist_ge_nvis = 80 | {+captive_on_agr_mill_base_say_thanks} %=del_npc%
+danger = danger_condition
+meet = meet
+
+[danger_condition]
+ignore_distance = 5

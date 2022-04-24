@@ -1,0 +1,1938 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<game_dialogs>
+	<!--//////////////////// Проводники ////////////////////-->
+	<!--////////////////////            ////////////////////-->
+	<dialog id="tm_start_kvests_u_sidora_dialog">
+		<has_info>esc_serious_talk</has_info>
+		<precondition>tasks_functor.have_sidor_undone_quest</precondition>
+		<init_func>tasks_dialogs.init_start_kvests_u_sidora_dlg</init_func>
+	</dialog>
+	<dialog id="tm_complete_kvests_u_sidora_dialog">
+		<precondition>tasks_functor.is_sidor_quest_started</precondition>
+		<init_func>tasks_dialogs.init_complete_kvests_u_sidora_dlg</init_func>
+	</dialog>
+	<dialog id="tm_start_kvests_barman_dialog">
+		<has_info>agroprom_military_case_done</has_info>
+		<precondition>tasks_functor.bar_all_kvests_of_barman_completed</precondition>
+		<init_func>tasks_dialogs.init_start_kvests_barman_dlg</init_func>
+	</dialog>
+	<dialog id="tm_complete_kvests_barman_dialog">
+		<precondition>tasks_functor.bar_have_one_kvest_of_barman</precondition>
+		<init_func>tasks_dialogs.init_complete_kvests_barman_dlg</init_func>
+	</dialog>
+	<dialog id="tm_start_kvests_max_dialog">
+		<precondition>tasks_functor.mil_all_kvests_of_max_completed</precondition>
+		<init_func>tasks_dialogs.init_start_kvests_max_dlg</init_func>
+	</dialog>
+	<dialog id="tm_complete_kvests_max_dialog">
+		<precondition>tasks_functor.mil_have_one_kvest_of_max</precondition>
+		<init_func>tasks_dialogs.init_complete_kvests_max_dlg</init_func>
+	</dialog>
+	<dialog id="esc_take_dinamyte_dialog">
+		<has_info>esc_kvest_sdelka_with_mils_start</has_info>
+		<dont_has_info>escape_kvest_with_military_give_din</dont_has_info>
+		<init_func>tasks_dialogs.init_take_dinamyte_dlg</init_func>
+	</dialog>
+	<dialog id="esc_give_dinamyte_to_mils_dialog">
+		<precondition>tasks_functor.is_dynamite_with_actor</precondition>
+		<has_info>escape_kvest_with_military_give_din</has_info>
+		<dont_has_info>esc_kvest_sdelka_with_mils_get_car</dont_has_info>
+		<dont_has_info>escape_kvest_with_military_give_din_to_mils</dont_has_info>
+		<dont_has_info>esc_kvest_sdelka_with_mils_trunk_clear</dont_has_info>
+		<dont_has_info>esc_kvest_sdelka_with_mils_fail</dont_has_info>
+		<init_func>tasks_dialogs.init_give_dinamyte_to_mils_dlg</init_func>
+	</dialog>
+	<dialog id="esc_give_dinamyte_to_mils_dialog_something_happend">
+		<has_info>escape_kvest_with_military_give_din</has_info>
+		<has_info>escape_kvest_with_military_give_din_to_mils_give</has_info>
+		<dont_has_info>esc_kvest_sdelka_with_mils_get_car</dont_has_info>
+		<dont_has_info>escape_kvest_with_military_give_din_to_mils</dont_has_info>
+		<dont_has_info>esc_kvest_sdelka_with_mils_trunk_clear</dont_has_info>
+		<dont_has_info>esc_kvest_sdelka_with_mils_fail</dont_has_info>
+		<init_func>tasks_dialogs.init_give_dinamyte_to_mils_something_happend_dlg</init_func>
+	</dialog>
+	<dialog id="esc_give_dinamyte_to_mils_get_car_dialog">
+		<precondition>tasks_functor.precond_give_yashik_to_actor</precondition>
+		<has_info>escape_kvest_with_military_give_din</has_info>
+		<has_info>esc_kvest_sdelka_with_mils_get_car</has_info>
+		<dont_has_info>escape_kvest_with_military_give_din_to_mils</dont_has_info>
+		<dont_has_info>esc_kvest_sdelka_with_mils_trunk_clear</dont_has_info>
+		<dont_has_info>esc_kvest_sdelka_with_mils_fail</dont_has_info>
+		<init_func>tasks_dialogs.init_give_dinamyte_to_mils_get_car_dlg</init_func>
+	</dialog>
+	<dialog id="esc_give_dinamyte_to_mils_dialog_trunk">
+		<has_info>escape_kvest_with_military_give_din</has_info>
+		<has_info>esc_kvest_sdelka_with_mils_trunk_clear</has_info>
+		<dont_has_info>escape_kvest_with_military_give_din_to_mils</dont_has_info>
+		<dont_has_info>esc_kvest_sdelka_with_mils_fail</dont_has_info>
+		<init_func>tasks_dialogs.init_give_dinamyte_to_mils_dlg_trunk</init_func>
+	</dialog>
+	<dialog id="esc_kvest_sdelka_with_mils_talk_with_volk_dialog">
+		<precondition>tasks_functor.drive_yashik_to_lager</precondition>
+		<has_info>escape_kvest_with_military_give_din_to_mils</has_info>
+		<dont_has_info>escape_kvest_with_military_talk_with_volk</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_sdelka_with_mils_talk_with_volk_dlg</init_func>
+	</dialog>
+	<dialog id="esc_talk_with_specotryad_dialog">
+		<has_info>esc_kvest_plennik_of_blockpost_start</has_info>
+		<dont_has_info>esc_kvest_plennik_of_blockpost_meet_with_otryad</dont_has_info>
+		<init_func>tasks_dialogs.init_talk_with_specotryad_dlg</init_func>
+	</dialog>
+	<dialog id="esc_talk_with_plennik_of_blockpost_dialog">
+		<has_info>esc_kvest_plennik_of_blockpost_search_info_about_plennik</has_info>
+		<dont_has_info>esc_kvest_plennik_of_blockpost_talk_with_plennik</dont_has_info>
+		<init_func>tasks_dialogs.init_talk_with_plennik_of_blockpost_dlg</init_func>
+	</dialog>
+	<dialog id="esc_talk_with_anmaly_military_leader_dialog">
+		<has_info>esc_kvest_know_do_mils_near_anomaly_start</has_info>
+		<dont_has_info>esc_kvest_know_do_mils_near_anomaly_start_3</dont_has_info>
+		<dont_has_info>esc_know_do_mils_near_anomaly_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_talk_with_anmaly_military_leader_dlg</init_func>
+	</dialog>
+	<dialog id="esc_talk_with_anmaly_military_leader_2_dialog">
+		<has_info>esc_kvest_know_do_mils_near_anomaly_complete</has_info>
+		<dont_has_info>esc_talk_with_anmaly_military_leader_2</dont_has_info>
+		<init_func>tasks_dialogs.init_talk_with_anmaly_military_leader_2_dlg</init_func>
+	</dialog>
+	<dialog id="esc_talk_with_anmaly_military_leader_3_dialog">
+		<has_info>esc_talk_with_anmaly_military_leader_2</has_info>
+		<precondition>tasks_functor.have_af_esc_anomaly</precondition>
+		<dont_has_info>esc_kvest_know_do_mils_near_anomaly_2_fail</dont_has_info>
+		<init_func>tasks_dialogs.init_talk_with_anmaly_military_leader_3_dlg</init_func>
+	</dialog>
+	<dialog id="esc_talk_with_anmaly_military_leader___3_dialog">
+		<has_info>esc_kvest_know_do_mils_near_anomaly_start_3</has_info>
+		<precondition>tasks_functor.have_5_vodka</precondition>
+		<dont_has_info>esc_kvest_know_do_mils_near_anomaly_3_complete</dont_has_info>
+		<dont_has_info>esc_kvest_know_do_mils_near_anomaly_2_fail</dont_has_info>
+		<init_func>tasks_dialogs.init_talk_with_anmaly_military_leader__3_dlg</init_func>
+	</dialog>
+	<dialog id="esc_military_near_anomaly_dialog_with_private">
+		<phrase_list>
+			<phrase id="0">
+				<text>esc_military_near_anomaly_dialog_with_private_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>esc_military_near_anomaly_dialog_with_private_1</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="bar_talk_zahvatchik_friend_barman_dialog">
+		<has_info>bar_kvest_search_friend_barman_start</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+				<!-- Либо нас посылают за артом, либо посылают вообще-->
+				<next>2</next>
+				<!-- Отдаём артефакт -->
+				<next>3</next>
+				<!-- Грубо посылаем -->
+			</phrase>
+			<phrase id="1">
+				<text/>
+				<dont_has_info>bar_kvest_friend_of_barman_sv_dlg_end</dont_has_info>
+				<dont_has_info>bar_kvest_friend_of_barman_go_from_glassbeads</dont_has_info>
+				<next>1s</next>
+			</phrase>
+			<phrase id="1s">
+				<text>esc_talk_zahvatchik_friend_barman_0s</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>esc_talk_zahvatchik_friend_barman_0</text>
+				<next>111</next>
+			</phrase>
+			<phrase id="111">
+				<text>esc_talk_zahvatchik_friend_barman_1</text>
+				<next>1111</next>
+				<next>1112</next>
+			</phrase>
+			<phrase id="1112">
+				<text>esc_talk_zahvatchik_friend_barman_2</text>
+				<give_info>bar_kvest_friend_of_barman_sv_dlg_end</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="1111">
+				<text>esc_talk_zahvatchik_friend_barman_3</text>
+				<next>11111</next>
+			</phrase>
+			<phrase id="11111">
+				<text>esc_talk_zahvatchik_friend_barman_4</text>
+				<next>111111</next>
+			</phrase>
+			<phrase id="111111">
+				<text>esc_talk_zahvatchik_friend_barman_5</text>
+				<next>1111111</next>
+			</phrase>
+			<phrase id="1111111">
+				<text>esc_talk_zahvatchik_friend_barman_6</text>
+				<next>11111111</next>
+				<next>11111112</next>
+			</phrase>
+			<phrase id="11111112">
+				<text>esc_talk_zahvatchik_friend_barman_2</text>
+				<give_info>bar_kvest_friend_of_barman_sv_dlg_end</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="11111111">
+				<text>esc_talk_zahvatchik_friend_barman_7</text>
+				<next>111111111</next>
+			</phrase>
+			<phrase id="111111111">
+				<text>esc_talk_zahvatchik_friend_barman_8</text>
+				<next>1111111111</next>
+			</phrase>
+			<phrase id="1111111111">
+				<text>esc_talk_zahvatchik_friend_barman_9</text>
+				<next>11111111111</next>
+			</phrase>
+			<phrase id="11111111111">
+				<text>esc_talk_zahvatchik_friend_barman_10</text>
+				<give_info>bar_kvest_friend_of_barman_go_from_glassbeads</give_info>
+				<next>111111111111</next>
+			</phrase>
+			<phrase id="111111111111">
+				<text>esc_talk_zahvatchik_friend_barman_11</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="2">
+				<text/>
+				<dont_has_info>bar_kvest_friend_of_barman_sv_dlg_end</dont_has_info>
+				<has_info>bar_kvest_friend_of_barman_go_from_glassbeads</has_info>
+				<next>21</next>
+			</phrase>
+			<phrase id="21">
+				<text>esc_talk_zahvatchik_friend_barman_art_0</text>
+				<next>211</next>
+				<next>212</next>
+			</phrase>
+			<phrase id="211">
+				<precondition>tasks_functor.actor_not_have_af_dummy_glassbeads</precondition>
+				<text>esc_talk_zahvatchik_friend_barman_art_1</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="212">
+				<precondition>tasks_functor.actor_have_af_dummy_glassbeads</precondition>
+				<text>esc_talk_zahvatchik_friend_barman_art_2</text>
+				<next>2121</next>
+			</phrase>
+			<phrase id="2121">
+				<text>esc_talk_zahvatchik_friend_barman_art_3</text>
+				<next>21211</next>
+				<action>tasks_functor.give_af_dummy_glassbeads</action>
+				<give_info>bar_kvest_friend_of_barman_lost_glassbeads</give_info>
+				<give_info>bar_kvest_friend_of_barman_sv_dlg_end</give_info>
+			</phrase>
+			<phrase id="21211">
+				<text>esc_talk_zahvatchik_friend_barman_art_4</text>
+				<next>212111</next>
+			</phrase>
+			<phrase id="212111">
+				<text>esc_talk_zahvatchik_friend_barman_art_5</text>
+				<next>2121111</next>
+			</phrase>
+			<phrase id="2121111">
+				<text>esc_talk_zahvatchik_friend_barman_art_6</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="3">
+				<has_info>bar_kvest_friend_of_barman_sv_dlg_end</has_info>
+				<next>31</next>
+			</phrase>
+			<phrase id="31">
+				<text>esc_talk_zahvatchik_friend_barman_goodbay_1</text>
+			</phrase>
+			<phrase id="311">
+				<text>esc_talk_zahvatchik_friend_barman_goodbay_2</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="friend_of_barman_start_dialog">
+		<phrase_list>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+				<!-- просим о помощи, пытаемся получить оружие -->
+				<next>2</next>
+				<!-- продолжаем клянчить оружие -->
+				<!--<next>3</next> -->
+				<!-- оружие получили/нам отказали, штурм не начался-->
+				<next>4</next>
+				<!-- штурм закончился, благодарим, даем ССИ о окончании подтаска-->
+				<next>5</next>
+				<!-- штурм закончился, ССИ о спасении выдано, просто треплемся! -->
+			</phrase>
+			<phrase id="1">
+				<text/>
+				<dont_has_info>bar_kvest_friend_of_barman_on_freedom_strike</dont_has_info>
+				<dont_has_info>bar_kvest_friend_of_barman_search_in_inventory</dont_has_info>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>esc_talk_with_shvid_0</text>
+				<next>12</next>
+			</phrase>
+			<phrase id="12">
+				<text>esc_talk_with_shvid_1</text>
+				<action>tasks_functor.make_shvid_trade_obmen</action>
+				<next>13</next>
+			</phrase>
+			<phrase id="13">
+				<text>esc_talk_with_shvid_2</text>
+				<give_info>bar_kvest_friend_of_barman_search_in_inventory</give_info>
+				<next>14</next>
+			</phrase>
+			<phrase id="14">
+				<text>esc_talk_with_shvid_search_in_inventory</text>
+				<action>tasks_functor.actor_switch_to_trade</action>
+			</phrase>
+			<phrase id="2">
+				<dont_has_info>bar_kvest_friend_of_barman_on_freedom_strike</dont_has_info>
+				<has_info>bar_kvest_friend_of_barman_search_in_inventory</has_info>
+				<next>21</next>
+			</phrase>
+			<phrase id="21">
+				<text>esc_talk_with_shvid_21</text>
+				<next>22a</next>
+				<next>22b</next>
+			</phrase>
+			<phrase id="22a">
+				<text>esc_talk_with_shvid_22</text>
+				<next>23</next>
+			</phrase>
+			<phrase id="23">
+				<text>esc_talk_with_shvid_thank_for_weapon</text>
+				<next>24</next>
+			</phrase>
+			<phrase id="24">
+				<text>esc_talk_with_shvid_actor_goodbye</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="22b">
+				<text>esc_talk_with_shvid_search_in_inventory</text>
+				<action>tasks_functor.actor_switch_to_trade</action>
+			</phrase>
+			<!--
+			<phrase id="1">
+				<text />
+				<dont_has_info>bar_kvest_friend_of_barman_on_freedom_strike</dont_has_info>
+				<dont_has_info>bar_kvest_friend_of_barman_search_in_inventory</dont_has_info>
+				<dont_has_info>bar_kvest_friend_of_barman_weapon_select</dont_has_info>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>esc_talk_with_shvid_0</text>
+				<next>111</next>
+			</phrase>
+			<phrase id="111">
+				<text>esc_talk_with_shvid_1</text>
+				<next>1111</next>
+			</phrase>
+			<phrase id="1111">
+				<text>esc_talk_with_shvid_2</text>
+				<next>11111</next>
+				<next>11112</next>
+				<next>11113</next>
+				<next>11114</next>
+			</phrase>
+			<phrase id="11111">
+				<precondition>tasks_functor.is_weapon_in_first_slot</precondition>
+				<text>esc_talk_with_shvid_give_first_slot_weapon</text>
+				<give_info>bar_kvest_friend_of_barman_weapon_select</give_info>
+				<action>tasks_functor.give_to_barman_friend_first_slot_weapon</action>
+				<next>111111</next>
+			</phrase>
+			<phrase id="11112">
+				<precondition>tasks_functor.is_weapon_in_second_slot</precondition>
+				<text>esc_talk_with_shvid_give_second_slot_weapon</text>
+				<give_info>bar_kvest_friend_of_barman_weapon_select</give_info>
+				<action>tasks_functor.give_to_barman_friend_second_slot_weapon</action>
+				<next>111111</next>
+			</phrase>
+			<phrase id="11113">
+				<text>esc_talk_with_shvid_give_nothing</text>
+				<give_info>bar_kvest_friend_of_barman_weapon_select</give_info>
+				<next>111112</next>
+			</phrase>
+			<phrase id="11114">
+				<text>esc_talk_with_shvid_search_in_inventory</text>
+				<give_info>bar_kvest_friend_of_barman_search_in_inventory</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="111111">
+				<text>esc_talk_with_shvid_thank_for_weapon</text>
+				<next>1111111</next>
+			</phrase>
+			<phrase id="111112">
+				<text>esc_talk_with_shvid_no_weapon</text>
+				<next>1111111</next>
+			</phrase>
+			<phrase id="1111111">
+				<text>esc_talk_with_shvid_actor_goodbye</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="2">
+				<text />
+				<dont_has_info>bar_kvest_friend_of_barman_on_freedom_strike</dont_has_info>
+				<has_info>bar_kvest_friend_of_barman_search_in_inventory</has_info>
+				<dont_has_info>bar_kvest_friend_of_barman_weapon_select</dont_has_info>
+				<next>21</next>
+			</phrase>
+			<phrase id="21">
+				<text>esc_talk_with_shvid_waiting_for_weapon</text>
+				<next>11111</next>
+				<next>11112</next>
+				<next>11113</next>
+				<next>11114</next>
+			</phrase>
+			<phrase id="3">
+				<text />
+				<dont_has_info>bar_kvest_friend_of_barman_on_freedom_strike</dont_has_info>
+				<has_info>bar_kvest_friend_of_barman_weapon_select</has_info>
+				<next>31</next>
+			</phrase>
+			<phrase id="31">
+				<text>esc_talk_with_shvid_again_0</text>
+			</phrase>
+			-->
+			<phrase id="4">
+				<text/>
+				<has_info>bar_kvest_friend_of_barman_on_freedom_strike</has_info>
+				<dont_has_info>bar_kvest_friend_of_barman_spasti_complete</dont_has_info>
+				<next>41</next>
+			</phrase>
+			<phrase id="41">
+				<text>esc_talk_with_shvid_save_0</text>
+				<action>tasks_functor.make_shvid_trade_generic</action>
+				<next>411</next>
+			</phrase>
+			<phrase id="411">
+				<text>esc_talk_with_shvid_save_1</text>
+				<give_info>bar_kvest_friend_of_barman_spasti_complete</give_info>
+				<next>4111</next>
+			</phrase>
+			<phrase id="4111">
+				<text>esc_talk_with_shvid_save_2</text>
+				<action>tasks_functor.give_pda_of_shvid_to_npc</action>
+			</phrase>
+			<phrase id="5">
+				<text/>
+				<has_info>bar_kvest_friend_of_barman_on_freedom_strike</has_info>
+				<has_info>bar_kvest_friend_of_barman_spasti_complete</has_info>
+				<next>51</next>
+			</phrase>
+			<phrase id="51">
+				<text>esc_talk_with_shvid_hello</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="bar_talk_with_prapor_dialog">
+		<has_info>bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start</has_info>
+		<dont_has_info>bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_talk_with_prapor_dlg</init_func>
+	</dialog>
+	<dialog id="agr_kvest_plennik_on_base_mils_talk">
+		<phrase_list>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+				<!-- Самый первый диалог - просит спасения -->
+				<next>2</next>
+				<!-- Согласились его спасть -->
+				<next>3</next>
+				<!-- Дошли до места, говорим спасибы и всё такое-->
+				<next>4</next>
+				<!-- Обычное обращение к игроку-->
+			</phrase>
+			<phrase id="1">
+				<text/>
+				<dont_has_info>captive_on_agr_mill_base_speak_with_captive</dont_has_info>
+				<dont_has_info>captive_on_agr_mill_base_saved</dont_has_info>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>agr_kvest_plennik_on_base_mils_talk_0</text>
+				<next>111</next>
+				<!-- Соглашаемся спасать -->
+				<next>112</next>
+				<!-- Сообщаем, что хотим убить -->
+			</phrase>
+			<phrase id="111">
+				<text>agr_kvest_plennik_on_base_mils_talk_1</text>
+				<give_info>captive_on_agr_mill_base_speak_with_captive</give_info>
+				<give_info>captive_on_agr_mill_base_start_rescue_point</give_info>
+				<action>tasks_functor.companion_start_following</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="112">
+				<text>agr_kvest_plennik_on_base_mils_talk_2</text>
+				<give_info>captive_on_agr_mill_base_captive_run</give_info>
+				<give_info>captive_on_agr_mill_base_speak_with_captive</give_info>
+			</phrase>
+			<phrase id="2">
+				<text/>
+				<has_info>captive_on_agr_mill_base_speak_with_captive</has_info>
+				<dont_has_info>captive_on_agr_mill_base_saved</dont_has_info>
+				<next>21</next>
+			</phrase>
+			<phrase id="21">
+				<text>agr_kvest_plennik_on_base_mils_going_to_rescue_point</text>
+			</phrase>
+			<phrase id="3">
+				<text/>
+				<has_info>captive_on_agr_mill_base_speak_with_captive</has_info>
+				<has_info>captive_on_agr_mill_base_saved</has_info>
+				<dont_has_info>captive_on_agr_mill_base_say_thanks</dont_has_info>
+				<next>31</next>
+			</phrase>
+			<phrase id="31">
+				<text>agr_kvest_plennik_on_base_mils_talk_spasen_0</text>
+				<next>311</next>
+			</phrase>
+			<phrase id="311">
+				<text>agr_kvest_plennik_on_base_mils_talk_spasen_1</text>
+				<give_info>captive_on_agr_mill_base_say_thanks</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="4">
+				<text/>
+				<has_info>captive_on_agr_mill_base_speak_with_captive</has_info>
+				<has_info>captive_on_agr_mill_base_saved</has_info>
+				<has_info>captive_on_agr_mill_base_say_thanks</has_info>
+				<next>41</next>
+			</phrase>
+			<phrase id="41">
+				<text>agr_kvest_plennik_on_base_mils_talk_hello</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="captive_on_agr_mill_base_dolg_guard_commander_dialog">
+		<phrase_list>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+				<!-- Пришли впервый раз к командиру -->
+				<next>2a</next>
+				<!-- Идем во второй раз - пленник далеко -->
+				<next>2b</next>
+				<!-- Идем во второй раз - пленник близ -->
+				<next>3</next>
+				<!-- Успешно сдали, просто разговариваем -->
+				<next>4a</next>
+				<!-- Связиста убили, не разговаривали с командором вообще -->
+				<next>4b</next>
+				<!-- Связиста убили, но с командиром мы разговаривали -->
+			</phrase>
+			<phrase id="1">
+				<text/>
+				<precondition>tasks_functor.is_captive_alive</precondition>
+				<dont_has_info>captive_on_agr_mill_base_saved</dont_has_info>
+				<dont_has_info>captive_on_agr_mill_base_not_yet_saved</dont_has_info>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_10</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_11</text>
+				<next>12a</next>
+				<!-- Связист в 15 метрах от нас -->
+				<next>12b</next>
+				<!-- Связист не в 15 метрах от нас -->
+			</phrase>
+			<phrase id="12a">
+				<precondition>tasks_functor.captive_on_agr_mill_base_is_captive_near</precondition>
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_32</text>
+				<give_info>captive_on_agr_mill_base_saved</give_info>
+				<next>12a0</next>
+			</phrase>
+			<phrase id="12a0">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_33</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="12b">
+				<precondition>tasks_functor.captive_on_agr_mill_base_is_captive_far</precondition>
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_12</text>
+				<give_info>captive_on_agr_mill_base_not_yet_saved</give_info>
+				<next>12b0</next>
+			</phrase>
+			<phrase id="12b0">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_13</text>
+				<next>12b1</next>
+			</phrase>
+			<phrase id="12b1">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_14</text>
+				<next>12b2</next>
+			</phrase>
+			<phrase id="12b2">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_15</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="2a">
+				<text/>
+				<precondition>tasks_functor.is_captive_alive</precondition>
+				<precondition>tasks_functor.captive_on_agr_mill_base_is_captive_far</precondition>
+				<dont_has_info>captive_on_agr_mill_base_saved</dont_has_info>
+				<has_info>captive_on_agr_mill_base_not_yet_saved</has_info>
+				<next>2a0</next>
+			</phrase>
+			<phrase id="2a0">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_20</text>
+				<next>2a1</next>
+			</phrase>
+			<phrase id="2a1">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_21</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="2b">
+				<text/>
+				<precondition>tasks_functor.is_captive_alive</precondition>
+				<precondition>tasks_functor.captive_on_agr_mill_base_is_captive_near</precondition>
+				<dont_has_info>captive_on_agr_mill_base_saved</dont_has_info>
+				<has_info>captive_on_agr_mill_base_not_yet_saved</has_info>
+				<next>12a</next>
+			</phrase>
+			<phrase id="3">
+				<text/>
+				<precondition>tasks_functor.is_captive_alive</precondition>
+				<has_info>captive_on_agr_mill_base_saved</has_info>
+				<next>30</next>
+			</phrase>
+			<phrase id="30">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_50</text>
+				<next>31</next>
+			</phrase>
+			<phrase id="31">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_51</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="4a">
+				<text/>
+				<precondition>tasks_functor.is_captive_dead</precondition>
+				<dont_has_info>captive_on_agr_mill_base_not_yet_saved</dont_has_info>
+				<next>4a0</next>
+			</phrase>
+			<phrase id="4a0">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_60</text>
+			</phrase>
+			<phrase id="4b">
+				<text/>
+				<precondition>tasks_functor.is_captive_dead</precondition>
+				<has_info>captive_on_agr_mill_base_not_yet_saved</has_info>
+				<next>4b0</next>
+			</phrase>
+			<phrase id="4b0">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_4b0</text>
+			</phrase>
+			<!--
+			<phrase id="1">
+				<text />
+				<precondition>tasks_functor.is_captive_alive</precondition>
+				<dont_has_info>captive_on_agr_mill_base_saved</dont_has_info>
+				<dont_has_info>captive_on_agr_mill_base_say_thanks</dont_has_info>
+				<dont_has_info>captive_on_agr_mill_base_not_yet_saved</dont_has_info>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_10</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_11</text>
+				<next>12</next>
+			</phrase>
+			<phrase id="12">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_12</text>
+				<next>13</next>
+			</phrase>
+			<phrase id="13">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_13</text>
+				<next>14</next>
+			</phrase>
+			<phrase id="14">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_14</text>
+				<give_info>captive_on_agr_mill_base_not_yet_saved</give_info>
+				<next>15</next>
+			</phrase>
+			<phrase id="15">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_15</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="2">
+				<text />
+				<precondition>tasks_functor.is_captive_alive</precondition>
+				<dont_has_info>captive_on_agr_mill_base_saved</dont_has_info>
+				<dont_has_info>captive_on_agr_mill_base_say_thanks</dont_has_info>
+				<has_info>captive_on_agr_mill_base_not_yet_saved</has_info>
+				<next>20</next>
+			</phrase>
+			<phrase id="20">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_20</text>
+				<next>21</next>
+			</phrase>
+			<phrase id="21">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_21</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="3">
+				<text />
+				<precondition>tasks_functor.is_captive_alive</precondition>
+				<has_info>captive_on_agr_mill_base_saved</has_info>
+				<dont_has_info>captive_on_agr_mill_base_say_thanks</dont_has_info>
+				<dont_has_info>captive_on_agr_mill_base_not_yet_saved</dont_has_info>
+				<next>30</next>
+			</phrase>
+			<phrase id="30">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_10</text>
+				<next>31</next>
+			</phrase>
+			<phrase id="31">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_11</text>
+				<next>32</next>
+			</phrase>
+			<phrase id="32">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_32</text>
+				<give_info>captive_on_agr_mill_base_say_thanks</give_info>
+				<next>33</next>
+			</phrase>
+			<phrase id="33">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_33</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="4">
+				<text />
+				<precondition>tasks_functor.is_captive_alive</precondition>
+				<has_info>captive_on_agr_mill_base_saved</has_info>
+				<dont_has_info>captive_on_agr_mill_base_say_thanks</dont_has_info>
+				<has_info>captive_on_agr_mill_base_not_yet_saved</has_info>
+				<next>40</next>
+			</phrase>
+			<phrase id="40">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_32</text>
+				<give_info>captive_on_agr_mill_base_say_thanks</give_info>
+				<next>33</next>
+			</phrase>
+			<phrase id="5">
+				<text />
+				<has_info>captive_on_agr_mill_base_say_thanks</has_info>
+				<next>50</next>
+			</phrase>
+			<phrase id="50">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_50</text>
+				<next>51</next>
+			</phrase>
+			<phrase id="51">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_51</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="6">
+				<text />
+				<precondition>tasks_functor.is_captive_dead</precondition>
+				<next>60</next>
+			</phrase>
+			<phrase id="60">
+				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_60</text>
+			</phrase>
+			-->
+		</phrase_list>
+	</dialog>
+	<dialog id="pri_start_kvest_search_doch_of_starik_dialog">
+		<dont_has_info>pri_kvest_search_doch_of_starik_start</dont_has_info>
+		<init_func>tasks_dialogs.init_start_kvest_search_doch_of_starik_dlg</init_func>
+	</dialog>
+	<dialog id="pri_kvest_search_doch_of_starik_complete_dialog">
+		<has_info>pri_kvest_search_doch_of_starik_start</has_info>
+		<dont_has_info>pri_kvest_search_doch_of_starik_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_search_doch_of_starik_complete_dlg</init_func>
+	</dialog>
+	<dialog id="bar_start_kvest_make_meet_dolg_freedom_dialog">
+		<dont_has_info>bar_kvest_make_meet_dolg_freedom_start</dont_has_info>
+		<init_func>tasks_dialogs.init_start_kvest_make_meet_dolg_freedom_dlg</init_func>
+	</dialog>
+	<dialog id="bar_kvest_make_meet_dolg_freedom_talk_with_lukash_dialog">
+		<has_info>bar_kvest_make_meet_dolg_freedom_start</has_info>
+		<dont_has_info>bar_kvest_make_meet_dolg_freedom_talk_with_lukash</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_make_meet_dolg_freedom_talk_with_lukash_dlg</init_func>
+	</dialog>
+	<dialog id="bar_kvest_make_meet_dolg_freedom_complete_dialog">
+		<has_info>bar_kvest_make_meet_dolg_freedom_talk_with_lukash</has_info>
+		<dont_has_info>bar_kvest_make_meet_dolg_freedom_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_make_meet_dolg_freedom_take_reward_of_dolg_dlg</init_func>
+	</dialog>
+	<dialog id="rad_kvest_spasti_freedomer_on_radar_talk_with_freedomer_dialog">
+		<has_info>mil_kvest_spasti_freedomer_on_radar_spawn_freedomer</has_info>
+		<dont_has_info>mil_kvest_spasti_freedomer_on_radar_talk</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_spasti_freedomer_on_radar_talk_with_freedomer_dlg</init_func>
+	</dialog>
+	<dialog id="bar_kvest_spasti_freedomer_on_radar_talk_with_freedomer_2_dialog">
+		<has_info>mil_kvest_spasti_freedomer_on_radar_talk</has_info>
+		<dont_has_info>mil_kvest_spasti_freedomer_on_radar_talk_2</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_spasti_freedomer_on_radar_talk_with_freedomer_2_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_help_teterev_start_dialog">
+		<dont_has_info>esc_kvest_help_teterev_start</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_help_teterev_start_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_help_teterev_talk_with_bandit_dialog">
+		<has_info>esc_kvest_help_teterev_start</has_info>
+		<dont_has_info>esc_kvest_help_teterev_bandits_on_pass</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_help_teterev_talk_with_bandit_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_help_teterev_complete_dialog">
+		<precondition>tasks_functor.take_art_for_teterev</precondition>
+		<dont_has_info>esc_kvest_help_teterev_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_help_teterev_complete_dlg</init_func>
+	</dialog>
+	<dialog id="bar_kvest_qest_on_elevator_kill_sniper_dialog">
+		<has_info>esc_kvest_qest_on_elevator_show_wpn_complete</has_info>
+		<dont_has_info>esc_kvest_qest_on_elevator_show_wpn_to_barman_complete</dont_has_info>
+		<dont_has_info>esc_kvest_qest_on_elevator_chek_fail</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_qest_on_elevator_kill_sniper_dlg</init_func>
+	</dialog>
+	<dialog id="bar_kvest_qest_on_elevator_kill_sniper_complete_dialog">
+		<precondition>tasks_functor.esc_qest_on_elevator_kill_sniper</precondition>
+		<dont_has_info>esc_kvest_qest_on_elevator_kill_sniper_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_qest_on_elevator_kill_sniper_complete_dlg</init_func>
+	</dialog>
+	<dialog id="yan_kvest_help_to_chuk_start_dialog">
+		<dont_has_info>yan_kvest_help_to_chuk_know_zombied_start</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_help_to_chuk_start_dlg</init_func>
+	</dialog>
+	<dialog id="yan_kvest_help_to_chuk_take_water_dialog">
+		<has_info>yan_kvest_help_to_chuk_know_zombied_start</has_info>
+		<dont_has_info>yan_kvest_help_to_chuk_know_zombied_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_help_to_chuk_take_water_dlg</init_func>
+	</dialog>
+	<dialog id="yan_kvest_help_to_chuk_take_kolba_zombie_dialog">
+		<has_info>yan_help_to_chuk_take_water_complete</has_info>
+		<dont_has_info>yan_kvest_help_to_chuk_take_water_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_help_to_chuk_take_kolba_zombie_dlg</init_func>
+	</dialog>
+	<dialog id="yan_kvest_have_kolba_zombie_dialog">
+		<has_info>yan_kvest_help_to_chuk_know_zombied_start</has_info>
+		<has_info>yan_kvest_help_to_chuk_take_water_complete</has_info>
+		<dont_has_info>yan_kvest_help_to_chuk_take_water_complete_talked</dont_has_info>
+		<dont_has_info>yan_help_to_chuk_on_actor_zombie</dont_has_info>
+		<init_func>tasks_dialogs.yan_kvest_have_kolba_zombie_dlg</init_func>
+	</dialog>
+	<dialog id="yan_kvest_have_kolba_zombie_letsgo_dialog">
+		<has_info>yan_kvest_help_to_chuk_know_zombied_start</has_info>
+		<has_info>yan_kvest_help_to_chuk_take_water_complete</has_info>
+		<has_info>yan_kvest_help_to_chuk_take_water_complete_talked</has_info>
+		<dont_has_info>yan_help_to_chuk_on_actor_zombie</dont_has_info>
+		<init_func>tasks_dialogs.yan_kvest_have_kolba_zombie_letsgo_dlg</init_func>
+	</dialog>
+	<dialog id="yan_kvest_help_to_chuk_talk_with_chuk_dialog">
+		<has_info>yan_help_to_chuk_on_actor_zombie</has_info>
+		<dont_has_info>yan_kvest_help_to_chuk_know_talk_with_chuk_complete</dont_has_info>
+		<dont_has_info>yan_kvest_help_to_chuk_search_figa_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_help_to_chuk_talk_with_chuk_dlg</init_func>
+	</dialog>
+	<dialog id="yan_kvest_help_to_chuk_talk_with_figa_dialog">
+		<has_info>yan_help_to_chuk_on_actor_zombie</has_info>
+		<init_func>tasks_dialogs.init_kvest_help_to_chuk_talk_with_figa_dlg</init_func>
+	</dialog>
+	<dialog id="yan_kvest_help_to_chuk_death_chuk_dialog">
+		<init_func>tasks_dialogs.init_kvest_help_to_chuk_death_chuk_dlg</init_func>
+	</dialog>
+	<dialog id="yan_kvest_help_to_chuk_bring_zapisi_complete_dialog">
+		<has_info>yan_kvest_help_to_chuk_bring_zapisi_start</has_info>
+		<dont_has_info>yan_kvest_help_to_chuk_bring_zapisi_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_yan_kvest_help_to_chuk_bring_zapisi_complete_dlg</init_func>
+	</dialog>
+	<dialog id="rad_kvest_dobrozhelatel_talk_with_svyaznoy_dialog">
+		<phrase_list>
+			<phrase id="1_1_1_1_1">
+				<text>rad_kvest_dobrozhelatel_talk_with_svyaznoy_dialog_1_1_1_1_1</text>
+			</phrase>
+			<phrase id="1_1_1_1">
+				<next>1_1_1_1_1</next>
+				<text>rad_kvest_dobrozhelatel_talk_with_svyaznoy_dialog_1_1_1_1</text>
+			</phrase>
+			<phrase id="1_1_1">
+				<next>1_1_1_1</next>
+				<text>rad_kvest_dobrozhelatel_talk_with_svyaznoy_dialog_1_1_1</text>
+			</phrase>
+			<phrase id="1_1">
+				<next>1_1_1</next>
+				<dont_has_info>kpss_freetogo</dont_has_info>
+				<text>rad_kvest_dobrozhelatel_talk_with_svyaznoy_dialog_1_1</text>
+			</phrase>
+			<phrase id="12_1_2_1_1">
+				<text>rad_kvest_dobrozhelatel_talk_with_svyaznoy_dialog_12_1_2_1_1</text>
+				<precondition>tasks_functor.svyazony_not_have_weapon</precondition>
+				<next>12_1</next>
+			</phrase>
+			<phrase id="12_1_2_1">
+				<next>12_1_2_1_1</next>
+				<next>12_1_1</next>
+				<text>rad_kvest_dobrozhelatel_talk_with_svyaznoy_dialog_12_1_2_1</text>
+				<action>tasks_functor.svyazony_check_weapon</action>
+			</phrase>
+			<phrase id="12_1_2">
+				<next>12_1_2_1</next>
+				<text>rad_kvest_dobrozhelatel_talk_with_svyaznoy_dialog_12_1_2</text>
+			</phrase>
+			<phrase id="12_1_1">
+				<precondition>tasks_functor.svyazony_have_weapon</precondition>
+				<text>rad_kvest_dobrozhelatel_talk_with_svyaznoy_dialog_12_1_1</text>
+				<next>12_1_1_2</next>
+			</phrase>
+			<phrase id="12_1_1_2">
+				<text>rad_kvest_dobrozhelatel_talk_with_svyaznoy_dialog_12_1_1_2</text>
+				<action>tasks_functor.on_actor_save_svyaznoy</action>
+				<give_info>rad_kvest_dobrozhelatel_help_to_svyaznoy_spawn_mon</give_info>
+				<action>tasks_functor.spawn_monolit_on_base_bantits</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="12_1">
+				<next>12_1_2</next>
+				<text>rad_kvest_dobrozhelatel_talk_with_svyaznoy_dialog_12_1</text>
+				<action>tasks_functor.actor_switch_to_trade</action>
+			</phrase>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+				<!-- Только встретили -->
+				<next>2</next>
+				<!-- Идем к точке -->
+				<next>3</next>
+				<!-- Прощаемся -->
+				<next>4</next>
+				<!-- Разговор после прощания -->
+			</phrase>
+			<phrase id="1">
+				<dont_has_info>rad_kvest_dobrozhelatel_help_to_svyaznoy_spawn_mon</dont_has_info>
+				<next>1_1</next>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<has_info>kpss_freetogo</has_info>
+				<text>x10_kvest_dobrozhelatel_talk_with_svyaznoy_0</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>x10_kvest_dobrozhelatel_talk_with_svyaznoy_1</text>
+				<next>12</next>
+			</phrase>
+			<phrase id="12">
+				<next>12_1</next>
+				<text>x10_kvest_dobrozhelatel_talk_with_svyaznoy_2</text>
+				<action>tasks_functor.set_svyazony_trade</action>
+			</phrase>
+			<phrase id="2">
+				<has_info>rad_kvest_dobrozhelatel_help_to_svyaznoy_spawn_mon</has_info>
+				<dont_has_info>rad_kvest_dobrozhelatel_help_to_svyaznoy_near_lc</dont_has_info>
+				<precondition>tasks_functor.not_guid_svyaznoy_from_base_bantits</precondition>
+				<next>20</next>
+			</phrase>
+			<phrase id="20">
+				<text>x10_kvest_dobrozhelatel_talk_with_svyaznoy_not_complete</text>
+			</phrase>
+			<phrase id="3">
+				<has_info>rad_kvest_dobrozhelatel_help_to_svyaznoy_spawn_mon</has_info>
+				<has_info>rad_kvest_dobrozhelatel_help_to_svyaznoy_near_lc</has_info>
+				<dont_has_info>rad_kvest_dobrozhelatel_help_to_svyaznoy</dont_has_info>
+				<next>30</next>
+			</phrase>
+			<phrase id="30">
+				<text>x10_kvest_dobrozhelatel_talk_with_svyaznoy_3</text>
+				<give_info>rad_kvest_dobrozhelatel_help_to_svyaznoy</give_info>
+				<action>tasks_functor.on_actor_svyaznoy_stop_following</action>
+				<next>31</next>
+			</phrase>
+			<phrase id="31">
+				<text>x10_kvest_dobrozhelatel_talk_with_svyaznoy_4</text>
+			</phrase>
+			<phrase id="4">
+				<has_info>rad_kvest_dobrozhelatel_help_to_svyaznoy</has_info>
+				<next>40</next>
+			</phrase>
+			<phrase id="40">
+				<text>x10_kvest_dobrozhelatel_talk_with_svyaznoy_5</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="rad_kvest_dobrozhelatel_talk_with_svyaznoy_2_dialog">
+		<precondition>tasks_functor.guid_svyaznoy_from_base_bantits</precondition>
+		<dont_has_info>rad_kvest_dobrozhelatel_help_to_svyaznoy</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_dobrozhelatel_talk_with_svyaznoy_2_dlg</init_func>
+	</dialog>
+	<dialog id="esc_talk_with_scoryi_dialog">
+		<dont_has_info>esc_kvest_help_to_scoryi_talk_with_him_fail</dont_has_info>
+		<dont_has_info>esc_kvest_help_to_scoryi_talk_with_him_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_talk_with_scoryi_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_help_to_scoryi_talk_with_kuzn_dialog">
+		<precondition>tasks_functor.actor_has_vodka</precondition>
+		<has_info>esc_kvest_help_to_scoryi_talk_with_him_complete</has_info>
+		<dont_has_info>esc_kvest_help_to_scoryi_talk_with_kuzn_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_help_to_scoryi_about_sitnik_with_kuzn_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_help_to_scoryi_about_sitnik_dialog">
+		<has_info>esc_kvest_help_to_scoryi_talk_with_sidor_complete</has_info>
+		<dont_has_info>esc_kvest_help_to_scoryi_about_sitnik_dlg</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_help_to_scoryi_about_sitnik_dlg</init_func>
+	</dialog>
+	<dialog id="val_kvest_help_to_scoryi_talk_with_orlov_dialog">
+		<!--<has_info>esc_kvest_help_to_scoryi_talk_with_orlov_start</has_info>-->
+		<has_info>val_orlov_last_request_button_clicked</has_info>
+		<dont_has_info>esc_kvest_help_to_scoryi_talk_with_orlov_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_val_kvest_help_to_scoryi_talk_with_orlov_dlg</init_func>
+	</dialog>
+	<dialog id="val_kvest_help_to_scoryi_talk_with_orlov3_dialog">
+		<init_func>tasks_dialogs.init_val_kvest_help_to_scoryi_talk_with_orlov3_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_help_to_scoryi_say_mils_info_dialog">
+		<precondition>tasks_functor.precond_dlg_say_info_to_mils</precondition>
+		<dont_has_info>esc_kvest_help_to_scoryi_say_mils_info_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_help_to_scoryi_say_mils_info_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_help_to_scoryi_talk_with_sitnik_dialog">
+		<has_info>esc_kvest_help_to_scoryi_say_mils_info_start</has_info>
+		<dont_has_info>esc_kvest_help_to_scoryi_search_sitnik_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_help_to_scoryi_talk_with_sitnik_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_help_to_scoryi_send_money_to_wife_dialog">
+		<precondition>tasks_functor.have_moneys_of_scoryi</precondition>
+		<dont_has_info>esc_kvest_help_to_scoryi_send_money_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_kvest_help_to_scoryi_send_money_to_wife_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_help_to_scoryi_talk_with_sidor_end_dialog">
+		<has_info>esc_kvest_help_to_scoryi_search_sitnik_complete</has_info>
+		<dont_has_info>esc_kvest_help_to_scoryi_send_money_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_help_to_scoryi_talk_with_sidor_end_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_about_sidor_info_dialog">
+		<has_info>esc_kvest_iscelenie_enable_about_sidor</has_info>
+		<dont_has_info>esc_kvest_iscelenie_end_first_dlg</dont_has_info>
+		<dont_has_info>esc_kvest_iscelenie_talk_with_saharov_start</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_about_sidor_info_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_talk_with_saharov_dialog">
+		<has_info>esc_kvest_iscelenie_talk_with_saharov_start</has_info>
+		<dont_has_info>esc_kvest_iscelenie_talk_with_saharov_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_talk_with_saharov_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_talk_with_ecolog_dialog">
+		<dont_has_info>esc_kvest_iscelenie_guid_preobr_start</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_talk_with_ecolog_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_talk_with_ecolog_2_dialog">
+		<has_info>esc_kvest_iscelenie_guid_preobr</has_info>
+		<dont_has_info>esc_kvest_iscelenie_search_stebels_start</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_talk_with_ecolog_2_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_talk_with_ecolog_3_dialog">
+		<precondition>tasks_functor.have_stebel_ri_to_preobr</precondition>
+		<dont_has_info>esc_kvest_iscelenie_search_stebels_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_talk_with_ecolog_3_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_talk_with_ecolog_4_dialog">
+		<has_info>esc_kvest_iscelenie_stebel_ri_done</has_info>
+		<dont_has_info>esc_kvest_iscelenie_bring_lekarstvo_start</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_talk_with_ecolog_4_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_talk_with_sidor_dialog">
+		<has_info>esc_kvest_iscelenie_talk_with_sidor_start</has_info>
+		<dont_has_info>esc_kvest_iscelenie_talk_with_sidor_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_talk_with_sidor_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_search_info_a_killer_dialog">
+		<has_info>esc_kvest_iscelenie_talk_with_sidor_complete</has_info>
+		<dont_has_info>esc_kvest_iscelenie_about_diggers_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_search_info_a_killer_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_search_talk_with_sitnik_dialog">
+		<has_info>esc_kvest_iscelenie_about_diggers_complete</has_info>
+		<dont_has_info>esc_kvest_iscelenie_search_uzh_start</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_search_talk_with_sitnik_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_bring_lekar_dialog">
+		<has_info>esc_kvest_iscelenie_bring_lekarstvo_start</has_info>
+		<dont_has_info>esc_kvest_iscelenie_bring_lekarstvo_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_bring_lekar_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_search_talk_with_uzh_dialog">
+		<has_info>esc_kvest_iscelenie_search_uzh_start</has_info>
+		<dont_has_info>esc_kvest_iscelenie_search_uzh_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_search_talk_with_uzh_dlg</init_func>
+	</dialog>
+	<dialog id="esc_kvest_iscelenie_talk_with_hitryi_dialog">
+		<has_info>esc_kvest_iscelenie_search_uzh_complete</has_info>
+		<dont_has_info>esc_kvest_iscelenie_search_zakazchik_complete</dont_has_info>
+		<init_func>tasks_dialogs.init_esc_kvest_iscelenie_talk_with_hitryi_dlg</init_func>
+	</dialog>
+	<dialog id="deadcity_barman_quest_dialog">
+		<dont_has_info>master_quest_talk_barman</dont_has_info>
+		<dont_has_info>master_quest_start</dont_has_info>
+		<phrase_list>
+			<phrase id="22">
+				<text>deadcity_barman_quest_dialog_22</text>
+				<give_info>master_quest_talk_barman</give_info>
+			</phrase>
+			<phrase id="21">
+				<next>22</next>
+				<text>deadcity_barman_quest_dialog_21</text>
+			</phrase>
+			<phrase id="20">
+				<next>21</next>
+				<text>deadcity_barman_quest_dialog_20</text>
+			</phrase>
+			<phrase id="19">
+				<next>20</next>
+				<text>deadcity_barman_quest_dialog_19</text>
+			</phrase>
+			<phrase id="18">
+				<next>19</next>
+				<text>deadcity_barman_quest_dialog_18</text>
+			</phrase>
+			<phrase id="17">
+				<next>18</next>
+				<text>deadcity_barman_quest_dialog_17</text>
+			</phrase>
+			<phrase id="16">
+				<next>17</next>
+				<text>deadcity_barman_quest_dialog_16</text>
+			</phrase>
+			<phrase id="15">
+				<next>16</next>
+				<text>deadcity_barman_quest_dialog_15</text>
+			</phrase>
+			<phrase id="14">
+				<next>15</next>
+				<text>deadcity_barman_quest_dialog_14</text>
+			</phrase>
+			<phrase id="13">
+				<next>14</next>
+				<text>deadcity_barman_quest_dialog_13</text>
+			</phrase>
+			<phrase id="12">
+				<next>13</next>
+				<text>deadcity_barman_quest_dialog_12</text>
+			</phrase>
+			<phrase id="11">
+				<next>12</next>
+				<text>deadcity_barman_quest_dialog_11</text>
+			</phrase>
+			<phrase id="10">
+				<next>11</next>
+				<text>deadcity_barman_quest_dialog_10</text>
+			</phrase>
+			<phrase id="9">
+				<next>10</next>
+				<text>deadcity_barman_quest_dialog_9</text>
+			</phrase>
+			<phrase id="8">
+				<next>9</next>
+				<text>deadcity_barman_quest_dialog_8</text>
+			</phrase>
+			<phrase id="7">
+				<next>8</next>
+				<text>deadcity_barman_quest_dialog_7</text>
+			</phrase>
+			<phrase id="6">
+				<next>7</next>
+				<text>deadcity_barman_quest_dialog_6</text>
+			</phrase>
+			<phrase id="5">
+				<next>6</next>
+				<text>deadcity_barman_quest_dialog_5</text>
+			</phrase>
+			<phrase id="4">
+				<next>5</next>
+				<text>deadcity_barman_quest_dialog_4</text>
+			</phrase>
+			<phrase id="3">
+				<next>4</next>
+				<text>deadcity_barman_quest_dialog_3</text>
+			</phrase>
+			<phrase id="2">
+				<next>3</next>
+				<text>deadcity_barman_quest_dialog_2</text>
+			</phrase>
+			<phrase id="1">
+				<next>2</next>
+				<text>deadcity_barman_quest_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<text>deadcity_barman_quest_dialog_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="deadcity_quest_start_dialog">
+		<dont_has_info>master_quest_start</dont_has_info>
+		<has_info>master_quest_talk_barman</has_info>
+		<phrase_list>
+			<phrase id="14">
+				<text>deadcity_quest_start_dialog_14</text>
+			</phrase>
+			<phrase id="13">
+				<next>14</next>
+				<text>deadcity_quest_start_dialog_13</text>
+			</phrase>
+			<phrase id="12">
+				<give_info>master_quest_start</give_info>
+				<next>13</next>
+				<text>deadcity_quest_start_dialog_12</text>
+			</phrase>
+			<phrase id="11">
+				<next>12</next>
+				<text>deadcity_quest_start_dialog_11</text>
+			</phrase>
+			<phrase id="10">
+				<next>11</next>
+				<text>deadcity_quest_start_dialog_10</text>
+			</phrase>
+			<phrase id="9">
+				<next>10</next>
+				<text>deadcity_quest_start_dialog_9</text>
+			</phrase>
+			<phrase id="8">
+				<next>9</next>
+				<text>deadcity_quest_start_dialog_8</text>
+			</phrase>
+			<phrase id="7">
+				<next>8</next>
+				<text>deadcity_quest_start_dialog_7</text>
+			</phrase>
+			<phrase id="6">
+				<next>7</next>
+				<text>deadcity_quest_start_dialog_6</text>
+			</phrase>
+			<phrase id="5">
+				<next>6</next>
+				<text>deadcity_quest_start_dialog_5</text>
+			</phrase>
+			<phrase id="4">
+				<next>5</next>
+				<text>deadcity_quest_start_dialog_4</text>
+			</phrase>
+			<phrase id="3">
+				<next>4</next>
+				<text>deadcity_quest_start_dialog_3</text>
+			</phrase>
+			<phrase id="2">
+				<next>3</next>
+				<text>deadcity_quest_start_dialog_2</text>
+			</phrase>
+			<phrase id="1">
+				<next>2</next>
+				<text>deadcity_quest_start_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<text>deadcity_quest_start_dialog_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="deadcity_quest_helmet_dialog">
+		<has_info>master_quest_start</has_info>
+		<has_info>master_quest_info_found</has_info>
+		<has_info>master_quest_cannot_enter</has_info>
+		<dont_has_info>master_quest_helmet_colonel</dont_has_info>
+		<phrase_list>
+			<phrase id="14">
+				<give_info>master_quest_helmet_colonel</give_info>
+				<action>ogse_quests.transfer_helmet_to_colonel</action>
+				<text>deadcity_quest_helmet_dialog_14</text>
+			</phrase>
+			<phrase id="13">
+				<next>14</next>
+				<text>deadcity_quest_helmet_dialog_13</text>
+			</phrase>
+			<phrase id="12">
+				<next>13</next>
+				<text>deadcity_quest_helmet_dialog_12</text>
+			</phrase>
+			<phrase id="11">
+				<next>12</next>
+				<text>deadcity_quest_helmet_dialog_11</text>
+			</phrase>
+			<phrase id="10">
+				<next>11</next>
+				<text>deadcity_quest_helmet_dialog_10</text>
+			</phrase>
+			<phrase id="9">
+				<next>10</next>
+				<text>deadcity_quest_helmet_dialog_9</text>
+			</phrase>
+			<phrase id="8">
+				<next>9</next>
+				<text>deadcity_quest_helmet_dialog_8</text>
+			</phrase>
+			<phrase id="7">
+				<next>8</next>
+				<text>deadcity_quest_helmet_dialog_7</text>
+			</phrase>
+			<phrase id="6">
+				<next>7</next>
+				<text>deadcity_quest_helmet_dialog_6</text>
+			</phrase>
+			<phrase id="5">
+				<next>6</next>
+				<text>deadcity_quest_helmet_dialog_5</text>
+			</phrase>
+			<phrase id="4">
+				<next>5</next>
+				<text>deadcity_quest_helmet_dialog_4</text>
+			</phrase>
+			<phrase id="3">
+				<next>4</next>
+				<text>deadcity_quest_helmet_dialog_3</text>
+			</phrase>
+			<phrase id="2">
+				<next>3</next>
+				<text>deadcity_quest_helmet_dialog_2</text>
+			</phrase>
+			<phrase id="1">
+				<next>2</next>
+				<text>deadcity_quest_helmet_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<text>deadcity_quest_helmet_dialog_0</text>
+				<next>1</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="deadcity_quest_helmet_ready_dialog">
+		<has_info>master_quest_helmet_colonel</has_info>
+		<has_info>master_quest_helmet_given</has_info>
+		<dont_has_info>master_quest_helmet_ready</dont_has_info>
+		<phrase_list>
+			<phrase id="1_1">
+				<give_info>master_quest_helmet_ready</give_info>
+				<action>ogse_quests.transfer_helmet_to_actor</action>
+				<text>deadcity_quest_helmet_ready_dialog_1_1</text>
+			</phrase>
+			<phrase id="1">
+				<next>1_1</next>
+				<text>deadcity_quest_helmet_ready_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<text>deadcity_quest_helmet_ready_dialog_0</text>
+				<next>1</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="deadcity_quest_make_bomb_dialog">
+		<has_info>master_quest_inside_lair</has_info>
+		<has_info>master_quest_know_your_master</has_info>
+		<dont_has_info>master_quest_brain_soup</dont_has_info>
+		<phrase_list>
+			<phrase id="12">
+				<give_info>master_quest_brain_soup</give_info>
+				<text>deadcity_quest_make_bomb_dialog_12</text>
+			</phrase>
+			<phrase id="11">
+				<next>12</next>
+				<text>deadcity_quest_make_bomb_dialog_11</text>
+			</phrase>
+			<phrase id="10">
+				<next>11</next>
+				<text>deadcity_quest_make_bomb_dialog_10</text>
+			</phrase>
+			<phrase id="9">
+				<next>10</next>
+				<text>deadcity_quest_make_bomb_dialog_9</text>
+			</phrase>
+			<phrase id="8">
+				<next>9</next>
+				<text>deadcity_quest_make_bomb_dialog_8</text>
+			</phrase>
+			<phrase id="7">
+				<next>8</next>
+				<text>deadcity_quest_make_bomb_dialog_7</text>
+			</phrase>
+			<phrase id="6">
+				<next>7</next>
+				<text>deadcity_quest_make_bomb_dialog_6</text>
+			</phrase>
+			<phrase id="5">
+				<next>6</next>
+				<text>deadcity_quest_make_bomb_dialog_5</text>
+			</phrase>
+			<phrase id="4">
+				<next>5</next>
+				<text>deadcity_quest_make_bomb_dialog_4</text>
+			</phrase>
+			<phrase id="3">
+				<next>4</next>
+				<text>deadcity_quest_make_bomb_dialog_3</text>
+			</phrase>
+			<phrase id="2">
+				<next>3</next>
+				<text>deadcity_quest_make_bomb_dialog_2</text>
+			</phrase>
+			<phrase id="1">
+				<next>2</next>
+				<text>deadcity_quest_make_bomb_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<text>deadcity_quest_make_bomb_dialog_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="deadcity_quest_bomb_assembly_dialog">
+		<has_info>master_quest_brain_soup</has_info>
+		<dont_has_info>master_quest_bomb_assembly</dont_has_info>
+		<precondition>ogse_quests.have_all_bomb_components</precondition>
+		<phrase_list>
+			<phrase id="1_1">
+				<text>deadcity_quest_bomb_assembly_dialog_1_1</text>
+			</phrase>
+			<phrase id="1">
+				<next>1_1</next>
+				<text>deadcity_quest_bomb_assembly_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<text>deadcity_quest_bomb_assembly_dialog_0</text>
+				<action>ogse_quests.transfer_components_to_colonel</action>
+				<give_info>master_quest_bomb_assembly</give_info>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="deadcity_quest_bomb_ready_dialog">
+		<has_info>master_quest_bomb_assembly</has_info>
+		<has_info>master_quest_bomb_ready</has_info>
+		<dont_has_info>master_quest_burn_motherfucker</dont_has_info>
+		<phrase_list>
+			<phrase id="1_1">
+				<text>deadcity_quest_bomb_ready_dialog_1_1</text>
+				<action>ogse_quests.transfer_bomb_to_actor</action>
+				<give_info>master_quest_burn_motherfucker</give_info>
+			</phrase>
+			<phrase id="1">
+				<next>1_1</next>
+				<text>deadcity_quest_bomb_ready_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<text>deadcity_quest_bomb_ready_dialog_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="deadcity_quest_escape_dialog">
+		<has_info>master_quest_burn_motherfucker</has_info>
+		<has_info>master_quest_bomb_planted</has_info>
+		<has_info>master_quest_soup_ready</has_info>
+		<dont_has_info>master_quest_evac_colonel</dont_has_info>
+		<phrase_list>
+			<phrase id="1_1">
+				<give_info>master_quest_evac_colonel</give_info>
+				<text>deadcity_quest_escape_dialog_1_1</text>
+			</phrase>
+			<phrase id="1">
+				<next>1_1</next>
+				<text>deadcity_quest_escape_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<text>deadcity_quest_escape_dialog_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="deadcity_quest_final_dialog">
+		<has_info>master_quest_evac_colonel</has_info>
+		<has_info>master_quest_colonel_arrived</has_info>
+		<dont_has_info>master_quest_colonel_talk</dont_has_info>
+		<phrase_list>
+			<phrase id="1_1_1_1">
+				<give_info>master_quest_colonel_talk</give_info>
+				<action>dialogs.break_dialog</action>
+				<text>deadcity_quest_final_dialog_1_1_1_1</text>
+			</phrase>
+			<phrase id="1_1_1">
+				<next>1_1_1_1</next>
+				<text>deadcity_quest_final_dialog_1_1_1</text>
+			</phrase>
+			<phrase id="1_1">
+				<next>1_1_1</next>
+				<text>deadcity_quest_final_dialog_1_1</text>
+			</phrase>
+			<phrase id="1">
+				<next>1_1</next>
+				<text>deadcity_quest_final_dialog_1</text>
+			</phrase>
+			<phrase id="10">
+				<next>1</next>
+				<text>deadcity_quest_final_dialog_0</text>
+			</phrase>
+			<phrase id="0">
+				<next>10</next>
+				<text>deadcity_quest_final_dialog_10</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="deadcity_quest_reward_dialog">
+		<has_info>master_quest_colonel_arrived</has_info>
+		<has_info>master_quest_colonel_talk</has_info>
+		<dont_has_info>master_quest_finished</dont_has_info>
+		<phrase_list>
+			<phrase id="1_1_1_1_1">
+				<text>deadcity_quest_reward_dialog_1_1_1_1_1</text>
+				<give_info>master_quest_release_colonel</give_info>
+			</phrase>
+			<phrase id="1_1_1_1">
+				<next>1_1_1_1_1</next>
+				<action>ogse_quests.reward_actor</action>
+				<text>deadcity_quest_reward_dialog_1_1_1_1</text>
+			</phrase>
+			<phrase id="1_1_1">
+				<give_info>master_quest_finished</give_info>
+				<next>1_1_1_1</next>
+				<text>deadcity_quest_reward_dialog_1_1_1</text>
+			</phrase>
+			<phrase id="1_1">
+				<next>1_1_1</next>
+				<text>deadcity_quest_reward_dialog_1_1</text>
+			</phrase>
+			<phrase id="1">
+				<next>1_1</next>
+				<text>deadcity_quest_reward_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<text>deadcity_quest_reward_dialog_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="deadcity_master_intro_dialog" aux_actor_dlg="0">
+		<has_info>master_quest_start</has_info>
+		<has_info>master_quest_know_your_master</has_info>
+		<dont_has_info>master_quest_talked_master</dont_has_info>
+		<phrase_list>
+			<phrase id="13">
+				<text>deadcity_master_intro_dialog_13</text>
+				<give_info>master_quest_talked_master</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="12">
+				<next>13</next>
+				<text>deadcity_master_intro_dialog_12</text>
+			</phrase>
+			<phrase id="11">
+				<next>12</next>
+				<text>deadcity_master_intro_dialog_11</text>
+			</phrase>
+			<phrase id="10">
+				<next>11</next>
+				<text>deadcity_master_intro_dialog_10</text>
+			</phrase>
+			<phrase id="9">
+				<next>10</next>
+				<text>deadcity_master_intro_dialog_9</text>
+			</phrase>
+			<phrase id="8">
+				<next>9</next>
+				<text>deadcity_master_intro_dialog_8</text>
+			</phrase>
+			<phrase id="7">
+				<next>8</next>
+				<text>deadcity_master_intro_dialog_7</text>
+			</phrase>
+			<phrase id="6">
+				<next>7</next>
+				<text>deadcity_master_intro_dialog_6</text>
+			</phrase>
+			<phrase id="5">
+				<next>6</next>
+				<text>deadcity_master_intro_dialog_5</text>
+			</phrase>
+			<phrase id="4">
+				<next>5</next>
+				<text>deadcity_master_intro_dialog_4</text>
+			</phrase>
+			<phrase id="3">
+				<next>4</next>
+				<text>deadcity_master_intro_dialog_3</text>
+			</phrase>
+			<phrase id="2">
+				<next>3</next>
+				<text>deadcity_master_intro_dialog_2</text>
+			</phrase>
+			<phrase id="1">
+				<next>2</next>
+				<text>deadcity_master_intro_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<text>deadcity_master_intro_dialog_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="final_battle_dolg_dialog">
+		<has_info>revenge_of_gunslinger</has_info>
+		<dont_has_info>final_battle_dolg_talk</dont_has_info>
+		<dont_has_info>freeplay</dont_has_info>
+		<phrase_list>
+			<phrase id="13_2">
+				<!-- Прекондишен - НЕ хватило очков -->
+				<precondition>ogse_quests.actor_doesnt_have_needed_points_dolg</precondition>
+				<give_info>final_battle_dolg_talk</give_info>
+				<give_info>final_battle_dolg_refuse</give_info>
+				<text>final_battle_dolg_dialog_13_2</text>
+			</phrase>
+			<phrase id="13_1">
+				<!-- Прекондишен - хватило очков -->
+				<precondition>ogse_quests.actor_have_needed_points_dolg</precondition>
+				<give_info>final_battle_dolg_talk</give_info>
+				<give_info>final_battle_dolg_help</give_info>
+				<text>final_battle_dolg_dialog_13_1</text>
+			</phrase>
+			<phrase id="14">
+				<next>13_2</next>
+				<next>13_1</next>
+				<text/>
+			</phrase>
+			<phrase id="13_3">
+				<next>14</next>
+				<text/>
+			</phrase>
+			<phrase id="12_2">
+				<next>13_3</next>
+				<action>ogse_quests.add_actor_points_dolg</action>
+				<text>final_battle_dolg_dialog_12_2</text>
+				<!-- Начислить очки на этой фразе -->
+			</phrase>
+			<phrase id="12_1">
+				<next>13_3</next>
+				<text>final_battle_dolg_dialog_12_1</text>
+			</phrase>
+			<phrase id="12">
+				<next>12_2</next>
+				<next>12_1</next>
+				<text>final_battle_dolg_dialog_12</text>
+			</phrase>
+			<phrase id="11_2">
+				<next>12</next>
+				<text>final_battle_dolg_dialog_11_2</text>
+			</phrase>
+			<phrase id="11_1">
+				<next>12</next>
+				<action>ogse_quests.add_actor_points_dolg</action>
+				<text>final_battle_dolg_dialog_11_1</text>
+				<!-- Начислить очки на этой фразе -->
+			</phrase>
+			<phrase id="11">
+				<next>11_2</next>
+				<next>11_1</next>
+				<text>final_battle_dolg_dialog_11</text>
+			</phrase>
+			<phrase id="10_1">
+				<next>11</next>
+				<text>final_battle_dolg_dialog_10_2</text>
+			</phrase>
+			<phrase id="10_2">
+				<next>11</next>
+				<action>ogse_quests.add_actor_points_dolg</action>
+				<text>final_battle_dolg_dialog_10_1</text>
+				<!-- Начислить очки на этой фразе -->
+			</phrase>
+			<phrase id="10">
+				<next>10_2</next>
+				<next>10_1</next>
+				<text>final_battle_dolg_dialog_10</text>
+			</phrase>
+			<phrase id="9_2">
+				<next>10</next>
+				<text>final_battle_dolg_dialog_9_2</text>
+			</phrase>
+			<phrase id="9_1">
+				<next>10</next>
+				<action>ogse_quests.add_actor_points_dolg</action>
+				<text>final_battle_dolg_dialog_9_1</text>
+				<!-- Начислить очки на этой фразе -->
+			</phrase>
+			<phrase id="9">
+				<next>9_2</next>
+				<next>9_1</next>
+				<text>final_battle_dolg_dialog_9</text>
+			</phrase>
+			<phrase id="8_2">
+				<next>9</next>
+				<action>ogse_quests.add_actor_points_dolg</action>
+				<text>final_battle_dolg_dialog_8_2</text>
+				<!-- Начислить очки на этой фразе -->
+			</phrase>
+			<phrase id="8_1">
+				<next>9</next>
+				<text>final_battle_dolg_dialog_8_1</text>
+			</phrase>
+			<phrase id="7">
+				<next>8_2</next>
+				<next>8_1</next>
+				<text>final_battle_dolg_dialog_7</text>
+			</phrase>
+			<phrase id="6">
+				<next>7</next>
+				<action>ogse_quests.count_actor_points_dolg_quests</action>
+				<text>final_battle_dolg_dialog_6</text>
+				<!-- Начислить очки за квесты на этой фразе -->
+			</phrase>
+			<phrase id="1">
+				<next>6</next>
+				<text>final_battle_dolg_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<!-- Обнуляем счетчик очков на этой фразе -->
+				<action>ogse_quests.init_actor_points_dolg</action>
+				<text>final_battle_dolg_dialog_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="final_battle_freedom_dialog">
+		<has_info>revenge_of_gunslinger</has_info>
+		<dont_has_info>final_battle_freedom_talk</dont_has_info>
+		<dont_has_info>freeplay</dont_has_info>
+		<phrase_list>
+			<phrase id="13_2">
+				<!-- Прекондишен - НЕ хватило очков -->
+				<precondition>ogse_quests.actor_doesnt_have_needed_points_freedom</precondition>
+				<give_info>final_battle_freedom_talk</give_info>
+				<give_info>final_battle_freedom_refuse</give_info>
+				<text>final_battle_freedom_dialog_13_2</text>
+			</phrase>
+			<phrase id="13_1">
+				<!-- Прекондишен - хватило очков -->
+				<precondition>ogse_quests.actor_have_needed_points_freedom</precondition>
+				<give_info>final_battle_freedom_talk</give_info>
+				<give_info>final_battle_freedom_help</give_info>
+				<text>final_battle_freedom_dialog_13_1</text>
+			</phrase>
+			<phrase id="14">
+				<next>13_2</next>
+				<next>13_1</next>
+				<text/>
+			</phrase>
+			<phrase id="13_3">
+				<next>14</next>
+				<text/>
+			</phrase>
+			<phrase id="12_2">
+				<next>13_3</next>
+				<text>final_battle_freedom_dialog_12_2</text>
+			</phrase>
+			<phrase id="12_1">
+				<next>13_3</next>
+				<action>ogse_quests.add_actor_points_freedom</action>
+				<text>final_battle_freedom_dialog_12_1</text>
+				<!-- Начислить очки на этой фразе -->
+			</phrase>
+			<phrase id="12">
+				<next>12_2</next>
+				<next>12_1</next>
+				<text>final_battle_freedom_dialog_12</text>
+			</phrase>
+			<phrase id="11_2">
+				<next>12</next>
+				<action>ogse_quests.add_actor_points_freedom</action>
+				<text>final_battle_freedom_dialog_11_2</text>
+				<!-- Начислить очки на этой фразе -->
+			</phrase>
+			<phrase id="11_1">
+				<next>12</next>
+				<text>final_battle_freedom_dialog_11_1</text>
+			</phrase>
+			<phrase id="11">
+				<next>11_2</next>
+				<next>11_1</next>
+				<text>final_battle_freedom_dialog_11</text>
+			</phrase>
+			<phrase id="10_1">
+				<next>11</next>
+				<action>ogse_quests.add_actor_points_freedom</action>
+				<text>final_battle_freedom_dialog_10_2</text>
+				<!-- Начислить очки на этой фразе -->
+			</phrase>
+			<phrase id="10_2">
+				<next>11</next>
+				<text>final_battle_freedom_dialog_10_1</text>
+			</phrase>
+			<phrase id="10">
+				<next>10_2</next>
+				<next>10_1</next>
+				<text>final_battle_freedom_dialog_10</text>
+			</phrase>
+			<phrase id="9_2">
+				<next>10</next>
+				<text>final_battle_freedom_dialog_9_2</text>
+			</phrase>
+			<phrase id="9_1">
+				<next>10</next>
+				<action>ogse_quests.add_actor_points_freedom</action>
+				<text>final_battle_freedom_dialog_9_1</text>
+				<!-- Начислить очки на этой фразе -->
+			</phrase>
+			<phrase id="9">
+				<next>9_2</next>
+				<next>9_1</next>
+				<text>final_battle_freedom_dialog_9</text>
+			</phrase>
+			<phrase id="8_2">
+				<next>9</next>
+				<text>final_battle_freedom_dialog_8_2</text>
+			</phrase>
+			<phrase id="8_1">
+				<next>9</next>
+				<action>ogse_quests.add_actor_points_freedom</action>
+				<text>final_battle_freedom_dialog_8_1</text>
+				<!-- Начислить очки на этой фразе -->
+			</phrase>
+			<phrase id="7">
+				<next>8_2</next>
+				<next>8_1</next>
+				<text>final_battle_freedom_dialog_7</text>
+			</phrase>
+			<phrase id="6">
+				<next>7</next>
+				<action>ogse_quests.count_actor_points_freedom_quests</action>
+				<text>final_battle_freedom_dialog_6</text>
+				<!-- Начислить очки за квесты на этой фразе -->
+			</phrase>
+			<phrase id="1">
+				<next>6</next>
+				<text>final_battle_freedom_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<!-- Обнуляем счетчик очков на этой фразе -->
+				<action>ogse_quests.init_actor_points_freedom</action>
+				<text>final_battle_freedom_dialog_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="final_battle_military_dialog">
+		<has_info>revenge_of_gunslinger</has_info>
+		<dont_has_info>final_battle_military_help</dont_has_info>
+		<dont_has_info>freeplay</dont_has_info>
+		<phrase_list>
+			<phrase id="9">
+				<give_info>final_battle_military_help</give_info>
+				<text>final_battle_military_dialog_9</text>
+			</phrase>
+			<phrase id="8">
+				<next>9</next>
+				<text>final_battle_military_dialog_8</text>
+			</phrase>
+			<phrase id="7">
+				<next>8</next>
+				<text>final_battle_military_dialog_7</text>
+			</phrase>
+			<phrase id="6">
+				<next>7</next>
+				<text>final_battle_military_dialog_6</text>
+			</phrase>
+			<phrase id="5">
+				<next>6</next>
+				<text>final_battle_military_dialog_5</text>
+			</phrase>
+			<phrase id="4">
+				<next>5</next>
+				<text>final_battle_military_dialog_4</text>
+			</phrase>
+			<phrase id="3">
+				<next>4</next>
+				<text>final_battle_military_dialog_3</text>
+			</phrase>
+			<phrase id="2">
+				<next>3</next>
+				<text>final_battle_military_dialog_2</text>
+			</phrase>
+			<phrase id="1">
+				<next>2</next>
+				<text>final_battle_military_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<text>final_battle_military_dialog_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="final_battle_run_run_run_dialog" aux_actor_dlg="0">
+		<dont_has_info>final_battle_npc_meet</dont_has_info>
+		<phrase_list>
+			<phrase id="1_1_1">
+				<action>dialogs.break_dialog</action>
+				<give_info>final_battle_npc_meet</give_info>
+				<text>final_battle_run_run_run_dialog_1_1_1</text>
+			</phrase>
+			<phrase id="1_1">
+				<next>1_1_1</next>
+				<text>final_battle_run_run_run_dialog_1_1</text>
+			</phrase>
+			<phrase id="1">
+				<next>1_1</next>
+				<text>final_battle_run_run_run_dialog_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<text>final_battle_run_run_run_dialog_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--dialog id="esc_kvest_help_to_scoryi_about_sitnik_dialog">
+		<has_info>esc_kvest_help_to_scoryi_talk_with_him_complete</has_info>
+		<dont_has_info>esc_kvest_help_to_scoryi_talk_with_sidor_about_sitnik</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<next>1</next>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_0</text>
+			</phrase>
+			<phrase id="1">
+				<next>2</next>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_1</text>
+			</phrase>
+			<phrase id="2">
+				<next>3</next>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_2</text>
+			</phrase>
+			<phrase id="3">
+				<next>4</next>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_3</text>
+			</phrase>
+			<phrase id="4">
+				<next>5</next>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_4</text>
+			</phrase>
+			<phrase id="5">
+				<next>6</next>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_5</text>
+			</phrase>
+			<phrase id="6">
+				<next>7</next>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_6</text>
+			</phrase>
+			<phrase id="7">
+				<next>8</next>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_7</text>
+			</phrase>
+			<phrase id="8">
+				<next>9</next>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_8</text>
+			</phrase>
+			<phrase id="9">
+				<next>10</next>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_9</text>
+			</phrase>
+			<phrase id="10">
+				<next>11</next>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_10</text>
+			</phrase>
+			<phrase id="11">
+				<give_info>esc_kvest_help_to_scoryi_talk_with_sidor_about_sitnik</give_info>
+				<text>esc_kvest_help_to_scoryi_about_sitnik_dialog_11</text>
+			</phrase>
+		</phrase_list>
+	</dialog-->
+</game_dialogs>
+

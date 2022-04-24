@@ -1,0 +1,35 @@
+[logic]
+active = kamp@house
+on_death = death
+
+[kamp@house]
+center_point = esc_teterev_kamp_center
+path_walk = esc_teterev_task
+radius = 2
+meet = meet@brother1meet
+on_info = {+brother_trap_task} walker@freezer
+combat_ignore_cond = always
+bind = 1
+
+[walker@freezer]
+path_walk = brother1_walk5
+path_look = brother1_look5
+meet = no_meet
+on_signal  = arrived | walker@freezer2
+
+[walker@freezer2]
+path_walk = brother1_walk6
+path_look = brother1_look6
+on_info = {+brother_freezer_use} remark@freezer
+
+[remark@freezer]
+anim = choose
+no_move = true
+target = 7092
+meet = no_meet
+combat_ignore_cond = always
+on_timer = 10000 | walker@frezer2 %+zona_brother1_blow%
+
+
+[death]
+on_info = %+zona_brother1_dead%

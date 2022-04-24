@@ -1,0 +1,1389 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<game_dialogs>
+
+    <dialog id="dm_hello_dialog">
+		<init_func>dialog_manager.init_intro_dialog</init_func>
+    </dialog>
+
+    <dialog id="dm_trade_info_dialog" priority="-1">
+		<init_func>dialog_manager.init_trade_info_dialog</init_func>
+		<precondition>dialog_manager.precondition_info_global</precondition>
+    </dialog>
+
+    <dialog id="dm_action_info_dialog" priority="-3">
+		<init_func>dialog_manager.init_action_info_dialog</init_func>
+		<precondition>dialog_manager.precondition_info_global</precondition>
+    </dialog>
+
+    <dialog id="dm_cool_info_dialog" priority="-2">
+		<precondition>dialogs.is_not_wounded1</precondition>
+		<init_func>dialog_manager.init_cool_info_dialog</init_func>
+		<precondition>dialog_manager.precondition_info_global</precondition>
+    </dialog>
+
+    <dialog id="dm_help_wounded_medkit_dialog" priority="10">
+		<init_func>dialog_manager.init_help_wounded_medkit_dialog</init_func>
+        <precondition>dialogs.allow_wounded_dialog</precondition>
+        <precondition>dialogs.is_opp_wounded</precondition>
+        <precondition>dialogs.actor_have_medkit</precondition>
+    </dialog>
+
+    <dialog id="tm_trader_dialog" priority="-1">
+		<init_func>task_manager.init_trader_task_dialog</init_func>
+		<has_info>esc_serious_talk</has_info>
+    </dialog>
+    <dialog id="tm_trader_reward" priority="0">
+		<init_func>task_manager.init_trader_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+		<has_info>esc_serious_talk</has_info>
+    </dialog>
+
+    <dialog id="tm_barman_dialog" priority="-1">
+		<init_func>task_manager.init_barman_task_dialog</init_func>
+    </dialog>
+    <dialog id="tm_barman_reward" priority="0">
+		<init_func>task_manager.init_barman_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+    </dialog>
+
+    <dialog id="tm_ecolog_dialog" priority="-1">
+		<init_func>task_manager.init_ecolog_task_dialog</init_func>
+		<dont_has_info>actor_set_zombied</dont_has_info>
+    </dialog>
+    <dialog id="tm_ecolog_reward" priority="0">
+		<init_func>task_manager.init_ecolog_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+		<dont_has_info>actor_set_zombied</dont_has_info>
+    </dialog>
+
+    <dialog id="tm_dolg_dialog" priority="-1">
+		<has_info>esc_trader_speak</has_info>
+		<init_func>task_manager.init_dolg_task_dialog</init_func>
+    </dialog>
+    <dialog id="tm_dolg_reward" priority="0">
+		<init_func>task_manager.init_dolg_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+    </dialog>
+
+    <dialog id="tm_freedom_dialog" priority="-1">
+		<has_info>mil_lukash_dolg_task_complete</has_info>
+		<has_info>mil_dolg_dead</has_info>
+		<init_func>task_manager.init_freedom_task_dialog</init_func>
+    </dialog>
+    <dialog id="tm_freedom_reward" priority="0">
+		<init_func>task_manager.init_freedom_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+    </dialog>
+    <dialog id="tm_shustriy_dialog" priority="-1">
+		<init_func>task_manager.init_shustriy_task_dialog</init_func>
+    </dialog>
+    <dialog id="tm_shustriy_reward" priority="0">
+		<init_func>task_manager.init_shustriy_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+    </dialog>
+    <dialog id="tm_wolf_dialog" priority="-1">
+		<init_func>task_manager.init_wolf_task_dialog</init_func>
+		<precondition>task_manager.wolf_is_on_cordon</precondition>
+    </dialog>
+    <dialog id="tm_wolf_reward" priority="0">
+		<init_func>task_manager.init_wolf_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+    </dialog>
+    
+    <dialog id="tm_lisiy_dialog" priority="-1">
+		<init_func>task_manager.init_lisiy_task_dialog</init_func>
+    </dialog>
+    <dialog id="tm_lisiy_reward" priority="0">
+		<init_func>task_manager.init_lisiy_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+    </dialog>
+    
+    <dialog id="tm_mercenary_dialog" priority="-1">
+		<init_func>task_manager.init_mercenary_task_dialog</init_func>
+    </dialog>
+    <dialog id="tm_mercenary_reward" priority="0">
+		<init_func>task_manager.init_mercenary_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+    </dialog>
+    
+     <dialog id="tm_drunk_dolg_dialog" priority="-1">
+		<init_func>task_manager.init_drunk_dolg_task_dialog</init_func>
+    </dialog>
+    <dialog id="tm_drunk_dolg_reward" priority="0">
+		<init_func>task_manager.init_drunk_dolg_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+    </dialog>
+    
+     <dialog id="tm_hunter_dialog" priority="-1">
+		<init_func>task_manager.init_hunter_task_dialog</init_func>
+    </dialog>
+    <dialog id="tm_hunter_reward" priority="0">
+		<init_func>task_manager.init_hunter_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+    </dialog>
+    
+     <dialog id="tm_petrenko_dialog" priority="-1">
+		<init_func>task_manager.init_petrenko_task_dialog</init_func>
+    </dialog>
+    <dialog id="tm_petrenko_reward" priority="0">
+		<init_func>task_manager.init_petrenko_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+    </dialog>
+     <dialog id="tm_zastava_commander_dialog" priority="-1">
+		<init_func>task_manager.init_zastava_commander_task_dialog</init_func>
+    </dialog>
+    <dialog id="tm_zastava_commander_reward" priority="0">
+		<init_func>task_manager.init_zastava_commander_reward_dialog</init_func>
+		<precondition>task_manager.has_active_vendor_task</precondition>
+    </dialog>
+
+
+    <!-- FINAL DIALOGS -->
+    <dialog id="hello_dialog">
+        <phrase_list>
+            <phrase id="1">
+                <next>2</next>
+                <next>3</next>
+            </phrase>
+            <phrase id="3">
+                <text>hello_dialog_3</text>
+                <precondition>dialogs.is_wounded</precondition>
+            </phrase>
+            <phrase id="0">
+                <next>1</next>
+            </phrase>
+            <phrase id="2">
+                <text>hello_dialog_2</text>
+                <precondition>dialogs.is_not_wounded</precondition>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="actor_help_wounded" priority="10">
+        <precondition>dialogs.allow_wounded_dialog</precondition>
+        <precondition>dialogs.is_opp_wounded</precondition>
+        <phrase_list>
+            <phrase id="141">
+                <text>actor_help_wounded_141</text>
+            </phrase>
+            <phrase id="111">
+                <text>actor_help_wounded_111</text>
+            </phrase>
+            <phrase id="131">
+                <text>actor_help_wounded_131</text>
+            </phrase>
+            <phrase id="13">
+                <text>actor_help_wounded_13</text>
+                <next>131</next>
+            </phrase>
+            <phrase id="14">
+                <text>actor_help_wounded_14</text>
+                <next>141</next>
+            </phrase>
+            <phrase id="12">
+                <text>actor_help_wounded_12</text>
+                <precondition>dialogs.actor_have_bandage</precondition>
+                <action>dialogs.transfer_bandage</action>
+                <next>111</next>
+            </phrase>
+            <phrase id="11">
+                <text>actor_help_wounded_11</text>
+                <precondition>dialogs.actor_have_medkit</precondition>
+                <action>dialogs.transfer_medkit</action>
+                <next>111</next>
+            </phrase>
+            <phrase id="0">
+                <text>actor_help_wounded_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>actor_help_wounded_1</text>
+                <next>11</next>
+                <next>12</next>
+                <next>13</next>
+                <next>14</next>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="actor_break_dialog" priority="-5">
+		<precondition>dialogs.allow_break_dialog</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>actor_break_dialog_0</text>
+                <action>dialogs.break_dialog</action>
+				<give_info>ogse_trade_hide</give_info>
+            </phrase>
+        </phrase_list>
+    </dialog>
+
+    <!-- COMPANION DIALOGS -->
+    <!-- COMPANION STALKER -->	
+	
+    <dialog id="companion_release_dialog" priority="7">
+		<precondition>dialogs.is_companion</precondition>
+		<precondition>dialogs.can_be_free</precondition>
+		<precondition>dialogs.is_stalker_companion</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>companion_release_dialog_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>companion_release_dialog_1</text>
+                <action>dialogs.companion_stop_following</action>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="companion_hire_dialog" priority="8">
+        <precondition>dialogs.not_is_companion</precondition>
+		<precondition>dialogs.is_stalker_companion</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>companion_hire_dialog_0</text>
+                <next>1</next>
+                <next>2</next>
+				<next>3</next>
+				<next>4</next>
+				<next>5</next>
+				<next>6</next>
+				<next>7</next>
+				<next>8</next>
+				<next>9</next>
+            </phrase>		
+            <phrase id="1">
+                <text>companion_hire_dialog_1</text>
+                <precondition>dialogs.companion_will_follow</precondition>
+                <action>dialogs.companion_start_following</action>
+            </phrase>			
+            <phrase id="2">
+                <text>companion_hire_dialog_2</text>
+				<precondition>dialogs.companion_not_follow</precondition>
+            </phrase>
+            <phrase id="3">
+                <text>companion_hire_dialog_3</text>
+				<precondition>dialogs.companion_not_follow_bad</precondition>
+            </phrase>	
+            <phrase id="4">
+                <text>companion_hire_dialog_4</text>
+				<precondition>dialogs.companion_not_follow_deadly</precondition>
+            </phrase>		
+            <phrase id="5">
+                <text>companion_hire_dialog_5</text>
+				<precondition>dialogs.companion_not_follow_tired</precondition>
+            </phrase>	
+            <phrase id="6">
+                <text>companion_hire_dialog_6</text>
+				<precondition>dialogs.companion_not_follow_lowrank</precondition>
+            </phrase>	
+            <phrase id="7">
+                <text>companion_hire_dialog_7</text>
+				<precondition>dialogs.companion_not_follow_highrank</precondition>
+            </phrase>	
+            <phrase id="8">
+                <text>companion_hire_dialog_8</text>
+				<precondition>dialogs.companion_not_follow_toomuch</precondition>
+            </phrase>	
+            <phrase id="9">
+                <text>companion_hire_dialog_9</text>
+				<precondition>dialogs.companion_not_follow_other_community</precondition>
+            </phrase>				
+        </phrase_list>
+    </dialog>
+    <dialog id="companion_management_dialog" priority="8">
+        <precondition>dialogs.is_companion</precondition>
+		<precondition>dialogs.is_stalker_companion</precondition>
+        <phrase_list>
+			
+            <phrase id="0">
+                <text>companion_management_dialog_0</text>
+                <next>1</next>
+            </phrase>
+
+			<phrase id="1">
+                <text>companion_management_dialog_1</text>
+                <next>11</next>
+				<next>12</next>
+				<next>13</next>
+				<next>14</next>
+            </phrase>
+
+            <phrase id="11">
+                <text>companion_management_dialog_2</text>
+                <next>111</next>
+            </phrase>
+
+			<phrase id="111">
+                <text>companion_management_dialog_3</text>
+                <next>1111</next>
+				<next>1112</next>
+				<next>1113</next>
+            </phrase>	
+
+            <phrase id="1111">
+                <text>companion_management_dialog_4</text>
+                <action>dialogs.companion_beh_walk_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1112">
+                <text>companion_management_dialog_5</text>
+                <action>dialogs.companion_beh_walk_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1113">
+                <text>companion_management_dialog_6</text>
+                <action>dialogs.companion_beh_walk_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>				
+
+            <phrase id="12">
+                <text>companion_management_dialog_7</text>
+                <next>121</next>
+            </phrase>	
+			
+			<phrase id="121">
+                <text>companion_management_dialog_8</text>
+                <next>1211</next>
+				<next>1212</next>
+				<next>1213</next>
+            </phrase>	
+
+            <phrase id="1211">
+                <text>companion_management_dialog_9</text>
+                <action>dialogs.companion_beh_wait_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1212">
+                <text>companion_management_dialog_10</text>
+                <action>dialogs.companion_beh_wait_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1213">
+                <text>companion_management_dialog_11</text>
+                <action>dialogs.companion_beh_wait_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>					
+
+            <phrase id="13">
+                <text>companion_management_dialog_12</text>
+                <next>131</next>
+            </phrase>	
+			
+			<phrase id="131">
+                <text>companion_management_dialog_13</text>
+                <next>1311</next>
+				<next>1312</next>
+				<next>1313</next>
+            </phrase>			
+
+            <phrase id="1311">
+                <text>companion_management_dialog_14</text>
+                <action>dialogs.companion_beh_crouch_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1312">
+                <text>companion_management_dialog_15</text>
+                <action>dialogs.companion_beh_crouch_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1313">
+                <text>companion_management_dialog_16</text>
+                <action>dialogs.companion_beh_crouch_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>				
+
+            <phrase id="14">
+                <text>companion_management_dialog_17</text>
+                <next>141</next>
+            </phrase>	
+
+			<phrase id="141">
+                <text>companion_management_dialog_18</text>
+                <next>1411</next>
+				<next>1412</next>
+				<next>1413</next>
+            </phrase>			
+			
+            <phrase id="1411">
+                <text>companion_management_dialog_19</text>
+                <action>dialogs.companion_beh_hide_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1412">
+                <text>companion_management_dialog_20</text>
+                <action>dialogs.companion_beh_hide_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1413">
+                <text>companion_management_dialog_21</text>
+                <action>dialogs.companion_beh_hide_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>							
+			
+        </phrase_list>
+    </dialog>
+
+	<!-- COMPANION DOLG -->		
+
+    <dialog id="companion_release_dialog_dolg" priority="7">
+		<precondition>dialogs.is_companion</precondition>
+		<precondition>dialogs.can_be_free</precondition>
+		<precondition>dialogs.is_dolg_companion</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>companion_release_dialog_dolg_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>companion_release_dialog_dolg_1</text>
+                <action>dialogs.companion_stop_following</action>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="companion_hire_dialog_dolg" priority="8">
+        <precondition>dialogs.not_is_companion</precondition>
+		<precondition>dialogs.is_dolg_companion</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>companion_hire_dialog_dolg_0</text>
+                <next>1</next>
+                <next>2</next>
+				<next>3</next>
+				<next>4</next>
+				<next>5</next>
+				<next>6</next>
+				<next>7</next>
+				<next>8</next>
+				<next>9</next>				
+            </phrase>		
+            <phrase id="1">
+                <text>companion_hire_dialog_dolg_1</text>
+                <precondition>dialogs.companion_will_follow</precondition>
+                <action>dialogs.companion_start_following</action>
+            </phrase>			
+            <phrase id="2">
+                <text>companion_hire_dialog_dolg_2</text>
+				<precondition>dialogs.companion_not_follow</precondition>
+            </phrase>
+            <phrase id="3">
+                <text>companion_hire_dialog_dolg_3</text>
+				<precondition>dialogs.companion_not_follow_bad</precondition>
+            </phrase>	
+            <phrase id="4">
+                <text>companion_hire_dialog_dolg_4</text>
+				<precondition>dialogs.companion_not_follow_deadly</precondition>
+            </phrase>		
+            <phrase id="5">
+                <text>companion_hire_dialog_dolg_5</text>
+				<precondition>dialogs.companion_not_follow_tired</precondition>
+            </phrase>	
+            <phrase id="6">
+                <text>companion_hire_dialog_dolg_6</text>
+				<precondition>dialogs.companion_not_follow_lowrank</precondition>
+            </phrase>	
+            <phrase id="7">
+                <text>companion_hire_dialog_dolg_7</text>
+				<precondition>dialogs.companion_not_follow_highrank</precondition>
+            </phrase>	
+            <phrase id="8">
+                <text>companion_hire_dialog_dolg_8</text>
+				<precondition>dialogs.companion_not_follow_toomuch</precondition>
+            </phrase>	
+            <phrase id="9">
+                <text>companion_hire_dialog_dolg_9</text>
+				<precondition>dialogs.companion_not_follow_other_community</precondition>
+            </phrase>				
+        </phrase_list>
+    </dialog>
+    <dialog id="companion_management_dialog_dolg" priority="8">
+        <precondition>dialogs.is_companion</precondition>
+		<precondition>dialogs.is_dolg_companion</precondition>
+        <phrase_list>
+			
+            <phrase id="0">
+                <text>companion_management_dialog_dolg_0</text>
+                <next>1</next>
+            </phrase>
+
+			<phrase id="1">
+                <text>companion_management_dialog_dolg_1</text>
+                <next>11</next>
+				<next>12</next>
+				<next>13</next>
+				<next>14</next>
+            </phrase>
+
+            <phrase id="11">
+                <text>companion_management_dialog_dolg_2</text>
+                <next>111</next>
+            </phrase>
+
+			<phrase id="111">
+                <text>companion_management_dialog_dolg_3</text>
+                <next>1111</next>
+				<next>1112</next>
+				<next>1113</next>
+            </phrase>	
+
+            <phrase id="1111">
+                <text>companion_management_dialog_dolg_4</text>
+                <action>dialogs.companion_beh_walk_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1112">
+                <text>companion_management_dialog_dolg_5</text>
+                <action>dialogs.companion_beh_walk_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1113">
+                <text>companion_management_dialog_dolg_6</text>
+                <action>dialogs.companion_beh_walk_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>				
+
+            <phrase id="12">
+                <text>companion_management_dialog_dolg_7</text>
+                <next>121</next>
+            </phrase>	
+			
+			<phrase id="121">
+                <text>companion_management_dialog_dolg_8</text>
+                <next>1211</next>
+				<next>1212</next>
+				<next>1213</next>
+            </phrase>	
+
+            <phrase id="1211">
+                <text>companion_management_dialog_dolg_9</text>
+                <action>dialogs.companion_beh_wait_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1212">
+                <text>companion_management_dialog_dolg_10</text>
+                <action>dialogs.companion_beh_wait_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1213">
+                <text>companion_management_dialog_dolg_11</text>
+                <action>dialogs.companion_beh_wait_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>					
+
+            <phrase id="13">
+                <text>companion_management_dialog_dolg_12</text>
+                <next>131</next>
+            </phrase>	
+			
+			<phrase id="131">
+                <text>companion_management_dialog_dolg_13</text>
+                <next>1311</next>
+				<next>1312</next>
+				<next>1313</next>
+            </phrase>			
+
+            <phrase id="1311">
+                <text>companion_management_dialog_dolg_14</text>
+                <action>dialogs.companion_beh_crouch_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1312">
+                <text>companion_management_dialog_dolg_15</text>
+                <action>dialogs.companion_beh_crouch_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1313">
+                <text>companion_management_dialog_dolg_16</text>
+                <action>dialogs.companion_beh_crouch_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>				
+
+            <phrase id="14">
+                <text>companion_management_dialog_dolg_17</text>
+                <next>141</next>
+            </phrase>	
+
+			<phrase id="141">
+                <text>companion_management_dialog_dolg_18</text>
+                <next>1411</next>
+				<next>1412</next>
+				<next>1413</next>
+            </phrase>			
+			
+            <phrase id="1411">
+                <text>companion_management_dialog_dolg_19</text>
+                <action>dialogs.companion_beh_hide_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1412">
+                <text>companion_management_dialog_dolg_20</text>
+                <action>dialogs.companion_beh_hide_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1413">
+                <text>companion_management_dialog_dolg_21</text>
+                <action>dialogs.companion_beh_hide_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>							
+			
+        </phrase_list>
+    </dialog>
+	
+
+	<!-- COMPANION FREEDOM -->	
+
+   <dialog id="companion_release_dialog_freedom" priority="7">
+		<precondition>dialogs.is_companion</precondition>
+		<precondition>dialogs.can_be_free</precondition>
+		<precondition>dialogs.is_freedom_companion</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>companion_release_dialog_freedom_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>companion_release_dialog_freedom_1</text>
+                <action>dialogs.companion_stop_following</action>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="companion_hire_dialog_freedom" priority="8">
+        <precondition>dialogs.not_is_companion</precondition>
+		<precondition>dialogs.is_freedom_companion</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>companion_hire_dialog_freedom_0</text>
+                <next>1</next>
+                <next>2</next>
+				<next>3</next>
+				<next>4</next>
+				<next>5</next>
+				<next>6</next>
+				<next>7</next>
+				<next>8</next>
+				<next>9</next>				
+            </phrase>		
+            <phrase id="1">
+                <text>companion_hire_dialog_freedom_1</text>
+                <precondition>dialogs.companion_will_follow</precondition>
+                <action>dialogs.companion_start_following</action>
+            </phrase>			
+            <phrase id="2">
+                <text>companion_hire_dialog_freedom_2</text>
+				<precondition>dialogs.companion_not_follow</precondition>
+            </phrase>
+            <phrase id="3">
+                <text>companion_hire_dialog_freedom_3</text>
+				<precondition>dialogs.companion_not_follow_bad</precondition>
+            </phrase>	
+            <phrase id="4">
+                <text>companion_hire_dialog_freedom_4</text>
+				<precondition>dialogs.companion_not_follow_deadly</precondition>
+            </phrase>		
+            <phrase id="5">
+                <text>companion_hire_dialog_freedom_5</text>
+				<precondition>dialogs.companion_not_follow_tired</precondition>
+            </phrase>	
+            <phrase id="6">
+                <text>companion_hire_dialog_freedom_6</text>
+				<precondition>dialogs.companion_not_follow_lowrank</precondition>
+            </phrase>	
+            <phrase id="7">
+                <text>companion_hire_dialog_freedom_7</text>
+				<precondition>dialogs.companion_not_follow_highrank</precondition>
+            </phrase>	
+            <phrase id="8">
+                <text>companion_hire_dialog_freedom_8</text>
+				<precondition>dialogs.companion_not_follow_toomuch</precondition>
+            </phrase>	
+            <phrase id="9">
+                <text>companion_hire_dialog_freedom_9</text>
+				<precondition>dialogs.companion_not_follow_other_community</precondition>
+            </phrase>				
+        </phrase_list>
+    </dialog>
+    <dialog id="companion_management_dialog_freedom" priority="8">
+        <precondition>dialogs.is_companion</precondition>
+		<precondition>dialogs.is_freedom_companion</precondition>
+        <phrase_list>
+			
+            <phrase id="0">
+                <text>companion_management_dialog_freedom_0</text>
+                <next>1</next>
+            </phrase>
+
+			<phrase id="1">
+                <text>companion_management_dialog_freedom_1</text>
+                <next>11</next>
+				<next>12</next>
+				<next>13</next>
+				<next>14</next>
+            </phrase>
+
+            <phrase id="11">
+                <text>companion_management_dialog_freedom_2</text>
+                <next>111</next>
+            </phrase>
+
+			<phrase id="111">
+                <text>companion_management_dialog_freedom_3</text>
+                <next>1111</next>
+				<next>1112</next>
+				<next>1113</next>
+            </phrase>	
+
+            <phrase id="1111">
+                <text>companion_management_dialog_freedom_4</text>
+                <action>dialogs.companion_beh_walk_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1112">
+                <text>companion_management_dialog_freedom_5</text>
+                <action>dialogs.companion_beh_walk_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1113">
+                <text>companion_management_dialog_freedom_6</text>
+                <action>dialogs.companion_beh_walk_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>				
+
+            <phrase id="12">
+                <text>companion_management_dialog_freedom_7</text>
+                <next>121</next>
+            </phrase>	
+			
+			<phrase id="121">
+                <text>companion_management_dialog_freedom_8</text>
+                <next>1211</next>
+				<next>1212</next>
+				<next>1213</next>
+            </phrase>	
+
+            <phrase id="1211">
+                <text>companion_management_dialog_freedom_9</text>
+                <action>dialogs.companion_beh_wait_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1212">
+                <text>companion_management_dialog_freedom_10</text>
+                <action>dialogs.companion_beh_wait_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1213">
+                <text>companion_management_dialog_freedom_11</text>
+                <action>dialogs.companion_beh_wait_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>					
+
+            <phrase id="13">
+                <text>companion_management_dialog_freedom_12</text>
+                <next>131</next>
+            </phrase>	
+			
+			<phrase id="131">
+                <text>companion_management_dialog_freedom_13</text>
+                <next>1311</next>
+				<next>1312</next>
+				<next>1313</next>
+            </phrase>			
+
+            <phrase id="1311">
+                <text>companion_management_dialog_freedom_14</text>
+                <action>dialogs.companion_beh_crouch_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1312">
+                <text>companion_management_dialog_freedom_15</text>
+                <action>dialogs.companion_beh_crouch_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1313">
+                <text>companion_management_dialog_freedom_16</text>
+                <action>dialogs.companion_beh_crouch_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>				
+
+            <phrase id="14">
+                <text>companion_management_dialog_freedom_17</text>
+                <next>141</next>
+            </phrase>	
+
+			<phrase id="141">
+                <text>companion_management_dialog_freedom_18</text>
+                <next>1411</next>
+				<next>1412</next>
+				<next>1413</next>
+            </phrase>			
+			
+            <phrase id="1411">
+                <text>companion_management_dialog_freedom_19</text>
+                <action>dialogs.companion_beh_hide_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1412">
+                <text>companion_management_dialog_freedom_20</text>
+                <action>dialogs.companion_beh_hide_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1413">
+                <text>companion_management_dialog_freedom_21</text>
+                <action>dialogs.companion_beh_hide_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>							
+			
+        </phrase_list>
+    </dialog> 
+
+	<!-- COMPANION BANDIT -->	
+
+   <dialog id="companion_release_dialog_bandit" priority="7">
+		<precondition>dialogs.is_companion</precondition>
+		<precondition>dialogs.can_be_free</precondition>
+		<precondition>dialogs.is_bandit_companion</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>companion_release_dialog_bandit_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>companion_release_dialog_bandit_1</text>
+                <action>dialogs.companion_stop_following</action>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="companion_hire_dialog_bandit" priority="8">
+        <precondition>dialogs.not_is_companion</precondition>
+		<precondition>dialogs.is_bandit_companion</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>companion_hire_dialog_bandit_0</text>
+                <next>1</next>
+                <next>2</next>
+				<next>3</next>
+				<next>4</next>
+				<next>5</next>
+				<next>6</next>
+				<next>7</next>
+				<next>8</next>
+				<next>9</next>				
+            </phrase>		
+            <phrase id="1">
+                <text>companion_hire_dialog_bandit_1</text>
+                <precondition>dialogs.companion_will_follow</precondition>
+                <action>dialogs.companion_start_following</action>
+            </phrase>			
+            <phrase id="2">
+                <text>companion_hire_dialog_bandit_2</text>
+				<precondition>dialogs.companion_not_follow</precondition>
+            </phrase>
+            <phrase id="3">
+                <text>companion_hire_dialog_bandit_3</text>
+				<precondition>dialogs.companion_not_follow_bad</precondition>
+            </phrase>	
+            <phrase id="4">
+                <text>companion_hire_dialog_bandit_4</text>
+				<precondition>dialogs.companion_not_follow_deadly</precondition>
+            </phrase>		
+            <phrase id="5">
+                <text>companion_hire_dialog_bandit_5</text>
+				<precondition>dialogs.companion_not_follow_tired</precondition>
+            </phrase>	
+            <phrase id="6">
+                <text>companion_hire_dialog_bandit_6</text>
+				<precondition>dialogs.companion_not_follow_lowrank</precondition>
+            </phrase>	
+            <phrase id="7">
+                <text>companion_hire_dialog_bandit_7</text>
+				<precondition>dialogs.companion_not_follow_highrank</precondition>
+            </phrase>	
+            <phrase id="8">
+                <text>companion_hire_dialog_bandit_8</text>
+				<precondition>dialogs.companion_not_follow_toomuch</precondition>
+            </phrase>	
+            <phrase id="9">
+                <text>companion_hire_dialog_bandit_9</text>
+				<precondition>dialogs.companion_not_follow_other_community</precondition>
+            </phrase>				
+        </phrase_list>
+    </dialog>
+    <dialog id="companion_management_dialog_bandit" priority="8">
+        <precondition>dialogs.is_companion</precondition>
+		<precondition>dialogs.is_bandit_companion</precondition>
+        <phrase_list>
+			
+            <phrase id="0">
+                <text>companion_management_dialog_bandit_0</text>
+                <next>1</next>
+            </phrase>
+
+			<phrase id="1">
+                <text>companion_management_dialog_bandit_1</text>
+                <next>11</next>
+				<next>12</next>
+				<next>13</next>
+				<next>14</next>
+            </phrase>
+
+            <phrase id="11">
+                <text>companion_management_dialog_bandit_2</text>
+                <next>111</next>
+            </phrase>
+
+			<phrase id="111">
+                <text>companion_management_dialog_bandit_3</text>
+                <next>1111</next>
+				<next>1112</next>
+				<next>1113</next>
+            </phrase>	
+
+            <phrase id="1111">
+                <text>companion_management_dialog_bandit_4</text>
+                <action>dialogs.companion_beh_walk_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1112">
+                <text>companion_management_dialog_bandit_5</text>
+                <action>dialogs.companion_beh_walk_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1113">
+                <text>companion_management_dialog_bandit_6</text>
+                <action>dialogs.companion_beh_walk_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>				
+
+            <phrase id="12">
+                <text>companion_management_dialog_bandit_7</text>
+                <next>121</next>
+            </phrase>	
+			
+			<phrase id="121">
+                <text>companion_management_dialog_bandit_8</text>
+                <next>1211</next>
+				<next>1212</next>
+				<next>1213</next>
+            </phrase>	
+
+            <phrase id="1211">
+                <text>companion_management_dialog_bandit_9</text>
+                <action>dialogs.companion_beh_wait_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1212">
+                <text>companion_management_dialog_bandit_10</text>
+                <action>dialogs.companion_beh_wait_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1213">
+                <text>companion_management_dialog_bandit_11</text>
+                <action>dialogs.companion_beh_wait_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>					
+
+            <phrase id="13">
+                <text>companion_management_dialog_bandit_12</text>
+                <next>131</next>
+            </phrase>	
+			
+			<phrase id="131">
+                <text>companion_management_dialog_bandit_13</text>
+                <next>1311</next>
+				<next>1312</next>
+				<next>1313</next>
+            </phrase>			
+
+            <phrase id="1311">
+                <text>companion_management_dialog_bandit_14</text>
+                <action>dialogs.companion_beh_crouch_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1312">
+                <text>companion_management_dialog_bandit_15</text>
+                <action>dialogs.companion_beh_crouch_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1313">
+                <text>companion_management_dialog_bandit_16</text>
+                <action>dialogs.companion_beh_crouch_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>				
+
+            <phrase id="14">
+                <text>companion_management_dialog_bandit_17</text>
+                <next>141</next>
+            </phrase>	
+
+			<phrase id="141">
+                <text>companion_management_dialog_bandit_18</text>
+                <next>1411</next>
+				<next>1412</next>
+				<next>1413</next>
+            </phrase>			
+			
+            <phrase id="1411">
+                <text>companion_management_dialog_bandit_19</text>
+                <action>dialogs.companion_beh_hide_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1412">
+                <text>companion_management_dialog_bandit_20</text>
+                <action>dialogs.companion_beh_hide_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1413">
+                <text>companion_management_dialog_bandit_21</text>
+                <action>dialogs.companion_beh_hide_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>							
+			
+        </phrase_list>
+    </dialog>	
+
+	<!-- COMPANION ZOMBIED -->
+
+   <dialog id="companion_release_dialog_zombied" priority="7">
+		<precondition>dialogs.is_companion</precondition>
+		<precondition>dialogs.can_be_free</precondition>
+		<precondition>dialogs.is_zombie_companion</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>companion_release_dialog_zombied_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>companion_release_dialog_zombied_1</text>
+                <action>dialogs.companion_stop_following</action>
+            </phrase>
+        </phrase_list>
+    </dialog>
+    <dialog id="companion_hire_dialog_zombied" priority="8">
+        <precondition>dialogs.not_is_companion</precondition>
+		<precondition>dialogs.is_zombie_companion</precondition>
+        <phrase_list>
+            <phrase id="0">
+                <text>companion_hire_dialog_zombied_0</text>
+                <next>1</next>
+                <next>2</next>
+				<next>3</next>
+				<next>4</next>
+				<next>5</next>
+				<next>6</next>
+				<next>7</next>
+				<next>8</next>
+				<next>9</next>				
+            </phrase>		
+            <phrase id="1">
+                <text>companion_hire_dialog_zombied_1</text>
+                <precondition>dialogs.companion_will_follow</precondition>
+                <action>dialogs.companion_start_following</action>
+            </phrase>			
+            <phrase id="2">
+                <text>companion_hire_dialog_zombied_2</text>
+				<precondition>dialogs.companion_not_follow</precondition>
+            </phrase>
+            <phrase id="3">
+                <text>companion_hire_dialog_zombied_3</text>
+				<precondition>dialogs.companion_not_follow_bad</precondition>
+            </phrase>	
+            <phrase id="4">
+                <text>companion_hire_dialog_zombied_4</text>
+				<precondition>dialogs.companion_not_follow_deadly</precondition>
+            </phrase>		
+            <phrase id="5">
+                <text>companion_hire_dialog_zombied_5</text>
+				<precondition>dialogs.companion_not_follow_tired</precondition>
+            </phrase>	
+            <phrase id="6">
+                <text>companion_hire_dialog_zombied_6</text>
+				<precondition>dialogs.companion_not_follow_lowrank</precondition>
+            </phrase>	
+            <phrase id="7">
+                <text>companion_hire_dialog_zombied_7</text>
+				<precondition>dialogs.companion_not_follow_highrank</precondition>
+            </phrase>	
+            <phrase id="8">
+                <text>companion_hire_dialog_zombied_8</text>
+				<precondition>dialogs.companion_not_follow_toomuch</precondition>
+            </phrase>	
+            <phrase id="9">
+                <text>companion_hire_dialog_zombied_9</text>
+				<precondition>dialogs.companion_not_follow_other_community</precondition>
+            </phrase>				
+        </phrase_list>
+    </dialog>
+    <dialog id="companion_management_dialog_zombied" priority="8">
+        <precondition>dialogs.is_companion</precondition>
+		<precondition>dialogs.is_zombie_companion</precondition>
+        <phrase_list>
+			
+            <phrase id="0">
+                <text>companion_management_dialog_zombied_0</text>
+                <next>1</next>
+            </phrase>
+
+			<phrase id="1">
+                <text>companion_management_dialog_zombied_1</text>
+                <next>11</next>
+				<next>12</next>
+				<next>13</next>
+				<next>14</next>
+            </phrase>
+
+            <phrase id="11">
+                <text>companion_management_dialog_zombied_2</text>
+                <next>111</next>
+            </phrase>
+
+			<phrase id="111">
+                <text>companion_management_dialog_zombied_3</text>
+                <next>1111</next>
+				<next>1112</next>
+				<next>1113</next>
+            </phrase>	
+
+            <phrase id="1111">
+                <text>companion_management_dialog_zombied_4</text>
+                <action>dialogs.companion_beh_walk_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1112">
+                <text>companion_management_dialog_zombied_5</text>
+                <action>dialogs.companion_beh_walk_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1113">
+                <text>companion_management_dialog_zombied_6</text>
+                <action>dialogs.companion_beh_walk_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>				
+
+            <phrase id="12">
+                <text>companion_management_dialog_zombied_7</text>
+                <next>121</next>
+            </phrase>	
+			
+			<phrase id="121">
+                <text>companion_management_dialog_zombied_8</text>
+                <next>1211</next>
+				<next>1212</next>
+				<next>1213</next>
+            </phrase>	
+
+            <phrase id="1211">
+                <text>companion_management_dialog_zombied_9</text>
+                <action>dialogs.companion_beh_wait_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1212">
+                <text>companion_management_dialog_zombied_10</text>
+                <action>dialogs.companion_beh_wait_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1213">
+                <text>companion_management_dialog_zombied_11</text>
+                <action>dialogs.companion_beh_wait_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>					
+
+            <phrase id="13">
+                <text>companion_management_dialog_zombied_12</text>
+                <next>131</next>
+            </phrase>	
+			
+			<phrase id="131">
+                <text>companion_management_dialog_zombied_13</text>
+                <next>1311</next>
+				<next>1312</next>
+				<next>1313</next>
+            </phrase>			
+
+            <phrase id="1311">
+                <text>companion_management_dialog_zombied_14</text>
+                <action>dialogs.companion_beh_crouch_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1312">
+                <text>companion_management_dialog_zombied_15</text>
+                <action>dialogs.companion_beh_crouch_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1313">
+                <text>companion_management_dialog_zombied_16</text>
+                <action>dialogs.companion_beh_crouch_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>				
+
+            <phrase id="14">
+                <text>companion_management_dialog_zombied_17</text>
+                <next>141</next>
+            </phrase>	
+
+			<phrase id="141">
+                <text>companion_management_dialog_zombied_18</text>
+                <next>1411</next>
+				<next>1412</next>
+				<next>1413</next>
+            </phrase>			
+			
+            <phrase id="1411">
+                <text>companion_management_dialog_zombied_19</text>
+                <action>dialogs.companion_beh_hide_simple</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1412">
+                <text>companion_management_dialog_zombied_20</text>
+                <action>dialogs.companion_beh_hide_low_aggr</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>	
+
+            <phrase id="1413">
+                <text>companion_management_dialog_zombied_21</text>
+                <action>dialogs.companion_beh_hide_ignore</action>
+                <action>dialogs.break_dialog</action>
+            </phrase>							
+			
+        </phrase_list>
+    </dialog>	
+
+	<!-- COMPANION WEAPON SELECTOR -->
+	
+	<dialog id="companion_weapon_selector" priority="9">
+		<precondition>dialogs.is_companion</precondition>
+		<precondition>xr_companion.no_best_enemy</precondition>
+		<phrase_list>
+            <phrase id="0">
+                <text>companion_management_dialog_weapon_root</text>
+				<action>xr_companion.search_for_weapons</action>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>companion_management_dialog_weapon_what</text>
+				<next>2</next> <!--что угодно-->
+				<next>3</next> <!--пистолет-->
+				<next>4</next> <!--пистолет-пулемёт-->
+				<next>5</next> <!--дробовик-->
+				<next>6</next> <!--штурмовой дробовик-->
+				<next>7</next> <!--карабин-->
+				<next>8</next> <!--штурмовую винтовку-->
+				<next>9</next> <!--снайперскую винтовку-->
+				<next>10</next> <!--пулемет-->
+				<next>11</next> <!--гранатомёт-->
+				<next>12</next> <!--огнемёт-->
+				<next>13</next> <!--мартышка-->
+            </phrase>
+			<phrase id="2">
+				<text>companion_management_dialog_weapon_use_anything</text>
+				<action>xr_companion.set_weapon_anyting</action>
+				<next>14</next>
+			</phrase>			
+			<phrase id="3">
+				<text>companion_management_dialog_weapon_use_pistol</text>
+				<precondition>xr_companion.has_pistol</precondition>
+				<action>xr_companion.set_weapon_pistol</action>
+				<next>14</next>
+			</phrase>
+			<phrase id="4">
+				<text>companion_management_dialog_weapon_use_submashinegun</text>
+				<precondition>xr_companion.has_submashinegun</precondition>
+				<action>xr_companion.set_weapon_submashinegun</action>
+				<next>14</next>
+			</phrase>			
+			<phrase id="5">
+				<text>companion_management_dialog_weapon_use_shotgun</text>
+				<precondition>xr_companion.has_shotgun</precondition>
+				<action>xr_companion.set_weapon_shotgun</action>
+				<next>14</next>
+			</phrase>
+			<phrase id="6">
+				<text>companion_management_dialog_weapon_use_assault_shotgun</text>
+				<precondition>xr_companion.has_assault_shotgun</precondition>
+				<action>xr_companion.set_weapon_assault_shotgun</action>
+				<next>14</next>
+			</phrase>
+			<phrase id="7">
+				<text>companion_management_dialog_weapon_use_carbine</text>
+				<precondition>xr_companion.has_carbine</precondition>
+				<action>xr_companion.set_weapon_carbine</action>
+				<next>14</next>
+			</phrase>			
+			<phrase id="8">
+				<text>companion_management_dialog_weapon_use_assault_rifle</text>
+				<precondition>xr_companion.has_assault_rifle</precondition>
+				<action>xr_companion.set_weapon_assault_rifle</action>
+				<next>14</next>
+			</phrase>
+			<phrase id="9">
+				<text>companion_management_dialog_weapon_use_sniper_rifle</text>
+				<precondition>xr_companion.has_sniper_rifle</precondition>
+				<action>xr_companion.set_weapon_sniper_rifle</action>
+				<next>14</next>
+			</phrase>
+			<phrase id="10">
+				<text>companion_management_dialog_weapon_use_mashinegun</text>
+				<precondition>xr_companion.has_mashinegun</precondition>
+				<action>xr_companion.set_weapon_mashinegun</action>
+				<next>14</next>
+			</phrase>
+			<phrase id="11">
+				<text>companion_management_dialog_weapon_use_grenade_launcher</text>
+				<precondition>xr_companion.has_grenade_launcher</precondition>
+				<action>xr_companion.set_weapon_grenade_launcher</action>
+				<next>14</next>
+			</phrase>
+			<phrase id="12">
+				<text>companion_management_dialog_weapon_use_flamethrower</text>
+				<precondition>xr_companion.has_flamethrower</precondition>
+				<action>xr_companion.set_weapon_flamethrower</action>
+				<next>14</next>
+			</phrase>
+			<phrase id="13">
+				<text>companion_management_dialog_weapon_its_a_threeheaded_monkey</text>
+				<next>15</next>
+			</phrase>			
+			<phrase id="14">
+				<text>companion_management_dialog_weapon_allright</text>
+			</phrase>
+			<phrase id="15">
+				<text>companion_management_dialog_weapon_omg_its_a_lion</text>
+			</phrase>			
+		</phrase_list>
+	</dialog>
+	
+</game_dialogs>

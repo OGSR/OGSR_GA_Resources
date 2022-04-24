@@ -1,0 +1,60 @@
+[smart_terrains]
+none = true
+
+
+[logic]
+active = kamp@1
+danger = danger_ignore
+threshold = threshold@dar_farm_assistant_threshold
+
+
+[kamp@1]
+center_point = dar_farm_assistant_kamp_point
+radius = 3
+def_state_moving = walk
+danger = danger_condition
+combat_ignore_cond = always
+on_timer = 1|kamp@2 %=make_invulnerable =set_neutral%
+
+
+[kamp@2]
+center_point = dar_farm_assistant_kamp_point
+radius = 3
+def_state_moving = walk
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {=actor_has_item(af_medusa_special)} %=release%
+
+
+
+
+
+[threshold@dar_farm_assistant_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[danger_ignore]
+ignore_distance = 5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

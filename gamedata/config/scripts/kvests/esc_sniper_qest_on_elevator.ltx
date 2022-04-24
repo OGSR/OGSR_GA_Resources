@@ -1,0 +1,42 @@
+
+
+[logic] 
+active = remark@search 
+combat_ignore = combat_ignore
+on_hit = hit
+on_death = death
+
+[hit]
+on_info = %+esc_kvest_qest_on_elevator_hit_to_qest%
+
+[death]
+on_info = %+esc_kvest_qest_on_elevator_death_qest%
+
+[remark@fire] 
+radius = 0 
+anim = threat 
+no_move = true
+;sniper = true
+meet = no_meet
+combat_ignore_cond = {-tytuyitiyetu}
+danger = danger_condition
+
+[remark@search]  
+anim = threat 
+target = actor 
+no_move = true
+meet = no_meet
+on_actor_dist_le_nvis = 77| remark@fire
+combat_ignore_cond = {-tytuyitiyetu}
+danger = danger_condition
+
+[combat_ignore]
+combat_ignore_cond = {-tytuyitiyetu}
+
+[danger_condition]
+ignore_distance = 0
+
+[smart_terrains] 
+none = true 
+
+[dont_spawn_character_supplies]

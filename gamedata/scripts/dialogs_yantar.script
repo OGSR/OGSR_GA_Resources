@@ -1,0 +1,679 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+---------------------------------------------------------------------------------
+--/Прекондишены диалогов Сахарова
+-- Инфопоршены:
+---------------------------------------------------------------------------------
+-- bar_x16_documents_start				ГГ взял квест на документы Янтаря у Бармена (может не взять)
+-- yantar_hello_scientist				ГГ познакомился с Сахаровым, выдавать в первом диалоге при наличии bar_x16_documents_start
+-- bar_heli_scene_professor_die			Круглов погиб
+-- bar_rescue_research_done				ГГ завершил продовку Круглова
+-- yan_ecolog_outfit_given				ГГ получил костюм за спасение Круглова
+-- loschina_task_start					Взято задание на Лощину
+-- db.actor:object("ds_lablog")			У ГГ есть документы из Лощины
+-- yantar_professor_talk_about_brain	ГГ сдал таск в лощине и Сахаров рассказал ему про замеры (отсечка диалога возврата из Лощины)
+-- loschina_task_finished				Выполнено задание на Лощину
+-- yan_find_scientist_task_start		Флаг разговора о замерах
+-- yan_find_scientist_start				Замеры начаты с Кругловым
+-- yan_find_scientist_semenov_start		Замеры начаты с Семеновым
+-- yan_scientist_die					Ученый (не важно кто) погиб на замерах
+-- yan_scientist_return_to_bunker		Ученый очухался после Выброса, замеры сделаны полностью
+-- db.actor:object("kruglov_flash")		У ГГ есть флешка с замерами
+-- yan_find_scientist_done				ГГ закончил замеры с учеными, ученый вернулся и поговорил с Сахаровым либо ГГ сам отнес флешку
+-- yantar_scientist_talk_helmet			ГГ лично отдал замеры Сахарову
+-- yan_find_vasilyev_start				ГГ взял задание на Брейнлаб
+-- yantar_attack_start					ГГ вылез наружу, началась атака вертолетов (Брейнлаб взят, награда НЕ получена)
+-- yan_kill_brain_done					Брейнлаб взят, награда получена
+---------------------------------------------------------------------------------
+-- Служебные функции
+---------------------------------------------------------------------------------
+
+function check_preconditions(info_plus_list, info_minus_list, objects_have, objects_not_have)
+-- info_plus_list, info_minus_list - таблички инфо вида { "info", }
+-- objects_have - табличка секций предметов вида { "section", }
+	local flag_info_plus_done = false
+	local flag_info_minus_done = false
+	local flag_objects_have_done = false
+	local flag_objects_have_none = false
+	
+	local flag_info_plus_need = (info_plus_list ~= nil)
+	local flag_info_minus_need = (info_minus_list ~= nil)
+	local flag_objects_have_need = (objects_have ~= nil)
+	local flag_objects_not_have_need = (objects_not_have ~= nil)
+	
+	if flag_info_plus_need then
+		local num_check = #info_plus_list
+		local count = 0
+		for k, v in pairs(info_plus_list) do
+			if has_alife_info(v) then
+				count = count + 1
+			end		
+		end
+		if count == num_check then
+			flag_info_plus_done = true
+		end		
+	end
+	
+	if flag_info_minus_need then
+		local num_check = #info_minus_list
+		local count = 0
+		for k, v in pairs(info_minus_list) do
+			if not has_alife_info(v) then
+				count = count + 1
+			end
+		end
+		if count == num_check then
+			flag_info_minus_done = true
+		end		
+	end
+	
+	if flag_objects_have_need then
+		local num_check = #objects_have
+		local count = 0
+		for k, v in pairs(objects_have) do
+			if db.actor:object(v) then
+				count = count + 1
+			end
+		end
+		if count == num_check then
+			flag_objects_have_done = true
+		end		
+	end	
+	
+	if flag_objects_not_have_need then
+		local num_check = #objects_not_have
+		local count = 0
+		for k, v in pairs(objects_not_have) do
+			if not db.actor:object(v) then
+				count = count + 1
+			end
+		end
+		if count == num_check then
+			flag_objects_have_none = true
+		end		
+	end		
+	
+	local return_value = true
+	
+	if flag_info_plus_need and not flag_info_plus_done then return_value = false end
+	if flag_info_minus_need and not flag_info_minus_done then return_value = false end
+	if flag_objects_have_need and not flag_objects_have_done then return_value = false end
+	if flag_objects_not_have_need and not flag_objects_have_none then return_value = false end
+	
+	return return_value
+	
+end
+---------------------------------------------------------------------------------
+-- Прекондишен для тех, кто выполнил задания Сахарова до переделки диалога
+---------------------------------------------------------------------------------
+function precondition_talked_professor()
+	local infos_need = {
+		"loschina_task_start",
+	}
+	local infos_not_need = {
+		"yantar_hello_scientist",
+	}
+	local check = check_preconditions(infos_need, infos_not_need, nil, nil)
+	if check then
+		db.actor:give_info_portion("yantar_hello_scientist")
+	end
+end
+---------------------------------------------------------------------------------
+-- Образец прекондишена
+---------------------------------------------------------------------------------
+function precondition_stage_test(first_speaker, second_speaker)
+	local infos_need = {
+		"test_info",
+	}
+	local infos_not_need = {
+		"test_info",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия Z: Игрок приходит с Сахарову НЕ имея квест бармена на доки Х16, потеряв Круглова в бою
+-- Задание на Х16 НЕ взято
+-- Круглов не спасен
+-- Задание в Лощине не взято
+-- Замеры не взяты
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_z(first_speaker, second_speaker)
+	precondition_talked_professor()
+	local infos_need = {
+		"test_info",
+	}
+	local infos_not_need = {
+		"bar_x16_documents_start",
+		"bar_rescue_research_done",
+		"loschina_task_start",
+		"yan_find_scientist_task_start",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	
+	local infos_need_2 = {
+		"bar_rescue_research_done",
+		"bar_heli_scene_professor_die",
+	}
+	local infos_not_need_2 = {
+		"bar_x16_documents_start",
+		"loschina_task_start",
+		"yan_find_scientist_task_start",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}	
+	
+	return check_preconditions(nil, infos_not_need, nil, nil) or check_preconditions(infos_need_2, infos_not_need_2, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия ZА: Игрок приходит с Сахарову НЕ имея квест бармена на доки Х16, и спас Круглова в бою (ещё не получил скафандр)
+-- Задание на Х16 НЕ взято
+-- Круглов СПАСЕН
+-- Задание в Лощине не взято
+-- Замеры не взяты
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_za(first_speaker, second_speaker)
+	local infos_need = {
+		"bar_rescue_research_done",
+	}
+	local infos_not_need = {
+		"bar_x16_documents_start",
+		"bar_heli_scene_professor_die",
+		"yan_ecolog_outfit_given",
+		"loschina_task_start",
+		"yan_find_scientist_task_start",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия ZА1: Игрок приходит с Сахарову НЕ имея квест бармена на доки Х16, и спас Круглова в бою (уже получил скафандр)
+-- Задание на Х16 НЕ взято
+-- Круглов СПАСЕН
+-- Задание в Лощине не взято
+-- Замеры не взяты
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_za1(first_speaker, second_speaker)
+	local infos_need = {
+		"bar_rescue_research_done",
+		"yan_ecolog_outfit_given",
+	}
+	local infos_not_need = {
+		"bar_x16_documents_start",
+		"bar_heli_scene_professor_die",
+		"loschina_task_start",
+		"yan_find_scientist_task_start",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 0: Игрок приходит с Сахарову ИМЕЯ квест бармена на доки Х16, потеряв Круглова в бою
+-- Задание на Х16 ВЗЯТО
+-- Круглов не спасен
+-- Задание в Лощине не взято
+-- Замеры не взяты
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_0(first_speaker, second_speaker)
+	local infos_need = {
+		"bar_heli_scene_professor_die",
+		"bar_x16_documents_start",
+	}
+	local infos_not_need = {
+		"yantar_hello_scientist",
+		"loschina_task_start",
+		"yan_find_scientist_task_start",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 0А: Сахаров познакомился с ГГ но ГГ не взял задание на лощину, имея квест бармена на доки Х16, потеряв Круглова в бою
+-- Задание на Х16 ВЗЯТО
+-- Круглов не спасен
+-- Задание в Лощине не взято
+-- Замеры не взяты
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_0a(first_speaker, second_speaker)
+	local infos_need = {
+		"bar_heli_scene_professor_die",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"loschina_task_start",
+		"yan_find_scientist_task_start",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 1: Игрок приходит с Сахарову после спасения Круглова, взяв квест бармена на доки Х16 (ещё не получил скафандр)
+-- Задание на Х16 ВЗЯТО
+-- Круглов СПАСЕН
+-- Задание в Лощине не взято
+-- Замеры не взяты
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_1(first_speaker, second_speaker)
+	local infos_need = {
+		"bar_rescue_research_done",
+		"bar_x16_documents_start",
+	}
+	local infos_not_need = {
+		"yantar_hello_scientist",
+		"bar_heli_scene_professor_die",
+		"loschina_task_start",
+		"yan_find_scientist_task_start",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 1А: Сахаров познакомился с ГГ но ГГ не взял задание на лощину, после спасения Круглова (уже получил скафандр)
+-- Задание на Х16 ВЗЯТО
+-- Круглов СПАСЕН, ГГ поговорил впервые с Сахаровым
+-- Задание в Лощине не взято
+-- Замеры не взяты
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_1a(first_speaker, second_speaker)
+	local infos_need = {
+		"bar_rescue_research_done",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"bar_heli_scene_professor_die",
+		"loschina_task_start",
+		"yan_find_scientist_task_start",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 2: Игрок взял задание на Лощину но не выполнил его
+-- Спасен Круглов или нет НЕ ВАЖНО
+-- Задание в Лощине ВЗЯТО (документов нет)
+-- Замеры не взяты
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_2(first_speaker, second_speaker)
+	local infos_need = {
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"loschina_task_finished",
+		"yan_find_scientist_task_start",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	} 
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 3: Игрок взял задание на Лощину И ВЫПОЛНИЛ его
+-- Спасен Круглов или нет НЕ ВАЖНО
+-- Задание в Лощине ВЗЯТО И ВЫПОЛНЕНО (документы ЕСТЬ)
+-- Замеры не взяты
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_3(first_speaker, second_speaker)
+	local infos_need = {
+		"loschina_task_finished",
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"yan_find_scientist_task_start",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 4: Игрок взял задание на ЗАМЕРЫ но ещё не ушел их делать, никто не погиб
+-- Спасен Круглов или нет НЕ ВАЖНО
+-- Задание в Лощине ВЗЯТО И ВЫПОЛНЕНО
+-- Замеры ВЗЯТЫ, никто не погиб
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_4(first_speaker, second_speaker)
+	local infos_need = {
+		"yan_find_scientist_task_start",
+		"loschina_task_finished",
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"yan_scientist_die",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 4A: Игрок взял задание на ЗАМЕРЫ, ушел их делать и Круглов ПОГИБ по дороге ТУДА
+-- замеры не полные, шлем не настроен
+-- Круглов СПАСЕН
+-- Задание в Лощине ВЗЯТО И ВЫПОЛНЕНО
+-- Замеры ВЗЯТЫ но проведены НЕ ПОЛНОСТЬЮ, погиб Круглов
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_4a(first_speaker, second_speaker)
+	local infos_need = {
+		"yan_scientist_die",
+		"yan_find_scientist_start",
+		"yan_find_scientist_task_start",
+		"loschina_task_finished",
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"yan_scientist_return_to_bunker",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 4Б: Игрок взял задание на ЗАМЕРЫ, ушел их делать и Семенов ПОГИБ по дороге ТУДА
+-- замеры не полные, шлем не настроен
+-- Круглов НЕ спасен
+-- Задание в Лощине ВЗЯТО И ВЫПОЛНЕНО
+-- Замеры ВЗЯТЫ но проведены НЕ ПОЛНОСТЬЮ, погиб Семенов
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_4b(first_speaker, second_speaker)
+	local infos_need = {
+		"yan_scientist_die",
+		"yan_find_scientist_semenov_start",
+		"yan_find_scientist_task_start",
+		"loschina_task_finished",
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"yan_scientist_return_to_bunker",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 5: Игрок взял задание на ЗАМЕРЫ И ВЫПОЛНИЛ ЕГО ПОЛНОСТЬЮ, Круглов/Семенов
+-- вернулся к Сахароову и поговорил с ним
+-- Спасен Круглов или нет НЕ ВАЖНО
+-- Задание в Лощине ВЗЯТО И ВЫПОЛНЕНО
+-- Замеры ВЗЯТЫ И ВЫПОЛНЕНЫ ПОЛНОСТЬЮ, никто не погиб
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_5(first_speaker, second_speaker)
+	local infos_need = {
+		"yan_find_scientist_done",
+		"yan_scientist_return_to_bunker",
+		"yan_find_scientist_task_start",
+		"loschina_task_finished",
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"yan_scientist_die",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 5А: Игрок взял задание на ЗАМЕРЫ, Круглов ПОГИБ по дороге НАЗАД
+-- Круглов СПАСЕН
+-- Задание в Лощине ВЗЯТО И ВЫПОЛНЕНО
+-- Замеры ВЗЯТЫ И ВЫПОЛНЕНЫ ПОЛНОСТЬЮ, погиб Круглов
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_5a(first_speaker, second_speaker)
+	local infos_need = {
+		"yan_scientist_die",
+		"yan_scientist_return_to_bunker",
+		"yan_find_scientist_start",
+		"yan_find_scientist_task_start",
+		"loschina_task_finished",
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"yantar_scientist_talk_helmet",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 5Б: Игрок взял задание на ЗАМЕРЫ, Семенов ПОГИБ по дороге НАЗАД
+-- Круглов НЕ спасен
+-- Задание в Лощине ВЗЯТО И ВЫПОЛНЕНО
+-- Замеры ВЗЯТЫ И ВЫПОЛНЕНЫ ПОЛНОСТЬЮ, погиб Семенов
+-- Брейнлаб не взят
+---------------------------------------------------------------------------------
+function precondition_stage_5b(first_speaker, second_speaker)
+	local infos_need = {
+		"yan_scientist_die",
+		"yan_scientist_return_to_bunker",
+		"yan_find_scientist_semenov_start",
+		"yan_find_scientist_task_start",
+		"loschina_task_finished",
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"yantar_scientist_talk_helmet",
+		"yan_find_scientist_done",
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 5В: Игрок взял задание на ЗАМЕРЫ, один из ученых погиб по дороге назад, ГГ отдал шлем
+-- Спасен Круглов или нет НЕ ВАЖНО
+-- Задание в Лощине ВЗЯТО И ВЫПОЛНЕНО
+-- Замеры ВЗЯТЫ И ВЫПОЛНЕНЫ ПОЛНОСТЬЮ, погиб один из ученых
+-- Брейнлаб не взят, флешка отдана
+---------------------------------------------------------------------------------
+function precondition_stage_5c(first_speaker, second_speaker)
+	local infos_need = {
+		"yan_find_scientist_done",
+		"yantar_scientist_talk_helmet",
+		"yan_scientist_die",
+		"yan_scientist_return_to_bunker",
+		"yan_find_scientist_task_start",
+		"loschina_task_finished",
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"yan_find_vasilyev_start",
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 6: Игрок получил шлем и взял задание на БРЕЙНЛАБ
+-- Спасен Круглов или нет НЕ ВАЖНО
+-- Задание в Лощине ВЗЯТО И ВЫПОЛНЕНО
+-- Замеры - не важно, хотя бы взяты
+-- Брейнлаб ВЗЯТ
+---------------------------------------------------------------------------------
+function precondition_stage_6(first_speaker, second_speaker)
+	local infos_need = {
+		"yan_find_vasilyev_start",
+		"yan_find_scientist_task_start",
+		"loschina_task_finished",
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"yantar_attack_start",
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 7: Игрок взял задание на БРЕЙНЛАБ и ВЫПОЛНИЛ его
+-- Спасен Круглов или нет НЕ ВАЖНО
+-- Задание в Лощине ВЗЯТО И ВЫПОЛНЕНО
+-- Замеры - не важно, хотя бы взяты
+-- Брейнлаб ВЗЯТ и ВЫПОЛНЕН, награда ещё НЕ получена
+---------------------------------------------------------------------------------
+function precondition_stage_7(first_speaker, second_speaker)
+	local infos_need = {
+		"yantar_attack_start",
+		"yan_find_vasilyev_start",
+		"yan_find_scientist_task_start",
+		"loschina_task_finished",
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	local infos_not_need = {
+		"yan_kill_brain_done",
+	}
+	return check_preconditions(infos_need, infos_not_need, nil, nil)
+end
+---------------------------------------------------------------------------------
+-- Стадия 8: Игрок взял задание на БРЕЙНЛАБ и ВЫПОЛНИЛ его
+-- Спасен Круглов или нет НЕ ВАЖНО
+-- Задание в Лощине ВЗЯТО И ВЫПОЛНЕНО
+-- Замеры ВЗЯТЫ И ВЫПОЛНЕНЫ ПОЛНОСТЬЮ
+-- Брейнлаб ВЗЯТ и ВЫПОЛНЕН, награда ПОЛУЧЕНА
+---------------------------------------------------------------------------------
+function precondition_stage_8(first_speaker, second_speaker)
+	local infos_need = {
+		"yan_kill_brain_done",
+		"yantar_attack_start",
+		"yan_find_vasilyev_start",
+		"yan_find_scientist_task_start",
+		"loschina_task_finished",
+		"loschina_task_start",
+		"bar_x16_documents_start",
+		"yantar_hello_scientist",
+	}
+	return check_preconditions(infos_need, nil, nil, nil)
+end
+
+
+---------------------------------------------------------------------------------
+
+
+function have_kruglov_flash(first_speaker, second_speaker)
+  	return db.actor:object("kruglov_flash") ~= nil
+end
+function give_kruglov_flash(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "kruglov_flash", "out")
+end
+
+function give_ecolog_outfit(first_speaker, second_speaker)
+	if not has_alife_info("yan_ecolog_outfit_given") then
+		dialogs.relocate_item_section(first_speaker, "ecolog_outfit", "in")
+		db.actor:give_info_portion("yan_ecolog_outfit_given")
+	end
+end
+
+function yan_professor_task_loschina_precond(first_speaker, second_speaker)
+if db.actor:object("ds_lablog")  then return true end
+return false
+end
+
+function has_no_loschina_journal(first_speaker, second_speaker)
+	return not yan_professor_task_loschina_precond(first_speaker, second_speaker)
+end
+
+function professor_quests_precond(first_speaker, second_speaker)
+	if has_alife_info("bar_rescue_research_fail") or has_alife_info("bar_heli_scene_professor_die") then
+		return true
+	end
+	return false
+end
+
+function give_professor_loschina_doc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "ds_lablog", "out")
+	level_tasks.remove_location_by_sid(story_ids.yan_general_ecolog,"green_location", true)
+end
+
+----------------------------------------------------------------------
+--/Сахаров помогает раззомбировать Меченого
+----------------------------------------------------------------------
+
+-- проверяем наличие рыбки у меченого
+function saharov_af_gold_fish_have()
+if db.actor:object("af_gold_fish")  then return true end
+return false
+end
+
+-- меченый становится человеком
+function actor_not_zombie(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_gold_fish", "out") -- отдаём рыбку Сахару
+	dialogs.actor_clear_community(actor, npc) -- чистим коммунити главгероя 
+	if has_alife_info("actor_set_zombied") then
+		db.actor:disable_info_portion("actor_set_zombied")-- зачищаем инфу о том, что ГГ зомби
+	end
+	if has_alife_info("saharov_af_gold_fish_have") then
+		db.actor:disable_info_portion("saharov_af_gold_fish_have")-- зачищаем инфу о том, что у ГГ есть рыбка
+	end
+	if has_alife_info("find_gold_fish_start") then
+		db.actor:disable_info_portion("find_gold_fish_start")-- зачищаем инфу о задании на рыбку
+	end
+	ogse_sleep_mgr.begin_sleep(3)
+end

@@ -1,0 +1,656 @@
+;-------------------------------------------------------
+;	Еда и напитки
+;-------------------------------------------------------
+[food]:identity_immunities
+GroupControlSection	    = spawn_group
+discovery_dependency	=
+;$prefetch 		        = 32
+class		        	= II_FOOD
+cform			        = skeleton
+
+attach_angle_offset	    = -0.287979, 1.560923, 1.544060
+attach_position_offset	= 0.096910, -0.013594, 0.107925
+attach_bone_name	    = bip01_r_hand
+auto_attach		        = false
+
+bone_name		        = bip01_r_hand
+position_offset		    = 0.0,0.0,0.0
+angle_offset		    = 1.570790,1.570790,3.92699
+
+; food item
+;slot			    = 6
+animation_slot		= 4
+
+;hud item
+hud			        = wpn_vodka_hud
+
+; Хлеб
+[bread_a]:food
+GroupControlSection		= spawn_group
+discovery_dependency	        =
+$spawn				= "food and drugs\bread_a"
+cform               = skeleton
+class				= II_ATTCH
+visual              = dynamics\devices\dev_bred\dev_bred.ogf
+description			= enc_equipment_food_bread1
+cost				= 30
+inv_name			= Bread
+inv_name_short		= Bread
+inv_weight			= 0.3
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 11
+inv_grid_y			= 9
+
+attach_angle_offset		= -0.287979, 1.560923, 1.544060
+attach_position_offset	= 0.096910, -0.013594, 0.107925
+attach_bone_name		= bip01_r_hand
+auto_attach			= false
+
+can_trade			= false
+
+// should be deleted after update
+bone_name			= bip01_r_hand
+position_offset			= 0.0,0.0,0.0
+angle_offset			= 1.570790,1.570790,3.92699
+
+[bread]:food
+$spawn 				= "food and drugs\bread"
+visual              = dynamics\devices\dev_bred\dev_bred.ogf
+description			= enc_equipment_food_bread1
+cost				= 30
+inv_name			= Bread
+inv_name_short		= Bread
+inv_weight			= 0.2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 11
+inv_grid_y			= 9
+
+; eatable item
+eat_health        = 0
+eat_thirst 	      = -0.8
+eat_satiety       = 0.2
+eat_power         = 0
+eat_radiation     = 0.02
+eat_alcohol	      = -0.007
+wounds_heal_perc  = 0
+eat_portions_num  = -1
+
+use_sound_anm = items\bread\bread_use
+use_sound = inv_sounds\inv_food
+
+[kolbasa_a]:food
+GroupControlSection		= spawn_group
+discovery_dependency	        =
+$spawn				= "food and drugs\kolbasa_a"
+cform                           = skeleton
+class				= II_ATTCH
+visual              = dynamics\devices\dev_kolbasa\dev_kolbasa.ogf
+cost				= 80
+inv_name			= "kolbasa"
+inv_name_short		= "kolbasa"
+inv_weight			= .5
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 19
+inv_grid_y			= 12
+
+attach_angle_offset		= 0.440521, 1.378287, -0.644026
+attach_position_offset	= 0.104196, -0.010821, 0.076969
+attach_bone_name		= bip01_r_hand
+auto_attach			= false
+
+can_trade			= false
+
+// should be deleted after update
+bone_name			= bip01_r_hand
+position_offset			= 0.0,0.0,0.0
+angle_offset			= 1.570790,1.570790,3.92699
+
+[kolbasa]:food
+$spawn 				= "food and drugs\kolbasa"
+visual				= dynamics\devices\dev_kolbasa\dev_kolbasa.ogf
+description			= enc_equipment_food_kolbasa1
+
+inv_name			= Kolbasa
+inv_name_short		= Kolbasa
+inv_weight			= 0.5
+
+inv_grid_width		        = 1
+inv_grid_height		        = 1
+inv_grid_x			= 19
+inv_grid_y			= 12
+cost				= 80
+
+; eatable item
+eat_health           = 0
+eat_thirst 	         = -0.2
+eat_satiety          = 0.3
+eat_power            = 0.1
+eat_radiation        = 0.05
+eat_alcohol	         = -0.09
+wounds_heal_perc     = 0
+eat_portions_num     = -1
+
+use_sound_anm = items\kolbasa\kolbasa_use
+use_sound = inv_sounds\inv_food
+
+[conserva]:food
+$spawn 				= "food and drugs\conserva"
+visual				= dynamics\devices\dev_conserv\dev_conserv.ogf
+description			= enc_equipment_food_conserva1
+
+inv_name			= Conserva
+inv_name_short		        = Conserva
+inv_weight			= 0.5
+
+inv_grid_width		        = 1
+inv_grid_height		        = 1
+inv_grid_x			= 23
+inv_grid_y			= 2
+cost				= 200
+
+; eatable item
+eat_health          = 0
+eat_thirst 	        = -0.4
+eat_satiety         = 0.4
+eat_power           = 0.15
+eat_radiation       = 0
+eat_alcohol	        = -0.2
+wounds_heal_perc    = 0
+eat_portions_num    = -1
+
+;hud item
+hud = wpn_vodka_hud
+
+attach_angle_offset		= 0.440521, 1.378287, -0.644026
+attach_position_offset	        = 0.104196, -0.010821, 0.076969
+attach_bone_name		= bip01_r_hand
+auto_attach			= false
+
+// should be deleted after update
+bone_name			= bip01_r_hand
+position_offset			= 0.0,0.0,0.0
+angle_offset			= 1.570790,1.570790,3.92699
+
+use_sound_anm = items\conserva\conserva_use
+
+[vodka_a]:food
+GroupControlSection		= spawn_group
+discovery_dependency	        =
+$spawn				= "food and drugs\vodka_a"
+cform               = skeleton
+class				= II_ATTCH
+visual              = dynamics\devices\dev_vodka\dev_vodka
+cost				= 130
+inv_name			= "vodka"
+inv_name_short		= "vodka"
+inv_weight			= 0.5
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 22
+inv_grid_y			= 2
+
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach			= false
+
+can_trade			= false
+
+// should be deleted after update
+bone_name			= bip01_r_hand
+position_offset			= 0.0,0.0,0.0
+angle_offset			= 1.570790,1.570790,3.92699
+
+[vodka]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn 				= "food and drugs\vodka"
+;$prefetch 			= 32
+class				= II_BOTTL
+cform				= skeleton
+visual				= dynamics\devices\dev_vodka\dev_vodka
+description			= enc_equipment_food_vodka1
+
+ef_weapon_type		= 0
+
+inv_name			= Vodka
+inv_name_short		= Vodka
+inv_weight			= 0.5	;0.2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 22
+inv_grid_y			= 2
+cost				= 130
+
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	        = 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach			= false
+
+// should be deleted after update
+bone_name			= bip01_r_hand
+position_offset			= 0.0,0.0,0.0
+angle_offset			= 1.570790,1.570790,3.92699
+
+; eatable item
+eat_health		    = 0
+eat_thirst 			= 0.1
+eat_satiety		    = 0
+eat_power		    = 0
+eat_radiation 		= -0.9
+eat_alcohol		    = 0.5
+wounds_heal_perc 	= 0.15
+eat_portions_num 	= -1
+
+
+; food item
+;slot				= 6
+animation_slot		= 4
+
+;hud item
+hud                 = wpn_vodka_hud
+
+break_particles		= explosions\explosion_bottle
+break_sound			= material\bottle\collide\bottle_break_1
+
+use_sound_anm = items\vodka\vodka_drink
+use_sound = inv_sounds\inv_vodka
+
+[voda_a]:identity_immunities
+GroupControlSection		= spawn_group
+discovery_dependency	= 
+$spawn					= "food and drugs\voda_a"
+cform                   = skeleton
+class					= II_ATTCH
+visual                  = gwr\food\water\water
+cost					= 90
+inv_name				= "voda"
+inv_name_short			= "voda"
+inv_weight				= 0.3
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 22
+inv_grid_y				= 1
+
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+
+can_trade			= false
+
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+
+[voda]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 				= "food and drugs\voda"
+;$prefetch 			= 32
+class				= II_BOTTL
+cform				= skeleton
+visual				= gwr\food\water\water
+description			= enc_equipment_food_voda1
+
+ef_weapon_type		= 0
+
+inv_name			= voda
+inv_name_short		= voda
+inv_weight			= 0.3
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 22
+inv_grid_y			= 1
+cost				= 90
+
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+
+; eatable item
+eat_health		= 0.03
+eat_thirst 		= 1
+eat_satiety		= 0.0
+eat_power		= 0.3
+eat_radiation	= 0	
+eat_alcohol		= -0.02
+wounds_heal_perc 	= 0
+eat_portions_num 	= -1
+
+detoxication_ability = 5 ; детоксикация в аптечках
+
+; food item
+;slot				= 6
+animation_slot		= 4
+
+;hud item
+hud = wpn_vodka_hud
+
+break_particles		= explosions\explosion_bottle
+break_sound			= material\bottle\collide\bottle_break_1
+
+use_sound_anm = items\water\water_drink
+use_sound = inv_sounds\inv_softdrink
+
+[kefir_a]:identity_immunities
+GroupControlSection		= spawn_group
+discovery_dependency	= 
+$spawn					= "food and drugs\kefir_a"
+cform                   = skeleton
+class					= II_ATTCH
+visual                  = gwr\food\kefir\kefir
+cost					= 240
+inv_name				= "kerir"
+inv_name_short			= "kerir"
+inv_weight				= .2
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 21
+inv_grid_y				= 1
+
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+
+can_trade			= false
+
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			= 0.0,0.0,0.0
+angle_offset			= 1.570790,1.570790,3.92699
+
+[kefir]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 				= "food and drugs\kefir"
+;$prefetch 			= 32
+class				= II_BOTTL
+cform				= skeleton
+visual				= gwr\food\kefir\kefir
+description			= enc_equipment_food_kefir1
+
+ef_weapon_type		= 0
+
+inv_name			= kefir
+inv_name_short		= kefir
+inv_weight			= 0.2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 21
+inv_grid_y			= 1
+cost				= 240
+
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+
+; eatable item
+eat_health		= 0.05
+eat_thirst 		= 0.4
+eat_satiety		= 0.2
+eat_power		= 0
+eat_radiation	= 0	
+eat_alcohol		= -0.5
+wounds_heal_perc 	= 0
+eat_portions_num 	= -1
+
+; food item
+;slot				= 6
+animation_slot		= 4
+
+;hud item
+hud = wpn_vodka_hud
+
+break_particles		= explosions\explosion_bottle
+break_sound			= material\bottle\collide\bottle_break_1
+
+use_sound_anm = items\water\water_drink
+use_sound = inv_sounds\inv_softdrink
+
+[pivo_a]:identity_immunities
+GroupControlSection		= spawn_group
+discovery_dependency	= 
+$spawn					= "food and drugs\pivo_a"
+cform                   = skeleton
+class					= II_ATTCH
+visual                  = dynamics\devices\dev_drink_pivo\dev_drink_pivo
+cost					= 150
+inv_name				= "pivo"
+inv_name_short			= "pivo"
+inv_weight				= 0.5
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 22
+inv_grid_y				= 0
+
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+
+can_trade			= false
+
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+
+[pivo]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 				= "food and drugs\pivo"
+;$prefetch 			= 32
+class				= II_BOTTL
+cform				= skeleton
+visual				= dynamics\devices\dev_drink_pivo\dev_drink_pivo
+description			= enc_equipment_food_pivo1
+
+ef_weapon_type		= 0
+
+inv_name			= pivo
+inv_name_short		= pivo
+inv_weight			= 0.5
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 22
+inv_grid_y			= 0
+cost				= 150
+
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach				= false
+
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+
+; eatable item
+eat_health		= 0
+eat_thirst 		= 0.5
+eat_satiety		= 0
+eat_power		= 0.0
+eat_radiation	= -0.2	
+eat_alcohol		= 0.1
+wounds_heal_perc 	= 0
+eat_portions_num 	= -1
+
+; food item
+;slot				= 6
+animation_slot		= 4
+
+;hud item
+hud = wpn_vodka_hud
+
+break_particles		= explosions\explosion_bottle
+break_sound			= material\bottle\collide\bottle_break_1
+
+use_sound_anm = items\energy\energy_drink
+use_sound = inv_sounds\inv_softdrink
+
+[energy_drink]:vodka
+$spawn 				= "food and drugs\energy_drink"
+inv_name			= energy_drink_name
+inv_name_short		= energy_drink_short_name
+visual				= dynamics\devices\dev_drink_stalker\dev_drink_stalker.ogf ;equipments\drink_stalker.ogf
+description			= enc_equipment_energydrink
+cost				= 75
+
+inv_grid_width		        = 1
+inv_grid_height		        = 1
+inv_grid_x			= 19
+inv_grid_y			= 7
+inv_weight			= 0.3
+
+eat_health			= 0
+eat_thirst 			= 0.7
+eat_satiety			= 0
+eat_power			= 0.4
+eat_alcohol			= 0
+eat_radiation		        = 0
+wounds_heal_perc	        = 0
+eat_portions_num	        = 1
+eat_max_power		        = 0
+sleep_suppression_time      = 0.5
+
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	        = 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach			= false
+
+use_sound_anm = items\energy\energy_drink
+use_sound = inv_sounds\inv_softdrink
+
+; не удалять! Это квестовая водка.
+[kordon_samogon]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn 				= "food and drugs\vodka"
+;$prefetch 			= 32
+class				= II_BOTTL
+cform				= skeleton
+visual				= dynamics\devices\dev_vodka\dev_samogon
+description			= kordon_samogon_desc
+
+ef_weapon_type		= 0
+
+inv_name			= kordon_samogon_name
+inv_name_short		= kordon_samogon_name
+inv_weight			= 0.5	;0.2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 21
+inv_grid_y			= 2
+cost				= 330
+
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	        = 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach			= false
+
+// should be deleted after update
+bone_name			= bip01_r_hand
+position_offset			= 0.0,0.0,0.0
+angle_offset			= 1.570790,1.570790,3.92699
+
+; eatable item
+eat_health		    = 0
+eat_satiety		    = 0
+eat_power		    = 0
+eat_radiation 		= -1.5
+eat_alcohol		    = 1.5
+wounds_heal_perc 	= 0.15
+eat_portions_num 	= -1
+
+; food item
+;slot				= 6
+animation_slot		= 4
+
+;hud item
+hud                 = wpn_vodka_hud
+
+break_particles		= explosions\explosion_bottle
+break_sound			= material\bottle\collide\bottle_break_1
+
+use_sound_anm = items\vodka\vodka_drink
+use_sound = inv_sounds\inv_vodka
+
+; не удалять! Это квестовый стакан первача.
+[glassful]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn 				= "food and drugs\vodka"
+;$prefetch 			= 32
+class				= II_BOTTL
+cform				= skeleton
+visual				= dynamics\equipments\medical\drug_anabiotic
+description			= glassful_desc
+
+ef_weapon_type		= 0
+
+inv_name			= glassful_name
+inv_name_short		= glassful_name
+inv_weight			= 0.1
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 42
+inv_grid_y			= 35
+cost				= 130
+
+attach_angle_offset		= 0.000000, 0.000000, 0.000000
+attach_position_offset	        = 0.087266, -0.078540, 0.052360
+attach_bone_name		= bip01_r_hand
+auto_attach			= true
+
+// should be deleted after update
+bone_name			= bip01_r_hand
+position_offset			= 0.0,0.0,0.0
+angle_offset			= 1.570790,1.570790,3.92699
+
+; eatable item
+eat_health		    = 0
+eat_satiety		    = 0
+eat_power		    = 0
+eat_radiation		= -0.9
+eat_alcohol		    = 0.9
+wounds_heal_perc 	= 0.15
+eat_portions_num 	= -1
+
+; food item
+;slot				= 6
+animation_slot		= 4
+
+;hud item
+hud                 = wpn_vodka_hud
+
+break_particles		= explosions\explosion_bottle
+break_sound			= material\bottle\collide\bottle_break_1
+
+use_sound_anm = items\vodka\vodka_drink
+use_sound = inv_sounds\inv_vodka

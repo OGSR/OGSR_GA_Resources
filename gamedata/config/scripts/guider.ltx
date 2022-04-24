@@ -1,0 +1,62 @@
+[logic]
+active = remark
+combat_ignore = combat_ignore
+danger = danger_ignore
+on_hit = hit
+on_death = death@guider
+
+[death@guider]
+on_info = %+guider_death%
+
+[hit]
+on_info = %+guider_on_hit%
+
+[danger_ignore]
+ignore_distance = 0 
+
+[remark]
+anim = search 
+no_move = true
+target = actor
+meet = meet
+on_timer = 17000 | remark@sit
+
+[remark@sit]
+anim = sit 
+no_move = true
+target = nil
+on_timer = 10000 | remark@sit2
+
+[remark@sit2]
+anim = sit_ass
+no_move = true
+target = nil
+on_timer = 10000 | remark@sit3
+
+[remark@sit3]
+anim = eat_kolbasa
+no_move = true
+target = nil
+on_timer = 15000 | remark@sit4
+
+[remark@sit4]
+anim = eat_energy
+no_move = true
+target = nil
+on_timer = 20000 | remark
+
+[meet]
+meet_state = 5| hello@talk_hello| 3| wait@wait| 2| ward@wait
+meet_state_wpn = 5| hello@talk_hello| 3| threat@threat_weap
+victim = 7| actor
+victim_wpn = 9| actor
+use = true
+use_wpn = false
+
+[combat_ignore]
+combat_ignore_cond = {-guider_on_hit =fighting_actor}
+
+[smart_terrains]
+none = false
+
+

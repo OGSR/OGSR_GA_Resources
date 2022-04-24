@@ -1,0 +1,14 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_info = {+freeplay} sr_timer1
+
+[sr_timer1]
+type = dec
+start_value = 100000
+argb = 255,255,255,255
+on_value =  10000|%=run_cam_effector(earthquake:1001:true) +final_battle_nuke_particle%|0| %+final_battle_nuke_surprise% sr_idle@nil
+string = generators_timer_str
+
+[sr_idle@nil]

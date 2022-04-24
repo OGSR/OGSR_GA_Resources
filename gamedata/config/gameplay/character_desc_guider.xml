@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<xml>	  
+		  
+       <specific_character id="guider" team_default ="1">
+                <name>guider_base_name</name>
+                <icon>ui_npc_u_stalker_sv_balon_10</icon>
+                <bio>esc_ckryacker</bio>
+ 
+                <class>guider</class> 
+                <community>guider</community> 
+				<terrain_sect>stalker_terrain</terrain_sect>
+                  
+                <rank>773</rank>
+                <reputation>5</reputation>
+                <money min="600" max="5000" infinitive="0"/>
+                 
+                <snd_config>characters_voice\human_01\stalker\</snd_config>
+                <crouch_type>-1</crouch_type>
+
+                <visual>actors\neytral\stalker_neytral_rukzak_3</visual>
+                <supplies>
+                         [spawn] \n 
+                         wpn_stechkin \n
+						 ammo_9x18_pmm \n
+						 wpn_aks74ub_ak60_side_rail_1pn51 \n
+						 ammo_5.45x39_ap \n
+                </supplies>
+	            <start_dialog>dialog_guider_2</start_dialog>			 
+#include "gameplay\character_criticals_4.xml"
+             
+          </specific_character>	
+		  
+		  
+       <specific_character id="yan_guider" team_default ="1">
+                <name>yan_guider_name</name>
+                <icon>ui_npc_u_stalker_militari_2</icon>
+                <bio>esc_ckryacker</bio>
+ 
+                <class>yan_guider</class> 
+                <community>ecolog</community>
+				<terrain_sect>stalker_ecolog_terrain</terrain_sect>
+                  
+                <rank>773</rank>
+                <reputation>5</reputation>
+                <money min="600" max="5000" infinitive="0"/>
+                 
+                <snd_config>characters_voice\human_03\ecolog\</snd_config>
+                <crouch_type>-1</crouch_type>
+
+                <visual>actors\militari\stalker_militari_2</visual>
+                <supplies>
+                         [spawn] \n 
+                         wpn_glock \n
+						 ammo_9x19_pbp \n
+						 wpn_ak101_cobra = 1, scope \n
+						 ammo_5.56x45_ap \n
+                </supplies>
+	            <actor_dialog>dm_dialog_guider_pilot</actor_dialog>			 
+#include "gameplay\character_criticals_4.xml"
+             
+          </specific_character>	
+		  
+		  
+       <specific_character id="bar_guider" team_default ="1">
+                <name>guider_base_name</name>
+                <icon>ui_npc_u_stalker_militari_2</icon>
+                <bio>esc_ckryacker</bio>
+ 
+                <class>bar_guider</class> 
+                <community>guider</community>
+				<!--<community>quest_stalker</community>-->
+				<terrain_sect>stalker_terrain</terrain_sect>
+                  
+                <rank>773</rank>
+                <reputation>5</reputation>
+                <money min="600" max="5000" infinitive="0"/>
+                 
+                <snd_config>characters_voice\human_01\stalker\</snd_config>
+                <crouch_type>-1</crouch_type>
+
+                <visual>actors\soldier\stalker_military_black</visual>
+                <supplies>
+                         [spawn] \n 
+                         wpn_gsh18 \n
+						 ammo_9x19_pbp \n
+						 wpn_saiga12_cobra = 1, scope \n
+						 ammo_12x70_kart \n
+                </supplies>
+	            <actor_dialog>dm_dialog_guider_script</actor_dialog>			 
+#include "gameplay\character_criticals_4.xml"
+             
+          </specific_character>	
+	
+	
+       <specific_character id="pri_guider" team_default ="1">
+                <name>guider_base_name</name>
+                <icon>ui_npc_u_stalker_sv_balon_10</icon>
+                <bio>esc_ckryacker</bio>
+ 
+                <class>pri_guider</class> 
+                <community>guider</community>
+				<!--<community>quest_stalker</community>-->
+				<terrain_sect>stalker_terrain</terrain_sect>
+                  
+                <rank>773</rank>
+                <reputation>5</reputation>
+                <money min="600" max="5000" infinitive="0"/>
+                 
+                <snd_config>characters_voice\human_01\stalker\</snd_config>
+                <crouch_type>-1</crouch_type>
+
+                <visual>actors\neytral\stalker_neytral_rukzak_3</visual>
+                <supplies>
+                         [spawn] \n 
+						 wpn_fort \n
+						 ammo_9x19_pbp \n
+						 wpn_val_rakurs = 1, scope \n
+						 ammo_9x39_ap \n
+                </supplies>
+	            <actor_dialog>dm_dialog_guider_script</actor_dialog>				 
+#include "gameplay\character_criticals_4.xml"
+             
+          </specific_character>	
+	
+
+       <specific_character id="ds_guider" team_default ="1">
+                <name>guider_base_name</name>
+                <icon>ui_npc_u_stalker_sv_balon_10</icon>
+                <bio>esc_ckryacker</bio>
+ 
+                <class>ds_guider</class> 
+                <community>guider</community>
+				<!--<community>quest_stalker</community>-->
+				<terrain_sect>stalker_terrain</terrain_sect>
+                  
+                <rank>773</rank>
+                <reputation>5</reputation>
+                <money min="600" max="5000" infinitive="0"/>
+                 
+                <snd_config>characters_voice\human_01\stalker\</snd_config>
+                <crouch_type>-1</crouch_type>
+
+                <visual>actors\neytral\stalker_neytral_rukzak_3</visual>
+                <supplies>
+                         [spawn] \n 
+                         wpn_glock \n
+						 ammo_9x19_pbp \n
+						 wpn_sig552 \n
+						 ammo_5.56x45_ap \n
+                </supplies>
+	            <actor_dialog>dm_dialog_guider_script</actor_dialog>				 
+#include "gameplay\character_criticals_4.xml"
+             
+          </specific_character>		
+		  
+</xml>

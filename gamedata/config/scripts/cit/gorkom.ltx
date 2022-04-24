@@ -1,0 +1,17 @@
+[logic]
+active = sr_idle@0
+
+[sr_idle@0]
+on_info = {+kpss_quest_begin} sr_idle@1
+on_info2 = {+kpss_gotcha} sr_idle@2
+on_info3 = {+kpss_freetogo} sr_idle@nil
+
+[sr_idle@1]
+on_actor_inside = %+kpss_gotcha% sr_idle@2
+on_info = {+kpss_freetogo} sr_idle@free
+
+[sr_idle@2]
+on_actor_outside = %=run_postprocess(blink) =teleport_actor(gorkom_walk:gorkom_look)%
+on_info = {+kpss_freetogo} sr_idle@nil
+
+[sr_idle@nil]

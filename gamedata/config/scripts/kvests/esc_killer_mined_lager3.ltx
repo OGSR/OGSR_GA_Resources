@@ -1,0 +1,22 @@
+
+[logic]
+active = walker
+on_death = death
+on_combat = combat
+;on_hit = hit
+
+;[hit]
+;on_info = %+esc_kvest_killers_mined_lager_fail%
+
+[smart_terrains]
+none = true
+
+[death]
+on_info = {!killed_by_actor} %+esc_kvest_killers_mined_lager_killed_killer_3%, {+esc_kvest_killers_mined_lager_kill_killers} %+esc_kvest_killers_mined_lager_killed_killer_3%, %+esc_kvest_killers_mined_lager_fail +esc_kvest_killers_mined_lager_2_fail%
+
+[walker]
+path_walk = gar_quest_killers_on_escape_3_walk
+path_look = gar_quest_killers_on_escape_look
+
+[combat]
+on_info = {-esc_kvest_killers_mined_lager_kill_killers =see_actor} %+esc_kvest_killers_mined_lager_fail%

@@ -1,0 +1,92 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = mob_camp@base
+;active = mob_camp@before_ochyag
+on_death = mob_death
+
+[mob_camp@base]
+path_home = drifter_dog_walk_base
+path_look = drifter_dog_look_base
+home_min_radius  = 1
+home_max_radius = 2
+on_info = {+dik_goto_pos1 -af_light_have} mob_walker@pos0, {+af_light_have} mob_camp@house
+
+[mob_walker@pos0]
+path_walk = drifter_dog_walk_pos_0
+path_look = drifter_dog_look_pos_0
+on_signal       = arrived | mob_remark@danger %+dog_meets_danger%
+on_info = {+kulg_zasada_1_boets_1_dead +kulg_zasada_1_boets_2_dead +kulg_zasada_1_boets_3_dead -af_light_have} mob_camp@pos1, {+af_light_have} mob_camp@house
+
+[mob_camp@pos1]
+path_home = drifter_dog_walk_pos_1
+path_look = drifter_dog_look_pos_1
+home_min_radius  = 20
+home_max_radius = 25
+on_info = {+kulg_zasada_1_boets_1_dead +kulg_zasada_1_boets_2_dead +kulg_zasada_1_boets_3_dead -af_light_have} mob_camp@pos2, {+af_light_have} mob_camp@house
+
+[mob_camp@pos2]
+path_home = drifter_dog_walk_pos_2
+path_look = drifter_dog_look_pos_2
+home_min_radius  = 25
+home_max_radius = 30
+on_info = {+kulg_zasada_2_boets_1_dead +kulg_zasada_2_boets_2_dead -af_light_have} mob_walker@pos3_1, {+af_light_have} mob_camp@house
+
+[mob_walker@pos3_1]
+path_walk = drifter_dog_walk_pos_3_1
+path_look = drifter_dog_look_pos_3
+on_signal       = arrived | mob_camp@pos3_2 %+dog_on_pos_3_2%
+on_info = {+kulg_zasada_3_1_boets_1_dead +kulg_zasada_3_1_boets_2_dead -af_light_have} mob_camp@pos3, {+af_light_have} mob_camp@house
+
+[mob_camp@pos3_2]
+path_home = drifter_dog_walk_pos_3_2
+path_look = drifter_dog_look_pos_3_2
+home_min_radius  = 1
+home_max_radius = 2
+on_info = {+kulg_zasada_3_1_boets_1_dead +kulg_zasada_3_1_boets_2_dead -af_light_have} mob_camp@pos3, {+af_light_have} mob_camp@house
+
+[mob_camp@pos3]
+path_home = drifter_dog_walk_pos_3
+path_look = drifter_dog_look_pos_3
+home_min_radius  = 1
+home_max_radius = 2
+on_info = {+kulg_zasada_3_boets_1_dead +kulg_zasada_3_boets_2_dead -af_light_have} mob_walker@before_ochyag, {+af_light_have} mob_camp@house
+
+[mob_walker@before_ochyag]
+path_walk = drifter_walk_near_ochyag
+path_look = drifter_look_near_ochyag
+home_min_radius  = 1
+home_max_radius = 2
+on_signal       = arrived | mob_camp@before_ochyag_1 %+dog_on_pos_ochyag%
+on_info = {+dik_goto_house} mob_camp@house, {+af_light_have} mob_camp@house
+
+[mob_camp@before_ochyag_1]
+path_home = drifter_walk_near_ochyag
+path_look = drifter_look_near_ochyag
+home_min_radius  = 1
+home_max_radius = 2
+on_info = {+dik_goto_house} mob_camp@house, {+af_light_have} mob_camp@house
+
+[mob_camp@house]
+path_home = drifter_dog_walk_final
+path_look = drifter_dog_look_final
+home_min_radius  = 1
+home_max_radius = 2
+
+
+[mob_remark@danger]
+;snd = pdog_howl_1
+anim = stand_idle_scared_0
+target = 7063
+no_move = true
+on_info = {+dog_meets_danger_end} mob_camp@pos1
+
+[mob_remark@howling]
+;snd = pdog_howl_1
+anim = _stand_howling_0
+no_move = true
+
+[mob_death]
+on_info = %+drifter_dog_dead%
+

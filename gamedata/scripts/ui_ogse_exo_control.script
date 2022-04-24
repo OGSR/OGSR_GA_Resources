@@ -1,0 +1,139 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--/ ui_ogse_exo_control.script /--
+--/ Exoskeleton control module /--
+--/ OGS Evolution Team 2010 /--
+--/ version 1.9 (27/03/2011) /--
+
+--/ Модуль монтируемых экзоскелетов /--
+
+function attach(sm)
+	sm:subscribe({ signal = "on_spawn",			fun = this.load })
+	sm:subscribe({ signal = "on_save",			fun = this.save })
+	sm:subscribe({ signal = "on_drop",			fun = this.chek_button_accessibility })
+	sm:subscribe({ signal = "on_item_to_ruck",	fun = this.chek_button_accessibility })
+	sm:subscribe({ signal = "on_item_to_slot",	fun = this.chek_button_accessibility })
+	sm:subscribe({ signal = "on_inventory_open", fun = this.on_show })
+	sm:subscribe({ signal = "on_use",			fun = this.use_exo })
+end
+
+local exo_condition
+local outfit_condition
+
+-- Функции
+function use_exo(use_object)
+	--if use_object == nil or alife():object(use_object:id()) == nil then return end
+	local use_obj_section = use_object:section()
+	if sys_ini:line_exist(use_obj_section, "exoskeleton_type") then
+		local exoskeleton_type = sys_ini:r_string(use_obj_section, "exoskeleton_type")
+		if exoskeleton_type then
+			local outfit_item = db.actor:item_in_slot(6)
+			if outfit_item and alife():object(outfit_item:id()) and
+				not sys_ini:line_exist(outfit_item:section(), "without_exoskeleton") and
+				get_string(outfit_item:section(), exoskeleton_type) 
+			then
+				local outfit_with_exo_section = sys_ini:r_string(outfit_item:section(), exoskeleton_type)
+				if outfit_with_exo_section then
+					-- уф, прошли все проверки - конвертим
+					convert_outfit(outfit_item, outfit_with_exo_section)
+					exo_condition = use_object:condition()
+					outfit_condition = outfit_item:condition()
+					return true
+				end
+			end
+		end
+		-- а если не получается сконвертировать, то вертаем броньку взад
+		ogse.spawn_item_in_inv(use_obj_section)
+		return true
+	end
+end
+
+local function detach_exo()
+	local outfit_item = db.actor:item_in_slot(6)
+	if outfit_item and alife():object(outfit_item:id()) then
+		local outfit_sec = outfit_item:section()
+		if sys_ini:line_exist(outfit_sec, "without_exoskeleton") and sys_ini:line_exist(outfit_sec, "exo_section") then
+			local outfit_without_exo_section = sys_ini:r_string(outfit_sec, "without_exoskeleton")
+			local exo_section = sys_ini:r_string(outfit_sec, "exo_section")
+			if outfit_without_exo_section and exo_section and can_detach_exo(outfit_sec) then
+				local s_exo = ogse.spawn_item_in_inv(exo_section)
+				local exo_rusting = outfit_item:condition() / outfit_condition
+				level.client_spawn_manager():add( s_exo.id, -1, function(cond, id, obj)
+					obj:set_condition( cond ) --Учтем, что состояние броньки уже было не идеальное, да ещё мы попортили
+				end, exo_condition * exo_rusting )
+				convert_outfit(outfit_item, outfit_without_exo_section)
+			end
+		end
+	end
+end
+
+function convert_outfit(outfit, new_outfit_section)
+	local sobj = alife():object(outfit:id())
+	if sobj then
+		local cond = outfit:condition()
+		db.actor:move_to_ruck(outfit)
+		alife():release(sobj, true)
+		local s_new_outfit = ogse.spawn_item_in_inv(new_outfit_section)
+		level.client_spawn_manager():add( s_new_outfit.id, -1, function(cond, id, obj)
+			obj:set_condition( cond )
+		end, cond )
+	end
+end
+
+function save()
+	ogse.save_var(script_name()..".exo_cond", exo_condition, "float")
+	ogse.save_var(script_name()..".outfit_cond", outfit_condition, "float")
+end
+
+function load()
+	exo_condition		= ogse.load_var_safe(script_name()..".exo_cond") or 1.0
+	outfit_condition	= ogse.load_var_safe(script_name()..".outfit_cond") or 1.0
+end
+
+
+class "exo_control" (CUIScriptWnd)
+function exo_control:__init() super()
+	local xml = CScriptXmlInit()
+	xml:ParseFile("ui_ogse_exo_control.xml")
+	self:Init(791,354,32,32) -- само скриптовое окно размещаем там, где должна быть кнопка
+	self.btn = xml:Init3tButton("ui_ogse_exo_control", self) -- кнопка, ради которой всё и делается
+	self:Register(self.btn,"btn_exo_control")
+	self:AddCallback("btn_exo_control", ui_events.BUTTON_CLICKED, detach_exo)
+	self:Show(true) -- без этого не увидим
+end
+function exo_control:__finalize()
+	self:DetachFromParent() --Это важно!
+	--log1("~~exo_control:__finalize")
+end
+
+
+local rec_wnd
+function on_show()
+	if not rec_wnd then
+		rec_wnd = exo_control() -- создаём один раз
+		level.get_inventory_wnd():AttachChild(rec_wnd)
+	end
+	--
+	chek_button_accessibility()
+end
+
+
+function can_detach_exo(outfit_sec)
+	local can_be_detached = true
+	if sys_ini:line_exist(outfit_sec, "can_detach_exo") then
+		can_be_detached = sys_ini:r_bool(outfit_sec, "can_detach_exo")
+	end
+	return can_be_detached
+end
+
+function chek_button_accessibility()
+	if not level.get_inventory_wnd():IsShown() then return end
+
+	local outfit_item = db.actor:item_in_slot(6)
+	local enabled = 
+		outfit_item and alife():object(outfit_item:id()) and
+		sys_ini:line_exist(outfit_item:section(), "without_exoskeleton") and 
+		sys_ini:line_exist(outfit_item:section(), "exo_section") and
+		can_detach_exo(outfit_item:section())
+	rec_wnd.btn:Enable(enabled)
+end

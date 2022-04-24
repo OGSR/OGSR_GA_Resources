@@ -1,0 +1,780 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+<!--//////////////////// Проводники ////////////////////-->
+
+
+<!--////////////////////            ////////////////////-->
+
+
+<!-- Кордон -->
+<!-- Гитара сидора -->
+    <info_portion id="escape_kvest_search_guitar_start">
+	    <task>esc_kvest_search_guitar</task>
+		<dialog>ask_about_guitar_general_dialog</dialog>
+	</info_portion>
+	<info_portion id="escape_kvest_search_guitar_knows_about_buharik"/>
+	
+	<info_portion id="escape_kvest_search_guitar_complete">
+		<disable>escape_kvest_search_guitar_start</disable>
+		<disable>escape_kvest_search_guitar_knows_about_buharik</disable>
+		
+	<!--disable>esc_guit_behind_sofa</disable-->
+		<disable>esc_guit_behind_table</disable>
+		<disable>esc_guit_in_bath</disable>
+		<disable>esc_guit_in_bushes</disable>
+		<disable>esc_guit_in_chimney</disable>
+		<disable>esc_guit_in_chimney_pipe</disable>	
+		<disable>esc_guit_in_kitchen</disable>
+		<disable>esc_guit_in_shithouse</disable>
+		<disable>esc_guit_in_truck</disable>
+		<disable>esc_guit_in_truck_inside</disable>
+		<disable>esc_guit_under_boxes</disable>
+		<disable>esc_guit_under_milk_tank</disable>
+	</info_portion>
+	<info_portion id="escape_kvest_search_guitar_fail">
+		<disable>escape_kvest_search_guitar_start</disable>
+		<disable>escape_kvest_search_guitar_knows_about_buharik</disable>
+		
+	<!--disable>esc_guit_behind_sofa</disable-->
+		<disable>esc_guit_behind_table</disable>
+		<disable>esc_guit_in_bath</disable>
+		<disable>esc_guit_in_bushes</disable>
+		<disable>esc_guit_in_chimney</disable>
+		<disable>esc_guit_in_chimney_pipe</disable>	
+		<disable>esc_guit_in_kitchen</disable>
+		<disable>esc_guit_in_shithouse</disable>
+		<disable>esc_guit_in_truck</disable>
+		<disable>esc_guit_in_truck_inside</disable>
+		<disable>esc_guit_under_boxes</disable>
+		<disable>esc_guit_under_milk_tank</disable>
+	</info_portion>
+<!-- Гитара сидора, инфопорции-маркеры положения -->
+	<info_portion id="esc_guit_behind_sofa"/>
+	<info_portion id="esc_guit_behind_table"/>
+	<info_portion id="esc_guit_in_bath"/>
+	<info_portion id="esc_guit_in_bushes"/>
+	<info_portion id="esc_guit_in_chimney"/>
+	<info_portion id="esc_guit_in_chimney_pipe"/>
+	<info_portion id="esc_guit_in_kitchen"/>
+	<info_portion id="esc_guit_in_shithouse"/>
+	<info_portion id="esc_guit_in_truck"/>
+	<info_portion id="esc_guit_in_truck_inside"/>
+	<info_portion id="esc_guit_under_boxes"/>
+	<info_portion id="esc_guit_under_milk_tank"/>
+
+<!-- Сделка с военными -->
+	<info_portion id="esc_kvest_sdelka_with_mils_start">
+	    <task>esc_kvest_sdelka_with_mils</task>
+	</info_portion>
+	<info_portion id="esc_kvest_sdelka_with_mils_get_car">
+	    <!--<task>esc_kvest_sdelka_with_mils_zaz</task>-->
+	</info_portion>
+	<info_portion id="esc_kvest_sdelka_with_mils_get_car_done">
+		<action>tasks_functor.esc_kvest_sdelka_with_mils_messsage_car_is_near</action>
+	</info_portion>
+	<info_portion id="esc_kvest_sdelka_with_mils_fail"></info_portion>
+	<info_portion id="esc_kvest_sdelka_with_mils_trunk_clear"></info_portion>
+	<info_portion id="escape_kvest_with_military_give_din"></info_portion>
+	<info_portion id="escape_kvest_with_military_give_din_to_mils_give"></info_portion>
+	<info_portion id="escape_kvest_with_military_give_din_to_mils"></info_portion>
+	<info_portion id="escape_kvest_with_military_zaz_fueled"></info_portion>
+	<info_portion id="escape_kvest_with_military_talk_with_volk"></info_portion>
+	<info_portion id="esc_kvest_sdelka_with_mils_complete"></info_portion>
+	<info_portion id="esc_kvest_sdelka_with_mils_sidr_fail"></info_portion>
+
+<!-- "Спасти сталкера из плена вояк с блокпоста" -->
+	<info_portion id="esc_kvest_plennik_of_blockpost_start">
+	    <task>esc_kvest_plennik_of_blockpost</task>
+	</info_portion>
+	<info_portion id="esc_kvest_plennik_of_blockpost_meet_with_otryad"></info_portion>
+	<info_portion id="esc_kvest_plennik_of_blockpost_search_info_about_plennik"></info_portion>
+	<info_portion id="esc_kvest_plennik_of_blockpost_talk_with_plennik"></info_portion>
+	<info_portion id="esc_kvest_plennik_of_blockpost_guid_plennik_to_lager"></info_portion>
+	<info_portion id="esc_kvest_plennik_of_blockpost_complete"></info_portion>
+	<info_portion id="esc_kvest_plennik_of_blockpost_fail"></info_portion>
+
+<!-- "Военные у Аномалий" -->
+	<info_portion id="esc_kvest_know_do_mils_near_anomaly_start">
+	    <task>esc_kvest_know_do_mils_near_anomaly</task>
+	</info_portion>
+	<info_portion id="esc_kvest_know_do_mils_near_anomaly_complete">
+	    <task>esc_kvest_know_do_mils_near_anomaly_2</task>
+	</info_portion>
+	<info_portion id="esc_kvest_know_do_mils_near_anomaly_start_3">
+	    <task>esc_kvest_know_do_mils_near_anomaly_3</task>
+	</info_portion>
+	<info_portion id="esc_know_do_mils_near_anomaly_complete">
+	<!--	 -->
+	</info_portion>
+	<info_portion id="esc_talk_with_anmaly_military_leader_2"></info_portion>
+	<info_portion id="esc_talk_with_anmaly_military_leader_3"></info_portion>
+	<info_portion id="esc_kvest_know_do_mils_near_anomaly_take_item"></info_portion>
+	<info_portion id="esc_kvest_know_do_mils_near_anomaly_fail">
+		<!--<action>tasks_functor.delete_mils_near_anoms_timer</action>-->
+	</info_portion>
+	<info_portion id="esc_kvest_know_do_mils_near_anomaly_2_complete">
+		<!--<action>tasks_functor.delete_mils_near_anoms_timer</action>-->
+	</info_portion>
+	<info_portion id="esc_kvest_know_do_mils_near_anomaly_3_complete"></info_portion>
+	<info_portion id="esc_kvest_know_do_mils_near_anomaly_2_fail">
+		<!--<action>tasks_functor.delete_mils_near_anoms_timer</action>-->
+	</info_portion>
+	<info_portion id="esc_kvest_know_do_mils_near_anomaly_actor_give_art_to_mils"></info_portion>
+	<info_portion id="esc_millitary_near_anomaly_send_ahtung"></info_portion>
+	<info_portion id="esc_millitary_near_anomaly_send_kill_messange"></info_portion>
+	<info_portion id="af_esc_anomaly_off"></info_portion>
+
+
+<!-- "Наймники на Кордоне -->
+	<info_portion id="esc_kvest_killers_mined_lager_start">
+	    <task>esc_kvest_killers_mined_lager</task>
+	</info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_wite_store_snd"></info_portion>
+	<info_portion id="esc_bomb_cable_green"></info_portion>
+	<info_portion id="esc_bomb_ui"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_complete">
+	    <task>esc_kvest_killers_mined_lager_2</task>
+	</info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_kill_killers">
+	    <task>esc_kvest_killers_mined_lager_3</task>
+	</info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_spwn_bomb"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_2_kill_killers"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_2_kill_killers_fail"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_killed_killer_1"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_killed_killer_2"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_killed_killer_3"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_killed_killer_4"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_killed_killer_5"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_2_complete"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_distance125"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_fail">
+		<action>tasks_functor.kvest_killers_mined_cancel</action>
+	</info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_2_fail"></info_portion>
+	<info_portion id="esc_kvest_killers_mined_lager_3_kill_killers_fail"></info_portion>
+
+<!-- Бар -->
+	<!-- Друг Бармена -->
+    <info_portion id="bar_kvest_friend_of_barman_start">
+		<action>tasks_functor.spawn_pda_friend_barman</action>
+	    <task>bar_kvest_friend_of_barman</task>
+	</info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_complete"></info_portion>
+	<info_portion id="bar_kvest_search_friend_barman_start">
+	    <task>bar_kvest_friend_of_barman_2</task>
+		<action>tasks_functor.add_spot_friend_barman</action>
+	</info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_fail"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_used_pda">
+		<article>bar_kvest_friend_of_barman_shvid_pda_info</article>
+	</info_portion>
+
+	<info_portion id="bar_kvest_friend_of_barman_sv_dlg_end"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_weapon_select"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_search_in_inventory"></info_portion>
+
+	<info_portion id="bar_kvest_friend_of_barman_hit_terror">
+	    <action>tasks_functor.on_hit_sv_enemy</action>
+	</info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_on_freedom_strike">
+	    <action>tasks_functor.on_hit_sv_enemy</action>
+	</info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_spasti_complete">
+	</info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_2_complete">
+	    <action>tasks_functor.val_delete_all_from_quest</action>
+	</info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_2_spawn"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_2_fail">
+		<action>tasks_functor.bar_kvest_friend_of_barman_id_dead</action>
+	</info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_glassbeads_spawn"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_go_from_glassbeads"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_lost_glassbeads"></info_portion>
+
+	<info_portion id="bar_kvest_friend_of_barman_val_freedom_death_1"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_val_freedom_death_2"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_val_freedom_death_3"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_val_freedom_death_4"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_val_freedom_death_5"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_val_freedom_death_6"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_val_freedom_death_7"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_val_freedom_death_8"></info_portion>
+	<info_portion id="bar_kvest_friend_of_barman_val_freedom_all_dead"></info_portion>
+
+<!-- Сделка Долговцев с Наемниками -->
+    <info_portion id="bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start">
+	    <task>bar_kvest_sdelka_dolg_and_killers_talk_with_prapor</task>
+	</info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_complete">
+	    <task>bar_kvest_sdelka_dolg_and_killers_slezhka</task>
+	</info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_fail"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_meet_with_dolg_otryad"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_slezhka_go_to"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_kill_dolg"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_kill_killer_1"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_kill_killer_2"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_kill_killer_3"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_kill_killer_4"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_kill_killer_5"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_kill_killer_6"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_kill_allkiller"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_plennik_death"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_slezhka_complete"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_slezhka_fail"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_slezhka_end"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_2_complete"></info_portion>
+	<info_portion id="bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_2_fail"></info_portion>
+
+<!-- Пленник на базе Военных -->
+	<!--- Mixser & Phoenix -->
+	<info_portion id="captive_on_agr_mill_base_start">
+	    <task>captive_on_agr_mill_base_save</task>
+	</info_portion>
+	<info_portion id="captive_on_agr_mill_base_spawn_captive"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_complete"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_go_to_reward"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_killed">
+		<action>tasks_functor.captive_on_agr_mill_base_go_to_reward</action>
+	</info_portion>
+	<info_portion id="captive_on_agr_mill_base_saved">
+		<!--<action>tasks_functor.captive_on_agr_mill_base_set_start_dialog_in_safe_zone</action>-->
+		<action>tasks_functor.captive_on_agr_mill_base_go_to_reward</action>
+		<action>tasks_functor.captive_on_agr_mill_base_disable_captive_companion</action>
+	</info_portion>
+	<info_portion id="captive_on_agr_mill_base_fail">
+		<action>tasks_functor.captive_on_agr_mill_base_clean_ssi</action>
+		<action>tasks_functor.captive_on_agr_mill_base_shutdown_news</action>
+	</info_portion>
+	<info_portion id="captive_on_agr_mill_base_speak_with_captive"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_start_rescue_point">
+			<task>captive_on_agr_mill_base_go_to_rescue_point</task>
+			<action>tasks_functor.captive_on_agr_mill_base_spawn_dolg_squad</action>
+	</info_portion>
+	<info_portion id="captive_on_agr_mill_base_captive_run"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_say_thanks"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_not_yet_saved"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_actor_inside_building">
+		<action>tasks_functor.captive_on_agr_mill_base_actor_inside_building</action>
+	</info_portion>
+	<info_portion id="captive_on_agr_mill_base_heli_is_waiting"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_actor_guards_attack"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_captive_on_rooftop"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_spawn_heli"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_spawn_specnaz"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_final_chance">
+		<action>tasks_functor.captive_on_agr_mill_base_final_chance</action>
+	</info_portion>
+	<info_portion id="captive_on_agr_mill_base_spawn_specnaz_on_nii">
+		<action>tasks_functor.captive_on_agr_mill_base_spawn_specnaz_on_nii</action>
+	</info_portion>
+	<info_portion id="captive_on_agr_mill_base_spawn_specnaz_on_rescue_point"></info_portion>
+	<info_portion id="captive_on_agr_mill_base_delete_heli">
+		<action>tasks_functor.captive_on_agr_mill_base_delete_heli</action>
+	</info_portion>
+	<!-- Phoenix & Mixser-->
+
+
+    <info_portion id="bar_kvest_plennik_on_base_mils_start"></info_portion>
+	<info_portion id="bar_kvest_plennik_on_base_mils_spawn_plennik"></info_portion>
+	<info_portion id="bar_kvest_plennik_on_base_mils_killed_plennik"></info_portion>
+	<info_portion id="bar_kvest_plennik_on_base_mils_spasen">
+	    <!--<action>dialogs.companion_stop_following</action>-->
+	</info_portion>
+	<info_portion id="bar_kvest_plennik_on_base_mils_go"></info_portion>
+	<!--<info_portion id="bar_kvest_plennik_on_base_mils_thanks"></info_portion>-->
+	<info_portion id="bar_kvest_plennik_on_base_mils_complete"></info_portion>
+	<info_portion id="bar_kvest_plennik_on_base_mils_fail"></info_portion>
+
+<!-- Поиск дочери старика -->
+    <info_portion id="pri_kvest_search_doch_of_starik_start">
+	    <task>pri_kvest_search_doch_of_starik</task>
+	</info_portion>
+	<info_portion id="pri_kvest_search_doch_of_starik_complete"></info_portion>
+	<info_portion id="pri_kvest_search_doch_of_starik_fail"></info_portion>
+	<info_portion id="tanya_diary">
+		<article>tanya_diary_article_1</article>
+		<article>tanya_diary_article_2</article>
+	</info_portion>
+	<info_portion id="blessing_of_old_man"></info_portion>
+
+<!-- Устроить встречу долга и свободы -->
+    <info_portion id="bar_kvest_make_meet_dolg_freedom_start">
+	    <task>bar_kvest_make_meet_dolg_freedom</task>
+	</info_portion>
+	<info_portion id="bar_kvest_make_meet_dolg_freedom_talk_with_lukash"></info_portion>
+	<info_portion id="bar_kvest_make_meet_dolg_freedom_complete"></info_portion>
+	<info_portion id="bar_kvest_make_meet_dolg_freedom_fail"></info_portion>
+
+<!-- Спасти свободовца на радаре -->
+    <info_portion id="mil_kvest_spasti_freedomer_on_radar_start">
+	    <task>mil_kvest_spasti_freedomer_on_radar</task>
+	</info_portion>
+	<info_portion id="mil_kvest_spasti_freedomer_on_radar_spawn_freedomer"></info_portion>
+	<info_portion id="mil_kvest_spasti_freedomer_on_radar_search_complete"></info_portion>
+	<info_portion id="mil_kvest_spasti_freedomer_on_radar_off_ci"></info_portion>
+	<info_portion id="mil_kvest_spasti_freedomer_on_radar_talk"></info_portion>
+	<info_portion id="mil_kvest_spasti_freedomer_on_radar_talk_2"></info_portion>
+	<info_portion id="mil_kvest_spasti_freedomer_on_radar_guid"></info_portion>
+	<info_portion id="mil_kvest_spasti_freedomer_on_radar_complete"></info_portion>
+	<info_portion id="mil_kvest_spasti_freedomer_on_radar_fail"></info_portion>
+
+<!-- Помочь Тетереву -->
+    <info_portion id="esc_kvest_help_teterev_start">
+	    <task>esc_kvest_help_teterev</task>
+	</info_portion>
+	<info_portion id="esc_kvest_help_teterev_bandits_on_combat"></info_portion>
+	<info_portion id="esc_kvest_help_teterev_bandits_on_pass"></info_portion>
+	<info_portion id="esc_kvest_help_teterev_spawn_art">
+		<action>tasks_functor.spawn_art_for_teterev</action>
+	</info_portion>
+	<info_portion id="esc_kvest_help_teterev_complete"></info_portion>
+	<info_portion id="esc_kvest_help_teterev_fail"></info_portion>
+
+<!-- Гость на элеваторе -->
+    <info_portion id="esc_kvest_qest_on_elevator_chek_start">
+	    <task>esc_kvest_qest_on_elevator_chek</task>
+	</info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_chek_fail"></info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_hit_to_qest"></info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_chek_take_wpn">
+	    <task>esc_kvest_qest_on_elevator_show_wpn</task>
+	</info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_show_wpn_complete">
+	    <task>esc_kvest_qest_on_elevator_show_wpn_to_barman</task>
+	</info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_show_wpn_to_barman_complete">
+	    <task>esc_kvest_qest_on_elevator_kill_sniper</task>
+	</info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_target_in_point"></info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_kill_target"></info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_kill_sniper_2"></info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_target_kill_sniper_2">
+		<action>tasks_functor.esc_kvest_qest_on_elevator_barman_want_to_kill_target</action>
+	</info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_kill_sniper_2_by_actor"></info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_kill_sniper"></info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_kill_sniper_complete"></info_portion>
+	<info_portion id="esc_kvest_qest_on_elevator_kill_sniper_fail"></info_portion>
+	<info_portion id="bar_kvest_qest_on_elevator_kill_sniper_complete"></info_portion>
+
+<!-- Секрет Янтаря -->
+    <info_portion id="yan_kvest_help_to_chuk_know_zombied_start">
+	    <task>yan_kvest_help_to_chuk_know_zombied</task>
+	</info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_know_zombied_complete">
+	    <task>yan_kvest_help_to_chuk_take_water</task>
+	</info_portion>
+	<info_portion id="yan_help_to_chuk_take_water_complete"></info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_take_water_complete">
+	    <task>yan_kvest_help_to_chuk_talk_with_chuk</task>
+	</info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_take_water_complete_talked"/>
+	<info_portion id="yan_kvest_help_to_chuk_know_talk_with_chuk_complete">
+	    <!--task>yan_kvest_help_to_chuk_search_figa</task-->
+	</info_portion>
+	<info_portion id="yan_help_to_chuk_on_actor_zombie"></info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_search_figa_complete">
+	    <task>yan_kvest_help_to_chuk_search_treasure_figa</task>
+	</info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_spawn_trsr_tomson"></info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_spawn_treasure_figa"></info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_spawn_text_tomson"></info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_on_taina_start">
+	    <task>yan_kvest_help_to_chuk_search_serdce</task>
+		<action>tasks_functor.spawn_dnevnik_tomsona</action>
+	</info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_spawn_serdce"></info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_on_taina_2_start">
+	    <task>yan_kvest_help_to_chuk_on_taina</task>
+	</info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_on_taina_complete">
+	    <task>yan_kvest_help_to_chuk_kill_serdce_yan</task>
+	</info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_kill_serdce_yan"></info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_end_talk_with_dstalker"></info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_death"></info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_figa_death"></info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_bring_zapisi_start">
+	    <task>yan_kvest_help_to_chuk_bring_zapisi</task>
+	</info_portion>
+	<info_portion id="yan_kvest_help_to_chuk_bring_zapisi_complete"></info_portion>
+
+<!-- Доброжелатель -->
+	<info_portion id="yan_kvest_search_case_start">
+	    <task>yan_kvest_search_case</task>
+		<action>tasks_functor.start_kvest_yan_search_case</action>
+	</info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_get_pda_monolit">
+		<article>rad_kvest_dobrozhelatel_get_pda_monolit_info</article>
+	</info_portion>
+	<info_portion id="yan_kvest_search_case_killed_mon">
+		<action>tasks_functor.spawn_pda_monolit</action>
+	</info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_search_code_start">
+	    <task>rad_kvest_dobrozhelatel_search_code</task>
+	</info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_search_code_2_start">
+	    <task>rad_kvest_dobrozhelatel_search_code_2</task>
+	</info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_plen_start">
+	    <task>rad_kvest_dobrozhelatel_plen</task>
+	</info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_help_to_svyaznoy_spawn_mon"></info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_help_to_svyaznoy_near_lc"></info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_help_to_svyaznoy">
+		<action>tasks_functor.rad_kvest_dobrozhelatel_help_to_svyaznoy</action>
+	</info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_svyaznoy_killed">
+		<action>tasks_functor.rad_kvest_dobrozhelatel_spawn_letter_in_treasure</action>
+	</info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_letter_start">
+		<task>rad_kvest_dobrozhelatel_letter</task>
+	</info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_letter_get_letter"></info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_have_all_password">
+		<article>rad_kvest_dobrozhelatel_password_article</article>
+	</info_portion>
+	<info_portion id="rad_kvest_dobrozhelatel_password_enter"></info_portion>
+
+<!-- Последняя просьба -->
+	<info_portion id="esc_kvest_help_to_scoryi_talk_with_him_complete">
+	    <task>esc_kvest_help_to_scoryi_search_sitnik</task>
+	</info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_talk_with_sidor_about_sitnik"></info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_search_sitnik_fail"></info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_search_sitnik_complete">
+	    <task>esc_kvest_help_to_scoryi_send_money</task>
+	    <task>esc_kvest_help_to_scoryi_say_all_to_sidor</task>
+	</info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_talk_with_sidor_start">
+	    <task>esc_kvest_help_to_scoryi_talk_with_sidor</task>
+	</info_portion>
+	<info_portion id="orlov_meet_unknown_quest_last_request"></info_portion>
+	<info_portion id="val_orlov_hear_what_orlov_will_say">
+		<task>esc_kvest_help_to_scoryi_hear_what_orlov_said</task>
+	</info_portion>
+	<info_portion id="actor_can_hear_orlov">
+	</info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_talk_with_kuzn_complete"></info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_talk_with_sidor_complete">
+		<!--action>tasks_functor.spawn_val_kvest_sniper</action-->
+	    <task>esc_kvest_help_to_scoryi_shpion_stalker</task>
+	</info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_about_sitnik_dlg"></info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_shpion_stalker_complete">
+	    <task>esc_kvest_help_to_scoryi_shpion_stalker_wait</task>
+	</info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_shpion_stalker_wait_complete"></info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_actor_near_shpion_stalker"></info_portion>
+	<info_portion id="val_orlov_wait_end"></info_portion>
+	<info_portion id="val_orlov_go_to_mercs"></info_portion>
+	<info_portion id="val_orlov_spion_enable_fail"></info_portion>
+	<info_portion id="val_spion_say_last_request_quest"></info_portion>
+	<info_portion id="val_orlov_last_request_set_orlov_bandit"></info_portion>
+	<info_portion id="val_orlov_last_request_teleport_to_the_prison"></info_portion>
+	<info_portion id="val_orlov_last_request_button_clicked"></info_portion>
+	<info_portion id="esc_last_request_army_actor_hit"></info_portion>
+	<info_portion id="esc_last_request_actor_kill_all_killers"></info_portion>
+	<info_portion id="esc_last_request_lets_drive_gaz66">
+		<task>esc_kvest_help_to_scoryi_millitary_need_help_gaz66</task>
+	</info_portion>
+	<info_portion id="esc_last_request_no_drive_gaz66">
+		<action>tasks_functor.return_old_comm_to_actor</action>
+	</info_portion>
+	<info_portion id="esc_last_request_actor_on_base"></info_portion>
+	<info_portion id="val_orlov_go_to_merc_boss"></info_portion>
+	<info_portion id="val_orlov_he_talked_with_actor"></info_portion>
+	<info_portion id="val_orlov_actor_take_things">
+		<action>tasks_functor.orlov_and_actor_teleport_to_fab</action>
+	</info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_talk_with_orlov_complete">
+		<task>esc_kvest_help_to_scoryi_tyrit_notebook</task>
+	</info_portion>
+	<info_portion id="val_killers_kvest_on_combat">
+		<action>tasks_functor.set_actor_community</action>
+	</info_portion>
+	<info_portion id="val_on_combat_orlov"></info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_say_mils_info_start">
+		<task>esc_kvest_help_to_scoryi_say_mils_info</task>
+	</info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_say_mils_info_2_start">
+		<task>esc_kvest_help_to_scoryi_say_mils_info_2</task>
+	</info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_say_mils_info_complete">
+		<task>esc_kvest_help_to_scoryi_millitary_need_help</task>
+	</info_portion>
+	<info_portion id="val_orlov_go_to_merc_boss_actor_can_go"></info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_say_mils_info_2_fail"></info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_spawn_mercs_attack_bridge"></info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_send_money_complete"></info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_on_sitnik_wound">
+		<action>tasks_functor.set_hp_to_sitnik</action>
+	</info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_spawn_box_moneys"></info_portion>
+	<info_portion id="esc_kvest_help_to_scoryi_say_all_to_sidor_complete"></info_portion>
+
+<info_portion id="esc_kvest_help_to_scoryi_orlov_killed">
+	<action>tasks_functor.killed_orlov_disable_kvests</action>
+</info_portion>
+
+<!-- Исцеление -->
+	<info_portion id="esc_kvest_iscelenie_enable_about_sidor"></info_portion>
+	<info_portion id="esc_kvest_iscelenie_end_first_dlg"></info_portion>
+	<info_portion id="esc_kvest_iscelenie_talk_with_saharov_start">
+	    <task>esc_kvest_iscelenie_talk_with_saharov</task>
+	</info_portion>
+	<info_portion id="esc_kvest_iscelenie_talk_with_saharov_complete">
+		<task>esc_kvest_iscelenie_search_preobr</task>
+	</info_portion>
+	<info_portion id="esc_kvest_iscelenie_dead_preobr"></info_portion>
+	<info_portion id="esc_kvest_iscelenie_talk_with_saharov_fail"></info_portion>
+
+	<info_portion id="esc_kvest_iscelenie_snd_kill_preobr_1"></info_portion>
+	<info_portion id="esc_kvest_iscelenie_guid_preobr_start">
+		<task>esc_kvest_iscelenie_guid_preobr</task>
+	</info_portion>
+	<info_portion id="esc_kvest_iscelenie_guid_preobr"></info_portion>
+	<info_portion id="esc_kvest_iscelenie_search_stebels_start">
+		<task>esc_kvest_iscelenie_search_stebels</task>
+	</info_portion>
+	<info_portion id="esc_kvest_iscelenie_search_stebels_complete">
+
+	</info_portion>
+	<info_portion id="esc_kvest_iscelenie_stebel_ri_done"></info_portion>
+	<info_portion id="esc_kvest_iscelenie_bring_lekarstvo_start">
+		<task>esc_kvest_iscelenie_bring_lekarstvo</task>
+	</info_portion>
+	<info_portion id="esc_kvest_iscelenie_bring_lekarstvo_complete"></info_portion>
+	<info_portion id="esc_kvest_iscelenie_talk_with_sidor_start">
+		<task>esc_kvest_iscelenie_talk_with_sidor</task>
+	</info_portion>
+	<info_portion id="esc_kvest_iscelenie_talk_with_sidor_complete">
+		<task>esc_kvest_iscelenie_about_diggers</task>
+	</info_portion>
+	<info_portion id="esc_kvest_iscelenie_about_diggers_complete">
+		<task>esc_kvest_iscelenie_search_diggers</task>
+	</info_portion>
+
+	<info_portion id="esc_kvest_iscelenie_search_uzh_start">
+		<task>esc_kvest_iscelenie_search_uzh</task>
+	</info_portion>
+	<info_portion id="esc_kvest_iscelenie_search_uzh_complete">
+		<task>esc_kvest_iscelenie_search_zakazchik</task>
+	</info_portion>
+
+	<info_portion id="esc_kvest_iscelenie_dead_uzh">
+		<task>esc_kvest_iscelenie_search_zakazchik</task>
+	</info_portion>
+	<info_portion id="esc_kvest_iscelenie_on_combat_uzh"></info_portion>
+
+	<info_portion id="esc_kvest_iscelenie_search_zakazchik_complete">
+		<task>esc_kvest_iscelenie_kill_uzh</task>
+		<action>tasks_functor.val_uzh_on_combat</action>
+	</info_portion>
+	<info_portion id="esc_kvest_iscelenie_talk_with_sidor_reward_complete"></info_portion>
+
+	<!-- Teleport art  -->
+	<info_portion id="ogse_teleport_art_actor_inside">
+		<action>ogse_teleport_art_quest.get_telekill_case</action>
+	</info_portion>
+	<info_portion id="ogse_teleport_art_actor_outside">
+		<action>ogse_teleport_art_quest.teleport_actor_in_zone</action>
+	</info_portion>
+	<info_portion id="ogse_teleport_art_actor_teleported"></info_portion>
+
+	<!-- Teleport trap - quest  -->
+	<!-- ogse_teleport_trap_find_art -->
+	<info_portion id="ogse_teleport_trap_find_art_start">
+		<task>teleport_trap_find_art</task>
+	</info_portion>
+	<info_portion id="ogse_teleport_trap_quest_denied"></info_portion>
+	<info_portion id="ogse_teleport_trap_find_art_get_trouble">
+		<action>ogse_teleport_art_quest.journey_timer_begin</action>
+	</info_portion>
+	<info_portion id="ogse_teleport_trap_find_art_actor_finish"></info_portion>
+
+	<!-- ogse_teleport_trap_research_art>-->
+	<info_portion id="ogse_teleport_trap_research_art_start">
+		<task>teleport_trap_research_art</task>
+	</info_portion>
+	<info_portion id="ogse_teleport_trap_research_art_saharov_tell_about_complete_timer">
+		<action>ogse_teleport_art_quest.saharov_tell_about_complete_timer</action>
+	</info_portion>
+	<info_portion id="ogse_teleport_trap_research_art_saharov_tell_about_complete"></info_portion>
+	<info_portion id="ogse_teleport_trap_research_art_actor_journey">
+		<action>ogse_teleport_art_quest.journey_step</action>
+	</info_portion>
+	<info_portion id="ogse_teleport_trap_research_art_actor_journey_finish">
+		<action>ogse_teleport_art_quest.spawn_dead_zone</action>
+	</info_portion>
+	<info_portion id="ogse_teleport_trap_research_art_actor_finish_dead_zone">
+		<action>ogse_teleport_art_quest.delete_dead_zone</action>
+	</info_portion>
+	<info_portion id="ogse_teleport_trap_research_art_finish"></info_portion>
+
+	<!-- ogse_teleport_trap_catch_art -->
+	<info_portion id="ogse_teleport_trap_catch_art_start">
+		<task>teleport_trap_catch_art</task>
+	</info_portion>
+	<info_portion id="ogse_teleport_trap_catch_art_get_art">
+		<action>ogse_teleport_art_quest.spawn_case_with_art</action>
+	</info_portion>
+	<info_portion id="ogse_teleport_trap_catch_art_finish"></info_portion>
+
+	<info_portion id="ogse_teleport_trap_art_destiny"></info_portion>
+
+
+	<!-- Agroprom ratcatcher -->
+	<info_portion id="agr_swamp_ratcatcher_go_to_novice_outfit">
+		<task>agr_dezerter_quest</task>
+	</info_portion>
+	<info_portion id="agr_swamp_ratcatcher_dezerter_go_with_actor"></info_portion>
+	<info_portion id="agr_swamp_ratcatcher_sidr_agree"></info_portion>
+	<info_portion id="agr_swamp_ratcatcher_give_info_about_lc">
+		<action>tasks_functor.agr_swamp_ratcatcher_spawn_report_about_lc</action>
+	</info_portion>
+	<info_portion id="agr_swamp_ratcatcher_final_talk"></info_portion>
+	<info_portion id="agr_dezerter_died"></info_portion>
+	<info_portion id="agr_dezerter_report_read">
+		<article>bp_mily_otschet_article</article>
+	</info_portion>
+
+	<!-- Military psycho -->
+	<info_portion id="military_psycho_companion">
+		<task>military_psycho_quest</task>
+	</info_portion>
+	<info_portion id="military_psycho_ask_denied">
+		<action>tasks_functor.military_psycho_leave_companion</action>
+	</info_portion>
+	<info_portion id="military_psycho_suicide">
+		<action>tasks_functor.military_psycho_drop_weapon</action>
+	</info_portion>
+	<info_portion id="military_psycho_delete_body">
+		<action>tasks_functor.military_psycho_delete_body</action>
+	</info_portion>
+	<info_portion id="military_psycho_spawn_note_when_sleeping"></info_portion>
+	<info_portion id="military_psycho_surprise">
+		<article>psycho_military_note_article</article>
+	</info_portion>
+	<info_portion id="military_psycho_deleted"></info_portion>
+
+	<!-- dead stalker -->
+	<!-- question_of_immortality -->
+	<info_portion id="dead_stalker_start_dialog_2"></info_portion>
+	<info_portion id="dead_stalker_question_of_immortality_first_part_start">
+		<task>question_of_immortality_fisrt_part</task>
+		<action>tasks_functor.question_of_immortality_fisrt_part_start_quest</action>
+		<action>jekan_work.cheb_helptip</action>
+	</info_portion>
+	<info_portion id="dead_stalker_question_of_immortality_get_muten"></info_portion>
+	<info_portion id="dead_stalker_question_of_immortality_delete_muten_trash"></info_portion>
+	<info_portion id="dead_stalker_question_of_immortality_get_firefly"></info_portion>
+	<info_portion id="dead_stalker_question_of_immortality_delete_firefly_trash"></info_portion>
+	<info_portion id="dead_stalker_question_of_immortality_need_chameleon"></info_portion>
+	<info_portion id="dead_stalker_question_of_immortality_get_chameleon"></info_portion>
+	<info_portion id="dead_stalker_question_of_immortality_first_part_complete"></info_portion>
+	<info_portion id="dead_stalker_question_of_immortality_second_part_start">
+		<task>question_of_immortality_second_part</task>
+	</info_portion>
+	<info_portion id="dead_stalker_question_of_immortality_second_part_complete"></info_portion>
+
+	<!-- little pseudogigant -->
+	<info_portion id="dead_stalker_little_pseudogigant_start_dialog">
+		<action>tasks_functor.dead_stalker_little_pseudogigant_spawn_sound_zone</action>
+	</info_portion>
+	<info_portion id="dead_stalker_little_pseudogigant_chance"></info_portion>
+	<info_portion id="dead_stalker_little_pseudogigant_start_task">
+		<task>dead_stalker_little_pseudogigant</task>
+		<action>tasks_functor.dead_stalker_little_pseudogigant_spawn_gigant</action>
+	</info_portion>
+	<info_portion id="x18_giant_dead"></info_portion>
+	<info_portion id="dead_stalker_little_pseudogigant_complete"></info_portion>
+
+	<!-- Пластинки от музыкального автомата в Баре -->
+	<info_portion id="plastinka_1">
+		<article>plastinka_1</article>
+	</info_portion>
+	<info_portion id="plastinka_2">
+		<article>plastinka_2</article>
+	</info_portion>
+	<info_portion id="plastinka_3">
+		<article>plastinka_3</article>
+	</info_portion>
+	<info_portion id="plastinka_4">
+		<article>plastinka_4</article>
+	</info_portion>
+	<info_portion id="plastinka_5">
+		<article>plastinka_5</article>
+	</info_portion>
+	<info_portion id="plastinka_6">
+		<article>plastinka_6</article>
+	</info_portion>
+	<info_portion id="plastinka_7">
+		<article>plastinka_7</article>
+	</info_portion>
+	<info_portion id="plastinka_8">
+		<article>plastinka_8</article>
+	</info_portion>
+	<info_portion id="plastinka_9">
+		<article>plastinka_9</article>
+	</info_portion>
+	
+	<!--Аномальные болты-->
+	<info_portion id="bar_anom_bolt_start">
+		<task>anom_bolts_task</task>
+	</info_portion>
+	<info_portion id="bar_anom_bolt_20">
+		<action>jekan_work.money_give_anom_bolts</action>
+	</info_portion>
+	<info_portion id="bar_anom_bolt_over">
+		<action>jekan_work.money_give_anom_bolt</action>	
+	</info_portion>
+
+	<!--Аномальная кухонная утварь-->
+	<info_portion id="yan_anom_house_items_start">
+		<task>anom_house_items_task_start</task>
+	</info_portion>
+	<info_portion id="yan_anom_house_items_find">
+		<task>anom_house_items_task_find</task>
+	</info_portion>
+	<info_portion id="yan_anom_house_items_continue">
+		<task>anom_house_items_task_end</task>
+	</info_portion>
+	<info_portion id="yan_anom_house_items_complete">
+		<!--action>jekan_work.money_give_anom_house_items</action-->	
+	</info_portion>
+
+	<!--Поиск патронов для Крота-->
+	<info_portion id="agr_help_krot_ammo_box_start">
+		<task>agr_help_krot_ammo_box_start</task>
+	</info_portion>
+	<info_portion id="agr_help_krot_ammo_box_pause"></info_portion>
+	<info_portion id="agr_help_krot_ammo_box_find">
+		<task>agr_help_krot_ammo_box_find</task>
+	</info_portion>
+	<info_portion id="agr_help_krot_ammo_box_find_1">
+		<task>agr_help_krot_ammo_box_find</task>
+	</info_portion>
+	<info_portion id="agr_help_krot_ammo_box_find_2">
+		<task>agr_help_krot_ammo_box_find</task>
+	</info_portion>
+	<info_portion id="agr_help_krot_ammo_box_find_3">
+		<task>agr_help_krot_ammo_box_find</task>
+	</info_portion>
+	<info_portion id="agr_help_krot_ammo_box_find_4">
+		<task>agr_help_krot_ammo_box_find</task>
+	</info_portion>
+	<info_portion id="agr_help_krot_ammo_box_complete">
+		<task>agr_help_krot_ammo_box_end</task>
+	</info_portion>
+	<info_portion id="agr_help_krot_ammo_box_give"></info_portion>
+	
+	<info_portion id="game_kosti_loose">
+		<action>jekan_work.igra_loose_timer</action>		
+	</info_portion>
+	
+</game_information_portions>

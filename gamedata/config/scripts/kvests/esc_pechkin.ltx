@@ -1,0 +1,22 @@
+
+
+[logic]
+active = camper
+combat_ignore = combat_ignore
+on_death = death
+
+[death]
+on_info = %+esc_kvest_help_to_scoryi_say_mils_info_2_fail%
+
+[smart_terrains]
+none = true
+
+[camper]
+path_walk = esc_pechkin_walk
+path_look = esc_pechkin_look
+combat_ignore_cond = {-esc_bridge_pass_fire =fighting_actor}
+
+[combat_ignore]
+combat_ignore_cond = {-esc_bridge_pass_fire =fighting_actor}
+
+

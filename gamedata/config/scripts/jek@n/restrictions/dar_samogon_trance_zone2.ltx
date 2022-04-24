@@ -1,0 +1,17 @@
+[logic]
+active = {+dar_samogon_trance_end} nil, sr_idle@1
+
+[sr_idle@1]
+on_info = {+dar_samogon_trance_start} sr_particle
+
+[sr_particle]
+name = explosions\group_items\campfire_01_flame00
+path = dar_samogon_trance_zone2_point
+mode = 2
+looped = true
+on_info = {+dar_samogon_trance_end} nil
+on_actor_in_zone = dar_samogon_trance_zone2_1|sr_idle@2 %=play_snd(characters_voice\scenario\dar_samogon_trance_voice_2)%
+
+[sr_idle@2]
+on_info = {+dar_samogon_trance_end} nil, {!actor_in_samogon_trance_zones} sr_particle
+on_info2 = {!actor_in_samogon_trance_zones} sr_particle

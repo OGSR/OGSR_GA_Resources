@@ -1,0 +1,47 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@lider_threshold
+
+[walker@begin]
+path_walk =	bratstvo_lider_walk
+path_look =	bratstvo_lider_look
+on_timer = 100 | walker 
+
+[walker]
+path_walk =	bratstvo_lider_walk
+path_look =	bratstvo_lider_look
+combat_ignore_cond = always
+danger = danger_condition
+meet = meet@bratstvo_lider_meet
+
+[meet@bratstvo_lider_meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 3|actor
+victim_wpn = 3|actor
+meet_state = 3|ward@bratstvo_lider_hello|1|ward@bratstvo_lider_hello
+meet_state_wpn = 3|ward@bratstvo_lider_hello|1|ward@bratstvo_lider_hello
+
+[danger_condition]
+ignore_distance = 10
+ignore_distance_grenade = 10
+ignore_distance_corpse = 10
+ignore_distance_hit = 10
+ignore_distance_sound = 10
+
+[threshold@lider_threshold]
+max_ignore_distance = 10
+ignore_monster = 10
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[death]
+on_info = %+bratstvo_lider_dead%
+

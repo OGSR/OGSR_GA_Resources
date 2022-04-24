@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding="windows-1251"?>
+<game_information_portions>
+<info_portion id="borov_radio_off"></info_portion>
+	<info_portion id="kill_fraer_start"><task>kill_fraer</task></info_portion>
+		<info_portion id="kill_fraer_dome"></info_portion>
+	<info_portion id="kill_fraer_complete"></info_portion>
+
+    <!-- FAKE: main task -->
+	<info_portion id="cherep_treasure_start"><task>cherep_treasure</task></info_portion>
+	<info_portion id="cherep_treasure_complete"><action>bar_spawn.flesh1</action>
+	<action>bar_spawn.flesh1</action></info_portion>
+	<info_portion id="kill_pula_start"><task>kill_pula</task>
+	<action>esc_spawn.shustriy</action></info_portion>
+	<info_portion id="kill_pula_complete">
+	<action>dialogs.set_actor_prebandit</action></info_portion>
+    <info_portion id="actor_set_bandit"></info_portion>
+	<!-- Zadanie Borova ukrast' dokumenty Barmena -->
+	<info_portion id="barman_document_start">
+	<task>barman_document</task></info_portion>
+	<info_portion id="barman_document_have">
+		<action>dialogs.set_actor_prebandit1</action>
+		<action>bar_spawn.bandits2</action>
+		<action>bar_spawn.bandits3</action>
+		<action>bar_spawn.bandit7</action>
+		<action>bar_spawn.bandit8</action>
+	</info_portion>
+	<info_portion id="barman_document_done"></info_portion>
+
+    <!-- Napadenie na igroka okolo vhoda na uroven' -->
+    <info_portion id="val_ambush_kill_plr"></info_portion>
+    <info_portion id="val_ambush_t1_started"></info_portion>
+    <info_portion id="val_ambush_t1_plr_near"></info_portion>
+    <info_portion id="val_ambush_t2_started"></info_portion>
+    <info_portion id="val_ambush_t2_plr_near"></info_portion>
+    <info_portion id="val_ambush_t3_started"></info_portion>
+    <info_portion id="val_ambush_t3_plr_near"></info_portion>
+
+    <!-- Scena 2 - krovosos padaet s obryva -->
+    <info_portion id="val_bs_deactivate"></info_portion>
+    <info_portion id="val_bs_start"></info_portion>
+    <info_portion id="val_bs_victim_killed"></info_portion>
+
+    <!-- Scena 3 - transportirovka plennogo -->
+    <info_portion id="val_nap1_phrase1_end"></info_portion>
+    <info_portion id="val_halfdead_phrase_end"></info_portion>
+    <info_portion id="val_nap1_stop_talk_to_bandit"></info_portion>
+
+    <info_portion id="val_escort_begin"></info_portion>
+    <info_portion id="val_escort_show_tip"></info_portion>
+    <info_portion id="val_escort_task_start">
+	    <task>val_captive_help</task>
+    </info_portion>
+    <info_portion id="val_escort_start"></info_portion>
+
+    <info_portion id="val_escort_actor_at_ambush"></info_portion>
+
+    <info_portion id="val_escort_combat"></info_portion>
+    <info_portion id="val_escort_nap1_start_combat"></info_portion>
+    <info_portion id="val_escort_actor_helped"></info_portion>
+
+    <!-- Naparnik 1 -->
+    <info_portion id="val_escort_nap1_go_rescue"></info_portion>
+    <info_portion id="val_escort_nap1_no_thanx"></info_portion>
+    <info_portion id="val_escort_nap1_phrase3"></info_portion>
+    <info_portion id="val_escort_nap1_phrase1_end"></info_portion>
+    <info_portion id="val_escort_nap1_phrase2_end"></info_portion>
+    <info_portion id="val_escort_nap1_dead"></info_portion>
+
+    <info_portion id="val_escort_guard1_combat"></info_portion>
+    <info_portion id="val_escort_guard2_combat"></info_portion>
+    <info_portion id="val_escort_guard1_dead"></info_portion>
+    <info_portion id="val_escort_guard2_dead"></info_portion>
+    <info_portion id="val_escort_guards_free"></info_portion>
+
+    <info_portion id="val_escort_captive_enemy"></info_portion>
+    <info_portion id="val_escort_captive_dead"></info_portion>
+    <info_portion id="val_escort_captive_phrase1_end"></info_portion>
+    <info_portion id="val_escort_captive_fight"></info_portion>
+    <info_portion id="val_escort_captive_offline"></info_portion>
+    <info_portion id="val_escort_captive_can_leave"></info_portion>
+    <info_portion id="val_escort_captive_give_main_info"></info_portion>
+    <info_portion id="val_escort_captive_give_info"></info_portion>
+
+    <info_portion id="val_escort_got_reward"></info_portion>
+
+    <info_portion id="val_escort_help_prisoner_task">
+	    <task>val_prisoner_help</task>
+    </info_portion>
+
+    <info_portion id="val_escort_scene_end"></info_portion>
+
+    <info_portion id="val_show_zones"></info_portion>
+    <info_portion id="val_show_pipe_zone"></info_portion>
+    <info_portion id="val_show_farm_zone"></info_portion>
+
+    <!-- Monolog vozle truby -->
+    <info_portion id="val_tunnel_talk_start"></info_portion>
+    <info_portion id="val_tunnel_bandit_leave"></info_portion>
+    <info_portion id="val_tunnel_finish"></info_portion>
+
+    <!-- Jertvoprinoshenie -->
+    <info_portion id="val_sacrifice_not_spawn"></info_portion>
+    <info_portion id="val_sacrifice_spawn"></info_portion>
+    <info_portion id="val_sacrifice_start"></info_portion>
+    <info_portion id="val_sacrifice_finish"></info_portion>
+    <info_portion id="val_sacrifice_plr_detected"></info_portion>
+    <info_portion id="val_sacrifice_victim_free"></info_portion>
+    <info_portion id="val_sacrifice_victim_dead"></info_portion>
+    <info_portion id="val_sacrifice_guard1_dead"></info_portion>
+    <info_portion id="val_sacrifice_guard2_dead"></info_portion>
+    <info_portion id="val_sacrifice_victim_phrase1_end"></info_portion>
+    <info_portion id="val_sacrifice_victim_phrase2_end"></info_portion>
+    <info_portion id="val_sacrifice_guard1_phrase1_end"></info_portion>
+    <info_portion id="val_sacrifice_guard1_phrase3_end"></info_portion>
+    <info_portion id="val_sacrifice_guard1_phrase4_end"></info_portion>
+    <info_portion id="val_sacrifice_guard1_phrase5_end"></info_portion>
+    <info_portion id="val_sacrifice_guard2_phrase2_end"></info_portion>
+
+    <!-- SOS на бензоколонке -->
+    <info_portion id="val_sos_actor_near_wounded"></info_portion>
+    <info_portion id="val_sos_give_tip"></info_portion>
+    <info_portion id="val_sos_start_task">
+    </info_portion>
+    <info_portion id="val_sos_got_medkit"></info_portion>
+    <info_portion id="val_sos_dead"></info_portion>
+    <info_portion id="val_sos_task_finish"></info_portion>
+    <info_portion id="val_sos_give_info"></info_portion>
+    <info_portion id="val_sos_scene_end"></info_portion>
+
+    <!-- Reyd soldat -->
+    <info_portion id="val_raid_start"></info_portion>
+    <info_portion id="val_raid_go1"></info_portion>
+    <info_portion id="val_raid_go2"></info_portion>
+    <info_portion id="val_raid_go3"></info_portion>
+    <info_portion id="val_raid_end"></info_portion>
+
+    <!-- Zaklyuchennyy banditov -->
+    <info_portion id="val_prisoner_sit"></info_portion>
+    <info_portion id="val_prisoner_near_door"></info_portion>
+    <info_portion id="val_prisoner_raid"></info_portion>
+    <info_portion id="val_prisoner_wait_actor"></info_portion>
+    <info_portion id="val_prisoner_door_unlocked"></info_portion>
+    <info_portion id="val_prisoner_door_unlocked_demo"></info_portion>
+    <info_portion id="val_prisoner_free"></info_portion>
+    <info_portion id="val_prisoner_dead"></info_portion>
+    <info_portion id="val_prisoner_give_info"></info_portion>
+    <info_portion id="val_prisoner_join"></info_portion>
+    <info_portion id="val_prisoner_plr_captured"></info_portion>
+    <info_portion id="val_prisoner_task_finish"></info_portion>
+    <info_portion id="val_prisoner_scene_end"></info_portion>
+
+    <info_portion id="val_come_to_trader_task">
+        <task>val_come_to_trader</task>
+		<give_info>dead_stalker_little_pseudogigant_start_dialog</give_info>
+    </info_portion>
+    <info_portion id="val_actor_behind_gate"></info_portion>
+
+    <info_portion id="val_actor_on_bandits_base"></info_portion>
+
+    <info_portion id="val_lager_bandits_show_leader_company"></info_portion>
+    <info_portion id="val_lager_bandits_show_nedostroyka_company"></info_portion>
+
+    <!-- Igrok nashel fleshku Borova -->
+    <info_portion id="val_borov_dead"></info_portion>
+    <info_portion id="val_player_knows_password"></info_portion>
+    <info_portion id="val_actor_has_borov_key">
+	<article>stalker_story_91</article>
+	<action>dark_valley_u_spawn.rat_entry</action>
+	<action>dark_valley_u_spawn.entry2</action>
+	<action>dark_valley_u_spawn.key1</action>
+    </info_portion>
+    <info_portion id="val_actor_has_barman_key"></info_portion>
+
+    <info_portion id="val_actor_leave_bandits_base"></info_portion>
+
+    <info_portion id="val_x18_door_open">
+	<!--action>ogse_quests.dar_documents_spawn</action-->
+    </info_portion>
+	
+<!-- DotPack -->
+    <info_portion id="dar_stalker_explorer_spawned"></info_portion>
+<!-- DotPack -->
+
+    <!-- Razvod loha -->
+    <info_portion id="val_rob_actor_enter"></info_portion>
+    <info_portion id="val_rob_buying"></info_portion>
+    <info_portion id="val_rob_no_thanx"></info_portion>
+    <info_portion id="val_rob_no_money"></info_portion>
+
+    <!-- Pogonya -->
+    <info_portion id="val_chase_start"></info_portion>
+
+    <info_portion id="val_x18_conclusion_info">
+	    <article>val_x18_conclusion_art</article>
+    </info_portion>
+
+	<info_portion id="bandit_trader_intro"></info_portion>
+	<info_portion id="val_rob_disable"></info_portion>
+	
+	<info_portion id="hunter_bloodsucker_killed"></info_portion>
+</game_information_portions>

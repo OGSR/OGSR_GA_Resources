@@ -1,0 +1,79 @@
+
+
+[logic]
+active = walker@wait
+combat_ignore = combat_ignore
+on_death = death
+
+[smart_terrains]
+none = true
+
+[death]
+on_info = %+mil_kvest_spasti_freedomer_on_radar_fail%
+
+[walker@wait]
+path_walk = rad_freedomer_walk_1_walk
+path_look = rad_freedomer_walk_1_look
+combat_ignore_cond = {-mil_kvest_spasti_freedomer_on_radar_off_ci}
+danger = danger_condition
+meet = meet
+on_info = {+mil_kvest_spasti_freedomer_on_radar_search_complete} walker@down
+on_info2 = {+mil_kvest_spasti_freedomer_on_radar_talk} walker@take
+on_info3 = {+mil_kvest_spasti_freedomer_on_radar_guid} walker@on_base
+
+[walker@down]
+path_walk = rad_freedomer_walk_walk 
+path_look = rad_freedomer_walk_look 
+combat_ignore_cond = {-mil_kvest_spasti_freedomer_on_radar_off_ci}
+danger = danger_condition
+meet = meet
+on_info = {+mil_kvest_spasti_freedomer_on_radar_talk} walker@take
+on_info2 = {+mil_kvest_spasti_freedomer_on_radar_guid} walker@on_base
+
+[walker@take]
+path_walk = rad_freedomer_walk_2_walk
+path_look = rad_freedomer_walk_2_look
+combat_ignore_cond = {-mil_kvest_spasti_freedomer_on_radar_off_ci}
+danger = danger_condition
+meet = no_meet
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+on_signal = away | walker@away
+on_info = {+mil_kvest_spasti_freedomer_on_radar_guid} walker@on_base
+
+[walker@away]
+path_walk = rad_freedomer_walk_walk 
+path_look = rad_freedomer_walk_look 
+combat_ignore_cond = {-mil_kvest_spasti_freedomer_on_radar_off_ci}
+danger = danger_condition
+meet = meet
+on_info = {+mil_kvest_spasti_freedomer_on_radar_guid} walker@on_base
+
+;[remark]
+;anim = hello
+;no_move = true
+;target = actor
+;danger = danger_condition
+;meet = meet
+;on_info = {+mil_kvest_spasti_freedomer_on_radar_guid} walker@on_base
+
+
+[walker@on_base]
+path_walk = rad_freedomer_walk_final
+path_look = rad_freedomer_look_final
+meet = meet
+
+[meet] 
+meet_state = 2|hello
+meet_state_wpn = 3|hello_wpn
+victim = 2|actor
+victim_wpn = 3|actor
+use = true
+use_wpn = false
+
+[combat_ignore]
+combat_ignore_cond = {-mil_kvest_spasti_freedomer_on_radar_off_ci}
+
+[danger_condition]
+ignore_distance = 0

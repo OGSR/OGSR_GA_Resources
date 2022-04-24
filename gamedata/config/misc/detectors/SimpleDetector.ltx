@@ -1,0 +1,99 @@
+[interactive_detector_simple]:identity_immunities
+
+GroupControlSection	= spawn_group
+$spawn 			= "devices\detector_simple"
+$prefetch 		= 32
+class			= DET_SIMP
+cform			= skeleton
+visual			= dynamics\devices\dev_detector_1\dev_detector_1.ogf
+
+hud			= detector_simple_hud
+animation_slot		= 7
+
+inv_name		= id_simple
+inv_name_short	= id_simple
+description		= enc_id_simple
+
+slot			= 8
+ef_detector_type	= 1
+inv_weight		= 0.5
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 12
+inv_grid_y			= 27
+cost			= 4500
+default_to_ruck		= false
+
+af_radius		= 20
+af_vis_radius		= 3
+
+af_class_all = true
+af_sound_all_ = detectors\art_beep1
+af_freq_all = 0.05, 2
+
+attach_angle_offset		= -1.303,-1.493,-1.202
+attach_position_offset	= 0.110,-0.019,0.000
+
+attach_bone_name	= bip01_l_hand
+auto_attach		= false
+
+snd_draw                = detectorshud\detector_draw
+snd_holster             = detectorshud\detector_hide
+
+
+
+
+[detector_simple_hud]:detector_base_hud
+
+
+item_position				= 0,0,0
+item_orientation			= 0,0,0
+
+item_visual                   	= dynamics\devices\dev_detector_1\dev_detector_1_hud
+
+fire_point			= 0,0,-0.05
+fire_bone      	      		= light_bone_2
+fire_point2			= 0,0,0
+fire_bone2			= light_bone_1
+
+anm_show			= dev_detector_1_draw
+anm_show_fast			= dev_detector_1_draw_quick
+anm_hide			= dev_detector_1_holster
+anm_hide_fast			= dev_detector_1_holster_quick
+anm_idle			= dev_detector_1_idle
+anm_idle_slow                   = dev_detector_1_idle
+anm_idle_crouch                = dev_detector_1_idle
+anm_idle_crouch_slow           = dev_detector_1_idle
+anm_idle_moving			= dev_detector_1_idle_moving
+anm_idle_moving_slow 		= dev_detector_1_slow, dev_detector_1_idle_moving
+anm_idle_moving_crouch 	= dev_detector_1_slow_down, dev_detector_1_idle_moving
+anm_idle_moving_crouch_slow 	= dev_detector_1_slow_super, dev_detector_1_idle_moving
+anm_idle_sprint			= dev_detector_1_idle_sprint
+anm_idle_sprint_start           = dev_detector_1_idle_sprint_start
+anm_idle_sprint_end             = dev_detector_1_idle_sprint_end
+anm_wpn_shoot                   = dev_detector_1_shoot, dev_detector_1_idle_moving
+anm_wpn_shoot_jammed            = dev_detector_1_shoot, dev_detector_1_idle_moving
+
+anm_show_16x9			  = dev_detector_1_draw
+anm_show_fast_16x9		  = dev_detector_1_draw_quick
+anm_hide_16x9			  = dev_detector_1_holster
+anm_hide_fast_16x9		  = dev_detector_1_holster_quick
+anm_idle_16x9			  = dev_detector_1_idle
+anm_idle_slow_16x9                = dev_detector_1_idle
+anm_idle_crouch_16x9             = dev_detector_1_idle
+anm_idle_crouch_slow_16x9        = dev_detector_1_idle
+anm_idle_moving_16x9		  = dev_detector_1_idle_moving
+anm_idle_moving_slow_16x9 	  = dev_detector_1_slow, dev_detector_1_idle_moving
+anm_idle_moving_crouch_16x9 	  = dev_detector_1_slow_down, dev_detector_1_idle_moving
+anm_idle_moving_crouch_slow_16x9 = dev_detector_1_slow_super, dev_detector_1_idle_moving
+anm_idle_sprint_16x9		  = dev_detector_1_idle_sprint
+anm_idle_sprint_start_16x9        = dev_detector_1_idle_sprint_start
+anm_idle_sprint_end_16x9          = dev_detector_1_idle_sprint_end
+anm_wpn_shoot_16x9                = dev_detector_1_shoot, dev_detector_1_idle_moving
+anm_wpn_shoot_jammed_16x9         = dev_detector_1_shoot, dev_detector_1_idle_moving
+
+
+flash_light_range		= 0.1
+onoff_light_range		= 0.1
+

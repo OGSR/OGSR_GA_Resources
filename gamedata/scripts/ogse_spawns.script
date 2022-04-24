@@ -1,0 +1,30 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+local spawn_db = ogse_spawn_db.script_spawn_registry.ogse_spawns
+
+function traders_spawn()
+	ogse.spawn_objects(spawn_db.traders_spawn)
+end
+
+function sidr_guard_spawn()
+	local sobj = ogse.spawn_object(spawn_db.sidr_guard_2)
+    alife():assign_story_id(sobj.id, story_ids.sidr_guard)
+end
+
+-- спавним кровососа в тайнике Стрелка после нахождения флешки
+function agro_undegraund_spawn1()
+	ogse.spawn_object(spawn_db.bloodsucker_normal)
+end
+
+-- рандомный спавн контролёров в тонеле
+function agro_undegraund_spawn2()
+    if math.random() >0.5 then
+		ogse.spawn_object(spawn_db.m_controller_normal_fat_1)
+    else
+		ogse.spawn_object(spawn_db.m_controller_normal_fat_2)
+    end
+end
+
+function spawn_military_trader()
+	ogse.spawn_objects(spawn_db.spawn_military_trader)
+end

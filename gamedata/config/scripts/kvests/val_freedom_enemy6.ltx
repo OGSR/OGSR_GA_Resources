@@ -1,0 +1,36 @@
+[logic]
+active = walker
+on_hit = hit
+on_death = death
+combat_ignore = combat_ignore
+
+[smart_terrains]
+none = true
+
+[hit]
+on_info = {=hit_by_actor} %+bar_kvest_friend_of_barman_on_freedom_strike%
+
+[death]
+on_info = {=killed_by_actor} %+bar_kvest_friend_of_barman_on_freedom_strike +bar_kvest_friend_of_barman_val_freedom_death_7%, , %+bar_kvest_friend_of_barman_val_freedom_death_7%
+
+[walker]
+path_walk = val_freedom_enemy6_walk
+path_look = val_freedom_enemy_look
+meet = meet
+combat_ignore_cond = {-bar_kvest_friend_of_barman_on_freedom_strike =check_fighting_by_profile_name(val_friend_of_barman:val_stalkers_barman1:val_stalkers_barman2:val_stalkers_barman3:val_stalkers_barman4:actor)}
+
+[meet]
+meet_state = 5| threat
+meet_state_wpn = 5| threat
+victim = 20| actor
+victim_wpn = 20| actor
+use = false
+use_wpn = false
+
+[combat_ignore]
+combat_ignore_cond = {-bar_kvest_friend_of_barman_on_freedom_strike =check_fighting_by_profile_name(val_friend_of_barman:val_stalkers_barman:actor)}
+
+
+
+
+

@@ -1,0 +1,44 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@begin
+;combat_ignore = combat_ignore
+on_death = death
+on_combat = combat
+;threshold = threshold@dar_merk_lider_threshold
+
+[combat]
+combat_type = camper
+
+[camper]
+path_walk = dar_merk_lider_walk
+path_look = dar_merk_lider_look
+radius = 15
+
+[walker@begin]
+path_walk = dar_merk_lider_walk
+path_look = dar_merk_lider_look
+on_timer = 100 | walker %=make_invulnerable%
+
+[walker]
+path_walk = dar_merk_lider_walk
+path_look = dar_merk_lider_look
+;combat_ignore_cond = always
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@dar_merk_lider_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+dar_merk_lider_dead%
+

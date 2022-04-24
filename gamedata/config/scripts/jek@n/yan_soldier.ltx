@@ -1,0 +1,572 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = {+yan_sold_stop_run} camper@stop1, walker@begin
+combat_ignore = combat_ignore
+on_death = death
+on_hit = hit@yan_sold
+threshold = threshold@yan_soldier_threshold
+
+;--------------------------------------------------------------------------
+; переходим во временную неуязвимость
+;--------------------------------------------------------------------------
+[walker@begin]
+path_walk = yan_soldier_walk1
+path_look = yan_soldier_look1
+on_timer = 100 | walker@bunker %=make_invulnerable =add_out_restrictor(yantar_bunker_space_restrictor)%
+
+[walker@bunker]
+path_walk = yan_soldier_walk
+path_look = yan_soldier_look
+meet = meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+strangezones_on} walker@to_lager %=remove_out_restrictor(yantar_bunker_space_restrictor)%
+
+;--------------------------------------------------------------------------
+; премся в лагерь
+;--------------------------------------------------------------------------
+[walker@to_lager]
+path_walk = yan_soldier_walk1
+path_look = yan_soldier_look1
+danger = danger_condition
+combat_ignore_cond = always
+meet = no_meet
+on_signal       = arrived | walker@lager %+yan_sold_in_lager -yan_sold_opendoor%
+on_info = {+yan_sold_read_info} walker@reading2
+
+;--------------------------------------------------------------------------
+; приперлись
+;--------------------------------------------------------------------------
+[walker@lager]
+path_walk = yan_soldier_walk1
+path_look = yan_soldier_look1
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+lager_search} camper@searching1
+
+;--------------------------------------------------------------------------
+; обыск территории
+;--------------------------------------------------------------------------
+[camper@searching1]
+path_walk = yan_soldier_walk2
+path_look = yan_soldier_look2
+def_state_moving = sneak
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | camper@searching2
+
+[camper@searching2]
+path_walk = yan_soldier_walk3
+path_look = yan_soldier_look3
+def_state_moving = sneak
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | remark@nahodka
+
+;--------------------------------------------------------------------------
+; нашли записку
+;--------------------------------------------------------------------------
+[remark@nahodka]
+anim = obisk_trupa
+no_move = true
+target = nil
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_signal = anim_end | walker@nahodka %+yan_sold_nahodka%
+
+[walker@nahodka]
+path_walk = yan_soldier_walk3
+path_look = yan_soldier_look3
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+yan_sold_reading} walker@reading1
+
+[walker@reading1]
+path_walk = yan_soldier_walk3_1
+path_look = yan_soldier_look3_1
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_timer = 16000 | walker@reading2 %+yan_sold_read_info%
+
+[walker@reading2]
+path_walk = yan_soldier_walk3_1
+path_look = yan_soldier_look3_2
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+yan_find_diplomat} walker@rest_lager1
+
+;--------------------------------------------------------------------------
+; отослали Меченого на работу и сидим у костра
+;--------------------------------------------------------------------------
+[walker@rest_lager1]
+path_walk = yan_soldier_walk_rest
+path_look = yan_soldier_look_rest
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | walker@rest_lager2 %+yan_sold_anomaly_info%
+
+[walker@rest_lager2]
+path_walk = yan_soldier_walk_rest1
+path_look = yan_soldier_look_rest1
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+yan_sold_goto_post} walker@post1
+
+;--------------------------------------------------------------------------
+; Меченый приперся с картой. Надо идти на пост.
+;--------------------------------------------------------------------------
+[walker@post1]
+path_walk = yan_soldier_walk4
+path_look = yan_soldier_look4
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+yan_sold_say_true} walker@go_back_to_bunker
+on_signal       = arrived | remark@dozor
+
+[remark@dozor]
+anim = binocular
+snd = yan_sold_see
+no_move = true
+target = 7109
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_timer = 7000 | walker@signal
+
+[walker@signal]
+path_walk = yan_soldier_walk4
+path_look = yan_soldier_look4
+danger = danger_condition
+meet = signal_meet
+combat_ignore_cond = always
+on_info = {+check_yan_sign_place} walker@cover1
+
+;--------------------------------------------------------------------------
+; Прикрываем, пока Меченый проверяет точку
+;--------------------------------------------------------------------------
+[walker@cover1]
+path_walk = yan_soldier_walk5
+path_look = yan_soldier_look5
+danger = danger_condition
+combat_ignore_cond = always
+meet = no_meet
+on_info = {+yan_zombsold_dead} walker@post@wait
+
+[walker@post@wait]
+path_walk = yan_soldier_walk5
+path_look = yan_soldier_look5
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+yan_sold_demask} remark@scary
+
+[remark@scary]
+snd = yan_sold_scary
+no_move = true
+target = actor
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_signal = sound_end | camper@running1_1
+
+
+;--------------------------------------------------------------------------
+; Сваливаем от Меченого
+;--------------------------------------------------------------------------
+[camper@running1_1]
+path_walk = yan_soldier_walk6
+path_look = yan_soldier_look6
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | camper@running1
+
+[camper@running1]
+path_walk = yan_soldier_walk6
+path_look = yan_soldier_look6
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_actor_dist_le_nvis = 10 | camper@running2_1
+
+[camper@running2_1]
+path_walk = yan_soldier_walk7
+path_look = yan_soldier_look7
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+;on_signal       = arrived | camper@running2
+on_signal       = arrived | camper@stop
+
+[camper@running2]
+path_walk = yan_soldier_walk7
+path_look = yan_soldier_look7
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_actor_dist_le_nvis = 15 | camper@running3_1
+
+[camper@running3_1]
+path_walk = yan_soldier_walk8
+path_look = yan_soldier_look8
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | camper@running3
+
+[camper@running3]
+path_walk = yan_soldier_walk8
+path_look = yan_soldier_look8
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_actor_dist_le_nvis = 10 | camper@running4_1
+
+[camper@running4_1]
+path_walk = yan_soldier_walk6
+path_look = yan_soldier_look6
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | camper@running4
+
+[camper@running4]
+path_walk = yan_soldier_walk6
+path_look = yan_soldier_look6
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_actor_dist_le_nvis = 10 | camper@running5_1
+
+[camper@running5_1]
+path_walk = yan_soldier_walk7
+path_look = yan_soldier_look7
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | camper@running5
+
+[camper@running5]
+path_walk = yan_soldier_walk7
+path_look = yan_soldier_look7
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_actor_dist_le_nvis = 10 | camper@running6_1
+
+[camper@running6_1]
+path_walk = yan_soldier_walk8
+path_look = yan_soldier_look8
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | camper@running6
+
+[camper@running6]
+path_walk = yan_soldier_walk8
+path_look = yan_soldier_look8
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_actor_dist_le_nvis = 10 | camper@running7_1
+
+[camper@running7_1]
+path_walk = yan_soldier_walk6
+path_look = yan_soldier_look6
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | camper@running7
+
+[camper@running7]
+path_walk = yan_soldier_walk6
+path_look = yan_soldier_look6
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_actor_dist_le_nvis = 10 | camper@running8_1
+
+[camper@running8_1]
+path_walk = yan_soldier_walk7
+path_look = yan_soldier_look7
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | camper@running8
+
+[camper@running8]
+path_walk = yan_soldier_walk7
+path_look = yan_soldier_look7
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_actor_dist_le_nvis = 10 | camper@running9_1
+
+[camper@running9_1]
+path_walk = yan_soldier_walk8
+path_look = yan_soldier_look8
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | camper@running9
+
+[camper@running9]
+path_walk = yan_soldier_walk8
+path_look = yan_soldier_look8
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_actor_dist_le_nvis = 10 | camper@stop
+
+;--------------------------------------------------------------------------
+; Запыхались и встали
+;--------------------------------------------------------------------------
+[camper@stop]
+path_walk = yan_soldier_walk9
+path_look = yan_soldier_look9
+def_state_moving = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+yan_sold_say_true} walker@go_back_to_bunker
+on_signal       = arrived | camper@stop1 %+yan_sold_stop_run%
+
+[camper@stop1]
+path_walk = yan_soldier_walk9
+path_look = yan_soldier_look9
+def_state_moving = sprint
+meet = meet_scary
+danger = danger_condition
+combat_ignore_cond = always
+;on_info = {+yan_sold_goto_rostok} camper@to_rostok
+on_info = {+yan_sold_say_true} walker@go_back_to_bunker
+
+[walker@go_back_to_bunker]
+path_walk = yan_soldier_walk1
+path_look = yan_soldier_look1
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal = arrived | walker@bunker_return %=make_invulnerable%
+
+[walker@bunker_return]
+path_walk = yan_soldier_walk1
+path_look = yan_soldier_look1
+meet = meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+yan_sold_generator_prepare} remark@prepare_generator
+
+[walker@go_to_gen_prepare]
+path_walk = yan_soldier_gen_prepare_walk
+path_look = yan_soldier_gen_prepare_look
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+def_state_standing = guard
+on_signal = arrived | remark@prepare_generator
+
+[remark@prepare_generator]
+anim = dynamite
+;no_move = true
+target = 7148
+meet = no_meet
+danger = danger_condition
+on_signal = anim_end | walker@ready_to_go %+yan_sold_generator_ready%
+
+[walker@ready_to_go]
+path_walk = yan_soldier_walk1
+path_look = yan_soldier_walk1
+meet = signal_meet
+danger = danger_condition
+combat_ignore_cond = always
+def_state_standing = guard
+on_info = {+yan_sold_go_to_dark_zone} walker@to_dark_zone
+
+[walker@to_dark_zone]
+path_walk = yan_soldier_darkzone_walk
+path_look = yan_soldier_darkzone_look
+danger = danger_condition
+combat_ignore_cond = always
+meet = no_meet
+def_state_standing = guard
+on_signal = arrived | walker@wait_in_lager %+yan_sold_in_lager_final%
+
+[walker@wait_in_lager]
+path_walk = yan_soldier_darkzone_walk
+path_look = yan_soldier_darkzone_look
+danger = danger_condition
+combat_ignore_cond = always
+meet = signal_meet
+def_state_standing = guard
+on_info = {+yan_sold_actor_paralyzed} remark@manipulate_generator %=unmake_invulnerable%
+
+[remark@manipulate_generator]
+anim = dynamite
+;no_move = true
+target = 7148
+meet = no_meet
+danger = danger_condition_new
+combat_ignore_cond = always
+on_signal = anim_end | remark@manipulate_generator2
+on_info = {+yan_sold_hitted} remark@hitted
+on_info2 = {+yan_sold_actor_wait_too_long} remark@laugh
+
+[remark@manipulate_generator2]
+anim = dynamite
+;no_move = true
+target = 7148
+meet = no_meet
+danger = danger_condition_new
+combat_ignore_cond = always
+on_signal = anim_end | remark@manipulate_generator
+on_info = {+yan_sold_hitted} remark@hitted
+on_info2 = {+yan_sold_actor_wait_too_long} remark@laugh
+
+[remark@hitted]
+anim = wounded_heavy
+no_move = true
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+yan_sold_yan_anomaly_discharged} remark@stand_still
+combat_ignore_keep_when_attacked = true
+
+[remark@stand_still]
+anim = hands_up
+no_move = true
+target = 7150
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+yan_sold_hitted_by_major} remark@hitted_by_major
+combat_ignore_keep_when_attacked = true
+
+[remark@hitted_by_major]
+anim = wounded_heavy
+no_move = true
+meet = no_meet
+combat_ignore_cond = always
+combat_ignore_keep_when_attacked = true
+
+[remark@laugh]
+anim = smeh
+snd = pervert_smeh
+target = 7148
+no_move = true
+meet = no_meet
+danger = danger_condition
+on_info = {+yan_sold_anomaly_is_gone} walker@ready_to_talk %=spawn_third_klondaik_flash_to_soldier%
+
+[walker@ready_to_talk]
+path_walk = yan_soldier_darkzone_walk
+path_look = yan_soldier_darkzone_look
+danger = danger_condition
+meet = signal_meet
+def_state_standing = guard
+on_info = {+yan_sold_explained_to_actor} nil
+
+[walker@end]
+path_walk = yan_soldier_walk
+path_look = yan_soldier_look
+meet = meet
+danger = danger_condition
+
+[camper@to_rostok]
+path_walk = yan_soldier_walk10
+path_look = yan_soldier_look10
+def_state_moving = run
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+rostok_soldier_spawn} remark@start_way
+
+[remark@start_way]
+anim = binocular
+no_move = true
+target = 605
+;meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+;on_timer = 7000 | walker@signal
+
+
+[hit@yan_sold]
+on_info = {=hit_by_actor} %+yan_sold_hitted%
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 3|actor
+victim_wpn = 3|actor
+meet_state = 3|sit_ass@yan_soldier_sad
+meet_state_wpn = 3|sit_ass@yan_soldier_sad
+
+[signal_meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 2|actor
+victim_wpn = 2|actor
+meet_state = 2|wait_trade@yan_soldier_sad
+meet_state_wpn = 2|wait_trade@yan_soldier_sad
+
+[meet_scary]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 8|actor
+victim_wpn = 8|actor
+meet_state = 8|look_around@help
+meet_state_wpn = 8|look_around@help
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[danger_condition_new]
+ignore_distance = 5
+ignore_distance_corpse = 5
+
+[threshold@yan_soldier_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+yan_soldier_dead%
+

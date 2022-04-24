@@ -1,0 +1,33 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+on_death = death
+threshold = threshold@kulgband_bridge_scout_threshold
+
+[walker@begin]
+path_walk =	kulgband_bridge_scout_walk
+path_look =	kulgband_bridge_scout_look
+on_timer = 1|walker@1 %=make_invulnerable%
+
+[walker@1]
+path_walk =	kulgband_bridge_scout_walk
+path_look =	kulgband_bridge_scout_look
+combat_ignore_cond = {-kulgband_scout_fail} always
+on_info = {=dist_to_actor_ge(40) +kulgband_scout_deal} %=release%
+on_info2 = {+kulgband_scout_fail} %=killactor =unmake_invulnerable%
+
+
+
+[threshold@kulgband_bridge_scout_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[death]
+on_info = {+kulgband_scout_fail} %=give_items(kulgband_bridge_scout_pda)%
+
+
+
+
+

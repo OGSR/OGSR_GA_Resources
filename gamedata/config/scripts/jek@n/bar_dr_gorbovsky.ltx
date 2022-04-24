@@ -1,0 +1,69 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+on_death = death
+on_combat = combat
+threshold = threshold@izgioy_doctor_threshold
+
+[combat]
+combat_type = camper
+
+[walker@begin]
+path_walk = izgioy_doctor_walk
+path_look = izgioy_doctor_look
+on_timer = 100 | walker1 %=make_invulnerable%
+
+[walker1]
+path_walk = izgioy_doctor_walk
+path_look = izgioy_doctor_look
+combat_ignore_cond = always
+on_info = {+gorbovsky_goto_camp} walker2
+
+[walker2]
+path_walk = izgioy_doctor_walk2
+path_look = izgioy_doctor_look2
+combat_ignore_cond = always
+meet = no_meet
+on_info = {+izgioy_doctor_works} remark
+on_signal = arrived | %+gorbovsky_in_camp% walker3
+
+[walker3]
+path_walk = izgioy_doctor_walk2
+path_look = izgioy_doctor_look2
+combat_ignore_cond = always
+on_info = {+izgioy_doctor_works} remark
+
+[walker4]
+path_walk = izgioy_doctor_walk2
+path_look = izgioy_doctor_look2
+combat_ignore_cond = always
+
+[remark]
+anim = sit 
+snd = gorbovsky_talking
+no_move = true
+target = 620
+combat_ignore_cond = always
+on_signal = action_end | walker4
+on_info = {+izgoy_doctor_reward} walker4
+meet = no_meet
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@izgioy_doctor_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+izgioy_doctor_dead%
+

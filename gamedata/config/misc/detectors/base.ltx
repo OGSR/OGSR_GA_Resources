@@ -1,0 +1,924 @@
+[detector_base_hud]
+attach_place_idx		= 1
+
+hands_position			= 0.0,-0.13,0.03
+hands_orientation		= 0.0,0.0,0.0
+hands_position_16x9		= 0.0,-0.13,0.03
+hands_orientation_16x9		= 0.0,0.0,0.0
+
+aim_hud_offset_pos		= 0,0,0
+aim_hud_offset_rot		= 0,0,0
+
+aim_hud_offset_pos_16x9			= 0,0,0
+aim_hud_offset_rot_16x9			= 0,0,0
+
+gl_hud_offset_pos			= 0,0,0
+gl_hud_offset_rot			= 0,0,0
+
+gl_hud_offset_pos_16x9			= 0,0,0
+gl_hud_offset_rot_16x9			= 0,0,0
+
+lean_hud_offset_pos		= 0,0,0
+lean_hud_offset_rot		= 0,0,0
+
+
+
+;стрейф влево
+hud_move_left_offset_pos = 0,0,0
+hud_move_left_offset_rot = 0,0,0
+
+hud_move_left_offset_pos_16x9 = 0,0,0
+hud_move_left_offset_rot_16x9 = 0,0,0
+
+;стрейф вправо
+hud_move_right_offset_pos = 0,0,0
+hud_move_right_offset_rot = 0,0,0
+
+hud_move_right_offset_pos_16x9 = 0,0,0
+hud_move_right_offset_rot_16x9 = 0,0,0
+
+;движение вперед
+hud_move_forward_offset_pos = 0,0,0
+hud_move_forward_offset_rot = 0,0,0
+
+hud_move_forward_offset_pos_16x9 = 0,0,0
+hud_move_forward_offset_rot_16x9 = 0,0,0
+
+;движение назад
+hud_move_back_offset_pos = 0,0,0
+hud_move_back_offset_rot = 0,0,0
+
+hud_move_back_offset_pos_16x9 = 0,0,0
+hud_move_back_offset_rot_16x9 = 0,0,0
+
+
+;************************************************************************************************************************
+; Отклик
+anm_lefthand_interactive_detector_simple_wpn_shoot            = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_jammed     = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_explose    = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_last       = dev_detector_1_shoot
+
+anm_lefthand_interactive_detector_simple_wpn_shoot_sil             = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_jammed_sil      = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_explose_sil     = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_last_sil        = dev_detector_1_shoot
+
+anm_lefthand_interactive_detector_simple_wpn_shoot_lightmisfire               = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_shoot_lightmisfire_aim               = dev_detector_1_aim_misfire
+
+anm_lefthand_interactive_detector_simple_wpn_fakeshoot_empty        = dev_detector_1_dry_empty
+anm_lefthand_interactive_detector_simple_wpn_fakeshoot_jammed = dev_detector_1_dry
+
+anm_lefthand_interactive_detector_simple_wpn_hide        = dev_detector_1_hand_hide, dev_detector_1_idle_moving
+
+
+anm_lefthand_interactive_detector_simple_wpn_attack     = dev_detector_1_knife_kick_1
+anm_lefthand_interactive_detector_simple_wpn_attack2    = dev_detector_1_knife_kick_2
+
+anm_lefthand_interactive_detector_simple_wpn_laser_on = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_laser_on_jammed = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_laser_on_empty = dev_detector_1_lam 
+
+anm_lefthand_interactive_detector_simple_wpn_laser_off = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_laser_off_jammed = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_laser_off_empty = dev_detector_1_lam
+
+anm_lefthand_interactive_detector_simple_wpn_torch_on = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_torch_on_jammed = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_torch_on_empty = dev_detector_1_lam 
+
+anm_lefthand_interactive_detector_simple_wpn_torch_off = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_torch_off_jammed = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_torch_off_empty = dev_detector_1_lam
+
+anm_lefthand_interactive_detector_simple_wpn_headlamp_on = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_headlamp_on_jammed = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_headlamp_on_empty = dev_detector_1_headflash
+
+anm_lefthand_interactive_detector_simple_wpn_headlamp_off = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_headlamp_off_jammed = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_headlamp_off_empty = dev_detector_1_headflash
+
+anm_lefthand_interactive_detector_simple_wpn_nv_on = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_nv_on_jammed = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_nv_on_empty = dev_detector_1_headflash
+
+anm_lefthand_interactive_detector_simple_wpn_nv_off = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_nv_off_jammed = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_nv_off_empty = dev_detector_1_headflash
+
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_start                       = dev_detector_1_aim_start
+anm_lefthand_interactive_detector_simple_wpn_idle_aim                             = dev_detector_1_aim
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_end                         = dev_detector_1_aim_end
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving                      = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward              = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_right        = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_left         = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_left                 = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_right                = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back                 = dev_detector_1_aim_walk_back
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_right           = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_left            = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim                            = dev_detector_1_aim_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim_last                       = dev_detector_1_aim_shoot_empty
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim_sil                        = dev_detector_1_aim_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim_last_sil                   = dev_detector_1_aim_shoot_empty
+
+
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_start_empty                 = dev_detector_1_aim_start
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_empty                       = dev_detector_1_aim
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_end_empty                   = dev_detector_1_aim_end
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_empty                = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_empty        = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_right_empty  = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_left_empty   = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_left_empty           = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_right_empty          = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_empty           = dev_detector_1_aim_walk_back
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_right_empty     = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_left_empty      = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_fakeshoot_aim_empty                  = dev_detector_1_aim_dry
+
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_start_jammed                = dev_detector_1_aim_start
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_jammed                      = dev_detector_1_aim
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_end_jammed                  = dev_detector_1_aim_end
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_jammed               = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_jammed       = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_right_jammed = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_left_jammed  = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_left_jammed          = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_right_jammed         = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_jammed          = dev_detector_1_aim_walk_back
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_right_jammed    = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_left_jammed     = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_fakeshoot_aim_jammed                 = dev_detector_1_aim_dry
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim_jammed                     = dev_detector_1_aim_shoot_empty
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim_jammed_sil                 = dev_detector_1_aim_shoot_empty
+
+;----
+anm_lefthand_interactive_detector_simple_wpn_shoot_16x9            = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_jammed_16x9     = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_explose_16x9    = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_last_16x9       = dev_detector_1_shoot
+
+anm_lefthand_interactive_detector_simple_wpn_shoot_sil_16x9             = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_jammed_sil_16x9      = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_explose_sil_16x9     = dev_detector_1_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_last_sil_16x9        = dev_detector_1_shoot
+
+anm_lefthand_interactive_detector_simple_wpn_shoot_lightmisfire_16x9               = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_shoot_lightmisfire_aim_16x9               = dev_detector_1_aim_misfire
+
+anm_lefthand_interactive_detector_simple_wpn_fakeshoot_empty_16x9        = dev_detector_1_dry_empty
+anm_lefthand_interactive_detector_simple_wpn_fakeshoot_jammed_16x9       = dev_detector_1_dry
+
+anm_lefthand_interactive_detector_simple_wpn_hide_16x9        = dev_detector_1_hand_hide, dev_detector_1_idle_moving
+
+anm_lefthand_interactive_detector_simple_wpn_attack_16x9  = dev_detector_1_knife_kick_1
+anm_lefthand_interactive_detector_simple_wpn_attack2_16x9 = dev_detector_1_knife_kick_2
+
+anm_lefthand_interactive_detector_simple_wpn_laser_on_16x9 = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_laser_on_jammed_16x9 = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_laser_on_empty_16x9 = dev_detector_1_lam
+
+anm_lefthand_interactive_detector_simple_wpn_laser_off_16x9 = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_laser_off_jammed_16x9 = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_laser_off_empty_16x9 = dev_detector_1_lam
+
+anm_lefthand_interactive_detector_simple_wpn_torch_on_16x9 = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_torch_on_jammed_16x9 = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_torch_on_empty_16x9 = dev_detector_1_lam
+
+anm_lefthand_interactive_detector_simple_wpn_torch_off_16x9 = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_torch_off_jammed_16x9 = dev_detector_1_lam
+anm_lefthand_interactive_detector_simple_wpn_torch_off_empty_16x9 = dev_detector_1_lam
+
+anm_lefthand_interactive_detector_simple_wpn_headlamp_on_16x9 = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_headlamp_on_jammed_16x9 = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_headlamp_on_empty_16x9 = dev_detector_1_headflash
+
+anm_lefthand_interactive_detector_simple_wpn_headlamp_off_16x9 = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_headlamp_off_jammed_16x9 = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_headlamp_off_empty_16x9 = dev_detector_1_headflash
+
+anm_lefthand_interactive_detector_simple_wpn_nv_on_16x9 = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_nv_on_jammed_16x9 = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_nv_on_empty_16x9 = dev_detector_1_headflash
+
+anm_lefthand_interactive_detector_simple_wpn_nv_off_16x9 = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_nv_off_jammed_16x9 = dev_detector_1_headflash
+anm_lefthand_interactive_detector_simple_wpn_nv_off_empty_16x9 = dev_detector_1_headflash
+
+
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_start_16x9                       = dev_detector_1_aim_start
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_16x9                             = dev_detector_1_aim
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_end_16x9                         = dev_detector_1_aim_end
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_16x9                      = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_16x9              = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_right_16x9        = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_left_16x9         = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_left_16x9                 = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_right_16x9                = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_16x9                 = dev_detector_1_aim_walk_back
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_right_16x9           = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_left_16x9            = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim_16x9                            = dev_detector_1_aim_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim_last_16x9                       = dev_detector_1_aim_shoot_empty
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim_sil_16x9                        = dev_detector_1_aim_shoot
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim_last_sil_16x9                   = dev_detector_1_aim_shoot_empty
+
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_start_empty_16x9                 = dev_detector_1_aim_start
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_empty_16x9                       = dev_detector_1_aim
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_end_empty_16x9                   = dev_detector_1_aim_end
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_empty_16x9                = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_empty_16x9        = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_right_empty_16x9  = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_left_empty_16x9   = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_left_empty_16x9           = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_right_empty_16x9          = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_empty_16x9           = dev_detector_1_aim_walk_back
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_right_empty_16x9     = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_left_empty_16x9      = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_fakeshoot_aim_empty_16x9                  = dev_detector_1_aim_dry
+
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_start_jammed_16x9                = dev_detector_1_aim_start
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_jammed_16x9                      = dev_detector_1_aim
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_end_jammed_16x9                  = dev_detector_1_aim_end
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_jammed_16x9               = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_jammed_16x9       = dev_detector_1_aim_walk
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_right_jammed_16x9 = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_forward_left_jammed_16x9  = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_left_jammed_16x9          = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_right_jammed_16x9         = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_jammed_16x9          = dev_detector_1_aim_walk_back
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_right_jammed_16x9    = dev_detector_1_aim_walk_right
+anm_lefthand_interactive_detector_simple_wpn_idle_aim_moving_back_left_jammed_16x9     = dev_detector_1_aim_walk_left
+anm_lefthand_interactive_detector_simple_wpn_fakeshoot_aim_jammed_16x9                 = dev_detector_1_aim_dry
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim_jammed_16x9                     = dev_detector_1_aim_shoot_empty
+anm_lefthand_interactive_detector_simple_wpn_shoot_aim_jammed_sil_16x9                 = dev_detector_1_aim_shoot_empty
+
+
+;************************************************************************************************************************
+;для медведя
+anm_lefthand_interactive_detector_advanced_wpn_shoot = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_jammed = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_explose = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_last = dev_detector_2_shoot, dev_detector_2_idle_moving
+
+anm_lefthand_interactive_detector_advanced_wpn_shoot_sil = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_jammed_sil = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_explose_sil = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_last_sil = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_auto_last_sil = dev_detector_2_shoot, dev_detector_2_idle_moving
+
+anm_lefthand_interactive_detector_advanced_wpn_shoot_lightmisfire               = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_shoot_lightmisfire_aim               = dev_detector_2_aim_misfire
+
+anm_lefthand_interactive_detector_advanced_wpn_fakeshoot_empty = dev_detector_2_dry_empty
+anm_lefthand_interactive_detector_advanced_wpn_fakeshoot_jammed = dev_detector_2_dry
+
+anm_lefthand_interactive_detector_advanced_wpn_hide        = dev_detector_2_hand_hide, dev_detector_2_idle_moving
+
+anm_lefthand_interactive_detector_advanced_wpn_attack = dev_detector_2_knife_kick_1
+anm_lefthand_interactive_detector_advanced_wpn_attack2 = dev_detector_2_knife_kick_2
+
+anm_lefthand_interactive_detector_advanced_wpn_laser_on = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_laser_on_jammed = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_laser_on_empty = dev_detector_2_lam 
+
+anm_lefthand_interactive_detector_advanced_wpn_laser_off = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_laser_off_jammed = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_laser_off_empty = dev_detector_2_lam
+
+anm_lefthand_interactive_detector_advanced_wpn_torch_on = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_torch_on_jammed = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_torch_on_empty = dev_detector_2_lam 
+
+anm_lefthand_interactive_detector_advanced_wpn_torch_off = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_torch_off_jammed = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_torch_off_empty = dev_detector_2_lam
+
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_on = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_on_jammed = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_on_empty = dev_detector_2_headflash
+
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_off = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_off_jammed = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_off_empty = dev_detector_2_headflash
+
+anm_lefthand_interactive_detector_advanced_wpn_nv_on = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_nv_on_jammed = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_nv_on_empty = dev_detector_2_headflash
+
+anm_lefthand_interactive_detector_advanced_wpn_nv_off = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_nv_off_jammed = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_nv_off_empty = dev_detector_2_headflash
+
+
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_start                       = dev_detector_2_aim_start
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim                             = dev_detector_2_aim
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_end                         = dev_detector_2_aim_end
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving                      = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward              = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_right        = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_left         = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_left                 = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_right                = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back                 = dev_detector_2_aim_walk_back
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_right           = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_left            = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim                            = dev_detector_2_aim_shoot
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim_last                       = dev_detector_2_aim_shoot_empty
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim_sil                        = dev_detector_2_aim_shoot
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim_last_sil                   = dev_detector_2_aim_shoot_empty
+
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_start_empty                 = dev_detector_2_aim_start
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_empty                       = dev_detector_2_aim
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_end_empty                   = dev_detector_2_aim_end
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_empty                = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_empty        = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_right_empty  = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_left_empty   = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_left_empty           = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_right_empty          = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_empty           = dev_detector_2_aim_walk_back
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_right_empty     = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_left_empty      = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_fakeshoot_aim_empty                  = dev_detector_2_aim_dry
+
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_start_jammed                = dev_detector_2_aim_start
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_jammed                      = dev_detector_2_aim
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_end_jammed                  = dev_detector_2_aim_end
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_jammed               = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_jammed       = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_right_jammed = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_left_jammed  = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_left_jammed          = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_right_jammed         = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_jammed          = dev_detector_2_aim_walk_back
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_right_jammed    = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_left_jammed     = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_fakeshoot_aim_jammed                 = dev_detector_2_aim_dry
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim_jammed                     = dev_detector_2_aim_shoot_empty
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim_jammed_sil                 = dev_detector_2_aim_shoot_empty
+
+
+;----
+anm_lefthand_interactive_detector_advanced_wpn_shoot_16x9 = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_jammed_16x9 = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_explose_16x9 = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_last_16x9 = dev_detector_2_shoot, dev_detector_2_idle_moving
+
+anm_lefthand_interactive_detector_advanced_wpn_shoot_sil_16x9 = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_jammed_sil_16x9 = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_explose_sil_16x9 = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_last_sil_16x9 = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_lefthand_interactive_detector_advanced_wpn_shoot_auto_last_sil_16x9 = dev_detector_2_shoot, dev_detector_2_idle_moving
+
+anm_lefthand_interactive_detector_advanced_wpn_shoot_lightmisfire_16x9               = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_shoot_lightmisfire_aim_16x9               = dev_detector_2_aim_misfire
+
+anm_lefthand_interactive_detector_advanced_wpn_fakeshoot_empty_16x9 = dev_detector_2_dry_empty
+anm_lefthand_interactive_detector_advanced_wpn_fakeshoot_jammed_16x9 = dev_detector_2_dry
+
+anm_lefthand_interactive_detector_advanced_wpn_hide_16x9        = dev_detector_2_hand_hide, dev_detector_2_idle_moving
+
+anm_lefthand_interactive_detector_advanced_wpn_attack_16x9 = dev_detector_2_knife_kick_1
+anm_lefthand_interactive_detector_advanced_wpn_attack2_16x9 = dev_detector_2_knife_kick_2
+
+anm_lefthand_interactive_detector_advanced_wpn_laser_on_16x9 = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_laser_on_jammed_16x9 = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_laser_on_empty_16x9 = dev_detector_2_lam 
+
+anm_lefthand_interactive_detector_advanced_wpn_laser_off_16x9 = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_laser_off_jammed_16x9 = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_laser_off_empty_16x9 = dev_detector_2_lam
+
+anm_lefthand_interactive_detector_advanced_wpn_torch_on_16x9 = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_torch_on_jammed_16x9 = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_torch_on_empty_16x9 = dev_detector_2_lam 
+
+anm_lefthand_interactive_detector_advanced_wpn_torch_off_16x9 = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_torch_off_jammed_16x9 = dev_detector_2_lam
+anm_lefthand_interactive_detector_advanced_wpn_torch_off_empty_16x9 = dev_detector_2_lam
+
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_on_16x9 = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_on_jammed_16x9 = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_on_empty_16x9 = dev_detector_2_headflash
+
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_off_16x9 = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_off_jammed_16x9 = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_headlamp_off_empty_16x9 = dev_detector_2_headflash
+
+anm_lefthand_interactive_detector_advanced_wpn_nv_on_16x9 = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_nv_on_jammed_16x9 = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_nv_on_empty_16x9 = dev_detector_2_headflash
+
+anm_lefthand_interactive_detector_advanced_wpn_nv_off_16x9 = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_nv_off_jammed_16x9 = dev_detector_2_headflash
+anm_lefthand_interactive_detector_advanced_wpn_nv_off_empty_16x9 = dev_detector_2_headflash
+
+
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_start_16x9                       = dev_detector_2_aim_start
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_16x9                             = dev_detector_2_aim
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_end_16x9                         = dev_detector_2_aim_end
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_16x9                      = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_16x9              = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_right_16x9        = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_left_16x9         = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_left_16x9                 = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_right_16x9                = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_16x9                 = dev_detector_2_aim_walk_back
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_right_16x9           = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_left_16x9            = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim_16x9                            = dev_detector_2_aim_shoot
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim_last_16x9                       = dev_detector_2_aim_shoot_empty
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim_sil_16x9                        = dev_detector_2_aim_shoot
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim_last_sil_16x9                   = dev_detector_2_aim_shoot_empty
+
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_start_empty_16x9                 = dev_detector_2_aim_start
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_empty_16x9                       = dev_detector_2_aim
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_end_empty_16x9                   = dev_detector_2_aim_end
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_empty_16x9                = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_empty_16x9        = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_right_empty_16x9  = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_left_empty_16x9   = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_left_empty_16x9           = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_right_empty_16x9          = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_empty_16x9           = dev_detector_2_aim_walk_back
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_right_empty_16x9     = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_left_empty_16x9      = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_fakeshoot_aim_empty_16x9                  = dev_detector_2_aim_dry
+
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_start_jammed_16x9                = dev_detector_2_aim_start
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_jammed_16x9                      = dev_detector_2_aim
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_end_jammed_16x9                  = dev_detector_2_aim_end
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_jammed_16x9               = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_jammed_16x9       = dev_detector_2_aim_walk
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_right_jammed_16x9 = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_forward_left_jammed_16x9  = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_left_jammed_16x9          = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_right_jammed_16x9         = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_jammed_16x9          = dev_detector_2_aim_walk_back
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_right_jammed_16x9    = dev_detector_2_aim_walk_right
+anm_lefthand_interactive_detector_advanced_wpn_idle_aim_moving_back_left_jammed_16x9     = dev_detector_2_aim_walk_left
+anm_lefthand_interactive_detector_advanced_wpn_fakeshoot_aim_jammed_16x9                 = dev_detector_2_aim_dry
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim_jammed_16x9                     = dev_detector_2_aim_shoot_empty
+anm_lefthand_interactive_detector_advanced_wpn_shoot_aim_jammed_sil_16x9                 = dev_detector_2_aim_shoot_empty
+
+;************************************************************************************************************************
+; для велеса
+anm_lefthand_interactive_detector_elite_wpn_shoot = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_jammed = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_explose = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_last = veles_shoot, veles_walk
+
+anm_lefthand_interactive_detector_elite_wpn_shoot_sil = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_jammed_sil = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_explose_sil = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_last_sil = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_auto_last_sil = veles_shoot, veles_walk
+
+anm_lefthand_interactive_detector_elite_wpn_shoot_lightmisfire               = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_shoot_lightmisfire_aim               = veles_aim_misfire
+
+anm_lefthand_interactive_detector_elite_wpn_fakeshoot_empty = veles_dry_empty
+anm_lefthand_interactive_detector_elite_wpn_fakeshoot_jammed = veles_dry, veles_walk
+
+anm_lefthand_interactive_detector_elite_wpn_attack = veles_knife_kick_1
+anm_lefthand_interactive_detector_elite_wpn_attack2 = veles_knife_kick_2
+
+anm_lefthand_interactive_detector_elite_wpn_hide        = veles_hand_hide, veles_walk
+
+anm_lefthand_interactive_detector_elite_wpn_laser_on = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_laser_on_jammed = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_laser_on_empty = veles_lam 
+
+anm_lefthand_interactive_detector_elite_wpn_laser_off = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_laser_off_jammed = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_laser_off_empty = veles_lam
+
+anm_lefthand_interactive_detector_elite_wpn_torch_on = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_torch_on_jammed = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_torch_on_empty = veles_lam 
+
+anm_lefthand_interactive_detector_elite_wpn_torch_off = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_torch_off_jammed = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_torch_off_empty = veles_lam
+
+anm_lefthand_interactive_detector_elite_wpn_headlamp_on = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_headlamp_on_jammed = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_headlamp_on_empty = veles_headflash
+
+anm_lefthand_interactive_detector_elite_wpn_headlamp_off = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_headlamp_off_jammed = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_headlamp_off_empty = veles_headflash
+
+anm_lefthand_interactive_detector_elite_wpn_nv_on = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_nv_on_jammed = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_nv_on_empty = veles_headflash
+
+anm_lefthand_interactive_detector_elite_wpn_nv_off = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_nv_off_jammed = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_nv_off_empty = veles_headflash
+
+
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_start                       = veles_aim_start
+anm_lefthand_interactive_detector_elite_wpn_idle_aim                             = veles_aim
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_end                         = veles_aim_end
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving                      = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward              = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_right        = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_left         = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_left                 = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_right                = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back                 = veles_aim_walk_back
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_right           = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_left            = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim                            = veles_aim_shoot
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim_last                       = veles_aim_shoot_empty
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim_sil                        = veles_aim_shoot
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim_last_sil                   = veles_aim_shoot_empty
+
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_start_empty                 = veles_aim_start
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_empty                       = veles_aim
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_end_empty                   = veles_aim_end
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_empty                = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_empty        = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_right_empty  = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_left_empty   = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_left_empty           = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_right_empty          = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_empty           = veles_aim_walk_back
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_right_empty     = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_left_empty      = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_fakeshoot_aim_empty                  = veles_aim_dry
+
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_start_jammed                = veles_aim_start
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_jammed                      = veles_aim
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_end_jammed                  = veles_aim_end
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_jammed               = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_jammed       = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_right_jammed = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_left_jammed  = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_left_jammed          = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_right_jammed         = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_jammed          = veles_aim_walk_back
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_right_jammed    = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_left_jammed     = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_fakeshoot_aim_jammed                 = veles_aim_dry
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim_jammed                     = veles_aim_shoot_empty
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim_jammed_sil                 = veles_aim_shoot_empty
+
+;----
+anm_lefthand_interactive_detector_elite_wpn_shoot_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_jammed_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_explose_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_last_16x9 = veles_shoot, veles_walk
+
+anm_lefthand_interactive_detector_elite_wpn_shoot_sil_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_jammed_sil_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_explose_sil_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_last_sil_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_elite_wpn_shoot_auto_last_sil_16x9 = veles_shoot, veles_walk
+
+anm_lefthand_interactive_detector_elite_wpn_shoot_lightmisfire_16x9               = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_shoot_lightmisfire_aim_16x9               = veles_aim_misfire
+
+anm_lefthand_interactive_detector_elite_wpn_hide_16x9        = veles_hand_hide, veles_walk
+
+anm_lefthand_interactive_detector_elite_wpn_fakeshoot_empty_16x9 = veles_dry_empty
+anm_lefthand_interactive_detector_elite_wpn_fakeshoot_jammed_16x9 = veles_dry, veles_walk
+
+anm_lefthand_interactive_detector_elite_wpn_attack_16x9 = veles_knife_kick_1
+anm_lefthand_interactive_detector_elite_wpn_attack2_16x9 = veles_knife_kick_2
+
+anm_lefthand_interactive_detector_elite_wpn_laser_on_16x9 = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_laser_on_jammed_16x9 = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_laser_on_empty_16x9 = veles_lam 
+
+anm_lefthand_interactive_detector_elite_wpn_laser_off_16x9 = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_laser_off_jammed_16x9 = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_laser_off_empty_16x9 = veles_lam
+
+anm_lefthand_interactive_detector_elite_wpn_torch_on_16x9 = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_torch_on_jammed_16x9 = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_torch_on_empty_16x9 = veles_lam 
+
+anm_lefthand_interactive_detector_elite_wpn_torch_off_16x9 = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_torch_off_jammed_16x9 = veles_lam
+anm_lefthand_interactive_detector_elite_wpn_torch_off_empty_16x9 = veles_lam
+
+
+anm_lefthand_interactive_detector_elite_wpn_headlamp_on_16x9 = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_headlamp_on_jammed_16x9 = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_headlamp_on_empty_16x9 = veles_headflash
+
+anm_lefthand_interactive_detector_elite_wpn_headlamp_off_16x9 = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_headlamp_off_jammed_16x9 = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_headlamp_off_empty_16x9 = veles_headflash
+
+anm_lefthand_interactive_detector_elite_wpn_nv_on_16x9 = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_nv_on_jammed_16x9 = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_nv_on_empty_16x9 = veles_headflash
+
+anm_lefthand_interactive_detector_elite_wpn_nv_off_16x9 = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_nv_off_jammed_16x9 = veles_headflash
+anm_lefthand_interactive_detector_elite_wpn_nv_off_empty_16x9 = veles_headflash
+
+
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_start_16x9                       = veles_aim_start
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_16x9                             = veles_aim
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_end_16x9                         = veles_aim_end
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_16x9                      = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_16x9              = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_right_16x9        = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_left_16x9         = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_left_16x9                 = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_right_16x9                = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_16x9                 = veles_aim_walk_back
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_right_16x9           = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_left_16x9            = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim_16x9                            = veles_aim_shoot
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim_last_16x9                       = veles_aim_shoot_empty
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim_sil_16x9                        = veles_aim_shoot
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim_last_sil_16x9                   = veles_aim_shoot_empty
+
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_start_empty_16x9                 = veles_aim_start
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_empty_16x9                       = veles_aim
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_end_empty_16x9                   = veles_aim_end
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_empty_16x9                = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_empty_16x9        = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_right_empty_16x9  = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_left_empty_16x9   = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_left_empty_16x9           = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_right_empty_16x9          = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_empty_16x9           = veles_aim_walk_back
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_right_empty_16x9     = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_left_empty_16x9      = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_fakeshoot_aim_empty_16x9                  = veles_aim_dry
+
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_start_jammed_16x9                = veles_aim_start
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_jammed_16x9                      = veles_aim
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_end_jammed_16x9                  = veles_aim_end
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_jammed_16x9               = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_jammed_16x9       = veles_aim_walk
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_right_jammed_16x9 = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_forward_left_jammed_16x9  = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_left_jammed_16x9          = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_right_jammed_16x9         = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_jammed_16x9          = veles_aim_walk_back
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_right_jammed_16x9    = veles_aim_walk_right
+anm_lefthand_interactive_detector_elite_wpn_idle_aim_moving_back_left_jammed_16x9     = veles_aim_walk_left
+anm_lefthand_interactive_detector_elite_wpn_fakeshoot_aim_jammed_16x9                 = veles_aim_dry
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim_jammed_16x9                     = veles_aim_shoot_empty
+anm_lefthand_interactive_detector_elite_wpn_shoot_aim_jammed_sil_16x9                 = veles_aim_shoot_empty
+
+;************************************************************************************************************************
+;для сварога
+anm_lefthand_interactive_detector_scientific_wpn_shoot = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_jammed = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_explose = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_last = veles_shoot, veles_walk
+
+anm_lefthand_interactive_detector_scientific_wpn_shoot_sil = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_jammed_sil = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_explose_sil = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_last_sil = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_auto_last_sil = veles_shoot, veles_walk
+
+anm_lefthand_interactive_detector_scientific_wpn_shoot_lightmisfire               = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_shoot_lightmisfire_aim               = veles_aim_misfire
+
+anm_lefthand_interactive_detector_scientific_wpn_fakeshoot_empty = veles_dry_empty
+anm_lefthand_interactive_detector_scientific_wpn_fakeshoot_jammed = veles_dry, veles_walk
+
+anm_lefthand_interactive_detector_scientific_wpn_hide        = veles_hand_hide, veles_walk
+
+anm_lefthand_interactive_detector_scientific_wpn_attack = veles_knife_kick_1
+anm_lefthand_interactive_detector_scientific_wpn_attack2 = veles_knife_kick_2
+
+anm_lefthand_interactive_detector_scientific_wpn_laser_on = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_laser_on_jammed = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_laser_on_empty = veles_lam 
+
+anm_lefthand_interactive_detector_scientific_wpn_laser_off = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_laser_off_jammed = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_laser_off_empty = veles_lam
+
+anm_lefthand_interactive_detector_scientific_wpn_torch_on = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_torch_on_jammed = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_torch_on_empty = veles_lam 
+
+anm_lefthand_interactive_detector_scientific_wpn_torch_off = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_torch_off_jammed = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_torch_off_empty = veles_lam
+
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_on = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_on_jammed = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_on_empty = veles_headflash
+
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_off = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_off_jammed = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_off_empty = veles_headflash
+
+anm_lefthand_interactive_detector_scientific_wpn_nv_on = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_nv_on_jammed = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_nv_on_empty = veles_headflash
+
+anm_lefthand_interactive_detector_scientific_wpn_nv_off = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_nv_off_jammed = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_nv_off_empty = veles_headflash
+
+
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_start                       = veles_aim_start
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim                             = veles_aim
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_end                         = veles_aim_end
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving                      = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward              = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_right        = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_left         = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_left                 = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_right                = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back                 = veles_aim_walk_back
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_right           = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_left            = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim                            = veles_aim_shoot
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim_last                       = veles_aim_shoot_empty
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim_sil                        = veles_aim_shoot
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim_last_sil                   = veles_aim_shoot_empty
+
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_start_empty                 = veles_aim_start
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_empty                       = veles_aim
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_end_empty                   = veles_aim_end
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_empty                = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_empty        = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_right_empty  = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_left_empty   = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_left_empty           = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_right_empty          = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_empty           = veles_aim_walk_back
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_right_empty     = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_left_empty      = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_fakeshoot_aim_empty                  = veles_aim_dry
+
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_start_jammed                = veles_aim_start
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_jammed                      = veles_aim
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_end_jammed                  = veles_aim_end
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_jammed               = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_jammed       = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_right_jammed = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_left_jammed  = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_left_jammed          = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_right_jammed         = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_jammed          = veles_aim_walk_back
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_right_jammed    = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_left_jammed     = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_fakeshoot_aim_jammed                 = veles_aim_dry
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim_jammed                     = veles_aim_shoot_empty
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim_jammed_sil                 = veles_aim_shoot_empty
+
+;----
+anm_lefthand_interactive_detector_scientific_wpn_shoot_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_jammed_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_explose_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_last_16x9 = veles_shoot, veles_walk
+
+anm_lefthand_interactive_detector_scientific_wpn_shoot_sil_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_jammed_sil_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_explose_sil_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_last_sil_16x9 = veles_shoot, veles_walk
+anm_lefthand_interactive_detector_scientific_wpn_shoot_auto_last_sil_16x9 = veles_shoot, veles_walk
+
+anm_lefthand_interactive_detector_scientific_wpn_shoot_lightmisfire_16x9               = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_shoot_lightmisfire_aim_16x9               = veles_aim_misfire
+
+anm_lefthand_interactive_detector_scientific_wpn_fakeshoot_empty_16x9 = veles_dry_empty
+anm_lefthand_interactive_detector_scientific_wpn_fakeshoot_jammed_16x9 = veles_dry, veles_walk
+
+anm_lefthand_interactive_detector_scientific_wpn_hide_16x9        = veles_hand_hide, veles_walk
+
+anm_lefthand_interactive_detector_scientific_wpn_attack_16x9 = veles_knife_kick_1
+anm_lefthand_interactive_detector_scientific_wpn_attack2_16x9 = veles_knife_kick_2
+
+anm_lefthand_interactive_detector_scientific_wpn_laser_on_16x9 = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_laser_on_jammed_16x9 = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_laser_on_empty_16x9 = veles_lam 
+
+anm_lefthand_interactive_detector_scientific_wpn_laser_off_16x9 = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_laser_off_jammed_16x9 = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_laser_off_empty_16x9 = veles_lam
+
+anm_lefthand_interactive_detector_scientific_wpn_torch_on_16x9 = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_torch_on_jammed_16x9 = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_torch_on_empty_16x9 = veles_lam 
+
+anm_lefthand_interactive_detector_scientific_wpn_torch_off_16x9 = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_torch_off_jammed_16x9 = veles_lam
+anm_lefthand_interactive_detector_scientific_wpn_torch_off_empty_16x9 = veles_lam
+
+
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_on_16x9 = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_on_jammed_16x9 = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_on_empty_16x9 = veles_headflash
+
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_off_16x9 = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_off_jammed_16x9 = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_headlamp_off_empty_16x9 = veles_headflash
+
+anm_lefthand_interactive_detector_scientific_wpn_nv_on_16x9 = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_nv_on_jammed_16x9 = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_nv_on_empty_16x9 = veles_headflash
+
+anm_lefthand_interactive_detector_scientific_wpn_nv_off_16x9 = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_nv_off_jammed_16x9 = veles_headflash
+anm_lefthand_interactive_detector_scientific_wpn_nv_off_empty_16x9 = veles_headflash
+
+
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_start_16x9                       = veles_aim_start
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_16x9                             = veles_aim
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_end_16x9                         = veles_aim_end
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_16x9                      = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_16x9              = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_right_16x9        = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_left_16x9         = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_left_16x9                 = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_right_16x9                = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_16x9                 = veles_aim_walk_back
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_right_16x9           = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_left_16x9            = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim_16x9                            = veles_aim_shoot
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim_last_16x9                       = veles_aim_shoot_empty
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim_sil_16x9                        = veles_aim_shoot
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim_last_sil_16x9                   = veles_aim_shoot_empty
+
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_start_empty_16x9                 = veles_aim_start
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_empty_16x9                       = veles_aim
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_end_empty_16x9                   = veles_aim_end
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_empty_16x9                = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_empty_16x9        = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_right_empty_16x9  = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_left_empty_16x9   = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_left_empty_16x9           = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_right_empty_16x9          = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_empty_16x9           = veles_aim_walk_back
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_right_empty_16x9     = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_left_empty_16x9      = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_fakeshoot_aim_empty_16x9                  = veles_aim_dry
+
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_start_jammed_16x9                = veles_aim_start
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_jammed_16x9                      = veles_aim
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_end_jammed_16x9                  = veles_aim_end
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_jammed_16x9               = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_jammed_16x9       = veles_aim_walk
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_right_jammed_16x9 = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_forward_left_jammed_16x9  = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_left_jammed_16x9          = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_right_jammed_16x9         = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_jammed_16x9          = veles_aim_walk_back
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_right_jammed_16x9    = veles_aim_walk_right
+anm_lefthand_interactive_detector_scientific_wpn_idle_aim_moving_back_left_jammed_16x9     = veles_aim_walk_left
+anm_lefthand_interactive_detector_scientific_wpn_fakeshoot_aim_jammed_16x9                 = veles_aim_dry
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim_jammed_16x9                     = veles_aim_shoot_empty
+anm_lefthand_interactive_detector_scientific_wpn_shoot_aim_jammed_sil_16x9                 = veles_aim_shoot_empty
+
+
+
+anm_lefthand_interactive_detector_simple_wpn_throw_begin = dev_detector_1_bolt_start
+anm_lefthand_interactive_detector_simple_wpn_throw_idle  = dev_detector_1_bolt_idle
+anm_lefthand_interactive_detector_simple_wpn_throw_end   = dev_detector_1_bolt_end
+
+anm_lefthand_interactive_detector_simple_wpn_throw_begin_16x9 = dev_detector_1_bolt_start
+anm_lefthand_interactive_detector_simple_wpn_throw_idle_16x9  = dev_detector_1_bolt_idle
+anm_lefthand_interactive_detector_simple_wpn_throw_end_16x9   = dev_detector_1_bolt_end
+
+
+
+anm_lefthand_interactive_detector_advanced_wpn_throw_begin = dev_detector_2_bolt_start
+anm_lefthand_interactive_detector_advanced_wpn_throw_idle  = dev_detector_2_bolt_idle
+anm_lefthand_interactive_detector_advanced_wpn_throw_end   = dev_detector_2_bolt_end
+
+anm_lefthand_interactive_detector_advanced_wpn_throw_begin_16x9 = dev_detector_2_bolt_start
+anm_lefthand_interactive_detector_advanced_wpn_throw_idle_16x9  = dev_detector_2_bolt_idle
+anm_lefthand_interactive_detector_advanced_wpn_throw_end_16x9   = dev_detector_2_bolt_end
+
+
+
+anm_lefthand_interactive_detector_elite_wpn_throw_begin = veles_bolt_start
+anm_lefthand_interactive_detector_elite_wpn_throw_idle  = veles_bolt_idle
+anm_lefthand_interactive_detector_elite_wpn_throw_end   = veles_bolt_end
+
+anm_lefthand_interactive_detector_elite_wpn_throw_begin_16x9 = veles_bolt_start
+anm_lefthand_interactive_detector_elite_wpn_throw_idle_16x9  = veles_bolt_idle
+anm_lefthand_interactive_detector_elite_wpn_throw_end_16x9   = veles_bolt_end
+
+
+
+anm_lefthand_interactive_detector_scientific_wpn_throw_begin = veles_bolt_start
+anm_lefthand_interactive_detector_scientific_wpn_throw_idle  = veles_bolt_idle
+anm_lefthand_interactive_detector_scientific_wpn_throw_end   = veles_bolt_end
+
+anm_lefthand_interactive_detector_scientific_wpn_throw_begin_16x9 = veles_bolt_start
+anm_lefthand_interactive_detector_scientific_wpn_throw_idle_16x9  = veles_bolt_idle
+anm_lefthand_interactive_detector_scientific_wpn_throw_end_16x9   = veles_bolt_end

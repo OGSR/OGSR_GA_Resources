@@ -1,0 +1,9 @@
+[logic]
+active = sr_idle@0
+
+[sr_idle@0]
+on_actor_inside = sr_idle@1
+
+[sr_idle@1]
+on_actor_outside = sr_idle@0
+on_timer = 1000 | {+esc_kvest_qest_on_elevator_chek_start} %=babah_sniper_qest_on_elevator% nil

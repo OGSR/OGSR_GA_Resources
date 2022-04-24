@@ -1,0 +1,78 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@wait1
+on_death = death
+combat_ignore = combat_ignore
+danger = danger_condition
+
+[walker@wait1]
+path_walk = sinyak_walk_work
+path_look = sinyak_look_sit
+meet = meet@drunk
+danger = danger_condition
+on_timer = 10000 | walker@wait2
+on_info = {+sinyak_votrube} %=give_item(vodka_a) -sinyak_awaked% remark@drink, {+sinyak_work} remark@work1
+
+[walker@wait2]
+path_walk = sinyak_walk_work
+path_look = sinyak_look_sleep
+meet = meet@drunk2
+danger = danger_condition
+on_timer = 10000 | walker@wait1
+on_info = {+sinyak_votrube} %=give_item(vodka_a) -sinyak_awaked% remark@drink, {+sinyak_work} remark@work1
+
+[remark@drink]
+anim = eat_vodka_sinyak
+snd = sinyak_drink
+snd_anim_sync = true
+no_move = true
+target = sinyak_look_sleep, 0
+meet = no_meet
+danger = danger_condition
+on_signal = anim_end | %=start_sleep_timer% remark@sleep
+
+[remark@sleep]
+anim = sleep_sinyak
+no_move = true
+meet = no_meet
+danger = danger_condition
+on_info = {+sinyak_awaked} %-sinyak_votrube%  walker@wait1
+
+[remark@work1]
+anim = working_pkm
+no_move = true
+target = sinyak_look_work, 0
+meet = no_meet
+danger = danger_condition
+on_signal = anim_end | %+sinyak_finish -sinyak_votrube -sinyak_work -sinyak_start% walker@wait1
+
+[meet@drunk]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+meet_state = 3|sit_ass@sinyak_hello
+meet_state_wpn = 3|sit_ass@sinyak_hello
+
+[meet@drunk2]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+meet_state = 3|sleep_sit@sinyak_hello
+meet_state_wpn = 3|sleep_sit@sinyak_hello
+
+
+[combat_ignore]
+combat_ignore = always
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_grenade = 0
+ignore_distance_corpse = 0
+ignore_distance_hit = 0
+ignore_distance_sound = 0
+danger_inertion_time = 1
+
+[death]
+on_info = %+sinyak_dead%

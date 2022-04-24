@@ -1,0 +1,2643 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+----------------------------------------------------------------------------------------------------
+-- Здесь будут находиться классы ф-ций, предназначенные для отображения визуальных девайсов
+----------------------------------------------------------------------------------------------------
+-- 18.01.2013
+----------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------
+-- Чебурашка
+----------------------------------------------------------------------------------------------------
+
+function cheb1_1()
+	local spwn = cheb_1_1(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_1_1" (CUIScriptWnd)
+
+function cheb_1_1:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_1_1:__finalize() end
+
+function cheb_1_1:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb1_1.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+	-- кнопка 2
+	self.btn_2 = xml:Init3tButton("btn_2", self)
+	self:Register(self.btn_2, "btn_2")
+	self.btn_2:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+	self.btn_2:Enable(true)
+end
+
+function cheb_1_1:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_2", ui_events.BUTTON_CLICKED,  self.btn2, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_1_1:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb1_2()
+end
+
+function cheb_1_1:btn2()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb1_3()
+end
+
+function cheb_1_1:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb1_2()
+	local spwn = cheb_1_2(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_1_2" (CUIScriptWnd)
+
+function cheb_1_2:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_1_2:__finalize() end
+
+function cheb_1_2:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb1_2.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+	-- кнопка 2
+	self.btn_2 = xml:Init3tButton("btn_2", self)
+	self:Register(self.btn_2, "btn_2")
+	self.btn_2:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+	self.btn_2:Enable(true)
+end
+
+function cheb_1_2:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_2", ui_events.BUTTON_CLICKED,  self.btn2, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_1_2:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb1_4()
+end
+
+function cheb_1_2:btn2()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb1_5()
+end
+
+function cheb_1_2:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb1_3()
+	local spwn = cheb_1_3(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_1_3" (CUIScriptWnd)
+
+function cheb_1_3:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_1_3:__finalize() end
+
+function cheb_1_3:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb1_3.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_1_3:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_1_3:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb1_5()
+end
+
+function cheb_1_3:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb1_4()
+	local spwn = cheb_1_4(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_1_4" (CUIScriptWnd)
+
+function cheb_1_4:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_1_4:__finalize() end
+
+function cheb_1_4:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb1_4.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_1_4:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_1_4:btn1()
+	self:on_quit()
+	ogse.remove_item_from_inventory(db.actor:object("cheb"),actor)
+	db.actor:give_info_portion("cheb_dead")
+	soundtrack.cheb_dead()
+end
+
+function cheb_1_4:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb1_5()
+	local spwn = cheb_1_5(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_1_5" (CUIScriptWnd)
+
+function cheb_1_5:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_1_5:__finalize() end
+
+function cheb_1_5:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb1_5.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_1_5:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_1_5:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb1_6()
+end
+
+function cheb_1_5:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb1_6()
+	local spwn = cheb_1_6(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_1_6" (CUIScriptWnd)
+
+function cheb_1_6:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_1_6:__finalize() end
+
+function cheb_1_6:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb1_6.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_1_6:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_1_6:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb1_7()
+end
+
+function cheb_1_6:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb1_7()
+	local spwn = cheb_1_7(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_1_7" (CUIScriptWnd)
+
+function cheb_1_7:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_1_7:__finalize() end
+
+function cheb_1_7:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb1_7.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_1_7:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_1_7:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+--	jekan_work.spawn_hvost()
+	db.actor:give_info_portion ("cheb_task1")
+end
+
+function cheb_1_7:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_1()
+	local spwn = cheb_2_1(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_1" (CUIScriptWnd)
+
+function cheb_2_1:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_1:__finalize() end
+
+function cheb_2_1:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	if db.actor:dont_has_info("cheb_found_kolya") then
+		xml:ParseFile("cheb\\cheb2_1.xml")
+	else
+		xml:ParseFile("cheb\\cheb2_1_1.xml")
+	end
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+	-- кнопка 2
+	if db.actor:dont_has_info("cheb_found_kolya") then
+		self.btn_2 = xml:Init3tButton("btn_2", self)
+		self:Register(self.btn_2, "btn_2")
+		self.btn_2:Enable(false)
+	end
+	-- кнопка 3
+	self.btn_3 = xml:Init3tButton("btn_3", self)
+	self:Register(self.btn_3, "btn_3")
+	self.btn_3:Enable(false)
+	-- кнопка 4
+	self.btn_4 = xml:Init3tButton("btn_4", self)
+	self:Register(self.btn_4, "btn_4")
+	self.btn_4:Enable(false)
+	-- кнопка 5
+	self.btn_5 = xml:Init3tButton("btn_5", self)
+	self:Register(self.btn_5, "btn_5")
+	self.btn_5:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+	if db.actor:dont_has_info("cheb_found_kolya") then
+		self.btn_2:Enable(true)
+	end
+	self.btn_3:Enable(true)
+	self.btn_4:Enable(true)
+	self.btn_5:Enable(true)
+end
+
+function cheb_2_1:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	if db.actor:dont_has_info("cheb_found_kolya") then
+		self:AddCallback("btn_2", ui_events.BUTTON_CLICKED,  self.btn2, self)
+	end
+	self:AddCallback("btn_3", ui_events.BUTTON_CLICKED,  self.btn3, self)
+	self:AddCallback("btn_4", ui_events.BUTTON_CLICKED,  self.btn4, self)
+	self:AddCallback("btn_5", ui_events.BUTTON_CLICKED,  self.btn5, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_1:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_2()
+end
+
+function cheb_2_1:btn2()
+	self:on_quit()
+	if has_alife_info("cheb_task1") and db.actor:dont_has_info("cheb_task2") and db.actor:dont_has_info("cheb_task3") and db.actor:dont_has_info("cheb_task4") and db.actor:dont_has_info("cheb_task5") and db.actor:dont_has_info("cheb_task6") and db.actor:dont_has_info("cheb_task7") then
+		if db.actor:dont_has_info("cheb_found_kolya") then
+			soundtrack.cheb_talking()
+			cheb2_3_1()
+		end
+	end
+	if has_alife_info("cheb_task2") and db.actor:dont_has_info("cheb_task3") and db.actor:dont_has_info("cheb_task4") and db.actor:dont_has_info("cheb_task5") and db.actor:dont_has_info("cheb_task6") and db.actor:dont_has_info("cheb_task7") then
+		soundtrack.cheb_talking()
+		cheb2_3_2()
+	end
+	if has_alife_info("cheb_task3") and db.actor:dont_has_info("cheb_task4") and db.actor:dont_has_info("cheb_task5") and db.actor:dont_has_info("cheb_task6") and db.actor:dont_has_info("cheb_task7") then
+		soundtrack.cheb_talking()
+		cheb2_3_3()
+	end
+	if has_alife_info("cheb_task4") and db.actor:dont_has_info("cheb_task5") and db.actor:dont_has_info("cheb_task6") and db.actor:dont_has_info("cheb_task7") then
+		soundtrack.cheb_talking()
+		cheb2_3_4()
+	end
+	if has_alife_info("cheb_task5") and db.actor:dont_has_info("cheb_task6") and db.actor:dont_has_info("cheb_task7") then
+		soundtrack.cheb_talking()
+		cheb2_3_5()
+	end
+	if has_alife_info("cheb_task6") and db.actor:dont_has_info("cheb_task7") then
+		soundtrack.cheb_talking()
+		cheb2_3_6()
+	end
+	if has_alife_info("cheb_task7") then
+		soundtrack.cheb_talking()
+		cheb2_3_7()
+	end
+	if has_alife_info("cheb_task7") and has_alife_info("cheb_task6") and has_alife_info("cheb_task5") and has_alife_info("cheb_task4") and has_alife_info("cheb_task3") and has_alife_info("cheb_task2") and has_alife_info("cheb_task1") then
+		soundtrack.cheb_talking()
+		cheb2_3_8()
+	end
+end
+
+function cheb_2_1:btn3()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	if db.actor:has_info("cheb_busy_story") and db.actor:has_info("cheb_busy_guidance") then
+		cheb2_4_11()
+	else
+		cheb2_4()
+	end
+end
+
+function cheb_2_1:btn4()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_5()
+end
+
+function cheb_2_1:btn5()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_6()
+end
+
+-- function cheb_2_1:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_1:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_2()
+	local spwn = cheb_2_2(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_2" (CUIScriptWnd)
+
+function cheb_2_2:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_2:__finalize() end
+
+function cheb_2_2:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_2.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_2:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_2:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+-- function cheb_2_2:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_2:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_3_1()
+	local spwn = cheb_2_3_1(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_3_1" (CUIScriptWnd)
+
+function cheb_2_3_1:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_3_1:__finalize() end
+
+function cheb_2_3_1:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	if db.actor:has_info("cheb_talked_to_hvost") then
+		xml:ParseFile("cheb\\cheb2_3_1_1.xml")
+	else
+		xml:ParseFile("cheb\\cheb2_3_1.xml")
+	end
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_3_1:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_3_1:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+-- function cheb_2_3_1:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_3_1:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_3_2()
+	local spwn = cheb_2_3_2(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_3_2" (CUIScriptWnd)
+
+function cheb_2_3_2:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_3_2:__finalize() end
+
+function cheb_2_3_2:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_3_2.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_3_2:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_3_2:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+-- function cheb_2_3_2:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_3_2:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_3_3()
+	local spwn = cheb_2_3_3(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_3_3" (CUIScriptWnd)
+
+function cheb_2_3_3:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_3_3:__finalize() end
+
+function cheb_2_3_3:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_3_3.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_3_3:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_3_3:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+-- function cheb_2_3_3:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_3_3:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_3_4()
+	local spwn = cheb_2_3_4(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_3_4" (CUIScriptWnd)
+
+function cheb_2_3_4:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_3_4:__finalize() end
+
+function cheb_2_3_4:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_3_4.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_3_4:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_3_4:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+-- function cheb_2_3_4:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_3_4:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_3_5()
+	local spwn = cheb_2_3_5(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_3_5" (CUIScriptWnd)
+
+function cheb_2_3_5:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_3_5:__finalize() end
+
+function cheb_2_3_5:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_3_5.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_3_5:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_3_5:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+-- function cheb_2_3_5:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_3_5:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_3_6()
+	local spwn = cheb_2_3_6(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_3_6" (CUIScriptWnd)
+
+function cheb_2_3_6:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_3_6:__finalize() end
+
+function cheb_2_3_6:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_3_6.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_3_6:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_3_6:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+-- function cheb_2_3_6:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_3_6:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_3_7()
+	local spwn = cheb_2_3_7(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_3_7" (CUIScriptWnd)
+
+function cheb_2_3_7:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_3_7:__finalize() end
+
+function cheb_2_3_7:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_3_7.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_3_7:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_3_7:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+-- function cheb_2_3_7:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_3_7:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_3_8()
+	local spwn = cheb_2_3_8(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_3_8" (CUIScriptWnd)
+
+function cheb_2_3_8:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_3_8:__finalize() end
+
+function cheb_2_3_8:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_3_8.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_3_8:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_3_8:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+-- function cheb_2_3_8:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_3_8:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_4()
+	local spwn = cheb_2_4(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_4" (CUIScriptWnd)
+
+function cheb_2_4:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_4:__finalize() end
+
+function cheb_2_4:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_4.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_4:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_4:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_4a()
+end
+
+function cheb_2_4:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_4a()
+	local spwn = cheb_2_4a(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_4a" (CUIScriptWnd)
+
+function cheb_2_4a:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_4a:__finalize() end
+
+function cheb_2_4a:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	if db.actor:has_info("cheb_busy_guidance") and db.actor:has_info("cheb_busy_story")  then	-- чебурану надоело подсказывать и рассказывать
+		xml:ParseFile("cheb\\cheb2_4a_no_talk.xml")
+	elseif db.actor:has_info("cheb_busy_guidance") then		-- чебуран надоело подсказывать
+		xml:ParseFile("cheb\\cheb2_4a_no_guidance.xml")
+	elseif db.actor:has_info("cheb_busy_story")  then		-- чебуран надоело рассказывать
+		xml:ParseFile("cheb\\cheb2_4a_no_story.xml")
+	else
+		xml:ParseFile("cheb\\cheb2_4a.xml")		-- чебуран готов что угодно рассказать
+	end
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	if db.actor:dont_has_info("cheb_busy_guidance") then
+		self.btn_1 = xml:Init3tButton("btn_1", self)
+		self:Register(self.btn_1, "btn_1")
+		self.btn_1:Enable(false)
+	end
+	if db.actor:dont_has_info("cheb_busy_story") then
+		self.btn_2 = xml:Init3tButton("btn_2", self)
+		self:Register(self.btn_2, "btn_2")
+		self.btn_2:Enable(false)
+	end
+--[[	self.btn_3 = xml:Init3tButton("btn_3", self)
+	self:Register(self.btn_3, "btn_3")
+	self.btn_3:Enable(false)
+	self.btn_4 = xml:Init3tButton("btn_4", self)
+	self:Register(self.btn_4, "btn_4")
+	self.btn_4:Enable(false)]]
+	self.btn_5 = xml:Init3tButton("btn_5", self)
+	self:Register(self.btn_5, "btn_5")
+	self.btn_5:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	if db.actor:dont_has_info("cheb_busy_guidance") then
+		self.btn_1:Enable(true)
+	end
+	if db.actor:dont_has_info("cheb_busy_story") then
+		self.btn_2:Enable(true)
+	end
+--	self.btn_3:Enable(true)
+--	self.btn_4:Enable(true)
+	self.btn_5:Enable(true)
+end
+
+function cheb_2_4a:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+if db.actor:dont_has_info("cheb_busy_guidance") then
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+end
+if db.actor:dont_has_info("cheb_busy_story") then
+	self:AddCallback("btn_2", ui_events.BUTTON_CLICKED,  self.btn2, self)
+end
+--	self:AddCallback("btn_3", ui_events.BUTTON_CLICKED,  self.btn3, self)
+--	self:AddCallback("btn_4", ui_events.BUTTON_CLICKED,  self.btn4, self)
+	self:AddCallback("btn_5", ui_events.BUTTON_CLICKED,  self.btn5, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_4a:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	jekan_work.cheb_guidance()
+end
+
+function cheb_2_4a:btn2()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	jekan_work.cheb_guidance_story()
+end
+--[[
+function cheb_2_4a:btn3()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	news_manager.send_tip(db.actor, "cheb_surge_tip", nil, "chebur1", 5000, nil)
+end
+
+function cheb_2_4a:btn4()
+	self:on_quit()
+	if db.actor:dont_has_info("cheb_levelhelp") then
+		soundtrack.cheb_talking()
+		jekan_work.cheb_level_help()
+	elseif has_alife_info("cheb_levelhelp") then
+		soundtrack.cheb_talking()
+		cheb_help2()
+	end
+end
+]]
+function cheb_2_4a:btn5()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+function cheb_2_4a:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb_guidance(guidance_index)
+	local spwn = cheb_ui_guidance(nil, guidance_index)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_ui_guidance" (CUIScriptWnd)
+
+function cheb_ui_guidance:__init(owner, guidance_index) super()
+	
+	self:InitControls(guidance_index)
+	self:InitCallBacks()
+end
+
+function cheb_ui_guidance:__finalize() end
+
+function cheb_ui_guidance:InitControls(guidance_index)
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb_guidance.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	local cheb_talking = xml:InitStatic("cheb_talking", self)
+	cheb_talking:SetText(game.translate_string("cheb_guidance_"..guidance_index))
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_ui_guidance:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_ui_guidance:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+function cheb_ui_guidance:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+
+-----------------------------------------------------------------------------------------------
+
+function cheb2_4_11()
+	local spwn = cheb_2_4_11(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_4_11" (CUIScriptWnd)
+
+function cheb_2_4_11:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_4_11:__finalize() end
+
+function cheb_2_4_11:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_4_11.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_4_11:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_4_11:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+function cheb_2_4_11:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb_story(story)
+	local spwn = cheb_ui_story(nil, story)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_ui_story" (CUIScriptWnd)
+
+function cheb_ui_story:__init(owner, story) super()
+	
+	self.story = story
+	self.page = 1
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_ui_story:__finalize() end
+
+function cheb_ui_story:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb_story.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	self.cheb_talking = xml:InitStatic("cheb_talking", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+
+	self:show_page()
+end
+
+function cheb_ui_story:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_ui_story:btn1()
+	local story_ended, text = self:next_page()
+	if story_ended then
+		self:on_quit()
+		cheb2_1()
+	else
+		self.page = self.page + 1
+		self:show_page()
+	end
+end
+
+function cheb_ui_story:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+
+function cheb_ui_story:show_page()
+	local page_tag = string.format("cheb_story%d_%d", self.story, self.page)
+	local text = game.translate_string(page_tag)
+	if text == page_tag then
+		text = game.translate_string("cheb_story_empty")
+	end
+	self.cheb_talking:SetText(text)
+
+	local story_ended, text = self:next_page()
+
+	local btn_text = story_ended and string.format("cheb_story%d_ok", self.story) or "cheb_story_next"
+	self.btn_1:SetText(game.translate_string(btn_text))
+end
+
+function cheb_ui_story:next_page()
+	local story_ended = false
+	local page_tag = string.format("cheb_story%d_%d", self.story, self.page + 1)
+	local text = game.translate_string(page_tag)
+	if text == page_tag then story_ended = true end
+	return story_ended, text
+end
+
+-----------------------------------------------------------------------------------------------
+
+function cheb2_5()
+	local spwn = cheb_2_5(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_5" (CUIScriptWnd)
+
+function cheb_2_5:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_5:__finalize() end
+
+function cheb_2_5:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_5.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+	self.btn_2 = xml:Init3tButton("btn_2", self)
+	self:Register(self.btn_2, "btn_2")
+	self.btn_2:Enable(false)
+	self.btn_3 = xml:Init3tButton("btn_3", self)
+	self:Register(self.btn_3, "btn_3")
+	self.btn_3:Enable(false)
+	self.btn_4 = xml:Init3tButton("btn_4", self)
+	self:Register(self.btn_4, "btn_4")
+	self.btn_4:Enable(false)
+	self.btn_5 = xml:Init3tButton("btn_5", self)
+	self:Register(self.btn_5, "btn_5")
+	self.btn_5:Enable(false)
+	self.btn_6 = xml:Init3tButton("btn_6", self)
+	self:Register(self.btn_6, "btn_6")
+	self.btn_6:Enable(false)
+	self.btn_7 = xml:Init3tButton("btn_7", self)
+	self:Register(self.btn_7, "btn_7")
+	self.btn_7:Enable(false)
+	self.btn_8 = xml:Init3tButton("btn_8", self)
+	self:Register(self.btn_8, "btn_8")
+	self.btn_8:Enable(false)
+	self.btn_9 = xml:Init3tButton("btn_9", self)
+	self:Register(self.btn_9, "btn_9")
+	self.btn_9:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	if has_alife_info("secret_villager_task") and db.actor:dont_has_info("muzikant_quest_1_reward") and db.actor:dont_has_info("muzikant_dead") then
+		self.btn_1:Enable(true)
+	end
+	if has_alife_info("arthunter_task") and db.actor:has_info("strange_anomaly_portal_touched") and db.actor:dont_has_info("have_af_puzir") and db.actor:dont_has_info("arthunter_dead") then
+		self.btn_2:Enable(true)
+	end
+	if has_alife_info("digger_seif_task") and db.actor:dont_has_info("safe_1_opened") then
+		self.btn_3:Enable(true)
+	end
+	if has_alife_info("voronin_tower_task") and db.actor:dont_has_info("tower_box_off") then
+		self.btn_4:Enable(true)
+	end
+	if has_alife_info("cheburan_helped_for_af_dark") and db.actor:dont_has_info("fleshka_4_find") then
+		self.btn_5:Enable(true)
+	end
+	if has_alife_info("prof_task_2") and db.actor:dont_has_info("iskateli_surrend1") then
+		self.btn_6:Enable(true)
+	end
+	if has_alife_info("plenniy_shron_info") and db.actor:dont_has_info("prof_zapiska_find") then
+		self.btn_7:Enable(true)
+	end
+	if has_alife_info("zapravka_port_task") and db.actor:dont_has_info("have_af_mayatnik") then
+		self.btn_8:Enable(true)
+	end
+	if has_alife_info("dead_stalker_question_of_immortality_first_part_start") and db.actor:dont_has_info("dead_stalker_question_of_immortality_first_part_complete") then
+		self.btn_9:Enable(true)
+	end
+end
+
+function cheb_2_5:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_2", ui_events.BUTTON_CLICKED,  self.btn2, self)
+	self:AddCallback("btn_3", ui_events.BUTTON_CLICKED,  self.btn3, self)
+	self:AddCallback("btn_4", ui_events.BUTTON_CLICKED,  self.btn4, self)
+	self:AddCallback("btn_5", ui_events.BUTTON_CLICKED,  self.btn5, self)
+	self:AddCallback("btn_6", ui_events.BUTTON_CLICKED,  self.btn6, self)
+	self:AddCallback("btn_7", ui_events.BUTTON_CLICKED,  self.btn7, self)
+	self:AddCallback("btn_8", ui_events.BUTTON_CLICKED,  self.btn8, self)
+	self:AddCallback("btn_9", ui_events.BUTTON_CLICKED,  self.btn9, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_5:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	show_quest_tip("cheb_2_5_1_0", "cheb_2_5_1_1")
+end
+
+function cheb_2_5:btn2()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	show_quest_tip("cheb_2_5_2_0", "cheb_2_5_2_1")
+end
+
+function cheb_2_5:btn3()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	show_quest_tip("cheb_2_5_3_0", "cheb_2_5_3_1")
+end
+
+function cheb_2_5:btn4()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	show_quest_tip("cheb_2_5_4_0", "cheb_2_5_4_1")
+end
+
+function cheb_2_5:btn5()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	show_quest_tip("cheb_2_5_5_0", "cheb_2_5_5_1")
+end
+
+function cheb_2_5:btn6()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	show_quest_tip("cheb_2_5_6_0", "cheb_2_5_6_1")
+end
+
+function cheb_2_5:btn7()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	show_quest_tip("cheb_2_5_7_0", "cheb_2_5_7_1")
+end
+
+function cheb_2_5:btn8()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	show_quest_tip("cheb_2_5_8_0", "cheb_2_5_8_1")
+end
+
+function cheb_2_5:btn9()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	local tips = ""
+	if db.actor:dont_has_info("dead_stalker_question_of_immortality_get_muten") then
+		tips = tips..game.translate_string("cheb_2_5_9_muten").."\\n \\n"
+	end
+	if db.actor:dont_has_info("dead_stalker_question_of_immortality_get_firefly") then
+		if ogse.var_exists("green_anomaly_id") then
+			local sobj = alife():object(ogse.load_var("green_anomaly_id"))
+			if sobj then
+				local lvl_names = {
+					l01_escape = game.translate_string("cheb_places_1_text"),
+					l03_agroprom = game.translate_string("cheb_places_2_text"),
+					l04_darkvalley = game.translate_string("cheb_places_3_text"),
+					l07_military = game.translate_string("cheb_places_4_text"),
+					l08_yantar = game.translate_string("cheb_places_5_text"),
+				}
+				local lvl = level_system_name_by_gvid(sobj.m_game_vertex_id)
+				local s = string.format(game.translate_string("cheb_2_5_9_firefly"), lvl_names[lvl])
+				tips = tips..s.."\\n \\n"
+			end
+		end
+	end
+	if db.actor:dont_has_info("dead_stalker_question_of_immortality_get_chameleon") then
+		tips = tips..game.translate_string("cheb_2_5_9_chameleon").."\\n \\n"
+	end
+	tips = tips..game.translate_string("cheb_2_5_9_common")
+	show_quest_tip(tips, "cheb_2_5_9_1")
+end
+
+function cheb_2_5:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+
+-----------------------------------------------------------------------------------------------
+
+function show_quest_tip(tip, answer)
+	local spwn = cheb_quest_tip(nil, tip, answer)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_quest_tip" (CUIScriptWnd)
+
+function cheb_quest_tip:__init(owner, tip, answer) super()
+	
+	self:InitControls(tip, answer)
+	self:InitCallBacks()
+end
+
+function cheb_quest_tip:__finalize() end
+
+function cheb_quest_tip:InitControls(tip, answer)
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb_quest_tip.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking", self):SetText(game.translate_string(tip))
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self.btn_1:SetText(game.translate_string(answer))
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_quest_tip:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_quest_tip:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+function cheb_quest_tip:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+
+-----------------------------------------------------------------------------------------------
+
+function cheb2_6()
+	local spwn = cheb_2_6(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_6" (CUIScriptWnd)
+
+function cheb_2_6:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_6:__finalize() end
+
+function cheb_2_6:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_6.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+	xml:InitStatic("cheb_talking2", self)
+	xml:InitStatic("cheb_talking3", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_6:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_6:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	-- cheb2_1()
+	db.actor:give_info_portion("cheb_sleep")
+	if db.actor:dont_has_info("cheb_task1") then
+		ogse.start_timer("cheb5",1200)
+	end
+end
+
+-- function cheb_2_6:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_6:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb2_7()
+	local spwn = cheb_2_7(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_2_7" (CUIScriptWnd)
+
+function cheb_2_7:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_2_7:__finalize() end
+
+function cheb_2_7:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb2_7.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_2_7:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_2_7:btn1()
+	self:on_quit()
+	soundtrack.cheb_talking()
+	cheb2_1()
+end
+
+-- function cheb_2_7:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_2_7:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb_help1()
+	local spwn = cheb_help_1(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_help_1" (CUIScriptWnd)
+
+function cheb_help_1:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_help_1:__finalize() end
+
+function cheb_help_1:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb_help_1.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+	xml:InitStatic("cheb_talking2", self)
+	xml:InitStatic("cheb_talking3", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_help_1:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_help_1:btn1()
+	self:on_quit()
+	cheb2_1()
+end
+
+-- function cheb_help_1:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_help_1:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+function cheb_help2()
+	local spwn = cheb_help_2(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "cheb_help_2" (CUIScriptWnd)
+
+function cheb_help_2:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function cheb_help_2:__finalize() end
+
+function cheb_help_2:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("cheb\\cheb_help_2.xml")
+
+	-- тело
+	xml:InitStatic("body", self)
+
+	-- окно диалога
+	xml:InitStatic("table", self)
+
+	-- имя перса
+	xml:InitStatic("name", self)
+
+	-- фразы персонажа
+	xml:InitStatic("cheb_talking1", self)
+	xml:InitStatic("cheb_talking2", self)
+
+	-- кнопка 1
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+
+	-- кнопка офф
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+end
+
+function cheb_help_2:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+function cheb_help_2:btn1()
+	self:on_quit()
+	cheb2_1()
+end
+
+-- function cheb_help_2:on_quit()
+--	self:on_quit()
+--	soundtrack.cheb_talking()
+-- end
+
+function cheb_help_2:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+	soundtrack.cheb_talking()
+end
+-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+-- Прибор из башни, бьющий по мозгам ------------------------------------------------------------------------------------------------------------------------------------------
+
+local WIDTH_FACTOR = device().height / device().width / 0.75
+
+class "tower_box" (CUIScriptWnd)
+
+function tower_box:__init() super()
+    self.btn_v_pressed     = -1
+    self.btn_h_pressed     = -1
+    self.arrow_angle_min   = math.rad (13)  -- начальный угол
+    self.btn_angle_range   = (math.abs(self.arrow_angle_min) + math.abs(math.rad (-45)))/6 -- угол одного деления
+    -- self.arrow_angle
+    -- self.arrow_angle_max                        -- где заканчивать движение стрелки при движении "вверх"
+    self.angle_update_down = math.rad (3)   -- на сколько градусов поворачивать стрелку "вниз" за 1 апдейт
+    self.angle_update_up   = math.rad (1) -- на сколько градусов поворачивать стрелку "вниз" за 1 апдейт
+    self.move_arrow_up     = false -- флаг начала апдейта движения стрелки "вверх"
+    self.move_arrow_down   = false -- флаг начала апдейта движения стрелки "вниз" (сброс)
+    self.counter           = 0
+    self.led_color         = 'green'
+
+    self:InitLuaXml()
+    self:InitApp   ()
+    self:Bind      ()
+
+    self:OnHButtonClicked(self.btn_h_0, 0) -- первая горизонтальная кнопка должна быть нажата по умолчанию.
+end
+
+function tower_box:__finalize() end
+
+function tower_box:Bind()
+    self.sm_update = {signal = "on_update", ['self'] = self, fun = self.onUpdate}
+    ogse_signals.get_mgr():subscribe(self.sm_update)
+end
+
+------------------------------------------------------------------------------------------------------------------
+function tower_box:unBind() -- вызывается при закрытии окна
+    ogse_signals.get_mgr():unsubscribe(self.sm_update)
+	self.sm_update = nil
+	self:ClearCallbacks()
+end
+
+-- Dynamic XML -----------------------------------------------
+local function getHeadingX(x, w)
+    return x * WIDTH_FACTOR - (w - (w * WIDTH_FACTOR))/2
+end
+
+local function addXmlSec(luaxml, tag, x, y, w, h, tex)
+    local obj = luaxml:append{[0] = tag, x = x, y = y, width = w, height = h, stretch = 1}
+    if tex then obj:append{[0] = 'texture', [1] = tex} end
+    return obj
+end
+-- с поправкой координаты Х при использовании 'heading'
+local function addXmlSecEx(luaxml, tag, x, y, w, h, tex)
+    local obj = addXmlSec(luaxml, tag, x, y, w, h, tex)
+    obj.x       = getHeadingX(x, obj.width)
+    obj.heading = 1
+    return obj
+end
+
+function tower_box:InitLuaXml()
+    local luaxml = xml.new("tower_box")
+    -- Main Window ------------------------------
+    local main = luaxml:append('main')
+    main.width  = 764 * WIDTH_FACTOR
+    main.height = 484
+    main.x      = (1024 - main.width)/2
+    main.y      = (768 - main.height)/2
+
+    addXmlSec(luaxml, 'bg_static', 0, 0, main.width, main.height, "ui_tb_panel") -- Background_static
+    addXmlSecEx(luaxml, 'arrow_static', 504,  73, 140, 140, "ui_tb_arrow"     )  -- Arrow_static
+    addXmlSecEx(luaxml, 'btn_v_static',  78, 134,  46, 153, "ui_tb_v_button_1")  -- Button_v_static -- тут по ходу не нужно ставить текстуру, она поставить потом автоматом
+    addXmlSecEx(luaxml, 'btn_h_static',  80, 374, 118,  46, "ui_tb_h_button_0")  -- Button_h_static -- и тут тоже
+    addXmlSecEx(luaxml, 'led_static'  , 682,  72,  24,  24, "ui_tb_led_green" )  -- LED_static
+    addXmlSecEx(luaxml, 'btn_v'       ,   0,   0,  18,  31, "ui_tb_light_v"   )  -- Button_v
+    addXmlSecEx(luaxml, 'btn_h'       ,   0,   0,  47,  24, "ui_tb_light_h"   )  -- Button_h
+    -- Save XML
+    luaxml:save(DYN_XML_SAVE_PATH)
+end
+-- END Dynamic XML -----------------------------------------------
+
+function tower_box:InitApp()
+    self.cxml = CScriptXmlInit()
+    self.cxml:ParseFile("ui_dynamic.xml")
+    self.main  = self.cxml:InitWindow("main", 0, self)
+    self.bg    = self.cxml:InitStatic('bg_static'   , self)
+    self.arrow = self.cxml:InitStatic('arrow_static', self.bg)
+    self.btn_v = self.cxml:InitStatic('btn_v_static', self.bg)
+    self.btn_h = self.cxml:InitStatic('btn_h_static', self.bg)
+    self.led   = self.cxml:InitStatic('led_static'  , self.bg)
+
+    for i = 1, 4 do
+        local name = "btn_v_"..i
+        self[name] = self.cxml:InitButton("btn_v", self.bg)
+        local btn = self[name]
+        btn:SetWndPos(getHeadingX(84, btn:GetWidth()), 142+(i-1)*35 )
+        btn:SetColor(GetARGB(0,255,255,255))
+
+        self:Register(btn, name)
+        self:Connect(name, ui_events.BUTTON_CLICKED       , self.OnVButtonClicked , self, btn, i)
+        self:Connect(name, ui_events.STATIC_FOCUS_RECEIVED, self.OnVButtonReceived, self, btn, i)
+        self:Connect(name, ui_events.STATIC_FOCUS_LOST    , self.OnVButtonLost    , self, btn, i)
+    end
+
+    for i = 0, 4, 4 do
+        local name = "btn_h_"..i
+        self[name] = self.cxml:InitButton("btn_h", self.bg)
+        local btn = self[name]
+        btn:SetWndPos(getHeadingX(85 + i/4*48, btn:GetWidth()), 389)
+        btn:SetColor(GetARGB(0,255,255,255))
+
+        self:Register(btn, name)
+        self:Connect(name, ui_events.BUTTON_CLICKED       , self.OnHButtonClicked , self, btn, i)
+        self:Connect(name, ui_events.STATIC_FOCUS_RECEIVED, self.OnHButtonReceived, self, btn, i)
+        self:Connect(name, ui_events.STATIC_FOCUS_LOST    , self.OnHButtonLost    , self, btn, i)
+    end
+end
+
+function tower_box:checkLED(arrow_angle)
+
+    if arrow_angle <= self.arrow_angle_min -  6 * self.btn_angle_range then
+        if self.led_color ~= 'red' then
+            self.led_color = 'red'
+            self.led:InitTexture('ui_tb_led_red')
+        end
+    elseif arrow_angle <= self.arrow_angle_min -  5 * self.btn_angle_range then
+        if self.led_color ~= 'yellow' then
+            self.led_color = 'yellow'
+            self.led:InitTexture('ui_tb_led_yellow')
+        end
+    elseif self.led_color ~= 'green' then
+        self.led_color = 'green'
+        self.led:InitTexture('ui_tb_led_green')
+    end
+end
+
+function tower_box:onUpdate()
+    if self.move_arrow_up then
+        self.arrow_angle = self.arrow_angle - self.angle_update_up
+        if self.arrow_angle <= self.arrow_angle_max then
+
+            self.arrow_angle = self.arrow_angle_max
+            self.move_arrow_up = false
+            level.enable_input()
+            if self.counter == 8 then
+                db.actor:give_info_portion ("tower_box_off")
+                self:Exit()
+                jekan_work.tower_box_smoke()
+            end
+        end
+        self.arrow:SetHeading(self.arrow_angle)
+        self:checkLED(self.arrow_angle)
+    elseif self.move_arrow_down then
+        self.arrow_angle = self.arrow_angle + self.angle_update_down
+        self:checkLED(self.arrow_angle)
+        if self.arrow_angle >= self.arrow_angle_min then
+            self.move_arrow_down = false
+
+            self.counter       = 0  -- сброс
+            self.btn_v_pressed = -1 -- сброс
+            self.btn_h_pressed = -1 -- сброс
+            self:OnHButtonClicked(self.btn_h_0, 0) -- выставить в начальное положение
+            level.enable_input()
+        else
+            self.arrow:SetHeading(self.arrow_angle)
+        end
+    end
+end
+
+function tower_box:OnVButtonClicked(btn, i)
+    local btn_id = i + self.btn_h_pressed
+
+    if self.btn_v_pressed == btn_id then return end -- не обрабатывать уже нажатую
+    self.btn_v:InitTexture('ui_tb_v_button_'..i)
+    self:OnVButtonLost(btn, i) -- потушить подсветку
+    self.counter = self.counter + 1
+    local prev_btn_id = self.btn_v_pressed
+    self.btn_v_pressed = btn_id
+    soundtrack.towerbox_btn_press()
+
+    if prev_btn_id == -1 then -- если первый запуск, то сразу установить на начальную позицию
+        self.arrow:SetHeading(self.arrow_angle_min)
+    else
+        local valid_btn = self.counter == btn_id -- нажата "правильная" кнопка?
+        self.arrow_angle = self.arrow:GetHeading() -- текущий угол стрелки
+
+        if btn_id > prev_btn_id then -- если нажатая кнопка больше предыдущей, то двигать стрелку "вверх"
+
+            if not valid_btn then
+                if btn_id > 7 then btn_id = 7 end
+            end
+            self.arrow_angle_max  = self.arrow_angle_min - (btn_id - 1) * self.btn_angle_range
+            self.move_arrow_up = true
+        end
+
+        if not valid_btn then -- если неверная кнопка, то после движения "вверх" опустить да начального значения
+            self.move_arrow_down = true--
+        end
+        level.disable_input() -- не дать нажимать ничего, пока движется стрелка
+    end
+
+end
+
+function tower_box:OnVButtonReceived(btn, i)
+    local btn_id = i + self.btn_h_pressed
+    if self.btn_v_pressed == btn_id then return end -- нажатую не посвечивать
+    btn:SetColor(GetARGB(255,255,255,255))
+end
+
+function tower_box:OnVButtonLost(btn, i)
+    local btn_id = i + self.btn_h_pressed
+    if self.btn_v_pressed == btn_id then return end -- не обрабатывать уже нажатую
+    btn:SetColor(GetARGB(0,255,255,255))
+end
+
+function tower_box:OnHButtonClicked(btn, i)
+    if self.btn_h_pressed == i then return end -- не обрабатывать уже нажатую
+    self.btn_h:InitTexture('ui_tb_h_button_'..i) -- !!! ИСПРАВИТЬ В ТЕКСТУРАХ 1 и 2 на 0 и 4!!!
+    self:OnHButtonLost(btn, i)                      -- потушить подсветку
+    self.btn_h_pressed = i
+    self:OnVButtonClicked(self.btn_v_1, 1)       -- и нажать первую вертикальную кнопку
+end
+
+function tower_box:OnHButtonReceived(btn, i)
+    if self.btn_h_pressed == i then return end -- нажатую не посвечивать
+    btn:SetColor(GetARGB(255,255,255,255))
+end
+
+function tower_box:OnHButtonLost(btn, i)
+    if self.btn_h_pressed == i then return end -- не обрабатывать уже нажатую
+    btn:SetColor(GetARGB(0,255,255,255))
+end
+
+----------------------------------------------
+
+function tower_box:Exit()
+    self:unBind()
+    self:GetHolder():start_stop_menu(self,true)
+end
+
+function tower_box:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		if dik == DIK_keys.DIK_ESCAPE then
+			self:unBind()
+		end
+	end
+end
+
+-----------------------------------------------------------------------------------------------
+
+
+-- Тайник сержанта из Мертвого города ------------------------------------------------------------------------------------------------------------------------------------------
+
+function city_tower_box()
+	local spwn = city_tower_box_1(nil)
+	level.start_stop_menu(spwn,true)
+end
+
+class "city_tower_box_1" (CUIScriptWnd)
+
+function city_tower_box_1:__init(owner) super()
+	
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function city_tower_box_1:__finalize() end
+
+function city_tower_box_1:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(0,-70,1024,768)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("tower_box\\city_tower_box.xml")
+
+	-- рамка
+	xml:InitStatic("ramka", self)
+
+	-- кнопка ключ
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)
+	-- кнопка взлом
+	self.btn_2 = xml:Init3tButton("btn_2", self)
+	self:Register(self.btn_2, "btn_2")
+	self.btn_2:Enable(false)
+
+	-- определяем доступность кнопок
+	if db.actor:object("wpn_montirovka") ~= nil then
+		self.btn_1:Enable(true)
+	end
+	if db.actor:object("cit_tow_box_keys") ~= nil then
+		self.btn_2:Enable(true)
+	end
+end
+
+function city_tower_box_1:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED,  self.btn1, self)
+	self:AddCallback("btn_2", ui_events.BUTTON_CLICKED,  self.btn2, self)
+end
+
+function city_tower_box_1:btn1()
+	self:on_quit()
+	jekan_work.cit_tower_box_montirovka_open()
+end
+
+function city_tower_box_1:btn2()
+	self:on_quit()
+	jekan_work.cit_tower_box_keys_open()
+end
+
+function city_tower_box_1:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+end
+-----------------------------------------------------------------------------------------------
+
+function tower_box1_1()
+	local spwn = tower_box()
+	level.start_stop_menu(spwn,true)
+end
+
+--------------------------------------
+
+
+
+
+
+
+
+

@@ -1,0 +1,180 @@
+; Трансмуты Сахарова
+[af_transmut]:af_base_slot
+$prefetch 			= 8
+jump_height			= 0.1
+lights_enabled      = true
+trail_light_color   = 0.6,0.7,0.9
+trail_light_range   = 1.0
+artefact_activation_seq		= af_activation_electra
+
+hit_absorbation_sect = af_transmut_absorbation
+
+[af_transmut_absorbation]
+burn_immunity 		    = 1.0				;коэффициенты иммунитета 
+strike_immunity 	    = 1.0
+shock_immunity 		    = 1.0
+wound_immunity 		    = 1.0		
+radiation_immunity   	= 1.0
+telepatic_immunity 	    = 1.0
+chemical_burn_immunity 	= 1.0
+explosion_immunity   	= 1.0
+fire_wound_immunity  	= 1.0
+
+;Небо
+[af_transmut_1]:af_transmut
+$spawn				= "artifacts\af_transmut_1"
+visual				= artefacts\artefact_transmut_1.ogf 
+description			= enc_zone_artifact_af-transmut_1
+inv_name			= af-transmut_1
+inv_name_short		= af-transmut_1
+inv_weight			= 0.2
+inv_grid_x			= 26
+inv_grid_y			= 0
+
+cost				= 14000
+
+;скорости увеличения (уменьшения) 
+radiation_restore_speed = 0.0025
+hit_absorbation_sect = af_transmut_1_absorbation
+
+[af_transmut_1_absorbation]:af_transmut_absorbation
+strike_immunity = 0.77
+wound_immunity = 0.79	
+
+;ТдВ
+[af_transmut_2]:af_transmut
+$spawn				= "artifacts\af_transmut_2"
+visual				= artefacts\artefact_transmut_2.ogf 
+description			= enc_zone_artifact_af-transmut_2
+inv_name			= af-transmut_2
+inv_name_short		= af-transmut_2
+inv_weight			= 0.2
+inv_grid_x			= 26
+inv_grid_y			= 1
+
+cost				= 19000
+
+hit_absorbation_sect = af_transmut_2_absorbation
+
+[af_transmut_2_absorbation]:af_transmut_absorbation
+telepatic_immunity = 0.79
+
+;Козий Рог
+[af_transmut_3]:af_transmut
+$spawn				= "artifacts\af_transmut_3"
+visual				= artefacts\artefact_transmut_3.ogf 
+description			= enc_zone_artifact_af-transmut_3
+inv_name			= af-transmut_3
+inv_name_short		= af-transmut_3
+inv_weight			= 0.2
+inv_grid_x			= 26
+inv_grid_y			= 2
+
+cost				= 25000
+
+;скорости увеличения (уменьшения) 
+hit_absorbation_sect = af_transmut_3_absorbation
+
+[af_transmut_3_absorbation]:af_transmut_absorbation
+explosion_immunity = 0.86
+fire_wound_immunity  = 0.84
+
+;Гермес
+[af_transmut_4]:af_transmut
+$spawn				= "artifacts\af_transmut_4"
+visual				= artefacts\artefact_transmut_4.ogf  
+description			= enc_zone_artifact_af-transmut_4
+inv_name			= af-transmut_4
+inv_name_short		= af-transmut_4
+inv_weight			= 0.2
+inv_grid_x			= 26
+inv_grid_y			= 3
+
+cost				= 17000
+
+health_restore_speed	= -0.0009			
+satiety_restore_speed	= -1.3228e-5
+power_restore_speed     = 0.017
+
+additional_inventory_weight  = 18
+additional_inventory_weight2 = 18
+
+;Губка
+[af_transmut_5]:af_transmut
+$spawn				= "artifacts\af_transmut_5"
+visual				= artefacts\artefact_transmut_5.ogf 
+description			= enc_zone_artifact_af-transmut_5
+inv_name			= af-transmut_5
+inv_name_short		= af-transmut_5
+inv_weight			= 0.2
+inv_grid_x			= 26
+inv_grid_y			= 4
+
+cost				= 20000
+
+radiation_restore_speed 	=	-0.002
+hit_absorbation_sect = af_transmut_5_absorbation
+
+[af_transmut_5_absorbation]:af_transmut_absorbation
+burn_immunity = 0.83
+radiation_immunity = 0.9
+
+;Пчелиные соты
+[af_transmut_6]:af_transmut
+$spawn				= "artifacts\af_transmut_6"
+visual				= artefacts\artefact_transmut_6.ogf 
+description			= enc_zone_artifact_af-transmut_6
+inv_name			= af-transmut_6
+inv_name_short		= af-transmut_6
+inv_weight			= 0.2
+inv_grid_x			= 26
+inv_grid_y			= 5
+
+cost				= 16000
+
+hit_absorbation_sect = af_transmut_6_absorbation
+
+[af_transmut_6_absorbation]:af_transmut_absorbation
+chemical_burn_immunity = 0.7
+
+;Красная звезда
+[af_transmut_7]:af_transmut
+$spawn				= "artifacts\af_transmut_7"
+visual				= artefacts\artefact_transmut_7.ogf 
+description			= enc_zone_artifact_af-transmut_7
+inv_name			= af-transmut_7
+inv_name_short		= af-transmut_7
+inv_weight			= 0.2
+inv_grid_x			= 26
+inv_grid_y			= 6
+
+cost				= 50000
+
+health_restore_speed	= 0.0025	
+satiety_restore_speed	= -6.614e-6
+bleeding_restore_speed	= 0.015
+
+;Око
+[af_transmut_8]:af_transmut
+$spawn				= "artifacts\af_transmut_8"
+visual				= artefacts\artefact_transmut_8.ogf 
+description			= enc_zone_artifact_af-transmut_8
+inv_name			= af-transmut_8
+inv_name_short		= af-transmut_8
+inv_weight			= 0.2
+inv_grid_x			= 20
+inv_grid_y			= 7
+
+cost				= 18000
+
+satiety_restore_speed	= -3.307e-6
+power_restore_speed 	= 0.0028
+bleeding_restore_speed	= 0.003
+
+additional_inventory_weight  = 5
+additional_inventory_weight2 = 5
+
+hit_absorbation_sect = af_transmut_8_absorbation
+
+[af_transmut_8_absorbation]:af_transmut_absorbation
+telepatic_immunity = 1.14

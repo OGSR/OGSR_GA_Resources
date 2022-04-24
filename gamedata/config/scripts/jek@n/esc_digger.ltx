@@ -1,0 +1,64 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@digger_threshold
+
+[walker@begin]
+path_walk = esc_digger_walk
+path_look = esc_digger_look
+on_timer = 100 | walker 
+
+[walker]
+path_walk = esc_digger_walk
+path_look = esc_digger_look
+meet = meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+digger_laugh} remark@laugh
+
+[remark@laugh]
+anim = smeh
+snd = digger_laugh
+snd_anim_sync = true
+target = actor
+no_move = true
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_signal = anim_end | walker %-digger_laugh%
+
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 4|actor
+victim_wpn = 4|actor
+meet_state = 4|kurit_stoya@digger_hello
+meet_state_wpn = 4|kurit_stoya@digger_hello
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_grenade = 0
+ignore_distance_corpse = 0
+ignore_distance_hit = 0
+ignore_distance_sound = 0
+danger_inertion_time = 1
+
+[threshold@digger_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+digger_dead%
+

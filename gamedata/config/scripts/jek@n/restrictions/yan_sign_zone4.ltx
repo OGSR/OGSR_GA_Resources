@@ -1,0 +1,17 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_info = {+yan_attak} sr_sound@1
+
+[sr_sound@1]
+snd = ambient\random\rnd_horror4
+position = yan_attack_point2
+on_signal = sound_end | sr_sound@2
+
+[sr_sound@2]
+snd = ambient\mon_explosion
+position = yan_attack_point2
+on_signal = sound_end | nil
+
+

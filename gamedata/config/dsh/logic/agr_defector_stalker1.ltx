@@ -1,0 +1,50 @@
+[logic]
+active = {+agr_factory_heli_start} walker, walker@1
+combat_ignore = combat_ignore
+on_death = death
+
+[death]
+on_info = %+agr_factory_heli_start%
+
+[walker@1]
+path_walk = agr_entrance_walk1
+path_look = agr_entrance_look1
+on_signal = heli_start | remark
+combat_ignore_cond = {!fighting_actor}
+danger = danger_conditions
+meet = no_meet
+
+[remark]
+anim = help_agr
+on_timer = 8000 |  %+agr_factory_heli_start%
+on_signal = action_end | remark@2
+target = actor
+combat_ignore_cond = {!fighting_actor}
+danger = danger_conditions
+meet = no_meet
+
+[remark@2]
+anim = threat_heli
+snd = agr_stalker_help_1
+on_timer = 8000 | remark@3
+combat_ignore_cond = {!fighting_actor}
+danger = danger_conditions
+target = 393
+meet = no_meet
+
+[remark@3]
+anim = threat_heli
+snd = agr_stalker_help_4
+target = 393
+on_timer = 2000 | walker
+combat_ignore_cond = {!fighting_actor}
+danger = danger_conditions
+meet = no_meet
+
+[walker]
+path_walk = agr_attacking_stalker
+path_look = agr_attacking_stalker_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving3 = assault
+meet = no_meet

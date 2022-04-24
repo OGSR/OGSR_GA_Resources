@@ -1,0 +1,44 @@
+[logic]
+active = walker
+on_hit = hit
+on_death = death
+combat_ignore = combat_ignore
+
+[smart_terrains]
+none = true
+
+[hit]
+on_info = {=fighting_actor} %+bar_kvest_friend_of_barman_on_freedom_strike%
+
+[death]
+on_info = {=fighting_actor} %+bar_kvest_friend_of_barman_on_freedom_strike +bar_kvest_friend_of_barman_val_freedom_death_8%, , %+bar_kvest_friend_of_barman_val_freedom_death_8%
+
+[walker]
+path_walk = val_freedom_enemy_commander_walk
+path_look = val_freedom_enemy_look
+on_actor_dist_le = 25 | remark
+combat_ignore_cond = {-bar_kvest_friend_of_barman_on_freedom_strike}
+
+[remark]
+anim = guard
+no_move = true
+target = actor
+meet = meet
+on_actor_dist_ge = 27 | walker
+combat_ignore_cond = {-bar_kvest_friend_of_barman_on_freedom_strike}
+
+[meet]
+meet_state = 5| threat
+meet_state_wpn = 5| threat
+victim = 35| actor
+victim_wpn = 35| actor
+use = true
+use_wpn = false
+
+[combat_ignore]
+combat_ignore_cond = {-bar_kvest_friend_of_barman_on_freedom_strike}
+
+
+
+
+

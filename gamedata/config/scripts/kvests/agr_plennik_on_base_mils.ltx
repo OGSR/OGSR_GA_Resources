@@ -1,0 +1,71 @@
+[logic]
+active = camper
+combat_ignore = combat_ignore
+on_death = death
+
+[death]
+on_info = %+captive_on_agr_mill_base_killed%
+
+[smart_terrains]
+none = true
+
+[camper]
+path_walk = agr_quest_plennik_plennik_sit_point
+path_look = agr_quest_plennik_plennik_sit_point_look
+combat_ignore_cond = always
+def_state_campering = prisoner
+danger = danger_condition
+on_npc_in_zone = 351 |  agr_plennik_final_space | remark
+on_info = {+captive_on_agr_mill_base_captive_run} camper@run
+on_info2 = {+captive_on_agr_mill_base_heli_is_waiting} walker@prepare
+on_info3 = {+captive_on_agr_mill_base_saved} camper@pointstand
+meet = meet
+
+[walker@prepare]
+path_walk = agr_quest_plennik_plennik_sit_point
+path_look = agr_quest_plennik_plennik_sit_point_look
+combat_ignore_cond = always
+danger = danger_condition
+on_npc_in_zone = 351 |  agr_plennik_final_space | remark
+meet = meet
+on_timer = 2000 | walker
+on_info = {+captive_on_agr_mill_base_saved} camper@pointstand
+
+[walker]
+path_walk = captive_on_agr_mill_base_escort
+path_look = agr_quest_plennik_plennik_sit_point
+on_npc_in_zone = 351 |  agr_plennik_final_space | remark
+combat_ignore_cond = always
+danger = danger_condition
+meet = meet
+on_signal = path_end | %+captive_on_agr_mill_base_captive_on_rooftop%
+on_info = {+captive_on_agr_mill_base_saved} camper@pointstand
+
+;[walker@start_point]
+
+[meet]
+use_wpn = true
+
+[camper@run]
+path_walk = agr_krot_hold_combat_walk
+path_look = agr_krot_hold_combat_look
+meet = no_meet
+def_state_moving = sprint
+
+[remark]
+anim = wait
+target = actor
+meet = meet
+on_info = {+captive_on_agr_mill_base_saved} camper@pointstand
+
+[camper@pointstand]
+path_walk = captive_on_agr_mill_base_captive_point
+path_look = captive_on_agr_mill_base_dolg_guard_look_point1
+on_actor_dist_ge_nvis = 80 | {+captive_on_agr_mill_base_saved} %=del_npc%
+danger = danger_condition_point
+
+[danger_condition]
+ignore_distance = 0
+
+[danger_condition_point]
+ignore_distance = 10

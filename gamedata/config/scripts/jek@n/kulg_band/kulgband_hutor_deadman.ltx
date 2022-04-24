@@ -1,0 +1,77 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = {+kulgband_informer_task} walker@4, walker@begin
+danger = danger_ignore
+threshold = threshold@kulgband_hutor_deadman_threshold
+
+[walker@begin]
+path_walk =	kulgband_hutor_deadman_walk1
+path_look =	kulgband_hutor_deadman_look1
+on_timer = 1|walker@1 %=make_invulnerable%
+
+
+[walker@1]
+path_walk =	kulgband_hutor_deadman_walk1
+path_look =	kulgband_hutor_deadman_look1
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+on_signal       = arrived|remark@1
+
+[remark@1]
+;anim = hello
+anim = wounded_stand_hello
+snd = kulgband_hutor_deadman_hello
+target = 7028
+;target = actor
+combat_ignore_cond = always
+meet = no_meet
+on_signal = anim_end|walker@2 %+kulgband_hutor_deadman_hello%
+;on_signal = sound_end|walker@2 %+kulgband_hutor_deadman_hello%
+
+
+[walker@2]
+path_walk =	kulgband_hutor_deadman_walk1
+path_look =	shesterka_walk2
+combat_ignore_cond = always
+meet = no_meet
+on_info = {+ds_glavar_dead} walker@3
+
+[walker@3]
+path_walk =	kulgband_hutor_deadman_walk1
+path_look =	kulgband_hutor_deadman_look1
+combat_ignore_cond = always
+on_info = {+kulgband_informer_task} walker@4
+
+
+; На месте Кульгавого:
+[walker@4]
+path_walk =	kulgband_hutor_deadman_walk2
+path_look =	kulgband_hutor_deadman_look2
+combat_ignore_cond = always
+
+
+
+
+[danger_ignore]
+ignore_distance = 20
+ignore_distance_sound = 10
+danger_inertion_time_sound = 100
+danger_expiration_time = 300
+
+
+[threshold@kulgband_hutor_deadman_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+
+
+
+
+
+
+

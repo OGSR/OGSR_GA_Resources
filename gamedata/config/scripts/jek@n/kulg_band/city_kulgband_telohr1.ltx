@@ -1,0 +1,82 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = {+cit_kulgband_car_dead} nil, {+cit_kulgband_task_fail} nil, {+cit_kulgband_glavar_dead} nil, walker@begin
+;threshold = threshold@city_kulgband_telohr1_threshold
+on_death = death
+
+[walker@begin]
+path_walk =	city_kulgband_telohr1_walk1
+path_look =	city_kulgband_kamp_point
+on_info = {+kulgband_goto_deadcity2 +ds_glavar_blamed} %=set_community(voron_band)%
+on_timer = 10|walker@1 %=set_neutral%
+
+[walker@1]
+path_walk =	city_kulgband_telohr1_walk1
+path_look =	city_kulgband_kamp_point
+combat_ignore_cond = always
+meet = no_meet
+on_info = {+cit_kulgband_goto_klondike +kulgband_goto_deadcity1} follower@1
+on_info2 = {+cit_kulgband_goto_klondike +kulgband_goto_deadcity2} follower@3
+
+[follower@1]
+leader = 7385
+formation_line = true
+distance = 3
+anim_sprint = sprint
+meet = no_meet
+;combat_ignore_cond = always
+on_info = {+cit_kulgband_glavar_dead} nil
+on_info2 = {+cit_kulgband_glavar_to_klondike} walker@2
+
+[walker@2]
+path_walk =	city_kulgband_telohr1_walk2
+path_look =	klondike_particle
+combat_ignore_cond = {-cit_kulgband_glavar2_dead} always
+meet = no_meet
+on_info = {+cit_kulgband_enemy} nil %=killactor%
+on_info2 = {+cit_kulgband_glavar_cheat} walker@3
+on_info3 = {+cit_kulgband_glavar2_dead +cit_kulgband_sniper_spawn} %=set_enemies(7386:7398)%
+
+[walker@3]
+path_walk =	city_kulgband_telohr1_walk2
+path_look =	klondike_particle
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 1000|follower@2
+
+[follower@2]
+leader = 7385
+formation_line = true
+distance = 2
+anim_sprint = sprint
+meet = no_meet
+combat_ignore_cond = always
+on_info = {+cit_kulgband_task_fail} nil
+on_info2 = {+cit_kulgband_car_dead} nil
+
+
+; За Решалу:
+[follower@3]
+leader = 7396
+formation_line = true
+distance = 2
+anim_sprint = sprint
+meet = no_meet
+on_info = {+cit_kulgband_task_fail} nil
+on_info2 = {+cit_kulgband_glavar_dead} nil
+on_info3 = {+cit_kulgband_glavar_to_klondike} walker@2
+
+
+[threshold@city_kulgband_telohr1_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+[death]
+on_info = %+cit_kulgband_telohr1_dead%
+
+
+
+
+

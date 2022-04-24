@@ -1,0 +1,79 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = {+aem_go_bar} walker@idle %=switch%, {-aem_go_bar} walker@walker %=switch%
+combat_ignore = combat_ignore
+
+[walker@idle]
+path_walk = bar_bar_square_1_place_2_walk
+path_look = bar_bar_square_1_place_2_look
+def_state_moving1 = walk
+def_state_moving2 = walk
+def_state_moving3 = walk
+meet = meet
+combat_ignore_cond = {!actor_enemy}
+danger = danger_condition
+on_info = {+aem_megafone -aem_open} walker@walker %=switch%
+
+[walker@walker]
+path_walk = bar_arena_man_walk
+path_look = bar_arena_man_look
+def_state_moving1 = walk
+def_state_moving2 = walk
+def_state_moving3 = walk
+meet = meet
+combat_ignore_cond = {!actor_enemy}
+danger = danger_condition
+on_info = {+aem_megafone +aem_open =aem_kind} walker@open %=switch%, {+aem_megafone +aem_open =aem_evil} walker@special %=switch%, {+aem_go_bar} walker@idle %=switch%
+
+[meet]
+meet_state = 2| {!aem_check_blow} wait
+meet_state_wpn = 2| {!aem_check_blow} wait
+victim = 5 | actor
+victim_wpn = 5 | actor
+use = {!aem_check_blow} true, false
+use_wpn = {!aem_check_blow} true, false
+abuse = false
+
+[walker@open]
+path_walk = bar_arena_man_walk
+path_look = bar_arena_man_look
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+meet = meet@open
+combat_ignore_cond = {!actor_enemy}
+danger = danger_condition
+on_info = {+aem_go_bar} walker@idle %=switch%
+
+[meet@open]
+meet_state = 10| {=aem_on_place !aem_check_blow} hello@esc_wolf_say_thanks|3| {=aem_on_place !aem_check_blow} ward
+meet_state_wpn = 10| {=aem_on_place !aem_check_blow} hello@esc_wolf_say_thanks|3| {=aem_on_place !aem_check_blow} ward
+victim = 10 | actor
+victim_wpn = 10 | actor
+use = {!aem_check_blow} true, false
+use_wpn = {!aem_check_blow} true, false
+abuse = false
+
+[walker@special]
+path_walk = bar_arena_man_walk
+path_look = bar_arena_man_look
+meet = meet@special
+combat_ignore_cond = {!actor_enemy}
+danger = danger_condition
+on_info = {+aem_open +aem_megafon =aem_kind} walker@open %=switch%, {+aem_go_bar} walker@idle %=switch%
+
+[meet@special]
+meet_state = 10| {=aem_on_place !aem_check_blow} hello@esc_fanat_dialog|3| {=aem_on_place !aem_check_blow} ward
+meet_state_wpn = 10| {=aem_on_place !aem_check_blow} hello@esc_fanat_dialog|3| {=aem_on_place !aem_check_blow} ward
+victim = 10 | actor
+victim_wpn = 10 | actor
+use = {!aem_check_blow} true, false
+use_wpn = {!aem_check_blow} true, false
+abuse = false
+
+[danger_condition]
+ignore_distance = 0
+ 
+[combat_ignore]

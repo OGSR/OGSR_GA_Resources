@@ -1,0 +1,169 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+---------------------------------------
+--- ВЕРТОЛЕТЫ ---
+---------------------------------------
+
+-- ЦЕЛЕУКАЗАНИЕ
+
+-- получение всех боеспособных членов данного гулага
+function get_gulag_members(gname)
+	local gulag_members = {}
+	local gulag = xr_gulag.get_gulag_by_name(gname)
+    if gulag == nil then
+		gulag_members[1] = nil
+		return gulag_members
+	end
+	for k,v in pairs(gulag.Object) do
+		if (v == true or ( v:alive() and	-- 
+		   not(xr_wounded.is_heavy_wounded_by_id(k) or
+		       xr_wounded.is_psy_wounded_by_id(k)))) and
+			gulag.Object_begin_job[k] == true
+		then
+			if type(v) ~= "boolean" then
+				table.insert(gulag_members,v:id())
+			end
+		end
+	end
+	return gulag_members
+end
+
+local valid_communities = {
+	["stalker"] = true,
+	["dolg"] = true,
+	["freedom"] = true,
+	["bandit"] = true,
+	["monolith"] = true,
+	["zombied"] = true,
+	["killer"] = true,
+}
+
+-- определение всех целей в заданной окружности
+function get_target_area(area_data)
+	local targets = {}
+	local br1_pos = string.find(area_data,"(",1,true) + 1
+	local br2_pos = string.find(area_data,")",1,true) - 1
+	local area_string = string.sub(area_data,br1_pos,br2_pos)
+	local area = split_comma_separated_list(area_string)
+	local area_x = tonumber(area[1]) --координаты центра зоны
+	local area_z = tonumber(area[2])
+	local area_r = tonumber(area[3]) or 150 -- радиус зоны, 150 м по умолчанию.
+	local target_type = area[4] or "all" -- тип целей, по умолчанию - все без разбора
+	local center = vector():set(area_x,0,area_z)
+	--local xtime = os.clock()
+	for k, v in pairs(db.creature) do
+		local obj = level.object_by_id(k)
+		if obj then
+			local sobj = alife():object(k)
+			if sobj then
+				if target_type == "stalker" or target_type == "alive" or target_type == "all" then 
+					if ( obj:is_stalker() or obj:is_actor() ) and obj:alive() and heli_combat.distance_2d(obj:position(),center) <= area_r then
+						table.insert(targets,k)
+					end
+				end
+				if target_type == "monster" or target_type == "alive" or target_type == "all" then 
+					if obj:is_monster() and obj:alive() and heli_combat.distance_2d(obj:position(),center) <= area_r then
+						table.insert(targets,k)
+					end
+				end
+				if valid_communities[target_type] then 
+					if ( obj:is_stalker() or obj:is_actor() ) and obj:alive() and obj:character_community() == target_type and heli_combat.distance_2d(obj:position(),center) <= area_r then
+						table.insert(targets,k)
+					end
+				end				
+			end
+		end
+	end
+	if target_type == "stalker" or target_type == "alive" or target_type == "all" then 
+		if db.actor and db.actor:alive() and heli_combat.distance_2d(db.actor:position(),center) <= area_r then
+			table.insert(targets,db.actor:id())
+		end
+	end		
+	for k, v in pairs(db.heli) do
+		local obj = level.object_by_id(k)
+		if obj then
+			local sobj = alife():object(k)
+			if sobj then
+				if target_type == "heli" or target_type == "armor" or target_type == "all" then  
+					if string.find(obj:section(),"helicopter") and obj:alive() and heli_combat.distance_2d(obj:position(),center) <= area_r then
+						table.insert(targets,k)
+					end
+				end
+			end
+		end
+	end
+	for k, v in pairs(db.cars) do
+		local obj = level.object_by_id(k)
+		if obj then
+			local sobj = alife():object(k)
+			if sobj then
+				if target_type == "btr" or target_type == "armor" or target_type == "all" then 
+					if string.find(obj:name(),"btr") and obj:alive() and heli_combat.distance_2d(obj:position(),center) <= area_r then
+						table.insert(targets,k)
+					end
+				end
+				if valid_communities[target_type] then 
+					if ogse_scripted_btr.cars_comm[obj:name()] and ogse_scripted_btr.cars_comm[obj:name()] == target_type and obj:alive() and heli_combat.distance_2d(obj:position(),center) <= area_r then
+						table.insert(targets,k)
+					end				
+				end				
+			end
+		end
+	end	
+	--log1("!!DEBUG HELI TARG ["..tostring(os.clock()-xtime).."]")
+	return targets
+end
+
+--определение приоритета цели
+function get_target_priority(obj)
+	if not obj then return 0 end
+	local prior = 1
+	if obj:is_monster() then
+		prior = 1
+	elseif ( obj:is_stalker() or obj:is_actor() ) then -- максимум - 5
+		local act_slot = obj:active_slot()
+		if act_slot ~= 255 then
+		local wpn = obj:item_in_slot(act_slot)
+		if wpn then
+			local ammo, fm
+			if sys_ini:line_exist(wpn:section(), "ammo_class") then
+				ammo = sys_ini:r_string(wpn:section(), "ammo_class")
+				if (string.find(ammo, "9x18") -- пистолетные патроны
+					or string.find(ammo, "9x19")
+					or string.find(ammo, "7.62x25")
+					or string.find(ammo, "11.43x23")
+					or string.find(ammo, "bolt") --  + арбалетные болты
+					or string.find(ammo, "flame") --  + огнесмесь
+					or string.find(ammo, "12x7")) --  + патроны для дробовиков
+					then
+					prior = prior + 1
+				elseif (string.find(ammo, "5.45x39") -- промежуточные патроны
+					or string.find(ammo, "5.56x45") 
+					or string.find(ammo, "7.62x39")
+					or string.find(ammo, "9x39"))
+					then
+					prior = prior + 2
+				elseif (string.find(ammo, "7.62x51") -- винтовочные патроны
+					or string.find(ammo, "7.62x54"))
+					then
+					prior = prior + 3
+				else
+					prior = prior + 4
+				end
+			end
+			if sys_ini:line_exist(wpn:section(), "fire_modes") then
+				fm = sys_ini:r_string(wpn:section(), "fire_modes")
+				if string.sub(fm,-2,-1) == "-1" then
+					prior = prior + 1 -- автоматическое оружие - приоритет цели выше на 1
+				end
+			end
+		end
+		end
+	elseif string.find(obj:name(),"btr") then
+		prior = 6
+	elseif string.find(obj:section(),"helicopter") then
+		prior = 7
+	end
+	return prior
+end
+

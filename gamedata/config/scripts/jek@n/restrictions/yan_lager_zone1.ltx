@@ -1,0 +1,15 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_info = {+yan_sold_anomaly_info} sr_particle
+
+[sr_particle]
+name = explosions\group_items\campfire_01_flame00
+path = yan_soldier_look_rest1
+mode = 2
+looped = true
+on_info = {-yan_sold_anomaly_info} sr_idle
+on_info2 = {=is_yan_soldier_dead} sr_idle@nil
+
+[sr_idle@nil]

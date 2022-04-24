@@ -1,0 +1,43 @@
+[logic]
+active = {+bridge_kulgband_glavar_go_away} sr_idle@3, {+bridge_kulgband_man_info} sr_idle@2, sr_idle@1
+ 
+[sr_idle@1]
+on_info = {+kulg_band_trader_car_run =actor_in_culgband_trader_car} sr_sound_act@1
+on_info2 = {+kulgband_strelka_task =actor_in_zone(dar_kulgband_bridge_zone)} sr_sound_act@2
+on_info3 = {+bridge_kulgband_glavar_go} sr_sound_act@3
+
+[sr_sound_act@1]
+theme = kulgband_trader_car_snd
+;theme = gunsrepair_music
+delay = 0
+delay_max = 100
+stereo = false
+on_info = {!actor_in_culgband_trader_car} sr_idle@1 %=actor_gaz66car_evacuation_fix%
+on_info2 = {+kulgband_strelka_task =actor_in_zone(dar_kulgband_bridge_zone)} sr_sound_act@2
+
+
+[sr_sound_act@2]
+;theme = kulgband_scenario_music_1
+snd = characters_voice\scenario\scenario_music_01
+delay = 0
+delay_max = 100
+stereo = false
+on_signal       = sound_end|sr_idle@2
+
+[sr_idle@2]
+on_info = {+bridge_kulgband_glavar_go} sr_sound_act@3
+
+[sr_sound_act@3]
+;theme = kulgband_scenario_music_2
+snd = characters_voice\scenario\scenario_music_02
+delay = 0
+delay_max = 100
+stereo = false
+on_signal       = sound_end|sr_idle@3
+
+[sr_idle@3]
+
+
+
+
+

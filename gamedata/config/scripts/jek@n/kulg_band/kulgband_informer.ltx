@@ -1,0 +1,100 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+on_death = death
+threshold = threshold@kulgband_informer_threshold
+
+[walker@begin]
+path_walk =	kulgband_informer_walk
+path_look =	kulgband_informer_look
+on_timer = 1|walker@1 %=make_invulnerable%
+
+
+[walker@1]
+path_walk =	kulgband_informer_walk
+path_look =	kulgband_informer_look
+combat_ignore_cond = always
+meet = no_meet
+on_actor_dist_le = 10|walker@2 %+kulgband_informer_hello%
+
+[walker@2]
+path_walk =	kulgband_informer_walk
+path_look =	kulgband_informer_look
+combat_ignore_cond = always
+on_info = {+kulgband_informer_fight} walker@4 %=unmake_invulnerable =killactor%
+on_info2 = {+kulgband_informer_deal} remark@1
+
+
+; Изымаем у ГГ стволы:
+[remark@1]
+anim = refuse
+snd = kulgband_informer_deal1
+;snd_anim_synс = true
+no_move = true
+target = actor
+combat_ignore_cond = always
+meet = no_meet
+on_signal = action_end|remark@2 %=run_postprocess(agr_u_fade) =disable_ui%
+
+[remark@2]
+anim = refuse
+no_move = true
+target = actor
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 4500|remark@3 %=kulgband_informer_timer =spawn_kulgband_informer_shron2%
+
+[remark@3]
+anim = refuse
+snd = kulgband_informer_deal2
+;snd_anim_synс = true
+no_move = true
+target = actor
+combat_ignore_cond = always
+meet = no_meet
+on_signal = action_end|remark@4
+
+[remark@4]
+anim = refuse
+no_move = true
+target = actor
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 2000|walker@3 %=enable_ui =release_all_weapons_around_actor%
+
+
+;Драпаем:
+[walker@3]
+path_walk =	kulgband_informer_walk1
+path_look =	kulgband_informer_look1
+combat_ignore_cond = always
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+meet = no_meet
+on_signal       = arrived|%=release%
+
+
+;Воюем с ГГ:
+[walker@4]
+path_walk =	kulgband_informer_walk2
+path_look =	kulgband_informer_look2
+combat_ignore_cond = always
+meet = no_meet
+
+
+
+[threshold@kulgband_informer_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+[death]
+on_info = {+kulgband_informer_fight} %+kulgband_informer_dead%
+
+
+
+
+
+

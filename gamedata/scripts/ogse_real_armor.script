@@ -1,0 +1,78 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-------------------------------------------
+----- Скрипт определения реальной брони
+----- по визуалу непися, OGSE мод,
+----- автор KamikaZze
+-------------------------------------------
+local cached = {} --таблица вида { [visual_name] = [section] }
+
+function vis_to_armor(npc)
+	local vis = table.remove( string.explode( "\\", npc:get_visual_name() ) )
+	if not cached[ vis ] then
+			local section = "nil"
+			--
+			if npc:character_community()=="bandit" then
+				-- bandits
+				if string.find(vis,"stalker_bandit_") then section = "novice_outfit" end
+				if string.find(vis,"stalker_bandit_veteran") then section = "bandit_plash" end
+				if string.find(vis,"stalker_bandit_master") then section = "bandit_plash_m1" end
+				if string.find(vis,"stalker_bandit_borov") then section = "bandit_plash_m1" end
+			elseif npc:character_community()=="dolg" then
+				-- dolg
+				if string.find(vis,"stalker_do_") then section = "dolg_outfit" end
+			elseif npc:character_community()=="ecolog" then
+				-- ecolog
+				if string.find(vis,"stalker_ecolog") then section = "ecolog_outfit" end
+				if string.find(vis,"nauchniy_0") then section = "ecolog_outfit" end
+				if string.find(vis,"nauchniy_1") then section = "protection_outfit" end
+				if string.find(vis,"stalker_ecolog_military") then section = "protection_outfit" end
+			elseif npc:character_community()=="killer" then
+				-- killer
+				if string.find(vis,"stalker_ki_") then section = "killer_outfit" end
+			elseif npc:character_community()=="military" then
+				-- military 
+				if string.find(vis,"stalker_militari_") then section = "military_outfit" end
+				if string.find(vis,"stalker_militari_2") then section = "military_outfit" end
+				if string.find(vis,"stalker_military_green") then section = "military_outfit" end
+				if string.find(vis,"stalker_military_black") then section = "military_outfit" end
+				-- soldiers
+				if string.find(vis,"soldier_") then section = "soldier_outfit" end
+				if string.find(vis,"soldier_antigas") then section = "specops_outfit" end
+				if string.find(vis,"soldier_mask") then section = "specops_outfit" end
+				if string.find(vis,"soldier_spetsnaz") then section = "specops_outfit" end
+			elseif npc:character_community()=="monolith" then
+				-- monolith
+				if string.find(vis,"stalker_mo_") then section = "monolit_outfit" end
+				if string.find(vis,"stalker_mo_exo") then section = "monolit_exoskeleton" end
+			elseif npc:character_community()=="freedom" then
+				-- freedom
+				if string.find(vis,"stalker_sv_") then section = "svoboda_heavy_outfit" end
+				if string.find(vis,"stalker_sv_hood_91") then section = "svoboda_heavy_outfit" end
+				if string.find(vis,"stalker_sv_rukzak_1_1") then section = "svoboda_heavy_outfit" end
+				if string.find(vis,"stalker_sv_rukzak_3") then section = "svoboda_heavy_outfit" end
+				if string.find(vis,"stalker_sv_heavy") then section = "svoboda_heavy_outfit" end
+			elseif not string.find(npc:section(),"arena") then
+				-- novice
+				if string.find(vis,"green_stalker_") then section = "novice_outfit" end
+				-- stalker
+				if string.find(vis,"stalker_2_") then section = "stalker_outfit" end 
+				if string.find(vis,"stalker_3_") then section = "stalker_outfit" end 
+				if string.find(vis,"stalker_4_") then section = "stalker_outfit" end 
+				if string.find(vis,"sidor_guard") then section = "stalker_outfit" end
+				-- loners
+				if string.find(vis,"stalker_neytral_balon") then section = "stalker_outfit" end 
+				if string.find(vis,"stalker_neytral_hood") then section = "stalker_outfit" end 
+				if string.find(vis,"stalker_neytral_rukzak") then section = "stalker_outfit" end
+				if string.find(vis,"stalker_neytral_nauchniy") then section = "protection_outfit" end 
+			end
+			if string.find(vis, "exo") and not string.find(vis,"stalker_mo_exo") then section = "exo1" end
+			--
+			cached[ vis ] = section
+	end
+
+	if cached[ vis ] ~= "nil" then
+		return cached[ vis ]
+	end
+	return nil
+end

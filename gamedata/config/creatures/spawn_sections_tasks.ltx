@@ -1,0 +1,634 @@
+
+[stalker_hard_condition]
+satiety_v = 0.00001 ;скорость уменьшения сытости со временем
+radiation_v = 0.0001 ;скорость уменьшения радиации
+satiety_power_v = 0.0005 ;увеличение силы при уменьшении сытости
+satiety_health_v = 0.0 ;0.0001 ;увеличение здоровья при уменьшении сытости
+satiety_critical = 0.0 ;критическое значения сытости (в процентах от 0..1) когда здоровье начианает уменьшаться
+radiation_health_v = 0.000 ;уменьшение здоровья при воздействии радиации
+morale_v = 0.0001 ;скорость восстановления морали
+health_hit_part = 0.4 ;процент хита, уходящий на отнимание здоровья
+power_hit_part = 0.01 ;процент хита, уходящий на отнимание силы
+psy_health_v = 0.01 ; скорость восстановления psy-здоровья
+health_restore_v = 0.00001 ;скорость восстановления здоровья
+
+sleep_health = 1.0 ;коэффициенты скоростей изменения параметров во время сна
+sleep_power = 1.0
+sleep_satiety = 1.0
+sleep_radiation = 1.0
+sleep_psy_health = 1.0
+
+;---LIMPING STATE-----------------------------------------------------
+use_limping_state = off
+limping_threshold = 0.5
+
+;открытые раны
+bleeding_v = 0.0 ;потеря крови при номинальной ране в секунду
+wound_incarnation_v = 0.001 ;крутизна кривой заживления (какой процент раны останется после заживления в игровую секунду)
+min_wound_size = 0.01
+
+[stalker_hard_immunities]
+burn_immunity = 0.2 ;коэффициенты иммунитета 
+strike_immunity = 0.2
+shock_immunity = 0.2
+wound_immunity = 0.2
+radiation_immunity = 0.0
+telepatic_immunity = 0.0
+chemical_burn_immunity = 0.2
+explosion_immunity = 100
+fire_wound_immunity = 0.01
+wound_2_immunity = 0.01
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; TO DELETE????
+[esc_specotryad_leader]:stalker_sakharov
+$spawn 				= 
+character_profile	= esc_specotryad_leader
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_specotryad.ltx
+
+[esc_specotryad_npc1]:stalker_sakharov
+$spawn 				= 
+character_profile	= esc_specotryad_npc
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_specotryad2.ltx
+
+[esc_specotryad_npc2]:stalker_sakharov
+$spawn 				= 
+character_profile	= esc_specotryad_npc
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_specotryad2.ltx
+
+[esc_specotryad_npc3]:stalker_sakharov
+$spawn 				= 
+character_profile	= esc_specotryad_npc
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_specotryad3.ltx
+
+[esc_specotryad_npc4]:stalker_sakharov
+$spawn 				= 
+character_profile	= esc_specotryad_npc
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_specotryad4.ltx
+
+[esc_specotryad_npc5]:stalker_sakharov
+$spawn 				= 
+character_profile	= esc_specotryad_npc
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_specotryad5.ltx
+
+[esc_specotryad_npc6]:stalker_sakharov
+$spawn 				= 
+character_profile	= esc_specotryad_npc
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_specotryad6.ltx
+
+[esc_specotryad_npc7]:stalker_sakharov
+$spawn 				= 
+character_profile	= esc_specotryad_npc
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_specotryad7.ltx
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[esc_plennik_on_blockpost]:stalker
+$spawn 				= "respawn\esc_plennik_on_blockpost"
+character_profile	= esc_plennik_on_blockpost
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_plennik_on_blockpost.ltx
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[esc_killer_mined_lager_1]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_killer_mined_lager
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_killer_mined_lager.ltx
+
+[esc_killer_mined_lager_2]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_killer_mined_lager
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_killer_mined_lager2.ltx
+
+[esc_killer_mined_lager_3]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_killer_mined_lager
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_killer_mined_lager3.ltx
+
+[esc_killer_mined_lager_4]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_killer_mined_lager
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_killer_mined_lager4.ltx
+
+[esc_killer_mined_lager_5]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_killer_mined_lager
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_killer_mined_lager5.ltx
+;;;;;;;;;;;;;;;;;;
+
+[val_friend_of_barman]:stalker
+$spawn 				= "respawn\esc_stalker_respawn_1"
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= val_friend_of_barman
+spec_rank = veteran
+community = stalker
+custom_data = scripts\kvests\val_friend_of_barman.ltx
+
+[val_stalkers_barman1]:stalker
+$spawn 				= "respawn\esc_stalker_respawn_1"
+character_profile	= val_stalkers_barman1
+spec_rank = regular
+community = stalker
+custom_data = scripts\kvests\val_stalkers_barman1.ltx
+
+[val_stalkers_barman2]:stalker
+$spawn 				= "respawn\esc_stalker_respawn_1"
+character_profile	= val_stalkers_barman2
+spec_rank = regular
+community = stalker
+custom_data = scripts\kvests\val_stalkers_barman2.ltx
+
+[val_stalkers_barman3]:stalker
+$spawn 				= "respawn\esc_stalker_respawn_1"
+character_profile	= val_stalkers_barman3
+spec_rank = regular
+community = stalker
+custom_data = scripts\kvests\val_stalkers_barman3.ltx
+
+[val_stalkers_barman4]:stalker
+$spawn 				= "respawn\esc_stalker_respawn_1"
+character_profile	= val_stalkers_barman4
+spec_rank = regular
+community = stalker
+custom_data = scripts\kvests\val_stalkers_barman4.ltx
+;;;;;;;;;;;;;;;;;;;;;;;TO DELETE???
+[gar_dolg_on_sdelka_plannik]:stalker
+$spawn 				= 
+character_profile	= gar_dolg_on_sdelka
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\gar_dolg_on_sdelka_plannik.ltx
+
+[gar_dolg_on_sdelka_1]:stalker
+$spawn 				= 
+character_profile	= gar_dolg_on_sdelka
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\gar_dolg_on_sdelka1.ltx
+
+[gar_dolg_on_sdelka_2]:stalker
+$spawn 				= 
+character_profile	= gar_dolg_on_sdelka
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\gar_dolg_on_sdelka2.ltx
+
+[gar_dolg_on_sdelka_3]:stalker
+$spawn 				= 
+character_profile	= gar_dolg_on_sdelka
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\gar_dolg_on_sdelka3.ltx
+
+[gar_dolg_on_sdelka_4]:stalker
+$spawn 				= 
+character_profile	= gar_dolg_on_sdelka
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\gar_dolg_on_sdelka4.ltx
+
+
+
+[gar_killers_on_sdelka_1]:stalker
+$spawn 				= 
+character_profile	= gar_killers_on_sdelka
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\gar_killers_on_sdelka1.ltx
+
+[gar_killers_on_sdelka_2]:stalker
+$spawn 				= 
+character_profile	= gar_killers_on_sdelka
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\gar_killers_on_sdelka2.ltx
+
+[gar_killers_on_sdelka_3]:stalker
+$spawn 				= 
+character_profile	= gar_killers_on_sdelka
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\gar_killers_on_sdelka3.ltx
+
+[gar_killers_on_sdelka_4]:stalker
+$spawn 				= 
+character_profile	= gar_killers_on_sdelka
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\gar_killers_on_sdelka4.ltx
+
+[gar_killers_on_sdelka_5]:stalker
+$spawn 				= 
+character_profile	= gar_killers_on_sdelka
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\gar_killers_on_sdelka5.ltx
+
+[gar_killers_on_sdelka_6]:stalker
+$spawn 				= 
+character_profile	= gar_killers_on_sdelka
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\gar_killers_on_sdelka6.ltx
+
+
+;;;;;;;;;;;;;;
+
+[agr_plennik_on_base_mils]:stalker
+$spawn 				= "respawn\esc_stalker_respawn_1"
+character_profile	= agr_plennik_on_base_mils
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\agr_plennik_on_base_mils.ltx
+
+[agr_military_plennik1]:stalker
+$spawn 				= 
+character_profile	= agr_military_plennik
+custom_data = scripts\kvests\agr_military_plennik1.ltx
+
+[agr_military_plennik2]:stalker
+$spawn 				= 
+character_profile	= agr_military_plennik
+custom_data = scripts\kvests\agr_military_plennik2.ltx
+
+[agr_military_plennik3]:stalker
+$spawn 				= 
+character_profile	= agr_military_plennik
+custom_data = scripts\kvests\agr_military_plennik3.ltx
+
+
+
+
+
+
+
+
+;//////////////////////////////////////////////////////////
+[esc_last_request_killer_general]:stalker
+$spawn 				= 
+character_profile	= esc_killer_specnaz
+;custom_data = scripts\kvests\esc_last_request_killer.ltx
+
+[esc_last_request_military]:stalker
+$spawn 				= 
+character_profile	= esc_soldier_specnaz
+
+
+
+
+
+
+
+
+
+;//////////////////////////////////////////////////////////
+
+[pri_doch_of_starik]:stalker
+$spawn 				= 
+character_profile	= pri_doch_of_starik
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\pri_doch_of_starik.ltx
+
+[pri_death_starik]:stalker
+$spawn 				= 
+character_profile	= esc_starik_searcing_doch
+spec_rank = master
+community = stalker
+
+
+[rad_freedomer_on_vetr]:stalker
+$spawn 				= 
+character_profile	= rad_freedomer_on_vetr
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\rad_freedomer_on_vetr.ltx
+
+
+[esc_bandit_of_teterev_leader]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_bandit_of_teterev_leader
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_bandit_of_teterev_leader.ltx
+
+[esc_bandit_of_teterev_leader1]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_bandit_of_teterev_leader
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_bandit_of_teterev_leader1.ltx
+
+[esc_bandit_of_teterev_leader2]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_bandit_of_teterev_leader
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_bandit_of_teterev_leader2.ltx
+
+
+[esc_bandit_of_teterev]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_bandit_of_teterev
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_bandits_of_teterev.ltx
+
+
+[esc_sniper_qest_on_elevator]:stalker
+$spawn 				= 
+character_profile	= esc_sniper_qest_on_elevator
+spec_rank = master
+community = stalker
+
+
+[esc_sniper_qest_on_elevator_2]:stalker
+$spawn 				= 
+character_profile	= esc_sniper_qest_on_elevator_2
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_sniper_qest_on_elevator_2.ltx
+
+[esc_sniper_qest_on_elevator_target]:stalker
+$spawn 				= 
+character_profile	= esc_bandit_of_teterev
+spec_rank = master
+community = bandit
+custom_data = scripts\kvests\esc_sniper_qest_on_elevator_target.ltx
+
+[yan_figa]:stalker
+$spawn 				= 
+character_profile	= yan_figa
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\yan_figa.ltx
+
+
+[yan_mon_attack_actor_regular]:stalker
+$spawn 				= 
+character_profile	= sim_monolith_regular
+spec_rank = veteran
+community = monolith
+
+[yan_mon_attack_actor_leader]:stalker
+$spawn 				= 
+character_profile	= yan_mon_attack_actor_leader
+spec_rank = master
+community = monolith
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[esc_scoryi]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_scoryi
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\esc_scoryi.ltx
+
+[val_kvest_sniper]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= val_kvest_sniper
+spec_rank = master
+community = stalker
+custom_data = scripts\kvests\val_kvest_sniper.ltx
+
+[esc_visitors_millitary_in_kamaz]:stalker
+$spawn 				= 
+character_profile	= esc_soldier_specnaz
+custom_data = scripts\kvests\esc_visitors_millitary_in_kamaz.ltx
+
+[val_kvest_merc_ohr]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_killer_mined_lager
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\val_kvest_mercs_ohr.ltx
+
+[val_kvest_merc_boss]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_killer_mined_lager
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\val_kvest_merc_boss.ltx
+
+[val_kvest_merc_ordn1]:stalker
+$spawn 				= 
+character_profile = bar_Killer_regular
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\val_kvest_merc_ordn1.ltx
+
+[val_kvest_merc_ordn2]:stalker
+$spawn 				= 
+character_profile = bar_Killer_regular
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\val_kvest_merc_ordn2.ltx
+
+[val_kvest_merc_ordn3]:stalker
+$spawn 				= 
+character_profile = bar_Killer_regular
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\val_kvest_merc_ordn3.ltx
+
+[val_kvest_merc_ordn4]:stalker
+$spawn 				= 
+character_profile = bar_Killer_regular
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\val_kvest_merc_ordn4.ltx
+
+[val_kvest_merc_ordn5]:stalker
+$spawn 				= 
+character_profile = bar_Killer_regular
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\val_kvest_merc_ordn5.ltx
+
+[val_kvest_merc_ordn6]:stalker
+$spawn 				= 
+character_profile = bar_Killer_regular
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\val_kvest_merc_ordn6.ltx
+
+[val_kvest_merc_ordn7]:stalker
+$spawn 				= 
+character_profile = bar_Killer_regular
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\val_kvest_merc_ordn7.ltx
+
+[esc_mil_bridge_of_pechkin]:stalker
+$spawn 				= 
+character_profile	= esc_soldier_regular
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\esc_mil_bridge_of_pechkin.ltx
+
+[esc_mercs_attack_bridge]:stalker
+$spawn 				= 
+character_profile	= esc_killer_mined_lager
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\esc_mercs_attack_bridge.ltx
+
+;;;;;;;;;;;;;;;;;;;;;
+[yan_ecolog_preobr]:stalker
+$spawn 				= 
+character_profile	= yan_ecolog_preobr
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\yan_ecolog_preobr.ltx
+
+[ds_mercs_attack_preobr]:stalker
+$spawn 				= 
+character_profile	= esc_killer_mined_lager
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\ds_mercs_attack_preobr.ltx
+
+[ros_dogger_gaz]:stalker
+$spawn 				= 
+character_profile	= val_bodryi
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\ros_dogger_gaz.ltx
+
+;[x16_gribnik]:stalker
+;$spawn 				= "respawn\esc_stalker_respawn_1"
+;character_profile	= x16_gribnik
+;spec_rank = master
+;community = killer
+;
+;[x16_leshyi]:stalker
+;$spawn 				= "respawn\esc_stalker_respawn_1"
+;character_profile	= x16_leshyi
+;spec_rank = master
+;community = killer
+
+[val_bandit_uzh]:stalker
+$spawn 				= 
+character_profile	= val_bandit_uzh
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\val_bandit_uzh.ltx
+
+[esc_hitryi]:stalker
+$spawn 				= 
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+character_profile	= esc_hitryi
+spec_rank = master
+community = killer
+custom_data = scripts\kvests\esc_hitryi.ltx
+
+[captive_on_agr_mill_base_dolg_guard1]:stalker
+$spawn 				= 
+character_profile	= captive_on_agr_mill_base_dolg_guard
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+spec_rank = veteran
+community = dolg
+custom_data = scripts\kvests\captive_on_agr_mill_base_dolg_guard1.ltx
+
+[captive_on_agr_mill_base_dolg_guard2]:stalker
+$spawn 				= 
+character_profile	= captive_on_agr_mill_base_dolg_guard
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+spec_rank = veteran
+community = dolg
+custom_data = scripts\kvests\captive_on_agr_mill_base_dolg_guard2.ltx
+
+[captive_on_agr_mill_base_dolg_guard3]:stalker
+$spawn 				= 
+character_profile	= captive_on_agr_mill_base_dolg_guard
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+spec_rank = veteran
+community = dolg
+custom_data = scripts\kvests\captive_on_agr_mill_base_dolg_guard3.ltx
+
+[captive_on_agr_mill_base_dolg_guard4]:stalker
+$spawn 				= 
+character_profile	= captive_on_agr_mill_base_dolg_guard_commander
+immunities_sect = stalker_hard_immunities
+condition_sect = stalker_hard_condition
+spec_rank = veteran
+community = dolg
+custom_data = scripts\kvests\captive_on_agr_mill_base_dolg_guard4.ltx
+
+[stalker_hvost]:stalker
+character_profile	= stalker_hvost
+spec_rank = veteran
+community = stalker
+
+[stalker_kolya]:stalker
+character_profile	= stalker_kolya
+spec_rank = veteran
+community = stalker
+custom_data = scripts\kvests\cheb_kolya.ltx
+
+[filin]:stalker
+character_profile	= filin
+spec_rank = veteran
+community = stalker
+custom_data = scripts\kvests\filin.ltx

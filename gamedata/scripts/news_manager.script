@@ -1,0 +1,392 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-- за счёт отложенной загрузки звуков экономится примерно 4.5 Мб памяти.
+local news_showtime = sys_ini:r_s32("options","news_showtime") -- стандартное время показа сообщения
+local snds = {
+	tips_esc_trader_about_anomalies	= [[characters_voice\scenario\trader\trader_tutorial_anomalies_1]],
+	gar_dolg_warning				= [[characters_voice\scenario\duty\duty_warning1]],
+	esc_return_dv					= [[characters_voice\scenario\trader\return_from_dv]],
+	escape_fox_quest				= [[characters_voice\scenario\trader\trader_pda_fox]],
+	tip_petruha_report				= [[characters_voice\scenario\escape\petruha_raport_p]],
+
+
+	tips_agr_krot_sos				= [[characters_voice\scenario\agroprom\krot_help_pda_1]],
+	tips_agr_krot_sos1				= [[characters_voice\scenario\agroprom\krot_help_pda_2]],
+	tips_agr_krot_sos2				= [[characters_voice\scenario\agroprom\krot_help_pda_2]],
+    tips_agr_stalker_help_2			= [[characters_voice\scenario\agroprom\stalker_help_2]],
+    tips_agr_stalker_help_1			= [[characters_voice\scenario\agroprom\stalker_help_1]],
+
+    tips_agr_trader_documents		= [[characters_voice\scenario\agroprom\trader_pda_1]],
+    pass_to_1st_door                = [[characters_voice\scenario\val\door1_password]],
+	pass_to_2nd_door                = [[characters_voice\scenario\val\door2_password]],
+
+
+	bar_ecolog_crush_heli_down		= [[characters_voice\scenario\Rostok\Heli_crush\wolfhound_pda_1]],
+	bar_freedom_attack_attract_actor= [[characters_voice\scenario\Rostok\Heli_crush\wolfhound_pda_2]],
+	bar_freedom_spam_1				= [[characters_voice\scenario\Rostok\Heli_crush\wolfhound_pda_6]],
+	bar_freedom_spam_2				= [[characters_voice\scenario\Rostok\Heli_crush\wolfhound_pda_4]],
+	bar_freedom_spam_3				= [[characters_voice\scenario\Rostok\Heli_crush\wolfhound_pda_3]],
+	bar_freedom_spam_4				= [[characters_voice\scenario\Rostok\Heli_crush\wolfhound_pda_5]],
+	bar_freedom_attack				= [[characters_voice\scenario\Rostok\Heli_crush\wolfhound_pda_7]],
+	bar_freedom_attack_spy			= [[characters_voice\scenario\Rostok\Heli_crush\wolfhound_pda_8]],
+	bar_ecolog_crush_start_heli		= [[characters_voice\scenario\Rostok\Heli_crush\kruglov_pda_1]],
+	bar_ecolog_crush_attract_actor  = [[characters_voice\scenario\Rostok\Heli_crush\kruglov_pda_2]],
+	bar_ecolog_spam_1				= [[characters_voice\scenario\Rostok\Heli_crush\kruglov_pda_3]],
+	bar_ecolog_spam_2				= [[characters_voice\scenario\Rostok\Heli_crush\kruglov_pda_4]],
+	bar_ecolog_spam_3				= [[characters_voice\scenario\Rostok\Heli_crush\kruglov_pda_5]],
+	bar_ecolog_spam_4				= [[characters_voice\scenario\Rostok\Heli_crush\kruglov_pda_6]],
+	bar_ecolog_attack				= [[characters_voice\scenario\Rostok\Heli_crush\kruglov_pda_7]],
+    rostok_kruglov_spam_1			= [[characters_voice\scenario\Rostok\kruglov_pda_help_1]],
+    rostok_kruglov_spam_2			= [[characters_voice\scenario\Rostok\kruglov_pda_help_3]],
+	bar_ecolog_escape				= [[characters_voice\scenario\Rostok\volkodav_pda_kruglov_escape_1]],
+    storyline_vasilyev_tip			= [[characters_voice\scenario\yantar\vasiliev_pda]],
+    storyline_ghost_tip 			= [[characters_voice\scenario\yantar\ghost_pda]],
+    yan_saharov_message 			= [[characters_voice\scenario\yantar\professor_to_actor_pda_3]],
+	yan_saharov_message_2 			= [[characters_voice\scenario\yantar\professor_to_actor_pda_4]],
+    yan_saharov_message_3 			= [[characters_voice\scenario\yantar\professor_to_actor_pda_5]],
+	
+	yan_scientist_probe				= [[characters_voice\scenario\yantar\kruglov_radiation_quest_13]],
+	yan_scientist_probe_1			= [[characters_voice\scenario\yantar\kruglov_radiation_quest_11]],
+	yan_scientist_probe_2			= [[characters_voice\scenario\yantar\kruglov_radiation_quest_12]],
+	yan_scientist_probe_3			= [[characters_voice\scenario\yantar\kruglov_radiation_quest_6]],
+	
+	rostok_kruglov_follow			= [[characters_voice\scenario\Rostok\pda_kruglov_help_6]],
+	bar_freedom_chase				= [[characters_voice\scenario\Rostok\pda_kruglov_stop_enemy_1]],
+	rostok_kruglov_follow_2			= [[characters_voice\scenario\Rostok\pda_kruglov_stop_enemy_2]],
+	rostok_kruglov_follow_3			= [[characters_voice\scenario\Rostok\pda_kruglov_help_5]],
+		
+	bar_territory_dolg_1_hit		= [[characters_voice\scenario\bar\pda\voronin_gunfire_pda_1]],
+	bar_territory_dolg_2_hit		= [[characters_voice\scenario\bar\pda\voronin_gunfire_pda_2]],
+	bar_territory_dolg_3_hit		= [[characters_voice\scenario\bar\pda\voronin_gunfire_pda_3]],
+	bar_territory_dolg_kill			= [[characters_voice\scenario\bar\pda\voronin_gunfire_pda_4]],
+	
+	tips_bun_komand                 = [[characters_voice\scenario\bun\patrol_prikaz]],
+
+	general_ecolog_tip_1            = [[characters_voice\scenario\yantar\professor_to_actor_pda_1]],
+    general_ecolog_tip_2            = [[characters_voice\scenario\yantar\professor_to_actor_pda_2]],
+
+
+    tips_gar_hellcar_alarm			= [[characters_voice\scenario\garbage\neutrals_commander_pda_1]],
+	gar_dolg_blokpost_warning		= [[characters_voice\scenario\duty\duty_warning1]],
+	gar_dolg_monster_rush			= [[characters_voice\scenario\duty\duty_request1]],
+	gar_direction_fire				= [[characters_voice\scenario\garbage\junkyard_combat_ambush]],
+	gar_hellcar_victory				= [[characters_voice\scenario\garbage\junkyard_combat_end]],
+	gar_actor_looser				= [[characters_voice\scenario\garbage\duty_after_rush_bad]],
+	gar_actor_normal				= [[characters_voice\scenario\garbage\duty_after_rush_normal]],
+	gar_actor_winner				= [[characters_voice\scenario\garbage\duty_after_rush_good]],
+
+
+	esc_direction_fire				= [[characters_voice\scenario\escape\lager_fanat_attack]],
+	esc_fanat_victory				= [[characters_voice\scenario\escape\lager_fanat_victory]],
+	
+	rad_barman_spam					= [[characters_voice\scenario\radar\rad_barman_message]],
+
+
+	val_monolith_trader_pda1		= [[characters_voice\scenario\val\trader_dialog1]],
+	o_soznanie_text					= [[characters_voice\scenario\sarcofag\o_soznanie_call]],
+
+
+-- dublicate pda sounds for remark scheme
+    val_rob_leader_jeer_1           = [[characters_voice\scenario\val\rob_leader_jeer_1_p]],
+
+    pri_followers_leader_phrase1_1  = [[characters_voice\scenario\pri\followers_leader_phrase1_1_p]],
+    pri_followers_leader_phrase1_2  = [[characters_voice\scenario\pri\followers_leader_phrase1_2_p]],
+    pri_followers_leader_phrase1_3  = [[characters_voice\scenario\pri\followers_leader_phrase1_3_p]],
+}
+
+local function get_snd(k)
+	--log3("--[%s] getting sound: [%s]", script_name(), k)
+	if snds[k] then
+		return xr_sound.get_safe_sound_object(snds[k])
+	end
+end
+
+local pda_news = xr_sound.get_safe_sound_object([[device\pda\pda_news]])
+pda_tips = xr_sound.get_safe_sound_object([[device\pda\pda_tip]])
+local pda_task = xr_sound.get_safe_sound_object([[device\pda\pda_objective]])
+
+local tips_icons = {
+	default  = { 0, 658},
+	trader	 = { 332, 893},
+	dolg     = { 0, 658},
+	voronin     = { 332, 423},
+	freedom  = { 0, 658},
+	ecolog   = { 498, 0},
+	arena    = { 332, 141},
+	stalker  = { 0, 658},
+	krot     = { 332, 47},
+	barman   = { 332, 235},
+	wolf	 = { 332, 940},
+	o_soznanie = { 498, 893},
+	monolith = { 0, 658},
+	saharov  = { 332, 470},
+	prizrak  = { 0, 658},
+	killer   = { 0, 658},
+	actor   = { 415, 940},
+	chebur1   = { 249, 846},
+	chebur2   = { 249, 893},
+	anomal   = { 498, 799},
+	pri_trader   = { 415, 940},
+	barman_mg_name  = { 415, 940},
+	soldier   = { 332, 0},
+	money   = { 0, 0},
+	atplider   = { 498, 752},
+	atpband   = { 83, 376},
+	swampdoc   = { 83, 611},
+	drifter   = { 497, 469}
+}
+
+
+function send_tip(actor, news_id, timeout, sender, showtime, sender_id)
+	if news_id == nil then return false end
+
+	if timeout == nil then timeout = 0 end
+	if showtime == nil then showtime = news_showtime end
+
+	--' Играем дефолтный звук
+	if pda_tips then
+		pda_tips:play(db.actor, timeout, sound_object.s2d)
+	end
+	local news_snd = get_snd(news_id)
+	if news_snd then
+		--' Играем звук забитый
+		news_snd:play(db.actor, timeout+1, sound_object.s2d)
+
+		--' Необходимо поставить время показа по длине сцены
+		local length = news_snd:length()
+		if length > showtime then
+			showtime = length
+		end
+	end
+	
+	if sender == nil then
+		sender = "default"
+	end
+	local x = tips_icons[sender][1]
+	local y = tips_icons[sender][2]
+	
+	local news_text = "%c[255,160,160,160]"..game.translate_string("st_tip").."\\n".."%c[default]"..game.translate_string(news_id)
+	actor:give_game_news(news_text, "ui\\ui_iconsTotal", Frect():set(x,y,83,47), timeout*1000, showtime)
+	return true
+end
+
+function send_tip_nosound(actor, news_id, timeout, sender)
+	if not news_id then return end
+
+	timeout = 0
+
+	--' Играем дефолтный звук
+	if pda_tips then
+		pda_tips:play(db.actor, timeout, sound_object.s2d)
+	end
+
+	return get_snd(news_id)
+end
+
+local action_descr_by_type = {
+	new = "general_new_task",
+	update = "general_update_task",
+	complete = "general_complete_task",
+	fail = "general_fail_task"
+}
+
+--------------------------------------------------------------------------
+local cycle_task = {
+	["eliminate_lager"] = true,
+	["defend_lager"] = true,
+	["kill_stalker"] = true,
+	["artefact"] = true,
+	["monster_part"] = true,
+	["find_item"] = true
+}
+
+local StartTime
+local function getStartTime()
+  local d = string.explode( ".", get_string( "alife", "start_date" ), true )
+  StartTime = game.CTime()
+  StartTime:set( tonumber( d[ 3 ] ), tonumber( d[ 2 ] ), 1, 0, 0, 0, 0 )
+  local temp = game.CTime()
+  temp:setHMS( 24, 0, 0 )
+  StartTime = StartTime - temp
+end
+local function game_seconds()
+	if not StartTime then getStartTime() end
+	return game.get_game_time():diffSec(StartTime)
+end
+function game_days()
+	return math.floor(game_seconds() / 86400)
+end
+
+local autosave_t
+function autosave( text )
+	cmd( "save " .. dsh.safe_file_name( string.format( "%s %d. %s", game.translate_string( "ui_autosave_day" ), game_days(), text ) ) )
+end
+--------------------------------------------------------------------------
+
+function send_task(actor, type, task, objective)
+    if not db.actor then return false end
+     
+	--' Берем координаты из текстуры таска
+    local task_texture, task_rect = get_texture_info("ui_iconsTotal_"..task:get_id(), "ui_iconsTotal_locations")
+        
+	--' Играем дефолтный звук
+	if pda_task then
+		pda_task:play(db.actor, 0, sound_object.s2d)
+	end
+
+	-- цвет сообщения
+	local text_color
+	if type == "fail" then
+		text_color = "%c[255,255,0,0]"
+	elseif type == "complete" then
+		text_color = "%c[255,0,255,38]"
+	elseif type == "update" then
+		text_color = "%c[255,0,38,255]"
+	elseif type == "new" then
+		text_color = "%c[255,0,255,38]"
+	else
+		text_color = "%c[default]"
+	end
+
+	local news_text = text_color..game.translate_string(action_descr_by_type[type]).."\\n".."%c[default]"..game.translate_string(task:get_title())
+	if db.actor:is_talking() then	
+		db.actor:give_talk_message(news_text, task_texture, task_rect, "other_iconed_answer_item")
+	else
+		db.actor:give_game_news(news_text, task_texture, task_rect, 0, 3000)
+	end
+
+	if type == "new" or type == "update" then --Выдать новое подзадание
+		if task:get_objectives_cnt() == objective:get_idx()+1 then
+			return
+		end
+		news_text = text_color..game.translate_string(action_descr_by_type[type]).."\\n".."%c[default]"..game.translate_string(task:get_title())
+	end
+--------------------------------------------------------------------------
+	local task_title = task:get_title()
+	--log3("~~[%s] task_title is [%s]", script_name(), task_title)
+	local task_time = task_title:find("\\n", 1, true)
+	if task_time then
+		task_title = task_title:sub(1, task_time - 1)
+	end
+	-- автосохранение только при получении и сдаче задания. циклические задания игнорируются.
+	if not cycle_task[task_title] then
+		local news_text_save = game.translate_string( task_title )
+		if type == "complete" then
+			news_text_save = news_text_save.." - "..game.translate_string(action_descr_by_type[type])
+		end
+		-- удаляем предыдущий таймер на сохранение при сдаче/получении
+		-- нескольких квестов в одном диалоге
+		-- сохраняем только самый последний автосейв по завершении диалога
+		if type == "new" or type == "complete" then
+			if autosave_t then autosave_t:stop() end
+			autosave_t = dsh.wait_condition(
+				function() return ogse.check_game() and not level.main_input_receiver() end,
+				function() autosave( news_text_save ); autosave_t = nil; end,
+				function() ogse_signals.get_mgr():reschedule( math.random( 1500, 3000 ) ) end
+			)
+		end
+	end
+--------------------------------------------------------------------------
+	local hud = get_hud()
+	hud:AddCustomStatic("main_task", true)
+	hud:GetCustomStatic("main_task"):wnd():SetText(news_text)
+	hud:GetCustomStatic("main_task").m_endTime = time_global()/1000 + 5
+end
+
+function send_encyclopedy(type, title)
+	if type == "Diary" then
+		if pda_news then
+			pda_news:play(db.actor, 0, sound_object.s2d)
+		end
+
+		--' Берем координаты из текстуры таска
+		local task_texture, task_rect = get_texture_info("ui_iconsTotal_locations", "ui_iconsTotal_locations")
+		local news_text = "%c[255,0,38,255]"..game.translate_string("st_found_new_pda").."\\n".."%c[default]"..game.translate_string(title)
+		
+		if db.actor:is_talking() then	
+			db.actor:give_talk_message(news_text, task_texture, task_rect,"other_iconed_answer_item")
+		else
+			db.actor:give_game_news(news_text, task_texture, task_rect, 0, 3000)
+		end
+	end
+end
+
+function send_treasure(name)
+	if pda_news then
+		pda_news:play(db.actor, 0, sound_object.s2d)
+	end
+	
+	local task_texture, task_rect = get_texture_info("ui_iconsTotal_found_thing")
+
+	local location
+	if string.find(name,"esc_") then location = game.translate_string("news_manager_location_1_text")
+	elseif string.find(name,"gar_") then location = game.translate_string("news_manager_location_2_text")
+	elseif string.find(name,"agr_u_") then location = game.translate_string("news_manager_location_3_text")
+	elseif string.find(name,"agr_") then location = game.translate_string("news_manager_location_4_text")
+	elseif string.find(name,"val_") then location = game.translate_string("news_manager_location_5_text")
+	elseif string.find(name,"mil_") then location = game.translate_string("news_manager_location_6_text")
+	elseif string.find(name,"yan_") then location = game.translate_string("news_manager_location_7_text")
+	elseif string.find(name,"x16_") then location = game.translate_string("news_manager_location_8_text")
+	elseif string.find(name,"rad_") then location = game.translate_string("news_manager_location_9_text")
+	elseif string.find(name,"pri_") then location = game.translate_string("news_manager_location_10_text")
+	elseif string.find(name,"x18_") then location = game.translate_string("news_manager_location_11_text")
+	elseif string.find(name,"bar_") then location = game.translate_string("news_manager_location_12_text")
+	elseif string.find(name,"ros_") then location = game.translate_string("news_manager_location_13_text")
+	else location = "" end
+	
+	local news_text = "%c[255,0,38,255]"..game.translate_string("st_found_new_treasure").." "..location..":\\n".."%c[default]"..game.translate_string(name)
+	
+	db.actor:give_game_news(news_text, task_texture, task_rect, 0, 7000)
+end
+
+function get_inv_name(section)
+	return sys_ini:r_string(section,"inv_name")
+end
+
+function relocate_item(actor, type, item)
+	if not db.actor then return false end
+
+	--' Играем дефолтный звук
+	if type == "in" then
+		local task_texture, task_rect = get_texture_info("ui_iconsTotal_found_thing")
+		local news_text = "%c[255,0,255,38]"..game.translate_string("general_in_item").."\\n".."%c[default]"..game.translate_string(get_inv_name(item))		
+		if db.actor:is_talking() then
+			db.actor:give_talk_message(news_text, task_texture, task_rect, "other_iconed_answer_item")
+		else
+			db.actor:give_game_news(news_text, task_texture, task_rect, 0, 3000)
+		end		
+	elseif type == "out" then
+		local task_texture, task_rect = get_texture_info("ui_iconsTotal_lost_thing")
+		local news_text = "%c[255,255,0,0]"..game.translate_string("general_out_item").."\\n".."%c[default]"..game.translate_string(get_inv_name(item))		
+		if db.actor:is_talking() then
+			db.actor:give_talk_message(news_text, task_texture, task_rect, "actor_iconed_answer_item")
+		else
+			db.actor:give_game_news(news_text, task_texture, task_rect, 0, 3000)
+		end		
+	end
+end
+
+function relocate_money(actor, type, amount)
+	if not db.actor then return false end
+
+	--' Играем дефолтный звук
+	if type == "in" then
+		local task_texture, task_rect = get_texture_info("ui_iconsTotal_found_money")
+		local news_text = "%c[255,0,255,38]"..game.translate_string("general_in_money").."\\n".."%c[default]"..game.translate_string(tostring(amount))
+		
+		if db.actor:is_talking() then
+			db.actor:give_talk_message(news_text, task_texture, task_rect, "other_iconed_answer_item")
+		else
+			db.actor:give_game_news(news_text, task_texture, task_rect, 0, 3000)
+		end		
+	elseif type == "out" then
+		local task_texture, task_rect = get_texture_info("ui_iconsTotal_lost_money")
+		local news_text = "%c[255,255,0,0]"..game.translate_string("general_out_money").."\\n".."%c[default]"..game.translate_string(tostring(amount))
+		
+		if db.actor:is_talking() then
+			db.actor:give_talk_message(news_text, task_texture, task_rect, "actor_iconed_answer_item")
+		else
+			db.actor:give_game_news(news_text, task_texture, task_rect, 0, 3000)
+		end		
+	end
+end

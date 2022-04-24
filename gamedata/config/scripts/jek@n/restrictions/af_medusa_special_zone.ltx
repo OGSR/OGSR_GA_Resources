@@ -1,0 +1,22 @@
+[logic]
+active = sr_idle@1
+
+[sr_idle@1]
+;on_info = {=actor_in_zone(dar_filin_shron_door_zone)} sr_idle@2 %=disable_ui%, {!actor_in_zone(dar_filin_shron_door_zone)} sr_idle@3 %=disable_ui%
+on_info = {=actor_behind_filin_shron_door} sr_idle@2 %=disable_ui%, {!actor_behind_filin_shron_door} sr_idle@3 %=disable_ui%
+
+
+; Условия подходящие:
+[sr_idle@2]
+on_timer = 1|nil %+dar_filin_door_off =release_dar_filin_shron_door =release_dar_assistant_friend =play_particle_on_path(anomaly2\gravity_blast_01:dar_filin_shron_door_point) =play_snd_on_me(anomaly\anomaly_gravy_blast1)) =enable_ui =release%
+
+; Условия НЕ подходящие:
+[sr_idle@3]
+on_timer = 1|nil %=spawn_special_medusa_near_door =release =enable_ui%
+
+
+
+
+
+
+

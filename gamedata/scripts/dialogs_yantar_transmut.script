@@ -1,0 +1,183 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-- Трансмуты у Сахарова
+function trader_transmut_precond(trader, actor)
+return true
+end
+
+function trader_check_cond_s1(trader, actor)
+	if db.actor:object("af_night_star") ~= nil then
+	if db.actor:object("af_electra_moonlight") ~= nil then
+	if db.actor:object("af_dummy_battery") ~= nil then
+	if db.actor:money() >= 35000 then
+			return true
+		end
+	    end
+		end 
+	end							
+	return false
+end
+
+function trader_check_cond_s2(trader, actor)
+	if db.actor:object("af_electra_moonlight") ~= nil then
+	if db.actor:object("mutant_flesh_eye") ~= nil then
+	if db.actor:money() >= 55000 then
+			return true
+		end 
+		end
+	end
+	return false
+end
+
+
+function trader_check_cond_s3(trader, actor)
+	if db.actor:object("af_night_star") ~= nil then
+	if db.actor:object("af_dummy_glassbeads") ~= nil then
+	if db.actor:object("af_gravi") ~= nil then
+	if db.actor:object("af_drops") ~= nil then
+	if db.actor:money() >= 100000 then
+			return true
+		end 
+	end
+	end
+	end
+	end
+	return false
+end
+
+
+function trader_check_cond_s4(trader, actor)
+	if db.actor:object("af_electra_moonlight") ~= nil then
+	if db.actor:object("af_kaktus") ~= nil then
+	if db.actor:object("af_ameba_slime") ~= nil then
+	if db.actor:money() >= 35000 then
+			return true
+		end 
+	end
+	end
+	end
+	return false
+end
+
+
+function trader_check_cond_s5(trader, actor)
+	if db.actor:object("af_ameba_mica") ~= nil then
+	if db.actor:object("af_dummy_dummy") ~= nil then
+	if db.actor:object("af_fireball") ~= nil then
+	if db.actor:money() >= 75000 then
+			return true
+		end 
+	end
+	end
+	end
+	return false
+end
+
+
+function trader_check_cond_s6(trader, actor)
+	if db.actor:object("af_dummy_pellicle") ~= nil then
+	if db.actor:object("af_vyvert") ~= nil then
+	if db.actor:money() >= 20000 then
+			return true
+		end 
+	end
+	end
+	return false
+end
+
+
+function trader_check_cond_s7(trader, actor)
+	if db.actor:object("af_ameba_mica") ~= nil then
+	if db.actor:object("af_soul") ~= nil then
+	if db.actor:object("mutant_krovosos_jaw") ~= nil then
+	if db.actor:money() >= 150000 then
+			return true
+		end 
+	end
+	end
+	end
+	return false
+end
+
+function trader_check_cond_s8(trader, actor)
+	if db.actor:object("af_gold_fish") ~= nil then
+	if db.actor:object("af_ameba_mica") ~= nil then
+	if db.actor:object("mutant_hand_kontroler") ~= nil then
+	if db.actor:money() >= 85000 then
+			return true
+		end 
+	end
+	end
+	end
+	return false
+end
+
+
+function trader_make_airfact_s1(trader, actor)
+		dialogs.relocate_item_section(actor, "af_transmut_1", "in")
+		dialogs.relocate_item_section(actor, "af_night_star", "out")
+		dialogs.relocate_item_section(actor, "af_electra_moonlight", "out")
+		dialogs.relocate_item_section(actor, "af_dummy_battery", "out")
+		dialogs.relocate_money(actor, 35000, "out")
+
+end
+
+function trader_make_airfact_s2(trader, actor)
+		dialogs.relocate_item_section(actor, "af_transmut_2", "in")
+		dialogs.relocate_item_section(actor, "af_electra_moonlight", "out")
+		dialogs.relocate_item_section(actor, "mutant_flesh_eye", "out")
+		dialogs.relocate_money(actor, 55000, "out")
+
+end
+
+function trader_make_airfact_s3(trader, actor)
+		dialogs.relocate_item_section(actor, "af_transmut_3", "in")
+		dialogs.relocate_item_section(actor, "af_night_star", "out")
+		dialogs.relocate_item_section(actor, "af_dummy_glassbeads", "out")
+		dialogs.relocate_item_section(actor, "af_gravi", "out")
+		dialogs.relocate_item_section(actor, "af_drops", "out")
+		dialogs.relocate_money(actor, 100000, "out")
+
+end
+
+function trader_make_airfact_s4(trader, actor)
+        dialogs.relocate_item_section(actor, "af_transmut_4", "in")
+		dialogs.relocate_item_section(actor, "af_electra_moonlight", "out")
+		dialogs.relocate_item_section(actor, "af_kaktus", "out")
+		dialogs.relocate_item_section(actor, "af_ameba_slime", "out")
+		dialogs.relocate_money(actor, 35000, "out")
+
+end
+
+function trader_make_airfact_s5(trader, actor)
+		dialogs.relocate_item_section(actor, "af_transmut_5", "in")
+		dialogs.relocate_item_section(actor, "af_ameba_mica", "out")
+		dialogs.relocate_item_section(actor, "af_dummy_dummy", "out")
+		dialogs.relocate_item_section(actor, "af_fireball", "out")
+		dialogs.relocate_money(actor, 75000, "out")
+
+end
+
+function trader_make_airfact_s6(trader, actor)
+		dialogs.relocate_item_section(actor, "af_transmut_6", "in")
+		dialogs.relocate_item_section(actor, "af_dummy_pellicle", "out")
+		dialogs.relocate_item_section(actor, "af_vyvert", "out")
+		dialogs.relocate_money(actor, 20000, "out")
+
+end
+
+function trader_make_airfact_s7(trader, actor)
+		dialogs.relocate_item_section(actor, "af_transmut_7", "in")
+		dialogs.relocate_item_section(actor, "af_ameba_mica", "out")
+		dialogs.relocate_item_section(actor, "af_soul", "out")
+		dialogs.relocate_item_section(actor, "mutant_krovosos_jaw", "out")
+		dialogs.relocate_money(actor, 150000, "out")
+end
+
+function trader_make_airfact_s8(trader, actor)
+		dialogs.relocate_item_section(actor, "af_transmut_8", "in")
+		dialogs.relocate_item_section(actor, "af_gold_fish", "out")
+		dialogs.relocate_item_section(actor, "af_ameba_mica", "out")
+		dialogs.relocate_item_section(actor, "mutant_hand_kontroler", "out")
+		dialogs.relocate_money(actor, 85000, "out")
+end

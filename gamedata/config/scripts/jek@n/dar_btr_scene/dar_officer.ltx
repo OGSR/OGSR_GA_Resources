@@ -1,0 +1,85 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = remark1
+combat_ignore = combat_ignore
+on_death = death
+; on_combat = combat
+threshold = threshold@dar_officer_threshold
+
+[remark1]
+anim = hands_up
+no_move = true
+meet = meet@surrend
+target = actor
+combat_ignore_cond = always
+on_info = {+officer_goto_saray} remark2
+combat_ignore_keep_when_attacked = true
+
+[remark2]
+anim = hands_up
+snd = dar_officer_naezd
+; snd_anim_sync = true
+no_move = true
+meet = no_meet
+target = actor
+combat_ignore_cond = always
+on_signal = action_end | walker@saray
+combat_ignore_keep_when_attacked = true
+
+[walker@saray]
+path_walk = dar_officer_walk_saray
+path_look = dar_officer_look
+combat_ignore_cond = always
+def_state_moving = run
+meet = no_meet
+on_signal       = arrived | %+military_radio_request =make_invulnerable%
+on_info = {+dar_merk_bomber_dead +dar_merk_guard_1_dead +dar_merk_guard_2_dead +dar_merk_lider_dead} walker@free
+combat_ignore_keep_when_attacked = true
+
+[walker@free]
+path_walk = dar_officer_walk_saray
+path_look = dar_dez_btr_walk_middle_2
+combat_ignore_cond = always
+def_state_moving = run
+meet = meet@naezd
+combat_ignore_keep_when_attacked = true
+
+[meet@surrend]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 2|actor
+victim_wpn = 2|actor
+meet_state = 2|hands_up@i_am_surrend1|1|hands_up@i_am_surrend1
+meet_state_wpn = 2|hands_up@i_am_surrend2|1|hands_up@i_am_surrend2
+
+[meet@naezd]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 3|actor
+victim_wpn = 3|actor
+meet_state = 3|ward@dar_officer_naezd|2|ward@dar_officer_naezd
+meet_state_wpn = 3|ward@dar_officer_naezd|2|ward@dar_officer_naezd
+
+[combat]
+combat_type = camper
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@dar_officer_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+dar_officer_dead%
+

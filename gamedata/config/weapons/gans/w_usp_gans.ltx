@@ -1,0 +1,518 @@
+[wpn_usp]:identity_immunities,base_wpn_zoom
+GroupControlSection			= spawn_group
+discovery_dependency 		=
+$spawn                  	= "weapons\usp"		; option for Level Editor
+$npc              = on           ; option for Level Editor
+$prefetch               = 8
+scheduled               = off                                ; option for ALife Simulator
+cform                   = skeleton
+class                   = WP_PM
+description          	= gunsl_wpn_usp_descr
+
+ef_main_weapon_type = 0
+ef_weapon_type          = 5
+
+hidden_bones = sight, flash, laser, line, light
+
+;-------------------------------------------------------------------------------
+cost					= 2400         ; the price of the item
+inv_weight				= 0.86
+
+;----TTX--------------------------------------------------------------------------
+hit_power           		= 1.0, 1.0, 1.0, 1.0
+hit_impulse	 		 		= 100
+hit_type 					= fire_wound
+fire_distance           	= 200
+bullet_speed		 		= 195
+rpm                     	= 173
+rpm_empty_click 	 		= 250
+
+use_aim_bullet				= false		;Поддерживается ли первая суппер пуля
+time_to_aim					= 1.0
+
+hud                     = wpn_usp_hud
+
+misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.6
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.1
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.0055
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.055
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.0006
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.0006
+
+;////////////////////////////////////////////Осечки////////////////////////////////////////////////////////////
+;Это - разновидность задержки => происходит только в указанных для задержек пределах
+;включаем использование осечек
+use_light_misfire = true
+;начальное состояние оружия, при котором происходят осечки; независимо от указанного тут значения, при состояниях лучшем, чем misfire_start_condition, осечек не будет
+light_misfire_start_condition = 0.6
+;состояние, хуже которого вероятность осечки константа
+light_misfire_end_condition = 0.1
+;какая часть всех задержек будет осечками в начальном состоянии
+light_misfire_start_probability = 0.8
+;какая часть всех задержек будет осечками на нижнем пороге
+light_misfire_end_probability = 0.4
+
+ammo_elapsed		 	= 12
+ammo_mag_size		 	= 12         ; clip (magazine) size
+fire_modes		  = 1;, -1
+ammo_class		  = ammo_11.43x23_fmj, ammo_11.43x23_hydro
+grenade_class     = ammo_vog-25         ; name of the ltx-section of used grenades
+
+launch_speed      = 0
+hand_dependence		 	= 1
+single_handed			= 1
+
+;---DOF-------------------------------------------------------------------------
+zoom_dof					= -1000, 1.0, 1000
+reload_dof						= 0.0, 0.5, 5, 1.7
+
+;---дисперсия---------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base	= 0.19 ;0.7 			;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor = 1.0
+crosshair_inertion   	= 3.65
+
+;отдача
+cam_return				= 0
+cam_relax_speed         = 7				;скорость возврата в исходное положение
+cam_dispersion          = 1.5				;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc		= 1.5				;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac		= 1.0				;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle			= 30.0			;максимальный угол отдачи
+cam_max_angle_horz		= 10.0			;(degree) maximum shot horizontal degree
+cam_step_angle_horz		= 1.0				;(degree) size of step camera moved in horizontal position while shooting
+detector_disp_factor            = 3                     ;во сколько раз увеличится дисперсия оружия при активном детекторе в другой руке.
+
+PDM_disp_base 				= 1.0
+PDM_disp_vel_factor 		= 1.1
+PDM_disp_accel_factor 		= 1.1
+PDM_disp_crouch	 				= 1.0
+PDM_disp_crouch_no_acc 			= 1.0
+
+zoom_cam_relax_speed        = 10    ; scope & ironsight
+zoom_cam_relax_speed_ai     = 120.75
+zoom_cam_dispersion         = 0.45
+zoom_cam_dispersion_inc     = 0.45
+zoom_cam_dispersion_frac    = 0.8
+zoom_cam_max_angle          = 15.0
+zoom_cam_max_angle_horz     = 10.0
+zoom_cam_step_angle_horz    = 1.5
+
+fire_dispersion_condition_factor = 8        ;увеличение дисперсии в процентах при максимальном износе
+
+;-------------------------------------------------------------------------------
+holder_range_modifier   = 1.0                       ; во сколько раз увеличивается eye_range
+holder_fov_modifier     = 1.0              ; во сколько раз увеличивается eye_fov
+
+min_radius              = 0
+max_radius              	= 30
+
+hit_probability_gd_novice  = 0.80
+hit_probability_gd_stalker = 0.80
+hit_probability_gd_veteran = 0.80
+hit_probability_gd_master  = 0.80
+
+;-------------------------------------------------------------------------------
+slot 			 		= 1
+animation_slot			= 1		             ; type of the animation that will be used
+inv_name          = gunsl_wpn_usp               ; name in inventory
+inv_name_short    = gunsl_wpn_usp
+
+inv_grid_width			= 2
+inv_grid_height			= 1
+inv_grid_x				= 2
+inv_grid_y				= 25
+
+kill_msg_x				= 134
+kill_msg_y				= 177
+kill_msg_width			= 31
+kill_msg_height			= 25
+
+;-------------------------------------------------------------------------------
+position                         = -0.015000, -0.084000, -0.009000
+orientation                      = 0.000000, 0.000000, 0.000000
+
+fire_point              = 0.0, 0.133, 0.161
+fire_point2             = 0.0, 0.133, 0.161
+
+flame_particles		= weapons\generic_weapon03
+smoke_particles		= weapons\generic_shoot_00
+grenade_flame_particles = weapons\generic_weapon01
+
+shell_point		= 0.0, 0.133, 0.047
+shell_dir		= 0.0, 0.0, 0.4
+shell_particles	 	= ;
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;под мишкой
+;strap_position         	= -0.16,-0.36,0.15			; position (offset) and orientation of the weapon when it is strapped
+;strap_orientation      	= -10,-5,10					; (3rd person view in degrees)
+;strap_bone0             = bip01_spine2
+;strap_bone1             = bip01_spine1
+
+startup_ammo            = 90
+visual                  = dynamics\weapons\wpn_usp45\wpn_usp45.ogf
+
+light_disabled                                = false
+light_color		 				= 0.6,0.5,0.3
+light_range		 				= 3.0
+light_var_color		 		= 0.05
+light_var_range		 		= 0.5
+light_time 		 				= 0.2
+
+ph_mass			 				= 1
+
+;addons
+scope_status            = 0                   ; 0 - no addon
+silencer_status         = 2                   ; 1 - permanent
+grenade_launcher_status = 0                   ; 2 - attachable
+
+zoom_enabled					= true
+zoom_rotate_time				= 0.25
+
+scope_name              = wpn_addon_scope       ; section name for the attachable scope
+scope_x              	= 47                 ; offset in inventory icon
+scope_y                 = 0
+silencer_name  				= wpn_addon_sil_1143		
+silencer_x 						= 60						; offset in inventory icon
+silencer_y 						= -17
+grenade_launcher_name   = wpn_addon_grenade_launcher; section name for the attachable grenade launcher
+grenade_launcher_x      = 126                ; offset in inventory icon
+grenade_launcher_y      = 24
+
+;звуки
+snd_draw		= weapons\p99\p99_draw
+snd_holster		= weapons\m1911\hide
+snd_shoot		= weapons\usp\usp_shoot
+snd_empty		= weapons\glock17\glock17_dry
+snd_reload		= weapons\usp\usp_reload
+snd_reload_empty        = weapons\usp\usp_reload_full_short
+snd_reload_jammed       = weapons\grach\grach_revival
+snd_reload_jammed_last  = weapons\grach\grach_revival
+snd_shoot_grenade       = weapons\ak74\ak74_gl_shoot
+snd_reload_grenade      = weapons\ak74\ak74_gl_reload
+snd_switch              = $silent
+snd_close		= $silent
+snd_bore                = weapons\p99\p99_draw
+
+;silencer_flame_particles  = weapons\generic_weapon01
+silencer_smoke_particles 	= weapons\generic_shoot_00
+snd_silncer_shot				= weapons\usp\usp_shoot_sil
+silencer_light_color			= 0.6,0.5,0.3
+silencer_light_range			= 0.01
+silencer_light_var_color	= 0.05
+silencer_light_var_range	= 0.01
+silencer_light_time 			= 0.01
+
+[wpn_usp_hud]:hud_base
+zoom_hide_crosshair			= true
+zoom_dof_near = 0.48
+zoom_dof_focus = 0.53
+
+
+hands_position				= 0.0,-0.13,0.03
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.0,-0.13,0.03
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+aim_hud_offset_pos = 0.000000,0.018000,0.0
+aim_hud_offset_rot = -0.004000,0.000000,0.0
+
+aim_hud_offset_pos_16x9 = 0.000000,0.018000,0.0
+aim_hud_offset_rot_16x9 = -0.004000,0.000000,0.0
+item_position			= 0.0,0.0,0.0
+item_orientation		= 0.0,0.0,0.0
+
+item_visual             	= dynamics\weapons\wpn_usp45\wpn_usp45_hud.ogf
+attach_place_idx		= 0
+
+shell_point			= 0.0,-9.0,0.0
+shell_bone              	= wpn_body
+
+fire_point			= -0.010,0.10,0.37
+fire_bone               	= wpn_body
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = usp_draw
+anm_show_empty             = usp_draw, idle_empty
+anm_show_jammed            = usp_draw, idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = usp_hide
+anm_hide_empty             = usp_hide, idle_empty
+anm_hide_jammed            = usp_hide, idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = usp_idle
+anm_idle_empty                      = usp_idle, idle_empty
+anm_idle_jammed                     = usp_idle, idle_jammed
+anm_idle_slow                       = usp_idle
+anm_idle_crouch                     = usp_idle
+anm_idle_crouch_slow                = usp_idle
+anm_idle_slow_empty                 = usp_idle, idle_empty
+anm_idle_crouch_empty               = usp_idle, idle_empty
+anm_idle_crouch_slow_empty          = usp_idle, idle_empty
+anm_idle_slow_jammed                = usp_idle, idle_jammed
+anm_idle_crouch_jammed              = usp_idle, idle_jammed
+anm_idle_crouch_slow_jammed         = usp_idle, idle_jammed
+
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = usp_aim_start
+anm_idle_aim_start_empty       = usp_aim_start, idle_empty
+anm_idle_aim_start_jammed      = usp_aim_start, idle_jammed
+
+anm_idle_aim                   = usp_aim
+anm_idle_aim_empty             = usp_aim, idle_empty
+anm_idle_aim_jammed            = usp_aim, idle_jammed
+
+anm_idle_aim_end               = usp_aim_end
+anm_idle_aim_end_empty         = usp_aim_end, idle_empty
+anm_idle_aim_end_jammed        = usp_aim_end, idle_jammed
+
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					= usp_walk
+anm_idle_moving_jammed 					= usp_walk, idle_jammed
+anm_idle_moving_empty					= usp_walk, idle_empty
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= usp_slow
+anm_idle_moving_slow_jammed 				= usp_slow, idle_jammed
+anm_idle_moving_slow_empty				= usp_slow, idle_empty
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					        = usp_slow_down
+anm_idle_moving_crouch_jammed 					= usp_slow_down, idle_jammed
+anm_idle_moving_crouch_empty					= usp_slow_down, idle_empty
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 					= usp_slow_super
+anm_idle_moving_crouch_slow_jammed 				= usp_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty				= usp_slow_super, idle_empty
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                   = usp_aim_walk
+anm_idle_aim_moving_forward_empty             = usp_aim_walk, idle_empty
+anm_idle_aim_moving_forward_jammed            = usp_aim_walk, idle_jammed
+
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                   = usp_aim_walk_back
+anm_idle_aim_moving_back_empty             = usp_aim_walk_back, idle_empty
+anm_idle_aim_moving_back_jammed            = usp_aim_walk_back, idle_jammed
+
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                   = usp_aim_walk_left  
+anm_idle_aim_moving_left_empty             = usp_aim_walk_left  , idle_empty
+anm_idle_aim_moving_left_jammed            = usp_aim_walk_left  , idle_jammed
+
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                   = usp_aim_walk_right 
+anm_idle_aim_moving_right_empty             = usp_aim_walk_right , idle_empty
+anm_idle_aim_moving_right_jammed            = usp_aim_walk_right , idle_jammed
+ 
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                   = usp_aim_walk_left
+anm_idle_aim_moving_forward_left_empty             = usp_aim_walk_left, idle_empty
+anm_idle_aim_moving_forward_left_jammed            = usp_aim_walk_left, idle_jammed
+
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                   = usp_aim_walk_right
+anm_idle_aim_moving_forward_right_empty             = usp_aim_walk_right, idle_empty
+anm_idle_aim_moving_forward_right_jammed            = usp_aim_walk_right, idle_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                   = usp_aim_walk_left
+anm_idle_aim_moving_back_left_empty             = usp_aim_walk_left, idle_empty
+anm_idle_aim_moving_back_left_jammed            = usp_aim_walk_left, idle_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                   = usp_aim_walk_right
+anm_idle_aim_moving_back_right_empty             = usp_aim_walk_right, idle_empty
+anm_idle_aim_moving_back_right_jammed            = usp_aim_walk_right, idle_jammed
+
+
+;Бег//////////////////////////////////////////////////////////////////
+lock_time_anm_idle_sprint_start = 0.15
+lock_time_anm_idle_sprint_start_empty = 0.15
+lock_time_anm_idle_sprint_start_jammed = 0.15
+anm_idle_sprint_start             = usp_sprint_start
+anm_idle_sprint_start_empty       = usp_sprint_start, idle_empty
+anm_idle_sprint_start_jammed      = usp_sprint_start, idle_jammed
+
+
+anm_idle_sprint                   = usp_sprint
+anm_idle_sprint_empty             = usp_sprint, idle_empty
+anm_idle_sprint_jammed            = usp_sprint, idle_jammed
+
+
+lock_time_anm_idle_sprint_end        = 0.4
+lock_time_anm_idle_sprint_end_empty  = 0.4
+lock_time_anm_idle_sprint_end_jammed = 0.4
+anm_idle_sprint_end             = usp_sprint_end
+anm_idle_sprint_end_empty       = usp_sprint_end, idle_empty
+anm_idle_sprint_end_jammed      = usp_sprint_end, idle_jammed
+
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = usp_bore
+anm_bore_empty             = usp_bore
+anm_bore_jammed            = usp_bore
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                = usp_shoot
+anm_shoot_sil            = usp_shoot
+anm_shoot_jammed	 = usp_shoot, idle_jammed
+anm_shoot_jammed_sil	 = usp_shoot, idle_jammed
+anm_shoot_last           = usp_shoot_empty
+anm_shoot_last_sil       = usp_shoot_empty
+anm_shoot_aim            = usp_aim_shoot
+anm_shoot_aim_sil        = usp_aim_shoot
+anm_shoot_aim_jammed	 = usp_aim_shoot, idle_jammed
+anm_shoot_aim_jammed_sil = usp_aim_shoot, idle_jammed
+anm_shoot_aim_last       = usp_aim_shoot_empty
+anm_shoot_aim_last_sil   = usp_aim_shoot_empty
+
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty      = usp_dry_empty, idle_empty
+anm_fakeshoot_aim_empty      = usp_aim_dry, idle_empty
+anm_fakeshoot_jammed     = usp_dry, idle_jammed
+anm_fakeshoot_aim_jammed     = usp_aim_dry, idle_jammed
+
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                       = usp_reload
+anm_reload_empty                 = usp_reload_full_short
+anm_reload_detector              = usp_det_reload, usp_reload
+anm_reload_empty_detector        = usp_det_reload_full_short, usp_reload_full_short
+anm_reload_jammed                = usp_revival
+anm_reload_jammed_last           = usp_revival_last
+anm_reload_ammochange            = usp_reload
+anm_reload_empty_ammochange      = usp_reload_full_short
+anm_reload_ammochange_detector            = usp_det_reload, usp_reload
+anm_reload_empty_ammochange_detector      = usp_det_reload_full_short, usp_reload_full_short
+
+
+anm_reload_jammed_detector                = usp_det_revival
+use_jammed_detector_snd = true
+anm_reload_jammed_last_detector           = usp_det_revival_last
+use_jammed_last_detector_snd = true
+
+;Включение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_on = usp_lam
+lock_time_start_anm_laser_on = 0.58
+lock_time_end_anm_laser_on = 0.5
+
+anm_laser_on_empty = usp_lam, idle_empty
+lock_time_start_anm_laser_on_empty = 0.58
+lock_time_end_anm_laser_on_empty = 0.5
+
+anm_laser_on_jammed = usp_lam, idle_jammed
+lock_time_start_anm_laser_on_jammed = 0.58
+lock_time_end_anm_laser_on_jammed = 0.5
+
+
+;Выключение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_off = usp_lam
+lock_time_start_anm_laser_off = 0.58
+lock_time_end_anm_laser_off = 0.5
+
+anm_laser_off_empty = usp_lam, idle_empty
+lock_time_start_anm_laser_off_empty = 0.58
+lock_time_end_anm_laser_off_empty = 0.5
+
+anm_laser_off_jammed = usp_lam, idle_jammed
+lock_time_start_anm_laser_off_jammed = 0.58
+lock_time_end_anm_laser_off_jammed = 0.5
+
+
+;Включение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_on = usp_lam
+lock_time_start_anm_torch_on = 0.58
+lock_time_end_anm_torch_on = 0.5
+
+anm_torch_on_empty = usp_lam, idle_empty
+lock_time_start_anm_torch_on_empty = 0.58
+lock_time_end_anm_torch_on_empty = 0.5
+
+anm_torch_on_jammed = usp_lam, idle_jammed
+lock_time_start_anm_torch_on_jammed = 0.58
+lock_time_end_anm_torch_on_jammed = 0.5
+
+
+;Выключение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_off = usp_lam
+lock_time_start_anm_torch_off = 0.58
+lock_time_end_anm_torch_off = 0.5
+
+anm_torch_off_empty = usp_lam, idle_empty
+lock_time_start_anm_torch_off_empty = 0.58
+lock_time_end_anm_torch_off_empty = 0.5
+
+anm_torch_off_jammed = usp_lam, idle_jammed
+lock_time_start_anm_torch_off_jammed = 0.58
+lock_time_end_anm_torch_off_jammed = 0.5
+
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on = usp_headflash
+lock_time_start_anm_headlamp_on = 0.58
+lock_time_end_anm_headlamp_on = 0.5
+
+anm_headlamp_on_empty = usp_headflash, idle_empty
+lock_time_start_anm_headlamp_on_empty = 0.58
+lock_time_end_anm_headlamp_on_empty = 0.5
+
+anm_headlamp_on_jammed = usp_headflash, idle_jammed
+lock_time_start_anm_headlamp_on_jammed = 0.58
+lock_time_end_anm_headlamp_on_jammed = 0.5
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off = usp_headflash
+lock_time_start_anm_headlamp_off = 0.58
+lock_time_end_anm_headlamp_off = 0.5
+
+anm_headlamp_off_empty = usp_headflash, idle_empty
+lock_time_start_anm_headlamp_off_empty = 0.58
+lock_time_end_anm_headlamp_off_empty = 0.5
+
+anm_headlamp_off_jammed = usp_headflash, idle_jammed
+lock_time_start_anm_headlamp_off_jammed = 0.58
+lock_time_end_anm_headlamp_off_jammed = 0.5
+
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on = usp_nv_on
+anm_nv_on_empty = usp_nv_on, idle_empty
+anm_nv_on_jammed = usp_nv_on, idle_jammed
+
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off = usp_nv_off
+anm_nv_off_empty = usp_nv_off, idle_empty
+anm_nv_off_jammed = usp_nv_off, idle_jammed
+
+[wpn_usp_doctor]:wpn_usp
+
+ammo_class = ammo_sleeping
+
+silencer_status = 1
+
+snd_shoot				= weapons\usp\usp_shoot_sil
+snd_silncer_shot			= weapons\usp\usp_shoot_sil

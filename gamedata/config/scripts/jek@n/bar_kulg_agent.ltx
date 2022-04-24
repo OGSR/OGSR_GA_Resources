@@ -1,0 +1,90 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@kulg_agent_threshold
+
+[walker]
+path_walk = kulg_agent_walk
+path_look = kulg_agent_look
+danger = danger_condition
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+on_info = {+bar_kulg_agent_talk} remark, {+bar_kulg_agent_meet_ugroza} kamp
+
+[remark]
+anim = hello
+snd = kulg_agent_meet
+snd_anim_sync = true
+no_move = true
+target = actor
+meet = no_meet
+on_signal = action_end | walker1 %-bar_kulg_agent_talk%
+
+[walker1]
+path_walk = kulg_agent_walk
+path_look = kulg_agent_look
+danger = danger_condition
+combat_ignore_cond = always
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+on_info = {+bar_kulg_agent_meet} walker2
+
+[walker2]
+path_walk = kulg_agent_walk_2
+path_look = kulg_agent_look
+danger = danger_condition
+combat_ignore_cond = always
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+meet = no_meet
+on_timer = 10000| walker3
+
+[walker3]
+path_walk = kulg_agent_walk_2
+path_look = kulg_agent_look
+danger = danger_condition
+combat_ignore_cond = always
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+on_info = {+bar_kulg_agent_meet_ugroza} remark1
+
+[remark1]
+snd = kulg_agent_goodbye
+;snd_anim_sync = true
+no_move = true
+target = actor
+meet = no_meet
+on_signal = sound_end | kamp
+
+[kamp]
+center_point = bar_visitors_kamp_3
+radius = 2 
+def_state_moving = run
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+
+[kamp1]
+center_point = koster_dolg_territory
+radius = 2 
+def_state_moving = run
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@kulg_agent_threshold]
+max_ignore_distance = 1
+ignore_monster = 1
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[death]
+on_info = %+kulg_agent_dead%
+

@@ -1,0 +1,16 @@
+[logic]
+active = sr_idle@0
+
+[sr_idle@0]
+on_info = {=actor_in_zone(dead_city_psi_radiotion_master) -master_quest_soup_ready} sr_particle@1
+on_info2 = {+master_quest_soup_ready} sr_idle@nil
+
+[sr_particle@1]
+name = amk\anomaly_3_00
+path = deadcity_master_particle
+mode = 2
+looped = true
+on_info = {!actor_in_zone(dead_city_psi_radiotion_master) -master_quest_soup_ready} sr_idle@0
+on_info2 = {+master_quest_soup_ready} sr_idle@nil
+
+[sr_idle@nil]

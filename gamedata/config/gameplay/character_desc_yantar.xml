@@ -1,0 +1,1247 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<xml>
+
+<!--ros_soldier-->
+	<specific_character id="ros_soldier" team_default = "1">
+		<name>epifancev_name</name>
+		<icon>ui_npc_u_stalker_ecolog</icon>
+		<bio>esc_soldier_regular_bio</bio>
+
+		<class>ros_soldier</class>
+		<community>neutral_military</community>
+
+		<rank>223</rank>
+		<reputation>6</reputation>
+
+		<snd_config>characters_voice\human_01\military\</snd_config>
+		<crouch_type>0</crouch_type>
+
+		<visual>actors\ecolog\stalker_ecolog</visual>
+		<supplies>
+			[spawn] \n
+			wpn_svd_pso = 1, scope \n
+			ammo_7.62x54_7h14 \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+			wpn_binoc \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"
+		</supplies>
+#include "gameplay\character_criticals_5.xml"
+		<start_dialog>ros_soldier_start_dialog</start_dialog>
+		<start_dialog>ros_soldier_search_first_dialog</start_dialog>
+		<start_dialog>ros_soldier_search_dialog_killers</start_dialog>
+		<start_dialog>ros_soldier_search_dialog_first_spot</start_dialog>
+		<start_dialog>ros_soldier_search_dialog_first_spot_search</start_dialog>
+		<start_dialog>ros_soldier_search_dialog_second_spot</start_dialog>
+		<start_dialog>ros_soldier_search_dialog_second_spot_search</start_dialog>
+	</specific_character>
+
+<!--yan_soldier-->
+	<specific_character id="yan_soldier" team_default = "1">
+		<name>epifancev_name</name>
+		<icon>ui_npc_u_soldier_obichniy</icon>
+		<bio>esc_soldier_regular_bio</bio>
+
+		<class>yan_soldier</class>
+		<community>neutral_military</community>
+
+		<rank>223</rank>
+		<reputation>6</reputation>
+
+		<snd_config>characters_voice\human_01\military\</snd_config>
+		<crouch_type>0</crouch_type>
+
+		<visual>actors\soldier_spetsnaz</visual>
+		<supplies>
+			[spawn] \n
+			wpn_svd_pso = 1, scope \n
+			ammo_7.62x54_7h14 \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+			wpn_binoc \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"
+		</supplies>
+#include "gameplay\character_criticals_5.xml"
+		<start_dialog>yan_soldier_start_dialog</start_dialog>
+		<actor_dialog>yan_soldier_lager_dialog1</actor_dialog>
+		<actor_dialog>yan_soldier_lager_dialog2</actor_dialog>
+		<actor_dialog>yan_soldier_lager_dialog3</actor_dialog>
+		<actor_dialog>yan_soldier_anomaly_dialog</actor_dialog>
+		<actor_dialog>yan_soldier_map_dialog</actor_dialog>
+		<actor_dialog>yan_soldier_sign_dialog</actor_dialog>
+		<actor_dialog>yan_soldier_demask_dialog</actor_dialog>
+		<actor_dialog>yan_soldier_say_true_dialog</actor_dialog>
+<!--		<actor_dialog>yan_soldier_suit_dialog</actor_dialog>-->
+		<actor_dialog>yan_soldier_second_generator_dialog</actor_dialog>
+		<actor_dialog>yan_soldier_lets_go_final_dialog</actor_dialog>
+		<actor_dialog>yan_soldier_place_generator_dialog</actor_dialog>
+		<actor_dialog>yan_soldier_explain_dialog</actor_dialog>
+		
+	</specific_character>
+	
+	<specific_character id="yan_dz_sold" team_default = "1">
+		<name>GENERATE_NAME_private</name>
+		<icon>ui_npc_u_soldier_obichniy</icon>
+		<bio>esc_soldier_regular_bio</bio>
+
+		<class>yan_dz_sold</class>
+		<community>neutral_military</community>
+
+		<rank>223</rank>
+		<reputation>6</reputation>
+
+		<snd_config>characters_voice\human_01\military\</snd_config>
+		<crouch_type>0</crouch_type>
+
+		<visual>actors\soldier_spetsnaz</visual>
+		<supplies>
+			[spawn] \n
+			wpn_ak74 \n
+			ammo_5.45x39_fmj \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+			wpn_binoc \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"
+		</supplies>
+#include "gameplay\character_criticals_5.xml"
+	</specific_character>
+	
+	<specific_character id="yan_dz_captain" team_default = "1">
+		<name>GENERATE_NAME_captain</name>
+		<icon>ui_npc_u_soldier_beret_1</icon>
+		<bio>sim_soldier_commander_bio</bio>
+
+		<class>yan_dz_captain</class>
+		<community>neutral_military</community>
+
+		<rank>764</rank>
+		<reputation>-15</reputation>
+
+		<snd_config>characters_voice\human_02\military\</snd_config>
+		<crouch_type>0</crouch_type>
+
+		<visual>actors\soldier\soldier_beret_1</visual>
+		<supplies>
+			[spawn] \n
+			wpn_ak74u = 1, scope launcher \n
+			ammo_vog-25 \n
+			ammo_5.45x39_ap \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+			grenade_f1 = 2 \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"
+		</supplies>
+#include "gameplay\character_criticals_5.xml"
+		<start_dialog>yan_dz_captain_dialog</start_dialog>
+	</specific_character>
+	
+	<!--izgoy_pomoshnik-->
+	<specific_character id="yan_dz_perepelkin" team_default = "1">
+		<name>yan_dz_perepelkin_name</name>
+		<icon>ui_npc_u_green_stalker_2</icon>
+		<bio>yan_dz_perepelkin_bio</bio>
+
+		<class>yan_dz_perepelkin</class>
+		<community>stalker</community>
+		<terrain_sect>stalker_terrain</terrain_sect>
+
+		<rank>234</rank>
+		<reputation>5</reputation>
+		<money min="1600" max="5000" infinitive="0"/>
+
+		<snd_config>characters_voice\human_02\newbie\</snd_config>
+		<crouch_type>-1</crouch_type>
+		<panic_threshold>0</panic_threshold>
+
+		<visual>actors\ecolog\stalker_ecolog_live</visual>
+		<supplies>
+			[spawn] \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+#include "gameplay\character_food.xml"
+		</supplies>
+		<start_dialog>yan_dz_perepelkin_dialog</start_dialog>
+
+#include "gameplay\character_criticals_4.xml"
+	</specific_character>
+	
+<!--yan_soldier_new-->
+	<specific_character id="yan_soldier_new" team_default = "1">
+		<name>epifancev_name</name>
+		<icon>ui_npc_u_soldier_obichniy</icon>
+		<bio>esc_soldier_regular_bio</bio>
+
+		<class>yan_soldier_new</class>
+		<community>neutral_military</community>
+
+		<rank>223</rank>
+		<reputation>6</reputation>
+
+		<snd_config>characters_voice\human_01\military\</snd_config>
+		<crouch_type>0</crouch_type>
+
+		<visual>actors\soldier_spetsnaz</visual>
+		<supplies>
+			[spawn] \n
+			wpn_svd_pso = 1, scope \n
+			ammo_7.62x54_7h14 \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+			wpn_binoc \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"
+		</supplies>
+#include "gameplay\character_criticals_5.xml"
+		<start_dialog>yan_soldier_second_generator_dialog</start_dialog>
+	</specific_character>
+
+<!--yan_zombsoldier-->
+	<specific_character id="yan_zombsoldier" team_default = "1">
+		<name>epifancev_name</name>
+		<icon>ui_npc_missing</icon>
+		<bio>esc_soldier_regular_bio</bio>
+
+		<class>yan_zombsoldier</class>
+		<community>neutral_military</community>
+
+		<rank>223</rank>
+		<reputation>6</reputation>
+
+		<snd_config>characters_voice\human_01\military\</snd_config>
+		<crouch_type>0</crouch_type>
+
+		<visual>actors\stalker_zombi\stalker_zombie_specnaz</visual>
+		<supplies>
+			[spawn] \n
+			wpn_ak74u \n
+			ammo_5.45x39_ap \n
+			
+		</supplies>
+		<actor_dialog>yan_zombsold_dialog</actor_dialog>
+#include "gameplay\character_criticals_5.xml"
+
+	</specific_character>
+
+
+<!--Chistoe nebo-->
+    <specific_character id="clear_cky_yan_1" team_default = "1">
+        <name>GENERATE_NAME_stalker</name>
+        <icon>ui_npc_csky_1</icon>
+        <bio>clear_cky_1_bio</bio>
+
+        <class>clear_cky</class>
+        <community>csky</community> 
+
+        <rank>367</rank>
+        <reputation>20</reputation>
+        <money min="1600" max="18000" infinitive="0"></money>
+
+        <snd_config>characters_voice\human_02\csky\</snd_config>
+        <crouch_type>-1</crouch_type>
+
+        <visual>actors\stalker_nebo\stalker_nebo_1</visual>
+        <supplies>
+            [spawn] \n
+            wpn_groza \n
+            ammo_9x39_pab9 \n
+			ammo_vog-25 \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"
+            </supplies>
+#include "gameplay\character_criticals_3.xml"
+#include "gameplay\character_dialogs.xml" 
+    </specific_character>		
+	
+	<specific_character id="clear_cky_yan_2" team_default = "1">
+        <name>GENERATE_NAME_stalker</name>
+        <icon>ui_npc_csky_2</icon>
+        <bio>clear_cky_2_bio</bio>
+
+        <class>clear_cky</class>
+        <community>csky</community> 
+<terrain_sect>stalker_ecolog_terrain</terrain_sect>
+        <rank>367</rank>
+        <reputation>30</reputation>
+        <money min="1600" max="15000" infinitive="0"></money>
+
+        <snd_config>characters_voice\human_01\csky\</snd_config>
+        <crouch_type>-1</crouch_type>
+
+        <visual>actors\stalker_nebo\stalker_nebo_2</visual>
+        <supplies>
+            [spawn] \n
+            wpn_groza \n
+            ammo_9x39_pab9 \n
+			ammo_vog-25 \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"
+            </supplies>
+#include "gameplay\character_criticals_3.xml"
+#include "gameplay\character_dialogs.xml" 
+    </specific_character>
+	
+<!--glavniy ucheniy-->
+	<specific_character id="yan_general_ecolog" team_default = "1">
+		<name>yan_saharov_name</name>
+		<icon>ui_npc_u_ucheniy_2</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>yan_saharov_bio</bio>
+
+		<class>yan_general_ecolog</class>
+		<community>ecolog</community> <terrain_sect>stalker_ecolog_terrain</terrain_sect>
+		<money min="500000" max="500000" infinitive="1"></money>
+		
+		<rank>330</rank>
+		<reputation>50</reputation>
+
+		<visual>actors\ucheniy\ucheniy_2</visual>
+		<snd_config>characters_voice\human_03\ecolog\</snd_config>
+		<crouch_type>1</crouch_type>
+		<supplies>
+			[spawn] \n
+			bad_psy_helmet \n
+			good_psy_helmet \n
+			ecolog_outfit \n
+			af_cristall_flower \n
+		</supplies>
+		<start_dialog>yantar_general_ucheniy_talk_start</start_dialog>
+		<actor_dialog>saharov_actor_set_zombied</actor_dialog>
+		<actor_dialog>saharov_actor_set_zombied_again</actor_dialog>
+		<actor_dialog>saharov_actor_set_actor</actor_dialog>
+		<actor_dialog>tm_ecolog_dialog</actor_dialog>
+		<actor_dialog>tm_ecolog_reward</actor_dialog>
+		<actor_dialog>yantar_trader_transmut_1</actor_dialog>
+		<actor_dialog>yantar_trader_transmut_2</actor_dialog>
+		<actor_dialog>yantar_trader_repair</actor_dialog>
+		<actor_dialog>yantar_zombie_hand</actor_dialog>
+		<actor_dialog>yantar_zombie_hand_comeback</actor_dialog>
+		<actor_dialog>horror_time_ecolog_story</actor_dialog>
+		
+		<actor_dialog>yan_kvest_help_to_chuk_take_water_dialog</actor_dialog>
+		<actor_dialog>yan_kvest_help_to_chuk_take_kolba_zombie_dialog</actor_dialog>
+		<actor_dialog>yan_kvest_help_to_chuk_bring_zapisi_complete_dialog</actor_dialog>
+		
+		<actor_dialog>esc_kvest_iscelenie_talk_with_saharov_dialog</actor_dialog>
+		<actor_dialog>esc_kvest_iscelenie_search_info_a_killer_dialog</actor_dialog>
+		
+		<!-- yan_random_quest -->
+		<actor_dialog>yan_random_quest_first_talk</actor_dialog>
+		<actor_dialog>yan_random_quest_give_item_list</actor_dialog>
+		
+		<!-- teleport_trap -->
+		<actor_dialog>teleport_trap_research_art_dialog</actor_dialog>
+		<actor_dialog>teleport_trap_catch_art_dialog</actor_dialog>
+		<actor_dialog>teleport_trap_finish_dialog</actor_dialog>
+		<actor_dialog>teleport_trap_art_destiny_dialog</actor_dialog>
+
+	<!--Аномальная кухонная утварь-->		
+		<actor_dialog>anom_house_items_task_start_dialog</actor_dialog>
+		<!--<actor_dialog>anom_house_items_task_end_dialog</actor_dialog>-->
+
+		<!-- Military_psycho -->
+		<actor_dialog>military_psycho_talk_about_psycho</actor_dialog>
+        </specific_character>
+
+<!--RESCUE_ECOLOG-->
+<specific_character id="yan_ecolog_help" team_default = "1">
+		<name>ros_kruglov_name</name>
+		<icon>ui_npc_u_stalker_ecolog_military</icon>
+		<map_icon x="0" y="6"></map_icon>
+		<bio>yan_kruglov_bio</bio>
+
+		<class>yan_ecolog_help</class>
+		<community>ecolog</community> <terrain_sect>stalker_ecolog_terrain</terrain_sect>
+		<money min="12000" max="15000" infinitive="0"></money>
+		
+		<rank>450</rank>
+		<reputation>90</reputation>
+
+		<visual>actors\unic\npc_kruglov</visual>
+		<snd_config>characters_voice\human_03\ecolog\</snd_config>
+		<crouch_type>1</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74u \n
+			ammo_5.45x39_fmj \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+			kruglov_flash \n		
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"			
+		</supplies>
+		
+#include "gameplay\character_criticals_3.xml"
+		<start_dialog>yantar_help_scientist</start_dialog>
+		<actor_dialog>talk_about_monsters</actor_dialog>
+		<actor_dialog>talk_about_zone</actor_dialog>
+		<actor_dialog>yantar_wounded_scientist</actor_dialog>
+#include "gameplay\character_dialogs_unic.xml"
+		
+	</specific_character>
+
+<specific_character id="yan_Semenov" team_default = "1">
+		<name>yan_semenov_name</name>
+		<icon>ui_npc_u_stalker_ecolog</icon>
+		<map_icon x="0" y="6"></map_icon>
+		<bio>yan_semenov_bio</bio>
+
+		<class>yan_Semenov</class>
+		<community>ecolog</community> <terrain_sect>stalker_ecolog_terrain</terrain_sect>
+		<money min="50000" max="100000" infinitive="1"></money>
+		
+		<rank>440</rank>
+		<reputation>50</reputation>
+
+		<visual>actors\unic\npc_semenov</visual>
+		<snd_config>characters_voice\human_03\ecolog\</snd_config>
+		<crouch_type>1</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74u \n
+			ammo_5.45x39_fmj \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+			kruglov_flash \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"			
+		</supplies>
+		
+#include "gameplay\character_criticals_3.xml"
+		<start_dialog>yantar_help_scientist</start_dialog>
+		<actor_dialog>talk_about_monsters</actor_dialog>
+		<actor_dialog>talk_about_zone</actor_dialog>
+#include "gameplay\character_dialogs_unic.xml"
+	</specific_character>
+	
+<specific_character id="yan_Semenov_esc" team_default = "1">
+		<name>yan_semenov_name</name>
+		<icon>ui_npc_u_stalker_ecolog</icon>
+		<map_icon x="0" y="6"></map_icon>
+		<bio>yan_semenov_bio</bio>
+
+		<class>yan_Semenov_esc</class>
+		<community>ecolog</community> <terrain_sect>stalker_ecolog_terrain</terrain_sect>
+		<money min="50000" max="100000" infinitive="1"></money>
+		
+		<rank>440</rank>
+		<reputation>50</reputation>
+
+		<visual>actors\unic\npc_semenov</visual>
+		<snd_config>characters_voice\human_03\ecolog\</snd_config>
+		<crouch_type>1</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74u \n
+			ammo_5.45x39_fmj \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"			
+		</supplies>
+		
+#include "gameplay\character_criticals_3.xml"
+		<actor_dialog>why_on_escape</actor_dialog>
+		<actor_dialog>talk_about_monsters</actor_dialog>
+		<actor_dialog>talk_about_zone</actor_dialog>
+#include "gameplay\character_dialogs_unic.xml"
+	</specific_character>	
+	
+	<specific_character id="yan_ecolog_vasilyev" team_default = "1">
+		<name>yan_vasilyev_name</name>
+		<icon>ui_npc_u_stalker_ecolog</icon>
+		<map_icon x="0" y="6"></map_icon>
+		<bio>yan_semenov_bio</bio>
+
+		<class>yan_Ecolog_vasilyev</class>
+		<community>ecolog</community> <terrain_sect>stalker_ecolog_terrain</terrain_sect>
+				
+		<rank>32</rank>
+		<reputation>50</reputation>
+
+		<visual>actors\ecolog\stalker_ecolog</visual>
+		<snd_config>characters_voice\human_03\ecolog\</snd_config>
+		<crouch_type>1</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74u \n
+			ammo_5.45x39_fmj \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"
+		</supplies>
+		
+#include "gameplay\character_criticals_3.xml"
+			
+		<start_dialog>yantar_help_scientist</start_dialog>
+		<actor_dialog>yantar_wounded_scientist</actor_dialog>
+#include "gameplay\character_dialogs_unic.xml"
+		
+	</specific_character>
+
+<specific_character id="yan_ghost" team_default = "1">
+		<name>yan_ghost_name</name>
+		<icon>ui_npc_u_stalker_prizrak</icon>
+		<map_icon x="0" y="6"></map_icon>
+		<bio>sim_stalker_veteran_bio</bio>
+
+		<class>yan_ghost</class>
+		<community>stalker</community> <terrain_sect>stalker_terrain</terrain_sect>
+		
+		<rank>721</rank>
+		<reputation>50</reputation>
+
+		<visual>actors\neytral\stalker_prizrak</visual>
+		<snd_config>characters_voice\human_01\stalker\</snd_config>
+		<crouch_type>1</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_val = 1, silencer \n
+			ammo_9x39_ap \n
+			lab_x16_documents \n
+			outfit_stalker_m1 \n
+		</supplies>
+</specific_character>
+
+<!--ECOLOG-->
+	<specific_character id="yan_ecolog_default1" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_ecolog</icon>
+		<map_icon x="0" y="6"></map_icon>
+		<bio>ros_ecolog_guard_bio</bio>
+
+		<class>yan_Ecolog</class>
+		<community>ecolog</community> <terrain_sect>stalker_ecolog_terrain</terrain_sect>
+
+		<rank>10</rank>
+		<reputation>50</reputation>
+		<money min="5600" max="15000" infinitive="0"></money>
+
+		<visual>actors\ecolog\stalker_ecolog_live</visual>
+		<snd_config>characters_voice\human_03\ecolog\</snd_config>
+		<crouch_type>1</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74u \n
+			ammo_5.45x39_fmj \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"
+		</supplies>
+		
+#include "gameplay\character_criticals_3.xml"	
+#include "gameplay\character_dialogs_unic.xml"
+
+	</specific_character>
+
+
+	<specific_character id="yan_ecolog_default2" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_ecolog_military</icon>
+		<map_icon x="1" y="6"></map_icon>
+		<bio>ros_ecolog_guard_bio</bio>
+		
+		<class>yan_Ecolog</class>
+		<community>ecolog</community> <terrain_sect>stalker_ecolog_terrain</terrain_sect>
+		
+		<rank>10</rank>
+		<reputation>50</reputation>
+		<money min="5600" max="15000" infinitive="0"></money>
+
+		<visual>actors\unic\npc_kruglov</visual>
+		<snd_config>characters_voice\human_03\ecolog\</snd_config>
+		<crouch_type>1</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74u \n
+			ammo_5.45x39_fmj \n
+			wpn_pm \n
+			ammo_9x18_pmm \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"
+		</supplies>
+				
+#include "gameplay\character_criticals_3.xml"
+#include "gameplay\character_dialogs_unic.xml"
+	</specific_character>
+	
+<!--Zombirovannyy uchenyy Tompson-->
+	<specific_character id="tompson" team_default = "1">
+		<name>tompson_name</name>
+		<icon>ui_npc_tompson</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>tompson</bio>
+		
+		<class>tompson</class>
+		<community>zombied</community>
+		
+		<rank>600</rank>
+		<reputation>150</reputation>
+
+		<visual>actors\unic\npc_tompson</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_abakan \n
+			ammo_5.45x39_fmj \n
+			af_gold_fish \n
+			af_fuzz_kolobok \n
+			af_electra_moonlight \n
+			af_gold_fish \n
+			af_gold_fish \n
+			af_dummy_pellicle \n
+			af_dummy_pellicle \n
+			device_torch \n
+#include "gameplay\character_drugs.xml" \n
+#include "gameplay\character_items.xml" \n
+#include "gameplay\character_food.xml"
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+	<start_dialog>bbb_tompson</start_dialog>
+    <actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>	
+	</specific_character>
+	
+	
+<!--ZOMBIED-->
+	<specific_character id="yan_zombied_default1" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie1</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+		
+		<class>yan_Zombied</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>100</rank>
+		<reputation>20</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie1</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_mp5 \n
+			ammo_9x19_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+	<start_dialog>delaete</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+	<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+	<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+	<actor_dialog>companion_release_dialog_zombied</actor_dialog>
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+	<specific_character id="yan_zombied_default2" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie2</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+	
+		<rank>100</rank>
+		<reputation>20</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie2</visual>
+		<snd_config>characters_voice\human_02\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_mp5 \n
+			ammo_9x19_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+		<start_dialog>ti_novenkii</start_dialog>
+		<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+	</specific_character>
+
+	<specific_character id="yan_zombied_default3" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie3</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>100</rank>
+		<reputation>-20</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie3</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_mp5 \n
+			ammo_9x19_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+	<start_dialog>chto_novenk</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+	<specific_character id="yan_zombied_default4" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie4</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>100</rank>
+		<reputation>-20</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie4</visual>
+		<snd_config>characters_voice\human_02\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_mp5 \n
+			ammo_9x19_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+	<start_dialog>privet</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+	<specific_character id="yan_zombied_default5" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie5</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>100</rank>
+		<reputation>50</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie5</visual>
+		<snd_config>characters_voice\human_02\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74 \n
+			ammo_5.45x39_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+	<start_dialog>benito</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+	<specific_character id="yan_zombied_default6" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie7</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+	
+		<rank>100</rank>
+		<reputation>50</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie7</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74u \n
+			ammo_5.45x39_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+	<start_dialog>hochu_est</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+	</specific_character>
+
+	<specific_character id="yan_zombied_default7" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie8</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>100</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie8</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_mp5 \n
+			ammo_9x19_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+	<start_dialog>hochu_est</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+<!--ZOMBIED VETERANS-->
+	<specific_character id="yan_zombied_veteran_default1" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie2</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied_veteran</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>200</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie2</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+
+		<supplies>
+			[spawn] \n
+			wpn_ak74u \n
+			ammo_5.45x39_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+	<start_dialog>hochu_est</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+	<specific_character id="yan_zombied_veteran_default2" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie3</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied_veteran</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>200</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie3</visual>
+		<snd_config>characters_voice\human_02\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74 \n
+			ammo_5.45x39_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+	<start_dialog>benito</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+	<specific_character id="yan_zombied_veteran_default3" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie4</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied_veteran</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>200</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie4</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			device_torch \n
+			wpn_ak74u \n
+			ammo_5.45x39_fmj \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+	<start_dialog>benito</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+	<specific_character id="yan_zombied_veteran_default4" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie5</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied_veteran</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>200</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie5</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74 \n
+			ammo_5.45x39_fmj \n
+			device_torch \n
+			grenade_rgd5 = 2 \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+				<start_dialog>chto_novenk</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+	<specific_character id="yan_zombied_veteran_default5" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie6</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied_veteran</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>200</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie6</visual>
+		<snd_config>characters_voice\human_02\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74 \n
+			ammo_5.45x39_fmj \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+			device_torch \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+					<start_dialog>chto_novenk</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>	
+</specific_character>
+
+
+<!--ZOMBIED AMBUSH-->
+	<specific_character id="yan_zombied_ambush_default1" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie2</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied_ambush</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>200</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie2</visual>
+		<snd_config>characters_voice\human_02\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+
+		<supplies>
+			[spawn] \n
+			wpn_mp5 \n
+			ammo_9x19_fmj \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+			device_torch \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+				<start_dialog>chto_novenk</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+	<specific_character id="yan_zombied_ambush_default2" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie3</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_Zombied_ambush</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>200</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie3</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74 \n
+			ammo_5.45x39_fmj \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+			device_torch \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+				<start_dialog>chto_novenk</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+
+<!--ZOMBIED MASTER-->
+	<specific_character id="yan_zombied_master_1" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie3</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_master_bio</bio>
+
+		<class>yan_Zombied_master</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>300</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie3</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74 \n
+			ammo_5.45x39_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+		<start_dialog>ti_novenkii</start_dialog>
+	    <actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>			
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+<!--ZOMBIED dolg-->
+<specific_character id="yan_zombied_dolg" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_stalker_zombie2</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_zombied_veteran_bio</bio>
+
+		<class>yan_zombied_dolg</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+	
+		<rank>100</rank>
+		<reputation>20</reputation>
+
+		<visual>actors\stalker_zombi\stalker_zombie2</visual>
+		<snd_config>characters_voice\human_02\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+            wpn_abakan \n
+			ammo_5.45x39_fmj \n
+			wpn_saiga12 \n
+			ammo_12x70_kart \n
+			device_torch \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+				<start_dialog>hochu_est</start_dialog>
+		<actor_dialog>chto_novenk</actor_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+<!--SVEJEZOMBIED STALKER-->
+	<specific_character id="yan_fresh_Zombied_stalker_1" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_zombie_fresh_0</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_fresh_Zombied_bio</bio>
+
+		<class>yan_fresh_Zombied</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>400</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\zombie_fresh_0</visual>
+		<snd_config>characters_voice\human_02\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74 \n
+			ammo_5.45x39_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+		<start_dialog>hochu_est</start_dialog>
+		<actor_dialog>chto_novenk</actor_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+
+	<specific_character id="yan_fresh_Zombied_stalker_2" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_zombie_fresh_0</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_fresh_Zombied_bio</bio>
+
+		<class>yan_fresh_Zombied</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>400</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\zombie_fresh_0</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>		
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_ak74 \n
+			ammo_5.45x39_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+<start_dialog>hochu_est</start_dialog>
+		<actor_dialog>chto_novenk</actor_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+
+
+	<specific_character id="yan_fresh_Zombied_stalker_3" team_default = "1">
+		<name>GENERATE_NAME_stalker</name>
+		<icon>ui_npc_u_zombie_fresh_2</icon>
+		<map_icon x="7" y="0"></map_icon>
+		<bio>sim_fresh_Zombied_bio</bio>
+
+		<class>yan_fresh_Zombied</class>
+		<community>zombied</community> <terrain_sect>stalker_zombied_terrain</terrain_sect>
+		
+		<rank>400</rank>
+		<reputation>-50</reputation>
+
+		<visual>actors\stalker_zombi\zombie_fresh_2</visual>
+		<snd_config>characters_voice\human_01\zombied\</snd_config>
+		<crouch_type>0</crouch_type>
+		<supplies>
+			[spawn] \n
+			wpn_mp5 \n
+			ammo_9x19_fmj \n
+			device_torch \n
+			wpn_toz34 \n
+			ammo_12x70_kart \n
+		</supplies>
+#include "gameplay\character_criticals_1.xml"
+	<start_dialog>hochu_est</start_dialog>
+	<actor_dialog>tompsona_vidal</actor_dialog>
+		<actor_dialog>companion_hire_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_management_dialog_zombied</actor_dialog>
+		<actor_dialog>companion_release_dialog_zombied</actor_dialog>		
+		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+</specific_character>
+	
+</xml>

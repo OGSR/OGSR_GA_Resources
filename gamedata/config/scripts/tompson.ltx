@@ -1,0 +1,33 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker
+; on_death = death
+combat_ignore = combat_ignore
+inv_max_weight = 10000
+
+[walker]
+path_walk = yan_zombies_tompson_walk
+path_look = yan_zombies_tompson_walk
+meet = meet
+danger = danger_condition
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 10|actor
+victim_wpn = 10|actor
+meet_state 		= 9|yan_professor_wait@yantar_professor_talk_1|5|wait@wait
+meet_state_wpn 	= 9|yan_professor_wait@yantar_professor_talk_1|5|wait@wait
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[combat_ignore]
+
+[death]
+on_info = %+sar2_death_42%

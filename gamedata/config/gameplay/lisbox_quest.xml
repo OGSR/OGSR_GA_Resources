@@ -1,0 +1,24 @@
+
+<!--Nash kvest-->
+<game_task id="esc_main_fox_box" prio="390">
+		<title>esc_main_case_to_trader</title>
+		<objective>
+			<text>esc_main_case_to_trader</text>
+			<icon>ui_iconsTotal_esc_blockpost_case_to_trader</icon>
+			<infoportion_complete>escape_main_case_to_trader</infoportion_complete>
+			<article>esc_main_case_to_trader_article</article>
+		</objective>
+		<objective>
+			<text>esc_main_case_to_trader_2</text>
+			<infoportion_complete>escape_main_find_box</infoportion_complete>
+			<function_complete>ogse_quests.esc_main_fox_box_find_cont</function_complete>
+            <!-- <map_location_type hint="quest_fox_case">crlc_big</map_location_type> -->
+			<object_story_id>fox_case</object_story_id>
+		</objective>
+		<objective>
+			<text>esc_main_case_to_trader_1</text>
+			<map_location_type hint="escape_trader">blue_location</map_location_type>
+			<object_story_id>Escape_Trader</object_story_id>
+			<infoportion_complete>escape_main_case_to_trader</infoportion_complete>			
+		</objective>
+	</game_task>

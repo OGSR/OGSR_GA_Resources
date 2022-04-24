@@ -1,0 +1,163 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+function proceed()
+	if level.name() ~= "l01_escape" then return end
+    local actor = db.actor
+	
+	if	(has_alife_info("tutorial_end") or
+		has_alife_info("esc_kill_bandits_quest_done")) and
+		not has_alife_info("esc_path_to_lager") 
+	then		
+		actor:give_info_portion("esc_path_to_lager")
+	end 
+	
+	if not has_alife_info("tutorial_wounded_fail") and not has_alife_info("tutorial_wounded_help")then
+		if has_alife_info("tutorial_wounded_die") or
+		   has_alife_info("tutorial_wounded_death")
+		then
+			actor:give_info_portion("tutorial_wounded_fail")
+		end	
+	end
+	
+	if has_alife_info("garbage_meetstalker_die") and
+		has_alife_info("escape_stalker_give") and
+		not has_alife_info("agr_krot_band_start")
+	then
+		actor:give_info_portion("agr_krot_band_start")
+		news_manager.send_tip(db.actor, "gar_seryi_info")
+	end
+
+	if not has_alife_info("tutorial_wounded_give_info") and
+	   actor:object("esc_wounded_flash") ~= nil
+	then
+		actor:give_info_portion("tutorial_wounded_give_info")
+		actor:disable_info_portion("esc_trader_direct")
+	end     	
+
+
+--' “уториальный труп
+	if has_alife_info("escape_blockpost_case") and
+	   not has_alife_info("escape_blockpost_case_have") and 
+	   actor:object("quest_case_01") ~= nil
+	then
+		actor:give_info_portion("escape_blockpost_case_have")
+	end       	
+	
+	if has_alife_info("escape_stalker_meet") and
+		not has_alife_info("escape_stalker_done") and
+		actor:object("fox_flash") ~= nil
+	then
+		actor:give_info_portion("escape_stalker_done")
+		actor:give_info_portion("garbage_meetstalker_start")
+	end
+
+	if has_alife_info("esc_kill_bandits_quest_done") and
+	   not has_alife_info("esc_petruha_great")
+	then
+		actor:give_info_portion("esc_petruha_great")
+	end
+end
+
+function task_lager_complete()
+	if has_alife_info("escape_lager_help") and
+		has_alife_info("escape_lager_killers_die") and
+	   (has_alife_info("esc_fanat_die") or
+	   has_alife_info("escape_lager_complete"))
+	then
+		return true
+	else
+		return false
+	end
+end	
+
+function task_fox_complete()
+	if has_alife_info("garbage_meetstalker_start") or
+	   has_alife_info("escape_stalker_done")
+	then
+		return true
+	else
+		return false
+	end
+end	
+
+function kill_tutorial_bandits()
+	if has_alife_info("esc_first_novice_dead") and
+		has_alife_info("esc_second_novice_dead")
+	then
+		return true
+	else
+		return false
+	end
+end
+
+function task_volk_fail()
+	if has_alife_info("esc_wolf_dead")
+	then
+		return true
+	else
+		return false
+	end
+end	
+
+function petruha_talk()
+	if has_alife_info("escape_factory_assault_say_hello") or
+		has_alife_info("atp_band_access") or 
+		has_alife_info("esc_petruha_great")
+	then
+		return true
+	else
+		return false
+	end
+end
+
+function is_actor_enemy_lager()
+	return has_alife_info("esc_fanat_die") or xr_gulag.isGulagEnemy( "esc_lager", db.actor )
+end
+
+function process_info_portion(info_id)
+
+	--' пометки на карте 
+	
+	-- область, указывающая на тайник, которая помечается при обыске трупа -10.3,2.5,55.9
+	if info_id == "esc_tutorial_secret_place" then
+		if not has_alife_info("esc_tutorial_secret_place_found") then
+			level_tasks.add_location_by_sid(story_ids.esc_tutorial_secret_place, "crlc_small", "tutorial_secret_place1")
+		end
+	elseif info_id == "esc_tutorial_secret_place_found" then
+		level_tasks.remove_location_by_sid(story_ids.esc_tutorial_secret_place, "crlc_small")
+		
+	-- область, указывающая на тайник, которая помечается при обыске трупа бандита, шатающегося на АТП
+	elseif info_id == "esc_kolyan_lost" then
+		if not has_alife_info("esc_kolyan_found") then
+			level_tasks.add_location_by_sid(story_ids.esc_mill, "crlc_big", "esc_mill")
+		end
+	elseif info_id == "esc_kolyan_found" then
+		level_tasks.remove_location_by_sid(story_ids.esc_mill, "crlc_big")
+		
+	-- снимается с мертвого сталкера, лежащего в -87.11,-4.86,-79.12
+--[[	elseif info_id == "esc_tutorial_secret" then
+		if not has_alife_info("esc_tutorial_secret_find") then
+			level_tasks.add_location_by_sid(story_ids.esc_pm_broken, "crlc_small", "tutorial_secret")
+		end
+	elseif info_id == "esc_tutorial_secret_find" then
+		level_tasks.remove_location_by_sid(story_ids.esc_pm_broken, "crlc_small")]]
+		
+	-- дает Шустрый в разговоре
+	elseif info_id == "esc_shustryi_secret" then
+		if not has_alife_info("esc_shustryi_secret_find") then
+			level_tasks.add_location_by_sid(story_ids.esc_toz_broken, "crlc_small", "tutorial_secret_shustryi")
+		end
+	elseif info_id == "esc_shustryi_secret_find" then
+		level_tasks.remove_location_by_sid(story_ids.esc_toz_broken, "crlc_small")
+		
+	-- по всей видимости, какая-то старая затычка
+	elseif info_id == "tutorial_end" then
+		level_tasks.remove_location_by_sid(story_ids.Escape_bridge_stalkers, "green_location")
+		level_tasks.remove_location_by_sid(story_ids.Escape_novice_lager_volk, "green_location")
+		level_tasks.remove_location_by_sid(story_ids.esc_wounded_flash, "green_location")
+		
+	else
+		return false
+	end
+	return true
+end

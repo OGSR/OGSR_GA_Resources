@@ -1,0 +1,163 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+function proceed()
+	-- nv 071008 some optimization
+	if has_alife_info("agr_krot_band_start") then return end
+	if --db.actor ~= nil and 
+		has_alife_info("garbage_meetstalker_die") and
+		has_alife_info("agr_can_ask_krot_about_gunslinger") -- and
+		-- not has_alife_info("agr_krot_band_start")
+	then
+		db.actor:give_info_portion("agr_krot_band_start")
+		news_manager.send_tip(db.actor, "gar_seryi_info")
+	end
+end
+
+function task_hellcar_complete()
+	if has_alife_info("gar_hellcar_help") and
+	   has_alife_info("gar_bandits_killed") and
+	   (has_alife_info("gar_hellcar_death") or
+	   has_alife_info("gar_hellcar_dialog_end"))
+	then
+		return true
+	else
+		return false
+	end
+end
+
+function task_hellcar_fail()
+	-- Bes (gar_hellcar) is a member of gar_hellcar_group; if he's dead, that's it.
+	-- if (xr_gulag.getGulagPopulation("gar_hellcar_group") < 1) or has_alife_info("gar_hellcar_death")
+	if has_alife_info("gar_hellcar_death")
+	then
+		return true
+	else
+		return false
+	end
+end
+
+function task_hellcar_fail2()
+	local actor = db.actor
+	if 	(xr_gulag.getCasualities("gar_hellcar_group") > 0 and
+	   not has_alife_info("gar_hellcar_help")) or has_alife_info("gar_hellcar_death")
+	then
+	   return true
+	else
+		return false
+	end
+end
+
+
+function process_info_portion(info_id)
+		
+	if info_id == "gar_hellcar_death" then
+		level_tasks.remove_location_by_sid(story_ids.gar_hellcar, "green_location")
+		return true
+		
+	elseif info_id == "gar_wounded_help" then
+		news_manager.send_tip(db.actor, "val_sos_pda", nil, "stalker", nil)
+		level_tasks.add_location_by_sid(story_ids.gar_wounded, "green_location", "gar_wounded_help", 1)
+		return true
+	elseif info_id == "gar_wounded_fight" then
+		level_tasks.remove_location_by_sid(story_ids.gar_wounded, "green_location")
+		return true
+	
+	elseif info_id == "gar_distance_shooting" then
+		if level.name() == "l02_garbage" then
+			news_manager.send_tip(db.actor, "tips_gar_seryi_help_1", 5, "stalker", nil)
+			news_manager.send_tip(db.actor, "tips_gar_seryi_help_2", 12, "stalker", nil)
+		end
+		return true
+
+-- Fake_spots
+-- Note: all pre-defined mapspot types added below are persistent by default and need to be explicitly removed
+
+	elseif info_id == "gar_add_fake_spot1" then
+		if not has_alife_info("agr_find_gunslinger_cache_final") then
+			level_tasks.add_location_by_sid(story_ids.gar_spot_swamp, "gar_spot_swamp_location")
+		end
+		return true
+	elseif info_id == "gar_add_fake_spot2" then
+		if not has_alife_info("gar_remove_fake_spot2") then
+			level_tasks.add_location_by_sid(story_ids.gar_spot_secret1, "gar_spot_secret1_location")
+		end
+		return true
+	elseif info_id == "gar_remove_fake_spot2" then
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_secret1, "gar_spot_secret1_location")
+		return true
+
+	elseif info_id == "gar_add_fake_spot3" then
+		if not has_alife_info("agr_find_gunslinger_cache_final") then
+			level_tasks.add_location_by_sid(story_ids.gar_spot_car_graveyard, "gar_spot_car_graveyard_location")
+		end
+		return true
+	elseif info_id == "gar_add_fake_spot4" then
+		if not has_alife_info("agr_find_gunslinger_cache_final") then
+			level_tasks.add_location_by_sid(story_ids.gar_spot_dolg_blokpost, "gar_spot_dolg_blokpost_location")
+		end
+		return true
+	elseif info_id == "gar_remove_fake_spot4" then
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_dolg_blokpost, "gar_spot_dolg_blokpost_location")
+		return true
+
+	elseif info_id == "gar_add_fake_spot5" then
+		if not has_alife_info("agr_find_gunslinger_cache_final") then
+			level_tasks.add_location_by_sid(story_ids.gar_spot_angar, "gar_spot_angar_location")
+		end
+		return true
+	elseif info_id == "gar_add_fake_spot6" then
+		if not has_alife_info("agr_find_gunslinger_cache_final") then
+			level_tasks.add_location_by_sid(story_ids.gar_spot_bandit_agr, "gar_spot_bandit_agr_location")
+		end
+		return true
+	elseif info_id == "gar_add_fake_spot7" then
+		if not has_alife_info("agr_find_gunslinger_cache_final") then
+			level_tasks.add_location_by_sid(story_ids.gar_spot_tunnel, "gar_spot_tunnel_location")
+		end
+		return true
+	elseif info_id == "gar_remove_fake_spot7" then
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_tunnel, "gar_spot_tunnel_location")
+		return true
+
+	elseif info_id == "gar_add_fake_spot8" then
+		if not has_alife_info("agr_find_gunslinger_cache_final") then
+			level_tasks.add_location_by_sid(story_ids.gar_spot_dogs_forest, "gar_spot_dogs_forest_location")
+		end
+		return true
+	elseif info_id == "gar_remove_fake_spot8" then
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_dogs_forest, "gar_spot_dogs_forest_location")
+		return true
+
+	elseif info_id == "gar_add_fake_spot9" then
+		if not has_alife_info("agr_find_gunslinger_cache_final") then
+			level_tasks.add_location_by_sid(story_ids.gar_spot_trash1, "gar_spot_trash1_location")
+		end
+		return true
+	elseif info_id == "gar_add_fake_spot10" then
+		if not has_alife_info("agr_find_gunslinger_cache_final") then
+			level_tasks.add_location_by_sid(story_ids.gar_spot_trash2, "gar_spot_trash2_location")
+		end
+		return true
+	elseif info_id == "gar_add_fake_spot11" then
+		if not has_alife_info("agr_find_gunslinger_cache_final") then
+			level_tasks.add_location_by_sid(story_ids.gar_spot_trash3, "gar_spot_trash3_location")
+		end
+		return true
+-- cleaning up any remaining mapspots; should be pretty much done with the level when getting this task
+	elseif info_id == "agr_find_gunslinger_cache_final" then
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_swamp, "gar_spot_swamp_location")
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_car_graveyard, "gar_spot_car_graveyard_location")
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_dolg_blokpost, "gar_spot_dolg_blokpost_location")
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_angar, "gar_spot_angar_location")
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_bandit_agr, "gar_spot_bandit_agr_location")
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_tunnel, "gar_spot_tunnel_location")
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_dogs_forest, "gar_spot_dogs_forest_location")
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_trash1, "gar_spot_trash1_location")
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_trash2, "gar_spot_trash2_location")
+		level_tasks.remove_location_by_sid(story_ids.gar_spot_trash3, "gar_spot_trash3_location")
+		return true
+	end
+
+	return false
+
+end

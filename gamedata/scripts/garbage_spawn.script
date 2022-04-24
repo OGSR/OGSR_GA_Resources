@@ -1,0 +1,26 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+---------------Copyright_Quest_2009-------------------
+--------------Edited_by_stalbar_2009------------------
+local spawn_db = ogse_spawn_db.script_spawn_registry.garbage_spawn
+
+local zombie_types_1 = {"zombie_v_strong", "zombie_v_normal", "rat_weak","cat_v_strong",
+						"cat_v_normal","bloodsucker_v_strong","chimera_v_strong","dog_v_strong",
+						"flesh_v_strong","flesh_strong","pseudodog_v_strong"}
+
+function random_garbage1( actor, npc )
+	--'После появления Фаната на кордоне на свалке происходит рэндомный спаун
+	ogse.quest_spawn_ex(zombie_types_1[table.getn(zombie_types_1)], math.random(3,6), spawn_db.random_garbage1)
+end
+
+local zombie_types_2 = {"agr_soldier_regular", "esc_soldier_respawn_1"}
+
+function soldier10( actor, npc )
+	ogse.quest_spawn_ex(zombie_types_2[math.random(2)], math.random(7), spawn_db.soldier10)
+end
+
+function garbage_controller( actor, npc )
+	ogse.quest_spawn_ex("m_controller_old_fat", 1, spawn_db.garbage_controller)
+end
+---------------Copyright_Quest_2009-------------------
+--------------Edited_by_stalbar_2009------------------

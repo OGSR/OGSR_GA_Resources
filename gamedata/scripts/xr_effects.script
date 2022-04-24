@@ -1,0 +1,4298 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-- ----------------------------------------------------------------------------------------------------
+-- Общие функции
+-- ----------------------------------------------------------------------------------------------------
+local spawn_db = ogse_spawn_db.script_spawn_registry.xr_effects
+
+local disable_npp_earthshaking = true
+
+function disable_ui_elements(actor, npc, p)
+    local i, v = 0, 0
+    for i, v in pairs(p) do
+        if v == "all" then
+            bind_stalker.hide_weapon()
+            level.disable_input()
+            level.hide_indicators()
+            break
+        elseif v == "weapon" then
+            bind_stalker.hide_weapon()
+        elseif v == "input" then
+            level.disable_input()
+        elseif v == "hud" then
+            level.hide_indicators()
+        end
+    end
+end
+
+function enable_ui_elements(actor, npc, p)
+    local i, v = 0, 0
+    for i, v in pairs(p) do
+        if v == "all" then
+            level.show_indicators()
+            level.enable_input()
+            bind_stalker.restore_weapon()
+            break
+        elseif v == "hud" then
+            level.show_indicators()
+        elseif v == "input" then
+            level.enable_input()
+        elseif v == "weapon" then
+            bind_stalker.restore_weapon()
+        end
+    end
+end
+
+function disable_ui(actor, npc)
+    bind_stalker.hide_weapon()
+    level.disable_input()
+    level.hide_indicators()
+end
+
+function disable_ui2(actor, npc)
+    bind_stalker.hide_weapon()
+    level.hide_indicators()
+end
+
+function enable_ui(actor, npc)
+    level.show_indicators()
+    level.enable_input()
+    bind_stalker.restore_weapon()
+end
+
+function run_cam_effector(actor, npc, p)
+    if p[1] then
+        local loop, num = false, (1000 + math.random(100))
+        
+        if p[2] and type(p[2]) == "number" and p[2] > 0 then
+            num = p[2]
+        end
+
+        if p[3] and p[3] == "true" then
+            loop = true
+        end
+        
+        --level.add_pp_effector(p[1] .. ".ppe", num, loop)
+	    level.add_cam_effector("camera_effects\\" .. p[1] .. ".anm", num, loop, "")	                  
+    end
+end
+
+function stop_cam_effector(actor, npc, p)
+    if p[1] and type(p[1]) == "number" and p[1] > 0 then
+        level.remove_cam_effector(p[1])
+    end
+end
+
+function run_postprocess(actor, npc, p)
+    if p[1] then
+        local loop, num = false, (2000 + math.random(100))
+        
+        if p[2] and type(p[2]) == "number" and p[2] > 0 then
+            num = p[2]
+        end
+
+        if p[3] and p[3] == "true" then
+            loop = true
+        end
+        
+        level.add_pp_effector(p[1] .. ".ppe", num, loop)
+    end
+end
+
+function stop_postprocess(actor, npc, p)
+    if p[1] and type(p[1]) == "number" and p[1] > 0 then
+        level.remove_pp_effector(p[1])
+    end
+end
+
+function run_tutorial(actor, npc, p)
+	game.start_tutorial(p[1])
+end
+function run_tutorial_if_newbie(actor, npc, p)
+	if has_alife_info("esc_trader_newbie") then
+		game.start_tutorial(p[1])
+	end
+end
+
+function teleport_actor(actor, npc, p)
+	local point = patrol(p[1])
+	local look = patrol(p[2])
+	
+	db.actor:set_actor_position(point:point(0))
+	local dir = look:point(0):sub(point:point(0))
+	db.actor:set_actor_direction(-dir:getH())	
+end
+
+local teleport_points = {
+	[1]="deadcity_zombies_1_kamp_1",
+	[2]="deadcity_zombies_1_kamp_2",
+	[3]="deadcity_zombies_1_kamp_3",
+	[4]="deadcity_zombies_1_kamp_4",
+	[5]="deadcity_zombies_1_kamp_5",
+	[6]="deadcity_zombies_1_kamp_6",
+	[7]="deadcity_zombies_1_kamp_7",
+	[8]="deadcity_zombies_2_kamp_1",
+	[9]="deadcity_zombies_2_kamp_2",
+	[10]="deadcity_zombies_2_kamp_3",
+	[11]="deadcity_zombies_2_kamp_4",
+	[12]="deadcity_zombies_2_kamp_5",
+	[13]="deadcity_zombies_2_kamp_6",
+	[14]="deadcity_zombies_3_kamp_1",
+	[15]="deadcity_zombies_3_kamp_2",
+	[16]="deadcity_zombies_3_kamp_3",
+	[17]="deadcity_zombies_3_kamp_4",
+	[18]="deadcity_zombies_3_kamp_5",
+	[19]="deadcity_zombies_4_kamp_1",
+	[20]="deadcity_zombies_4_kamp_2",
+	[21]="deadcity_zombies_4_kamp_3",
+	[22]="deadcity_zombies_4_kamp_4",
+	[23]="deadcity_zombies_4_kamp_5",
+	[24]="deadcity_zombies_4_kamp_6",
+	[25]="deadcity_zombies_4_kamp_7",
+	[26]="deadcity_zombies_4_kamp_8",
+	[27]="deadcity_zombies_5_kamp_1",
+	[28]="deadcity_zombies_5_kamp_2",
+	[29]="deadcity_zombies_5_kamp_3",
+	[30]="deadcity_zombies_5_kamp_4",
+	[31]="deadcity_zombies_5_kamp_5",
+	[32]="deadcity_zombies_5_kamp_6",
+	[33]="deadcity_zombies_6_kamp_1",
+	[34]="deadcity_zombies_6_kamp_2",
+	[35]="deadcity_zombies_6_kamp_3",
+	[36]="deadcity_zombies_6_kamp_4",
+	[37]="deadcity_zombies_6_kamp_5",
+	[38]="deadcity_zombies_6_kamp_6",
+}
+
+local logovo_teleport_points = {
+	[1]="corpse_point_1",
+	[2]="corpse_point_2",
+	[3]="corpse_point_3",
+	[4]="corpse_point_4",
+	[5]="corpse_point_5",
+	[6]="corpse_point_6",
+	[7]="corpse_point_7",
+	[8]="corpse_point_8",
+	[9]="corpse_point_9",
+	[10]="corpse_point_10",
+	[11]="corpse_point_11",
+	[12]="corpse_point_12",
+	[13]="corpse_point_13",
+	[14]="corpse_point_14",
+}
+
+function teleport_actor_randomly_deadcity(actor, npc, p)
+	local point = patrol(teleport_points[math.random(#teleport_points)])
+	local look = patrol(teleport_points[math.random(#teleport_points)])
+	
+	db.actor:set_actor_position(point:point(0))
+	local dir = look:point(0):sub(point:point(0))
+	db.actor:set_actor_direction(-dir:getH())	
+end
+
+local max_times_away = 4
+local times_teleported_away = nil
+local max_times_in = 3
+local times_teleported_in = nil
+local period = 16500
+local time_period = nil
+
+
+function check_actor_need_teleport(actor)
+
+	if not times_teleported_away then
+		times_teleported_away = ogse.load_var("times_teleported_away", 0, "number")
+	end
+	if not times_teleported_in then
+		times_teleported_in = ogse.load_var("times_teleported_in", 0, "number")
+	end
+	if not time_period then
+		time_period = time_global()
+	end	
+	
+	if times_teleported_away and times_teleported_away == 0 then
+		teleport_actor_randomly_from_lair_deadcity()
+		return
+	end
+
+	if time_global() > time_period then
+		if times_teleported_away < max_times_away or times_teleported_in < max_times_in then
+			if has_alife_info("master_quest_teleported_away") then
+				teleport_actor_randomly_deadcity_in_lair()		
+			elseif has_alife_info("master_quest_teleported_inside") then
+				teleport_actor_randomly_from_lair_deadcity()
+			end
+		else
+			teleport_actor_final_point_lair()			
+		end
+	end
+
+end
+
+function teleport_actor_randomly_from_lair_deadcity()
+	if not has_alife_info("master_quest_teleported_away") then
+		ogse_quests.turn_pnv_off()
+		run_postprocess(db.actor, db.actor, {"blink"})	
+
+		local point = patrol(teleport_points[math.random(#teleport_points)])
+		local look = patrol(teleport_points[math.random(#teleport_points)])
+
+		play_snd(db.actor, db.actor, {"soundtrack\\x18_laugh"})
+
+		db.actor:set_actor_position(point:point(0))
+		local dir = look:point(0):sub(point:point(0))
+		db.actor:set_actor_direction(-dir:getH())
+		db.actor:disable_info_portion("master_quest_teleported_inside")
+		db.actor:give_info_portion("master_quest_teleported_away")
+
+		times_teleported_away = times_teleported_away + 1
+		ogse.save_var("times_teleported_away", times_teleported_away, "number")
+
+		time_period = time_global() + period
+	end
+end
+
+function teleport_actor_randomly_deadcity_in_lair()
+	if not has_alife_info("master_quest_teleported_inside") then
+		ogse_quests.turn_pnv_off()
+		run_postprocess(db.actor, db.actor, {"blink"})
+
+		local point = patrol(logovo_teleport_points[math.random(#logovo_teleport_points)])
+		local look = patrol(logovo_teleport_points[math.random(#logovo_teleport_points)])
+
+		play_snd(db.actor, db.actor, {"soundtrack\\x18_laugh"})	
+
+		db.actor:set_actor_position(point:point(0))
+		local dir = look:point(0):sub(point:point(0))
+		db.actor:set_actor_direction(-dir:getH())
+		db.actor:disable_info_portion("master_quest_teleported_away")
+		db.actor:give_info_portion("master_quest_teleported_inside")
+		
+		times_teleported_in = times_teleported_in + 1
+		ogse.save_var("times_teleported_in", times_teleported_in, "number")	
+		
+		time_period = time_global() + period
+	end
+end
+
+function teleport_actor_final_point_lair()
+	if not has_alife_info("master_quest_teleported_final") then
+		local point = patrol("final_teleport_pnt")
+		local look = patrol(logovo_teleport_points[math.random(#logovo_teleport_points)])
+		
+		ogse_quests.turn_pnv_off()
+		run_postprocess(db.actor, db.actor, {"blink"})
+		play_snd(db.actor, db.actor, {"soundtrack\\x18_laugh"})	
+		
+		db.actor:set_actor_position(point:point(0))
+		local dir = look:point(0):sub(point:point(0))
+		db.actor:set_actor_direction(-dir:getH())
+		db.actor:give_info_portion("master_quest_teleported_final")
+	end
+end
+
+function change_actor_torch_bad(actor, npc, p)
+	local obj = db.actor:object("device_torch")
+	if obj then
+		ogse.remove_item(obj)
+		ogse.spawn_item_in_inv("device_torch_bad")
+	end
+end
+
+function change_actor_torch_good(actor, npc, p)
+	local obj = db.actor:object("device_torch_bad")
+	if obj then
+		ogse.remove_item(obj)
+		ogse.spawn_item_in_inv("device_torch")
+	end
+end
+
+-----------------------------------------------------------------------------
+local drop_point, drop_object = 0, 0
+local function drop_object_item(item)
+    drop_object:drop_item_and_teleport(item, drop_point)
+end
+
+function drop_actor_inventory(actor, npc, p)
+    if p[1] then
+        drop_point  = patrol(p[1]):point(0)
+        drop_object = actor
+        actor:inventory_for_each(drop_object_item)
+    end
+end
+
+-- FIXME: drop_npc_inventory doesn't work
+function drop_npc_inventory(actor, npc, p)
+    if p[1] then
+        drop_point  = patrol(p[1]):point(0)
+        drop_object = npc
+        npc:inventory_for_each(drop_object_item)
+    end
+end
+
+function drop_npc_item(actor, npc, p)
+    if p[1] then
+        local item = npc:object(p[1])
+        if item then
+		    npc:drop_item(item)
+		end
+    end
+end
+
+function drop_actor_item(actor, npc, p)
+    if p[1] then
+        local item = actor:object(p[1])
+        if item then
+		    actor:drop_item(item)
+		end
+    end
+end
+
+function drop_npc_items(actor, npc, p)
+    local item = 0
+	for i, v in pairs(p) do
+        item = npc:object(v)
+        if item then
+		    npc:drop_item(item)
+        end
+    end
+end
+
+function give_item(actor, npc, p)
+    if p[1] then
+		if not npc:object(p[1]) then
+			alife():create(p[1], npc:position(), npc:level_vertex_id(), npc:game_vertex_id(), npc:id())
+		end
+    end
+end
+
+--function remove_item(actor, npc, p)
+--    if p[1] and npc:object(p[1]) then
+--		local sobj = alife():object(npc:object(p[1]):id())
+--		if sobj then
+--			alife():release(sobj)
+--		end
+--    end
+--end
+
+function remove_item(actor, npc, p)
+	if (p and p[1]) == nil then abort("Wrong parameters in function 'remove_item'!!!") end
+	local item = p[1]
+
+	local obj = db.actor:object(item)
+	if obj ~= nil then
+		alife():release(alife():object(obj:id()), true)
+	else
+		abort("Actor has no such item!")
+	end
+	--news_manager.relocate_item(db.actor, "out", item)
+end
+
+function remove_item_from_npc(actor, npc, p)
+    if p[1] and npc:object(p[1]) then
+		local sobj = alife():object(npc:object(p[1]):id())
+		if sobj then
+			alife():release(sobj)
+		end
+    end
+end
+
+function give_items(actor, npc, p)
+    local pos, lv_id, gv_id, npc_id = npc:position(), npc:level_vertex_id(), npc:game_vertex_id(), npc:id()
+	for i, v in pairs(p) do
+        alife():create(v, pos, lv_id, gv_id, npc_id)
+    end
+end
+
+function play_particle_on_path(actor, npc, p)
+    local name = p[1]
+    local path = p[2]
+    local point_prob = p[3]
+    if name == nil or path == nil then
+        return
+    end
+
+    if point_prob == nil then
+        point_prob = 100
+    end
+    
+    local path = patrol(path)
+    local count = path:count()
+    for a = 0,count-1,1 do   
+        local particle = particles_object(name)
+        if math.random(100) <= point_prob then
+            particle:play_at_pos(path:point(a))
+        end
+    end   
+end
+
+function give_items_to_actor(actor, npc, p)
+    local pos, lv_id, gv_id, npc_id = db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id()
+	for i, v in pairs(p) do
+        alife():create(v, pos, lv_id, gv_id, npc_id)
+    end
+end
+
+-----------------------------------------------------------------------------
+function monster_berserk(actor, npc)
+    npc:berserk()
+end
+
+function activate_bolt(actor, npc)
+	db.actor:activate_slot(5)
+end
+
+--[[
+send_tip(news_id:sender:sender_id)
+    1. news_id
+    2. sender*
+    3. sender_id*
+    * - not necessary
+--]]
+function send_tip(actor, npc, p)
+    news_manager.send_tip(actor, p[1], nil, p[2], nil, p[3])
+end
+
+
+
+--[[
+Дать сталкеру небольшой пинок. Например чтоб скинуть его с возвышения.
+параметры: actor, npc, p[direction,bone,power,impulse,reverse=false]
+    1. direction - если строка, то считается, что это имя пути и в сторону
+        первой точки производится толчек. Если же это число, то оно
+        рассматривается как story_id персонажа от которого должен поступить хит.
+    2. bone - строка. Имя кости, по которой наносится удар.
+    3. power - сила удара
+    4. impulse - импульс
+    5. reverse (true/false) - изменение направления удара. по умолчанию false
+--]]
+function hit_npc(actor, npc, p)
+	local h = hit()
+	local rev = p[5] and p[5] == 'true'
+	h.draftsman = npc
+	h.type = hit.wound
+	if type(p[1]) == 'number' then
+		local hitter = level_object_by_sid(p[1])
+		if not hitter then return end
+	    if rev then
+	        h.draftsman = hitter
+		    h.direction = hitter:position():sub(npc:position())
+	    else
+		    h.direction = npc:position():sub(hitter:position())
+	    end
+	else
+	    if rev then
+	        h.draftsman = nil
+		    h.direction = npc:position():sub(patrol(p[1]):point(0))
+	    else
+		    h.direction = patrol(p[1]):point(0):sub(npc:position())
+	    end
+	end
+	h:bone(p[2])
+	h.power = p[3]
+	h.impulse = p[4]
+	npc:hit(h)
+end
+
+--[[
+Дать обьекту, заданному story_id, хит.
+параметры: actor, npc, p[sid,bone,power,impulse,hit_src=npc:position()]
+    1. sid - story_id обьекта, по которому наносится хит.
+    2. bone - строка. Имя кости, по которой наносится удар.
+    3. power - сила удара
+    4. impulse - импульс
+    5. hit_src - если число, то рассматривается как story_id обьекта, со стороны
+        которого наносится хит (он же является и инициатором хита), иначе это
+        точка (waypoint), из которой по объекту наносится хит.
+        Если не задано, то берется позиция обьекта, из которого была вызвана
+        данная функция.
+--]]
+function hit_obj(actor, npc, p)
+	local h = hit()
+	local obj = level_object_by_sid(p[1])
+	local sid = nil
+
+	if not obj then
+--		abort("HIT_OBJ [%s]. Target object does not exist", npc:name())
+		return
+	end
+
+	h:bone(p[2])
+	h.power = p[3]
+	h.impulse = p[4]
+
+	if p[5] then
+	    sid = tonumber(p[5])
+	    if sid then
+	        sid = level_object_by_sid(sid)
+	        if sid then
+	            h.direction = vector():sub(sid:position(), obj:position())
+	        end
+	    end
+	    if not sid then
+	        h.direction = vector():sub(patrol(p[5]):point(0), obj:position())
+	    end
+	else
+	    h.direction = vector():sub(npc:position(), obj:position())
+	end
+
+	h.draftsman = sid or npc
+	h.type = hit.wound
+	obj:hit(h)
+end
+
+--[[
+Дать сталкеру небольшой пинок после смерти. Аналогично предыдущему, только направление хита теперь
+вычисляется через убийцу. Поэтому параметра direction нет.
+параметры: actor, npc, p[bone,power,impulse]
+FIXME: killer:position() isn't working
+--]]
+function hit_by_killer(actor, npc, p)
+	if not npc then return end
+	local t = db.storage[npc:id()].death
+	if t == nil or t.killer == -1 then return end
+	local killer = db.storage[t.killer]
+	if killer == nil then return end
+	local p1, p2
+	p1 = npc:position()
+	p2 = killer:position()
+	local h = hit()
+	h.draftsman = npc
+	h.type = hit.wound
+	h.direction = utils.vector_copy_by_val(p1):sub(p2)
+	h.bone = p[1]
+	h.power = p[2]
+	h.impulse = p[3]
+	npc:hit(h)
+end
+
+function set_friends(actor, npc, p)
+    local npc1
+	for i, v in pairs(p) do
+		npc1 = level_object_by_sid(v)
+		if npc1 and npc1:alive() then
+			npc:set_relation(game_object.friend, npc1)
+			npc1:set_relation(game_object.friend, npc)
+		end
+	end
+end
+
+function set_enemies(actor, npc, p)
+    local npc1
+	for i, v in pairs(p) do
+		npc1 = level_object_by_sid(v)
+		if npc1 and npc1:alive() then
+			npc:set_relation(game_object.enemy, npc1)
+			npc1:set_relation(game_object.enemy, npc)
+		end
+	end
+end
+
+-- играть звук в голове актёра
+function play_snd(actor, npc, p)
+	if p[1] then
+		local snd_obj = xr_sound.get_safe_sound_object(p[1])
+		--snd_obj:play(actor, p[2] or 0, sound_object.s2d)
+		if snd_obj then
+			snd_obj:play_no_feedback(actor, sound_object.s2d, p[2] or 0, vector(), 1.0)
+		end
+	end
+end
+
+-- играть звук от указанного объекта
+function play_snd_from_obj(actor, npc, p)
+	if p[1] and p[2] then
+		local snd_obj = xr_sound.get_safe_sound_object(p[2])
+		local obj     = level_object_by_sid(p[1])
+        if obj ~= nil then
+        
+--		snd_obj:play_at_pos(obj, obj:position(), sound_object.s3d)
+		if snd_obj then
+			snd_obj:play_no_feedback(obj, sound_object.s3d, 0, obj:position(), 1.0)
+		end
+		end
+	end
+end
+-- играть звук от указанного объекта. Объект от которого играть задаётся параметром npc
+function play_snd_from_obj2(actor, npc, p)
+	ASSERT(p[1], "play_snd_from_obj2: sound is not defined for object '%s'", npc:name())
+	local snd_obj = xr_sound.get_safe_sound_object(p[1])
+	ASSERT(snd_obj, "play_snd_from_obj2: problem creating sound '%s' for object '%s'", p[1], npc:name())
+	snd_obj:play_no_feedback(npc, sound_object.s3d, 0, npc:position(), 1.0)
+end
+
+-- играть звук от указанного объекта
+function play_snd_now(actor, npc, p)
+	xr_sound.set_sound_play(npc, p[1])
+end
+
+
+-- прибавить к указанному счётчику актёра 1
+function inc_counter(actor, npc, p)
+	if p[1] then
+		xr_logic.pstor_store(actor, p[1], xr_logic.pstor_retrieve(actor, p[1], 0) + 1)
+	end
+end
+
+function dec_counter(actor, npc, p)
+	if p[1] then
+		xr_logic.pstor_store(actor, p[1], xr_logic.pstor_retrieve(actor, p[1], 0) - 1)
+	end
+end
+
+
+-- переключает камеру на монстра или на актёра
+function alien_control( actor, npc, p )
+	npc:set_alien_control( p[1] == "true" )
+end
+
+-- слелать актёра врагом персонажам, которые в онлайне под указанным смартом
+function set_gulag_enemy_actor( actor, npc, p )
+	if p[1] then
+		xr_gulag.setGulagEnemy(p[1], actor)
+	end
+end
+
+-- принудительное обновление смарта. Использовать только в КРАЙНИХ случаях!!!
+-- каждое использование согласовывать со мной. Чугай.
+function smart_terrain_force_update(actor, npc, p)
+
+	if p[1] then
+		local gulag = xr_gulag.get_gulag(p[1])
+
+		if gulag then
+			gulag.smrttrn:update()
+		end
+	end
+end
+
+function set_community(actor,npc,p)
+	npc:set_character_community(p[1], 0, 0)
+end
+
+------------------------------------------------------------------------------------------------------------------------
+function play_snd_on_me(actor, npc, p)
+ if p[1] then
+  local snd_obj = xr_sound.get_safe_sound_object(p[1])
+  snd_obj:play_no_feedback(npc, sound_object.s3d, 0, npc:position(), 1.0)
+ end
+end
+----------------------------------------------------------------------------------------------------------------
+
+-- постпроцесс и влияние удара в морду
+function actor_punch(npc)
+	if db.actor:position():distance_to_sqr(npc:position()) > 4 then
+		return
+	end
+
+	local active_slot = db.actor:active_slot()
+	if active_slot ~= 1 and
+	   active_slot ~= 2
+	then
+		return 
+	end
+
+	local active_item = db.actor:active_item()
+	if active_item then
+		db.actor:drop_item(active_item)
+	end
+
+	level.disable_input()
+
+	dsh.timeout( 5000, function()
+		level.enable_input()
+	end )
+
+	local snd_obj = xr_sound.get_safe_sound_object([[affects\hit_fist]])
+	if snd_obj then
+		snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+	end
+
+	level.add_cam_effector("camera_effects\\fusker.anm", 999, false, "")		
+end
+
+
+-- Принудительное усыпание игрока на радаре.
+function force_actor_sleep(npc)
+	db.actor:actor_sleep(24, 0)
+end
+
+
+-- забывание обиды
+function clearAbuse(npc)
+	xr_abuse.clear_abuse(npc)
+end
+
+
+---Выключение динамической лампочки (hanging_lamp)
+function turn_off(actor, npc, p)
+	local obj = level_object_by_sid(p[1])
+
+	if not obj then
+		abort("TURN_OFF [%s]. Target object does not exist", npc:name())
+		return
+	end
+	obj:get_hanging_lamp():turn_off()
+end
+
+function setup_object(actor, npc)
+	--log1("setup_object")
+	if xr_conditions.is_day() then
+		turn_off_object(actor, npc)
+	else
+		turn_on_object(actor, npc)
+	end
+end
+
+function turn_off_object(actor, npc)
+	--log1("turn_off_object")
+	npc:get_hanging_lamp():turn_off()
+end
+
+---Включение динамической лампочки (hanging_lamp)
+function turn_on(actor, npc, p)
+	local obj = level_object_by_sid(p[1])
+
+	if not obj then
+		abort("TURN_ON [%s]. Target object does not exist", npc:name())
+		return
+	end
+	obj:get_hanging_lamp():turn_on()
+end
+function turn_on_object(actor, npc)
+	--log1("turn_on_object")
+	npc:get_hanging_lamp():turn_on()
+end
+function turn_on_projector(actor, proj)
+	--log1("turn_on_projector")
+	local act_ = entity_action()
+	act_:set_action(object(proj, object.turn_on))
+	proj:command(act_,  true)
+end
+function turn_off_projector(actor, proj)
+	--[[log1("turn_off_projector")
+	local cnt = proj:action_count() 
+	log1("cnt1="..cnt)
+	log1("can_script_capture="..tostring(proj:can_script_capture()))
+	log1("get_script="..tostring(proj:get_script()))
+    
+	log1("get_script_name="..tostring(proj:get_script_name()))
+		--lamp:reset_action_queue()
+	]]
+	local act_ = entity_action()
+	act_:set_action(object(object.turn_off))
+	proj:command(act_,  true)
+		--local cnt = proj:action_count() 
+		--log1("cnt2="..cnt)
+end
+
+------------------------------------------------------------------------------------------------
+
+-- Кто-то из участников сценки вступил в бой - теперь нужно пообижать всех на всех
+function gar_dm_bandits_fight(actor, npc)
+  local novice = level_object_by_sid( 104 )
+  if not ( novice and novice:alive() ) then return end
+	local ignore_actor = false --distance_between(actor, novice) > 25
+	local bandits      = { 101, 102, 103 }
+	for _, sid in ipairs( bandits ) do
+		local bandit = level_object_by_sid( sid )
+		if bandit and bandit:alive() then
+			bandit:set_character_community( "bandit", 0, 0 )
+			novice:set_relation( game_object.enemy, bandit )
+			if not ignore_actor then
+				bandit:set_relation( game_object.enemy, db.actor )
+			end
+			bandit:set_relation( game_object.enemy, novice )
+ 		end
+	end
+end
+
+function gar_dm_bandit_demand(actor, npc)
+	if has_alife_info("gar_dm_bandit1_demand") or
+	   has_alife_info("gar_dm_bandit2_demand") or
+	   has_alife_info("gar_dm_bandit3_demand") then
+		return
+	end
+	local r = math.random(3)
+	if r == 1 then
+		actor:give_info_portion("gar_dm_bandit1_demand")
+	elseif r == 2 then
+		actor:give_info_portion("gar_dm_bandit2_demand")
+	else
+		actor:give_info_portion("gar_dm_bandit3_demand")
+	end
+end
+
+function gar_send_dymon_alarm(actor, npc)
+	if has_alife_info("gar_start_graveyard") then
+		news_manager.send_tip(actor, "tips_gar_hellcar_alarm", 2, "stalker", 10000)
+	end
+end
+
+function gar_direction_fire(actor, npc)
+	if has_alife_info("gar_hellcar_help") and not has_alife_info("gar_counter_fire") and not has_alife_info("gar_open_fire") then
+		news_manager.send_tip(actor, "gar_direction_fire", 0, "stalker", 0)
+	end
+end
+
+function gar_hellcar_victory(actor, npc)
+	if not has_alife_info("gar_hellcar_tips_end") and has_alife_info("gar_hellcar_help") and not has_alife_info("gar_hellcar_thanks") then
+		news_manager.send_tip(actor, "gar_hellcar_victory", 0, "stalker", 0)
+		db.actor:give_info_portion("gar_hellcar_tips_end")
+	end
+end
+
+function gar_seryi_victory(actor, npc)
+		news_manager.send_tip(actor, "gar_hellcar_victory", 0, "stalker", 0)
+end
+
+function gar_boars_counter(actor, npc)
+	local c = xr_logic.pstor_retrieve(actor, "gar_boars_counter", 0)
+	if c < 1 then
+		news_manager.send_tip(actor, "gar_actor_looser", 0, "dolg", 0)
+	else
+		news_manager.send_tip(actor, "gar_actor_normal", 0, "dolg", 0)
+		db.actor:give_info_portion("gar_kill_boars_request")
+	end
+end
+
+function del_npc(actor,npc)
+	ogse.kill_living_npc(npc:id())
+end
+
+function get_some_money(actor,npc)
+	npc:give_money(1000000)
+end
+
+--' Escape
+
+function esc_millitary_near_anomaly_start_timer_delete(actor,npc)
+	npc:can_switch_online(false)
+	delete_when_offline(npc:id()):start()
+--	ogse_st_mgr.start_timer("del_anom_mils", 10, "tasks_functor.delete_mils_near_anoms")
+end
+
+function messege_help_to_scoryi()
+ --   news_manager.send_tip(db.actor, "Братья сталкеры, выручайте, в беду попал! Помогите! Я нахожушь недалеко от перехода на Свалку, около разбитого грузовика. Прошу помогите!", 0, "stalker", 20000)
+--SPAWN_V1
+	--local Scoryi = alife():create("esc_scoryi", vector():set(119.39, 2.05, 463.33), 423399, 222)
+--SPAWN_V2
+--	local Scoryi = ogse.spawn_object(spawn_db.esc_scoryi)
+	--ogse_st_mgr.start_gtimer("death_esc_scoryi", 5 * 24 * 3600, "tasks_functor.death_esc_scoryi")
+--	ogse.save_variable("ScoryiID",Scoryi.id)
+end
+
+function babah_sniper_qest_on_elevator()
+--SPAWN_V1
+	--bomba_sniper_qest_on_elevator_id = alife():create("instant_bomb", vector():set(21.271085739136,12.666318893433,92.410049438477),278104,85).id
+--SPAWN_V2
+	local sbomb = ogse.spawn_object(spawn_db.instant_bomb)
+	local bomba_sniper_qest_on_elevator_id = sbomb.id
+	level.client_spawn_manager():add(bomba_sniper_qest_on_elevator_id, -1, bomba_sniper_qest_on_elevator_explosion)
+--SPAWN_V1
+	--QestVintovkaid = alife():create("wpn_of_qest_on_elevator", vector():set(21.67,12.7,93.86), 278108, 85).id
+--SPAWN_V2
+	local swpn = ogse.spawn_object(spawn_db.wpn_of_qest_on_elevator)
+	local QestVintovkaid = swpn.id
+	level.client_spawn_manager():add(QestVintovkaid, -1, wpn_sniper_qest_on_elevator)
+	tasks_functor.delete_map_spot("sniper_qest_on_elevator", true, "crlc_big")
+end
+
+function bomba_sniper_qest_on_elevator_explosion(id,obj)
+	hit_obj_by_id_simple(id, 10, 0)
+	soundtrack.s_play_no_feedback([[weapons\svd\svd_shoot]], 0.7)
+	hit_obj_by_id_simple(0, 0.7, 0.7)
+	level.client_spawn_manager():remove(id, 0)
+end
+
+function wpn_sniper_qest_on_elevator(id,obj)
+	obj:set_condition(0)
+--SPAWN_V1
+	--obj = alife():create("esc_sniper_qest_on_elevator",vector():set(21.825912475586,12.666499137878,93.967346191406), 278108, 85)
+--SPAWN_V2
+	obj = ogse.spawn_object(spawn_db.esc_sniper_qest_on_elevator)
+	obj:on_death()
+	ogse.give_info("esc_kvest_qest_on_elevator_kill_sniper")
+	local sobj = alife():object(ogse.load_var("elevator_sniper"))
+	if sobj then
+		alife():release(sobj, true)
+		ogse.delete_var("elevator_sniper")
+	end
+	level.client_spawn_manager():remove(id, 0)
+	ogse.save_variable("when_actor_found_visitor",game.time())
+end
+
+function play_snd_from_radio(actor, npc)
+	local snd_obj	= xr_sound.get_safe_sound_object([[characters_voice\scenario\escape\wolf_to_rangers_1]])
+	local obj		= npc:object("hand_radio")
+	if snd_obj then
+		snd_obj:play_no_feedback(obj, sound_object.s3d, 0, obj:position(), 1.0)	
+	end
+end
+
+function esc_direction_fire(actor, npc)
+	if not has_alife_info("esc_fanat_die") then
+		news_manager.send_tip(actor, "esc_direction_fire", 7, "stalker", 0)
+	end
+end
+
+function esc_fanat_victory(actor, npc)
+	if has_alife_info("escape_lager_killers_die") and not has_alife_info("esc_fanat_die") then
+		news_manager.send_tip(actor, "esc_fanat_victory", 0, "stalker", 10000)
+	end
+end
+
+function esc_return_dv(actor, npc)
+	news_manager.send_tip(actor, "esc_return_dv", 0, "trader", 10)
+	ogse_lc_mngr.lc6_esc_dscape()
+end
+
+
+
+-- function esc_lager_forgive_actor(actor, npc)
+--	xr_gulag.setGulagNeutral("esc_lager", db.actor)
+-- end
+
+-- function esc_lager_promise_actor(actor, npc)
+--    xr_gulag.setGulagNeutral( "esc_lager", actor )
+-- end
+
+-- function esc_lager_rage_actor(actor, npc)
+--    xr_gulag.setGulagEnemy( "esc_lager", actor )
+-- end
+
+--' garbage
+
+function gar_mapspot_blockpost (actor, npc)
+	level_tasks.add_location_by_sid(story_ids.gar_spot_dolg_blokpost, "green_location", "gar_dolg_blokpost_leader_name")
+end
+
+
+	
+function actor_friend(actor, npc)
+	npc:set_relation(game_object.friend, actor)
+end
+
+function actor_neutral(actor, npc)
+	npc:set_relation(game_object.neutral, actor)
+end
+
+function actor_enemy(actor, npc)
+	npc:set_relation(game_object.enemy, db.actor)
+	npc:set_goodwill(-5000, db.actor)
+end
+
+function give_all_quests(actor, npc)
+	--bar_dialogs.quests()
+end
+
+function give_rostok_quests(actor, npc)
+	bar_dialogs.rostok_quests()
+end
+
+
+function set_neutral(actor, npc) -- Сделаться нейтральным к ГГ
+	npc:set_relation (game_object.neutral, actor)
+	npc:set_goodwill(8000, actor)
+	npc:set_goodwill(8000, actor)
+end
+
+function actor_friend2(actor, npc)
+	npc:set_relation(game_object.friend, actor)
+	npc:set_goodwill(8000, actor)
+	npc:set_goodwill(8000, actor)
+end
+
+
+-- Вызов этой функции отключит обработчик [combat] боя для персонажа.
+-- Используется в случаях, когда все необходимые действия, такие как переключение на другую секцию,
+-- уже выполнены, и повторно выполнять их во время боя нельзя (а условия секции [combat] проверяются на каждом
+-- апдейте, когда персонаж в бою, если, конечно, не отключены вызовом этой функции).
+function disable_combat_handler(actor, npc)
+	if db.storage[npc:id()].combat then
+		db.storage[npc:id()].combat.enabled = false
+	end
+	
+	if db.storage[npc:id()].mob_combat then
+		db.storage[npc:id()].mob_combat.enabled = false
+	end
+end
+
+
+function log_bp1(actor, npc)
+end
+
+function psi_hit_npc(actor, npc,p)
+end
+
+
+function mil_paul_frost_dead (actor, npc)     
+    xr_gulag.setGulagNeutral( "mil_freedom", actor )
+end
+
+function set_freedom_actor_enemy (actor, npc)
+    local luk = level_object_by_sid (707)
+    this.actor_enemy (actor, luk)
+end
+
+function military_dolg_dead()
+	local gulag = xr_gulag.get_gulag_by_name( "mil_dolg" )
+	for obj_id, _ in pairs( gulag.Object_begin_job ) do
+		local sobj = alife():object( obj_id )
+		if sobj then
+			if sobj:alive() and object_level_name( sobj ) == "l07_military" then
+				return false
+			end
+		end
+	end
+	--
+	db.actor:give_info_portion("mil_dolg_dead")
+	return true
+end
+
+function mil_patrol_death_check (actor, npc)
+    if has_alife_info("mil_patrol_man1_dead") and has_alife_info("mil_patrol_man2_dead") and has_alife_info("mil_patrol_man3_dead") then
+       actor:give_info_portion ("mil_patrol_dead") 
+    end
+end
+
+function mil_cook_dead (actor, npc)
+    --level_tasks.set_task_state (task.fail, "mil_freedom_rg6_task", 2)
+end
+
+function search_gulag_job(actor, npc)
+	xr_gulag.resetJob(npc)
+end
+
+
+--------------------------------------------------------- 
+-- BAR-ROSTOK
+--------------------------------------------------------- 
+
+function bar_freedom_spam_1(actor, npc)
+	news_manager.send_tip(actor, "bar_freedom_spam_1", nil, "killer", nil, 509)
+end
+function bar_freedom_spam_2(actor, npc)
+	news_manager.send_tip(actor, "bar_freedom_spam_2", nil, "killer", nil, 509)
+end
+function bar_freedom_spam_3(actor, npc)
+	news_manager.send_tip(actor, "bar_freedom_spam_3", nil, "killer", nil, 509)
+end
+function bar_freedom_spam_4(actor, npc)
+	news_manager.send_tip(actor, "bar_freedom_spam_4", nil, "killer", nil, 509)
+end
+function bar_ecolog_spam_1(actor, npc)
+	news_manager.send_tip(actor, "bar_ecolog_spam_1", nil, "ecolog", nil, 503)
+end
+function bar_ecolog_spam_2(actor, npc)
+	news_manager.send_tip(actor, "bar_ecolog_spam_2", nil, "ecolog", nil, 503)
+end
+function bar_ecolog_spam_3(actor, npc)
+	news_manager.send_tip(actor, "bar_ecolog_spam_3", nil, "ecolog", nil, 503)
+end
+function bar_ecolog_spam_4(actor, npc)
+	news_manager.send_tip(actor, "bar_ecolog_spam_4", nil, "ecolog", nil, 503)
+end
+function bar_ecolog_spam_5(actor, npc)
+	if not has_alife_info("bar_heli_scene_volkodav_die") and not has_alife_info("bar_ecolog_saw_chase") then
+		news_manager.send_tip(actor, "bar_freedom_chase", nil, "ecolog", nil, 503)
+		db.actor:give_info_portion("bar_ecolog_saw_chase")
+	end
+end
+function bar_ecolog_hit(actor, npc)
+	news_manager.send_tip(actor, "bar_ecolog_hit", nil, "ecolog", nil, 503)
+end
+function bar_freedom_spam_5(actor, npc)
+	if not has_alife_info("bar_heli_scene_volkodav_die") then
+		news_manager.send_tip(actor, "bar_ecolog_escape", nil, "killer", nil, 509)
+	end
+end
+function bar_freedom_angry_actor(actor,npc)
+	if has_alife_info("bar_ecolog_crush_actor_enemy")
+	then
+		npc:set_relation(game_object.enemy, db.actor)
+	end
+end
+function bar_freedom_defence_ecolog(actor,npc)
+	news_manager.send_tip(db.actor, "bar_ecolog_attack", nil, "ecolog", nil, 503)
+end		
+function bar_freedom_angry_actor_notify(actor,npc)
+	if has_alife_info("bar_ecolog_crush_actor_enemy") then
+		news_manager.send_tip(actor, "bar_freedom_attack_spy", 4, "killer", nil, 509)
+	end
+end
+function bar_crush_heli_start(actor,npc)
+	news_manager.send_tip(actor, "bar_ecolog_crush_start_heli", nil, "ecolog", nil, 503)
+end
+function rostok_kruglov_tip_1(actor,npc)
+	news_manager.send_tip(actor, "rostok_kruglov_spam_1", nil, "ecolog", nil, 503)
+end
+function rostok_kruglov_tip_2(actor,npc)
+	news_manager.send_tip(actor, "rostok_kruglov_spam_2", nil, "ecolog", nil, 503)
+	level_tasks.add_location_by_sid(story_ids.rostok_banda_volkodava, "volkodav_location", "rostok_banda_volkodava")
+end
+function rostok_kruglov_attract_1(actor,npc)
+	xr_sound.set_sound_play(npc, "kruglov_stop_enemy_1")
+	local tips_sound = news_manager.send_tip_nosound(db.actor, "bar_freedom_chase", 0, "ecolog")
+	if tips_sound ~= nil then
+		--' Играем звук забитый
+		tips_sound:play(db.actor, 0, sound_object.s2d)
+	end
+end
+function rostok_kruglov_attract_2(actor,npc)
+	xr_sound.set_sound_play(npc, "kruglov_stop_enemy_2",3)
+	local tips_sound = news_manager.send_tip_nosound(db.actor, "rostok_kruglov_follow_2",3000, "ecolog")
+	if tips_sound ~= nil then
+		--' Играем звук забитый
+		tips_sound:play(db.actor, 0, sound_object.s2d)
+	end
+end
+function rostok_kruglov_ambush(actor,npc)
+	xr_sound.set_sound_play(npc, "rostok_kruglov_help_5")
+	local tips_sound = news_manager.send_tip_nosound(db.actor, "rostok_kruglov_follow_3", 0, "ecolog")
+	if tips_sound ~= nil then
+		--' Играем звук забитый
+		tips_sound:play(db.actor, 0, sound_object.s2d)
+	end
+end
+function bar_crush_heli_down(actor,npc)
+	news_manager.send_tip(actor, "bar_ecolog_crush_heli_down", 1, "killer", nil, 509)
+end
+function bar_ecolog_crush_attract_actor(actor,npc)
+	if not has_alife_info("bar_heli_scene_professor_die") then
+		news_manager.send_tip(actor, "bar_ecolog_crush_attract_actor", nil, "ecolog")
+	end
+end
+function bar_freedom_attack_attract_actor(actor,npc)
+		news_manager.send_tip(actor, "bar_freedom_attack_attract_actor", nil, "killer")
+	end
+function bar_freedom_attack_start(actor,npc)
+		if not has_alife_info("bar_freedom_defence_ecolog") then
+			news_manager.send_tip(db.actor, "bar_freedom_attack", nil, "killer", nil, 509)
+            db.actor:give_info_portion("bar_freedom_defence_ecolog")
+		end
+	end
+function bar_arena_hit(actor, npc)
+	local h = hit()
+	h.power = 0.01
+	h.direction = npc:direction()
+	h.draftsman = db.actor 
+	h.impulse = 1
+	h.type = hit.wound
+	npc:hit(h)
+end
+function esc_hit_from_fox(actor, npc)
+	local fox = level_object_by_sid (005)
+	if fox == nil then
+		return
+	end
+	local h = hit()
+	h.power = 0.01
+	h.direction = npc:direction()
+	h.draftsman = fox 
+	h.impulse = 1
+	h.type = hit.wound
+	npc:hit(h)
+end
+
+function bar_psih_come(actor, npc)
+	news_manager.send_tip(actor, "bar_psih_come", nil, "barman")
+end
+
+function bar_actor_is_enemy(actor, npc)
+	xr_gulag.setGulagEnemy("bar_dolg_general", actor)
+	xr_gulag.setGulagEnemy("bar_dolg_veterans", actor)
+	xr_gulag.setGulagEnemy("bar_dolg_bunker", actor)
+	xr_gulag.setGulagEnemy("bar_visitors", actor)
+end
+
+local items_no_transfer = {
+	["device_pda"] = true,
+	["device_torch"] = true,
+	["bolt"] = true,
+}
+local function transfer_object_item(item)
+    out_object:transfer_item(item, in_object)
+end
+function bar_arena_teleport( actor, npc)
+
+--[[	inv_box_1 = level_object_by_sid (story_ids.bar_arena_inventory_box)
+
+	out_object = actor
+    in_object  = inv_box_1
+		actor:inventory_for_each(transfer_object_item) ]]
+		
+	ogse.transfer_items_to_box(story_ids.bar_arena_inventory_box_2, false, items_no_transfer, nil)
+
+	local spawn_items = {}	
+
+	if	has_alife_info("bar_arena_fight_1") then 
+		table.insert(spawn_items, "wpn_pm")
+		table.insert(spawn_items, "ammo_9x18_pmm")
+		table.insert(spawn_items, "ammo_9x18_pmm")
+		table.insert(spawn_items, "wpn_knife")
+	elseif	has_alife_info("bar_arena_fight_2") then
+		table.insert(spawn_items, "wpn_mp5")
+		table.insert(spawn_items, "ammo_9x19_pbp")
+		table.insert(spawn_items, "wpn_knife")		
+	elseif	has_alife_info("bar_arena_fight_3") then
+		table.insert(spawn_items, "wpn_bm16")
+		table.insert(spawn_items, "ammo_12x70_kart")
+		table.insert(spawn_items, "wpn_knife")
+	elseif	has_alife_info("bar_arena_fight_4") then			
+		table.insert(spawn_items, "wpn_ak74")
+		table.insert(spawn_items, "ammo_5.45x39_ap")
+		table.insert(spawn_items, "ammo_5.45x39_ap")
+		table.insert(spawn_items, "wpn_knife")
+		table.insert(spawn_items, "bandage")
+		table.insert(spawn_items, "bandage")
+	elseif	has_alife_info("bar_arena_fight_5") then	
+		table.insert(spawn_items, "wpn_ak74")
+		table.insert(spawn_items, "ammo_5.45x39_ap")
+		table.insert(spawn_items, "ammo_5.45x39_ap")
+		table.insert(spawn_items, "ammo_5.45x39_ap")
+		table.insert(spawn_items, "wpn_knife")
+		table.insert(spawn_items, "bandage")
+		table.insert(spawn_items, "medkit")
+		table.insert(spawn_items, "svoboda_heavy_outfit")
+	elseif	has_alife_info("bar_arena_fight_6") then
+		table.insert(spawn_items, "wpn_groza")
+		table.insert(spawn_items, "ammo_9x39_ap")
+		table.insert(spawn_items, "ammo_9x39_ap")
+		table.insert(spawn_items, "ammo_9x39_ap")
+		table.insert(spawn_items, "wpn_knife")
+		table.insert(spawn_items, "grenade_f1")
+		table.insert(spawn_items, "specops_outfit")
+	elseif	has_alife_info("bar_arena_fight_7") then
+		table.insert(spawn_items, "wpn_knife")
+		table.insert(spawn_items, "bandage")
+		table.insert(spawn_items, "grenade_f1")
+		table.insert(spawn_items, "grenade_f1")
+		table.insert(spawn_items, "grenade_f1")
+		table.insert(spawn_items, "grenade_f1")
+	elseif	has_alife_info("bar_arena_fight_8") then
+		table.insert(spawn_items, "wpn_p90")
+		table.insert(spawn_items, "ammo_5.56x45_ap")
+		table.insert(spawn_items, "ammo_5.56x45_ap")
+		table.insert(spawn_items, "ammo_5.56x45_ap")
+		table.insert(spawn_items, "ammo_5.56x45_ap")
+		table.insert(spawn_items, "wpn_knife")
+		table.insert(spawn_items, "stalker_outfit_exo1")
+	end
+	
+	local k,v = 0,0
+	
+	for k,v in pairs(spawn_items) do
+		alife():create(v,	
+						db.actor:position(),
+						db.actor:level_vertex_id(),	
+						db.actor:game_vertex_id(), 
+						db.actor:id())
+	end	
+	
+end
+
+function bar_arena_weapon_slot()
+	if	has_alife_info("bar_arena_fight_1") then  
+		db.actor:activate_slot(1)
+	else 
+		db.actor:activate_slot(2)
+	end
+end
+
+function bar_arena_teleport_2( actor, npc)
+
+	  level.add_pp_effector ("blink.ppe", 234, false)				
+	
+		db.actor:set_actor_position(patrol("t_walk_2"):point(0))
+		local dir = patrol("t_look_2"):point(0):sub(patrol("t_walk_2"):point(0))
+		db.actor:set_actor_direction(-dir:getH())
+	
+		-- удаляем то, что у актора есть
+		db.actor:inventory_for_each(function(item, npc)
+										if not item then return end
+										if not items_no_transfer[item:section()] then ogse.remove_item_from_inventory(item, npc) end
+									end)
+		-- переносим к нему его барахло
+		ogse.transfer_items_from_box(story_ids.bar_arena_inventory_box_2)
+end
+
+function barman_give_extra_task (actor, npc)
+	if has_alife_info ("agroprom_military_case_done") and not has_alife_info ("bar_darklab_document_start") then
+		db.actor:give_info_portion("barman_job_1")
+		return
+	elseif has_alife_info ("bar_darklab_document_done") and not has_alife_info ("bar_x16_documents_start") then
+		db.actor:give_info_portion("barman_job_2")
+		return
+	elseif has_alife_info ("bar_x16_documents_done") and not has_alife_info ("bar_deactivate_radar_start") then
+		db.actor:give_info_portion("barman_job_3")
+		return
+	end
+	return	
+end
+
+function trader_extra_task (actor, npc)
+	if has_alife_info ("esc_serious_talk") and not has_alife_info ("agroprom_military_case") then
+		if not has_alife_info("esc_kvest_sdelka_with_mils_start") 
+		or (has_alife_info("esc_kvest_sdelka_with_mils_complete") or has_alife_info("esc_kvest_sdelka_with_mils_fail")) then
+			db.actor:give_info_portion("trader_job")
+			return
+		end
+	end
+	return
+end
+
+function scientist_extra_task (actor, npc)
+	if has_alife_info ("yan_find_scientist_done") and not has_alife_info ("yan_find_vasilyev_start") then
+		db.actor:give_info_portion("scientist_job")
+		return
+	end
+	return
+end
+
+function military_max_dead (actor, npc)
+end
+
+function military_lukash_dead (actor, npc)
+end
+
+function mil_courier_death (actor, npc)
+    actor:give_info_portion ("mil_courier_dead")
+    if has_alife_info("mil_leader_quest2_start") then
+       if not has_alife_info("mil_courier_visited") then
+          level_tasks.set_task_state (task.fail, "mil_courier_job", 1)
+       end   
+       level_tasks.set_task_state (task.completed, "mil_courier_job", 2)
+       level_tasks.set_task_state (task.completed, "mil_courier_job", 0)
+    end   
+end
+
+function mil_courier_quest_fail (actor, npc)
+    if has_alife_info("mil_courier_quest") == false then return end
+    level_tasks.set_task_state (task.fail, "mil_courier_job", 0)
+    actor:give_info_portion ("mil_courier_quest_failed")
+end
+
+function mil_scull_news (actor, npc)
+end
+
+function mil_sniper_dead (actor, npc)
+    if has_alife_info("mil_dolg_final_task") then
+       level_tasks.remove_location_by_sid (npc:story_id (), "mil_sniper_location")
+    end       
+end
+
+function mil_actor_enemy_set (actor, npc)
+end
+
+
+function mil_actor_enemy_reset (actor, npc)
+end
+
+function mil_bomb_explode (actor, npc)
+    local source = nil
+    local sim = alife ()
+    if sim then
+       local se_obj = sim:story_object (story_ids.Mil_Bomb)  
+       if se_obj then
+          source = level.object_by_id(se_obj.id)
+       end
+    end
+
+    if source == nil then
+       --'abort ("Bomb with story id MIL_BOMB not found")
+       return
+    end
+
+    local h = hit ();
+    h.power = 1000000;
+    h.direction = vector():set( 1, 0, 0 );
+    h.impulse = 1;
+    h.draftsman = source;
+    h.type = hit.chemical_burn;
+    source:hit (h);
+    
+    
+end
+
+function mil_set_alarm (actor, npc)
+    actor:give_info_portion ("mil_freedom_under_attack")
+    
+    local skull = level_object_by_sid (708)
+    if skull == nil then 
+       return 
+    end
+
+    this.set_stalker_enemy (702, skull)     -- hit to Lukash
+    this.set_stalker_enemy (707, skull)     -- hit to Max
+    this.set_stalker_enemy (730, skull)     -- hit to Sniper1
+    this.set_stalker_enemy (731, skull)     -- hit to Sniper2
+    this.set_stalker_enemy (732, skull)     -- hit to Sniper3
+end
+
+function sar2_monolith_explode (actor, npc)
+    local monolith = level_object_by_sid (1305)
+    if monolith == nil then
+       abort ("Object MONOLITH with SID 1305 not found")
+    end    
+    local h = hit ();
+    h.power = 1000;
+    h.direction = vector():set( 1, 0, 0 );
+    h.impulse = 1;
+    h.draftsman = actor;
+    h.type = hit.chemical_burn;
+    monolith:hit (h);
+end
+
+function set_stalker_enemy (sid, draftsman)
+    local npc = level_object_by_sid (sid)
+    if npc == nil or npc:alive () == false then
+       return 
+    end    
+    local h = hit ()
+    h.power = 0
+    h.direction = vector():set( 1, 0, 0 )
+    h.impulse = 0
+    h.draftsman = draftsman
+    h.type = hit.strike
+    npc:hit (h)
+end
+
+
+
+function mil_remove_cook_map_spot (actor, npc)
+    level_tasks.remove_location_by_sid (story_ids.Mil_Cook, "mil_cook_location")
+end
+
+function mil_transfer_docs_to_ara (actor, npc)
+    --local ara = level_object_by_sid (719)
+    --local pavlik = level_object_by_sid (710)
+    --if ara == nil or pavlik == nil or pavlik:object ("mil_courier_doc") == nil then
+       --return
+    --end   
+    --ara:transfer_item (pavlik:object ("mil_courier_doc"), pavlik)
+end
+
+function mil_emeny_nearest (actor, npc)
+    if actor == nil or actor:alive () == false then
+       return
+    end
+
+	if xr_gulag.isGulagEnemy( "mil_freedom", actor ) then
+       actor:give_info_portion("mil_enemy_nearest")
+    end
+end
+
+
+function mil_cap_mapspot (actor, npc)
+    local cap = level_object_by_sid (724)
+    if cap == nil or cap:alive () == false then
+       return 
+    end    
+    
+    if not has_alife_info("mil_fblockpost_spot_set") then
+       actor:give_info_portion ("mil_fblockpost_spot") 
+       actor:give_info_portion ("mil_fblockpost_spot_set")
+       level_tasks.add_location_by_sid (story_ids.Mil_Kap, "mil_fblockpost_location")
+    end
+end
+
+function mil_cap_mapspot_remove (stalker1, stalker2)
+    if has_alife_info("mil_fblockpost_spot") then
+       level_tasks.remove_location_by_sid (story_ids.Mil_Kap, "mil_fblockpost_location", true)
+       db.actor:disable_info_portion ("mil_fblockpost_spot_remove")
+    end      
+end
+
+function set_actor_enemy_for_freedom (actor, npc)
+    xr_gulag.setGulagEnemy ("mil_freedom", actor)
+end
+
+
+-- GARBAGE
+
+function gar_send_dolg_warning()
+	if db.actor then
+		if xr_gulag.getGulagPopulation("gar_dolg") > 0 then
+			news_manager.send_tip(db.actor, "gar_dolg_warning", 0, "dolg")
+		end
+	end
+end
+
+
+-------------------------------------------------------------------------------------
+-- Функции для DarkValley
+-------------------------------------------------------------------------------------
+
+function on_timer_orlov_go_to_fab(params_string)
+	if not tasks_functor.orlov_killed() then
+		db.actor:give_info_portion("val_orlov_wait_end")
+	end
+end
+	
+--Призрак Quest's
+function val_last_request_start_timer()
+	ogse_st_mgr.start_timer("orlov_go_to_fab", 60, script_name()..".on_timer_orlov_go_to_fab")
+end
+
+function on_orlov_use(actor,npc)
+	xr_sound.set_sound_play(npc, "use_no_default")
+	--xr_abuse.add_abuse(npc, 1)
+end
+
+local timer_orlov
+function we_are_very_far_from_orlov(actor,npc)
+	if timer_orlov==nil then
+		timer_orlov=game.time()+8000
+		return		--Не будем гонять проверку
+	end
+	if timer_orlov<game.time() then
+		news_manager.send_tip(db.actor, "Вы слишком далеко от сталкера", 0, "actor", 3000)
+		timer_orlov=game.time()+8000
+	end
+end
+
+function launch_dialog()
+	ogse.start_timer("orlov_talk_1", 3)
+	ogse.start_timer("orlov_talk_2", 5)
+	ogse.start_timer("orlov_talk_3", 7)
+	ogse.start_timer("orlov_talk_4", 9)
+end
+
+function show_messeges_shpion_to_orlov1()
+    news_manager.send_tip(db.actor, "Докладывай.", 0, "stalker", 5000)
+end
+function show_messeges_shpion_to_orlov2()
+    news_manager.send_tip(db.actor, "Всё состоится.", 0, "stalker", 5000)
+end
+function show_messeges_shpion_to_orlov3()
+	news_manager.send_tip(db.actor, "В какое время?", 0, "stalker", 5000)
+end
+
+function on_timer_scene_hit_actor_to_prison2()
+	if not tasks_functor.orlov_killed() then
+		tasks_functor.actor_look_at_sitnik_hit_to_actor()
+	end
+end
+	
+function show_messeges_shpion_to_orlov4()
+	news_manager.send_tip(db.actor, "Время не изменилось.", 0, "stalker", 5000)
+	ogse_st_mgr.start_timer("scene_hit_actor_to_prison2", 3, script_name()..".on_timer_scene_hit_actor_to_prison2")
+end
+
+function going_to_orlov(actor,npc)
+	news_manager.send_tip(db.actor, "Это что за тип с тобой?", 1, "killer", 5000)
+	news_manager.send_tip(db.actor, "Это мой помощник. Пропусти, у меня есть дело к Боссу.", 3, "default", 5000)
+	news_manager.send_tip(db.actor, "Проходи.", 7, "killer", 5000)
+end
+
+function actor_look_at_sitnik_hit_to_actor_start()
+	tasks_functor.actor_look_at_sitnik_hit_to_actor()
+end
+--[[
+function val_orlov_send_tip_about_sniperf()
+    news_manager.send_tip(db.actor, "Ах сволочь, предупреждали что снайпер засел на фабрике в ТД, сейчас едва ноги унес, повезло что рядом вагончик стоял. Когда его кто нибудь прикончит!?", 5, "default", 5000)
+end
+]]
+function val_escort_guard_death(actor, npc)
+    local idx = string.sub(npc:name(), -1)
+	local t = db.storage[npc:id()].death
+
+    actor:disable_info_portion("val_escort_guard" .. idx .. "_combat")
+    actor:give_info_portion("val_escort_guard" .. idx .. "_dead")
+    
+	if t ~= nil and t.killer == actor:id() then
+        actor:give_info_portion("val_escort_actor_helped")
+	end
+    --"on_info     = %-val_escort_guard1_combat +val_escort_guard1_dead%\n" ..
+    --"on_info2    = {=killed_by_actor} %+val_escort_actor_helped%\n" ..
+end
+
+function val_escort_guard_hit(actor, npc)
+    local idx = string.sub(npc:name(), -1)
+	local t = db.storage[npc:id()].hit
+
+	if t ~= nil then
+	    if t.who == actor:id() then
+            actor:give_info_portion("val_escort_combat")
+            actor:give_info_portion("val_escort_actor_helped")
+            if not has_alife_info("val_escort_nap1_start_combat") then
+                actor:give_info_portion("val_escort_captive_enemy")
+            end
+	    else
+	        local npc1 = level_object_by_sid(406)
+	        if npc1 ~= nil and t.who == npc1:id() then
+                actor:give_info_portion("val_escort_combat")
+                actor:give_info_portion("val_escort_nap1_start_combat")
+	        --else
+            --    actor:give_info_portion("val_escort_guard" .. idx .. "_combat")
+	        end
+	    end
+	end
+    --"on_info     = {=hit_by_actor} %+val_escort_combat +val_escort_actor_helped%, %+val_escort_guard1_combat%\n" ..
+    --"on_info2    = {+val_escort_combat -val_escort_nap1_start_combat} %+val_escort_captive_enemy%\n" ..
+    --"on_info3    = {=hitted_by(406) -val_escort_captive_enemy} %+val_escort_nap1_start_combat%\n" ..
+end
+
+function val_escort_guard_combat(actor, npc)
+    local idx = string.sub(npc:name(), -1)
+
+    actor:give_info_portion("val_escort_guard" .. idx .. "_combat")
+    
+    if npc:see(actor) then
+        if not has_alife_info("val_escort_nap1_start_combat") then
+            actor:give_info_portion("val_escort_captive_enemy")
+        end
+        actor:give_info_portion("val_escort_combat")
+    end
+    --"on_info     = %+val_escort_guard1_combat%\n" ..
+    --"on_info2    = {=see_actor -val_escort_nap1_start_combat -val_escort_captive_enemy} %+val_escort_captive_enemy%\n" ..
+    --"on_info3    = {=see_actor -val_escort_combat} %+val_escort_combat% ;remark@val_escort_guard1_fight\n" ..
+end
+
+function val_escort_guard_free(actor, npc)
+    --local idx = string.sub(npc:name(), -1)
+
+    actor:give_info_portion("val_escort_guards_free")
+    actor:disable_info_portion("val_escort_guard" .. string.sub(npc:name(), -1) .. "_combat")
+    --"on_info             = %+val_escort_guards_free -val_escort_guard1_combat%\n"
+end
+
+
+-------------------------------------------------------------------------------------
+-- kill
+-------------------------------------------------------------------------------------
+function killactor (actor, npc)
+    npc:set_relation(game_object.enemy, db.actor)
+	npc:set_goodwill( -5000, db.actor )
+end
+
+function kill(actor, npc)
+	npc:kill( npc )
+end
+
+
+-------------------------------------------------------------------------------------
+-- Функции для Агропрома
+-------------------------------------------------------------------------------------
+
+function kill_plennik(actor,npc)
+	npc:set_relation(game_object.enemy, level_object_by_sid(351))
+end
+
+function companion_stop_following(actor,npc,p)
+	local npc = level_object_by_sid(p[1])
+	if npc then
+		dialogs.companion_stop_following(npc,actor)
+	end
+end
+	
+function give_bar_kvest_plennik_on_base_mils_spasen()
+	ogse.give_info("bar_kvest_plennik_on_base_mils_spasen")
+end
+
+function agr_krot_sos( actor, npc )
+	news_manager.send_tip( actor, "tips_agr_krot_sos", 0, "krot", 10000 )
+end
+
+function agr_krot_sos_1_2( actor, npc )
+	if not has_alife_info( "agr_help_krot_start" ) and
+	   not has_alife_info( "agr_help_krot_done" ) and
+	   not has_alife_info( "agr_krot_skirmish_start" ) and
+	   not has_alife_info( "agr_krot_dead" ) and not(agroprom_tasks.agr_actor_enemy())
+	then
+		actor:give_info_portion( "agr_help_krot_start" )
+		news_manager.send_tip( actor, "tips_agr_krot_sos1", 0, "krot", 10000 )
+
+		if has_alife_info( "agr_help_stalkers_defence_dead" ) then
+			news_manager.send_tip( actor, "tips_agr_krot_sos2", 0, "krot", 10000 )
+		end
+	end
+end
+
+function agr_knockdown ()
+	local snd_obj = xr_sound.get_safe_sound_object([[affects\tinnitus3a]])
+	if snd_obj then
+		snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+	end
+	level.add_cam_effector("camera_effects\\earthquake.anm", 1974, false, "")
+end
+
+function agr_contuz (actor, npc)
+		local sound_obj_l		= xr_sound.get_safe_sound_object( [[affects\psy_blackout_l]] )
+        local sound_obj_r		= xr_sound.get_safe_sound_object( [[affects\psy_blackout_r]] )
+        if sound_obj_l then
+			sound_obj_l:play_no_feedback(actor, sound_object.s2d, 0, vector():set(-1, 0, 1), 1.0)
+		end
+		if sound_obj_r then
+			sound_obj_r:play_no_feedback(actor, sound_object.s2d, 0, vector():set( 1, 0, 1), 1.0)
+		end
+end
+
+function agr_cam_effect ()
+	level.add_cam_effector2("camera_effects\\agroprom_doctor_cam.anm", 123, false, "")
+
+end
+
+function agr_weapon(actor, npc)
+	local actor = db.actor	
+	if 	actor ~= nil then actor:activate_slot(2)
+	end
+end
+function agr_hold_enemy(actor, npc)
+	local gulag = xr_gulag.get_gulag_by_name("agr_factory_hold")
+	
+	local h  = hit()
+	h.power     = 0.01
+	h.direction = vector():set( 1, 0, 0 )
+	h.draftsman = actor
+	h.impulse   = 1
+	h.type      = hit.wound
+	
+	for k, v in pairs(gulag.Object) do
+		if v ~= true and level.object_by_id( k ) ~= nil then
+			v:hit( h )
+		end
+	end	
+end
+--------------------------------------------------------- 
+-- PRIPYAT
+--------------------------------------------------------- 
+function pri_zombied_in_combat_inc(actor, npc)
+    gulag_pripyat.zombied_in_combat[npc:name()] = true
+end
+
+function pri_zombied_in_combat_dec(actor, npc)
+    gulag_pripyat.zombied_in_combat[npc:name()] = nil
+end
+
+function pri_drop_rpg_ammo(actor, npc)
+    local item = npc:object("ammo_og-7b")
+    if item then
+        npc:drop_item(item)
+    -- else
+    end
+end
+
+function pri_give_ammo_og7b(actor, npc)
+    alife():create("ammo_og-7b", npc:position(), npc:level_vertex_id(), npc:game_vertex_id(), npc:id())
+    alife():create("ammo_og-7b", npc:position(), npc:level_vertex_id(), npc:game_vertex_id(), npc:id())
+end
+
+---------------------------------------------------------
+-- DeadCity
+---------------------------------------------------------
+
+
+---------------------------------------------------------
+-- Sarcofag + Monolith
+---------------------------------------------------------
+function osoznanie_call(actor, npc)
+	news_manager.send_tip(db.actor, "o_soznanie_text", 0, "o_soznanie")
+end
+
+function death_monolith_ghosts(actor, npc)
+	db.actor:give_info_portion("sar2_death_2")
+	db.actor:give_info_portion("sar2_death_5")
+	db.actor:give_info_portion("sar2_death_7")
+	db.actor:give_info_portion("sar2_death_9")
+	db.actor:give_info_portion("sar2_death_16")
+	db.actor:give_info_portion("sar2_death_25")
+	db.actor:give_info_portion("sar2_death_26")
+	db.actor:give_info_portion("sar2_death_27")
+	db.actor:give_info_portion("sar2_death_28")
+	db.actor:give_info_portion("sar2_death_29")
+	db.actor:give_info_portion("sar2_death_30")
+	db.actor:give_info_portion("sar2_death_35")
+	db.actor:give_info_portion("sar2_death_36")
+	db.actor:give_info_portion("sar2_death_37")
+	db.actor:give_info_portion("sar2_death_50")
+	db.actor:give_info_portion("sar2_death_51")
+	db.actor:give_info_portion("sar2_death_54")
+	db.actor:give_info_portion("sar2_death_57")
+	db.actor:give_info_portion("sar2_death_58")
+	db.actor:give_info_portion("sar2_death_59")
+	db.actor:give_info_portion("sar2_death_60")
+end
+
+---------------------------------------------------------
+-- Sarcofag2
+---------------------------------------------------------
+--[[
+local sar2_heroes_list = {
+    "sar2_tutorial_wounded",
+    "sar2_stalker_freeman",
+    "sar2_doctor",
+    "sar2_dram_novice",
+    "sar2_bandit_novice",
+    "sar2_ranger",
+    "sar2_bandit_general",
+    "sar2_zombied_novice",
+    "sar2_fox",
+    "sar2_seriy",
+    "sar2_ratcatcher",
+    "sar2_wolf",
+    "sar2_ecolog_professor",
+    "sar2_psih",
+    "sar2_stalker_explorer",
+    "sar2_hellcar",
+    "sar2_fanat",
+    "sar2_gar_dolg_blokpost_commander",
+    "sar2_krot",
+    "sar2_bandit_borov",
+    "sar2_arena_manager",
+    "sar2_zastava_commander_1",
+    "sar2_bandit_leader",
+    "sar2_svoboda_zombi_stalker",
+    "sar2_monolith_regular2",
+    "sar2_monolith_regular",
+    "sar2_bandit_veteran",
+    "sar2_soldier_regular",
+    "sar2_killer_regular",
+    "sar2_killer_informator",
+    "sar2_svoboda_cook",
+    "sar2_svoboda_bodyguard",
+    "sar2_svoboda_stukach",
+    "sar2_esc_soldier_commander",
+    "sar2_zombied_stalker",
+    "sar2_soldier_specnaz",
+    "sar2_killer_specnaz",
+    "sar2_dolg_specnaz_cherep",
+    "sar2_svoboda_blockpost_leader",
+    "sar2_dolg_guard_commander",
+    "sar2_dolg_ivancov",
+    "sar2_dolg_petrenko",
+    "sar2_dolg_leader",
+    "sar2_svoboda_attack_commander",
+    "sar2_crazy_veterans_lucky",
+    "sar2_svoboda_engineer",
+    "sar2_svoboda_leader",
+    "sar2_svoboda_trader",
+    "sar2_svoboda_master_max",
+    "sar2_monolith_specnaz2",
+    "sar2_monolith_specnaz",
+    "sar2_svoboda_master_ugrumiy",
+    "sar2_arena_savage",
+    "sar2_zombied_exo",
+    "sar2_monolith_leader",
+    "sar2_killer_ambush_tiran",
+    "sar2_killer_exo",
+    "sar2_soldier_stalker",
+    "sar2_monolith_exo",
+    "sar2_monolith_exo2"
+}
+--]]
+
+local sar2_heroes_sel_number, sar2_heroes_number = 0, 60
+local sar2_heroes_count, sar2_heroes_max_count = 0, 6
+local sar2_hero_next_free_id = 1
+local sar2_heroes_sel = {}
+
+function sar2_scene_start(actor, npc)
+    local i = 0
+    
+    sar2_heroes_sel = {}
+    sar2_heroes_sel_number = 0
+    sar2_hero_next_free_id = 1
+    for i = 1, sar2_heroes_number do
+        if has_alife_info("sar2_death_" .. i) then
+            table.insert(sar2_heroes_sel, i)
+            sar2_heroes_sel_number = sar2_heroes_sel_number + 1
+        end
+    end
+end
+
+function sar_hero_dead(actor, npc)
+    actor:give_info_portion("sar2_monolith_rock")
+
+    if sar2_heroes_count > 0 then
+        sar2_heroes_count = sar2_heroes_count - 1
+    end
+
+    if sar2_heroes_count == 0 and sar2_hero_next_free_id > sar2_heroes_sel_number then
+        actor:give_info_portion("sar2_monolith_end")
+    end
+
+end
+
+function sar2_hero_spawn(actor, npc)
+    local c = sar2_heroes_max_count - sar2_heroes_count
+
+    -- check if we need to spawn stalkers
+    if sar2_hero_next_free_id <= sar2_heroes_sel_number and c > 0 then
+        local i, n = 0, math.min(sar2_hero_next_free_id + c - 1, sar2_heroes_sel_number)
+
+        for i = sar2_hero_next_free_id, n do
+            actor:give_info_portion("sar2_spawn_" .. sar2_heroes_sel[i])
+        end
+
+        if n >= sar2_hero_next_free_id then
+        end
+        
+        sar2_heroes_count = sar2_heroes_count + (n - sar2_hero_next_free_id + 1)
+        sar2_hero_next_free_id = n + 1
+    end
+end
+
+-------------------------------------------------------------------------------------
+-- Функции для работы с вертолётами
+-------------------------------------------------------------------------------------
+
+function heli_set_enemy_actor(actor, npc)
+	local st = db.storage[npc:id()]
+	if not st.combat.enemy_id and actor:alive() and db.actor:character_community() ~= "mil_stalker" then
+		st.combat.enemy_id = actor:id()
+
+		heli_snd.play_snd( st, "see_enemy", 1 )
+	end 
+end
+
+function heli_set_enemy(actor, npc, p)
+	local st  = db.storage[npc:id()]
+	local obj = level_object_by_sid( p[1] )
+
+	if not st.combat.enemy_id and obj:alive() then
+		st.combat.enemy_id = obj:id()
+
+		heli_snd.play_snd( st, "see_enemy", 1 )
+	end
+end
+
+function heli_clear_enemy(actor, npc)
+    db.storage[npc:id()].combat:forget_enemy()
+end
+
+function heli_start_flame(actor, npc)
+	bind_heli.heli_start_flame( npc )
+end
+
+function heli_die(actor, npc)
+	bind_heli.heli_die( npc )
+end
+
+
+-------------------------------------------------------------------------------------
+-- Функции для работы с погодными эффектами
+-------------------------------------------------------------------------------------
+function start_small_reject (actor, npc)
+	if (level.get_time_hours() >= 5 and level.get_time_hours() <= 20) then
+		level.set_weather_fx("surge_day_ogse")
+	else
+		level.set_weather_fx("surge_night_ogse")
+	end
+	level.add_pp_effector ("vibros_p.ppe", 1974, false)
+	this.aes_earthshake (npc)
+    --set_postprocess ("scripts\\postprocess1.ltx")
+end
+
+function start_full_reject (actor, npc)
+	if (level.get_time_hours() >= 5 and level.get_time_hours() <= 20) then
+		level.set_weather_fx("surge_day_ogse")
+	else
+		level.set_weather_fx("surge_night_ogse")
+	end
+    level.remove_pp_effector (1974)
+    level.add_pp_effector ("vibros.ppe", 1974, false)
+    --set_postprocess ("scripts\\postprocess.ltx")
+end
+
+
+function aes_grenade_explode (actor, npc)
+    local obj = level_object_by_sid (1101)
+    if obj == nil then return end
+    local h = hit ();
+    h.power = 1000;
+    h.direction = vector():set (1, 0, 0);
+    h.impulse = 1;
+    h.draftsman = obj;
+    h.type = hit.chemical_burn;
+    obj:hit (h);
+end
+
+function aes_kill_actor (actor, npc)
+    if actor ~= nil and actor.health > 0 then 
+       actor:kill (actor)
+    end   
+end
+
+function set_sidorovich_animation (npc)
+    local sidor = level_object_by_sid (1118)
+    if sidor == nil then
+       abort ("SIDOROVICH NOT FOUND !!!")
+    end
+    --sidor:clear_animations ()
+    sidor:play_cycle ("wonder", true)
+    --sidor:add_animation ("idle_looped", true, false)
+end
+
+function aes_zombie_hit1 (npc)
+    --local npc = level_object_by_sid (1119)
+    --local force = vector ():set (0, 0, 0.02)
+    --local pshell = npc:get_physics_shell ()
+    
+    --local joint = pshell:get_joint_by_bone_name ("head2")
+    --joint:set_max_force_and_velocity (0.5 + math.random (), 0.1 * -1, 0)
+    --joint:set_max_force_and_velocity (0.5 + math.random(), 0.1 * -1,  2)
+    
+    --local npc = level_object_by_sid (1119)
+    --local force = vector ():set (0, 0, 50)
+    --local pshell = npc:get_physics_shell ()
+    --local element = pshell:get_element_by_bone_name ("foot_right")
+    --element:apply_force (force.x, force.y, force.z)
+    
+    -- foot_right, foot_left, left_hand, right_hand
+        
+    
+    --local dir = npc:direction ()
+    --dir.y = 0.0
+    --dir:normalize ()
+	--npc:set_const_force (dir, 2000, 3)
+	
+    --npc = level_object_by_sid (1120)
+    --dir = npc:direction ()
+    --dir.y = 0.0
+    --dir:normalize ()   
+	--npc:set_const_force (dir, 2000, 3)
+	
+    --npc = level_object_by_sid (1121)
+    --dir = npc:direction ()
+    --dir.y = 0.0
+    --dir:normalize ()   
+	--npc:set_const_force (dir, 2000, 3)
+	
+    --npc = level_object_by_sid (1122)
+    --dir = npc:direction ()
+    --dir.y = 0.0
+    --dir:normalize ()   
+	--npc:set_const_force (dir, 2000, 3)
+	
+    --npc = level_object_by_sid (1123)
+    --dir = npc:direction ()
+    --dir.y = 0.0
+    --dir:normalize ()   
+	--npc:set_const_force (dir, 2000, 3)
+end
+
+function aes_zombie_hit2 (npc)
+    --local npc = level_object_by_sid (1119)
+    --local force = vector ():set (0, 0, 50)
+    --local pshell = npc:get_physics_shell ()
+    --local element = pshell:get_element_by_bone_name ("foot_right")
+    --element:apply_force (force.x, force.y, force.z)
+    
+    
+    --local npc = level_object_by_sid (1119)
+    --local force = vector ():set (0, 0, 0.02)
+    --local pshell = npc:get_physics_shell ()
+    
+    --local joint = pshell:get_joint_by_bone_name ("head2")
+    --joint:set_max_force_and_velocity (0.5 + math.random (), 0.1 * 1, 0)
+    --joint:set_max_force_and_velocity (0.5 + math.random(), 0.1 * 1,  2)
+                --self.dir_x_axis  = self.dir_x_axis * (-1)
+                --self.dir_z_axis = self.dir_z_axis * (-1)
+                --self.time    = device():time_global() + math.random(800, 1000)
+        --end
+    
+    --local element = pshell:get_element_by_bone_name ("foot_right")
+    --element:apply_force (force.x, force.y, force.z)
+    --local npc = level_object_by_sid (1119)
+    --local dir = npc:direction ()
+    --dir.y = 0.0
+    --dir.x = -dir.x
+    --dir.z = -dir.z
+    --dir:normalize ()
+	--npc:set_const_force (dir, 2000, 3)
+	
+    --npc = level_object_by_sid (1120)
+    --dir = npc:direction ()
+    --dir.y = 0.0
+    --dir.x = -dir.x
+    --dir.z = -dir.z
+    --dir:normalize ()   
+	--npc:set_const_force (dir, 2000, 3)
+	
+    --npc = level_object_by_sid (1121)
+    --dir = npc:direction ()
+    --dir.y = 0.0
+    --dir.x = -dir.x
+    --dir.z = -dir.z
+    --dir:normalize ()   
+	--npc:set_const_force (dir, 2000, 3)
+	
+    --npc = level_object_by_sid (1122)
+    --dir = npc:direction ()
+    --dir.y = 0.0
+    --dir.x = -dir.x
+    --dir.z = -dir.z
+    --dir:normalize ()   
+	--npc:set_const_force (dir, 2000, 3)
+	
+    --npc = level_object_by_sid (1123)
+    --dir = npc:direction ()
+    --dir.x = -dir.x
+    --dir.z = -dir.z
+    --dir.y = 0.0
+    --dir:normalize ()   
+	--npc:set_const_force (dir, 2000, 3)
+end
+
+-- постпроцесс и влияние удара в морду
+function aes_earthshake (npc)
+	if not has_alife_info("pri_what_the_fuck") then
+		local snd_obj = xr_sound.get_safe_sound_object([[ambient\earthquake]])
+		if snd_obj then
+			snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+		end
+		-- nv080417 permit disabling of earthshake
+		if disable_npp_earthshaking then return end
+		level.add_cam_effector("camera_effects\\earthquake.anm", 1974, false, "")
+		--set_postprocess ("scripts\\earthshake.ltx")
+	end
+end
+
+function vovan_camera_test (npc)
+	level.add_cam_effector("camera_effects\\test.anm", "")	                  
+end
+-------------------------------------------------------------------------------------
+-- Функции для Янтаря
+----------------------------------------------------------------------------------
+function yan_actor_sleep (actor, npc)
+	db.actor:set_actor_position(patrol("yan_actor_sleep"):point(0))
+	local dir = patrol("yan_actor_sleep"):point(1):sub(patrol("yan_actor_sleep"):point(0))
+	db.actor:set_actor_direction(-dir:getH())
+end
+
+function yan_actor_sleep_1 (actor, npc)
+	db.actor:set_actor_position(patrol("yan_actor_sleep_1"):point(0))
+	local dir = patrol("yan_actor_sleep_1"):point(1):sub(patrol("yan_actor_sleep_1"):point(0))
+	db.actor:set_actor_direction(-dir:getH())
+end
+
+function yan_dream_voices (actor, npc)
+        local sound_obj_l		= xr_sound.get_safe_sound_object( [[characters_voice\scenario\yantar\dream_talk_l]] )
+        local sound_obj_r		= xr_sound.get_safe_sound_object( [[characters_voice\scenario\yantar\dream_talk_r]] )
+        if sound_obj_l then
+			sound_obj_l:play_no_feedback(actor, sound_object.s2d, 0, vector():set(-1, 0, 1), 1.0)
+		end
+		if sound_obj_r then
+			sound_obj_r:play_no_feedback(actor, sound_object.s2d, 0, vector():set( 1, 0, 1), 1.0)
+		end
+end
+
+function yan_gluk (actor, npc)
+		
+		local sound_obj_l		= xr_sound.get_safe_sound_object( [[affects\psy_blackout_l]] )
+        local sound_obj_r		= xr_sound.get_safe_sound_object( [[affects\psy_blackout_r]] )
+        
+		if sound_obj_l then
+			sound_obj_l:play_no_feedback(actor, sound_object.s2d, 0, vector():set(-1, 0, 1), 1.0)
+		end
+		if sound_obj_r then
+			sound_obj_r:play_no_feedback(actor, sound_object.s2d, 0, vector():set( 1, 0, 1), 1.0)
+		end
+	level.add_cam_effector("camera_effects\\earthquake.anm", 1974, false, "")
+
+end
+function x18_gluk (actor, npc)
+		level.add_pp_effector ("blink.ppe", 234, false)
+		local sound_obj_l		= xr_sound.get_safe_sound_object( [[affects\psy_blackout_l]] )
+        local sound_obj_r		= xr_sound.get_safe_sound_object( [[affects\psy_blackout_r]] )
+        local snd_obj			= xr_sound.get_safe_sound_object( [[affects\tinnitus3a]] )
+		
+		if snd_obj then
+			snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+		end
+		if sound_obj_l then
+			sound_obj_l:play_no_feedback(actor, sound_object.s2d, 0, vector():set(-1, 0, 1), 1.0)
+		end
+		if sound_obj_r then
+			sound_obj_r:play_no_feedback(actor, sound_object.s2d, 0, vector():set( 1, 0, 1), 1.0)
+		end
+		
+	level.add_cam_effector("camera_effects\\earthquake.anm", 1974, false, "")
+
+end
+
+
+
+function yan_sleep_not_relocate (actor, npc)
+		db.actor:actor_sleep(0, 180)
+end
+function yantar_kruglov_talk(actor,npc)
+	xr_sound.set_sound_play(npc, "rostok_kruglov_help_6")
+end
+
+function yantar_professor_spam_1 (actor, npc)
+    news_manager.send_tip(db.actor, "general_ecolog_tip_1", nil, "saharov", nil, 902)
+end
+
+function yantar_professor_spam_2 (actor, npc)
+    news_manager.send_tip(db.actor, "general_ecolog_tip_2", nil, "saharov", nil, 902)
+end
+
+function yantar_vasilyev_spam (actor, npc)
+    news_manager.send_tip(db.actor, "storyline_vasilyev_tip", nil, "ecolog", nil, 903)
+end
+function yan_saharov_message (actor, npc)
+    news_manager.send_tip(db.actor, "yan_saharov_message", nil, "saharov", nil, 902)
+    db.actor:give_info_portion("labx16_find")
+end
+
+function yan_saharov_message_2 (actor, npc)
+    news_manager.send_tip(db.actor, "yan_saharov_message_2", nil, "saharov", nil, 902)
+end
+function yan_saharov_message_3 (actor, npc)
+    news_manager.send_tip(db.actor, "yan_saharov_message_3", nil, "saharov", nil, 902)
+end
+
+function yan_ghost_pda (actor, npc)
+    if has_alife_info("agr_gunslinger_flash_have") then 
+        db.actor:give_info_portion("yan_provodnik_spawn")
+    end
+end
+
+function start_yantar_dream(actor, npc)
+	game.start_tutorial("yantar_dream")
+end
+
+function end_yantar_dream(actor, npc)
+	db.actor:give_info_portion("yantar_find_ghost_task_start")
+end
+-----------------------------radar
+function rad_sos_spam(actor, npc)
+	news_manager.send_tip(actor, "tips_rad_sos_suicide", nil, "stalker", nil, 1004)
+end
+
+
+function monolith_generator_hit (actor, npc)
+end
+
+
+function start_x18_dream(actor, npc)
+	game.start_tutorial("x18_dream")
+end
+function end_x18_dream(actor, npc)
+	db.actor:give_info_portion("dar_x18_dream")
+end
+
+function aes_final_movie(actor, npc)
+	db.actor:give_info_portion("game_end")
+	game.start_tutorial("mov_refuse_osoznanie")
+end
+------------------------------------------------------------------------------------
+-- Функции для Радара
+------------------------------------------------------------------------------------
+function rad_psi_hit (actor, npc)
+	level.add_pp_effector ("radar_psi.ppe", 2006, false)
+end
+
+function start_radar_dream(actor, npc)
+	game.start_tutorial("radar_dream")
+end
+
+function end_radar_dream(actor, npc)
+	db.actor:give_info_portion("bun_patrol_start")
+end
+------------------------------------------------------------------------------------
+-- Функции для саркофага
+------------------------------------------------------------------------------------
+function destroy_monolith_generator(actor, npc)
+    local source = nil
+    local sim = alife()
+    if sim then
+       local se_obj = sim:story_object(story_ids.sar2_destroyable_monolith)  
+       if se_obj then
+          source = level.object_by_id(se_obj.id)
+       end
+    end
+
+    if source == nil then
+       abort ("MONOLITH GENERATOR story id 1305 not found")
+       return
+    end
+
+    local h = hit ();
+    h.power = 1000000;
+    h.direction = vector():set( 1, 0, 0 );
+    h.impulse = 1;
+    h.draftsman = source;
+    h.type = hit.chemical_burn;
+    source:hit (h);        
+end
+
+function sar_monolith_miracle(actor, npc)
+	--' Убил лидеров группировок
+	if has_alife_info("mil_lukash_dead") and
+	   has_alife_info("bar_voronin_dead")
+	then
+		game.start_tutorial("mov_desire_3")
+		return
+	end
+
+	--' Много денег
+	if db.actor:money() >= 200000 then
+		game.start_tutorial("mov_desire_2")	
+		return
+	end
+
+	--' Хорошая репутация
+	if db.actor:character_reputation() >= 1000 then
+		game.start_tutorial("mov_desire_1")	
+		return
+	end
+
+	--' плохая репутация
+	if db.actor:character_reputation() <= -1000 then
+		game.start_tutorial("mov_desire_4")	
+		return
+	end
+
+	game.start_tutorial("mov_desire_5")	
+end
+
+function game_credits(actor, npc)
+	db.gameover_credits_started = true
+	game.start_tutorial("credits_seq")
+end
+
+function game_over(actor, npc)
+	if db.gameover_credits_started ~= true then
+		return
+	end
+	cmd("main_menu on")
+end
+
+function after_credits(actor, npc)
+	if db.gameover_credits_started ~= true then
+		return
+	end
+	cmd("disconnect")
+end
+
+
+function pri_game_over(actor, npc)
+	cmd("main_menu on")
+end
+
+function esc_init_dialod ()
+	local trader = level_object_by_sid(003)
+	db.actor:run_talk_dialog(trader)
+end
+
+function oso_init_dialod ()
+	-- local oso = level_object_by_sid(1307)
+	-- db.actor:run_talk_dialog(oso)
+end
+
+function add_in_restrictor(actor, npc, p) --Более не использовать!
+end
+
+function add_out_restrictor(actor, npc, p)
+	log1("[XR EFFECTS] ADDING OUT RESTRICTION "..p[1].." FOR "..npc:name())
+	npc:add_restrictions(p[1], "")	
+end
+
+function remove_out_restrictor(actor, npc, p)
+	log1("[XR EFFECTS] REMOVING OUT RESTRICTION "..p[1].." FOR "..npc:name())
+	npc:remove_restrictions(p[1], "")
+end
+
+function change_leader(actor, npc)
+	if xr_gulag.getGulagPopulation(823) == 0 then
+		db.actor:give_info_portion("pri_followers_all_dead")
+	end
+end
+
+function on_tutor_gameover_stop()
+	cmd("main_menu on")
+end
+
+function actor_stop_sleeping()
+	--ogse_signals.get_mgr():call("break_sleep")
+end
+
+function esc_actor_is_enemy(actor, npc)			
+    xr_gulag.setGulagEnemy("esc_lager", db.actor)
+end
+
+------------------------------------------------------- ARENA_EXTENSION_MOD--------------------------------------------------------
+
+function aem_draw()
+	db.actor:set_character_community("trader",0,0)
+end
+
+function aem_win()
+end
+
+function aem_foul()
+end
+
+function aem_death(actor, npc, p)
+	aem_manager.get_aem():on_death(npc, p[1])
+end
+
+function aem_finish()
+	aem_manager.get_aem():finish()
+end
+
+function switch(actor, npc)
+	if db.actor:has_info("aem_go_bar") then
+		log1("[XR EFFECTS] ADDING OUT RESTRICTIONS bar_restrictor FOR "..npc:name())
+		npc:add_restrictions("bar_restrictor", "")
+	else
+		log1("[XR EFFECTS] REMOVING ALL RESTRICTIONS FOR "..npc:name())
+		npc:remove_all_restrictions()
+	end
+end
+------------------------------------------------------- ARENA_EXTENSION_MOD--------------------------------------------------------
+function bun_primary_switcher_press()
+	tasks_functor.bun_primary_switcher_press()
+end
+
+function bun_primary_comp()
+	tasks_functor.ui_bun_comp_show()
+end
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+function smert_zona_effect1(actor, npc)
+--	if db.actor:dont_has_info("af_light_have") then
+	if not db.actor:object("af_light") and db.actor:dont_has_info("boltun_nayden") then
+		local snd_obj = xr_sound.get_safe_sound_object([[ambient\radar_1]])
+		if not snd_obj:playing() then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+		level.add_pp_effector("radiation.ppe", 999, false)
+	end
+end
+
+function smert_zona_effect2(actor, npc)
+--	if db.actor:dont_has_info("af_light_have") then
+	if not db.actor:object("af_light") and db.actor:dont_has_info("boltun_nayden") then
+		local snd_obj = xr_sound.get_safe_sound_object([[ambient\rnd_outdoor\rnd_krik9]])
+		if not snd_obj:playing() then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+		level.add_cam_effector("camera_effects\\earthquake.anm", 999, false, "")
+		jekan_work.smert_zona_effect()
+	end
+end
+
+function smert_zona_effect3(actor, npc)
+--	if db.actor:dont_has_info("af_light_have") then
+	if not db.actor:object("af_light") and db.actor:dont_has_info("boltun_nayden") then
+		db.actor:kill(db.actor)
+	end
+end
+
+
+
+function bul_bul_effect(actor, npc)
+local snd_obj = xr_sound.get_safe_sound_object([[ambient\x16\x16_brain_run]])
+if not snd_obj:playing() then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+end
+
+function garb_teleport_base(actor, npc)
+	db.actor:set_actor_position(vector():set(69.32,0.60,154.40))
+	db.actor:give_info_portion("visit_teleport_base")
+	soundtrack.visit_teleport_base()
+	db.actor:disable_info_portion("visit_secret_portal_1_plita")
+	db.actor:disable_info_portion("visit_secret_portal_2_constructions")
+	db.actor:disable_info_portion("visit_secret_portal_3_kust")
+	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
+		db.actor:give_info_portion("strange_anomaly_portal_touched")
+	end
+end
+
+function puzir_secret_portal_1_plita(actor, npc)
+	db.actor:set_actor_position(vector():set(75.29,0.60,150.28))
+	db.actor:give_info_portion("visit_secret_portal_1_plita")
+	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
+		db.actor:give_info_portion("strange_anomaly_portal_touched")
+	end
+	soundtrack.visit_secret_portal_1_plita()
+end
+
+function puzir_secret_portal_2_constructions(actor, npc)
+	db.actor:set_actor_position(vector():set(75.29,0.60,150.28))
+	db.actor:give_info_portion("visit_secret_portal_2_constructions")
+	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
+		db.actor:give_info_portion("strange_anomaly_portal_touched")
+	end
+	soundtrack.visit_secret_portal_2_constructions()
+end
+
+function puzir_secret_portal_3_kust(actor, npc)
+	db.actor:set_actor_position(vector():set(75.29,0.60,150.28))
+	db.actor:give_info_portion("visit_secret_portal_3_kust")
+	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
+		db.actor:give_info_portion("strange_anomaly_portal_touched")
+	end
+	soundtrack.visit_secret_portal_3_kust()
+end
+
+function puzir_secret_portal_4_serp(actor, npc)
+	db.actor:set_actor_position(vector():set(69.63,5.08,146.92))
+	db.actor:give_info_portion("have_af_puzir")
+	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
+		db.actor:give_info_portion("strange_anomaly_portal_touched")
+	end
+	soundtrack.visit_secret_portal_4_serp()
+end
+
+function puzir_obman_portal_1(actor, npc)
+	db.actor:set_actor_position(vector():set(69.32,0.60,154.40))
+	db.actor:disable_info_portion("visit_secret_portal_1_plita")
+	db.actor:disable_info_portion("visit_secret_portal_2_constructions")
+	db.actor:disable_info_portion("visit_secret_portal_3_kust")
+	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
+		db.actor:give_info_portion("strange_anomaly_portal_touched")
+	end
+	db.actor:set_actor_direction(1.57)
+	soundtrack.visit_teleport_base()
+end
+
+
+
+function superkontroler_sleep_aura(actor, npc)
+level.add_pp_effector("whiteblack.ppe", 999, true)
+end
+
+function superkontroler_sleep_aura_remove(actor, npc)
+level.remove_pp_effector(999)
+end
+
+function send_switch_signal(actor, lamp, p)
+	--log3("send_switch_signal: %s, %s, %s", npc:name(), p[1], p[2])
+	local signal_name = p[1]
+	ASSERT(signal_name, "xr_effects.send_switch_on_signal: signal name is not defined for the object '%s'", lamp:name())
+	local state = p[2]
+	ASSERT(state == 'on' or state == 'off', "xr_effects.send_switch_signal: unknown state for the switch signal '%s' sended from the object '%s'", signal_name, lamp:name())
+	ogse_signals.get_mgr():call(signal_name, state == 'on')
+end
+function send_switch_signal_auto(actor, lamp, p)
+	local st = db.storage[lamp:id()]
+	ASSERT(st, "xr_effects.send_switch_signal_auto: storage is not initialized for the object '%s'", lamp:name())
+	local light_config = st.light_config
+	ASSERT(light_config, "xr_effects.send_switch_signal_auto: light_config is not initialized for the object '%s'", lamp:name())
+	local signal_name = light_config.signal_name
+	ASSERT(signal_name, "xr_effects.send_switch_signal_auto: signal name is not defined for the object '%s'", lamp:name())
+	local state = p[1]
+	ASSERT(state == 'on' or state == 'off', "xr_effects.send_switch_signal_auto: unknown state for the switch signal '%s' sended from the object '%s'", signal_name, lamp:name())
+	ogse_signals.get_mgr():call(signal_name, state == 'on')
+end
+
+
+function npc_up_impuls(actor, npc)
+	local h = hit()
+	h.power = 0
+	h.direction = vector_rotate_z(npc:direction(), 90)
+	h.bone = get_string(npc:section(), "bone_head", "bip01_head")
+	h.draftsman = npc 
+	h.impulse = 300 
+	h.type = hit.wound
+	npc:hit(h)
+end
+
+function drifter_resurrection()
+	local npc = level_object_by_sid(7063)
+	local pos = npc:position()
+	npc:kill(npc)
+	jekan_work.spawn_dik_the_monster()
+	jekan_work.drifter_release_effect()
+-- alife():create("brodyaga_dik", vector():set(pos.x, pos.y, pos.z), npc:level_vertex_id(), npc:game_vertex_id())
+jekan_work.dog_body_release()
+-- jekan_work.dog_release_effect()
+end
+
+
+function kulg_band_bar_ambush()
+jekan_work.kulg_band_ambush()
+end
+
+
+-- Сейфы ----------------------------------------------------------------------------------------------------------------------
+local function open_safe(info, sid, fun)
+    if has_alife_info(info) then
+		local o = alife():story_object(story_ids[sid])
+		local obj = level.object_by_id(o.id)
+		db.actor:open_inventory_box(obj)
+	else
+	    jekan_devices[fun]()
+	end
+end
+
+function safe_1_open() open_safe("safe_1_opened", "lockedsafe_1", "unlock_safe_1") end
+function safe_2_open() open_safe("safe_2_opened", "lockedsafe_2", "unlock_safe_2") end
+function safe_3_open() open_safe("safe_3_opened", "lockedsafe_3", "unlock_safe_3") end
+function safe_4_open() open_safe("safe_4_opened", "lockedsafe_4", "unlock_safe_4") end
+function safe_5_open() open_safe("safe_5_opened", "lockedsafe_5", "unlock_safe_5") end
+function safe_6_open() open_safe("kpss_gotcha", "gorkom_safe", "unlock_safe_5") end
+function safe_7_open() open_safe("storyline_actor_start", "mg_barman_safe", "unlock_safe_5") end
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function ds_zapravka_port(actor, npc)
+	db.actor:set_actor_position(vector():set(427.79,-1.68,-355.67))
+	-- level.add_pp_effector("snd_shock.ppe", 999, false)
+	jekan_work.give_zapravka_port_task()
+	soundtrack.ds_zapravka_port_action()
+end
+
+function orujeinik_bunkerport_effect()                
+local fx_particle = "anomaly2\\teleport_out"
+local obj = level_object_by_sid(7032)
+local pos = obj:position()
+local snd = xr_sound.get_safe_sound_object([[anomaly\teleport_work_2]])
+fx_particle = particles_object(fx_particle)
+fx_particle:play_at_pos(pos)
+snd:play_no_feedback(obj, sound_object.s3d, 0, obj:position(), 1.0)
+jekan_work.orujeinik_bunker_teleport()
+end
+
+function vrach_bunkerport_effect1()                
+local fx_particle = "anomaly2\\teleport_out"
+local obj = level_object_by_sid(7033)
+local pos = obj:position()
+local snd = xr_sound.get_safe_sound_object([[anomaly\teleport_work_2]])
+fx_particle = particles_object(fx_particle)
+fx_particle:play_at_pos(pos)
+snd:play_no_feedback(obj, sound_object.s3d, 0, obj:position(), 1.0)
+jekan_work.vrach_bunker_teleport()
+jekan_work.actor_bunker_teleport()
+end
+
+function vrach_bunkerport_effect2()                
+local fx_particle = "anomaly2\\teleport_out"
+local obj = level_object_by_sid(7033)
+local pos = obj:position()
+local snd = xr_sound.get_safe_sound_object([[anomaly\teleport_work_2]])
+fx_particle = particles_object(fx_particle)
+fx_particle:play_at_pos(pos)
+snd:play_no_feedback(obj, sound_object.s3d, 0, obj:position(), 1.0)
+jekan_work.vrach_bunker_teleport()
+xr_effects.jeka_bunkerport_effect()
+jekan_work.dar_zapravka_dlog_madness()
+jekan_work.dar_dolg_gaz66_zachistka()
+end
+
+function vrach_bunkerport_effect3()                
+local fx_particle = "anomaly2\\teleport_out"
+local obj = level_object_by_sid(7033)
+local pos = obj:position()
+local snd = xr_sound.get_safe_sound_object([[anomaly\teleport_work_2]])
+fx_particle = particles_object(fx_particle)
+fx_particle:play_at_pos(pos)
+snd:play_no_feedback(obj, sound_object.s3d, 0, obj:position(), 1.0)
+jekan_work.vrach_bunker_teleport()
+xr_effects.jeka_bunkerport_effect()
+jekan_work.actor_bunker_teleport()
+end
+
+function jeka_bunkerport_effect()                
+local fx_particle = "anomaly2\\teleport_out"
+local obj = level_object_by_sid(7075)
+local pos = obj:position()
+local snd = xr_sound.get_safe_sound_object([[anomaly\teleport_work_2]])
+fx_particle = particles_object(fx_particle)
+fx_particle:play_at_pos(pos)
+snd:play_no_feedback(obj, sound_object.s3d, 0, obj:position(), 1.0)
+jekan_work.jeka_bunker_teleport()
+end
+-------------------------------------------------------------------------------------------------------------------------------------
+function music_box_activate(actor, mbox)
+	ogse_musicbox.use_musicbox(mbox)
+end
+------------------------------------------------------------------------------------------------------------------------------------
+
+function kaligula_wound_effect()
+	--[=[local fx_particle = "explosions\\group_items\\expl_car_sparks_00"
+	local obj = level_object_by_sid(623)
+	local pos = obj:position()
+	snd = sound_object([[sounds\anomaly\buzz_hit]])
+	fx_particle = particles_object(fx_particle)
+	fx_particle:play_at_pos(pos)
+	snd:play_no_feedback(obj, sound_object.s3d, 0, obj:position(), 1.0)]=]
+end
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function human_pervert_dead()
+	jekan_work.respawn_izlom_pervert()
+	ogse_st_mgr.start_timer("prvrt1", 0.5, "jekan_work.release_human_pervert")
+end
+
+function izlom_pervert_dead()
+	jekan_work.respawn_human_pervert()
+	ogse_st_mgr.start_timer("prvrt2", 0.5, "jekan_work.release_izlom_pervert")
+end
+
+function girl_pervert_dead()
+	jekan_work.respawn_cat_queen()
+	ogse_st_mgr.start_timer("catgl1", 0.5, "jekan_work.release_girl_pervert")
+end
+
+function cat_queen_dead()
+	jekan_work.respawn_girl_pervert()
+	ogse_st_mgr.start_timer("catgl2", 0.5, "jekan_work.release_cat_queen")
+end
+-------------------------------------------------------------------------------------------------------------------------------
+
+function rasstrel_start1()
+	jekan_work.rasstrel_start1()
+end
+
+function rasstrel_start2()
+	jekan_work.rasstrel_start2()
+end
+------------------------------------------------------------------------------------------------------------------------------------------
+
+function pkm_case_activate()
+	jekan_work.pkm_case_activate()
+	soundtrack.pkm_deactivate()
+end
+-------------------------------------------------------------------------------------------------------------
+
+function make_invulnerable(actor, npc)
+  npc:invulnerable(true)
+end
+
+function unmake_invulnerable(actor, npc)
+  npc:invulnerable(false)
+end
+-------------------------------------------------------------------------------------------------------------
+
+
+function bar_tower_zona_effect11(actor, npc)
+	if has_alife_info("voronin_tower_task") and db.actor:dont_has_info("tower_box_off") then
+	local snd_obj = xr_sound.get_safe_sound_object([[ambient\x16\x16_psy]])
+	if not snd_obj:playing() then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+	jekan_work.tower_zona_effect_death()
+	end
+end
+
+function bar_tower_zona_effect12(actor, npc)
+	if has_alife_info("voronin_tower_task") and db.actor:dont_has_info("tower_box_off") then
+	local snd_obj = xr_sound.get_safe_sound_object([[ambient\x16\x16_psy]])
+	if not snd_obj:playing() then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+	jekan_work.tower_zona_effect()
+	end
+end
+
+function bar_tower_zona_effect2(actor, npc)
+	if has_alife_info("voronin_tower_task") and db.actor:dont_has_info("tower_box_off") then
+		if not has_alife_info("kordon_samogon_forsage") then 
+			jekan_work.tower_zona_effect()
+		end
+	end
+end
+
+function bar_tower_zona_effect3(actor, npc)
+	if has_alife_info("voronin_tower_task") and db.actor:dont_has_info("tower_box_off") then
+		local snd_obj = xr_sound.get_safe_sound_object([[ambient\x16\x16_hum_2]])
+		if not snd_obj:playing() then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+		level.add_cam_effector("camera_effects\\earthquake.anm", 999, false, "")
+		if not has_alife_info("kordon_samogon_forsage") then 
+			jekan_work.tower_zona_effect()
+		end
+	end
+end
+
+function tower_box_activate()
+	if db.actor:dont_has_info("tower_box_off") then
+	jekan_devices2.tower_box1_1()
+	end
+	if has_alife_info("tower_box_off") then
+	soundtrack.towerbox_btn_press()
+	end
+end
+
+function kom_box_use()
+	if db.actor:dont_has_info("kommander_key_finded") then
+	news_manager.send_tip(db.actor, "kom_box_locked", nil, "default", 5000, nil)
+	soundtrack.towerbox_btn_press()
+	end
+	if has_alife_info("kommander_key_finded") then
+	jekan_work.kommander_box_open()
+	end
+end
+
+function yan_diplom_use()
+	jekan_work.yan_diplom_use()
+end
+
+function yan_sold_sniper_cover()
+	jekan_work.yan_sold_sniper_cover()
+end
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function bro2_dead()
+	local npc = level_object_by_sid (7085)
+	if npc ~= nil and npc:alive() == true then
+	npc:kill(npc)
+	db.actor:give_info_portion("bro2_finish")
+	end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function restart_strange_zone1()
+	jekan_update.restart_zone_1()
+end
+
+function restart_strange_zone2()
+	jekan_update.restart_zone_2()
+end
+
+function restart_strange_zone3()
+	jekan_update.restart_zone_3()
+end
+
+function restart_strange_zone4()
+	jekan_update.restart_zone_4()
+end
+
+function restart_strange_zone5()
+	jekan_update.restart_zone_5()
+end
+
+function restart_strange_zone6()
+	jekan_update.restart_zone_6()
+end
+
+function restart_strange_zone7()
+	jekan_update.restart_zone_7()
+end
+
+
+function zone1birth1()
+jekan_work.spawn_fake_art1()
+end
+
+function zone1birth2()
+jekan_work.spawn_fake_art2()
+end
+
+function zone1birth3()
+jekan_work.spawn_fake_art3()
+end
+
+
+function zone2birth1()
+jekan_work.spawn_fake_art1()
+end
+
+function zone2birth2()
+jekan_work.spawn_fake_art2()
+end
+
+function zone2birth3()
+jekan_work.spawn_fake_art3()
+end
+
+
+function zone3birth1()
+jekan_work.spawn_fake_art1()
+end
+
+function zone3birth2()
+jekan_work.spawn_fake_art2()
+end
+
+function zone3birth3()
+jekan_work.spawn_fake_art3()
+end
+
+
+function zone4birth1()
+jekan_work.spawn_fake_art1()
+end
+
+function zone4birth2()
+jekan_work.spawn_fake_art2()
+end
+
+function zone4birth3()
+jekan_work.spawn_fake_art3()
+end
+
+
+function zone5birth1()
+jekan_work.spawn_fake_art1()
+end
+
+function zone5birth2()
+jekan_work.spawn_fake_art2()
+end
+
+function zone5birth3()
+jekan_work.spawn_fake_art3()
+end
+
+
+function zone6birth1()
+jekan_work.spawn_fake_art1()
+end
+
+function zone6birth2()
+jekan_work.spawn_fake_art2()
+end
+
+function zone6birth3()
+jekan_work.spawn_fake_art3()
+end
+
+
+function zone7birth1()
+jekan_work.spawn_fake_art1()
+end
+
+function zone7birth2()
+jekan_work.spawn_fake_art2()
+end
+
+function zone7birth3()
+jekan_work.spawn_fake_art3()
+end
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function test_stalker_enemy(actor, npc)
+local test_stalker = level_object_by_sid(7116)
+	if test_stalker ~= nil and test_stalker:alive() then
+	test_stalker:set_relation(game_object.enemy, db.actor)
+	test_stalker:set_goodwill(-5000, db.actor)
+	end
+end
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function atp_band_access_off()
+	if db.actor:dont_has_info("atp_band_hitted") then
+	db.actor:give_info_portion ("atp_band_hitted")
+	jekan_work.spawn_atp_helper()
+	jekan_work.krivoy_enemy()
+	end
+end
+
+function atp_band_access_off2()
+	db.actor:disable_info_portion("atp_band_access")
+	db.actor:give_info_portion ("atp_fail1")
+	jekan_work.spawn_atp_helper()
+	jekan_work.krivoy_enemy()
+	jekan_work.kill_shustriy()
+end
+
+function atp_proval()
+	db.actor:disable_info_portion("atp_band_access")
+	jekan_work.atp_proval()
+end
+
+----------------------------------------------------------------------------------------
+
+function release_krovos_unic(actor,npc)
+
+end
+
+function spawn_krovos_unic_body()
+	--ogse_st_mgr.start_timer("unicsos1", 0, 1, "xr_effects.release_krovos_unic")
+	jekan_work.spawn_krovos_unic_body()
+end
+
+function spawn_krovos_unic_bad()
+	jekan_work.spawn_krovos_unic_bad()
+end
+
+function krovos_unic_scream()
+	jekan_work.krovos_unic_scream()
+end
+
+function krovos_friend_talk()
+	jekan_work.krovos_friend_talk()
+end
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+function release_pseudodog_unic()
+    local sobj = alife():story_object(story_ids.pseudodog_unic)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function spawn_pseudodog_unic_body()
+	--ogse_st_mgr.start_timer("psdog1", 0, 1, "xr_effects.release_pseudodog_unic")
+	jekan_work.spawn_pseudodog_unic_body()
+end
+
+function spawn_pseudodog_unic_bad()
+	jekan_work.spawn_pseudodog_unic_bad()
+end
+
+function pseudodog_unic_scream()
+	jekan_work.pseudodog_unic_scream()
+end
+
+function pseudodog_friend_talk()
+	jekan_work.pseudodog_friend_talk()
+end
+-----------------------------------------------------------------------------------------
+
+local function find_sidor_door()
+	local sobj = alife():object("trader_door")
+	if sobj then
+		local obj = level.object_by_id(sobj.id)
+		if obj then
+			return obj
+		end
+	end
+end
+
+local trader_door
+local trader_door_params
+local function trader_door_closed()
+	--log1("trader_door_closed")
+	if not trader_door then
+		--log1("1")
+		--local sobj = alife():object("trader_door")
+		trader_door = find_sidor_door()
+		--log1("2")
+		ASSERT(trader_door, "[trader_door_closed] object 'trader_door' not found!")
+		--log1("3")
+		--trader_door = level.object_by_id(sobj.id)
+		--log1("4")
+		if trader_door then
+			--log1("5")
+			local ph_shell = trader_door:get_physics_shell()
+			--log1("6")
+			if not ph_shell then
+				return false
+			end
+			local par = {}
+			trader_door_params = par
+			par.joint = ph_shell:get_joint_by_bone_name("door")
+			--log1("7")
+
+			par.low_limits, par.hi_limits = 0,0
+			par.low_limits, par.hi_limits = par.joint:get_limits(par.low_limits, par.hi_limits, 1)
+			--log1("8")
+		end
+	end
+	if trader_door_params then
+		local angle = trader_door_params.joint:get_axis_angle(1)
+		--log3("angle: %s, %s, %s", angle, trader_door_params.low_limits, trader_door_params.hi_limits)
+		return angle <= trader_door_params.low_limits
+	else
+		--log1("not trader_door_params")
+		return false
+	end
+end
+
+local trader_door_storage = nil
+
+function trader_door_closed2()
+	if not trader_door_storage then
+		local trader_door = find_sidor_door()
+		ASSERT(trader_door, "[trader_door_closed2] object 'trader_door' not found!")
+		trader_door_storage = db.storage[trader_door:id()]
+		ASSERT(trader_door_storage, "[trader_door_closed2] no logic initialized for the object 'trader_door'!")
+	end
+	return trader_door_storage.ph_door and trader_door_storage.ph_door.closed
+end
+
+local sound_zone
+local max_sidor_radio_dist = 11.0
+local min_sidor_radio_dist = 4.0
+local sidor_radio_range = max_sidor_radio_dist - min_sidor_radio_dist
+function sidor_radio_volume_control(obj_pos, actor_pos)
+	local dist = actor_pos:distance_to(obj_pos)
+	if dist > max_sidor_radio_dist then
+		--log1("out of range")
+		return 0.0
+	end
+	if not sound_zone then
+		local sobj = alife():object("sidor_radio_sound_zone")
+		ASSERT(sobj, "[sidor_radio_volume_control] no 'sidor_radio_sound_zone' object found!")
+		sound_zone = level.object_by_id(sobj.id)
+	end
+	-- если есть рестриктор-зона звучания, и мы в него не попадаем, то громкость нулевая
+	if sound_zone and not sound_zone:inside(actor_pos) then
+		--log1("out of zone")
+		return 0.0
+	end
+	--log3("dist=%f", dist)
+	local v = 1 - (dist - min_sidor_radio_dist) / sidor_radio_range
+	local res = math.clamp(v, 0, 1)
+	local door_closed = trader_door_closed2()
+	--log3("door_closed: %s", door_closed)
+	if dist > 4 then
+		if door_closed then
+			res = res * 0.2
+		end
+	end
+	return res
+end
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function suicide(actor, npc)
+	local snd_obj = sound_object([[Weapons\walther_shoot]])
+	if snd_obj ~= nil then
+		snd_obj:play_at_pos(db.actor, npc:position(), sound_object.s3d)
+	end
+	action(
+		npc,
+--		particle("hit_fx\\hit_flesh_headshot", get_string(npc:section(), "bone_head", "bip01_head"), particle_params(vector():set(0,0,0.3),vector():set(0,0,0),vector():set(1,0,0)),false),
+		particle("hit_fx\\hit_flesh_headshot", get_string(npc:section(), "bone_head", "bip01_head")),
+		cond	(cond.time_end, 100000000)
+	)
+	local h = hit()
+	h.power = 1000
+	h.direction = vector_rotate_y(npc:direction(), 90)
+	h.bone = get_string(npc:section(), "bone_head", "bip01_head")
+	h.draftsman = npc 
+	h.impulse = 200 --350
+	h.type = hit.wound
+	npc:hit(h)
+end
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function city_btr_crashed_use()
+local obj = level_object_by_sid(story_ids.city_btr_crashed)
+local pos = obj:position()
+local snd_obj = xr_sound.get_safe_sound_object([[car\trabantnoise]])
+snd_obj:play_at_pos(obj, obj:position(), 0, sound_object.s3d)
+end
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function digger_killer_scream()
+local obj = level_object_by_sid(story_ids.esc_digger)
+if obj then
+	local pos = obj:position()
+	local snd_obj = xr_sound.get_safe_sound_object([[characters_voice\human_01\bandit\fight\tolls\tolls_2]])
+	snd_obj:play_at_pos(obj, obj:position(), 0, sound_object.s3d)
+end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function caravan_hit_by_actor1()
+  local npc = level_object_by_sid(story_ids.caravan_guard1)
+if npc and npc:alive() then
+   npc:set_relation(game_object.enemy, db.actor)
+   npc:set_goodwill(-5000, db.actor)
+  end
+end
+
+function caravan_hit_by_actor2()
+  local npc = level_object_by_sid(story_ids.caravan_guard2)
+if npc and npc:alive() then
+   npc:set_relation(game_object.enemy, db.actor)
+   npc:set_goodwill(-5000, db.actor)
+  end
+end
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function human_pervert_init_dialod()
+	local npc = level_object_by_sid(story_ids.human_pervert)
+	db.actor:run_talk_dialog(npc)
+end
+
+function stalin_init_dialod()
+	local npc = level_object_by_sid(story_ids.sidr_guard)
+	db.actor:run_talk_dialog(npc)
+end
+
+function forest_init_dialod()
+	local npc = level_object_by_sid(story_ids.forrest_gump)
+	db.actor:run_talk_dialog(npc)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function moonshine_apparat_use1()
+local obj = level_object_by_sid(story_ids.moonshine_apparat)
+local pos = obj:position()
+local snd_obj = xr_sound.get_safe_sound_object([[ambient\x16\x16_brain_run]])
+snd_obj:play_at_pos(obj, obj:position(), 0, sound_object.s3d)
+--jekan_work.spawn_glassful_on_table()
+end
+
+function moonshine_apparat_use2()
+local obj = level_object_by_sid(story_ids.moonshine_apparat)
+local pos = obj:position()
+local fx_particle = "industrial_particles\\exhaust_isparenie"
+fx_particle = particles_object(fx_particle)
+local snd_obj = xr_sound.get_safe_sound_object([[ambient\underground\steam_2]])
+snd_obj:play_at_pos(obj, obj:position(), 0, sound_object.s3d)
+fx_particle:play_at_pos(pos)
+end
+
+function city_tower_box_use()
+jekan_devices2.city_tower_box()
+end
+
+function spawn_glassful_on_table()
+jekan_work.spawn_glassful_on_table()
+end
+
+function spawn_apparat_on_table()
+jekan_work.spawn_apparat_on_table()
+end
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function kosar_place_use()
+jekan_work.kosar_place_use()
+end
+
+function spawn_generator()
+	jekan_work.spawn_second_generator()
+end
+
+function spawn_third_klondaik_flash_to_captain()
+	local capt = level_object_by_sid(story_ids.yan_dz_captain)
+	local sold = level_object_by_sid(story_ids.yan_soldier)
+	if capt then
+		if sold then
+			if sold:object("klondaik_flash_3") then
+				sold:transfer_item(sold:object("klondaik_flash_3"), capt)
+			elseif not alife():object("klondaik_flash_3") then
+				alife():create("klondaik_flash_3", capt:position(), capt:level_vertex_id(), capt:game_vertex_id(), capt:id())
+			end
+		else
+			alife():create("klondaik_flash_3", capt:position(), capt:level_vertex_id(), capt:game_vertex_id(), capt:id())
+		end
+	end
+end
+
+function spawn_third_klondaik_flash_to_soldier()
+	local sold = level_object_by_sid(story_ids.yan_soldier)
+	if sold then
+		if not sold:object("klondaik_flash_3") and not alife():object("klondaik_flash_3") then
+			alife():create("klondaik_flash_3", sold:position(), sold:level_vertex_id(), sold:game_vertex_id(), sold:id())
+		end
+	end
+end
+
+local klondike_idle_sound = xr_sound.get_safe_sound_object([[scripts\klondike\klondike_idle]])
+local klondike_activate_sound = xr_sound.get_safe_sound_object([[scripts\klondike\klondike_activate]])
+function play_klondike_idle_sound()
+	local zone = level_object_by_sid(story_ids.klondaik)
+	if zone then
+		klondike_idle_sound:play_at_pos(zone, zone:position(), 1, sound_object.looped)
+	end
+end
+
+function stop_klondike_idle_sound()
+	klondike_idle_sound:stop()
+end
+
+function playing_klondike_idle_sound()
+	return klondike_idle_sound:playing()
+end
+
+function play_klondike_activate_sound()
+	local zone = level_object_by_sid(story_ids.klondaik)
+	if zone then
+		klondike_activate_sound:play_at_pos(zone, zone:position(), 0, sound_object.s3d)
+	end
+end
+
+function spawn_zombies()
+	local sects = { "weak", "normal", "strong", "strong_klondike", "plague" }
+	local diff_num = {
+		[0] = 27,
+		[1] = 40,
+		[2] = 54,
+		[3] = 81
+	}
+	for i = 1, diff_num[level.get_game_difficulty()] do
+		local sect = "zombie_"..sects[math.random(1, #sects)]
+		if math.random() > 0.5 then
+			dsh.create_free_mob(sect, vector():set(12.57, 1.08, 72.53+i*0.7), 511607+i,3617)
+		else
+			dsh.create_free_mob(sect, vector():set(70.1, 1.08, 64.13+i*0.7), 580769+i,3614)
+		end
+	end
+end
+
+function launch_klondike_ending()
+-- артефакты в награду игроку
+	--local num_arts_to_spawn = math.random(7,9)
+	
+	local diff = level.get_game_difficulty()
+	if diff == 0 then num_arts_to_spawn = 7
+		elseif diff == 1 then num_arts_to_spawn = 8
+		elseif diff == 2 then num_arts_to_spawn = 9
+		elseif diff == 3 then num_arts_to_spawn = 10 
+	end
+	
+	local spawned_idxs = {}
+	for i = 1, num_arts_to_spawn do
+		local art_idx = 0
+		while art_idx == 0 or (art_idx > 10 and art_idx < 18) or spawned_idxs[art_idx] == true do
+			art_idx = math.random(22)
+		end
+		alife():create("af_klondike_"..tostring(art_idx), vector():set(41.942,-1,78.993), 543615, 3616)
+		spawned_idxs[art_idx] = true
+	end
+-- удаление "ключа"
+	ogse.remove_item_from_inventory(db.actor:object("klondaik_key"), db.actor)
+-- завершаем таск
+	db.actor:give_info_portion("klondaik_find")
+-- спавн зомбей
+	if db.actor:dont_has_info("kulgband_deadcity_meet") then
+		spawn_zombies()
+	end
+end
+
+function master_init_dialod()
+	local npc = level_object_by_sid(15784)
+	db.actor:run_talk_dialog(npc)
+end
+
+function start_drink_timer()
+	ogse.start_timer("synak_drinked", 15)
+end
+
+function start_sleep_timer()
+	ogse.start_timer("synak_sleeped", 240)
+end
+
+--Эта функция используется в логике esc_anomaly_tips_zone
+--В этом рестрикторе, похоже, логика никогда не срабатывает.
+function esc_wolf_thanks()
+end
+
+--Объект удалит сам себя, если в логике сделать например on_signal = sound_end | nil %=release%
+function release(actor, npc)
+	local sobj = alife():object(npc:id())
+	if sobj then
+		alife():release(sobj)
+	end
+end
+
+function delme(actor, npc) -- Самоудаление
+ local npc_id = npc:id()
+ if db.creature[npc_id]~=nil then
+  alife():set_switch_online  (npc:id(), false)
+  alife():set_switch_offline (npc:id(), true)
+  level.add_call(function() return level.object_by_id(npc_id)==nil end,
+  function()
+   local sobj = alife():object(npc_id)
+   if sobj then
+    alife():release(sobj, true)
+   end
+  end
+  )
+ else
+  local sobj = alife():object(npc_id)
+  if sobj then
+   alife():release(sobj, true)
+  end
+ end
+end
+
+
+
+
+function add_spot_on_map(obj_id,type,text) --+
+  if obj_id then
+    if text==nil then text=" " end
+    level.map_add_object_spot_ser(obj_id, type, text)
+  end
+end
+
+function remove_spot_from_map(obj_id,type) --+
+  if obj_id and level.map_has_object_spot(obj_id, type)~= 0 then
+    level.map_remove_object_spot(obj_id, type)
+  end
+end
+
+
+function add_self_spot(actor, npc, p)
+ local metka = p[1] or "green_location"
+ local tips = game.translate_string(p[2] or npc:name())
+ add_spot_on_map(npc:id(), metka, tips)
+end
+
+function remowe_self_spot(actor, npc, p)
+ local metka = p[1] or "green_location"
+ local tips = game.translate_string(p[2] or npc:name())
+ remove_spot_from_map(npc:id(), metka, tips)
+end
+
+
+function dar_kulg_band_trader_car_respawn()
+	local sim = alife()
+	local sobj = sim:create("vehicle_gaz66_quest", vector():set (374.16, -4.27, -471.04), 854965, 3149)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_trader_car2)
+	
+	db.actor:set_actor_position(vector():set(376.74, -4.02, -467.89))
+	
+	local st = get_hud():GetCustomStatic("dar_kulg_band_trader_car_think") or get_hud():AddCustomStatic("dar_kulg_band_trader_car_think",true)
+	st.m_endTime = time_global()/1000 + 10
+end
+
+function spawn_kulgband_trader_car_body()
+ local sim = alife()
+ local sobj = sim:create("kulgband_trader_car_body", vector():set (389.06,-3.80,-502.12), 881631, 3149)
+ sobj:on_death()
+ 
+ alife():create("kulgband_trader_car_mob", vector():set (389.06,-3.80,-502.12), 881631, 3149)
+ alife():create("kulgband_trader_car_mob", vector():set (389.06,-3.80,-502.12), 881631, 3149)
+ alife():create("kulgband_trader_car_mob", vector():set (389.06,-3.80,-502.12), 881631, 3149)
+end
+
+
+function val_filin_shron_spawn_in()
+local box = level_object_by_sid(story_ids.val_secret_0006)
+	ogse.spawn_item_in_inv("val_filin_diary", box, 1)
+	ogse.spawn_item_in_inv("medkit", box, 1)
+	ogse.spawn_item_in_inv("vodka", box, 1)
+	ogse.spawn_item_in_inv("conserva", box, 2)
+	ogse.spawn_item_in_inv("ammo_5.45x39_fmj", box, 3)
+end
+
+
+function spawn_dar_farm_assistant()
+	local sim = alife()
+	local sobj = sim:create("dar_farm_assistant", vector():set (-87.55, 0.26, -470.16), 72604, 841)
+	sim:assign_story_id(sobj.id, story_ids.dar_farm_assistant)
+end
+
+
+function release_dar_filin_shron_door()
+	local obj = alife():story_object(story_ids.dar_filin_shron_door)
+	if obj then
+		alife():release(obj, true)
+	end
+end
+
+function release_dar_assistant_friend()
+	local obj = alife():story_object(story_ids.dar_assistant_friend)
+	if obj then
+		alife():release(obj, true)
+	end
+end
+
+function spawn_mil_monolith_man1grenade()
+	local npc = level_object_by_sid(7365)
+	local pos = npc:position()
+	local sim = alife()
+	local sobj1 = sim:create("suicider_grenade", vector():set(pos.x+1, pos.y+1, pos.z), npc:level_vertex_id(), npc:game_vertex_id())
+	sim:assign_story_id(sobj1.id, story_ids.suicider_grenade)
+	
+	local st = get_hud():GetCustomStatic("mil_monolith_grenade_think") or get_hud():AddCustomStatic("mil_monolith_grenade_think",true)
+	st.m_endTime = time_global()/1000 + 7
+end
+
+function spawn_mil_monolith_man2grenade()
+	local npc = level_object_by_sid(7366)
+	local pos = npc:position()
+	local sim = alife()
+	local sobj1 = sim:create("suicider_grenade", vector():set(pos.x+1, pos.y+1, pos.z), npc:level_vertex_id(), npc:game_vertex_id())
+	sim:assign_story_id(sobj1.id, story_ids.suicider_grenade)
+	
+	local st = get_hud():GetCustomStatic("mil_monolith_grenade_think") or get_hud():AddCustomStatic("mil_monolith_grenade_think",true)
+	st.m_endTime = time_global()/1000 + 7
+end
+
+function spawn_mil_monolith_man3grenade()
+	local npc = level_object_by_sid(7367)
+	local pos = npc:position()
+	local sim = alife()
+	local sobj1 = sim:create("suicider_grenade", vector():set(pos.x+1, pos.y+1, pos.z), npc:level_vertex_id(), npc:game_vertex_id())
+	sim:assign_story_id(sobj1.id, story_ids.suicider_grenade)
+	
+	local st = get_hud():GetCustomStatic("mil_monolith_grenade_think") or get_hud():AddCustomStatic("mil_monolith_grenade_think",true)
+	st.m_endTime = time_global()/1000 + 7
+end
+
+
+function spawn_special_medusa_near_door()
+ alife():create("af_medusa_special", vector():set (-130.82,0.65,-473.17), 26902, 842)
+end
+
+
+function actor_gaz66car_evacuation_fix()
+	local car = level_object_by_sid(story_ids.kulgband_trader_car2)
+	if car then
+		local pos = car:position()
+		db.actor:set_actor_position(vector():set(pos.x+4, pos.y, pos.z+4))
+	end
+end
+
+function spawn_dar_deadband_company2()
+	local sim = alife()
+	local sobj1 = sim:create("dar_bridge_kulgband_man1", vector():set (257.45,0.56,565.12), 703501, 2980)
+	sim:assign_story_id(sobj1.id, story_ids.dar_bridge_kulgband_man1)
+	
+	local sobj2 = sim:create("dar_bridge_kulgband_man2", vector():set (258.06,0.49,561.97), 704411, 2980)
+	sim:assign_story_id(sobj2.id, story_ids.dar_bridge_kulgband_man2)
+	
+	local sobj3 = sim:create("dar_bridge_kulgband_man3", vector():set (259.81,0.54,568.31), 706212, 2980)
+	sim:assign_story_id(sobj3.id, story_ids.dar_bridge_kulgband_man3)
+end
+
+
+function dar_bridge_kulgband_man2shoot()
+		local npc1 = level_object_by_sid(story_ids.dar_bridge_kulgband_man2)
+		local npc2 = level_object_by_sid(story_ids.dar_bridge_kulgband_assist1)
+		if not npc2 then return end --Может к примеру погибнуть в аномалии.
+		local bw = rx_utils.get_weapon(npc1)
+		npc1:set_sight(look.fire_point, npc2:position())
+		npc1:set_item(object.fire1, bw, 1, 5000)
+		fx_particle = particles_object("weapons\\generic_weapon01")
+		local pos = bw:position()
+		local dir = bw:direction()
+		pos:add(dir)
+		fx_particle:play_at_pos(pos)
+		npc2:kill(npc2)
+end
+
+function dar_bridge_kulgband_man3shoot()
+		local npc1 = level_object_by_sid(story_ids.dar_bridge_kulgband_man3)
+		local npc2 = level_object_by_sid(story_ids.dar_bridge_kulgband_assist2)
+		if not npc2 then return end --Может к примеру погибнуть в аномалии.
+		local bw = rx_utils.get_weapon(npc1)
+		npc1:set_sight(look.fire_point, npc2:position())
+		npc1:set_item(object.fire1, bw, 1, 5000)
+		fx_particle = particles_object("weapons\\generic_weapon01")
+		local pos = bw:position()
+		local dir = bw:direction()
+		pos:add(dir)
+		fx_particle:play_at_pos(pos)
+		npc2:kill(npc2)
+end
+
+
+
+
+function spawn_kulgband_seif_dead_man()
+	local sim = alife()
+	local sobj = sim:create("kulgband_seif_dead_man", vector():set (210.78,-0.58,657.24), 644922, 3228)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_seif_dead_man)
+	sobj:on_death()
+	local sobj_id = sobj.id
+	text = "Мародёр"
+	level.map_add_object_spot_ser(sobj_id,"blue_location",text)
+	
+	local st = get_hud():GetCustomStatic("kulgband_seif_think") or get_hud():AddCustomStatic("kulgband_seif_think",true)
+	st.m_endTime = time_global()/1000 + 10
+end
+
+
+function delete_kulgband_seif_dead_man()
+	local obj = alife():story_object(story_ids.kulgband_seif_dead_man)
+	if obj then
+		alife():release(obj, true)
+	end
+	ogse.remove_item_from_inventory(db.actor:object("kulgband_hutor_house_seif_key"),actor)
+	
+	local st = get_hud():GetCustomStatic("kulgband_seif_think2") or get_hud():AddCustomStatic("kulgband_seif_think2",true)
+	st.m_endTime = time_global()/1000 + 10
+end
+
+
+function spawn_kulgband_seif_ambush()
+ alife():create("kulgband_seif_ambush_mob1", vector():set (212.47,-1.54,610.96), 647514, 2975)
+ alife():create("kulgband_seif_ambush_mob2", vector():set (212.47,-1.54,610.96), 647514, 2975)
+ alife():create("kulgband_seif_ambush_mob2", vector():set (212.47,-1.54,610.96), 647514, 2975)
+ alife():create("kulgband_seif_ambush_mob2", vector():set (212.47,-1.54,610.96), 647514, 2975)
+ alife():create("kulgband_seif_ambush_mob2", vector():set (212.47,-1.54,610.96), 647514, 2975)
+ alife():create("kulgband_seif_ambush_mob2", vector():set (212.47,-1.54,610.96), 647514, 2975)
+end
+
+
+function start_bridge_kulgband_timer()
+	ogse_st_mgr.start_timer("a03", 15, script_name()..".kulgband_bridge_pda_tip")
+	alife():create("kulgband_bridge_scout", vector():set (240.43,-3.76,570.94), 681268, 2979)
+end
+
+function kulgband_bridge_pda_tip()
+	if has_alife_info("kulgband_actor_name1") then
+		news_manager.send_tip(db.actor, "kulgband_bridge_pda_tip1", nil)
+	elseif has_alife_info("kulgband_actor_name2") then
+		news_manager.send_tip(db.actor, "kulgband_bridge_pda_tip2", nil)
+	elseif has_alife_info("kulgband_actor_name3") then
+		news_manager.send_tip(db.actor, "kulgband_bridge_pda_tip3", nil)
+	end
+end
+
+function kulgband_strelka_task_actor_goback()
+	db.actor:set_actor_position(vector():set(182.46, -1.28, 579.63))
+	level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+end
+
+function spawn_vodka_around_glavar()
+alife():create("vodka", vector():set (-184.85,0.50,551.80), 194062, 2950)
+alife():create("vodka", vector():set (-184.79,0.66,554.24), 194064, 2950)
+alife():create("vodka", vector():set (-184.79,0.66,554.24), 194064, 2950)
+end
+
+
+function spawn_kulgband_scout_shron()
+alife():create("kulgband_scout_shron", vector():set (426.78,1.09,413.57), 952265, 2985)
+end
+
+
+
+function delete_dar_kulgband()
+delete_dar_kulgband_glavar()
+delete_dar_kulgband_telohr1()
+delete_dar_kulgband_telohr2()
+delete_dar_kulgband_shesterka()
+delete_dar_kulgband_patruln()
+delete_dar_kulgband_voron()
+end
+
+function delete_dar_kulgband_glavar()
+local obj = alife():story_object(7026)
+	if obj and obj ~= nil then
+		alife():release(obj , true)
+	end
+end
+
+function delete_dar_kulgband_telohr1()
+local obj = alife():story_object(7027)
+	if obj and obj ~= nil then
+		alife():release(obj , true)
+	end
+end
+
+function delete_dar_kulgband_telohr2()
+local obj = alife():story_object(7028)
+	if obj and obj ~= nil then
+		alife():release(obj , true)
+	end
+end
+
+function delete_dar_kulgband_shesterka()
+local obj = alife():story_object(7029)
+	if obj and obj ~= nil then
+		alife():release(obj , true)
+	end
+end
+
+function delete_dar_kulgband_patruln()
+local obj = alife():story_object(7030)
+	if obj and obj ~= nil then
+		alife():release(obj , true)
+	end
+end
+
+function delete_dar_kulgband_voron()
+local obj = alife():story_object(7392)
+	if obj and obj ~= nil then
+		alife():release(obj , true)
+	end
+end
+
+
+
+
+function spawn_city_kulgband()
+	local sim = alife()
+	
+	if db.actor:dont_has_info("ds_glavar_blamed") then
+		local sobj1 = sim:create("city_kulgband_glavar", vector():set (154.77,-2.66,-27.95), 678447, 3484)
+		sim:assign_story_id(sobj1.id, story_ids.city_kulgband_glavar)
+	elseif db.actor:has_info("ds_glavar_blamed") then
+		local sobj1 = sim:create("city_kulgband_glavar2", vector():set (154.77,-2.66,-27.95), 678447, 3484)
+		sim:assign_story_id(sobj1.id, story_ids.city_kulgband_glavar2)
+	end
+	
+	local sobj2 = sim:create("city_kulgband_telohr1", vector():set (152.48,-3.02,-25.71), 675958, 3484)
+	sim:assign_story_id(sobj2.id, story_ids.city_kulgband_telohr1)
+	
+	local sobj3 = sim:create("city_kulgband_telohr2", vector():set (157.06,-3.03,-25.43), 680940, 3484)
+	sim:assign_story_id(sobj3.id, story_ids.city_kulgband_telohr2)
+	
+	if db.actor:dont_has_info("kulgband_hutor_house_seif_task_fail") then
+		local sobj4 = sim:create("city_kulgband_shesterka", vector():set (159.26,-3.12,-24.48), 684242, 3484)
+		sim:assign_story_id(sobj4.id, story_ids.city_kulgband_shesterka)
+	end
+	
+	local sobj5 = sim:create("city_kulgband_patruln", vector():set (150.32,-3.08,-21.39), 673553, 3484)
+	sim:assign_story_id(sobj5.id, story_ids.city_kulgband_patruln)
+	
+	local sobj6 = sim:create("city_kulgband_assist1", vector():set (150.32,-3.08,-21.39), 673553, 3484)
+	sim:assign_story_id(sobj6.id, story_ids.city_kulgband_assist1)
+	
+	local sobj7 = sim:create("city_kulgband_assist2", vector():set (150.32,-3.08,-21.39), 673553, 3484)
+	sim:assign_story_id(sobj7.id, story_ids.city_kulgband_assist2)
+end
+
+
+function kulgband_telohr_glavar_shoot()
+		local npc1 = level_object_by_sid(story_ids.ds_telohr_2)
+		local npc2 = level_object_by_sid(story_ids.ds_glavar)
+		local bw = rx_utils.get_weapon(npc1)
+		npc1:set_sight(look.fire_point, npc2:position())
+		npc1:set_item(object.fire1, bw, 1, 5000)
+		fx_particle = particles_object("weapons\\generic_weapon01")
+		local pos = bw:position()
+		local dir = bw:direction()
+		pos:add(dir)
+		fx_particle:play_at_pos(pos)
+		npc2:kill(npc2)
+end
+
+
+
+function spawn_kulgband_informer_shron1()	-- Атакуем Тролля;
+local sobj = alife():create("kulgband_informer_shron1", vector():set (178.95,0.15,-245.11), 380729, 985)
+	local sobj_id = sobj.id
+	text = "Нычка Тролля"
+	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
+	news_manager.send_tip(db.actor, "kulgband_informer_shron_tip", nil, "default", 9000, nil)
+	
+	alife():create("kulgband_informer_assist3", vector():set (179.25, 0.15, -242.81), 380732, 985)
+end
+
+function spawn_kulgband_informer_shron2()	-- Договариваемся с Троллем;
+local sobj = alife():create("kulgband_informer_shron2", vector():set (178.95,0.15,-245.11), 380729, 985)
+	local sobj_id = sobj.id
+	text = "Нычка Тролля"
+	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
+	
+	alife():create("kulgband_informer_mob", vector():set (179.25, 0.15, -242.81), 380732, 985)
+end
+
+function spawn_kulgband_informer_assist()
+	--alife():create("kulgband_informer_assist3", vector():set (179.25, 0.15, -242.81), 380732, 985)
+	alife():create("kulgband_informer_mob", vector():set (179.25, 0.15, -242.81), 380732, 985)
+end
+
+
+function dar_kulgband_informer_weapons_back()
+ogse.transfer_items_from_box(story_ids.kulgband_informer_seif)
+end
+
+
+function kulgband_informer_timer()
+ogse_st_mgr.start_timer("a06", 20, script_name()..".send_kulgband_informer_tip")
+end
+
+function send_kulgband_informer_tip()
+news_manager.send_tip(db.actor, "kulgband_informer_shron_tip", nil, "default", 9000, nil)
+end
+
+function release_all_weapons_around_actor()
+	jekan_work.release_all_weapons_around_actor()
+end
+
+function spawn_cit_kulgband_ambush()
+	alife():create("cit_kulgband_monolit1", vector():set (19.62, 1.24, 28.55), 520206, 3778)
+	alife():create("cit_kulgband_monolit1", vector():set (19.62, 1.24, 28.55), 520206, 3778)
+	alife():create("cit_kulgband_monolit2", vector():set (19.62, 1.24, 28.55), 520206, 3778)
+	alife():create("cit_kulgband_monolit3", vector():set (19.62, 1.24, 28.55), 520206, 3778)
+	
+	alife():create("cit_kulgband_monolit1", vector():set (93.54, 1.03, 58.61), 608043, 3626)
+	alife():create("cit_kulgband_monolit2", vector():set (93.54, 1.03, 58.61), 608043, 3626)
+	alife():create("cit_kulgband_monolit3", vector():set (93.54, 1.03, 58.61), 608043, 3626)
+	alife():create("cit_kulgband_monolit2", vector():set (93.54, 1.03, 58.61), 608043, 3626)
+	
+	alife():create("cit_kulgband_monolit1", vector():set (55.08, 3.78, 92.45), 563134, 3613)
+	alife():create("cit_kulgband_monolit2", vector():set (55.08, 3.78, 92.45), 563134, 3613)
+	alife():create("cit_kulgband_monolit1", vector():set (55.08, 3.78, 92.45), 563134, 3613)
+	alife():create("cit_kulgband_monolit2", vector():set (55.08, 3.78, 92.45), 563134, 3613)
+end
+
+function spawn_cit_kulgband_ambush2()
+	alife():create("cit_kulgband_mob1", vector():set (19.62, 1.24, 28.55), 520206, 3778)
+	alife():create("cit_kulgband_mob2", vector():set (19.62, 1.24, 28.55), 520206, 3778)
+	
+	alife():create("cit_kulgband_mob3", vector():set (93.54, 1.03, 58.61), 608043, 3626)
+	alife():create("cit_kulgband_mob4", vector():set (93.54, 1.03, 58.61), 608043, 3626)
+	alife():create("cit_kulgband_mob4", vector():set (93.54, 1.03, 58.61), 608043, 3626)
+	alife():create("cit_kulgband_mob4", vector():set (93.54, 1.03, 58.61), 608043, 3626)
+	
+	alife():create("cit_kulgband_mob5", vector():set (55.08, 3.78, 92.45), 563134, 3613)
+	alife():create("cit_kulgband_mob5", vector():set (55.08, 3.78, 92.45), 563134, 3613)
+	alife():create("cit_kulgband_mob5", vector():set (55.08, 3.78, 92.45), 563134, 3613)
+	alife():create("cit_kulgband_mob5", vector():set (55.08, 3.78, 92.45), 563134, 3613)
+	alife():create("cit_kulgband_mob5", vector():set (55.08, 3.78, 92.45), 563134, 3613)
+end
+
+function release_cit_culgband_car()
+local obj = alife():story_object(7397)
+	if obj and obj ~= nil then
+		alife():release(obj , true)
+	end
+end
+
+
+function send_kulgband_klondike_cheat_tip()
+if ( db.actor:dont_has_info("city_kulgband_assist1_dead") and 
+	db.actor:dont_has_info("city_kulgband_assist2_dead") and
+		db.actor:dont_has_info("cit_kulgband_patruln_dead") and
+		db.actor:dont_has_info("cit_kulgband_shesterka_dead") and
+		db.actor:dont_has_info("cit_kulgband_telohr1_dead") and	
+		db.actor:dont_has_info("cit_kulgband_telohr2_dead") ) then
+			news_manager.send_tip(db.actor, "send_kulgband_klondike_cheat_tip", nil, "default", 9000, nil)
+end
+end
+
+function spawn_cit_kulgband_car_body()
+if db.actor:dont_has_info("cit_kulgband_task_fail") then
+local car = alife():story_object(story_ids.cit_kulgband_car)
+local pos = car:position()
+if db.actor:has_info("cit_kulgband_car_go") then
+	local sim = alife()
+	local sobj = sim:create("city_kulgband_glavar3", vector():set(pos.x, pos.y, pos.z), car:level_vertex_id(), car:game_vertex_id())
+	sobj:on_death()
+end
+end
+end
+
+function spawn_cit_kulgband_car_body2()
+if db.actor:dont_has_info("cit_kulgband_task_fail") then
+local sim = alife()
+	local sobj = sim:create("city_kulgband_glavar3", vector():set (-18.66, 1.67, -177.25), 464746, 3589)
+	sobj:on_death()
+end
+end
+
+function klondike_arts_give_back()
+if has_alife_info("af_klondike_1_on") then
+	alife():create("af_klondike_1", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_2_on") then
+	alife():create("af_klondike_2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_3_on") then
+	alife():create("af_klondike_3", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_4_on") then
+	alife():create("af_klondike_4", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_5_on") then
+	alife():create("af_klondike_5", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_6_on") then
+	alife():create("af_klondike_6", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_7_on") then
+	alife():create("af_klondike_7", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_8_on") then
+	alife():create("af_klondike_8", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_9_on") then
+	alife():create("af_klondike_9", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_10_on") then
+	alife():create("af_klondike_10", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_11_on") then
+	alife():create("af_klondike_11", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_12_on") then
+	alife():create("af_klondike_12", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_13_on") then
+	alife():create("af_klondike_13", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_14_on") then
+	alife():create("af_klondike_14", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_15_on") then
+	alife():create("af_klondike_15", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_16_on") then
+	alife():create("af_klondike_16", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_17_on") then
+	alife():create("af_klondike_17", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_18_on") then
+	alife():create("af_klondike_18", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_19_on") then
+	alife():create("af_klondike_19", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_20_on") then
+	alife():create("af_klondike_20", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_21_on") then
+	alife():create("af_klondike_21", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+if has_alife_info("af_klondike_22_on") then
+	alife():create("af_klondike_22", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+end
+end
+
+
+function actor_set_klondike_direction()
+local npc = level_object_by_sid(story_ids.city_kulgband_glavar2)
+db.actor:set_actor_position(patrol("city_kulgband_glavar_walk3"):point(0))
+--local dir = patrol("city_kulgband_glavar_walk1"):point(1):sub(patrol("city_kulgband_glavar_walk1"):point(0))
+--db.actor:set_actor_direction(-dir:getH())
+local dir = npc:direction()
+db.actor:set_actor_direction(dir:getH())
+end
+
+function delete_klondike_arts2()
+delete_klondike_art1()
+delete_klondike_art2()
+delete_klondike_art3()
+delete_klondike_art4()
+delete_klondike_art5()
+delete_klondike_art6()
+delete_klondike_art7()
+delete_klondike_art8()
+delete_klondike_art9()
+delete_klondike_art10()
+delete_klondike_art11()
+delete_klondike_art12()
+delete_klondike_art13()
+delete_klondike_art14()
+delete_klondike_art15()
+delete_klondike_art16()
+delete_klondike_art17()
+delete_klondike_art18()
+delete_klondike_art19()
+delete_klondike_art20()
+delete_klondike_art21()
+delete_klondike_art22()
+end
+
+function delete_klondike_art1()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_1") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art2()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_2") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art3()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_3") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art4()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_4") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art5()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_5") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art6()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_6") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art7()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_7") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art8()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_8") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art9()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_9") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art10()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_10") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art11()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_11") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art12()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_12") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art13()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_13") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art14()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_14") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art15()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_15") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art16()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_16") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art17()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_17") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art18()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_18") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art19()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_19") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art20()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_20") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art21()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_21") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+function delete_klondike_art22()
+local sim = alife()
+for i=1,65534 do
+local sobj = sim:object(i)
+	if sobj and sobj:name():find("^af_klondike_22") then
+	sim:release(sobj,true)
+	return
+	end
+end
+end
+
+
+function cit_kulgband_snipershot()
+		local npc1 = level_object_by_sid(story_ids.cit_kulgband_sniper)
+		local npc2 = level_object_by_sid(story_ids.city_kulgband_glavar2)
+		local bw = rx_utils.get_weapon(npc1)
+		npc1:set_sight(look.fire_point, npc2:position())
+		npc1:set_item(object.fire1, bw, 1, 5000)
+		fx_particle = particles_object("weapons\\generic_weapon01")
+		local pos = bw:position()
+		local dir = bw:direction()
+		pos:add(dir)
+		fx_particle:play_at_pos(pos)
+		npc2:kill(npc2)
+end
+
+function klondike_arts_special_spawn()
+-- артефакты в награду игроку
+	
+	local diff = level.get_game_difficulty()
+	if diff == 0 then num_arts_to_spawn = 7
+		elseif diff == 1 then num_arts_to_spawn = 8
+		elseif diff == 2 then num_arts_to_spawn = 9
+		elseif diff == 3 then num_arts_to_spawn = 10 
+	end
+	
+	local spawned_idxs = {}
+	for i = 1, num_arts_to_spawn do
+		local art_idx = 0
+		while art_idx == 0 or (art_idx > 10 and art_idx < 18) or spawned_idxs[art_idx] == true do
+			art_idx = math.random(22)
+		end
+		alife():create("af_klondike_"..tostring(art_idx), db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+		spawned_idxs[art_idx] = true
+	end
+end
+
+
+
+function teleport_actor_to_samogon_transe_zone1()
+db.actor:set_actor_position(patrol("dar_samogon_trance_zone1_point"):point(0))
+end
+
+function teleport_actor_to_samogon_transe_zone2()
+db.actor:set_actor_position(patrol("dar_samogon_trance_point_end"):point(0))
+level.add_cam_effector("camera_effects\\surge_01.anm", 6666, false, "xr_effects.dar_samogon_think2")
+end
+
+
+function dar_samogon_think_timer()
+ogse_st_mgr.start_timer("a111", 5, script_name()..".dar_samogon_think1")
+jekan_work.dar_samogon_think1()
+end
+
+function dar_samogon_think1()
+	jekan_work.kill_mutants_around()
+	--jekan_work.companion_goodbye()
+end
+
+function dar_samogon_think2()
+	soundtrack.head_pain()
+end
+
+function kill_mutants_around_actor()
+	jekan_work.kill_mutants_around()
+end
+
+function dar_samogon_think3()
+	local st = get_hud():GetCustomStatic("dar_samogon_think1") or get_hud():AddCustomStatic("dar_samogon_think1",true)
+	st.m_endTime = time_global()/1000 + 10
+end
+
+function run_samogon_postprocess()
+	level.remove_pp_effector(2964)
+	level.add_pp_effector("whiteblack.ppe", 2964, false)
+	--level.set_pp_effector_factor(2964, 0.9)
+end
+
+
+
+function cit_kulgband_klondike_fail_snd()
+if ( db.actor:dont_has_info("city_kulgband_assist1_dead") 
+	and db.actor:dont_has_info("city_kulgband_assist2_dead") 
+	and db.actor:dont_has_info("cit_kulgband_patruln_dead")
+	and db.actor:dont_has_info("cit_kulgband_shesterka_dead") 
+	and db.actor:dont_has_info("cit_kulgband_telohr1_dead") 
+	and db.actor:dont_has_info("cit_kulgband_telohr2_dead") ) then
+		soundtrack.kulgband_klondike_fail_snd()
+end
+end
+
+
+
+
+
+
+
+

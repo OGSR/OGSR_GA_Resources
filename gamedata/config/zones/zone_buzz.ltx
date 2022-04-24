@@ -1,0 +1,157 @@
+;----------- Аномалия Ведьмин студень -----------------------
+[zone_buzz]
+script_binding      = ogse_dbg_anomaly_binder.init
+
+GroupControlSection			= spawn_group_zone
+$spawn 						= "zones\buzz"
+$prefetch 					= 16
+class						= ZS_MBALD
+
+hit_impulse_scale			= 0.0
+effective_radius			= 1.0 ;размер радиуса в процентах от оригинального, где действует зона
+
+ef_anomaly_type				= 1
+ef_weapon_type				= 13
+
+sound						= 
+postprocess					= postprocess_flame
+	
+artefacts					= af_ameba_slime, 0.8, af_ameba_slug, 0.4, af_ameba_mica, 0.0
+BirthProbability 			= 0.15
+
+min_start_power		= 0.99
+max_start_power		= 1.00
+attenuation			= 1
+period				= 1
+min_artefact_count	= 0
+max_artefact_count	= 0
+artefact_spawn_idle	= 48  ;насколько часто спонить артефакты в офлайне, в часах
+artefact_spawn_rnd	= 33  ;вероятность заспавнить артефакт в процентах.
+
+idle_particles				= _ecp\anomaly_studen_idle_bottom
+blowout_particles			= _ecp\anomaly_studen_blowout
+
+hit_small_particles			= _ecp\group_items\anomaly_studen_idle_smallhit
+hit_big_particles			= _ecp\group_items\anomaly_studen_idle_smallhit
+idle_small_particles		= _ecp\group_items\anomaly_studen_idle_smallhit
+idle_big_particles			= _ecp\group_items\anomaly_studen_idle_smallhit
+
+idle_sound					= $no_sound ;anomaly\buzz_idle; bfuzz_blowout		;постоянный звук
+blowout_sound				= anomaly\buzz_hit; bfuzz_hit		;во время выброса(удара) в центре аномалии	
+hit_sound					= anomaly\buzz_hit; bfuzz_hit		;на персонаже, когда тот получает хит
+entrance_sound				= anomaly\buzz_hit; bfuzz_hit		;при попадании объекта в аномалию
+
+hit_type					= chemical_burn
+							  
+disable_time				= 10000	;время игнорирования неживого объекта в зоне (-1 если не нужно)
+disable_time_small			= -1	;время игнорирования маленького неживого объекта в зоне (-1 если не нужно)
+disable_idle_time			= 50000	;время отключения idle партиклов
+
+ignore_nonalive				= false
+ignore_small				= false
+ignore_artefacts			= false
+
+blowout_light				= on
+light_color		    		= 0.7,0.8,1 ;_ecp ; 1.1,1.7,1.4 ;old
+light_animation             = light_blue_01
+light_range		    		= 8
+light_time 		    		= 0.35
+light_height				= 0.75			;подъем источника света на высоту
+
+
+idle_light					= on
+idle_light_range			= 8.0
+idle_light_range_delta 		= 0.25
+idle_light_anim				= light_blue_02
+idle_light_height			= 0.80			;подъем источника света на высоту
+
+awaking_time				= 10
+blowout_time				= 200	
+accamulate_time				= 500
+
+visible_by_detector 		= on
+
+blowout_wind				= off
+
+blowout_wind_time_start 	= 0
+blowout_wind_time_peak  	= 600
+blowout_wind_time_end		= 899
+blowout_wind_power			= 0.5			;сила поднимаего ветра (от 0 до 1), в момент blowout_wind_time_peak 
+
+spawn_blowout_artefacts = off
+
+;----------- Аномалия Ведьмин студень слабая -----------------------
+[zone_buzz_weak]:zone_buzz
+$spawn 				= "zones\buzz weak"
+
+idle_particles				= anomaly2\studen_idle_bottom
+blowout_particles			= anomaly2\studen_blowout
+
+hit_small_particles			= anomaly2\studen_idle_bottom
+hit_big_particles			= anomaly2\studen_idle_bottom
+idle_small_particles		= anomaly2\studen_idle_bottom
+idle_big_particles			= anomaly2\studen_idle_bottom
+
+light_color		    		= 1.1,1.7,1.4
+
+artefacts			= af_ameba_slime, 0.8, af_ameba_slug, 0.4, af_ameba_mica, 0.0
+BirthProbability 	= 0.15
+
+min_start_power		= 0.34
+max_start_power		= 0.35
+
+;----------- Аномалия Ведьмин студень средняя -----------------------
+[zone_buzz_average]:zone_buzz
+$spawn 				= "zones\buzz average"
+artefacts			= af_ameba_slime, 0.7, af_ameba_slug, 0.6, af_ameba_mica, 0.1
+BirthProbability 	= 0.2
+
+min_start_power		= 0.49
+max_start_power		= 0.50
+min_artefact_count	= 1
+max_artefact_count	= 1
+
+;----------- Аномалия Ведьмин студень сильная -----------------------
+[zone_buzz_strong]:zone_buzz
+$spawn 						= "zones\buzz strong"
+artefacts					= af_ameba_slug, 0.6, af_ameba_mica, 0.4, af_ameba_slime, 0.2, af_dummy_pellicle, 0.15
+BirthProbability 			= 0.23
+
+min_start_power		= 0.99
+max_start_power		= 1.00
+min_artefact_count	= 1
+max_artefact_count	= 2
+
+;----------- Аномалия Ведьмин студень слабая без артов -----------------------
+[noartf_buzz_weak]:zone_buzz_weak
+$spawn 				= "zones\buzz_weak_noartf"
+;artefacts			= af_ameba_slime, 0.0, af_ameba_slug, 0.0, af_ameba_mica, 0.0
+BirthProbability		= 0
+spawn_blowout_artefacts = off
+min_artefact_count		= 0
+max_artefact_count		= 0
+artefact_spawn_rnd		= 0
+
+;----------- Аномалия Ведьмин студень средняя без артов -----------------------
+[noartf_buzz_average]:zone_buzz_average
+$spawn 				= "zones\buzz_average_noart"
+;artefacts			= af_ameba_slime, 0.0, af_ameba_slug, 0.0, af_ameba_mica, 0.0
+BirthProbability		= 0
+spawn_blowout_artefacts = off
+min_artefact_count		= 0
+max_artefact_count		= 0
+artefact_spawn_rnd		= 0
+
+;----------- Аномалия Ведьмин студень сильная без артов -----------------------
+[noartf_buzz_strong]:zone_buzz_strong
+$spawn 				= "zones\buzz_strong_noartf"
+;artefacts			= af_ameba_slime, 0.0, af_ameba_slug, 0.0, af_ameba_mica, 0.0
+BirthProbability		= 0
+spawn_blowout_artefacts = off
+min_artefact_count		= 0
+max_artefact_count		= 0
+artefact_spawn_rnd		= 0
+
+;----------- Рукотворная аномалия без артов -----------------------
+[handmade_zone_buzz]:zone_buzz
+$spawn 						= "zones\handmade_zone_buzz"

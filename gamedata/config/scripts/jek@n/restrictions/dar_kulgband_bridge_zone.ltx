@@ -1,0 +1,66 @@
+[logic]
+active = {+kulgband_bridge_scout_pda_info} sr_idle@5, {+kulgband_scout_talk} sr_idle@4, {+bridge_kulgband_man_info} sr_idle@3, sr_idle@1
+
+[sr_idle@1]
+on_info = {+kulgband_strelka_task} sr_particle@1
+
+[sr_particle@1]
+name = a_ufp_particles\fog_indoor
+;name = a_ufp_particles\group_ufp\fog_indoor_base_01
+path = dar_bridge_kulgband_man1_walk
+mode = 2
+looped = true
+on_actor_inside = {+kulgband_strelka_task} sr_particle@2 %=run_postprocess(agr_u_fade) =run_cam_effector(fatigue) =play_snd(soundtrack\dog_phantom\13)%
+
+[sr_particle@2]
+name = a_ufp_particles\fog_indoor
+;name = a_ufp_particles\group_ufp\fog_indoor_base_01
+path = dar_bridge_kulgband_man1_walk
+mode = 2
+looped = true
+on_timer = 3000|sr_particle@3 %=spawn_dar_deadband_company2%
+
+[sr_particle@3]
+name = a_ufp_particles\fog_indoor
+;name = a_ufp_particles\group_ufp\fog_indoor_base_01
+path = dar_bridge_kulgband_man1_walk
+mode = 2
+looped = true
+on_info = {+bridge_kulgband_man_info} sr_idle@3
+
+[sr_idle@3]
+on_info = {+kulgband_strelka_task2} sr_particle@4
+
+[sr_particle@4]
+name = a_ufp_particles\fog_indoor
+;name = a_ufp_particles\group_ufp\fog_indoor_base_01
+path = dar_bridge_kulgband_man1_walk
+mode = 2
+looped = true
+on_info = {+kulgband_scout_talk} sr_idle@4
+on_actor_dist_ge_nvis = 70|%=kulgband_strelka_task_actor_goback%
+
+
+[sr_idle@4]
+on_info = {=actor_has_item(kulgband_bridge_scout_pda)} sr_idle@5 %+kulgband_bridge_scout_pda_info =spawn_kulgband_scout_shron%
+
+[sr_idle@5]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

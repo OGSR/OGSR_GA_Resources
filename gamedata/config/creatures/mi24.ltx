@@ -1,0 +1,107 @@
+[mi24]:helicopter
+visual                          = physics\vehicles\mi24\veh_mi24.ogf
+evu				= 1.5 	; экранно-выхлопное устройство: во сколько раз снижается тепловая заметность вертолета
+lipa				= 3 	; станция помех "Липа": максимальное отклонение видимой ракетой позиции от реальной
+flares				= 0 	; тепловые ловушки: не работает
+engine_h			= 2.7 	; высота двигателя над object:position()
+
+path_linear_acc_fw		= 6
+path_linear_acc_bk		= 4
+
+path_angular_sp_pitch		= 2.5 ;0.35; 0.65; 0.85; 0.45	; скорость изменения высоты пути при скорости "velocity"
+path_angular_sp_pitch_0		= 4.5 ;(4.5	m/sec скороподъемность по ТТХ)	 скорость изменения высоты пути при скорости "0"
+path_angular_sp_heading		= 0.75 ;0.5 ;0.75 ; угловая скорость пути при скорости "velocity"
+path_angular_sp_heading_0	= 1;0.9		    ; угловая скорость пути при скорости "0"m/s
+
+magic_angle			= 0.3
+
+model_angular_sp_bank		= 0.5 ;0.4 ; скорость поворота модели по оси Z (как быстро модель повернется по курсу движения с учетом угловой скорости)
+model_angular_sp_pitch		= 0.1 ;     ; скорость поворота модели по оси X в зависимости от текущей линейной скорости
+model_pitch_koef		= 0.016;0.016   ; коэф наклона модели по оси X в зависимости от текущей линейной скорости
+model_bank_koef			= 0.018;0.008 ;0.018    ; коэф наклона модели по оси Z в зависимости от текущих линейной и угловой скоростей
+on_point_range_dist		= 10.0
+
+capacity			= 8 ; максимальное количество десантников
+velocity			= 30;30;(75 m/sec кр. скорость по ТТХ)  скорость, с которой патрулировать
+attack_velocity			= 30;15.0; (90 m/sec макс. скорость по ТТХ)   скорость, с которой атаковать врага
+time_between_rocket_attack	= 1000 ; 1500 ; msec  задержка между ракетами
+flame_start_health		= 0.3
+
+flyby_attack_dist       = 100
+search_attack_dist      = 70
+search_velocity		= 5  ; скорость (м/с) облёта врага по кругу в режиме поиска
+round_velocity		= 10 ; скорость (м/с) облёта врага в режиме атаки
+forget_timeout		= 40  ; в течении этого времени (в сек) вертолёт помнит врага, если не видит его
+
+;-----все для пулемета (ЯкБЮ-12,7 Длина ствола 1005 мм)
+fire_dispersion_base	= 1.0
+fire_dispersion_null	= 0.5
+fire_trace_width	= 1.0
+rpm                     = 1200			;Х4ствола = 4800
+hit_power               = 0.93
+hit_impulse		= 9
+fire_distance           = 500
+bullet_speed		= 810
+light_color		= 0.9,0.8,0.4
+light_range		= 5
+light_var_color		= 0.05
+light_var_range		= 0.5
+light_time 		= 0.2
+ammo_class		= ammo_12x76_zhekan_heli
+flame_particles		= weapons\heli_weapon
+;smoke_particles        = weapons\generic_shoot_00
+shell_point		= 0.05, 0.22, 0.06
+;shell_particles	= weapons\generic_shells
+snd_shoot		= weapons\weapon_heli
+
+rocket_class		= nar_s-8
+launch_speed		= 60 ;45 ;50 ;60 ;76 ;500
+immunities_sect		= sect_mi24_immunities
+
+[sect_mi24_immunities]
+burn_immunity		= 0.1	
+strike_immunity		= 1
+shock_immunity		= 0.0
+wound_immunity		= 0.0
+radiation_immunity	= 0.0
+telepatic_immunity	= 0.0
+chemical_burn_immunity	= 0.0
+fire_wound_immunity	= 0.0
+explosion_immunity	= 0.2
+
+[nar_s-8]:helicopter_missile ;НАР С-8
+visual                  = physics\large_trash\prt\prt_none.ogf ;от неубравшихся после взрыва снарядов ;weapons\rpg_7\wpn_rpg_7_grenade.ogf
+blast			= 5
+blast_r			= 10
+blast_impulse		= 350
+blast_impulse_factor    = 1
+
+frags			= 150
+frags_r			= 25
+frag_hit		= 100
+frag_hit_impulse	= 400
+
+hit_type_blast		= explosion
+hit_type_frag		= fire_wound
+wallmark_section	= explosion_marks
+wm_size                 = 0.5
+explode_particles	= explosions\explosion_heli_rocket_01;
+
+fragment_speed			= 100
+fragment_tracer_max_length	= 4
+explode_duration	        = 2
+snd_explode			= weapons\rpg7_explode
+snd_fly_sound		        = weapons\rocket_fly
+
+engine_present		= true
+engine_work_time	= 5000
+engine_impulse		= 1000
+engine_impulse_up	= 137.34 ;215.58;137.34 = 2*9.81*7 - значение этого параметра (который является некой подъемной силой, вопреки названию),
+									;при котором ракета массой 7кг не опускается под дейсвием 
+									;гравитации. 2*9.8=19.62 - ускорение свободного падения в мире сталкеров
+									;при меньших значениях ракета будет опускаться, при больших подниматься
+lights_enabled          = true
+trail_light_color       = 0.7,0.6,0.3
+trail_light_range       = 20.0
+engine_particles        = weapons\rpg_trail_01
+force_explode_time	= 10000

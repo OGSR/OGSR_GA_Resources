@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="st_drink">
+		<text>выпить</text>
+	</string>
+	<string id="ui_st_btn_no">
+		<text>Нет</text>
+	</string>
+	<string id="ui_st_btn_ok">
+		<text>ОК</text>
+	</string>
+	<string id="ui_st_btn_yes">
+		<text>Да</text>
+	</string>
+	<string id="ui_st_days">
+		<text>дн.</text>
+	</string>
+	<string id="ui_st_error">
+		<text>Ошибка</text>
+	</string>
+	<string id="ui_st_hours">
+		<text>час.</text>
+	</string>
+	<string id="ui_st_leave">
+		<text>Уйти</text>
+	</string>
+	<string id="ui_st_mins">
+		<text>мин.</text>
+	</string>
+	<string id="ui_st_months">
+		<text>мес.</text>
+	</string>
+	<string id="ui_st_params">
+		<text>Параметры</text>
+	</string>
+	<string id="ui_st_secs">
+		<text>сек.</text>
+	</string>
+	<string id="ui_st_take_all">
+		<text>Взять все</text>
+	</string>
+	<string id="ui_st_time_remains">
+		<text>Осталось</text>
+	</string>
+	<string id="ui_st_trade">
+		<text>Торговать</text>
+	</string>
+	<string id="ui_st_your_items">
+		<text>Мои вещи</text>
+	</string>
+	<string id="st_level">
+		<text>Уровень</text>
+	</string>
+	<string id="st_game_paused">
+		<text>Пауза</text>
+	</string>
+	<string id="st_bolt">
+		<text>Болт</text>
+	</string>
+	<string id="st_items">
+		<text>Предметы</text>
+	</string>
+	<string id="ui_remkit_out_of_item">
+		<text>В инвентаре нет подходящих предметов для разбора на запчасти.</text>
+	</string>
+	<string id="ui_remkit_select_item">
+		<text>Выберите из списка предмет для разбора на запчасти.</text>
+	</string>
+	<string id="ui_remkit_invalid_item">
+		<text>Ничего не выйдет - вещь разбита в хлам. Выберите вещь в лучшем состоянии.</text>
+	</string>
+	<string id="ui_remkit_item_not_repaireble">
+		<text>Предмет не поддаётся ремонту или его уже невозможно починить.</text>
+	</string>
+	<string id="ui_remkit_item_not_wanted">
+		<text>Предмет не нуждается в ремонте.</text>
+	</string>
+	<string id="ui_remkit_repair_success">
+		<text>Вам удалось улучшить состояние предмета.</text>
+	</string>
+	<string id="ui_remkit_repair_without_changes">
+		<text>Вы не смогли улучшить состояние предмета.</text>
+	</string>
+	<string id="ui_remkit_repair_failure">
+		<text>По неопытности Вы ухудшили состояние предмета.</text>
+	</string>
+	<string id="ui_repair_success">
+		<text>Предмет был успешно отремонтирован.</text>
+	</string>	
+	<string id="ui_remkit_repair_nomoney">
+		<text>У вас не хватает денег для ремонта этой вещи.</text>
+	</string>
+	<string id="ui_repair_select_item">
+		<text>Выберите из списка предмет для ремонта.</text>
+	</string>
+	<string id="ui_cartrade_nomoney">
+		<text>У вас не хватает денег для покупки этой машины.</text>
+	</string>	
+	<string id="ui_trunk_select_item">
+		<text>Выберите из списка предмет для перемещения.</text>
+	</string>
+	<string id="ui_trunk_overweight">
+		<text>Вы не можете положить эту вещь в багажник - не хватает места.</text>
+	</string>
+	<string id="ui_rr_over_item_count">
+		<text>Вы не можете взять больше трёх предметов в качестве награды.</text>
+	</string>
+	<string id="ui_rr_no_money">
+		<text>Вы превысили денежный лимит для награды.</text>
+	</string>
+	
+	<!-- стадии загрузки игры -->
+	<!-- Внимание! Символ '–' ниже - это не 'минус', а символ с кодом 150, которому в текстуре шрифта letterica18Russian сопоставлен 
+	'укороченный' пробел с шириной, в точности равный ширине символа '*'. Если будете менять соотношение пустого/заполненного
+	в этих строках, то не исполььзуйте ни минусы, ни пробелы, а копастой вставляйте такие же символы-->
+		
+	<string id="st_prefetching_objects">
+		<text>Loading</text>
+	</string>
+	<string id="st_server_starting">
+		<text>Loading</text>
+	</string>
+	<string id="st_loading_alife_simulator">
+		<text>Loading</text>
+	</string>
+	<string id="st_creating_new_game">
+		<text>Loading</text>
+	</string>
+	<string id="st_loading_saved_game">
+		<text>Loading</text>
+	</string>
+	<string id="st_server_connecting">
+		<text>Loading</text>
+	</string>
+	<string id="st_client_connecting_to">
+		<text>Loading</text>
+	</string>
+	<string id="st_opening_stream">
+		<text>Loading</text>
+	</string>
+	<string id="st_loading_cform">
+		<text>Loading</text>
+	</string>
+	<string id="st_loading_shaders">
+		<text>Loading</text>
+	</string>
+	<string id="st_loading_geometry">
+		<text>Loading</text>
+	</string>
+	<string id="st_loading_spatial_db">
+		<text>Loading</text>
+	</string>
+	<string id="st_loading_details">
+		<text>Loading</text>
+	</string>
+	<string id="st_loading_sectors_portals">
+		<text>Loading</text>
+	</string>
+	<string id="st_loading_ai_objects">
+		<text>Loading</text>
+	</string>
+	<string id="st_client_spawning">
+		<text>Loading</text>
+	</string>
+	<string id="st_loading_textures">
+		<text>Loading</text>
+	</string>
+	<string id="st_client_synchronising">
+		<text>Loading</text>
+	</string>
+	
+	<!-- стадии загрузки игры (не используются в сингле) -->
+	
+	<string id="bind_monster_debug1">
+		<text>ВНИМАНИЕ! Обнаружен погибший в оффлайне! Объект: ИД: </text>
+	</string>
+	<string id="bind_monster_debug2">
+		<text> ИМЯ:</text>
+	</string>
+	<string id="bind_monster_debug3">
+		<text> Будет произведена обработка лута и постановка объекта на удаление!</text>
+	</string>
+	<string id="bind_monster_debug21">
+		<text>ВНИМАНИЕ! Обнаружен уже обработанный погибший в оффлайне! Объект: ИД: </text>
+	</string>
+	<string id="bind_monster_debug22">
+		<text> Будет произведено удаление объекта!</text>
+	</string>
+	<string id="xr_gulag_debug">
+		<text>ВНИМАНИЕ! Произошёл сбой инициализации логики! В лог поступило диагностическое сообщение - сохранитесь, выйдите из игры и скиньте лог команде ОГСЕ!</text>
+	</string>
+	<string id="xr_motivator_debug1">
+		<text>ВНИМАНИЕ! Произошёл сбой при генерации лута после смерти! В лог поступило диагностическое сообщение - сохранитесь, выйдите из игры и скиньте лог команде ОГСЕ!</text>
+	</string>
+	<string id="xr_motivator_debug2">
+		<text>ВНИМАНИЕ! Произошёл сбой при обработке коолбэка хита по раненому! В лог поступило диагностическое сообщение - сохранитесь, выйдите из игры и скиньте лог команде ОГСЕ!</text>
+	</string>
+	<string id="xr_motivator_debug3">
+		<text>ВНИМАНИЕ! Произошёл сбой при обработке звука стрельбы! В лог поступило диагностическое сообщение - сохранитесь, выйдите из игры и скиньте лог команде ОГСЕ!</text>
+	</string>
+	<string id="xr_motivator_debug4">
+		<text>ВНИМАНИЕ! Произошёл сбой при обработке смерти от орудия БТР! В лог поступило диагностическое сообщение - сохранитесь, выйдите из игры и скиньте лог команде ОГСЕ!</text>
+	</string>
+	<string id="xr_motivator_debug5">
+		<text>ВНИМАНИЕ! Произошёл сбой при обработке света фонаря после смерти! В лог поступило диагностическое сообщение - сохранитесь, выйдите из игры и скиньте лог команде ОГСЕ!</text>
+	</string>
+	<string id="xr_motivator_debug6">
+		<text>ВНИМАНИЕ! Произошёл сбой удаления из рангов после смерти! В лог поступило диагностическое сообщение - сохранитесь, выйдите из игры и скиньте лог команде ОГСЕ!</text>
+	</string>
+	<string id="xr_motivator_debug7">
+		<text>ВНИМАНИЕ! Обнаружен повреждённый квестовый труп! Объект:</text>
+	</string>
+	<string id="xr_motivator_debug8">
+		<text> ИД: </text>
+	</string>
+	<string id="xr_motivator_debug9">
+		<text> Профиль: </text>
+	</string>
+	<string id="xr_motivator_debug10">
+		<text> Убедитесь что с телом всё в порядке, и с него выдаются все необходимые инфопоршены и вещи!</text>
+	</string>
+	<string id="xr_motivator_debug11">
+		<text>ВНИМАНИЕ! Произошёл сбой при обработке коллбэка звука! В лог поступило диагностическое сообщение - сохранитесь, выйдите из игры и скиньте лог команде ОГСЕ!</text>
+	</string>
+	<string id="companion_messages">
+		<text>Ваш напарник </text>
+	</string>
+	<string id="companion_died">
+		<text> погиб!</text>
+	</string>
+	<string id="companion_died_bad">
+		<text> погиб в очередной раз! Вы приобрели дурную славу среди сталкеров!</text>
+	</string>
+	<string id="companion_signal1">
+		<text>Обнаружен сигнал КПК вашего напарника. </text>
+	</string>
+	<string id="companion_signal2">
+		<text> находится поблизости!</text>
+	</string>
+	<string id="remkit_string1">
+		<text>Аномальная</text>
+	</string>
+	<string id="remkit_string2">
+		<text>Аном.</text>
+	</string>
+	<string id="remkit_string3">
+		<text>Аномальный</text>
+	</string>
+	<string id="remkit_string4">
+		<text>Комбинезон</text>
+	</string>
+	<string id="remkit_string5">
+		<text>комбинезон</text>
+	</string>
+	<string id="remkit_string6">
+		<text>Комбез</text>
+	</string>
+	<string id="remkit_string7">
+		<text>комбез</text>
+	</string>
+	<string id="remkit_string8">
+		<text>Армейская</text>
+	</string>
+	<string id="remkit_string9">
+		<text>Армейский</text>
+	</string>
+	<string id="remkit_string10">
+		<text>Арм.</text>
+	</string>
+	<string id="remkit_string11">
+		<text>Бронекомплект</text>
+	</string>
+	<string id="remkit_string12">
+		<text>Необычный</text>
+	</string>
+	<string id="remkit_string13">
+		<text>Бронек.</text>
+	</string>
+	<string id="remkit_string14">
+		<text>Необ.</text>
+	</string>
+	
+	
+	<string id="quicklaunch_string1">
+		<text>Быстрые клавиши:</text>
+	</string>	
+	<string id="quicklaunch_string2">
+		<text>Использовать бинт</text>
+	</string>	
+	<string id="quicklaunch_string3">
+		<text>Использовать аптечку</text>
+	</string>	
+	<string id="quicklaunch_string4">
+		<text>Принять антирад</text>
+	</string>	
+	<string id="quicklaunch_string5">
+		<text>Выпить энергетик</text>
+	</string>	
+	<string id="quicklaunch_string6">
+		<text>Принять Б-190</text>
+	</string>	
+	<string id="quicklaunch_string7">
+		<text>Принять Бипсизон</text>
+	</string>	
+
+
+	<string id="btr_control_string1">
+		<text>Управление БТР:</text>
+	</string>	
+	<string id="btr_control_string2">
+		<text>Открыть огонь</text>
+	</string>	
+	<string id="btr_control_string3">
+		<text>Ручной режим</text>
+	</string>	
+	<string id="btr_control_string4">
+		<text>Полуавтомат (автоматическое наведение, огонь вручную)</text>
+	</string>	
+	<string id="btr_control_string5">
+		<text>Автомат (полностью автоматическое ведение огня)</text>
+	</string>	
+	<string id="btr_control_string6">
+		<text>Непосредственное указание цели</text>
+	</string>	
+	<string id="btr_control_string7">
+		<text>Переключиться на другую цель</text>
+	</string>	
+	<string id="btr_control_string8">
+		<text>Система Свой/Чужой</text>
+	</string>	
+	<string id="btr_control_string9">
+		<text>Огнем управляет стрелок (необходим напарник на борту)</text>
+	</string>	
+
+	<string id="flask_string1">
+		<text>Наполнить колбу</text>
+	</string>	
+	<string id="flask_string2">
+		<text>Невозможно наполнить колбу. Поблизости нет требуемой воды.</text>
+	</string>	
+	<string id="flask_string3">
+		<text>Нельзя выпить сыворотку одному. Нужно зомбироваться вместе с Чуком!</text>
+	</string>	
+	<string id="flask_string4">
+		<text>Где-то тут в тайнике должны лежать записки Фиги</text>
+	</string>	
+	
+	<string id="quest_elevator_string1">
+		<text>Меченый, ты совсем сдурел? Нахрена ты убил его? Терминатором себя возомнил!?!? Все, задание провалено.</text>
+	</string>	
+	<string id="quest_elevator_string2">
+		<text>Меченый, у нас проблемка. Цель убрала исполнителя. Будь другом, подчисти мусор. Отплачу как полагается.</text>
+	</string>	
+	<string id="quest_elevator_string3">
+		<text>Бармен:</text>
+	</string>	
+	
+	<string id="heart_of_yantar_string1">
+		<text>Невозможно уничтожить Образец О-21. Рядом нет подходящей аномалии, способной разрушить его структуру.</text>
+	</string>	
+	
+	<string id="dobrozhelatel_string1">
+		<text>Забрать кейс</text>
+	</string>
+	<string id="dobrozhelatel_string2">
+		<text>Меченый, с тобой говорит командир отряда Монолита. Мы знаем, что ты здесь - Он САМ нам это сказал. Выйди - и умри мужчиной. Ты зашел слишком далеко! Рано или поздно это должно случиться. Не пытайся убежать - все выходы перекрыты.</text>
+	</string>
+	<string id="dobrozhelatel_string3">
+		<text>Командир отряда Монолита:</text>
+	</string>
+	<string id="dobrozhelatel_string4">
+		<text>Встретиться со связным</text>
+	</string>
+	<string id="dobrozhelatel_string5">
+		<text>Пароль не верен!</text>
+	</string>
+	<string id="dobrozhelatel_string6">
+		<text>Пароль подходит! Можно отключать "Выжигатель".</text>
+	</string>
+	
+	<string id="stash_manager_string">
+		<text>Описание содержимого:</text>
+	</string>
+	<string id="scvid_location_string">
+		<text>Швид</text>
+	</string>
+	<string id="radist_stash_location_string">
+		<text>Возможное местонахождение тайника Радиста</text>
+	</string>
+	
+	<string id="lc_mngr_string1">
+		<text>Получена информация о переходе</text>
+	</string>
+	<string id="lc_mngr_string2">
+		<text>с Кордона на Топи</text>
+	</string>
+	<string id="lc_mngr_string3">
+		<text>с Кордона в Темную Лощину</text>
+	</string>
+	<string id="lc_mngr_string4">
+		<text>с Агропрома на Топи</text>
+	</string>
+	<string id="lc_mngr_string5">
+		<text>с Агропрома на Янтарь</text>
+	</string>
+	<string id="lc_mngr_string6">
+		<text>из Темной Долины в ПЖД</text>
+	</string>
+	<string id="lc_mngr_string7">
+		<text>из Темной Долины на Армейские Склады</text>
+	</string>
+	<string id="lc_mngr_string8">
+		<text>с Армейских Складов в Городок-32</text>
+	</string>
+	<string id="lc_mngr_string9">
+		<text>с Армейских Складов в Темную Долину</text>
+	</string>
+	<string id="lc_mngr_string10">
+		<text>с Янтаря на Агропром</text>
+	</string>
+	<string id="lc_mngr_string11">
+		<text>с Янтаря в Городок-32</text>
+	</string>
+	<string id="lc_mngr_string12">
+		<text>с Янтаря на Радар</text>
+	</string>
+	<string id="lc_mngr_string13">
+		<text>с Радара в ПЖД</text>
+	</string>
+	<string id="lc_mngr_string14">
+		<text>с Радара на Янтарь</text>
+	</string>
+	<string id="lc_mngr_string15">
+		<text>с ЧАЭС-1 на ЧАЭС-2</text>
+	</string>
+	<string id="lc_mngr_string16">
+		<text>с ЧАЭС-2 на Генераторы</text>
+	</string>
+	<string id="lc_mngr_string17">
+		<text>с ЧАЭС-2 на ЧАЭС-1</text>
+	</string>
+	<string id="lc_mngr_string18">
+		<text>из Городка-32 на Армейские Склады</text>
+	</string>
+	<string id="lc_mngr_string19">
+		<text>из Городка-32 на Генераторы</text>
+	</string>
+	<string id="lc_mngr_string20">
+		<text>из Городка-32 в ПЖД</text>
+	</string>
+	<string id="lc_mngr_string21">
+		<text>из ПЖД в Темную Долину</text>
+	</string>
+	<string id="lc_mngr_string22">
+		<text>из ПЖД в Городок-32</text>
+	</string>
+	
+	<string id="krot_ammo_string1">
+		<text>Ящик с патронами</text>
+	</string>
+	<string id="krot_ammo_string2">
+		<text>Ящик с патронами 5.56x45</text>
+	</string>
+	<string id="krot_ammo_string3">
+		<text>Ящик с патронами 7.62x39</text>
+	</string>
+	<string id="krot_ammo_string4">
+		<text>Ящик с патронами 7.62x54</text>
+	</string>
+	<string id="krot_ammo_string5">
+		<text>Ящик с патронами 5.45x39</text>
+	</string>
+	
+	<string id="bomba_string">
+		<text>Бомба</text>
+	</string>
+	
+	<string id="rub_string">
+		<text>р.</text>
+	</string>
+	
+	<string id="guest_on_elevator_string">
+		<text>Проверить место пребывания странного гостя</text>
+	</string>
+	<string id="companion_became_your_enemy_string">
+		<text> стал вашим врагом!</text>
+	</string>	
+	<string id="stalker_is_dead_news_string">
+		<text>Погиб сталкер:</text>
+	</string>	
+	
+	<string id="trunk_is_full_string">
+		<text>Превышен лимит веса багажника!</text>
+	</string>
+
+	<string id="st_pda_change_spot_hint">
+		<text>Изменить текст метки</text>
+	</string>
+	<string id="st_pda_delete_spot">
+		<text>Удалить метку</text>
+	</string>
+
+	<string id="st_attach_addon_to_wpn_in_slot_1">
+		<text>прикрепить %s к %s в первом слоте</text>
+	</string>
+	<string id="st_attach_addon_to_wpn_in_slot_2">
+		<text>прикрепить %s к %s во втором слоте</text>
+	</string>
+
+	<string id="kb_cam_1">
+		<text>Вид от первого лица</text>
+	</string>
+	<string id="kb_cam_2">
+		<text>Вид от третьего лица</text>
+	</string>
+	<string id="kb_cam_3">
+		<text>Вид от третьего лица (freelook)</text>
+	</string>
+
+	<string id="inventory_item_use_or_drag">
+		<text>Поднять предмет ($$ACTION_USE$$) \n Перетащить предмет (SHIFT+$$ACTION_USE$$)</text>
+	</string>
+	<string id="game_object_drag">
+		<text>Перетащить предмет (SHIFT+$$ACTION_USE$$)</text>
+	</string>
+
+	<string id="st_press_any_key">
+		<text>Нажмите любую клавишу для перехода к игре</text>
+	</string>
+</string_table>

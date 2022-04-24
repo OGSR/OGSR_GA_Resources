@@ -1,0 +1,25 @@
+[logic]
+active = ph_idle@idle
+
+[ph_idle@idle]
+path_walk       = cit_kulgband_car_walk
+path_fire       = cit_kulgband_car_walk1
+invulnerable	= true
+headlights		= off
+on_info = {+cit_kulgband_car_go} ph_car@1
+
+[ph_car@1]
+path_walk       = cit_kulgband_car_walk1
+path_fire       = cit_kulgband_car_walk1
+invulnerable	= false
+headlights		= on
+on_death_info   = cit_kulgband_car_dead_function
+;on_signal      = arrived|%=release +cit_kulgband_task_fail%
+on_npc_in_zone = 7397|city_kulgband_car_zone|%=release +cit_kulgband_task_fail%
+;on_info = {=cit_kulgband_car_in_zone} %=release +cit_kulgband_task_fail%
+
+
+
+
+
+

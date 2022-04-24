@@ -1,0 +1,32 @@
+[logic]
+active = sr_sound@1
+
+[sr_idle]
+on_info = {-strangezone5_off} sr_sound@1
+on_info2 = {+yan_sold_generator_enabled} sr_sound@new_1, {+yan_sold_actor_wait_too_long} sr_sound@new_1, 
+
+[sr_sound@1]
+snd = nature\rt_dark_indoor_amb1
+position = strange_zone_5_point2
+on_signal = sound_end | sr_sound@2
+on_info = {+strangezone5_off} sr_idle
+on_info2 = {+yan_sold_generator_enabled} sr_sound@new_1, {+yan_sold_actor_wait_too_long} sr_sound@new_1, 
+on_info3 = {+yan_strange_zone_ready_to_delete} nil
+
+[sr_sound@2]
+snd = nature\rt_dark_indoor_amb1
+position = strange_zone_5_point2
+on_signal = sound_end | sr_sound@1
+on_info = {+strangezone5_off} sr_idle
+on_info2 = {+yan_sold_generator_enabled} sr_sound@new_1, {+yan_sold_actor_wait_too_long} sr_sound@new_1, 
+on_info3 = {+yan_strange_zone_ready_to_delete} nil
+
+[sr_sound@new_1]
+snd = ambient\random\rnd_horror4
+position = yan_sz_removing
+on_signal = sound_end | sr_sound@new_2
+
+[sr_sound@new_2]
+snd = ambient\mon_explosion
+position = yan_sz_removing
+on_signal = sound_end | nil

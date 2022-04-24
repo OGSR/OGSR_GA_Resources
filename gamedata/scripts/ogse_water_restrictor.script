@@ -1,0 +1,222 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-----------------------------------------------------------------------
+--- water restrictor binder
+--- Модуль рестрикторов воды
+--- Автор: KamikaZze
+-----------------------------------------------------------------------
+
+function attach( sm )
+  sm:subscribe({ signal = "on_before_actor_conditions_update", fun = this.on_actor_conditions_update })
+end
+
+-- звуки
+local snd_dive = xr_sound.get_safe_sound_object("material\\actor\\step\\n_water_1")
+local snd_underwater = xr_sound.get_safe_sound_object("ogse\\underwater")
+local snd_emersion = xr_sound.get_safe_sound_object("material\\actor\\step\\n_water_2")
+local snd_blow = xr_sound.get_safe_sound_object("material\\actor\\step\\t_water2")
+local snd_breath = xr_sound.get_safe_sound_object("actor\\breath_1")
+local snd_breath_cold = xr_sound.get_safe_sound_object("actor\\breath_cold")
+-- уровень громкости звуков
+local snd_fx_volume = 1		-- общий уровень громкости звуков
+local snd_dive_subvolume = 1	-- громкость звука погружения
+local snd_underwater_subvolume = 0.7	-- громкость звука под водой
+local snd_emersion_subvolume = 1		-- громкость звука всплытия
+
+local underwater = {}
+
+local breather_prefixes = {
+	["ecolog_outfit"] = true,
+	["scientific_outfit"] = true,
+	["protection_outfit"] = true,
+	["military_outfit"] = true,
+}
+
+
+-- вызывается из биндера рестрикторов
+function update(obj)
+	fx_play(obj:id())
+
+	local actor_inside = obj:inside(device().cam_pos)
+	if actor_inside then
+		fx_start(obj:id())
+	else	
+		fx_stop(obj:id())
+	end
+end
+
+
+local walk_accel		= get_float( "actor", "walk_accel" )
+local jump_speed		= get_float( "actor", "jump_speed" )
+local run_factor		= get_float( "actor", "run_coef" )
+local run_back_factor	= get_float( "actor", "run_back_coef" )
+local sprint_factor		= get_float( "actor", "sprint_koef" )
+
+local walk_back_factor	= get_float( "actor", "walk_back_coef" )
+local crouch_factor		= get_float( "actor", "crouch_coef" )
+local climb_factor		= get_float( "actor", "climb_coef" )
+local walk_strafe_factor
+local run_strafe_factor
+
+local water_coeff = 0.6
+local time_submerged = 0
+local o2_amount = 100
+
+function on_actor_conditions_update( ext )
+	if not next(underwater) then return end --Если актор не под водой - ничего не делать
+
+	ext.sprint_factor	= ext.sprint_factor - (sprint_factor - (sprint_factor * water_coeff))
+	ext.jump_speed		= ext.jump_speed - (jump_speed - (jump_speed * 0.01))
+	ext.walk_accel		= ext.walk_accel - (walk_accel - (walk_accel * water_coeff))
+	ext.run_factor		= ext.run_factor - (run_factor - (run_factor * water_coeff))
+	ext.run_back_factor	= ext.run_back_factor - (run_back_factor - (run_back_factor * water_coeff))
+end
+
+function actor_has_breather()
+	local outfit = db.actor:get_current_outfit()
+	if outfit then
+		local sect = outfit:section()
+		for k, v in pairs(breather_prefixes) do
+			if string.find(sect, k) then
+				return true
+			end			
+		end	
+	end
+	return false
+end
+
+function fx_start(id)
+	if not underwater[id] then
+		local breather = actor_has_breather()
+		time_submerged = time_global()
+		local hud = get_hud()
+		local info = hud:GetCustomStatic("oxygen_hud")
+		if not info then
+			hud:AddCustomStatic("oxygen_hud", true)
+			info = hud:GetCustomStatic("oxygen_hud"):wnd()
+			if breather then
+				info:SetText(game.translate_string("o2_level_breather").." "..string.format("%4.2f", o2_amount).."%")
+			else
+				info:SetText(game.translate_string("o2_level").." "..string.format("%4.2f", o2_amount).."%")
+			end
+		else
+			if breather then
+				info = hud:GetCustomStatic("oxygen_hud"):wnd()
+				info:SetText(game.translate_string("o2_level_breather").." "..string.format("%4.2f", o2_amount).."%")
+			else
+				info = hud:GetCustomStatic("oxygen_hud"):wnd()
+				info:SetText(game.translate_string("o2_level").." "..string.format("%4.2f", o2_amount).."%")
+			end
+		end
+		if snd_dive and not snd_dive:playing() then
+			level.add_pp_effector("yantar_underground_psi.ppe", 5555, true)
+			snd_dive:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d)
+			snd_dive.volume = snd_fx_volume*snd_dive_subvolume
+		end
+		
+		local aobj = get_actor_obj()
+		walk_strafe_factor = aobj.walk_strafe_coef
+		run_strafe_factor = aobj.run_strafe_coef
+
+		aobj.walk_back_coef = walk_back_factor * water_coeff
+		aobj.crouch_coef = crouch_factor * water_coeff
+		aobj.climb_coef = climb_factor * water_coeff
+		aobj.walk_strafe_coef = walk_strafe_factor * water_coeff
+		aobj.run_strafe_coef = run_strafe_factor * water_coeff
+
+		bind_stalker.hide_weapon()
+		underwater[id] = true
+	end
+end
+
+local hearthbeat = xr_sound.get_safe_sound_object([[affects\heartbeat]])
+
+function fx_play(id)
+	if underwater[id] then
+		if snd_underwater and not snd_underwater:playing() then
+			snd_underwater:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d + sound_object.looped)
+			snd_underwater.volume = snd_fx_volume*snd_underwater_subvolume
+		end	
+		--- o2_amount
+		local breather = actor_has_breather()
+		if (time_global() - time_submerged) > 1000 then
+			if o2_amount > 0 then
+				if breather then
+					o2_amount = o2_amount - 0.1
+				else
+					o2_amount = o2_amount - 5
+				end
+				time_submerged = time_global()
+			else	
+				local snd_hic = xr_sound.get_safe_sound_object("monsters\\stalker\\hiccup\\hic"..math.random(2,4))
+				db.actor.health = -0.1
+				time_submerged = time_global()
+				snd_hic:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d)
+				snd_blow:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d)
+				if not hearthbeat:playing() then
+					hearthbeat:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d + sound_object.looped)
+				end				
+			end
+			local hud = get_hud()
+			local info = hud:GetCustomStatic("oxygen_hud")
+			if not info then
+				hud:AddCustomStatic("oxygen_hud", true)
+				info = hud:GetCustomStatic("oxygen_hud"):wnd()
+				if breather then
+					info:SetText(game.translate_string("o2_level_breather").." "..string.format("%4.2f", o2_amount).."%")
+				else
+					info:SetText(game.translate_string("o2_level").." "..string.format("%4.2f", o2_amount).."%")
+				end
+			else
+				if breather then
+					info = hud:GetCustomStatic("oxygen_hud"):wnd()
+					info:SetText(game.translate_string("o2_level_breather").." "..string.format("%4.2f", o2_amount).."%")
+				else
+					info = hud:GetCustomStatic("oxygen_hud"):wnd()
+					info:SetText(game.translate_string("o2_level").." "..string.format("%4.2f", o2_amount).."%")
+				end
+			end
+		end
+	end
+end
+
+function fx_stop(id)
+	if underwater[id] then
+		if o2_amount <= 0 then
+			snd_breath_cold:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d)
+		else
+			snd_breath:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d)
+		end
+		time_submerged = 0
+		o2_amount = 100		
+		local hud = get_hud()
+		local info = hud:GetCustomStatic("oxygen_hud")
+		if info then
+			hud:RemoveCustomStatic("oxygen_hud", true)
+		end		
+		if snd_dive:playing() then 
+			snd_dive:stop() 
+		end
+		if snd_underwater:playing() then 
+			snd_underwater:stop() 
+		end
+		if hearthbeat:playing() then
+			hearthbeat:stop()
+		end			
+		if snd_emersion then
+			level.remove_pp_effector(5555)
+			snd_emersion:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d)
+			snd_emersion.volume = snd_fx_volume*snd_emersion_subvolume
+		end
+
+		local aobj = get_actor_obj()
+		aobj.walk_back_coef = walk_back_factor
+		aobj.crouch_coef = crouch_factor
+		aobj.climb_coef = climb_factor
+		aobj.walk_strafe_coef = walk_strafe_factor
+		aobj.run_strafe_coef = run_strafe_factor
+
+		bind_stalker.restore_weapon()
+		underwater[id] = nil
+	end
+end

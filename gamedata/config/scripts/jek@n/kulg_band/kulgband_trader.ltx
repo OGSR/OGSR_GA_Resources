@@ -1,0 +1,75 @@
+[smart_terrains]
+none = true
+
+
+[logic]
+active = {+kulgband_trader_task_end} walker@1, walker@begin
+danger = danger_ignore
+on_death = death
+threshold = threshold@kulgband_trader_threshold
+trade = misc\trade_drozd.ltx
+
+
+[walker@begin]
+path_walk =	telohr_1_walk
+path_look =	telohr_1_look
+combat_ignore_cond = always
+on_timer = 14|kamp@1 %=make_invulnerable%
+
+
+; У дороги:
+[kamp@1]
+center_point = dar_kulgband_looser_bonfire_zone_point
+radius = 4
+def_state_moving = run
+;danger = danger_condition
+combat_ignore_cond = always
+on_info = {+kulgband_trader_task_end} %=release%
+
+
+; На лесопилке:
+[walker@1]
+path_walk =	kulgband_trader_lesop_walk
+path_look =	kulgband_trader_lesop_look
+combat_ignore_cond = always
+on_timer = 14|walker@2 %=make_invulnerable =get_some_money%
+
+[walker@2]
+path_walk =	kulgband_trader_lesop_walk
+path_look =	kulgband_trader_lesop_look
+combat_ignore_cond = always
+
+
+
+
+[threshold@kulgband_trader_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[danger_ignore]
+ignore_distance = 5
+
+[death]
+on_info = %+kulgband_trader_dead%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

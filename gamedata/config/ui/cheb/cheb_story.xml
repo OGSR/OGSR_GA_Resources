@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<cheb_story>
+	<body x="220" y="120" width="511" height="520" stretch="1">
+		<texture>ui\cheb\cheb_base_body</texture>
+	</body>
+	<table x="240" y="450" width="504" height="384" stretch="1">
+		<texture>ui\cheb\cheb_dialog_screen</texture>
+	</table>
+	<name x="540" y="640" width="370" height="35">
+		<text x="0" y="0" r="225" g="218" b="118" font="letterica18">cheb_name</text>
+	</name>
+	<cheb_talking x="265" y="495" width="460" height="250" complex_mode="1">
+		<text font="letterica16">cheb_story_empty</text>
+	</cheb_talking>
+	<btn_1 x="175" y="690" width="400" height="27">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+		<text font="letterica16">cheb_story_next</text>
+	</btn_1>
+	<btn_quit x="458" y="635" width="18" height="18">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+	</btn_quit>
+</cheb_story>
+

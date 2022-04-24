@@ -1,0 +1,26 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker
+;on_combat = combat
+on_death = death
+
+[combat]
+combat_type = camper
+
+[walker]
+path_walk = dar_soldiers_point
+path_look = dar_dez_btr_look
+
+[camper]
+path_walk = dar_soldiers_point
+path_look = dar_dez_btr_look
+radius = 70
+
+[death]
+on_info = %+dar_soldier_2_dead%
+
+

@@ -1,0 +1,67 @@
+[smart_terrains]
+none = true
+
+
+[logic]
+active = {+kulgband_trader_task_end} kamp@2, walker@begin
+danger = danger_ignore
+threshold = threshold@kulgband_trader_guard2_threshold
+
+
+[walker@begin]
+path_walk =	telohr_1_walk
+path_look =	telohr_1_look
+combat_ignore_cond = always
+on_timer = 100 | kamp@1 
+
+
+; У дороги:
+[kamp@1]
+center_point = dar_kulgband_looser_bonfire_zone_point
+radius = 4
+def_state_moving = run
+danger = danger_condition
+combat_ignore_cond = always
+meet = no_meet
+on_info = {+kulgband_trader_task_end} %=release%
+
+
+; На лесопилке:
+[kamp@2]
+center_point = koster_point
+radius = 3
+def_state_moving = run
+;danger = danger_condition
+combat_ignore_cond = always
+
+
+
+[threshold@kulgband_trader_guard2_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[danger_ignore]
+ignore_distance = 5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

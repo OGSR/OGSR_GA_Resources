@@ -1,0 +1,18 @@
+[logic] 
+active = walker
+on_death = death
+
+[death]
+on_info =  %+esc_kvest_qest_on_elevator_kill_target%
+
+[walker] 
+path_walk = esc_visitor_sniper_target_walk
+on_signal = in_point | {-esc_kvest_qest_on_elevator_target_in_point} %+esc_kvest_qest_on_elevator_target_in_point =set_enemies(9004)%
+on_signal2 = del_me | %=del_npc%
+danger = danger_condition
+def_state_moving1 = walk
+def_state_moving2 = walk
+def_state_moving3 = walk
+
+[danger_condition]
+ignore_distance_corpse = 0

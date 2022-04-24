@@ -1,0 +1,109 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+---------------Copyright_Quest_2009-------------------
+--------------Edited_by_stalbar_2009------------------
+--------------Edited_by_Malandrinus_2013------------------
+local spawn_db = ogse_spawn_db.script_spawn_registry.esc_spawn
+
+local function table_random(t)
+	return t[math.random(#t)]
+end
+
+local zombie_types_1 = {"zombie_v_strong", "zombie_v_normal", "zombie_plague", "zombie_weak"}
+
+function blockpost_case_go_online(actor, npc)
+	local sim = alife()
+	local sobj = sim:story_object(story_ids.Escape_blockpost_case)
+	if sobj then
+		sim:set_switch_online(sobj.id, true)
+		sim:set_switch_offline(sobj.id, false)
+	end
+end
+
+function assault( actor, npc )
+	--'При первом разговоре с Петрухой спаунятся зомби за АТП
+	-- ogse.quest_spawn_ex(zombie_types_1[math.random(4)], 3, spawn_db.assault)
+end
+
+local zombie_types_2 = {"pseudodog_v_strong", "pseudodog_normal", "dog_v_strong"}
+
+function shustriy( actor, npc )
+	---- log1("shustriy() called")		
+	--'При взятии флешки у Шустрого недалеко от квестового костюма спаунится псевдопёс
+	ogse.quest_spawn_ex(table_random(zombie_types_2), 3, spawn_db.shustriy)
+	ogse.spawn_object(spawn_db.mincer_meat)
+end
+
+function dark( actor, npc )
+	--'При выходе из тёмной долины на кордон спаунится сильный псевдопёс (- электрохимера) за АТП
+	ogse.quest_spawn_ex("pseudodog_v_strong", 1, spawn_db.dark)
+end
+
+function bloodsucker( actor, npc )
+	--'После получения спецзадания у Сидоровича возле зернофабрики спаунится адский  кровосос
+	ogse.quest_spawn_ex("dog_v_strong", 1, spawn_db.bloodsucker)
+end
+
+function vojak( actor, npc )
+	--'После получения задания у Сидоровича на флэшку Шустрого спаунистя вожак стаи
+	ogse.quest_spawn_ex("dog_v_strong", math.random(2), spawn_db.vojak)
+end
+
+--' function cat_blokpost( actor, npc )
+--' После получения задания у Сидоровича на флэшку Шустрого спаунится  кот на южном блокпосту
+--' ogse.quest_spawn_ex("cat_v_normal", 3, spawn_db.cat_blokpost)
+--' end
+
+function flesh_bridge( actor, npc )
+	--'После получения спецзадания у Сидоровича за мостом спаунятся сильнaя плоть
+	ogse.quest_spawn_ex("flesh_v_strong", math.random(4), spawn_db.flesh_bridge)
+end
+
+local zombie_types_3 = {"agr_soldier_regular", "esc_soldier_respawn_1" }
+
+function soldier1( actor, npc )
+	--'Спаун солдат перед АТП
+	ogse.quest_spawn_ex(table_random(zombie_types_3), 1, spawn_db.soldier1)
+end
+
+function soldier2( actor, npc )
+	--'Спаун солдат между АТП и мостом
+	ogse.quest_spawn_ex(table_random(zombie_types_3), 1, spawn_db.soldier2)
+end
+
+function soldier3( actor, npc )
+	--'Спаун солдат возле зернофабрики
+	ogse.quest_spawn_ex(table_random(zombie_types_3), 1, spawn_db.soldier3)
+end
+
+function soldier4( actor, npc )
+	--'Спаун солдат мостом и заброшенной фермой за мостом
+	ogse.quest_spawn_ex(table_random(zombie_types_3), math.random(2,4), spawn_db.soldier4)
+end
+
+local zombie_types_4 = {"esc_stalker_respawn_1", "esc_stalker_respawn_2"}
+
+function shustriy1( actor, npc )
+	--'Спаун новичков на АТП
+	ogse.quest_spawn_ex(table_random(zombie_types_4), math.random(3), spawn_db.shustriy1)
+end
+
+function newbie( actor, npc )
+	--'Спаун новичков в деревне
+	ogse.quest_spawn_ex(table_random(zombie_types_4), math.random(6), spawn_db.newbie)
+end
+
+local zombie_types_5 = {"mil_stalker_respawn_3", "pri_respawn_neutral" }
+
+function master( actor, npc )
+	--'Спаун новичков в деревне
+	ogse.quest_spawn_ex(table_random(zombie_types_5), 1, spawn_db.master)
+end
+
+	--'РЭНДОМНЫЙ СПАВН ДЛЯ ТАЙМЕРА
+
+function newbie1( actor, npc )
+	--'Спаун новичков на АТП
+	ogse.quest_spawn_ex(table_random(zombie_types_4), math.random(3), spawn_db.newbie1)
+end
+

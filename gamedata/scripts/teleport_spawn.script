@@ -1,0 +1,45 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+
+function barman_pivo_timer_action()
+	ogse_st_mgr.delayed_fun_start("barman_pivo_timer")
+	:set_gdelayDHMS(0, math.random(12, 36), 0, 0)
+	:init(script_name()..".barman_pivo_timer_action")
+	:start()
+
+	if has_alife_info("barman_pivo") then
+		db.actor:disable_info_portion("barman_pivo")
+	end
+end
+
+function teleport1() --Вызывается инфопоршнем после первого разговора с сидором. TODO: Вынести это отсюда, и скрипт удалить.
+	local spawn_db = ogse_spawn_db.script_spawn_registry.teleport_spawn
+
+	-- Телепорт на Янтаре для входа в лабиринт на трубе возле здания с входом в Х16 
+	ogse.spawn_object(spawn_db.m_teleport_4)
+	-- Телепорт на Янтаре для перехода на другую сторону лабиринта
+	ogse.spawn_object(spawn_db.m_teleport_14)
+	-- Телепорт на Янтаре в узкожопом месте для выхода из лабиринта
+	ogse.spawn_object(spawn_db.m_teleport_5)
+	-- Телепорт затычка 1 на Янтаре
+	ogse.spawn_object(spawn_db.m_teleport_17)
+	-- Телепорт затычка 2 на Янтаре
+	ogse.spawn_object(spawn_db.m_teleport_18)
+	-- Телепорт для перехода в Бар на Свалке возле бензовоза на радиоактивной возвышенности 
+	--ogse.spawn_object(spawn_db.m_teleport_9) --KRodin: они зачем нужны? Там же через дыру в заборе переход.
+	-- Телепорт для перехода из Бара на Свалке возле кучи мусора 
+	--ogse.spawn_object(spawn_db.m_teleport_10)
+	-- Зомби в лабиринте Янтаря
+	ogse.spawn_object(spawn_db.rad_zombied_respawn_2)
+	--
+	ogse.spawn_object(spawn_db.stalker_monolith)
+	--
+	ogse.spawn_object(spawn_db.tompson)
+	--
+	--dialogs.actor_clear_community() --А это зачем?
+
+	ogse_st_mgr.delayed_fun_start("barman_pivo_timer")
+	:set_gdelayDHMS(0, math.random(12, 36), 0, 0)
+	:init(script_name()..".barman_pivo_timer_action")
+	:start()
+end

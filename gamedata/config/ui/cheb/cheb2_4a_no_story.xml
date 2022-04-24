@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<cheb_2_4a>
+	<body x="220" y="120" width="511" height="520" stretch="1">
+		<texture>ui\cheb\cheb_base_body</texture>
+	</body>
+	<table x="240" y="450" width="504" height="384" stretch="1">
+		<texture>ui\cheb\cheb_dialog_screen</texture>
+	</table>
+	<name x="540" y="640" width="370" height="35">
+		<text x="0" y="0" r="225" g="218" b="118" font="letterica18">cheb_name</text>
+	</name>
+	<cheb_talking x="265" y="495" width="460" height="250" complex_mode="1">
+		<text font="letterica16">cheb_2_4a_0_guid</text>
+	</cheb_talking>
+	<btn_1 x="435" y="690" width="100" height="18">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+		<text font="letterica16">cheb_2_4a_1</text>
+	</btn_1>
+	<!--btn_2 x="435" y="708" width="100" height="18">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+		<text font="letterica16">cheb_2_4a_2</text>
+	</btn_2-->
+	<!--btn_3 x="435" y="708" width="100" height="18">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+		<text font="letterica16">cheb_2_4a_3</text>
+	</btn_3-->
+	<!--btn_4 x="435" y="744" width="100" height="18">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+		<text font="letterica16">cheb_2_4a_4</text>
+	</btn_4-->
+	<btn_5 x="435" y="708" width="100" height="18">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+		<text font="letterica16">cheb_2_4a_5</text>
+	</btn_5>
+	<btn_quit x="458" y="635" width="18" height="18">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+	</btn_quit>
+</cheb_2_4a>
+

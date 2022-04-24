@@ -1,0 +1,736 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--[[--------------------------------------------------
+ScriptName : musicbox.script
+Idea       : Jekan
+Source     : Jekan
+Author     : Nazgool
+Version    : 3.0
+Feedback   : email - nazgool@ukr.net
+--]]--------------------------------------------------
+
+function attach(sm)
+    sm:subscribe({signal = "on_save",         fun = this.on_save})
+    sm:subscribe({signal = "on_first_update", fun = this.on_load})
+    sm:subscribe({signal = "on_storyline_start", fun = this.on_storyline_start})
+end
+
+function on_storyline_start() --Спавн пластинок
+	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_1)
+	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_2)
+	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_3)	
+	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_5)
+	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_6)
+	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_8)
+	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_9)	
+	ogse.spawn_object_rand(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_4)
+	ogse.spawn_object_rand(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_7)
+end
+
+
+local musicbox_mem = {}
+local music_dir    = 'characters_voice\\scenario\\mbox\\'
+local logo_dir     = 'ui\\mbox\\'
+local translate    = game.translate_string
+local WIDTH_FACTOR = device().height / device().width / 0.75
+
+local plates = {
+    plastinka_1 = {
+        title  = translate("plastinka_1_name"),
+        logo   = 'mbox_logo_1'  ,
+        tracks = {
+            {file = 'mbox_track1_1', name = translate("mbox_track1_1")},
+            {file = 'mbox_track1_2', name = translate("mbox_track1_2")},
+            {file = 'mbox_track1_3', name = translate("mbox_track1_3")},
+            {file = 'mbox_track1_4', name = translate("mbox_track1_4")},
+            -- {file = 'mbox_track1_5', name = translate("mbox_track1_5")},
+            -- {file = 'mbox_track1_6', name = translate("mbox_track1_6")},
+        }
+    },
+    plastinka_2 = {
+        title  = translate("plastinka_2_name"),
+        logo   = 'mbox_logo_2'  ,
+        tracks = {
+            {file = 'mbox_track2_1', name = translate("mbox_track2_1")},
+            {file = 'mbox_track2_2', name = translate("mbox_track2_2")},
+            {file = 'mbox_track2_3', name = translate("mbox_track2_3")},
+            {file = 'mbox_track2_4', name = translate("mbox_track2_4")},
+        }
+    },
+    plastinka_3 = {
+        title  = translate("plastinka_3_name"),
+        logo   = 'mbox_logo_3'      ,
+        tracks = {
+            {file = 'mbox_track3_1', name = translate("mbox_track3_1")},
+            {file = 'mbox_track3_2', name = translate("mbox_track3_2")},
+            {file = 'mbox_track3_3', name = translate("mbox_track3_3")},
+            {file = 'mbox_track3_4', name = translate("mbox_track3_4")},
+            {file = 'mbox_track3_5', name = translate("mbox_track3_5")},
+            -- {file = 'mbox_track3_6', name = translate("mbox_track3_6")},
+            -- {file = 'mbox_track3_7', name = translate("mbox_track3_7")},
+            -- {file = 'mbox_track3_8', name = translate("mbox_track3_8")},
+        }
+    },
+    plastinka_4 = {
+        title  = translate("plastinka_4_name"),
+        logo   = 'mbox_logo_4',
+        tracks = {
+            {file = 'mbox_track4_1', name = translate("mbox_track4_1")},
+            {file = 'mbox_track4_2', name = translate("mbox_track4_2")},
+            {file = 'mbox_track4_3', name = translate("mbox_track4_3")},
+            {file = 'mbox_track4_4', name = translate("mbox_track4_4")},
+            {file = 'mbox_track4_5', name = translate("mbox_track4_5")},
+        }
+    },
+    plastinka_5 = {
+        title  = translate("plastinka_5_name"),
+        logo   = 'mbox_logo_5'      ,
+        tracks = {
+            {file = 'mbox_track5_1', name = translate("mbox_track5_1")},
+            {file = 'mbox_track5_2', name = translate("mbox_track5_2")},
+            {file = 'mbox_track5_3', name = translate("mbox_track5_3")},
+            {file = 'mbox_track5_4', name = translate("mbox_track5_4")},
+            {file = 'mbox_track5_5', name = translate("mbox_track5_5")},
+            {file = 'mbox_track5_6', name = translate("mbox_track5_6")},
+            -- {file = 'mbox_track5_7', name = translate("mbox_track5_7")},
+            -- {file = 'mbox_track5_8', name = translate("mbox_track5_8")},
+        }
+    },
+    plastinka_6 = {
+        title  = translate("plastinka_6_name"),
+        logo   = 'mbox_logo_6'       ,
+        tracks = {
+            {file = 'mbox_track6_1', name = translate("mbox_track6_1")},
+            {file = 'mbox_track6_2', name = translate("mbox_track6_2")},
+            {file = 'mbox_track6_3', name = translate("mbox_track6_3")},
+            {file = 'mbox_track6_4', name = translate("mbox_track6_4")},
+            {file = 'mbox_track6_5', name = translate("mbox_track6_5")},
+            {file = 'mbox_track6_6', name = translate("mbox_track6_6")},
+            {file = 'mbox_track6_7', name = translate("mbox_track6_7")},
+			{file = 'mbox_track6_8', name = translate("mbox_track6_8")},
+			{file = 'mbox_track6_9', name = translate("mbox_track6_9")},
+        }
+    },
+    plastinka_7 = {
+        title  = translate("plastinka_7_name"),
+        logo   = 'mbox_logo_7'     ,
+        tracks = {
+            {file = 'mbox_track7_1', name = translate("mbox_track7_1")},
+            {file = 'mbox_track7_2', name = translate("mbox_track7_2")},
+            {file = 'mbox_track7_3', name = translate("mbox_track7_3")},
+            {file = 'mbox_track7_4', name = translate("mbox_track7_4")},
+			{file = 'mbox_track7_5', name = translate("mbox_track7_5")},
+            {file = 'mbox_track7_6', name = translate("mbox_track7_6")},
+            {file = 'mbox_track7_7', name = translate("mbox_track7_7")},
+            {file = 'mbox_track7_8', name = translate("mbox_track7_8")},
+			{file = 'mbox_track7_9', name = translate("mbox_track7_9")},
+        }
+    },
+    plastinka_8 = {
+        title  = translate("plastinka_8_name"),
+        logo   = 'mbox_logo_8',
+        tracks = {
+            {file = 'mbox_track8_1', name = translate("mbox_track8_1")},
+            {file = 'mbox_track8_2', name = translate("mbox_track8_2")},
+            {file = 'mbox_track8_3', name = translate("mbox_track8_3")},
+            {file = 'mbox_track8_4', name = translate("mbox_track8_4")},
+            {file = 'mbox_track8_5', name = translate("mbox_track8_5")},
+            {file = 'mbox_track8_6', name = translate("mbox_track8_6")},
+            {file = 'mbox_track8_7', name = translate("mbox_track8_7")},
+            {file = 'mbox_track8_8', name = translate("mbox_track8_8")},
+        }
+    },
+    plastinka_9 = {
+        title  = translate("plastinka_9_name"),
+        logo   = 'mbox_logo_9',
+        tracks = {
+            {file = 'mbox_track9_1', name = translate("mbox_track9_1")},
+            {file = 'mbox_track9_2', name = translate("mbox_track9_2")},
+            {file = 'mbox_track9_3', name = translate("mbox_track9_3")},
+            {file = 'mbox_track9_4', name = translate("mbox_track9_4")},
+            {file = 'mbox_track9_5', name = translate("mbox_track9_5")},
+            {file = 'mbox_track9_6', name = translate("mbox_track9_6")},
+			{file = 'mbox_track9_7', name = translate("mbox_track9_7")},
+			{file = 'mbox_track9_8', name = translate("mbox_track9_8")},
+        }
+    }
+}
+
+function on_load()
+    local se_obj = alife():object('music_box')
+    local obj    = level.object_by_id(se_obj.id)
+    if isUserdata(obj) then
+        musicbox_mem.obj = musicbox_base(obj)
+        local mbox = musicbox_mem.obj
+        if mbox then
+            mbox.checkedPlate   = ogse.load_var('mbox_checkedPlate'  , 0    , "u8")
+            mbox.checkedTrack   = ogse.load_var('mbox_checkedTrack'  , 0    , "u8")
+            mbox.actionPlate    = ogse.load_var('mbox_actionPlate'   , 0    , "u8")
+            mbox.actionTrack    = ogse.load_var('mbox_actionTrack'   , 0    , "u8")
+            mbox.checkedPlayAll = ogse.load_var('mbox_checkedPlayAll', false, "bool"  )
+            local changer       = ogse.load_var('mbox_changer'       , {}   , "array" )
+            for i = 1, #changer do
+                mbox.changer[i] = {section = changer[i]}
+            end
+            mbox:Bind()
+            if mbox.actionPlate ~= 0 and mbox.actionTrack ~= 0 then
+                mbox:OnPlateButtonClicked(mbox.actionPlate)
+                mbox:OnTrackButtonClicked(mbox.actionTrack)
+                mbox.checkedPlayAll = not mbox.checkedPlayAll
+                mbox:onPlayAll()
+            end
+        end
+    end
+end
+
+function on_save()
+    local mbox = musicbox_mem.obj
+    if isUserdata(mbox) then
+        ogse.save_var('mbox_checkedPlate'  , mbox.checkedPlate   , "u8")
+        ogse.save_var('mbox_checkedTrack'  , mbox.checkedTrack   , "u8")
+        ogse.save_var('mbox_actionPlate'   , mbox.actionPlate    , "u8")
+        ogse.save_var('mbox_actionTrack'   , mbox.actionTrack    , "u8")
+        ogse.save_var('mbox_checkedPlayAll', mbox.checkedPlayAll , "bool")
+        local changer = {}
+        for i = 1, #mbox.changer do
+            changer[#changer+1] = mbox.changer[i].section
+        end
+        ogse.save_var('mbox_changer', changer, "array")
+    end
+end
+
+function use_musicbox()
+    local mbox = musicbox_mem.obj
+    if mbox then
+		local snd_mbox_activate = xr_sound.get_safe_sound_object([[weapons\nv_off]])
+		snd_mbox_activate:play_at_pos(db.actor, vector():set(0, 0, 0), 0, sound_object.s2d)
+        mbox.isClosed = false
+        mbox:IterateInv()
+        mbox:Bind()
+        level.start_stop_menu(mbox, true)
+    end
+end
+
+function co_create()
+    local co = coroutine.create(
+        function (mbox)
+            local tracks = getPlateData(mbox.checkedPlate, 'tracks')
+            local count  = tracks and #tracks or 0
+            local track  = mbox.checkedTrack
+            for i = 1, count do
+                local next_track = track + i
+                local next_id = next_track <= count and next_track or next_track - count
+                mbox:OnTrackButtonClicked(next_id)
+                coroutine.yield()
+            end
+        end)
+    return co
+end
+
+
+function getPlateData(checked, key)
+    local mbox   = musicbox_mem.obj
+    local plate  = mbox and mbox.changer[checked or 0]
+    local sec    = plate and plate.section
+    local data   = sec and plates[sec]
+    local function foo(tab, key)
+            for k, v in pairs(tab) do
+                if k == key then
+                    return v
+                elseif type(v) == 'table' then
+                    local var = foo(v, key)
+                    if var then return var end
+                end
+            end
+        end
+    if data then
+        return foo(data, key) or nil
+    end
+end
+
+
+class "musicbox_base" (CUIScriptWnd)
+
+function musicbox_base:__init(obj) super()
+    self.spawn_obj  = obj
+    self.changer    = {}
+    self.isClosed   = true
+    self.snd_obj    = nil
+    self.sm_update  = nil
+    self.objCTime   = nil
+    self.play_all   = nil
+    self.time_50    = 0
+    self.time_1000  = 0
+    self.upd_color  = {120,0,0,255}
+    self.matrix_pos = 1
+    self.matrix = {
+        {0, 5, 0, 0},
+        {0, 0, 0,-5},
+        {0, 0, 5, 0},
+        {0,-5, 0, 0},
+        {0, 0, 0, 5},
+        {0, 0,-5, 0},
+    }
+    self:InitLuaXml()
+    self:InitApp()
+	self.mbox_button_press = xr_sound.get_safe_sound_object([[detectors\contact_8]])
+end
+
+function musicbox_base:__finalize() end
+
+function musicbox_base:Bind()
+    if (self.actionTrack ~= 0 and self.isClosed) or (self.actionTrack == 0 and not self.isClosed) then 
+        self.sm_update = {signal = "on_update", ['self'] = self, fun = self.onUpdate}
+        ogse_signals.get_mgr():subscribe(self.sm_update)
+    end
+end
+
+function musicbox_base:unBind()
+    if self.actionTrack ~= 0 then return end
+    ogse_signals.get_mgr():unsubscribe(self.sm_update)
+	self.sm_update = nil
+end
+
+function musicbox_base:onUpdate()
+	if self.snd_obj then
+		if self.snd_obj:playing() then
+			---------------------------
+			local current_time = time_global()
+			if self.time_1000 > current_time then return end
+			local text = self.objCTime:timeToString(game.CTime.TimeToSeconds)
+			text = text:match('%d+%:%d+$')
+			self.timer_static:SetText(text)  
+			local dt = game.CTime()
+			dt:setHMS(0,0,1)
+			self.objCTime:sub(dt)
+			self.time_1000 = current_time + 1000
+			---------------------------
+		elseif self.checkedPlayAll then
+			if not self.play_all or (coroutine.status(self.play_all) == 'dead') then --Если вдруг, self.play_all == nil или подпрограмма перестала работать (ОЧЕНЬ редкие баги)
+				log1("!!! MBOX: self.play_all is nil or coroutine is dead!!!")
+				ogse.send_tip("Произошла ошибка, необходимо перезапустить проигрывание музыки!", "МУЗЫКАЛЬНЫЙ АВТОМАТ", nil, 40) --Сообщим об ошибке
+				self.checkedPlayAll = false --Запрещаем "Играть Все"
+				self:onStop() --Останавливаем всё, что можно остановить и отписываем onUpdate от менеджера сигналов
+			else
+				coroutine.resume(self.play_all, self)
+			end
+		else
+			self:onStop()
+		end
+	elseif self.checkedPlayAll then --Если музыка по какой-то причине не играет, и  при этом кнопка "Играть Все" нажата, то
+		self.checkedPlayAll = false --запрещаем "Играть Все".
+	end
+end
+
+function musicbox_base:IterateInv()
+    db.actor:iterate_inventory(
+        function (npc, item)
+				if item and alife():object(item:id()) then
+					local sec = item:section()
+					if plates[sec] then
+						local pos = #self.changer+1
+						self.changer[pos] = {section=sec}
+						self.checkedPlate = pos
+						ogse.remove_item_from_inventory_by_name(sec, db.actor)
+					end 
+				end
+            end,
+        nil)
+end
+
+function musicbox_base:InitLuaXml()
+    local luaxml = xml.new("music_box")
+        -- Main Window ------------------------------
+        local main = luaxml:append('main')
+        main.width  = 940 * WIDTH_FACTOR
+        main.height = 680
+        main.x      = (1024 - main.width) / 2
+        main.y      = 768 - main.height
+        -- Background Static ------------------------------
+        local bg_static = luaxml:append('bg_static')
+        bg_static.x       = 0
+        bg_static.y       = 0
+        bg_static.width   = main.width
+        bg_static.height  = main.height
+        bg_static.stretch = 1
+            local bg_static_texture = bg_static:append('texture')
+            bg_static_texture[1] = "ui\\mbox\\mbox_ramka"
+            local bg_static_text = bg_static:append('text')
+            bg_static_text[1]    = translate("mbox_mbox_name_text")
+            bg_static_text.align = 'c'
+            bg_static_text.font  = 'graffiti50'
+            bg_static_text.y     = 50
+        -- Plates Static ----------------------------------
+        local plates_static = luaxml:append('plates_static')
+        plates_static.x       = 100 * WIDTH_FACTOR
+        plates_static.y       = 110
+        plates_static.width   = 200 * WIDTH_FACTOR
+        plates_static.height  = 400
+        local plates_static_text = plates_static:append('text')
+            plates_static_text[1]    = translate("mbox_plates_head_text")
+            plates_static_text.align = 'c'
+            plates_static_text.font  = 'letterica25'
+            plates_static_text.r     = 153
+            plates_static_text.g     = 51
+            plates_static_text.b     = 255
+        -- Plates Frame ----------------------------------
+        local plates_frame = luaxml:append('plates_frame')
+        plates_frame.x       = 0
+        plates_frame.y       = 30
+        plates_frame.width   = plates_static.width
+        plates_frame.height  = plates_static.height - plates_frame.y
+        local plates_frame_texture = plates_frame:append('texture')
+            plates_frame_texture[1]    = 'ui_stroketextbox'
+        -- Tracks Static ----------------------------------
+        local tracks_static = luaxml:append('tracks_static')
+        tracks_static.x       = 310 * WIDTH_FACTOR
+        tracks_static.y       = 110
+        tracks_static.width   = 200 * WIDTH_FACTOR
+        tracks_static.height  = 400
+        tracks_static.stretch = 1
+        local tracks_static_text = tracks_static:append('text')
+            tracks_static_text[1]    = translate("mbox_tracks_head_text")
+            tracks_static_text.align = 'c'
+            tracks_static_text.font  = 'letterica25'
+            tracks_static_text.r     = 102
+            tracks_static_text.g     = 153
+            tracks_static_text.b     = 255
+        -- Tracks Frame ----------------------------------
+        local tracks_frame = luaxml:append('tracks_frame')
+        tracks_frame.x       = 0
+        tracks_frame.y       = 30
+        tracks_frame.width   = tracks_static.width
+        tracks_frame.height  = tracks_static.height - tracks_frame.y
+        local tracks_frame_texture = tracks_frame:append('texture')
+            tracks_frame_texture[1] = 'ui_stroketextbox'
+        -- Poster Static ----------------------------------
+        local poster_static = luaxml:append('poster_static')
+        poster_static.x       = 2
+        poster_static.y       = 2
+        poster_static.width   = tracks_frame.width - 4
+        poster_static.height  = tracks_frame.height - 4
+        poster_static.stretch = 1
+        local poster_static_texture = poster_static:append('texture')
+            poster_static_texture[1] = 'ui\\mbox\\poster'
+        -- Logo Static ----------------------------------
+        local logo_static = luaxml:append('logo_static')
+        logo_static.x       = 520 * WIDTH_FACTOR
+        logo_static.y       = 110
+        logo_static.width   = 320 * WIDTH_FACTOR
+        logo_static.height  = 400
+        local logo_static_text = logo_static:append('text')
+            logo_static_text[1]    = translate("mbox_logo_head_text")
+            logo_static_text.align = 'c'
+            logo_static_text.font  = 'letterica25'
+            logo_static_text.r     = 255
+            logo_static_text.g     = 204
+            logo_static_text.b     = 50
+        -- Logo Image Frame ----------------------------------
+        local img_frame = luaxml:append('img_frame')
+        img_frame.x       = 0
+        img_frame.y       = 30
+        img_frame.width   = logo_static.width
+        img_frame.height  = logo_static.width / WIDTH_FACTOR
+        local img_frame_texture = img_frame:append('texture')
+            img_frame_texture[1] = 'ui_stroketextbox'
+        -- Logo Image Static ----------------------------------
+        local img_static = luaxml:append('img_static')
+        img_static.x       = 4
+        img_static.y       = 4
+        img_static.width   = img_frame.width - 8
+        img_static.height  = img_frame.height - 8
+        img_static.stretch = 1
+        local img_static_texture = img_static:append('texture')
+            img_static_texture[1] = 'ui\\mbox\\mbox_logo_start'
+        -- Logo Timer Frame ----------------------------------
+        local timer_frame = luaxml:append('timer_frame')
+        timer_frame.x       = 0
+        timer_frame.y       = img_frame.height + 35
+        timer_frame.width   = logo_static.width
+        timer_frame.height  = 45 / WIDTH_FACTOR
+        local timer_frame_texture = timer_frame:append('texture')
+            timer_frame_texture[1] = 'ui_stroketextbox'
+        -- Logo Timer Static ----------------------------------
+        local timer_static = luaxml:append('timer_static')
+        timer_static.x       = 2
+        timer_static.y       = 2
+        timer_static.width   = timer_frame.width - 4
+        timer_static.height  = timer_frame.height - 4
+        local timer_static_text = timer_static:append('text')
+            timer_static_text.align = 'c'
+            timer_static_text.font  = 'graffiti50'
+            timer_static_text.r     = 204
+            timer_static_text.g     = 102
+            timer_static_text.b     = 0
+        -- Button Plate --------------------------------------
+        local btn_plate = luaxml:append('btn_plate')
+        btn_plate.width   = plates_static.width - 5
+        btn_plate.height  = 40
+        btn_plate.stretch = 1
+        local btn_plate_texture = btn_plate:append('texture')
+            btn_plate_texture[1] = 'ui_button_ordinary_d'
+        local btn_plate_text = btn_plate:append('text')
+            btn_plate_text[1]    = translate("mbox_plate_btn_empty")
+            btn_plate_text.align = 'c'
+            btn_plate_text.font  = 'letterica16'
+            btn_plate_text.r     = 150
+            btn_plate_text.g     = 150
+            btn_plate_text.b     = 150
+        -- Button Track --------------------------------------
+        local btn_track = luaxml:append('btn_track')
+        btn_track.width   = plates_static.width - 5
+        btn_track.height  = 40
+        btn_track.stretch = 1
+        local btn_track_texture = btn_track:append('texture')
+            btn_track_texture[1] = 'ui_button_ordinary_e'
+        local btn_track_text = btn_track:append('text')
+            btn_track_text.align = 'c'
+            btn_track_text.font  = 'letterica18'
+        -- Button Sys --------------------------------------
+        local btn_sys = luaxml:append('btn_sys')
+        btn_sys.width   = 245 * WIDTH_FACTOR
+        btn_sys.height  = 60
+        btn_sys.stretch = 1
+        local btn_sys_texture = btn_sys:append('texture')
+            btn_sys_texture[1] = 'ui_button_ordinary_e'
+        local btn_sys_text = btn_sys:append('text')
+            btn_sys_text.align = 'c'
+            btn_sys_text.font  = 'letterica25'
+    -- Save XML ------------------------------
+    luaxml:save(DYN_XML_SAVE_PATH)
+end
+
+function musicbox_base:InitApp()
+    self.cxml = CScriptXmlInit()
+    self.cxml:ParseFile("ui_dynamic.xml")
+    self.main          = self.cxml:InitWindow("main",   0    , self)
+    self.bg_static     = self.cxml:InitStatic('bg_static'    , self)
+    self.plates_static = self.cxml:InitStatic('plates_static', self.bg_static)
+    self.plates_frame  = self.cxml:InitFrame ('plates_frame' , self.plates_static)
+    self.tracks_static = self.cxml:InitStatic('tracks_static', self.bg_static)
+    self.tracks_frame  = self.cxml:InitFrame ('tracks_frame' , self.tracks_static)
+    self.poster_static = self.cxml:InitStatic('poster_static', self.tracks_frame)
+    self.logo_static   = self.cxml:InitStatic('logo_static'  , self.bg_static)
+    self.img_frame     = self.cxml:InitFrame ('img_frame'    , self.logo_static)
+    self.img_static    = self.cxml:InitStatic('img_static'   , self.img_frame)
+    self.timer_frame   = self.cxml:InitFrame ('timer_frame'  , self.logo_static)
+    self.timer_static  = self.cxml:InitStatic('timer_static' , self.timer_frame)
+    for i = 1, 9 do
+        local y_pos, name = 40*(i-1)+5
+        name = 'btn_plate_'..i
+        self[name] = self.cxml:InitButton('btn_plate', self.plates_frame)
+        local btn = self[name]
+        btn:SetWndPos(0, y_pos)
+        btn:Enable(false)
+        self:Register(btn, name)
+        self:Connect(name, ui_events.BUTTON_CLICKED, self.OnPlateButtonClicked , self,  i)
+        ----------------
+        name = 'btn_track_'..i
+        self[name] = self.cxml:InitButton('btn_track', self.tracks_frame)
+        btn = self[name]
+        btn:SetWndPos(0, y_pos)
+        self:Register(btn, name)
+        self:Connect(name, ui_events.BUTTON_CLICKED, self.OnTrackButtonClicked , self, i)
+    end
+    self.btn_exit = self.cxml:InitButton('btn_sys', self.bg_static)
+    self.btn_exit:SetWndPos(95 * WIDTH_FACTOR, 520)
+    self.btn_exit:SetText(translate("mbox_sys_btn_exit_text"))
+    self.btn_exit:SetTextColor(255, 204, 51, 51)
+    self:Register(self.btn_exit,'btn_exit')
+    self:AddCallback('btn_exit', ui_events.BUTTON_CLICKED, self.onExit , self)
+    
+    self.btn_stop = self.cxml:InitButton('btn_sys', self.bg_static)
+    self.btn_stop:SetWndPos(345 * WIDTH_FACTOR, 520)
+    self.btn_stop:SetText(translate("mbox_sys_btn_stop_text"))
+    self.btn_stop:SetTextColor(255, 204, 102, 0)
+    self:Register(self.btn_stop, 'btn_stop')
+    self:AddCallback('btn_stop', ui_events.BUTTON_CLICKED, self.onStop , self)
+    
+    self.btn_play_all = self.cxml:InitButton('btn_sys', self.bg_static)
+    self.btn_play_all:SetWndPos(595 * WIDTH_FACTOR, 520)
+    self.btn_play_all:SetText(translate("mbox_sys_btn_play_all_text"))
+    self.btn_play_all:SetTextColor(255, 51, 153, 51)
+    self:Register(self.btn_play_all, 'btn_play_all')
+    self:AddCallback('btn_play_all', ui_events.BUTTON_CLICKED, self.onPlayAll , self)
+end
+
+function musicbox_base:OnPlateButtonClicked(i)
+	self.mbox_button_press:play_at_pos(self.spawn_obj, self.spawn_obj:position(), 0, sound_object.s3d)
+    self.checkedPlate = i
+    if self.actionPlate == i then
+        self.checkedTrack = self.actionTrack
+    else
+        self.checkedTrack = 0
+    end
+end
+
+function musicbox_base:OnTrackButtonClicked(i)
+	self.mbox_button_press:play_at_pos(self.spawn_obj, self.spawn_obj:position(), 0, sound_object.s3d)
+    self:onStop()
+    --------------------------------
+    local sec  = self.changer[self.checkedPlate].section
+    local file = plates[sec].tracks[i].file
+    --self.snd_obj = sound_object(music_dir..file)
+	self.snd_obj = xr_sound.get_safe_sound_object(music_dir..file)
+    --------------------------------
+	--log1("!!MUSBOX ["..tostring(music_dir..file).."]")
+	if not self.snd_obj then
+		log3("!!MUSBOX cannot create sndobj [%s]!", music_dir..file)
+		return
+	end
+	
+    local track_len = self.snd_obj:length()
+    local a = math.floor(track_len/1000)
+    local min,sec = math.modf (a/60)
+    self.objCTime = game.CTime()
+    self.objCTime:setHMS(0, min, math.floor(sec*60)-1)
+    --------------------------------
+    self.checkedTrack = i
+    self.actionPlate = self.checkedPlate
+    self.actionTrack = self.checkedTrack
+    self.snd_obj:play_at_pos(self.spawn_obj, self.spawn_obj:position(), 0, sound_object.s3d)
+end
+
+function musicbox_base:onStop()
+	self.mbox_button_press:play_at_pos(self.spawn_obj, self.spawn_obj:position(), 0, sound_object.s3d)
+    
+    if not self.snd_obj then return end
+    self.timer_static:SetText('')
+    if self.snd_obj:playing() then self.snd_obj:stop() end
+    self.actionPlate  = 0
+    self.actionTrack  = 0
+    self.checkedTrack = 0
+    self.snd_obj      = nil
+
+    if self.isClosed and ( not self.play_all or coroutine.status(self.play_all) == 'dead' or not self.checkedPlayAll ) then --Проверки, находящиеся в скобках, должны быть ТОЛЬКО в таком порядке, иначе будут проблемы!!!
+		self:unBind()
+    end
+end
+
+function musicbox_base:onPlayAll()
+	self.mbox_button_press:play_at_pos(self.spawn_obj, self.spawn_obj:position(), 0, sound_object.s3d)
+    self.checkedPlayAll = not self.checkedPlayAll
+    if self.checkedPlayAll then
+        self.play_all = this.co_create()
+        if self.actionTrack == 0 then
+            coroutine.resume(self.play_all, self)
+        end
+    end
+end
+
+function musicbox_base:UpdateBoxName()
+    local current_time = time_global()
+    if self.time_50 <= current_time then -- это в качестве ограничителя. на разных машинах апдейт производится с разной частотой
+        self.bg_static:SetTextColor(unpack(self.upd_color))
+        ------------------------------------------------------------
+        local new_a = self.upd_color[1] + self.matrix[self.matrix_pos][1]
+        local new_r = self.upd_color[2] + self.matrix[self.matrix_pos][2]
+        local new_g = self.upd_color[3] + self.matrix[self.matrix_pos][3]
+        local new_b = self.upd_color[4] + self.matrix[self.matrix_pos][4]
+        ------------------------------------------------------------
+        if  (new_a > 255 or new_a < 0) or
+            (new_r > 255 or new_r < 0) or
+            (new_g > 255 or new_g < 0) or
+            (new_b > 255 or new_b < 0) then
+            self.matrix_pos = self.matrix_pos == #self.matrix and 1 or self.matrix_pos + 1
+            return
+        end
+        self.upd_color = {new_a, new_r, new_g, new_b}
+        self.time_50   = current_time + 50
+    end
+end
+
+function musicbox_base:UpdateBtnTracks()
+    for i = 1, 9 do
+        local tracks  = getPlateData(self.checkedPlate, 'tracks')
+        local len     = tracks and #tracks + 1 or 0
+        local btn     = self['btn_track_'..i]
+        local bool    = i < len
+        btn:Show(bool)
+        if bool then
+            btn:SetText(tracks[i].name)
+            if self.checkedTrack == i then
+                btn:SetTextColor(255, 204, 102, 0)
+            else
+                btn:SetTextColor(255, 180, 180, 180)
+            end
+        end
+    end
+end
+
+function musicbox_base:UpdateBtnPlates()
+    for i = 1, #self.changer do
+        local title = getPlateData(i, 'title')
+        if title then
+            local btn = self['btn_plate_'..i]
+			if btn then
+				btn:SetText(title)
+				btn:SetFont(GetFontLetterica18Russian())
+				btn:Enable(true)
+				btn:InitTexture('ui_button_ordinary_e')
+				if i == self.checkedPlate then
+					btn:SetTextColor(255, 204, 102, 0)
+				else
+					btn:SetTextColor(255, 180, 180, 180)
+				end
+			end
+         end
+    end
+end
+
+function musicbox_base:UpdateLogoText()
+    if self.checkedPlate ~= 0 then
+        local title = getPlateData(self.checkedPlate, 'title')
+        self.logo_static:SetText(title)
+    else
+        self.logo_static:SetText(translate("mbox_logo_head_text"))
+    end
+end
+
+function musicbox_base:UpdateBtnPlayAll()
+    if self.checkedPlayAll then
+        self.btn_play_all:InitTexture('ui_button_ordinary_t')
+    else
+        self.btn_play_all:InitTexture('ui_button_ordinary_e')
+    end
+end
+
+function musicbox_base:UpdateLogoImg()
+    local checked = self.checkedPlate
+    if checked == 0 then
+        self.img_static:InitTexture('ui\\mbox\\mbox_logo_start')
+    else
+        local logo = getPlateData(checked, 'logo')
+        self.img_static:InitTexture(logo_dir..logo)
+    end
+end
+
+function musicbox_base:Update()
+    CUIScriptWnd.Update(self)
+    self:UpdateBoxName   ()
+    self:UpdateBtnPlates ()
+    self:UpdateBtnTracks ()
+    self:UpdateLogoImg   ()
+    self:UpdateBtnPlayAll()
+    self:UpdateLogoText  ()
+    
+    self.poster_static:Show(self.changer[1] == nil)
+end
+
+
+function musicbox_base:onExit()
+	self.mbox_button_press:play_at_pos(self.spawn_obj, self.spawn_obj:position(), 0, sound_object.s3d)
+    self.isClosed = true
+    self:unBind()
+    self:GetHolder():start_stop_menu(self,true)
+end
+
+function musicbox_base:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+    if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+        if dik == DIK_keys.DIK_ESCAPE then
+            self.isClosed = true
+            self:unBind()
+        end
+    end
+end

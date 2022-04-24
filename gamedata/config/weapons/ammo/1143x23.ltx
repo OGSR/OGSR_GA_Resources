@@ -1,0 +1,72 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[ammo_11.43x23_fmj]:ammo_base
+$spawn			= "weapons\ammo\ammo_11.43x23_fmj" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_1143x23_fmj.ogf
+description		= gunsl_ammo_11.43x23_fmj_descr
+inv_name		= gunsl_ammo_11.43x23_fmj
+inv_name_short	= gunsl_ammo_11.43x23_fmj_short
+inv_grid_width	= 2
+inv_grid_height	= 1
+inv_grid_x		= 9
+inv_grid_y		= 12
+
+cost			= 380
+box_size		= 20
+inv_weight		= 0.3		;+(10,2*20=357.0ã.)
+
+k_dist			= 0.96				;1.0
+k_disp			= 2.3				;1.02
+k_hit			= 1.85				;1.5
+k_impulse		= 2.0				;1.1
+k_pierce		= 0.85				;1.1
+;impair			= 1.01				;1.0
+wm_size         = 0.11
+;tracer			= on
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[ammo_11.43x23_hydro]:ammo_base
+$spawn			= "weapons\ammo\ammo_11.43x23_hydro" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_1143x23_Hydro.ogf
+description		= gunsl_ammo_11.43x23_hydro_descr
+inv_name		= gunsl_ammo_11.43x23_hydro
+inv_name_short	= gunsl_ammo_11.43x23_hydro_short
+inv_grid_width	= 2
+inv_grid_height	= 1
+inv_grid_x		= 7
+inv_grid_y		= 12
+
+cost			= 430
+box_size		= 20
+inv_weight		= 0.3
+
+k_dist			= 0.95
+k_disp			= 2.5
+k_hit			= 1.97				;1.7
+k_impulse		= 2.25				;1.25
+k_pierce		= 0.75				;1.1
+impair			= 1.25				;1.25
+wm_size         = 0.11
+;tracer			= on
+;explosive		= on
+
+[ammo_sleeping]:ammo_11.43x23_fmj
+$spawn			= "weapons\ammo\ammo_11.43x23_fmj" ; option for Level Editor
+visual          = weapons\ammo\ammo_1143x23_fmj.ogf
+;description		= enc_weapons1_ammo_ammo-11.43x23-fmj
+;inv_name		= ammo-11.43x23-fmj
+;inv_name_short	= ammo-11.43x23-fmj_s
+inv_grid_width	= 2
+inv_grid_height	= 1
+inv_grid_x		= 9
+inv_grid_y		= 12
+
+cost			= 1000
+box_size		= 20
+inv_weight		= 0.2
+
+k_dist			= 0.96
+k_disp			= 0.1
+k_hit			= 0.1
+k_impulse		= 0.1
+k_pierce		= 0.1
+wm_size         = 0.01

@@ -1,0 +1,57 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@izgioy_lider_threshold
+
+[walker@begin]
+path_walk = izgioy_lider_walk
+path_look = izgioy_lider_look
+on_timer = 100 | walker 
+
+[walker]
+path_walk = izgioy_lider_walk
+path_look = izgioy_lider_look
+; meet = meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+izgoy_lider_speech} remark
+
+[remark]
+anim = refuse
+no_move = true
+snd = izgoy_lider_speech
+snd_anim_sync = true
+target = actor
+meet = no_meet
+combat_ignore_cond = always
+on_signal = action_end | walker %-izgoy_lider_speech%
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 9|actor
+victim_wpn = 9|actor
+meet_state = 9|hello@val_escort_phrase_invite|5|wait@wait
+meet_state_wpn = 9|hello@val_escort_phrase_invite|5|wait@wait
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@izgioy_lider_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+izgioy_lider_dead%
+

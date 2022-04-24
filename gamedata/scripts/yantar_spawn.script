@@ -1,0 +1,33 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+---------------Copyright_Quest_2009-------------------
+--------------Edited_by_stalbar_2009------------------
+local spawn_db = ogse_spawn_db.script_spawn_registry.yantar_spawn
+
+--'function spawn_tompson( actor, npc )
+--'	alife():create("tompson",vector():set(104.91,-0.0,93.285),95605,1520)
+--'end
+
+local zombie_types_1 = {"rad_zombied_respawn_1","rad_zombied_respawn_2", "rad_zombied_respawn_3" }
+
+function zombied501( actor, npc )
+	--log1("zombied501() called")
+--SPAWN_V1
+	--ogse.quest_spawn(zombie_types_1[math.random(3)], 4, vector():set(-18.97, 2, -153.6), 3, 53717, 1446)	
+--SPAWN_V2
+	ogse.quest_spawn_ex(zombie_types_1[math.random(3)], 4, spawn_db.zombied501)
+	--log1("zombied501() completed")
+end
+
+function zombied502( actor, npc )
+	--'«омбированные сталкеры у входа на янтарь
+	--log1("zombied502() called")
+--SPAWN_V1
+	--- ogse.quest_spawn(zombie_types_1[math.random(3)], 4, vector():set(255.32, 5.75, -281.0), 3, 139751, 1528)
+--SPAWN_V2
+	--- ogse.quest_spawn_ex(zombie_types_1[math.random(3)], 4, spawn_db.zombied502)
+	--log1("zombied502() completed")
+	
+end
+---------------Copyright_Quest_2009-------------------
+--------------Edited_by_stalbar_2009------------------

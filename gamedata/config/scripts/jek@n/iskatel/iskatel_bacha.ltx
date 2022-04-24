@@ -1,0 +1,33 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker
+combat_ignore = combat_ignore
+danger = danger_ignore
+on_death = death
+
+[walker]
+path_walk =	bacha_1_walk
+path_look =	center_point
+on_info = {+ds_nalet_band_1_dead +ds_nalet_band_2_dead +ds_nalet_band_3_dead +ds_nalet_band_4_dead +ds_nalet_band_5_dead +ds_nalet_band_6_dead +ds_nalet_band_7_dead} walker1, {+kulg_band_surrend} walker1
+
+[walker1]
+path_walk =	bacha_1_walk
+path_look =	bacha_1_look
+on_timer = 50000 | walker2
+
+[walker2]
+path_walk =	bacha_2_walk
+path_look =	bacha_2_look
+on_timer = 50000 | walker1
+
+[danger_ignore]
+ignore_distance = 10
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[death]
+on_info = %+bacha_dead%
+

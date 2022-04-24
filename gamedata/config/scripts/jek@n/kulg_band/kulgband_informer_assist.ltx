@@ -1,0 +1,27 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+threshold = threshold@kulgband_informer_assist_threshold
+
+[walker@begin]
+path_walk =	kulgband_informer_walk
+path_look =	kulgband_informer_look
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+meet = no_meet
+
+
+[threshold@kulgband_informer_assist_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+
+
+
+
+
+
+

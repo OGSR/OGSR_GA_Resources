@@ -1,0 +1,89 @@
+;Логика Оружейника в лагере новичков на Кордоне
+
+[logic]
+active = walker@work
+;тест active = remark@base
+danger = danger_ignore
+combat_ignore = combat_ignore
+on_death = death
+trade = misc\trade_armourer.ltx
+trader_flags = 0
+inv_max_weight = 10000
+
+
+
+[walker@work]
+path_walk = esc_guns-repair_way
+path_look = esc_guns-repair_look
+no_move = true
+target = actor
+danger = danger_ignore
+combat_ignore = combat_ignore
+combat_ignore_cond = always
+meet = meet
+on_death = death
+
+
+
+
+[remark@base]
+on_info = {=time_day} walker@podval									
+	;если больше 6 меньше 22 работаем
+on_info2 = {=time_evening} sleeper@podval							
+	;если больше равно 22 и меньше 24 спим
+on_info3 = {=time_night} sleeper@podval							
+	;если больше 0 но меньше 6 спим
+target = actor
+danger = danger_ignore
+combat_ignore = combat_ignore
+combat_ignore_cond = always
+meet = meet
+on_death = death
+
+
+[walker@podval]
+path_walk = esc_guns-repair_way
+path_look = esc_guns-repair_look
+on_info = {=time_evening} sleeper@podval							
+	;если больше равно 22 и меньше 24 спим
+on_info2 = {=time_night} sleeper@podval 							
+	;если больше 0 но меньше 6 спим
+target = actor
+danger = danger_ignore
+combat_ignore = combat_ignore
+combat_ignore_cond = always
+meet = meet
+on_death = death
+
+
+[sleeper@podval]
+;path_main = esc_lager_sleep2
+lpath_main = esc_guns-repair_sleep-place
+path_main = esc_guns-repair_sleep-krovat
+on_info = {=time_day} walker@podval 									
+	;если больше 6 меньше 22 работаем
+target = actor
+danger = danger_ignore
+combat_ignore = combat_ignore
+combat_ignore_cond = always
+meet = meet
+on_death = death
+
+
+
+
+[danger_ignore]
+ignore_distance = 2
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[meet]
+meet_state = 4|salut_free@esc_guard_hello| 1|ward@wait
+meet_state_wpn = 4|backoff2@esc_guard_pristrely| 1|punch@esc_guard_kozly
+victim = 3|actor
+victim_wpn = 3|actor
+use = true
+use_wpn = false
+
+[death]

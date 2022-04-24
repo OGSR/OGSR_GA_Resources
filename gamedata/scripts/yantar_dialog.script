@@ -1,0 +1,23 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+function yantar_give_bad_psy_helmet(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "bad_psy_helmet", "in")
+	if db.actor:dont_has_info("have_psy_helmet") then db.actor:give_info_portion("have_psy_helmet") end
+end
+function yantar_give_good_psy_helmet(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "good_psy_helmet", "in")
+   	tasks_functor.give_bioradar_reward(second_speaker, 0)
+	if db.actor:dont_has_info("have_psy_helmet") then db.actor:give_info_portion("have_psy_helmet") end
+end
+
+function yantar_give_quest_artefact(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_cristall_flower", "in")
+end
+
+function yantar_give_autodoc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "autodoctor", "in")
+	dialogs.relocate_item_section(second_speaker, "cartridge_a", "in")
+	dialogs.relocate_item_section(second_speaker, "cartridge_h", "in")
+	dialogs.relocate_item_section(second_speaker, "cartridge_s", "in")
+	dialogs.relocate_item_section(second_speaker, "cartridge_r", "in")
+end

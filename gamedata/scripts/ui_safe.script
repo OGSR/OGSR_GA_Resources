@@ -1,0 +1,270 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+local WIDTH_FACTOR  = device().height / device().width / 0.75 -- коэффициент сжатия на выбранном разрешении
+local BASE_HEIGHT   = 720                 -- высота окна сейфа !!! Это базовый размер !!! Изменяя его,
+                                          -- пропорционально изменяться размеры как окна, так и его элементов
+local SIZE_FACTOR   = BASE_HEIGHT/720     -- Коэффициент изменения размеров окна
+
+class "ui_safe" (CUIScriptWnd)
+
+function ui_safe:__init(code, sid, tip, info) super()
+    self.sid          = sid   -- таблица с данными спавна нового ящика
+    self.info         = info  -- инфопорция, выдаваемая при вскрытии
+    self.code         = code  -- код ящика
+    self.tip          = tip   -- название текстуры с подсказкой
+    self.upcode       = ''    -- сюда записываются выбранные числа
+    self.current_num  = 0     -- текущее число на диске, стоящее вверху (напротив метки)
+    self.evt_weel_btn = false -- защита от нажатия на не подсвеченной кнопке. Пока не придумал что-то лучшее. Туплю.
+    -- weel ------------------------------------------------------------
+    self.weel_spin          = false -- крутиться ли колесо?
+    self.weel_spin_angle    = 4     -- (1,2,3,4,6,9,18,36...) угол поворота (градусы) колеса за апдейт
+    self.weel_sound_period  = 2     -- (1,2,3,4,6,9,18,36...) -- коэффициент отыгрывания звука колеса. 1 - с каждым углом поворота, 2 - один раз на два поворота, 3 - один раз на три поворота и т.д.
+    self.weel_sound_counter = 1     -- счетчик для отыгрывания звука поворота колеса
+    -------- self.weel_angle_limit       -- на сколько градусов нужно повернуть колесо
+    -------- self.weel_add_angle         -- прибавлять или вычитать self.weel_spin_angle
+    -- handle ----------------------------------------------------------
+    self.handle_spin          = false -- крутиться ли ручка?
+    self.handle_spin_angle    = 4     -- (1,2,3,4,6,9,18) угол поворота (градусы) ручки за апдейт
+    self.handle_open_limit    = 90    -- на сколько градусов нужно повернуть ручку
+    self.handle_close_angle   = 4     --  угол поворота (градусы) ручки за апдейт при не правильном коде
+    self.handle_close_limit   = 16    -- угод поворота при неверном коде
+    self.handle_close_counter = self.handle_close_limit
+    self.handle_close_reverse = self.handle_close_limit * 2
+    self.handle_snd_opening   = true  -- триггер проигрывания звука поворота ручки
+    
+    self:InitLuaXml()
+    self:InitApp   ()
+    self:Bind      ()
+end
+
+function ui_safe:__finalize() end
+
+function ui_safe:InitLuaXml()
+    local luaxml = xml.new("ui_safe")
+        -- Main Window ------------------------------
+        local main = luaxml:append('main')
+        main.width  = 498 * SIZE_FACTOR
+        main.height = BASE_HEIGHT
+        main.x      = 263 --/ WIDTH_FACTOR--(1024 - main.width) / 2 -- располагать по центру ...
+        main.y      = 768 - main.height       -- ... и внизу
+        -- Background Static ------------------------------
+        local bg_static = luaxml:append('bg_static')
+        bg_static.x       = 0
+        bg_static.y       = 0
+        bg_static.width   = main.width
+        bg_static.height  = main.height
+        bg_static.stretch = 1
+        bg_static.heading = 1
+            local bg_static_texture = bg_static:append('texture')
+            bg_static_texture[1] = "ui\\safe\\bg"
+        -- Tips Static ------------------------------
+        local tip_static = luaxml:append('tip_static')
+        tip_static.x       = 116 * SIZE_FACTOR
+        tip_static.y       = 342 * SIZE_FACTOR
+        tip_static.width   = 306 * SIZE_FACTOR
+        tip_static.height  = 306 * SIZE_FACTOR
+        tip_static.stretch = 1
+        tip_static.heading = 1
+        if isString(self.tip) then
+            local tip_static_texture = tip_static:append('texture')
+            tip_static_texture[1] = self.tip
+        end
+        -- Weel Static -------------------------------------
+        local weel_static = luaxml:append('weel_static')
+        weel_static.x       = 151 * SIZE_FACTOR
+        weel_static.y       = 110 * SIZE_FACTOR
+        weel_static.width   = 210 * SIZE_FACTOR
+        weel_static.height  = 210 * SIZE_FACTOR
+        weel_static.stretch = 1
+        weel_static.heading = 1
+            local weel_texture = weel_static:append('texture')
+            weel_texture[1] = "ui\\safe\\weel"
+        -- Weel Button ---------------------------------------
+        local weel_button = luaxml:append('weel_button')
+        weel_button.x       = 0
+        weel_button.y       = 0
+        weel_button.width   = 32 * SIZE_FACTOR * WIDTH_FACTOR
+        weel_button.height  = 32 * SIZE_FACTOR
+        weel_button.stretch = 1
+            local weel_button_texture = weel_button:append('texture')
+            weel_button_texture[1] = 'ui\\safe\\weel_light'--"fx\\fx_gradient_halo" 
+        -- Handle Static -------------------------------------
+        local handle_static = luaxml:append('handle_static')
+        handle_static.x       = 176 * SIZE_FACTOR
+        handle_static.y       = 418 * SIZE_FACTOR
+        handle_static.width   = 156 * SIZE_FACTOR
+        handle_static.height  = 156 * SIZE_FACTOR
+        handle_static.stretch = 1
+        handle_static.heading = 1
+            local handle_texture = handle_static:append('texture')
+            handle_texture[1] = "ui\\safe\\handle"
+        -- Handle Button -------------------------------------
+        local handle_button = luaxml:append('handle_button')
+        handle_button.x       = handle_static.width/8
+        handle_button.y       = handle_static.height/4
+        handle_button.width   = handle_button.x * 6
+        handle_button.height  = handle_button.y * 2
+    -- Save XML ------------------------------
+    luaxml:save(DYN_XML_SAVE_PATH)
+end
+
+function ui_safe:InitApp()
+    self.cxml = CScriptXmlInit()
+    self.cxml:ParseFile("ui_dynamic.xml")
+    self.main   = self.cxml:InitWindow("main", 0, self)
+    self.bg     = self.cxml:InitStatic('bg_static'  , self)
+    self.cxml:InitStatic('tip_static', self)
+    self.weel   = self.cxml:InitStatic('weel_static', self.bg  )
+    
+    for i = 0, 9 do
+        local btn = self.cxml:InitButton("weel_button", self.weel)
+        local name  = "weel_btn_"..i
+        
+        local angle = (i - self.current_num)*math.pi*2 / 10
+        local cx    = self.weel:GetWidth()  / 2
+        local cy    = self.weel:GetHeight() / 2
+        local rad   = cy * 0.76
+        local posx  = cx + rad * math.sin(angle) * WIDTH_FACTOR
+        local posy  = cy - rad * math.cos(angle)
+        local b_h   = btn:GetHeight()
+        local b_w   = btn:GetWidth()
+        btn:SetWndPos(posx - b_w/2, posy - b_h/2)
+        btn:SetColor(GetARGB(0,255,255,255))
+        self:Register(btn, name)
+        
+        self:Connect(name, ui_events.BUTTON_CLICKED       , self.OnWeelButtonClicked , self, btn, i)
+        self:Connect(name, ui_events.STATIC_FOCUS_RECEIVED, self.OnWeelButtonReceived, self, btn)
+        self:Connect(name, ui_events.STATIC_FOCUS_LOST    , self.OnWeelButtonLost    , self, btn)
+    end
+    
+    self.handle = self.cxml:InitStatic('handle_static', self.bg)
+    
+    self.handle_btn = self.cxml:InitButton('handle_button', self.handle)
+    local name = 'handle_static'
+    self:Register(self.handle_btn, name)
+    self:Connect(name, ui_events.BUTTON_CLICKED       , self.OnHandleButtonClicked , self, self.handle_btn)
+    self:Connect(name, ui_events.STATIC_FOCUS_RECEIVED, self.OnHandleButtonReceived, self)
+    self:Connect(name, ui_events.STATIC_FOCUS_LOST    , self.OnHandleButtonLost    , self)
+end
+
+-- пописать апдейт
+function ui_safe:Bind()
+    self.sm_update = {signal = "on_update", ['self'] = self, fun = self.onUpdate}
+    ogse_signals.get_mgr():subscribe(self.sm_update)
+end
+-- отписать апдейт
+function ui_safe:unBind()
+    ogse_signals.get_mgr():unsubscribe(self.sm_update)
+	self.sm_update = nil
+	self:ClearCallbacks()
+end
+
+function ui_safe:onUpdate()
+    if self.weel_spin then 
+        if self.weel_angle_limit >= self.weel_spin_angle then  -- если ещё остался угол до верха
+            self.weel_angle_limit = self.weel_angle_limit - self.weel_spin_angle
+            self.weel:SetHeading(self.weel:GetHeading() + math.rad(self.weel_add_angle))
+            if self.weel_sound_counter == self.weel_sound_period then
+			   soundtrack.safe_click()
+               self.weel_sound_counter = 1
+            else
+               self.weel_sound_counter = self.weel_sound_counter + 1
+            end
+        else
+            self.weel_sound_counter = 1
+            self.weel_spin = false
+        end
+    elseif self.handle_spin then
+        if self.upcode == self.code then
+            if self.handle_open_limit >= self.handle_spin_angle then  -- если ещё остался угол до верха
+                self.handle_open_limit = self.handle_open_limit - self.handle_spin_angle
+                self.handle:SetHeading(self.handle:GetHeading() - math.rad(self.handle_spin_angle))
+                if self.handle_snd_opening then
+					soundtrack.safe_opening()
+                    self.handle_snd_opening = false
+                end
+            else
+				soundtrack.wood_large_open()
+                db.actor:give_info_portion (self.info)
+                self.handle_spin = false
+                local o = alife():story_object(self.sid)
+                self:Exit()
+                
+                local obj = level.object_by_id(o.id)
+                db.actor:open_inventory_box(obj)
+            end
+        else
+            if self.handle_close_counter < self.handle_close_reverse and self.handle_close_counter >= self.handle_close_angle then
+                self.handle_close_counter = self.handle_close_counter - self.handle_close_angle
+                self.handle:SetHeading(self.handle:GetHeading() - math.rad(self.handle_close_angle))
+            else
+				soundtrack.metal_small_close_stop()
+                
+                self.handle_close_counter = 16
+                self.handle_close_angle = -(self.handle_close_angle)
+
+                if self.handle_close_angle > 0 then 
+                    self.handle_spin = false
+                    self.upcode = '' -- при не верном коде - очистить строку набранных чисел
+                end
+            end
+        end
+    end
+end
+
+function ui_safe:OnWeelButtonClicked(btn, id)
+    if self.evt_weel_btn then                 -- не реагировать, пока не покинем зону статика и снова не зайдём
+        local old_num   = self.current_num
+        local new_num   = (old_num + id) % 10
+        local circle    = old_num == new_num   -- если клацаем по верхней кнопке - крутим полный круг
+        local clockwise = id > 5               -- определить направление вращения. по часовой - true
+        
+        self.current_num  = new_num              -- записать новое значение
+        self.weel_add_angle    = clockwise and -self.weel_spin_angle or self.weel_spin_angle -- прибавлять или вычитать self.weel_spin_angle
+        self.upcode       = self.upcode..new_num -- добавить к коду новое значение
+        self.weel_angle_limit  = ((clockwise or circle) and 10 - id or  id)*36 
+        self:OnWeelButtonLost(btn)               -- фиктивный выход курсора из статика кнопки (потушить нажатую)
+        self.weel_spin    = true                 -- запустить поворот колеса
+        self.evt_weel_btn = false 
+    end
+end
+
+function ui_safe:OnWeelButtonReceived(btn)
+    if not self.handle_spin and not self.weel_spin then -- если крутиться колесо или ручка - не обрабатывать
+        self.evt_weel_btn = true
+        btn:SetColor(GetARGB(255,255,255,255))
+    end
+end
+
+function ui_safe:OnWeelButtonLost(btn)
+    if not self.handle_spin and not self.weel_spin then
+        self.evt_weel_btn = false
+        btn:SetColor(GetARGB(0,255,255,255))
+    end
+end
+
+function ui_safe:OnHandleButtonClicked(btn)
+    self.handle_spin = true
+end
+
+function ui_safe:OnHandleButtonReceived(btn)
+    self.handle:SetColor(GetARGB(255,255,255,100))
+end
+
+function ui_safe:OnHandleButtonLost(btn)
+    self.handle:SetColor(GetARGB(255,255,255,255))
+end
+
+function ui_safe:Exit()
+    self:unBind()
+    self:GetHolder():start_stop_menu(self,true)
+end
+
+function ui_safe:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		if dik == DIK_keys.DIK_ESCAPE then
+			self:unBind()
+		end
+	end
+end

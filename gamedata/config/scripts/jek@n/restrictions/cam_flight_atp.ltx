@@ -1,0 +1,11 @@
+[logic]
+active = sr_idle
+ 
+[sr_idle]
+on_actor_inside = sr_cutscene
+ 
+[sr_cutscene]
+point = esc_assault_look_wait2
+look = esc_assault_look_wait2
+cam_effector = jekan_camera_travel_2
+on_signal = cameff_end | nil

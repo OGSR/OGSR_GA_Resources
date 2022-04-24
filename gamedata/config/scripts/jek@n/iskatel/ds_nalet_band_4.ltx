@@ -1,0 +1,35 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker
+combat_ignore = combat_ignore
+danger = danger_ignore
+on_death = death
+
+[walker]
+path_walk =	band_4_walk
+path_look =	center_point
+on_info = {+yuriy_dead +bacha_dead +shaman_dead +dusty_dead +ahmet_dead} kamp, {+bandits_kill_iskateli} kamp, {+kulg_band_surrend} kamp@new
+
+[kamp]
+path_walk = koster_point_task
+center_point = koster_point
+radius = 2 
+def_state_moving = walk
+
+[kamp@new]
+path_walk = new_koster_point_task
+center_point = new_koster_point
+radius = 2 
+def_state_moving = run
+
+[danger_ignore]
+ignore_distance = 10
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[death]
+on_info = %+ds_nalet_band_4_dead%
+

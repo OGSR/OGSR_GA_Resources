@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+<book_visual_device_1>	
+	<background x="20" y="30" width="812" height="812" stretch="1">
+		<texture>ui\bookpages\bookpage_background</texture>
+	</background>
+
+	<page1 x="250" y="65" width="420" height="500" stretch="1">
+		<texture>ui\bookpages\book_1_text_1</texture>
+		<infoportion>infa_about_boltun</infoportion>
+	</page1>
+
+	<btn_quit x="670" y="540" width="117" height="29">
+		<texture_e>ui_button_ordinary_e</texture_e>
+		<texture_t>ui_button_ordinary_t</texture_t>
+		<texture_h>ui_button_ordinary_h</texture_h>
+		<text>ui_inv_exit</text>
+	</btn_quit>
+</book_visual_device_1>
+
+

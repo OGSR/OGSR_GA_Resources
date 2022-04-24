@@ -1,0 +1,16 @@
+[logic]
+active = ph_door@locked
+
+[ph_door@locked]
+locked = true
+closed = true
+;on_info = {+loschina_task_start} ph_door@open %=play_snd(device\door_servomotor)%
+tip_open = 
+tip_close = 
+on_use = %=play_snd(device\door_servomotor)%
+
+[ph_door@open]
+locked = false
+closed = false
+tip_open = 
+tip_close = 

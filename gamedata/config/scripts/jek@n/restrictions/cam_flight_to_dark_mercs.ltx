@@ -1,0 +1,11 @@
+[logic]
+active = sr_idle
+ 
+[sr_idle]
+on_actor_inside = sr_cutscene
+ 
+[sr_cutscene]
+point = dar_dez_btr_walk_middle_2
+look = dar_dez_btr_walk_middle_2
+cam_effector = jekan_camera_travel_4
+on_signal = cameff_end | nil

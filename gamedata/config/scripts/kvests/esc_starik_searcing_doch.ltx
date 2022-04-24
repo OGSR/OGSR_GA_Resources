@@ -1,0 +1,29 @@
+
+[logic]
+active = walker
+combat_ignore = combat_ignore
+
+[smart_terrains]
+none = true
+
+[walker]
+path_walk = gar_starik_searcing_doch_walk
+path_look = gar_starik_searcing_doch_look
+danger = danger_condition
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+;combat_ignore_cond = {-ded_slabyi_dratsya_ne_budet}
+
+[combat_ignore]
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+;combat_ignore_cond = {-ded_slabyi_dratsya_ne_budet}
+
+[meet]
+meet_state = 5| hello| 3| hello| 2| hello
+meet_state_wpn = 5| hello| 3| hello
+victim = 5| actor
+victim_wpn = 5| actor
+use = true
+use_wpn = false
+
+[danger_condition]
+ignore_distance = 0

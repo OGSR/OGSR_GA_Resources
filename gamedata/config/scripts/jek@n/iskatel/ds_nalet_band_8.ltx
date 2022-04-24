@@ -1,0 +1,89 @@
+[smart_terrains]
+none = true
+ 
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+threshold = threshold@band_8_threshold
+on_death = death
+ 
+[walker@begin]
+path_walk = band_8_walk
+path_look = band_8_look
+on_timer = 100 | walker 
+combat_ignore_keep_when_attacked = true
+ 
+[walker]
+path_walk = band_8_walk
+path_look = band_8_look
+meet = no_meet 
+danger = danger_condition
+on_info = {+yuriy_dead +bacha_dead +shaman_dead +dusty_dead +ahmet_dead} walker@1, {+yuriy_to_bloha} walker@2, {+yuriy_talk_to_surrend} walker@3, {+yuriy_band_surrend_reward} walker@3, {+kulg_band_dead} walker@3
+combat_ignore_keep_when_attacked = true
+ 
+[walker@1]
+path_walk = band_8_walk1
+path_look = band_8_look1
+; meet = meet@prisoner
+ 
+[walker@2]
+path_walk = band_8_walk
+path_look = band_8_look
+; meet = meet@prisoner
+on_info = {+yuriy_to_bloha2} walker@2_1 %-yuriy_to_bloha%, {+plenniy_shron_info} walker@2_2
+
+[walker@2_1]
+path_walk = band_8_walk
+path_look = band_8_look
+meet = no_meet
+on_info = {+yuriy_plennik_pomilovan} walker@2 %-yuriy_to_bloha2%
+
+[walker@2_2]
+path_walk = band_8_walk
+path_look = band_8_look
+meet = no_meet
+on_info = {+kulg_band_surrend} walker@3
+
+
+
+[walker@3]
+path_walk = proffesor_look
+path_look = proffesor_walk
+on_info = {+yuriy_dead +bacha_dead +shaman_dead +dusty_dead +ahmet_dead} walker@1
+; meet = no_meet 
+
+[threshold@band_8_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+ 
+[danger_condition]
+ignore_distance = 0
+ignore_ distance_grenade = 0
+ignore_ distance_corpse = 0
+ignore_ distance_hit = 0
+ignore_ distance_sound = 0
+ 
+[combat_ignore]
+combat_ignore_cond = always
+ 
+[meet@prisoner]
+meet_state = 15| prisoner| 10| prisoner| 5| prisoner
+meet_state = 15| prisoner| 10| prisoner| 5| prisoner
+victim = 15| nil
+victim_wpn = 15| nil
+use = true
+use_wpn = true
+; meet_dialog = ds_plenniy_start_dialog
+
+[meet@normal]
+; эта - в состоянии когда отпустили
+meet_state = 10| wait@talk_hello
+meet_state_wpn = 10| wait@talk_hello
+victim = 10| actor
+victim_wpn = 10| actor
+use = true
+use_wpn = true
+;meet_dialog = 
+
+[death]
+on_info = %+ds_nalet_band_8_dead%

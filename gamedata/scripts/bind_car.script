@@ -1,0 +1,218 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+function init(obj)
+   obj:bind_object(car_binder(obj))
+end
+
+class "car_binder" (object_binder)
+function car_binder:__init(obj) super(obj)
+	self.sm = ogse_signals.get_mgr()
+	self.is_lights_on = false
+	self.is_engine_on = false
+	self.first_update_called = false
+end
+
+function car_binder:reinit()
+	self.object:set_callback( callback.death, self.death_callback, self )
+	self.object:set_callback( callback.use_object, self.use_callback, self )
+end
+
+function car_binder:use_callback( obj, who )
+	if not obj then return end
+	local sobj = alife():object( obj:id() )
+	if not sobj then return end
+	--
+	if not who:is_actor() then return end
+	--
+	dsh.exec_on_update(function()
+		if ogse_car_control.get_actor_car() then --KRodin: Если вызывать без таймаута - проверка всегда возвращает false.
+			self.sm:call("on_attach_vehicle", obj, sobj)
+		else
+			self.sm:call("on_use_vehicle", obj, sobj)
+		end
+	end )
+end
+
+function car_binder:load(reader)
+	if reader:r_eof() then
+		return
+	end
+	self.start_fuel = reader:r_float()
+	if reader:r_elapsed() ~= 0 then
+		local light = reader:r_u8()
+		if light == 1 then
+			self.is_lights_on = true
+		else
+			self.is_lights_on = false
+		end
+		local engine = reader:r_u8()
+		if engine == 1 then
+			self.is_engine_on = true
+		else
+			self.is_engine_on = false
+		end
+	end
+end
+
+function car_binder:net_spawn()
+	db.add_car(self.object)
+
+	self.sm:call( "on_car_spawn", self.object, self )
+	return true
+end
+
+function open_door(door_def)
+	door_def.bone:set_max_force_and_velocity(door_def.force, -door_def.velocity, door_def.axis)
+end
+
+function close_door(door_def)
+	door_def.bone:set_max_force_and_velocity(door_def.force, door_def.velocity, door_def.axis)
+end
+
+function read_door_definition(obj, line)
+	local ini = obj:get_visual_ini()
+	ASSERT(ini, "")
+	if ini:line_exist("car_definition", line) then
+		local door_defs = get_names("car_definition", line, ini)
+		ASSERT(#door_defs == 4, 
+			"'%s' parameter for the car '%s' is not fully defined. Must have 4 values (bone name, force, velocity, axis)",
+			line,
+			obj:name())
+		local def = {}
+		local ph_shell = obj:get_physics_shell()
+		ASSERT(ph_shell, "")
+		def.bone_name = door_defs[1]
+		def.bone = ph_shell:get_joint_by_bone_name(door_defs[1])
+		def.force = tonumber(door_defs[2])
+		def.velocity = tonumber(door_defs[3])
+		def.axis = tonumber(door_defs[4])
+		return def
+	end
+	return nil
+end
+
+function car_binder:update()
+	if not self.ph_shell then --Надо делать именно на апдейте. При спавне - рано.
+		self.ph_shell = self.object:get_physics_shell()
+		if self.ph_shell then
+			-- даём пинок, чтобы опустить на землю
+			self.ph_shell:apply_force( 0, -self.object:mass(), 0 )
+			-- закрываем багажник
+			self.trunk_door_def = read_door_definition(self.object, "trunk_door")
+			if self.trunk_door_def then
+				close_door(self.trunk_door_def)
+			end
+			self.engine_door_def = read_door_definition(self.object, "engine_door")
+			if self.engine_door_def then
+				close_door(self.engine_door_def)
+			end
+			-- подписываемся на сигнал открывания/закрывания дверей
+			self._open_trunk_door_desc = {signal = "on_car_trunk_open", self = self, fun = self.on_trunk_open}
+			self.sm:subscribe(self._open_trunk_door_desc)
+			self._open_engine_door_desc = {signal = "on_car_engine_open", self = self, fun = self.on_engine_open}
+			self.sm:subscribe(self._open_engine_door_desc)
+			self.subscribed = true
+		end
+		--
+		local car = self.object:get_car()
+		if self.start_fuel then
+			car:SetFuel(self.start_fuel)
+			self.start_fuel = nil
+		end
+		--
+		if not self.first_update_called then
+			if self.is_lights_on then
+				car:SwitchLights()
+			end
+			if self.is_engine_on then
+				car:SwitchEngine()
+			end
+			self.first_update_called = true
+		end
+	end
+
+--[=[ --KRodin: выключил, не вижу в этом нужды.
+	--Обработки туториального запора в деревне новичков
+	if string.find(self.object:name(), "esc_vehicle_zaz_in_novice_lager") then
+		-- сделаем запор неубиваемым, пока игрок не закончит квест с военными
+		if db.actor:dont_has_info("esc_kvest_sdelka_with_mils_complete") and db.actor:dont_has_info("esc_kvest_sdelka_with_mils_fail") then
+			local car = self.object:get_car()
+			car:SetfHealth(1.0)
+		end
+	end
+	if string.find(self.object:name(), "vehicle_esc_last_request_gaz66") then
+		if db.actor:dont_has_info("esc_last_request_lets_drive_gaz66") then
+			local car = self.object:get_car()
+			car:SetfHealth(1.0)
+		end
+	end
+--]=]
+end
+
+function car_binder:on_engine_open(car)
+	if self.engine_door_def then
+		if not self.engine_door_opened then
+			open_door(self.engine_door_def)
+			self.engine_door_opened = true
+		else
+			close_door(self.engine_door_def)
+			self.engine_door_opened = false
+		end
+	end
+end
+
+class "wait_for_car_inventory_closed" (ogse_qt.quick_timer)
+function wait_for_car_inventory_closed:__init(binder) super()
+	self.car_binder = binder
+end
+function wait_for_car_inventory_closed:condition()
+	return not level.main_input_receiver()
+end
+function wait_for_car_inventory_closed:action()
+	close_door(self.car_binder.trunk_door_def)
+end
+
+function car_binder:on_trunk_open(car)
+	if self.trunk_door_def then
+		open_door(self.trunk_door_def)
+		wait_for_car_inventory_closed(self):start()
+	end
+end
+
+function car_binder:save(packet)
+	local car = self.object:get_car()
+	packet:w_float(car:GetFuel())
+	packet:w_u8(car:IsLightsOn())
+	packet:w_u8(car:IsEngineOn())
+end
+
+function car_binder:death_callback(victim, who)
+	db.del_car(self.object) -- удаляем машину из глобальной базы
+
+	self.sm:call( "on_car_death", self.object, who )
+
+	local s_car = alife():object(self.object:id())
+	if s_car then
+		alife():release(s_car, true) --Удаляем машину
+	end
+end
+
+function car_binder:net_destroy()
+	self.object:set_callback( callback.death, nil )
+	self.object:set_callback( callback.use_object, nil )
+
+	if self.subscribed then --Проверка, прошел ли хоть один апдейт и успели ли мы подписаться на сигналы
+		self.sm:unsubscribe(self._open_trunk_door_desc)
+		self.sm:unsubscribe(self._open_engine_door_desc)
+		self._open_trunk_door_desc = nil
+		self._open_engine_door_desc = nil
+	end
+
+	db.del_car(self.object)
+
+	self.sm:call( "on_car_net_destroy", self.object, self )
+end
+
+function car_binder:net_save_relevant()
+	return true
+end

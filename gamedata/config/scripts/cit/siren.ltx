@@ -1,0 +1,14 @@
+[logic]
+active = ph_idle@wait
+
+[ph_idle@wait]
+on_info = {=time_to_fire_siren -master_quest_soup_ready} ph_sound@alarm
+on_info2 = {+master_quest_soup_ready} ph_idle@nil
+
+[ph_sound@alarm]
+snd = mg_night
+on_info = {!time_to_fire_siren -master_quest_soup_ready} ph_idle@wait
+on_info2 = {+master_quest_soup_ready} ph_idle@nil
+
+[ph_idle@nil]
+

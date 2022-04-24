@@ -1,0 +1,34 @@
+[logic]
+active = sr_idle@1
+
+[sr_idle@1]
+on_info = {=sleep_bloodsucker_on_place} sr_tip@1 %+sleep_bloodsucker_on_place%
+
+[sr_tip@1]
+name = bloodsucker_on_place_tip
+type = tips
+sender = swampdoc
+on_actor_inside = sr_idle@2
+showtime = 9000
+
+
+[sr_idle@2]
+on_info = {=sleep_pseudodog_on_place} sr_tip@2 %+sleep_pseudodog_on_place%
+
+[sr_tip@2]
+name = pseudodog_on_place_tip
+type = tips
+sender = swampdoc
+on_actor_inside = sr_idle@3
+showtime = 9000
+
+
+[sr_idle@3]
+on_info = {+111} nil
+
+
+
+
+
+
+

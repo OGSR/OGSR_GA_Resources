@@ -1,0 +1,19 @@
+[logic]
+active = ph_sound@day
+
+[ph_sound@day]
+snd = esc_music_day
+on_info = {-blowout -horror_time} ph_sound@day
+on_info2 = {+horror_time -blowout} ph_sound@3
+on_info3 = {+blowout} ph_sound@blowout
+
+[ph_sound@blowout]
+on_info = {-blowout -horror_time} ph_sound@day
+on_info2 = {+horror_time -blowout} ph_sound@3
+on_info3 = {+blowout} ph_sound@blowout
+
+
+[ph_sound@3]
+on_info = {-blowout -horror_time} ph_sound@day
+on_info2 = {+horror_time -blowout} ph_sound@3
+on_info3 = {+blowout} ph_sound@blowout

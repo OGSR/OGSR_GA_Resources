@@ -1,0 +1,22 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = mob_walker
+on_death = mob_death
+
+[mob_walker]
+path_walk = bar_arena_walk_6_1
+on_info = {+bar_arena_fight_begin} mob_walker1
+braindead = true
+
+[mob_walker1]
+path_walk = bar_arena_walk_4_4
+braindead = false
+on_game_timer = 1060 | mob_walker2
+
+[mob_walker2]
+path_walk = bar_arena_walk_6_1
+
+[mob_death]
+on_info = {+bar_arena_fight} %=aem_death(team1)%

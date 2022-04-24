@@ -1,0 +1,977 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+		<string id="barman_document_description">
+		<text>Содержит карты, фотографии и дискету</text>
+	</string>
+	<string id="barman_document">
+		<text>Документы бармена</text>
+	</string>
+	<string id="item test1">
+		<text>Это тестовая строка для вещмешка.</text>
+	</string>
+	<string id="item test2">
+		<text>Это ещё одна тестовая строка для вещмешка.</text>
+	</string>
+	<string id="item_case_esc_desc">
+		<text>Кейс с документами. Сделан из огнеупорного материала.</text>
+	</string>
+	<string id="item_decoder_desc">
+		<text>Нечто вроде мощной электронной отмычки. Похоже, что она создавалась с целью взломать какой-то специфический электронный замок. Как ни странно, конструкция не подразумевает универсальности - она создавалась для конкретного замка и не способна взламывать какие-либо другие коды.</text>
+	</string>
+	<string id="item_decoder_name">
+		<text>Декодер</text>
+	</string>
+	<string id="item_detector_yantar_desc">
+		<text>Устройство для замеров пси-излучения. Жаль, что для использования нужны специальные знания.</text>
+	</string>
+	<string id="item_detector_yantar_name">
+		<text>Сенсор ПП-4а</text>
+	</string>
+	<string id="item_doc_x16_desc">
+		<text>Полиэтиленовый файл с документами. Без учёной степени по биологии сложно что-то в них понять.</text>
+	</string>
+	<string id="item_doc_x16_name">
+		<text>Документы из лаборатории Х-16</text>
+	</string>
+	<string id="item_doc_x18_desc">
+		<text>Толстая стопка научных бумаг. Сплошные термины, формулы и диаграммы.</text>
+	</string>
+	
+	<string id="ds_lablog_name">
+		<text>Лабораторный журнал</text>
+	</string>
+	<string id="ds_lablog_desc">
+		<text>Толстая стопка научных бумаг. На обложке стоит пометка "Лаборатория проекта Заслон". Очень занятное чтение: оказывается, Лощина - одно из первых мест, куда расширилась Зона практически сразу после своего появления, и довольно длительное время тут предпринимались попытки остановить её дальнейшее распространение - были подорваны и запечатаны тоннели, создавались особые заграждения и активная деятельность велась даже после того, как район накрыло Зоной.</text>
+	</string>	
+	
+	<string id="item_doc_x18p1_name">
+		<text>Документы из Х-18, часть 1</text>
+	</string>
+	<string id="item_doc_x18p2_name">
+		<text>Документы из Х-18, часть 2</text>
+	</string>
+	<string id="item_doc_x18p3_name">
+		<text>Документы из Х-18, часть 3</text>
+	</string>
+	<string id="item_doc_x18p4_name">
+		<text>Документы из Х-18, часть 4</text>
+	</string>
+	<string id="item_doc_x18p5_name">
+		<text>Документы из Х-18, часть 5</text>
+	</string>
+	<string id="item_docs_hiden_pri_desc">
+		<text>Потёртая рукопись в кожаной обложке. Написана самим Стрелком. Судя по заглавиям, в ней раскрываются некоторые загадки Зоны.</text>
+	</string>
+	<string id="item_docs_hiden_pri_name">
+		<text>Документы из Припяти</text>
+	</string>
+	<string id="item_dynamite_esc_desc">
+		<text>Тяжёлый деревянный ящик с надписями "Взрывоопасно" на нескольких языках.</text>
+	</string>
+	<string id="item_dynamite_esc_name">
+		<text>Ящик с динамитом</text>
+	</string>
+	<string id="item_flash_crazy_mil_desc">
+		<text>Флэш-диск - удобное устройство для переноса информации.</text>
+	</string>
+	<string id="item_flash_crazy_mil_name">
+		<text>Флешка сумасшедшего</text>
+	</string>
+	<string id="item_flash_eco_rost_desc">
+		<text>Флэш-диск - удобное устройство для переноса информации.</text>
+	</string>
+	<string id="item_flash_eco_rost_name">
+		<text>Флешка профессора Круглова</text>
+	</string>
+	<string id="item_flash_esc_desc">
+		<text>Флэш-диск - удобное устройство для переноса информации.</text>
+	</string>
+	<string id="item_flash_esc_name">
+		<text>Флешка пленного</text>
+	</string>
+	<string id="item_flash_gslinger_agro_desc">
+		<text>Флэш-диск - удобное устройство для переноса информации.</text>
+	</string>
+	<string id="item_flash_gslinger_agro_name">
+		<text>Флешка Стрелка</text>
+	</string>
+	<string id="item_key_x18_desc">
+		<text>Электронный ключ от подземной лаборатории Х-18.</text>
+	</string>
+	<string id="item_key_x18_name">
+		<text>Ключ Борова</text>
+	</string>
+	<string id="item_krot_flash">
+		<text>Флешка Крота</text>
+	</string>
+	<string id="item_PDA_lucky_desc">
+		<text>Карманный персональный компьютер. Незаменимое устройство в Зоне.</text>
+	</string>
+	<string id="item_PDA_lucky_name">
+		<text>КПК Счастливчика</text>
+	</string>
+	<string id="item_PDA_tiran_desc">
+		<text>Карманный персональный компьютер. Незаменимое устройство в Зоне.</text>
+	</string>
+	<string id="item_PDA_tiran_name">
+		<text>КПК Тирана</text>
+	</string>
+	<string id="item_quest_case_02_desc">
+		<text>Кейс с документами. Сделан из огнеупорного материала.</text>
+	</string>
+	<string id="item_quest_case_02_name">
+		<text>Документы военных</text>
+	</string>
+	<string id="item_case_esc_name">
+		<text>Документы с блокпоста</text>
+	</string>
+	<string id="yan_bad_psy_helmet_desc">
+		<text>Ненастроенный прототип, разработанный учёными для защиты от ПСИ-излучения.</text>
+	</string>
+	<string id="yan_bad_psy_helmet_name">
+		<text>Ненастроенный пси-шлем</text>
+	</string>
+	<string id="yan_good_psy_helmet_desc">
+		<text>Настроенный прототип, разработанный учёными для защиты от ПСИ-излучения.</text>
+	</string>
+	<string id="yan_good_psy_helmet_name">
+		<text>Настроенный пси-шлем</text>
+	</string>
+	<string id="amk_metka">
+		<text>GPS-маячок</text>
+	</string>
+	<string id="amk_metka_s">
+		<text>GPS-маячок</text>
+	</string>
+	<string id="enc_amk_metka">
+		<text>GPS-маячок. В Зоне появился не так давно, но пользуется бешеной популярностью за счёт универсальности и приемлемой цены. Изначально, опытный образец был завезён на территорию "Долга" для демонстрации и заключения сделки на поставку крупных партий таких маячков. Однако "случайная" пропажа тестовой версии накануне встречи представителей обеих сторон дала глубокую трещину в отношениях с поставщиком. Долгие и взаимовыгодные отношения Воронина и Сахарова пришлись тут, как нельзя кстати, и с помощью местного торговца опытный образец маячка попал в руки учёных полевой лаборатории, что на Янтаре. Там же он был модернизирован, а также поставлен на массовое производство для нужд всех страждущих. Оригинальная версия не сохранилась в связи с прямой модернизацией опытного образца. Модернизированная версия отличается в положительную сторону тем, что позволяет ставить цифровую подпись на маячке (кириллица, к сожалению, не поддерживается) и синхронизировать её с КПК владельца. На базе исследований системы защиты от пси-воздействия, учёные добились того, что маячок не даёт помех, и обнаружение его сторонним человеком практически невозможно. Учитывая тот факт, что GPS-маячок производится собственными силами лаборатории Сахарова, то и цены учёного более приемлемые, нежели у перекупщиков.</text>
+	</string>
+	<string id="treasure_detector_name">
+		<text>Детекторы</text>
+	</string>
+	<string id="treasure_abundant_artefact_name">
+		<text>Часто встречающиеся артефакты</text>
+	</string>
+	<string id="treasure_scarce_artefact_name">
+		<text>Редкие артефакты</text>
+	</string>
+	<string id="treasure_rarity_artefact_name">
+		<text>Редчайшие артефакты</text>
+	</string>
+	<string id="treasure_medecine_name">
+		<text>Медикаменты</text>
+	</string>
+	<string id="treasure_grenade_name">
+		<text>Гранаты</text>
+	</string>
+	<string id="treasure_wpngrenade_name">
+		<text>Гранаты для подствольника</text>
+	</string>
+	<string id="treasure_drink_name">
+		<text>Напитки</text>
+	</string>
+	<string id="treasure_ammo_name">
+		<text>Патроны</text>
+	</string>
+	<string id="treasure_mutant_name">
+		<text>Части монстров</text>
+	</string>
+	<string id="treasure_addon_name">
+		<text>Аддоны к оружию</text>
+	</string>
+	<string id="treasure_eat_name">
+		<text>Еда</text>
+	</string>
+	<string id="prof_zapiska_desc">
+		<text>Проффесор:\n"Боров, отправляю к тебе шныря с инфой, чтоб ты был в курсе дел. Кульгавый хочет загрести общак себе, надо обломать эту суку. Сейчас он сидит в Лощине на северном хуторке, охраняют его 4 рыла, двое из них - с крутыми пукалками и в бронеприкиде. Надо сделать так, чтобы ни он, ни его шохи не проссали о моих делах, а то хана мне и всем моим пацанам. С приветом.\n А, и еще: тот чертила, у которого была четвертая флешка, свалил с Лесопилки перед самым кипешем и засел на хате у деда Охотника. Надо б его оттуда выкурить, да времени нет."</text>
+	</string>
+	
+	<string id="item_arsenal_key_name">
+		<text>Ключ от арсенала.</text>
+	</string>
+	<string id="item_arsenal_key_desc">
+		<text>Ключ от двери арсенала "Свободы".</text>
+	</string>
+
+	<string id="af_blood_tutorial_name">
+		<text>Радиоактивная Кровь Камня</text>
+	</string>	
+	<string id="mil_svoboda_leader_pda_name">
+		<text>КПК Лукаша</text>
+	</string>
+	<string id="mil_svoboda_leader_pda_desc">
+		<text>Планшетный компьютер Лукаша, содержит массу важной информации о группировке "Свобода" и её операциях в Зоне.</text>
+	</string>
+	<string id="dar_pass_flash_name">
+		<text>Парольная смарт-карта ученого</text>
+	</string>	
+	<string id="dar_pass_document_name">
+		<text>Пропуск в лабораторию Х-18</text>
+	</string>	
+	<string id="prof_zapiska_name">
+		<text>Малява Профессора</text>
+	</string>
+	<string id="klondaik_flash_1_name">
+		<text>Флешка №1</text>
+	</string>
+	<string id="klondaik_flash_1_desc">
+		<text>Флешка №1. Содержит часть информации о местонахождении Клондайка артефактов</text>
+	</string>	
+	<string id="klondaik_flash_2_name">
+		<text>Флешка №2</text>
+	</string>
+	<string id="klondaik_flash_2_desc">
+		<text>Флешка №2. Содержит часть информации о местонахождении Клондайка артефактов</text>
+	</string>
+	<string id="klondaik_flash_3_name">
+		<text>Флешка №3</text>
+	</string>
+	<string id="klondaik_flash_3_desc">
+		<text>Флешка №3. Содержит часть информации о местонахождении Клондайка артефактов</text>
+	</string>
+	<string id="klondaik_flash_4_name">
+		<text>Флешка №4</text>
+	</string>
+	<string id="klondaik_flash_4_desc">
+		<text>Флешка №4. Содержит часть информации о местонахождении Клондайка артефактов</text>
+	</string>
+	<string id="klondaik_flash_5_name">
+		<text>Флешка №5</text>
+	</string>
+	<string id="klondaik_flash_5_desc">
+		<text>Флешка №5. Содержит часть информации о местонахождении Клондайка артефактов</text>
+	</string>	
+	<string id="af_kolya_name">
+		<text>Неизвестный артефакт</text>
+	</string>
+	<string id="unrecognised_art_desc">
+		<text>Воздействие артефакта не изучено</text>
+	</string>	
+	<string id="af_light_name">
+		<text>Свет</text>
+	</string>
+	<string id="af_dark_name">
+		<text>Тьма</text>
+	</string>
+	<string id="second_neutral_zapiska_name">
+		<text>Записка Одноглазого</text>
+	</string>	
+	<string id="villager_bone_1_name">
+		<text>Кость человеческой ноги</text>
+	</string>	
+	<string id="villager_bone_2_name">
+		<text>Кость человеческой руки</text>
+	</string>
+	<string id="villager_bone_3_name">
+		<text>Человеческий череп</text>
+	</string>
+	<string id="villager_bone_4_name">
+		<text>Ребра</text>
+	</string>
+	<string id="af_puzir_name">
+		<text>Пузырь</text>
+	</string>	
+	<string id="af_puzir_desc">
+		<text>Этот артефакт уникален тем, что в период интенсивного поглощения аномальной энергии создает вокруг себя слабые пространственные аномалии.</text>
+	</string>
+	<string id="af_skull_name">
+		<text>Аномальный череп</text>
+	</string>
+	<string id="enc_zone_artifact_af_skull">
+		<text>Скальп, снятый с суперконтроллера на Радаре. В полной темноте можно заметить исходящее от него свечение.</text>
+	</string>
+	<string id="af_container_empt_name">
+		<text>Контейнер</text>
+	</string>	
+	<string id="af_container_empt_desc">
+		<text>Контейнер для артефакта "Улей"</text>
+	</string>	
+	<string id="af_container_full_desc">
+		<text>Контейнер с артефактом "Улей"</text>
+	</string>
+	<string id="af_uley_name">
+		<text>Улей</text>
+	</string>
+	<string id="af_uley_desc">
+		<text>Артефакт, служащий источником или местом развития аномальных вирусов-мутантов.</text>
+	</string>
+	<string id="af_mayatnik_name">
+		<text>Маятник</text>
+	</string>	
+	<string id="af_mayatnik_desc">
+		<text>Артефакт, служащий источником невидимого поля, образующего пространственную аномалию-ловушку.</text>
+	</string>
+	<string id="mayatnik_part_name">
+		<text>Часть артефакта "Маятник"</text>
+	</string>
+	<string id="af_resine_name">
+		<text>Смола</text>
+	</string>	
+	<string id="af_resine_desc">
+		<text>Артефакт, служащий источником неорганических маслянистых веществ. Практической пользы не имеет.</text>
+	</string>	
+	<string id="af_sparks_name">
+		<text>Дуга</text>
+	</string>
+	<string id="af_sparks_desc">
+		<text>Артефакт, служащий источником микроскопических статических разрядов, принимающих у его поверхности форму искр. За схожесть с дугой электросварки получил соответствующее название.</text>
+	</string>
+	<string id="af_candle_name">
+		<text>Свечка</text>
+	</string>	
+	<string id="af_candle_desc">
+		<text>Артефакт, служащий источником постоянного светового излучения.</text>
+	</string>	
+	<string id="af_heart_name">
+		<text>Сердце</text>
+	</string>
+	<string id="af_heart_desc">
+		<text>Артефакт, служащий источником пульсирующего светового излучения в красной части спектра. Практической пользы не имеет. Бытует легенда, что образуется в том месте, где когда-то был убит человек.</text>
+	</string>
+	<string id="af_ray_name">
+		<text>Луч</text>
+	</string>	
+	<string id="af_ray_desc">
+		<text>Самый характерный из представителей вида "волновых" или "оптических" артефактов, излучающих постоянно в той или иной части спектра без видимого источника энергии. Яркие лучи этого артефакта способны составить конкуренцию даже электрическим фонарям. Защищает от порезов и пулевых ранений.</text>
+	</string>	
+	<string id="af_steam_name">
+		<text>Необычный чайник</text>
+	</string>
+	<string id="af_steam_desc">
+		<text>Кухонная принадлежность превратилась в нечто странное. Определенно эта вещь заинтересует ученых.</text>
+	</string>
+	<string id="af_spoon_name">
+		<text>Необычная ложка</text>
+	</string>
+	<string id="af_spoon_desc">
+		<text>Кухонная принадлежность превратилась в нечто странное. Определенно эта вещь заинтересует ученых.</text>
+	</string>	
+	<string id="af_plate_name">
+		<text>Необычная тарелка</text>
+	</string>
+	<string id="af_plate_desc">
+		<text>Кухонная принадлежность превратилась в нечто странное. Определенно эта вещь заинтересует ученых.</text>
+	</string>
+	<string id="af_bottle_name">
+		<text>Необычная бутыль</text>
+	</string>	
+	<string id="af_bottle_desc">
+		<text>Кухонная принадлежность превратилась в нечто странное. Определенно эта вещь заинтересует ученых.</text>
+	</string>	
+	<string id="af_jar_name">
+		<text>Необычная банка</text>
+	</string>
+	<string id="af_jar_desc">
+		<text>Кухонная принадлежность превратилась в нечто странное. Определенно эта вещь заинтересует ученых.</text>
+	</string>
+	<string id="af_doll_name">
+		<text>Необычная кукла</text>
+	</string>
+	<string id="af_doll_desc">
+		<text>Детская игрушка превратилась в нечто странное. Определенно эта вещь заинтересует ученых.</text>
+	</string>	
+	<string id="af_polter_name">
+		<text>Полтергейст</text>
+	</string>
+	<string id="af_polter_desc">
+		<text>Науке пока неизвестно, что общего у этого артефакта с одноименным мутантом кроме характерного свечения. В сталкерской среде ходят слухи, что эти камушки - все, что остается после полтергейстов после их природной смерти, другие же рассказывают, что это не что иное, как продукты жизнедеятельности этих монстров.</text>
+	</string>
+	<string id="cheb_name">
+		<text>Чебурашка</text>
+	</string>	
+	<string id="cheb_descr">
+		<text>Странная игрушка, кажется долго пролежавшая в аномалии. Тёплая на ощупь и пахнет шёрсткой. На спине грубо заштопана.</text>
+	</string>	
+	<string id="afscanner_name">
+		<text>Сканер</text>
+	</string>
+	<string id="afscanner_desc">
+		<text>Импульсный сканер в форме апгрейда для научного детектора "Поиск"</text>
+	</string>
+	<string id="fake_art_name">
+		<text>Артефакт-невидимка</text>
+	</string>
+	<string id="kommander_map_name">
+		<text>Карты командира</text>
+	</string>	
+	<string id="kommander_map_desc">
+		<text>Планшет с картами командира охраны экспедиции</text>
+	</string>
+	<string id="kommander_key_name">
+		<text>Ключ Командира</text>
+	</string>
+	<string id="kommander_diplomat_name">
+		<text>Дипломат командира</text>
+	</string>	
+	<string id="kommander_diplomat_desc">
+		<text>Дипломат командира охраны экспедиции. Можно открыть и ознакомиться с содержимым.</text>
+	</string>	
+	<string id="cheb_fakeart_name">
+		<text>Контейнер</text>
+	</string>
+	<string id="petruha_zapis_name">
+		<text>Поддельная малява Петрухи</text>
+	</string>
+	<string id="petruha_zapis_desc">
+		<text>Здарова, бакланЫ! А ну-ка па-быраму взяли и асвабадили этава чувачка, что в плену у вас, а то я вам лично маргалы выкалю и пасти пАрву, гадом буду. С приветом, Боров.</text>
+	</string>
+	<string id="magnit_full_name">
+		<text>Магнит</text>
+	</string>
+	<string id="magnit_full_desc">
+		<text>Этот артефакт никак не воздействует на человека, находясь у него на поясе, но если разделить это творение Зоны пополам, то половинки не потеряют свои свойства, а приобретут новые - перенос своего владельца в пространстве на небольшие расстояния. Артефакт уникален.</text>
+	</string>
+	<string id="af_magnit_part1_name">
+		<text>Минус</text>
+	</string>
+	<string id="af_magnit_part1_desc">
+		<text>Это одна из частей артефакта Магнит. Если повесить ее на пояс, то вследствии аномального воздействия Зоны можно мгновенно перенестись к месту нахождения недостающей части. Обе части при этом "притянутся" и артефакт будет восстановлен.</text>
+	</string>
+	<string id="af_magnit_part2_name">
+		<text>Плюс</text>
+	</string>
+	<string id="af_magnit_part2_desc">
+		<text>Это одна из частей артефакта Магнит. Если повесить ее на пояс, то вследствии аномального воздействия Зоны можно мгновенно перенестись к месту нахождения недостающей части. Обе части при этом "притянутся" и артефакт будет восстановлен.</text>
+	</string>
+	<string id="af_thunderbird_name">
+		<text>Буревестник</text>
+	</string>
+	<string id="af_thunderbird_desc">
+		<text>Артефакт, который предупреждает о выбросе, если одеть его на пояс. Также дает небольшую защиту от пси-воздействия.</text>
+	</string>	
+	<string id="af_bolt_name">
+		<text>Аномальный болт</text>
+	</string>
+	<string id="af_bolt_desc">
+		<text>Сталкеры бросают в аномалии болты, даже не догадываясь, что иногда они приобретают некоторые свойства.</text>
+	</string>
+	<string id="plastinka_1_name">
+		<text>Леонид Утёсов</text>
+	</string>
+	<string id="mbox_track1_1">
+		<text>У Чёрного моря</text>
+	</string>
+	<string id="mbox_track1_2">
+		<text>Московские окна</text>
+	</string>
+	<string id="mbox_track1_3">
+		<text>Раскинулось море</text>
+	</string>
+	<string id="mbox_track1_4">
+		<text>Дорогие москвичи</text>
+	</string>	
+<!-- 	<string id="mbox_track1_5">
+		<text>Одессит Мишка</text>
+	</string>
+	<string id="mbox_track1_6">
+		<text>Песня извозчика</text>
+	</string>	 -->
+	<string id="plastinka_2_name">
+		<text>Гарик Сукачев</text>
+	</string>
+	<string id="mbox_track2_1">
+		<text>Прощай, мой друг</text>
+	</string>
+	<string id="mbox_track2_2">
+		<text>Хочет хоть кто-то</text>
+	</string>
+	<string id="mbox_track2_3">
+		<text>Ночной полет</text>
+	</string>
+	<string id="mbox_track2_4">
+		<text>Знаю я, есть края</text>
+	</string>	
+	<string id="plastinka_3_name">
+		<text>Советская эстрада</text>
+	</string>
+	<string id="mbox_track3_1">
+		<text>Лаванда</text>
+	</string>
+	<string id="mbox_track3_2">
+		<text>Миллион алых роз</text>
+	</string>
+	<string id="mbox_track3_3">
+		<text>Старый отель</text>
+	</string>
+	<string id="mbox_track3_4">
+		<text>Этот мир</text>
+	</string>	
+	<string id="mbox_track3_5">
+		<text>Жил-был я</text>
+	</string>	
+<!-- 	<string id="mbox_track3_6">
+		<text>Зимний сад</text>
+	</string>
+	<string id="mbox_track3_7">
+		<text>Русское поле</text>
+	</string>	
+	<string id="mbox_track3_8">
+		<text>Аэропорт</text>
+	</string>	 -->
+	<string id="plastinka_4_name">
+		<text>Русский рок</text>
+	</string>
+	<string id="mbox_track4_1">
+		<text>Рождённый в СССР</text>
+	</string>
+	<string id="mbox_track4_2">
+		<text>Кукушка</text>
+	</string>
+	<string id="mbox_track4_3">
+		<text>Прощальное письмо</text>
+	</string>
+	<string id="mbox_track4_4">
+		<text>Не спеши</text>
+	</string>
+	<string id="mbox_track4_5">
+		<text>Куба</text>
+	</string>	
+	<string id="plastinka_5_name">
+		<text>Владимир Высоцкий</text>
+	</string>
+	<string id="mbox_track5_1">
+		<text>Кони привередливые</text>
+	</string>
+	<string id="mbox_track5_2">
+		<text>Протопи ты мне баньку...</text>
+	</string>
+	<string id="mbox_track5_3">
+		<text>Баллада о детстве</text>
+	</string>
+	<string id="mbox_track5_4">
+		<text>На Большом Каретном</text>
+	</string>
+	<string id="mbox_track5_5">
+		<text>Две судьбы</text>
+	</string>	
+	<string id="mbox_track5_6">
+		<text>Лирическая</text>
+	</string>
+<!-- 	<string id="mbox_track5_7">
+		<text>Братские могилы</text>
+	</string>
+	<string id="mbox_track5_8">
+		<text>Кругом пятьсот</text>
+	</string>	 -->
+	<string id="plastinka_6_name">
+		<text>Зарубежная эстрада</text>
+	</string>
+	<string id="mbox_track6_1">
+		<text>Humperdinck</text>
+	</string>
+	<string id="mbox_track6_2">
+		<text>Les Irresistibles</text>
+	</string>
+	<string id="mbox_track6_3">
+		<text>Marie Laforet</text>
+	</string>
+	<string id="mbox_track6_4">
+		<text>Andy Williams</text>
+	</string>
+	<string id="mbox_track6_5">
+		<text>Bill Withers</text>
+	</string>
+	<string id="mbox_track6_6">
+		<text>Terry Jacks</text>
+	</string>
+	<string id="mbox_track6_7">
+		<text>Tom Jones</text>
+	</string>	
+	<string id="mbox_track6_8">
+		<text>The Brothers Four</text>
+	</string>
+	<string id="mbox_track6_9">
+		<text>Mary Hopkin</text>
+	</string>	
+	<string id="plastinka_7_name">
+		<text>Классический рок</text>
+	</string>
+	<string id="mbox_track7_1">
+		<text>Christie</text>
+	</string>
+	<string id="mbox_track7_2">
+		<text>Cream</text>
+	</string>
+	<string id="mbox_track7_3">
+		<text>David Bowie</text>
+	</string>
+	<string id="mbox_track7_4">
+		<text>Deep Purple</text>
+	</string>
+	<string id="mbox_track7_5">
+		<text>Deep Purple</text>
+	</string>	
+	<string id="mbox_track7_6">
+		<text>Eric Burdon</text>
+	</string>
+	<string id="mbox_track7_7">
+		<text>Golden Earring</text>
+	</string>
+	<string id="mbox_track7_8">
+		<text>Procol Harum</text>
+	</string>
+	<string id="mbox_track7_9">
+		<text>Montrose</text>
+	</string>
+	<string id="plastinka_8_name">
+		<text>Рок-баллады</text>
+	</string>
+	<string id="mbox_track8_1">
+		<text>Don Fardon</text>
+	</string>
+	<string id="mbox_track8_2">
+		<text>Eric Burdon</text>
+	</string>
+	<string id="mbox_track8_3">
+		<text>Uriah Heep</text>
+	</string>
+	<string id="mbox_track8_4">
+		<text>Renaissance</text>
+	</string>
+	<string id="mbox_track8_5">
+		<text>Oscar Benton</text>
+	</string>
+	<string id="mbox_track8_6">
+		<text>Rainbow</text>
+	</string>
+	<string id="mbox_track8_7">
+		<text>Ozzy Osbourne</text>
+	</string>
+	<string id="mbox_track8_8">
+		<text>Rolling Stones</text>
+	</string>	
+	<string id="plastinka_9_name">
+		<text>Поп-хиты</text>
+	</string>
+	<string id="mbox_track9_1">
+		<text>Grace Jones</text>
+	</string>
+	<string id="mbox_track9_2">
+		<text>Status Quo</text>
+	</string>
+	<string id="mbox_track9_3">
+		<text>Jessica Jay</text>
+	</string>
+	<string id="mbox_track9_4">
+		<text>Laid Back</text>
+	</string>
+	<string id="mbox_track9_5">
+		<text>Steve Miller Band</text>
+	</string>
+	<string id="mbox_track9_6">
+		<text>The Rubettes</text>
+	</string>
+	<string id="mbox_track9_7">
+		<text>C.C.Catch</text>
+	</string>	
+	<string id="mbox_track9_8">
+		<text>Gloria Gaynor</text>
+	</string>	
+	<string id="mbox_mbox_name_text">
+		<text>Музыкальный автомат FONICA M-120-M</text>
+	</string>
+	<string id="mbox_plates_head_text">
+		<text>Пластинки :</text>
+	</string>
+	<string id="mbox_tracks_head_text">
+		<text>Песни :</text>
+	</string>
+	<string id="mbox_logo_head_text">
+		<text>Приятного прослушивания !</text>
+	</string>
+	<string id="mbox_plate_btn_empty">
+		<text>пусто</text>
+	</string>
+	<string id="mbox_sys_btn_stop_text">
+		<text>Выключить</text>
+	</string>
+	<string id="mbox_sys_btn_play_all_text">
+		<text>Играть все</text>
+	</string>
+	<string id="mbox_sys_btn_exit_text">
+		<text>Закрыть</text>
+	</string>
+	<string id="akumulator_name">
+		<text>Аккумулятор</text>
+	</string>
+	<string id="akumulator_desc">
+		<text>Автомобильный аккумулятор</text>
+	</string>
+	<string id="compas_name">
+		<text>Компас</text>
+	</string>
+	<string id="dynamite_pack_name">
+		<text>Динамит</text>
+	</string>
+	<string id="fotocamera_name">
+		<text>Фотоаппарат</text>
+	</string>
+	<string id="wheel_name">
+		<text>Колесо</text>
+	</string>
+	<string id="wheel_desc">
+		<text>Автомобильное колесо</text>
+	</string>
+	<string id="btr_wheel_name">
+		<text>Колесо</text>
+	</string>
+	<string id="btr_wheel_desc">
+		<text>Колесо от БТР</text>
+	</string>
+	<string id="magnitofon_name">
+		<text>Магнитофон</text>
+	</string>
+	<string id="magnitofon_desc">
+		<text>Магнитофон Легенда-404</text>
+	</string>
+	<string id="lenin_bust_name">
+		<text>Бюст Ленина</text>
+	</string>
+	<string id="lenin_bust_desc">
+		<text>Мраморный бюст Ленина</text>
+	</string>
+	<string id="bearing_name">
+		<text>Подшипник</text>
+	</string>
+	<string id="mobile_tank_empty_name">
+		<text>Канистра</text>
+	</string>
+	<string id="mobile_tank_empty_desc">
+		<text>Пустая канистра из-под бензина</text>
+	</string>
+	<string id="mobile_tank_full_desc">
+		<text>Канистра с бензином</text>
+	</string>	
+	<string id="avtomobile_tank_name">
+		<text>Бензобак</text>
+	</string>
+	<string id="avtomobile_tank_desc">
+		<text>Бензобак от БТР</text>
+	</string>
+	<string id="diggers_weapon_name">
+		<text>Пулемет Диггера</text>
+	</string>
+	<string id="diggers_weapon_desc">
+		<text>Модифицированный пулемет Диггера. После того, как над ним потрудился местный "умелец", оружие перестало работать</text>
+	</string>
+	<string id="first_neutral_planshet_name">
+		<text>Планшет Бывалого</text>
+	</string>
+	<string id="first_neutral_planshet_desc">
+		<text>Видавший виды потертый офицерский планшет с личными записями Бывалого. Изучение содержимого планшета может пролить свет на историю бывшего владельца.</text>
+	</string>	
+	<string id="knyaz_pda_name">
+		<text>КПК Князя</text>
+	</string>
+	<string id="knyaz_pda_desc">
+		<text>Планшетный компьютер авторитета Князя из банды Кульгавого. Содержащиеся данные доступны для скачивания.</text>
+	</string>
+	<string id="dar_road_detonator_name">
+		<text>Детонатор наемников</text>
+	</string>
+	<string id="dar_road_detonator_desc">
+		<text>Детонатор, которым подрывается заряд на дороге в Лощине</text>
+	</string>
+	<string id="dar_merc_planshet_name">
+		<text>Планшет Денара</text>
+	</string>
+	<string id="dar_merc_planshet_desc">
+		<text>Планшет наемника Денара. Содержит документы, которые можно извлечь и прочитать.</text>
+	</string>	
+	<string id="robber_pda_name">
+		<text>КПК Проныры</text>
+	</string>
+	<string id="robber_pda_desc">
+		<text>Планшетный компьютер сталкера Проныры. Содержащиеся данные доступны для скачивания.</text>
+	</string>
+	<string id="bratstvo_agent_pda_name">
+		<text>КПК Жеки</text>
+	</string>
+	<string id="bratstvo_agent_pda_desc">
+		<text>Планшетный компьютер Жеки. Содержащиеся данные доступны для скачивания.</text>
+	</string>
+	<string id="diggers_pda_name">
+		<text>КПК Диггера Юры</text>
+	</string>
+	<string id="diggers_pda_desc">
+		<text>Планшетный компьютер Диггера Юры. Данные из него можно скачать на свой КПК.</text>
+	</string>	
+	<string id="ufo_part_name">
+		<text>Фигня</text>
+	</string>
+	<string id="ufo_part_desc">
+		<text>Маленький, размером со спичечный коробок кусочек неизвестного вещества. Структура металлическая, напоминает сталь, но имеет нехарактерный светло-бурый цвет и следы оплавленности. Если помять его в ладони, то начинает тихо шипеть и покалывать кожу. На артефакт не походит, свойств нету. Из-за бесполезности, сталкеры называют этот предмет Фигней.</text>
+	</string>
+	<string id="loader_box_name">
+		<text>Груз артефактов</text>
+	</string>
+	<string id="loader_box_desc">
+		<text>Контейнер с артефактами, которые Бармен переправляет за Периметр. Сделан из огнеупорного пулестойкого материала и заперт на двойной кодовый замок.</text>
+	</string>
+	<string id="cit_tow_box_keys_name">
+		<text>Ключи сержанта</text>
+	</string>
+	<string id="cit_tow_box_keys_desc">
+		<text>Связка из шести ржавых ключей. %c[100,50,250,50]Используйте предмет, чтобы выбрать тот или иной ключ из связки.%c[default]</text>
+	</string>
+	<string id="apparat_name">
+		<text>Самогонный аппарат</text>
+	</string>
+	<string id="apparat_desc">
+		<text>Этот аппарат, собранный в условиях жестокого дефицита военного городка, состоит из бидона, корпуса огнетушителя и банки-коллектора. Оживить его способен только лесник Захарыч, живущий в Лощине.</text>
+	</string>
+	<string id="kordon_samogon_name">
+		<text>Самогон "Кордоновский"</text>
+	</string>
+	<string id="kordon_samogon_desc">
+		<text>Самогон "Кордоновский". По утверждению сталкера Тыкаря, неслабо бъет по мозгам.</text>
+	</string>
+	<string id="glassful_name">
+		<text>Первач от деда Захарыча</text>
+	</string>
+	<string id="glassful_desc">
+		<text>Граненый стакан с первачом, емкостью 100г.</text>
+	</string>
+	<string id="book_1_name">
+		<text>Записка Профессора</text>
+	</string>
+	<string id="book_1_desc">
+		<text>Записка Профессора</text>
+	</string>
+	<string id="book_2_name">
+		<text>Болотник</text>
+	</string>
+	<string id="book_2_desc">
+		<text>Эта книга - результат сталкерского творчества на тему Зоны и ее обитателей.</text>
+	</string>
+	<string id="book_3_name">
+		<text>Помеченый Зоной</text>
+	</string>
+	<string id="book_4_name">
+		<text>Легенда о Черном сталкере</text>
+	</string>
+	<string id="book_5_name">
+		<text>Яблоко раздора</text>
+	</string>
+	<string id="book_7_name">
+		<text>Байки деда Игната</text>
+	</string>
+	<string id="book_8_name">
+		<text>Конспект учёного</text>
+	</string>
+	<string id="book_8_desc">
+		<text>Записи учёного, исследовавшего неизвестные аномалии</text>
+	</string>
+	<string id="book_9_name">
+		<text>Записка из Мертвого города</text>
+	</string>
+	<string id="book_10_name">
+		<text>Черновик рапорта</text>
+	</string>
+	<string id="book_10_desc">
+		<text>Черновик рапорта офицера из Мертвого города</text>
+	</string>
+	<string id="book_11_name">
+		<text>Записка сержанта Купцевича</text>
+	</string>
+	<string id="book_11_desc">
+		<text>Записка сержанта Купцевича, служившего до аварии на ЧАЭС в воинской части секретного городка.</text>
+	</string>
+	<string id="book_12_name">
+		<text>Смятая пачка</text>
+	</string>
+	<string id="book_12_desc">
+		<text>Смятая пачка Беломорканала, на которой что-то написано</text>
+	</string>	
+	<string id="turret_pkm_name">
+		<text>Турель ПКМ</text>
+	</string>
+	<string id="turret_pkm_desc">
+		<text>Сборная турель ПКМ. Для стрельбы необходимо собрать и установить на ровной поверхности.</text>
+	</string>
+	<string id="dynamite_for_mils_name">
+		<text>Сумка с артефактами</text>
+	</string>
+	<string id="detonator_of_shvid_desc">
+		<text>Детонатор</text>
+	</string>
+	<string id="petrenko_case_name">
+		<text>Кейс с документами Петренко</text>
+	</string>
+	<string id="petrenko_case_desc">
+		<text>Внутри кейса куча хозяйственных документов Долга - накладные, акты, расписки, описи имушества. В одной из описей значится несгораемый шкаф инв. №3156 и шифр к нему - 432. Мда...</text>
+	</string>
+	<string id="item_pda_filin_name">
+		<text>КПК Филина</text>
+	</string>
+	<string id="item_pda_filin_desc">
+		<text>Запись в КПК: "Черт бы побрал этих бандитов. Мне кажется, они что-то знают насчет наших планов. Нужно пока спрятать флешку в подземной железной дороге, в одном из вагонов. Когда отправимся в поход, заберем ее. Чтобы не пропасть одному, пойду с парнями Лукаша, они как раз собирались на Радар."</text>
+	</string>
+	<string id="item_filin_note_name">
+		<text>Записка Филина</text>
+	</string>
+	<string id="item_filin_note_desc">
+		<text>ЛЯЛЯЛЯ</text>
+	</string>
+	<string id="item_radist_note_name">
+		<text>Записка Радиста</text>
+	</string>
+	<string id="item_radist_note_desc">
+		<text>Небольшая заметка по пользованию апгрейдом: переключаем "Поиск" в импульсный режим, подбираем частоту, жмем кнопку посыла ипульса и прибор начинает генерировать импульсы. Если частоту правильно подобрали, артефакт вывалится из аномалии. Однако, для всех аномалий частота различается... Да, вот еще что. Темная Зона портит твое оружие и броню. Советую снять все, что дорого, иначе можно и пожалеть потом...</text>
+	</string>
+	<string id="yan_sold_generator_name">
+		<text>Генератор импульсов</text>
+	</string>
+	<string id="yan_sold_generator_desc">
+		<text>Мощный генератор импульсов. Может быть использован для сильного воздействия на Темные Зоны, будучи снаряжен специальными артефактами.</text>
+	</string>
+	<string id="lenin_book_1_name">
+		<text>В.И.Ленин "Государство и революция"</text>
+	</string>
+	<string id="lenin_book_1_desc">
+		<text>Переиздание работы 1917 года, отпечатана в 1984 году. Книга почему-то в очень хорошем состоянии, страницы даже не пожелтели за всё это время. Обложка тоже в прекрасном состоянии. На ощупь книга немного теплая.</text>
+	</string>
+	<string id="lenin_book_2_name">
+		<text>В.И.Ленин "Апрельские тезисы"</text>
+	</string>
+	<string id="lenin_book_2_desc">
+		<text>Переиздание работы 1917 года, отпечатана в 1982 году. Книга почему-то в очень хорошем состоянии, страницы даже не пожелтели за всё это время. Обложка тоже в прекрасном состоянии. На ощупь книга немного теплая.</text>
+	</string>
+	<string id="lenin_book_3_name">
+		<text>В.И.Ленин "Развитие капитализма в России"</text>
+	</string>
+	<string id="lenin_book_3_desc">
+		<text>Монография Ленина 1899 года, отпечатана в 1985 году. Книга почему-то в очень хорошем состоянии, страницы даже не пожелтели за всё это время. Обложка тоже в прекрасном состоянии. На ощупь книга немного теплая.</text>
+	</string>
+	<string id="lenin_book_4_name">
+		<text>XX съезд КПСС. Стенографический отчет. Том 1.</text>
+	</string>
+	<string id="lenin_book_4_desc">
+		<text>Стенограмма отчета 20-го съезда КПСС, на котором Хрущев развенчивал культ личности Сталина. Книга почему-то в очень хорошем состоянии, страницы даже не пожелтели за всё это время. Обложка тоже в прекрасном состоянии. На ощупь книга немного теплая. Это первый том, где-то наверняка должен быть второй.</text>
+	</string>
+	<string id="lenin_book_5_name">
+		<text>XX съезд КПСС. Стенографический отчет. Том 2.</text>
+	</string>
+	<string id="lenin_book_5_desc">
+		<text>Стенограмма отчета 20-го съезда КПСС, на котором Хрущев развенчивал культ личности Сталина. Книга почему-то в очень хорошем состоянии, страницы даже не пожелтели за всё это время. Обложка тоже в прекрасном состоянии. На ощупь книга немного теплая. Это второй том, где-то наверняка должен быть первый.</text>
+	</string>
+	<string id="lenin_zapiska_name">
+		<text>Записка какая-то.</text>
+	</string>
+	<string id="lenin_zapiska_desc">
+		<text>Кажется была приклеена к сейфу. В очень хорошем состоянии, словно была написана вчера. "Уважаемые товарищи! Не бросайте партийную литературу где попало! Если товарища Козлова, ответственного за библиотеку, нет на месте, кладите книги в сейф, он их потом оттуда уберет на место!"</text>
+	</string>
+	<string id="klondaik_key_name">
+		<text>Артефакт-ключ</text>
+	</string>
+	<string id="klondaik_key_desc">
+		<text>Артефакт неизвестного типа. Не оказывает никакого ощутимого воздействия. По информации из найденных флешек, артефакт может активировать Клондайк артефактов.</text>
+	</string>
+	
+	<string id="mil_transponder_name">
+		<text>Армейский транспондер</text>
+	</string>
+	<string id="mil_transponder_desc">
+		<text>Портативный ответчик системы "свой-чужой". Такие есть у всех военсталкеров в Зоне. Транспондер передает всем военным шифрованный сигнал, по которому вы однозначно определяетесь как друг. Носится на поясе и имеет биометрическую привязку к носителю, отслеживая характерные особенности его физиологических показателей. В случае передачи другому лицу или смерти носителя автоматически передает извещение о смерти носителя, после чего самоуничтожается, спекая свою электронную начинку в месиво. Аналогично ведет себя при попытке вскрытия. Внешне похож на стандартую GPS-метку, корпус металлический, наглухо заварен. Никаких кнопок или переключателей на нем нет. Есть только гравировка с вашим настоящим именем и кличкой - "Антон Чернов (Стрелок)". Откуда военные его узнали, не ясно, но кому попало эту надпись лучше не показывать.</text>
+	</string>	
+</string_table>

@@ -1,0 +1,31 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker
+combat_ignore = combat_ignore
+danger = danger_ignore
+on_death = death
+
+[walker]
+path_walk =	band_6_walk
+path_look =	band_7_look
+on_info = {+yuriy_dead +bacha_dead +shaman_dead +dusty_dead +ahmet_dead} walker1, {+bandits_kill_iskateli} walker1, {+kulg_band_surrend} walker@new
+
+[walker1]
+path_walk =	ahmet_walk
+path_look =	bacha_look1
+
+[walker@new]
+path_walk =	band_6_walk_new
+path_look =	band_7_look
+
+[danger_ignore]
+ignore_distance = 10
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[death]
+on_info = %+ds_nalet_band_6_dead%
+

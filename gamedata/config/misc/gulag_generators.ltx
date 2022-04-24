@@ -1,0 +1,414 @@
+;-------------------------------------------------------------------------------------------------
+;-- WARLAB
+;-------------------------------------------------------------------------------------------------
+
+[logic@gen_warlab_sniper_1]
+active = camper@gen_warlab_sniper_1
+
+[camper@gen_warlab_sniper_1]
+path_walk =	sniper1_walk
+path_look =	sniper1_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+sniper = true
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_sniper_2]
+active = camper@gen_warlab_sniper_2
+
+[camper@gen_warlab_sniper_2]
+path_walk =	sniper2_walk
+path_look =	sniper2_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+sniper = true
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_sniper_3]
+active = camper@gen_warlab_sniper_3
+
+[camper@gen_warlab_sniper_3]
+path_walk =	sniper3_walk
+path_look =	sniper3_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+sniper = true
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_sniper_4]
+active = camper@gen_warlab_sniper_4
+
+[camper@gen_warlab_sniper_4]
+path_walk =	sniper4_walk
+path_look =	sniper4_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+sniper = true
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_sniper_5]
+active = camper@gen_warlab_sniper_5
+
+[camper@gen_warlab_sniper_5]
+path_walk =	sniper5_walk
+path_look =	sniper5_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+sniper = true
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_sniper_6]
+active = camper@gen_warlab_sniper_6
+
+[camper@gen_warlab_sniper_6]
+path_walk =	sniper6_walk
+path_look =	sniper6_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+sniper = true
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_sniper_7]
+active = camper@gen_warlab_sniper_7
+
+[camper@gen_warlab_sniper_7]
+path_walk =	sniper7_walk
+path_look =	sniper7_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+sniper = true
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_sniper_8]
+active = camper@gen_warlab_sniper_8
+
+[camper@gen_warlab_sniper_8]
+path_walk =	sniper8_walk
+path_look =	sniper8_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+sniper = true
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_assault_1]
+active = walker@gen_warlab_assault_1
+
+[walker@gen_warlab_assault_1]
+path_walk = assault1_walk
+path_look = assault1_look
+meet = no_meet
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_assault_2]
+active = camper@gen_warlab_assault_2
+
+[camper@gen_warlab_assault_2]
+path_walk =	assault2_walk
+path_look =	assault2_look
+def_state_moving = raid
+def_state_campering = hide
+def_state_campering_fire = hide_sniper_fire
+meet = no_meet
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_assault_3]
+active = walker@gen_warlab_assault_3
+
+[walker@gen_warlab_assault_3]
+path_walk = assault3_walk
+path_look = assault3_look
+meet = no_meet
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_assault_4]
+active = camper@gen_warlab_assault_4
+
+[camper@gen_warlab_assault_4]
+path_walk =	assault4_walk
+path_look =	assault4_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_assault_5]
+active = camper@gen_warlab_assault_5
+
+[camper@gen_warlab_assault_5]
+path_walk =	assault5_walk
+path_look =	assault5_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_patrol_1]
+active = patrol@gen_warlab_patrol_1
+
+[patrol@gen_warlab_patrol_1]
+path_walk = patrol_walk
+path_look = patrol_look
+formation = back
+commander = true
+on_info = {+freeplay} %=kill%
+
+
+[logic@gen_warlab_follower_1]
+active = patrol@gen_warlab_follower_1
+
+[patrol@gen_warlab_follower_1]
+path_walk = patrol_walk
+path_look = patrol_look
+formation = back
+commander = false
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_follower_2]
+active = patrol@gen_warlab_follower_2
+
+[patrol@gen_warlab_follower_2]
+path_walk = patrol_walk
+path_look = patrol_look
+formation = back
+commander = false
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_guard_1]
+active = walker@gen_warlab_guard_1
+
+[walker@gen_warlab_guard_1]
+path_walk = guard1_walk
+path_look = guard1_look
+meet = no_meet
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_guard_2]
+active = walker@gen_warlab_guard_2
+
+[walker@gen_warlab_guard_2]
+path_walk = guard2_walk
+path_look = guard2_look
+meet = no_meet
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_operator]
+active = walker@gen_warlab_operator
+
+[walker@gen_warlab_operator]
+path_walk = operator_walk
+path_look = operator_look
+meet = no_meet
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_kamp_1]
+active = kamp1@gen_warlab
+
+[kamp1@gen_warlab]
+center_point  = camp_center
+path_walk = camp_center_task_1
+meet = no_meet
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_kamp_2]
+active = kamp2@gen_warlab
+
+[kamp2@gen_warlab]
+center_point  = camp_center
+path_walk = camp_center_task_2
+meet = no_meet
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_kamp_3]
+active = kamp3@gen_warlab
+
+[kamp3@gen_warlab]
+center_point  = camp_center
+path_walk = camp_center_task_3
+meet = no_meet
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_sleeper_1]
+active = sleeper1@gen_warlab
+
+[sleeper1@gen_warlab]
+path_main = sleep1
+meet = meet@lager
+on_info = {+freeplay} %=kill%
+
+[logic@gen_warlab_sleeper_2]
+active = sleeper2@gen_warlab
+
+[sleeper2@gen_warlab]
+path_main = sleep2
+meet = meet@lager
+on_info = {+freeplay} %=kill%
+
+;-------------------------------------------------------------------------------------------------
+;-- Штурмовой отряд Свободы
+;-------------------------------------------------------------------------------------------------
+[logic@gen_freedom_patrol_1]
+active = patrol@gen_freedom_patrol_1
+
+[patrol@gen_freedom_patrol_1]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = true
+
+
+[logic@gen_freedom_follower_1]
+active = patrol@gen_freedom_follower_1
+
+[patrol@gen_freedom_follower_1]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = false
+
+[logic@gen_freedom_follower_2]
+active = patrol@gen_freedom_follower_2
+
+[patrol@gen_freedom_follower_2]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = false
+
+[logic@gen_freedom_follower_3]
+active = patrol@gen_freedom_follower_3
+
+[patrol@gen_freedom_follower_3]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = false
+
+[logic@gen_freedom_follower_4]
+active = patrol@gen_freedom_follower_4
+
+[patrol@gen_freedom_follower_4]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = false
+
+[logic@gen_freedom_follower_5]
+active = patrol@gen_freedom_follower_5
+
+[patrol@gen_freedom_follower_5]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = false
+
+
+;-------------------------------------------------------------------------------------------------
+;-- Штурмовой отряд Долга
+;-------------------------------------------------------------------------------------------------
+[logic@gen_dolg_patrol_1]
+active = patrol@gen_dolg_patrol_1
+
+[patrol@gen_dolg_patrol_1]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = true
+
+[logic@gen_dolg_follower_1]
+active = patrol@gen_dolg_follower_1
+
+[patrol@gen_dolg_follower_1]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = false
+
+[logic@gen_dolg_follower_2]
+active = patrol@gen_dolg_follower_2
+
+[patrol@gen_dolg_follower_2]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = false
+
+[logic@gen_dolg_follower_3]
+active = patrol@gen_dolg_follower_3
+
+[patrol@gen_dolg_follower_3]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = false
+
+[logic@gen_dolg_follower_4]
+active = patrol@gen_dolg_follower_4
+
+[patrol@gen_dolg_follower_4]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = false
+
+[logic@gen_dolg_follower_5]
+active = patrol@gen_dolg_follower_5
+
+[patrol@gen_dolg_follower_5]
+path_walk = assault_way
+path_look = assault_look
+def_state_moving1 = assault
+def_state_moving2 = assault
+def_state_moving2 = assault
+formation = line
+commander = false

@@ -1,0 +1,18 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = mob_walker@base
+on_death = mob_death
+
+[mob_walker@base]
+path_walk = pervert_walk1
+path_look = catgirl_walk1
+;on_timer = 7000 | mob_walker@2 %=izlom_pervert_dead%
+
+[mob_walker@2]
+path_walk = pervert_walk1
+path_look = catgirl_walk1
+
+[mob_death]
+on_info = %=izlom_pervert_dead%

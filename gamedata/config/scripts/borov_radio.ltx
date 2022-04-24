@@ -1,0 +1,26 @@
+[logic]
+active = ph_sound1
+on_hit = hit
+
+[hit]
+on_info = %+borov_radio_off%
+
+[ph_sound1]
+snd = radio_music_bandit
+on_info = {-blowout -horror_time} ph_sound1
+on_info2 = {+horror_time -blowout} ph_sound@3
+on_info3 = {+blowout} ph_sound@blowout
+
+[ph_sound@3]
+snd = esc_music_horror_time
+on_info = {-blowout -horror_time} ph_sound1
+on_info2 = {+horror_time -blowout} ph_sound@3
+on_info3 = {+blowout} ph_sound@blowout
+
+[ph_sound@blowout]
+on_info = {-blowout -horror_time} ph_sound1
+on_info2 = {+horror_time -blowout} ph_sound@3
+on_info3 = {+blowout} ph_sound@blowout
+
+
+

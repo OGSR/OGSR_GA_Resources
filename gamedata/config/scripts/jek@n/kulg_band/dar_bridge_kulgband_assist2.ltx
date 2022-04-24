@@ -1,0 +1,70 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+danger = danger_ignore
+on_death = death
+threshold = threshold@dar_bridge_kulgband_assist2_threshold
+
+[walker@begin]
+path_walk =	dar_bridge_kulgband_assist2_walk1
+path_look =	dar_bridge_kulgband_assist_look
+on_timer = 1|walker@1 %=set_neutral =set_community(kulg_band)%
+
+
+; Сидим у тачки:
+[walker@1]
+path_walk =	dar_bridge_kulgband_assist2_walk1
+path_look =	dar_bridge_kulgband_assist_look
+combat_ignore_cond = always
+meet = no_meet
+on_actor_not_in_zone = dar_kulgband_beforebridge_zone|walker@1_1
+
+[walker@1_1]
+path_walk =	dar_bridge_kulgband_assist2_walk1
+path_look =	dar_bridge_kulgband_assist_look
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 8|walker@2 %=play_snd_on_me(characters_voice\human_01\bandit\fight\detour\detour_10)%
+
+; Идём к мостику:
+[walker@2]
+path_walk =	dar_bridge_kulgband_assist2_walk2
+path_look =	dar_bridge_kulgband_assist_look
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+on_signal       = arrived|walker@3
+
+[walker@3]
+path_walk =	dar_bridge_kulgband_assist2_walk2
+path_look =	dar_bridge_kulgband_assist_look
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+;on_info = {+	} walker@4
+
+
+
+[danger_ignore]
+ignore_distance = 20
+ignore_distance_sound = 10
+danger_inertion_time_sound = 100
+danger_expiration_time = 300
+
+
+[threshold@dar_bridge_kulgband_assist2_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+
+[death]
+on_info = %+dar_bridge_kulgband_assist2_dead%
+
+
+
+
+

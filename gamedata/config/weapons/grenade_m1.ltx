@@ -1,0 +1,460 @@
+;------------------------------
+; Боеприпасы для подствольных гранатометов и РПГ-7
+;------------------------------
+[ammo_base_vog]:identity_immunities
+GroupControlSection	 = spawn_group
+discovery_dependency = 
+cform           = skeleton
+class			= A_VOG25
+$prefetch 		= 32
+inv_grid_width	= 1
+inv_grid_height	= 1
+box_size		= 1
+belt = false
+can_be_unlimited = true ;false ;могут ли боеприпасы быть неограниченными: 1 - могут, 0 - не могут --- ????
+
+[ammo_fake_vog]:identity_immunities
+cform           = skeleton
+class           = G_FAKE
+$prefetch 		= 32
+inv_grid_width	= 1
+inv_grid_height	= 1
+engine_present	= false		;присутствует ли в ракете двигатель
+lights_enabled 	= true		;свет вокруг ракеты, во время полета
+
+safe_dist_to_explode = 5
+
+[ammo_base_m209]:ammo_base_vog
+class			= A_M209
+visual          = dynamics\weapons\wpn_ammo\ammo_m209.ogf
+
+;------------------------------
+; Российские
+;------------------------------
+;Укупорка выстрелов производится в деревянные ящики. В ящик укладываются три герметичные сварно-закатные металлические коробки по 28 выстрелов в каждой. В коробках выстрелы укладываются в цилиндрических бумажных гильзах в горизонтальном положении с чередованием направлений. Всего в ящиках помещается 84 выстрела.
+;Для переноски гранатомёта и выстрелов используются сумки и специальные кармашки в разгрузочных жилетах.
+[ammo_vog-25]:ammo_base_vog
+$spawn			= "weapons\ammo\ammo_vog-25" ; option for Level Editor
+visual                  = dynamics\weapons\wpn_ammo\ammo_vog_25.ogf
+description		= gunsl_ammo_vog25_descr
+cost			= 450
+
+inv_name		= gunsl_ammo_vog25
+inv_name_short	= gunsl_ammo_vog25_short
+inv_weight		= .3
+
+inv_grid_x					= 76	;19
+inv_grid_y					= 12	;9
+
+kill_msg_x			= 38
+kill_msg_y			= 233
+kill_msg_width		= 21
+kill_msg_height		= 22
+
+
+k_dist			= 1
+k_disp			= 1
+k_hit			= 1.2
+k_impulse		= 1
+k_pierce		= 1.25
+impair			= 1
+buck_shot		= 0
+tracer			= off
+wm_size         = 0.05
+
+fake_grenade_name = wpn_fake_missile
+
+[wpn_fake_missile]:ammo_fake_vog
+visual              = dynamics\weapons\wpn_ammo\ammo_vog_25.ogf
+
+cost				= 450
+
+blast				= 8.0
+blast_r				= 5
+blast_impulse		= 150; 250
+;delete
+blast_impulse_factor = 1
+
+frags				= 12
+frags_r				= 20
+frag_hit			= 1.5
+frag_hit_impulse	= 200
+
+hit_type_blast		= explosion
+hit_type_frag		= fire_wound
+
+up_throw_factor		= 0.7
+
+;trail				= weapons\rpg_trail_01, weapons\rpg_trail_02
+
+explode_particles	= 1935\explosion_03a
+
+light_color		    = 1.9,1.2,0.5
+light_range		    = 25.0
+light_time 		    = 0.5
+
+;engine_f			= 530
+;engine_u			= 90
+
+jump_height = 0
+
+wm_size         = 0.05
+
+;трассы от осколков
+fragment_speed				= 100
+
+;ТЕСТ предохранителя safe_dist_to_explode = 5
+
+explode_duration		 = 5		;подолжительность взрыва (с)
+
+;звуки
+snd_explode = weapons\grenade\vog_explosion1
+
+;wallmarks
+wallmark_section		= explosion_marks
+
+;свойства которые читаются, но не используются
+inv_name		= ammo-vog-25
+inv_name_short	= ammo-vog-25
+inv_weight		= 0.2
+
+inv_grid_x			= 19
+inv_grid_y			= 10
+
+kill_msg_x			= 17
+kill_msg_y			= 232
+kill_msg_width		= 21
+kill_msg_height		= 22
+
+lights_enabled		= false
+force_explode_time  = 10000
+
+;------------------------------
+[ammo_vog-25p]:ammo_base_vog
+$spawn			= "weapons\ammo\ammo_vog-25p" ; option for Level Editor
+visual                  = dynamics\weapons\wpn_ammo\ammo_vog_25p.ogf
+description		= gunsl_ammo_vog25p_descr
+
+cost			= 570
+
+inv_name		= gunsl_ammo_vog25p
+inv_name_short	= gunsl_ammo_vog25p_short
+inv_weight		= 0.3
+
+inv_grid_x					= 76	;19
+inv_grid_y					= 11	;10
+
+
+kill_msg_x		= 17
+kill_msg_y		= 232
+kill_msg_width	= 21
+kill_msg_height	= 22
+
+k_dist			= 1.3
+k_disp			= 1
+k_hit			= 1.2
+k_impulse		= 1
+k_pierce		= 1.25
+impair			= 1
+buck_shot		= 0
+tracer			= off
+wm_size         = 0.05
+
+jump_height = 1
+
+fake_grenade_name = wpn_fake_missile1
+
+[wpn_fake_missile1]:ammo_fake_vog
+visual          = dynamics\weapons\wpn_ammo\ammo_vog_25p.ogf
+
+cost			= 570
+
+blast			= 10.20
+blast_r			= 8.5
+blast_impulse	= 350
+blast_impulse_factor 	= 1.25
+
+frags			= 22
+frags_r			= 20
+frag_hit		= 1.5
+frag_hit_impulse	= 150; 200
+
+hit_type_blast	= explosion
+hit_type_frag	= fire_wound
+
+up_throw_factor	= 1.3
+
+;trail				= weapons\rpg_trail_01, weapons\rpg_trail_02
+
+explode_particles	= 1935\explosion_04b
+dynamic_explosion_particles 	= true
+
+light_color		         = 1.9,1.4,0.5
+light_range		         = 15.0
+light_time 		         = 1.5
+
+;engine_f			= 530
+;engine_u			= 90
+
+jump_height = 1.35
+
+;трассы от осколков
+fragment_speed				= 190
+
+wm_size         = 0.05
+;wallmarks
+wallmark_section		 = explosion_marks
+
+;ТЕСТ предохранителя safe_dist_to_explode = 	5
+
+explode_duration		 = 5		;подолжительность взрыва (с)
+
+;звуки
+snd_explode = weapons\grenade\vog_explosion2
+
+;свойства которые читаются, но не используются
+inv_name		= ammo-vog-25p
+inv_name_short	= ammo-vog-25p
+inv_weight		= 0.2
+
+inv_grid_x			= 19
+inv_grid_y			= 9
+
+kill_msg_x			= 38
+kill_msg_y			= 233
+kill_msg_width		= 21
+kill_msg_height		= 22
+
+;------------------------------
+; Свойства CustomRocket
+;------------------------------
+trail_light_color 	= 0.6,0.5,0.3
+trail_light_range 	= 8.0
+force_explode_time  = 10000
+
+;----------------------------------------------------
+; Зарубежные
+;----------------------------------------------------
+[ammo_m209]:ammo_base_m209
+$spawn			= "weapons\ammo\ammo_m209" ; option for Level Editor
+visual                  = dynamics\weapons\wpn_ammo\ammo_m209.ogf
+description		= gunsl_ammo_m209_descr
+
+cost			= 660
+
+inv_name		= gunsl_ammo_m209
+inv_name_short	= gunsl_ammo_m209_short
+inv_weight		= 0.2
+inv_grid_x					= 76	;5
+inv_grid_y					= 13	;13
+
+kill_msg_x		= 61
+kill_msg_y		= 232
+kill_msg_width	= 19
+kill_msg_height	= 22
+
+
+k_dist			= 1
+k_disp			= 1
+k_hit			= 1.2
+k_impulse		= 1
+k_pierce		= 1.25
+impair			= 1
+buck_shot		= 0
+tracer			= off
+wm_size         = 0.05
+
+fake_grenade_name = wpn_fake_missile2
+
+[wpn_fake_missile2]:ammo_fake_vog
+visual          = dynamics\weapons\wpn_ammo\ammo_m209.ogf.ogf
+
+cost			= 660
+
+blast			= 25
+blast_r			= 8
+blast_impulse	= 150; 250
+blast_impulse_factor = 1
+
+frags			= 25
+frags_r			= 15
+frag_hit		= 2.50
+frag_hit_impulse	= 120
+
+hit_type_blast	= explosion
+hit_type_frag	= fire_wound
+
+up_throw_factor	= 0.7
+
+;trail			= weapons\rpg_trail_01, weapons\rpg_trail_02
+
+explode_particles	= 1935\explosion_04b
+dynamic_explosion_particles 	= true
+
+light_color		= 1.9,1.4,0.5
+light_range		= 14.0
+light_time 		= 0.85
+
+;engine_f		= 530
+;engine_u		= 90
+
+jump_height = 1
+
+;трассы от осколков
+fragment_speed	= 100
+;wallmarks
+wallmark_section			= explosion_marks
+wm_size			= 0.1
+
+;ТЕСТ предохранителя 
+safe_dist_to_explode = 10
+
+explode_duration			 = 5		;подолжительность взрыва (с)
+
+;звуки
+snd_explode = weapons\grenade\m203_explosion2
+
+;свойства которые читаются, но не используются
+inv_name		= ammo-m209
+inv_name_short	= "M209"
+inv_weight		= 0.2
+inv_grid_x			= 5
+inv_grid_y			= 13
+
+kill_msg_x			= 61
+kill_msg_y			= 232
+kill_msg_width		= 19
+kill_msg_height		= 22
+
+trail_light_color 	= 0.6,0.5,0.3
+trail_light_range 	= 8.0
+force_explode_time  = 10000
+
+;------------------------------
+[ammo_atom]:ammo_base_m209
+$spawn			= "weapons\ammo\ammo_atom" ; option for Level Editor
+description		= enc_weapons1_ammo_ammo-atom
+
+cost			= 25000
+
+box_size		= 1
+
+inv_name		= ammo_atom
+inv_name_short	= ammo_atom_s
+inv_weight		= 1.5
+inv_grid_x		= 6
+inv_grid_y		= 11
+
+kill_msg_x		= 38
+kill_msg_y		= 233
+kill_msg_width	= 21
+kill_msg_height	= 22
+
+
+k_dist			= 1
+k_disp			= 1
+k_hit			= 1
+k_impulse		= 1
+k_pierce		= 1.25
+impair			= 1
+buck_shot		= 0
+tracer			= off
+wm_size         = 0.05
+
+fake_grenade_name = wpn_fake_atom
+
+[wpn_fake_atom]:ammo_fake_vog
+visual          = dynamics\weapons\wpn_ammo\ammo_m209.ogf.ogf
+
+cost				= 25000
+
+blast				= 55
+blast_r				= 50
+blast_impulse		= 550
+blast_impulse_factor = 1.9
+
+frags				= 5
+frags_r				= 60
+frag_hit			= 5
+frag_hit_impulse	= 10
+
+hit_type_blast		= explosion
+hit_type_frag		= radiation
+up_throw_factor		= 1.5
+
+explode_particles	= a_ufp_particles\atom_blow
+
+light_color		 = 1.9,1.4,0.6
+light_range		 = 65.0
+light_time 		 = 35
+
+jump_height      = 0
+wm_size          = 1
+
+fragment_speed	 = 350
+
+;ТЕСТ предохранителя 
+safe_dist_to_explode = 20
+
+explode_duration = 35	
+snd_explode = weapons\grenade\grenade_explosion6
+
+wallmark_section		= explosion_marks
+
+inv_name		= ammo-atom
+inv_name_short	= ammo-atom_s
+inv_weight		= 1.5
+inv_grid_x			= 29
+inv_grid_y			= 40
+
+kill_msg_x			= 17
+kill_msg_y			= 232
+kill_msg_width		= 21
+kill_msg_height		= 22
+
+trail_light_color	= 1.9,1.4,0.6
+trail_light_range	= 15.0
+trail_light_time 	= 5
+force_explode_time  = 10000
+
+;------------------------------
+; Граната для РПГ-7
+;------------------------------
+[ammo_og-7b]:identity_immunities
+GroupControlSection	 = spawn_group
+discovery_dependency = 
+cform           = skeleton
+$prefetch 		= 16
+belt = false
+$spawn			= "weapons\ammo\ammo_og-7b" ; option for Level Editor
+class			= A_OG7B
+visual          = dynamics\weapons\wpn_ammo\ammo_og_7b.ogf
+description		= gunsl_ammo_og_7b_descr
+
+cost			= 1800
+
+box_size		= 1
+
+inv_name		= gunsl_ammo_og_7b
+inv_name_short	= gunsl_ammo_og_7b_short
+inv_weight		= 2.0
+
+inv_grid_width	= 4
+inv_grid_height	= 1
+inv_grid_x		= 15
+inv_grid_y		= 5
+
+k_dist			= 1
+k_disp			= 1
+k_hit			= 7
+k_impulse		= 5
+k_pierce		= 3.57
+impair			= 1.23
+buck_shot		= 0
+tracer			= on
+wm_size         = 0.1
+
+;могут ли боеприпасы быть неограниченными : 1 - могут, 0 - не могут
+can_be_unlimited = true ;false
+
+[ammo_m208a]:ammo_m209

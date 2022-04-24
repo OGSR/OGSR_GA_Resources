@@ -1,0 +1,70 @@
+[logic]
+;active = ph_car@middle1
+active = ph_car@walk
+
+[ph_car@walk]
+path_walk       = dar_dez_uaz_walk
+headlights		= on
+on_death_info   = dar_dez_btr_dead
+on_signal       = prepare_detonator | %+merc_signal_btr%
+on_signal2      = spawn_desant | ph_car@stop %+dar_dez_btr_spawn_desant%
+
+[ph_car@stop]
+auto_fire = true
+track_target = true
+target          =  actor
+on_death_info   = dar_dez_btr_dead
+
+
+[ph_car@middle1]
+path_walk       = dar_dez_btr_walk_middle_1
+path_fire       = dar_dez_btr_look
+invulnerable = true
+headlights = on
+auto_fire = true
+target          =  actor
+on_death_info   = dar_dez_btr_dead
+on_signal       = arrived | ph_car@middle2 %+merc_signal_btr%
+
+
+[ph_car@middle2]
+path_walk       = dar_dez_btr_walk_middle_2
+path_fire       = dar_dez_btr_look
+headlights = on
+auto_fire = true
+track_target = true
+target          =  7056
+on_death_info   = dar_dez_btr_dead
+on_signal       = arrived | %+dar_dez_btr_spawn_desant%
+on_timer = 2000 | ph_car@middle3
+
+[ph_car@middle3]
+path_walk       = dar_dez_btr_walk_middle_2
+path_fire       = dar_dez_btr_look
+headlights = on
+auto_fire = true
+track_target = true
+target          =  actor
+on_death_info   = dar_dez_btr_dead
+on_timer = 3000 | ph_car@middle4
+
+[ph_car@middle4]
+path_walk       = dar_dez_btr_walk_middle_2
+path_fire       = dar_dez_btr_look
+headlights = on
+auto_fire = true
+track_target = true
+target          =  7057
+on_death_info   = dar_dez_btr_dead
+on_timer = 2000 | ph_car@middle5
+
+[ph_car@middle5]
+path_walk       = dar_dez_btr_walk_middle_2
+path_fire       = dar_dez_btr_look
+headlights = on
+auto_fire = true
+track_target = true
+target          =  7058
+on_death_info   = dar_dez_btr_dead
+on_timer = 2000 | ph_car@middle2
+

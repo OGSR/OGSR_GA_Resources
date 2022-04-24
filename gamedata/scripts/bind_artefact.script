@@ -1,0 +1,40 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+function init(obj)
+   obj:bind_object(artefact_binder(obj))
+end
+
+class "artefact_binder" (object_binder)
+function artefact_binder:__init(obj) super(obj)
+end
+
+function artefact_binder:net_save_relevant()
+	return true
+end
+
+-- custom methods
+function artefact_binder:net_spawn(server_object)
+	if not object_binder.net_spawn(self, server_object) then
+		return false
+	end
+	db.artefacts[self.object:id()] = self.object
+	return true
+end
+
+function artefact_binder:net_destroy()
+	db.artefacts[self.object:id()] = nil
+	object_binder.net_destroy(self)
+end
+
+function artefact_binder:update(delta)
+	--object_binder.update(self, delta)
+
+	if not self.ph_shell then --Надо делать именно на апдейте. При спавне - рано.
+		self.ph_shell = self.object:get_physics_shell()
+		if self.ph_shell then
+			if not self.object:parent() then
+				self.ph_shell:apply_force( 0, self.object:mass() * 1300, 0 )
+			end
+		end
+	end
+end

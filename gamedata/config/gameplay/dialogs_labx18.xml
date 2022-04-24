@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="windows-1251" standalone="yes" ?>
+<game_dialogs>
+	<!-- Мирное получение документов у Жеки Дуплета в лаборатории 18 -->
+    <dialog id="dar_explorer_dialog">
+        <phrase_list>
+			<phrase id="0">
+                <text></text>
+				<next>61</next>
+				<next>62</next>
+                <next>63</next>
+            </phrase>
+			<phrase id="61">
+                <text></text>
+                <dont_has_info>dar_explorer_dlg_open</dont_has_info>
+                <dont_has_info>dar_explorer_dlg_completed</dont_has_info>
+				<give_info>dar_explorer_dlg_open</give_info>
+				<disable_info>dar_explorer_has_docs</disable_info>
+				<disable_info>dar_explorer_has_af</disable_info>
+				<disable_info>dar_explorer_has_money</disable_info>
+				<action>dar_dialogs.explorer_has_docs</action>
+				<action>dar_dialogs.explorer_has_af</action>
+				<action>dar_dialogs.explorer_has_money</action>
+                <next>611</next>
+            </phrase>
+            <phrase id="611">
+                <text>dar_explorer_dialog_611</text>
+                <next>1</next>
+                <next>2</next>
+            </phrase>
+			<phrase id="1">
+                <text>dar_explorer_dialog_1</text>
+                <next>11</next>
+            </phrase>
+            <phrase id="11">
+                <text>dar_explorer_dialog_11</text>
+                <next>111</next>
+                <next>112</next>
+            </phrase>
+            <phrase id="111">
+				<has_info>dar_explorer_has_docs</has_info>
+                <text>dar_explorer_dialog_111</text>
+                <next>1111</next>
+            </phrase>
+            <phrase id="1111">
+                <text>dar_explorer_dialog_1111</text>
+                <next>11111</next>
+            </phrase>
+            <phrase id="11111">
+                <text>dar_explorer_dialog_11111</text>
+                <next>3</next>
+            </phrase>
+            <phrase id="112">
+				<dont_has_info>dar_explorer_has_docs</dont_has_info>
+                <text>dar_explorer_dialog_112</text>
+                <next>1121</next>
+            </phrase>
+			<phrase id="1121">
+                <text>dar_explorer_dialog_1121</text>
+                <next>11211</next>
+            </phrase>
+			<phrase id="11211">
+                <text>dar_explorer_dialog_11211</text>
+                <next>4</next>
+            </phrase>
+            <phrase id="2">
+                <text>dar_explorer_dialog_2</text>
+                <next>21</next>
+            </phrase>
+            <phrase id="21">
+                <text>dar_explorer_dialog_21</text>
+                <next>211</next>
+                <next>212</next>
+				<next>213</next>
+            </phrase>
+            <phrase id="211">
+                <text>dar_explorer_dialog_211</text>
+                <next>2111</next>
+            </phrase>
+            <phrase id="2111">
+                <text>dar_explorer_dialog_2111</text>
+				<disable_info>dar_explorer_dlg_open</disable_info>
+                <give_info>dar_explorer_dlg_completed</give_info>
+                <next>72</next>
+            </phrase>
+			<phrase id="212">
+                <text>dar_explorer_dialog_212</text>
+                <next>2121</next>
+            </phrase>
+			<phrase id="2121">
+                <text>dar_explorer_dialog_2121</text>
+				<give_info>dar_explorer_dlg_angry</give_info>
+				<action>dialogs.break_dialog</action>
+				<disable_info>dar_explorer_dlg_open</disable_info>
+                <give_info>dar_explorer_dlg_completed</give_info>
+            </phrase>
+			<phrase id="213">
+                <text>dar_explorer_dialog_213</text>
+                <next>2131</next>
+            </phrase>
+			<phrase id="2131">
+                <text>dar_explorer_dialog_2131</text>
+                <next>111</next>
+				<next>112</next>
+            </phrase>
+            <phrase id="3">
+                <text>dar_explorer_dialog_3</text>
+                <next>31</next>
+				<next>32</next>
+            </phrase>
+            <phrase id="31">
+                <text>dar_explorer_dialog_31</text>
+                <next>311</next>
+            </phrase>
+            <phrase id="311">
+                <text>dar_explorer_dialog_311</text>
+                <next>3111</next>
+            </phrase>
+            <phrase id="3111">
+                <text>dar_explorer_dialog_3111</text>
+                <next>4</next>
+            </phrase>
+            <phrase id="32">
+				<has_info>dar_explorer_has_docs</has_info>
+                <text>dar_explorer_dialog_32</text>
+				<action>dialogs.break_dialog</action>
+                <action>dar_dialogs.explorer_take_away_docs</action>
+                <disable_info>dar_explorer_dlg_open</disable_info>
+                <give_info>dar_explorer_dlg_completed</give_info>
+            </phrase>
+            <phrase id="4">
+                <text>dar_explorer_dialog_4</text>
+                <next>41</next>
+            </phrase>
+			<phrase id="41">
+                <text>dar_explorer_dialog_41</text>
+                <next>411</next>
+            </phrase>
+            <phrase id="411">
+                <text>dar_explorer_dialog_411</text>
+                <next>4111</next>
+				<next>4112</next>
+				<next>63091</next>
+				<next>63092</next>
+            </phrase>
+            <phrase id="4111">
+				<has_info>dar_explorer_has_af</has_info>
+                <text>dar_explorer_dialog_4111</text>
+				<give_info>dar_explorer_take_af</give_info>
+				<action>dar_dialogs.explorer_take_away_af</action>
+				<disable_info>dar_explorer_find_af</disable_info>
+                <next>41111</next>
+            </phrase>
+            <phrase id="41111">
+                <text>dar_explorer_dialog_41111</text>
+                <next>5</next>
+            </phrase>
+            <phrase id="4112">
+				<dont_has_info>dar_explorer_has_af</dont_has_info>
+                <text>dar_explorer_dialog_4112</text>
+				<next>41121</next>
+			</phrase>
+			<phrase id="41121">
+                <text>dar_explorer_dialog_41121</text>
+				<give_info>dar_explorer_find_af</give_info>
+				<disable_info>dar_explorer_find_money</disable_info>
+                <next>73</next>
+            </phrase>
+			<phrase id="5">
+                <text>dar_explorer_dialog_5</text>
+                <next>51</next>
+            </phrase>
+			<phrase id="51">
+                <text>dar_explorer_dialog_51</text>
+				<action>dar_dialogs.explorer_give_away_doc</action>
+				<disable_info>dar_explorer_take_af</disable_info>
+				<disable_info>dar_explorer_take_money</disable_info>
+				<disable_info>dar_explorer_dlg_open</disable_info>
+                <give_info>dar_explorer_dlg_completed</give_info>
+				<give_info>dar_explorer_found_doc</give_info>
+                <next>71</next>
+            </phrase>
+			<phrase id="62">
+                <text></text>
+                <has_info>dar_explorer_dlg_completed</has_info>
+                <next>621</next>
+				<next>622</next>
+            </phrase>
+			<phrase id="621">
+			<has_info>dar_explorer_dlg_snuffy</has_info>
+                <text>dar_explorer_dialog_621</text>
+                <next>74</next>
+            </phrase>
+			<phrase id="622">
+				<dont_has_info>dar_explorer_dlg_snuffy</dont_has_info>
+                <text>dar_explorer_dialog_622</text>
+                <next>74</next>
+            </phrase>
+			<phrase id="63">
+                <text></text>
+				<has_info>dar_explorer_dlg_open</has_info>
+				<disable_info>dar_explorer_has_docs</disable_info>
+				<disable_info>dar_explorer_has_af</disable_info>
+				<disable_info>dar_explorer_has_money</disable_info>
+				<action>dar_dialogs.explorer_has_docs</action>
+				<action>dar_dialogs.explorer_has_af</action>
+				<action>dar_dialogs.explorer_has_money</action>
+				<next>6301</next>
+				<next>6302</next>
+				<next>6303</next>
+				<next>6304</next>
+				<next>6305</next>
+				<next>6306</next>
+				<next>6307</next>
+				<next>6308</next>
+				<next>6309</next>
+				<next>6310</next>
+				<next>6311</next>
+				<next>6312</next>
+			</phrase>
+			<phrase id="6301">
+				<has_info>dar_explorer_has_docs</has_info>
+				<dont_has_info>dar_explorer_find_af</dont_has_info>
+				<dont_has_info>dar_explorer_take_af</dont_has_info>
+				<dont_has_info>dar_explorer_find_money</dont_has_info>
+				<dont_has_info>dar_explorer_take_money</dont_has_info>
+                <text>dar_explorer_dialog_6301</text>
+                <next>63011</next>
+				<next>32</next>
+				<next>63021</next>
+            </phrase>
+			<phrase id="63011">
+                <text>dar_explorer_dialog_63011</text>
+                <next>311</next>
+            </phrase>
+			<phrase id="6302">
+				<dont_has_info>dar_explorer_has_docs</dont_has_info>
+				<dont_has_info>dar_explorer_find_af</dont_has_info>
+				<dont_has_info>dar_explorer_take_af</dont_has_info>
+				<dont_has_info>dar_explorer_find_money</dont_has_info>
+				<dont_has_info>dar_explorer_take_money</dont_has_info>
+                <text>dar_explorer_dialog_6302</text>
+                <next>112</next>
+				<next>63021</next>
+            </phrase>
+			<phrase id="63021">
+                <text>dar_explorer_dialog_63021</text>
+				<next>21</next>
+            </phrase>
+			<phrase id="6303">
+				<has_info>dar_explorer_find_af</has_info>
+				<has_info>dar_explorer_has_af</has_info>
+				<has_info>dar_explorer_has_docs</has_info>
+                <text>dar_explorer_dialog_6303</text>
+                <next>63031</next>
+				<next>32</next>
+            </phrase>
+			<phrase id="63031">
+                <text>dar_explorer_dialog_63031</text>
+				<give_info>find_af_gold_fish_done</give_info>
+				<action>dar_dialogs.explorer_take_away_af</action>
+				<give_info>dar_explorer_take_af</give_info>
+				<disable_info>dar_explorer_find_af</disable_info>
+				<disable_info>dar_explorer_find_money</disable_info>
+                <next>41111</next>
+            </phrase>
+			<phrase id="6304">
+				<has_info>dar_explorer_find_af</has_info>
+				<has_info>dar_explorer_has_af</has_info>
+				<dont_has_info>dar_explorer_has_docs</dont_has_info>
+                <text>dar_explorer_dialog_6304</text>
+                <next>63041</next>
+            </phrase>
+			<phrase id="63041">
+                <text>dar_explorer_dialog_63041</text>
+				<give_info>find_af_gold_fish_done</give_info>
+				<action>dar_dialogs.explorer_take_away_af</action>
+				<give_info>dar_explorer_take_af</give_info>
+				<disable_info>dar_explorer_find_af</disable_info>
+				<disable_info>dar_explorer_find_money</disable_info>
+                <next>41111</next>
+            </phrase>
+			<phrase id="6305">
+				<has_info>dar_explorer_find_af</has_info>
+				<dont_has_info>dar_explorer_has_af</dont_has_info>
+				<dont_has_info>dar_explorer_has_docs</dont_has_info>
+                <text>dar_explorer_dialog_6305</text>
+                <next>63051</next>
+            </phrase>
+			<phrase id="63051">
+                <text>dar_explorer_dialog_63051</text>
+				<action>dialogs.break_dialog</action>
+            </phrase>
+			<phrase id="6306">
+				<has_info>dar_explorer_find_af</has_info>
+				<dont_has_info>dar_explorer_has_af</dont_has_info>
+				<has_info>dar_explorer_has_docs</has_info>
+                <text>dar_explorer_dialog_6306</text>
+                <next>63051</next>
+				<next>32</next>
+            </phrase>
+			<phrase id="6307">
+				<has_info>dar_explorer_take_af</has_info>
+                <text>dar_explorer_dialog_6307</text>
+                <next>5</next>
+            </phrase>
+			<phrase id="6308">
+				<has_info>dar_explorer_take_money</has_info>
+                <text>dar_explorer_dialog_6308</text>
+                <next>5</next>
+            </phrase>
+			<phrase id="6309">
+				<has_info>dar_explorer_find_money</has_info>
+				<dont_has_info>dar_explorer_has_docs</dont_has_info>
+				<has_info>dar_explorer_has_money</has_info>
+                <text>dar_explorer_dialog_6309</text>
+				<next>63092</next>
+            </phrase>
+			<phrase id="63091">
+				<dont_has_info>dar_explorer_has_money</dont_has_info>
+                <text>dar_explorer_dialog_63091</text>
+                <next>630911</next>
+            </phrase>
+			<phrase id="630911">
+                <text>dar_explorer_dialog_630911</text>
+				<give_info>dar_explorer_find_money</give_info>
+				<disable_info>dar_explorer_find_af</disable_info>
+                <next>73</next>
+            </phrase>
+			<phrase id="63092">
+				<has_info>dar_explorer_has_money</has_info>
+                <text>dar_explorer_dialog_63092</text>
+				<give_info>find_money_done</give_info>
+				<action>dar_dialogs.explorer_take_away_money</action>
+				<give_info>dar_explorer_take_money</give_info>
+				<disable_info>dar_explorer_find_money</disable_info>
+				<disable_info>dar_explorer_find_af</disable_info>
+                <next>630921</next>
+            </phrase>
+			<phrase id="630921">
+                <text>dar_explorer_dialog_630921</text>
+                <next>5</next>
+            </phrase>
+			<phrase id="6310">
+				<has_info>dar_explorer_find_money</has_info>
+				<has_info>dar_explorer_has_docs</has_info>
+				<has_info>dar_explorer_has_money</has_info>
+                <text>dar_explorer_dialog_6310</text>
+                <next>63092</next>
+				<next>32</next>
+            </phrase>
+			<phrase id="6311">
+				<has_info>dar_explorer_find_money</has_info>
+				<dont_has_info>dar_explorer_has_docs</dont_has_info>
+				<dont_has_info>dar_explorer_has_money</dont_has_info>
+                <text>dar_explorer_dialog_6311</text>
+                <next>63051</next>
+            </phrase>
+			<phrase id="6312">
+				<has_info>dar_explorer_find_money</has_info>
+				<has_info>dar_explorer_has_docs</has_info>
+				<dont_has_info>dar_explorer_has_money</dont_has_info>
+                <text>dar_explorer_dialog_6312</text>
+                <next>63051</next>
+				<next>32</next>
+            </phrase>
+			<phrase id="71">
+                <text>dar_explorer_dialog_71</text>
+                <action>dialogs.break_dialog</action>
+				<disable_info>dar_explorer_dlg_open</disable_info>
+                <give_info>dar_explorer_dlg_completed</give_info>
+            </phrase>
+            <phrase id="72">
+                <text>dar_explorer_dialog_72</text>
+                <action>dialogs.break_dialog</action>
+                <disable_info>dar_explorer_dlg_open</disable_info>
+                <give_info>dar_explorer_dlg_completed</give_info>
+				<give_info>dar_explorer_dlg_snuffy</give_info>
+            </phrase>
+			<phrase id="73">
+                <text>dar_explorer_dialog_73</text>
+                <action>dialogs.break_dialog</action>
+            </phrase>
+			<phrase id="74">
+                <text>dar_explorer_dialog_74</text>
+                <action>dialogs.break_dialog</action>
+                <disable_info>dar_explorer_dlg_open</disable_info>
+                <give_info>dar_explorer_dlg_completed</give_info>
+            </phrase>
+        </phrase_list>
+    </dialog>
+	<!-- Мирное получение документов у Жеки Дуплета в лаборатории 18 -->
+</game_dialogs>

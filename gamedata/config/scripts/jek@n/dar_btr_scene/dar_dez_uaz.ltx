@@ -1,0 +1,67 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = {+merc_signal_detonate} ph_car@finish1, {+merc_signal_uaz} ph_car@middle2, ph_car@middle1
+on_hit = hit
+
+[hit]
+on_info = %+dar_dez_uaz_lost%
+
+[ph_car@middle1]
+path_walk       = dar_dez_btr_walk_middle_1
+path_fire       = dar_dez_btr_walk_middle_1
+invulnerable = true
+headlights = on
+on_death_info   = dar_dez_uaz_dead
+on_signal       = arrived | ph_car@middle2 %+merc_signal_uaz%
+;on_info = {+road_bomb_expl +merc_signal_detonate} ph_car@finish2, {+road_bomb_expl -merc_signal_uaz} ph_car@finish2
+
+[ph_car@middle2]
+path_walk       = dar_dez_btr_walk_middle_2
+path_fire       = dar_dez_btr_walk_middle_2
+headlights = on
+invulnerable = true
+on_death_info   = dar_dez_uaz_dead
+on_signal       = arrived | ph_car@finish1 %+merc_signal_detonate%
+
+[ph_car@finish1]
+path_walk       = dar_dez_btr_walk_finish_1
+path_fire       = dar_dez_btr_walk_finish_1
+headlights = on
+invulnerable = true
+on_death_info   = dar_dez_uaz_dead
+on_signal       = arrived | ph_car@finish2 %+uaz_prepare_to_go%
+on_info = { +merc_signal_detonate +road_bomb_expl} ph_car@stop
+
+
+[ph_car@finish2]
+path_walk       = dar_dez_btr_walk_finish_2
+path_fire       = dar_dez_btr_walk_finish_2
+headlights = on
+invulnerable = true
+on_death_info   = dar_dez_uaz_dead
+on_signal       = arrived | ph_car@finish3
+
+
+[ph_car@finish3]
+
+path_walk       = dar_dez_btr_walk_finish_3
+path_fire       = dar_dez_btr_walk_finish_3
+headlights = off
+invulnerable = true
+on_death_info   = dar_dez_uaz_dead
+on_signal       = arrived | %+dar_dez_uaz_lost%
+
+
+[ph_car@stop]
+on_death_info   = dar_dez_uaz_dead
+invulnerable = true
+on_timer        = 6000 | ph_idle@idle %+uaz_spawn_desant%
+
+
+[ph_idle@idle]
+path_walk       = dar_dez_btr_stop
+path_fire       = dar_dez_btr_stop

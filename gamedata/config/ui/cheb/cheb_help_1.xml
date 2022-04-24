@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+<lvlhelp_1>
+
+<body x="220" y="120" width="511" height="520" stretch="1">
+	<texture>ui\cheb\cheb_base_body</texture>
+</body>
+<table x="290" y="450" width="404" height="384" stretch="1">
+	<texture>ui\cheb\cheb_dialog_screen</texture>
+</table>
+<name x="540" y="640" width="370" height="35">
+	<text x="0" y="0" r="225" g="218" b="118" font="letterica18">cheb_name</text>
+</name>
+<cheb_talking1 x="315" y="495" width="360" height="145">
+	<text font="letterica16">cheb_stash_found_1_string</text>
+</cheb_talking1>
+<cheb_talking2 x="315" y="510" width="360" height="145">
+	<text font="letterica16">cheb_stash_found_2_string</text>
+</cheb_talking2>
+<cheb_talking3 x="315" y="525" width="360" height="145">
+	<text font="letterica16">cheb_stash_found_3_string</text>
+</cheb_talking3>
+
+
+	<btn_1 x="435" y="690" width="100" height="18">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+		<text font="letterica16">cheb_lets_take_a_look_string</text>
+	</btn_1>
+
+	<btn_quit x="458" y="635" width="18" height="18">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+	</btn_quit>
+
+</lvlhelp_1>
+

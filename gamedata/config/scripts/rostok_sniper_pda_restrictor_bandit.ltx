@@ -1,0 +1,13 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_info = {+rostok_sniper_1_die} sr_idle@2 %=play_snd(characters_voice\scenario\Rostok\sniper_radio_see_enemy_1)%, {+rostok_sniper_2_die} sr_idle@2 %=play_snd(characters_voice\scenario\Rostok\sniper_radio_see_enemy_1)%, {+rostok_sniper_3_die} sr_idle@2 %=play_snd(characters_voice\scenario\Rostok\sniper_radio_see_enemy_1)%, {+rostok_sniper_4_die} sr_idle@2 %=play_snd(characters_voice\scenario\Rostok\sniper_radio_see_enemy_1)%
+on_info2 = {-bar_rescue_research_fail -bar_rescue_research_done +actor_set_bandit} %+bar_heli_scene_stay_online%, nil
+on_actor_inside = sr_idle@2 %=play_snd(characters_voice\scenario\Rostok\sniper_radio_see_enemy_1) +bar_heli_scene_stay_online%
+
+[sr_idle@2]
+on_timer = 7000 | sr_idle@3 %=play_snd(characters_voice\scenario\Rostok\merk_2_pda)%
+
+[sr_idle@3]
+on_timer = 7000 | nil %=play_snd(characters_voice\scenario\Rostok\merk_3_pda)%

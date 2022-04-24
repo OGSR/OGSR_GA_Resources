@@ -1,0 +1,10 @@
+[logic]
+active = ph_idle@closed
+
+[ph_idle@closed]
+on_info = {+kpss_gotcha} ph_idle@opened
+tips   = hack_the_box
+
+[ph_idle@opened]
+tips   = st_search_treasure
+on_use = %=safe_6_open%

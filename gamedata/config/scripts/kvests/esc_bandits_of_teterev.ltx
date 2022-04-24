@@ -1,0 +1,34 @@
+
+[logic]
+active = remark
+combat_ignore = combat_ignore
+on_death = death
+on_hit = hit
+
+[smart_terrains]
+none = true
+
+
+[hit]
+on_info = {=hit_by_actor} %+esc_kvest_help_teterev_bandits_on_combat%
+
+[death]
+on_info = {=killed_by_actor} %+esc_kvest_help_teterev_bandits_on_combat%
+
+[remark]
+anim = guard
+no_move = true
+target = actor
+meet = meet
+combat_ignore_cond = {-esc_kvest_help_teterev_bandits_on_combat =fighting_actor}
+
+[meet] 
+meet_state = 2|threat
+meet_state_wpn = 3|threat
+victim = 2|actor
+victim_wpn = 3|actor
+use = true
+use_wpn = false
+
+[combat_ignore]
+combat_ignore_cond = {-esc_kvest_help_teterev_bandits_on_combat =fighting_actor}

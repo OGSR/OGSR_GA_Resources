@@ -1,0 +1,92 @@
+
+[smart_terrains]
+none = true
+
+
+[logic]
+active = walker@begin
+;combat_ignore = combat_ignore
+danger = danger_ignore
+on_death = death
+threshold = threshold@ds_glavar_threshold
+on_hit = hit
+
+
+[walker@begin]
+path_walk =	ds_glavar_walk
+path_look =	ds_glavar_look
+on_timer = 100 | walker %=make_invulnerable%
+
+
+[walker]
+path_walk =	ds_glavar_walk
+path_look =	ds_glavar_look
+combat_ignore_cond = always
+on_info = {+kulg_band_hutor_attacked} walker@away
+on_info2 = {+bridge_kulgband_glavar_go_away} walker@drunk %=spawn_vodka_around_glavar%
+;on_info3 = {+kulg_band_meet_speech_loose} walker@goodbye %=make_invulnerable%
+
+
+; Сваливаем подальше и удаляемся до лучших времён:
+[walker@away]
+path_walk =	ds_glavar_walk2
+path_look =	ds_glavar_look2
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+on_signal       = arrived|%=release%
+on_actor_dist_ge_nvis = 30|%=release%
+;on_info = {=dist_to_actor_ge(30)}%=release%
+
+
+; Секция ожидания перед удалением:
+[walker@goodbye]
+path_walk =	ds_glavar_walk
+path_look =	ds_glavar_look
+combat_ignore_cond = always
+on_actor_dist_ge_nvis = 30|%=release%
+
+
+; Обосрались и набухались:
+[walker@drunk]
+path_walk =	ds_glavar_walk
+path_look =	ds_glavar_look_drunk
+combat_ignore_cond = always
+meet = no_meet
+on_info = {=actor_has_item(klondaik_key)} walker@1
+
+
+; Прочухались:
+[walker@1]
+path_walk =	ds_glavar_walk
+path_look =	ds_glavar_look
+combat_ignore_cond = always
+
+
+
+
+[danger_ignore]
+ignore_distance = 1
+
+
+[combat_ignore]
+combat_ignore_cond = always
+
+
+[threshold@ds_glavar_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+
+[death]
+on_info = {-kulgband_scout_deal} %+ds_glavar_dead%, {+kulgband_scout_deal} %+ds_glavar_blamed +ds_glavar_dead%
+
+
+[hit]
+on_info = {=hit_by_actor} %+kulg_band_hutor_attacked%
+
+
+
+

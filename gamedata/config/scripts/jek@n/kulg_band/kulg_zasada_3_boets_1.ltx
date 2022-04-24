@@ -1,0 +1,70 @@
+[smart_terrains]
+
+none = true
+
+
+
+[logic]
+
+active = camper
+
+on_death = death
+
+on_combat = combat
+
+danger = danger_ignore
+
+; threshold = threshold@kulg_zasada_3_boets_1_threshold
+
+[combat]
+
+combat_type = camper
+
+
+
+[camper]
+
+path_walk = kulg_zasada_3_boets_1_walk
+
+path_look = drifter_walk_pos_3
+
+def_state_moving = walk
+
+def_state_campering = threat
+
+def_state_campering_fire = threat_sniper_fire
+
+sniper = true
+
+radius = 150
+
+
+
+[kamp]
+
+center_point = drifter_walk_pos_3
+
+radius = 5 
+
+def_state_moving = walk
+
+
+
+[danger_ignore]
+
+ignore_distance = 150
+
+
+
+[threshold@kulg_zasada_3_boets_1_threshold]
+
+max_ignore_distance = 0
+
+ignore_monster = 0
+
+
+
+[death]
+
+on_info = %+kulg_zasada_3_boets_1_dead%
+

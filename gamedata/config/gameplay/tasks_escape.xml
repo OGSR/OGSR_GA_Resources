@@ -1,0 +1,972 @@
+<game_task id="escape_trader_artifact_task" prio="500">
+	<title>escape_trader_artifact_task_text_task</title>
+	<objective>
+		<text>escape_trader_artifact_task_text_task</text>
+		<icon>ui_iconsTotal_tutorial_find_artefact</icon>
+		<article>escape_trader_artifact_task</article>
+		<infoportion_complete>artefact_done</infoportion_complete>
+	</objective>
+	<objective>
+		<text>escape_trader_artifact_task_text2_task</text>
+		<icon>ui_iconsTotal_tutorial_find_artefact</icon>
+		<map_location_type hint="esc_artefact">green_location</map_location_type>
+		<object_story_id>Escape_Tutorial_Artefact</object_story_id>
+		<function_complete>PMA_escape.have_artefact</function_complete>
+		<infoportion_set_complete>artefact_gain</infoportion_set_complete>
+	</objective>
+	<objective>
+		<text>escape_trader_artifact_task_text3_task</text>
+		<icon>ui_iconsTotal_tutorial_find_artefact</icon>
+		<map_location_type hint="escape_trader">blue_location</map_location_type>
+		<object_story_id>Escape_Trader</object_story_id>
+		<infoportion_complete>artefact_done</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="tutorial_help_wounded_ogse">
+	<title>tutorial_help_wounded_ogse_text_task</title>
+	<objective>
+		<text>tutorial_help_wounded_ogse_text_task</text>
+		<icon>ui_iconsTotal_find_railroad_passage</icon>
+		<article>tutorial_help_wounded111</article>
+		<function_fail>ogsm_quests.tolik_death</function_fail>
+		<infoportion_complete>tutorial_wounded_help</infoportion_complete>
+	</objective>
+</game_task>
+
+
+<game_task id="storyline_eliminate_gunslinger">
+	<title>storyline_escape_eliminate_gunslinger</title>
+	<objective>
+		<text>storyline_escape_eliminate_gunslinger</text>
+		<icon>ui_iconsTotal_storyline_eliminate_gunslinger</icon>
+		<infoportion_fail>cit_fail_first_task</infoportion_fail>
+		<article>storyline_gunslinger</article>
+	</objective>
+	<objective>
+		<text>storyline_escape_find_gunslinger</text>
+	</objective>
+	<objective>
+		<text>storyline_escape_eliminate_gunslinger</text>
+	</objective>
+</game_task>
+
+<game_task id="esc_help_wounded_from_raid" prio="485">
+	<title>esc_help_wounded_from_raid</title>
+	<objective>
+		<text>esc_help_wounded_from_raid_0</text>
+		<icon>ui_iconsTotal_esc_help_wounded_from_raid</icon>
+		<function_complete>escape_tasks.task_fox_complete</function_complete>
+		<infoportion_set_complete>garbage_meetstalker_start</infoportion_set_complete>			
+		<article>esc_fox_help</article>
+	</objective>
+	<objective>
+		<text>esc_help_wounded_from_raid_1</text>
+		<map_location_type hint="esc_fox">green_location</map_location_type>
+		<object_story_id>Escape_stalker_from_raid</object_story_id>
+		<infoportion_complete>escape_fox_heal</infoportion_complete>
+		<infoportion_fail>esc_dogs_return</infoportion_fail>
+	</objective>
+	<objective>
+		<text>esc_help_wounded_from_raid_2</text>
+		<map_location_type hint="esc_fox">green_location</map_location_type>
+		<object_story_id>Escape_stalker_from_raid</object_story_id>
+		<infoportion_complete>escape_stalker_done</infoportion_complete>
+	</objective>
+</game_task>
+
+
+<game_task id="esc_blockpost_case_to_trader" prio="390">
+	<title>esc_blockpost_case_to_trader</title>
+	<objective>
+		<text>esc_blockpost_case_to_trader_0</text>
+		<icon>ui_iconsTotal_esc_blockpost_case_to_trader</icon>
+		<infoportion_complete>escape_blockpost_case_done</infoportion_complete>
+	</objective>
+	<objective>
+		<text>esc_blockpost_case_to_trader_1</text>
+		<map_location_type hint="blokpost_case">green_location</map_location_type>
+		<object_story_id>Escape_blockpost_case</object_story_id>
+		<infoportion_complete>escape_blockpost_case_have</infoportion_complete>
+	</objective>
+	<objective>
+		<text>esc_blockpost_case_to_trader_2</text>
+		<map_location_type hint="escape_trader">blue_location</map_location_type>
+		<object_story_id>Escape_Trader</object_story_id>
+		<infoportion_complete>escape_blockpost_case_done</infoportion_complete>			
+	</objective>
+</game_task>
+
+<game_task id="esc_dinamit_to_volk">
+	<title>esc_dinamit_to_volk</title>
+	<objective>
+		<text>esc_dinamit_to_volk_0</text>
+		<icon>ui_iconsTotal_esc_dinamit_to_volk</icon>
+		<infoportion_complete>esc_kill_bandits_quest_done</infoportion_complete>
+		<infoportion_fail>esc_wolf_dead</infoportion_fail>
+		<!--			<function_fail>escape_tasks.is_actor_enemy_lager</function_fail> -->
+	</objective>
+	<objective>
+		<text>esc_dinamit_to_volk_1</text>
+		<map_location_type hint="wolfs_rangers">green_location</map_location_type>
+		<object_story_id>Escape_bridge_stalkers</object_story_id>
+		<function_complete>escape_tasks.petruha_talk</function_complete>			
+		<infoportion_fail>esc_petruha_die</infoportion_fail>
+	</objective>		
+	<objective>
+		<text>esc_dinamit_to_volk_2</text>
+		<map_location_type hint="escape_dinamit">green_location</map_location_type>
+		<object_story_id>esc_bandits_factory</object_story_id>
+		<infoportion_complete>esc_kill_bandits_quest_kill</infoportion_complete>
+	</objective>
+	<objective>
+		<text>esc_dinamit_to_volk_3</text>
+		<map_location_type hint="volk">green_location</map_location_type>
+		<object_story_id>Escape_novice_lager_volk</object_story_id>
+		<infoportion_complete>esc_kill_bandits_quest_done</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="esc_defend_lager" prio="385">
+	<title>esc_defend_lager</title>
+	<objective>
+		<text>esc_defend_lager_from_killers_0</text>
+		<icon>ui_iconsTotal_esc_defend_lager</icon>
+		<function_complete>escape_tasks.task_lager_complete</function_complete>
+		<infoportion_fail>esc_lager_destroyed</infoportion_fail>
+		<function_fail>escape_tasks.is_actor_enemy_lager</function_fail>
+	</objective>
+	<objective>
+		<text>esc_defend_lager_from_killers_1</text>
+		<map_location_type hint="killers_team">green_location</map_location_type>
+		<object_story_id>esc_leader_killers</object_story_id>
+		<infoportion_complete>escape_lager_killers_die</infoportion_complete>
+	</objective>		
+	<objective>
+		<text>esc_defend_lager_from_killers_2</text>
+		<map_location_type hint="novice_leader">green_location</map_location_type>
+		<object_story_id>esc_lager_leader</object_story_id>
+		<infoportion_complete>escape_lager_complete</infoportion_complete>
+		<infoportion_fail>esc_fanat_die</infoportion_fail>
+	</objective>
+</game_task>
+
+<game_task id="doctor_meet">
+	<title>meet_with_doctor</title>
+	<objective>
+		<text>meet_with_doctor_1</text>
+		<icon>ui_iconsTotal_doctor_meet</icon>
+		<infoportion_complete>esc_find_doctor_done</infoportion_complete>
+		<article>esc_doctor_meet</article>
+	</objective>
+	<objective>
+		<text>meet_with_doctor_2</text>
+		<map_location_type hint="meet_with_doctor_2">green_location</map_location_type>
+		<object_story_id>agr_doctor_spot</object_story_id>			
+	</objective>
+</game_task>
+
+<!--NEW: first task from trader-->
+<game_task id="esc_flash_task" prio="495">
+	<title>tutorial_help_wounded</title>
+	<objective>
+		<text>tutorial_help_wounded</text>
+		<icon>ui_iconsTotal_tutorial_help_wounded</icon>
+		<infoportion_complete>esc_serious_talk</infoportion_complete>
+		<article>esc_flash_task_descr</article>
+	</objective>
+	<objective>
+		<text>tutorial_help_wounded_1</text>
+		<map_location_type hint="volk">green_location</map_location_type>
+		<object_story_id>Escape_novice_lager_volk</object_story_id>
+		<infoportion_complete>esc_kill_bandits_quest_have</infoportion_complete>
+		<function_fail>escape_tasks.task_volk_fail</function_fail>
+	</objective>
+	<objective>
+		<text>esc_dinamit_to_volk_1</text>
+		<map_location_type hint="wolfs_rangers">green_location</map_location_type>
+		<object_story_id>Escape_bridge_stalkers</object_story_id>
+		<map_location_hidden>1</map_location_hidden>
+		<function_complete>escape_tasks.petruha_talk</function_complete>			
+		<infoportion_fail>esc_petruha_die</infoportion_fail>
+	</objective>
+	<objective>
+		<text>esc_dinamit_to_volk</text>
+		<map_location_type hint="esc_dinamit_to_volk">green_location</map_location_type>
+		<map_location_hidden>1</map_location_hidden>
+		<object_story_id>esc_bandits_factory</object_story_id>
+		<infoportion_complete>esc_kill_bandits_quest_kill</infoportion_complete>
+	</objective>
+	<objective>
+		<text>tutorial_help_wounded_2</text>
+		<map_location_type hint="tutorial_wounded">green_location</map_location_type>
+		<object_story_id>esc_wounded_flash</object_story_id>
+		<map_location_hidden>1</map_location_hidden>
+		<infoportion_complete>tutorial_wounded_give_info</infoportion_complete>
+	</objective>
+	<objective>
+		<text>tutorial_help_wounded_3</text>
+		<map_location_type hint="escape_trader">blue_location</map_location_type>
+		<object_story_id>Escape_Trader</object_story_id>
+		<infoportion_complete>esc_serious_talk</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="esc_trader_job" prio="0">
+	<title>esc_trader_job</title>
+	<objective>
+		<icon>ui_iconsTotal_esc_trader_job</icon>
+		<article>esc_trader_job</article>
+		<infoportion_complete>agroprom_military_case</infoportion_complete>
+	</objective>
+	<objective>
+		<text>esc_trader_job_text</text>
+		<map_location_type hint="esc_trader_job_text">blue_location</map_location_type>
+		<object_story_id>Escape_Trader</object_story_id>
+		<infoportion_complete>agroprom_military_case</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="find_railroad_passage" prio="386">
+	<title>find_railroad_passage</title>
+	<objective>
+		<icon>ui_iconsTotal_find_railroad_passage</icon>
+		<article>find_railroad_passage_descr</article>
+		<infoportion_complete>esc_find_railroad_passage_done</infoportion_complete>
+	</objective>
+	<objective>
+		<text>find_railroad_passage_1</text>
+		<infoportion_complete>esc_find_railroad_passage_find_stalker</infoportion_complete>
+		<map_location_type hint="find_railroad_passage_1">green_location</map_location_type>
+		<object_story_id>esc_dead_tunel_novice</object_story_id>
+	</objective>
+	<objective>
+		<text>find_railroad_passage_2</text>
+	</objective>
+</game_task>
+
+<!-- DotPack -->
+<game_task id="escape_trader_artnabor" prio="300">
+	<title>escape_trader_artnabor</title>
+	<objective>
+		<icon>ui_iconsTotal_tutorial_find_artefact</icon>			
+		<article>escape_trader_artnabor_descr</article>
+		<infoportion_complete>escape_trader_artnabor_done</infoportion_complete>
+	</objective>
+	<objective>
+		<text>escape_trader_artnabor_0</text>
+		<function_complete>ogse_quests.actor_has_artnabor</function_complete>
+	</objective>
+	<objective>
+		<text>escape_trader_artnabor_1</text>
+		<map_location_type hint="escape_trader">blue_location</map_location_type>
+		<object_story_id>Escape_Trader</object_story_id>
+		<infoportion_complete>escape_trader_artnabor_done</infoportion_complete>
+	</objective>
+</game_task>
+<!-- DotPack -->	
+
+<!-- Vodka dlya Tolika-->
+<game_task id="tolik_vodka">
+	<title>tolik_vodka</title>	
+	<objective>
+		<text>get_vodka</text>
+		<icon>ui_iconsTotal_artefact</icon>
+		<article>tolik_vodka_article</article>
+		<infoportion_complete>find_tolik_vodka</infoportion_complete>
+		<function_fail>ogsm_quests.tolik_death</function_fail>
+	</objective>	
+	<objective>
+		<text>find_vodka</text>
+		<function_complete>ogsm_quests.has_five_vodkas</function_complete>
+		<function_fail>ogsm_quests.tolik_death</function_fail>
+		<infoportion_set_complete>vodka_tolik_have</infoportion_set_complete>
+	</objective>
+	<!-- Vodka dlya Tolika-->
+	<objective>
+		<text>go_with_vodka</text>
+		<map_location_type hint="tolik">green_location</map_location_type>
+		<object_story_id>esc_wounded_flash</object_story_id>
+		<infoportion_complete>find_tolik_vodka</infoportion_complete>
+		<function_fail>ogsm_quests.tolik_death</function_fail>
+	</objective>
+</game_task>
+
+<game_task id="esc_rma_dinamit_to_volk">
+	<title>esc_rma_dinamit_to_volk_text_task</title>
+	<objective>
+		<text>esc_rma_dinamit_to_volk_text_task</text>
+		<icon>ui_iconsTotal_esc_dinamit_to_volk</icon>
+		<infoportion_complete>esc_dinamit_pma_done</infoportion_complete>
+		<infoportion_fail>esc_wolf_dead</infoportion_fail>
+		<article>esc_dinamit_to_volk_rma</article>
+	</objective>
+	<objective>
+		<text>esc_rma_dinamit_to_volk_text2_task</text>
+		<function_complete>PMA_escape.have_esc_dynamite</function_complete>			
+		<infoportion_set_complete>esc_dinamit_pma_gain</infoportion_set_complete>
+	</objective>		
+	<objective>
+		<text>esc_rma_dinamit_to_volk_text3_task</text>
+		<map_location_type hint="volk">green_location</map_location_type>
+		<object_story_id>Escape_novice_lager_volk</object_story_id>
+		<infoportion_complete>esc_dinamit_pma_done</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="esc_rma_antigas_mis">
+	<title>esc_rma_antigas_mis</title>
+	<objective>
+		<text>esc_rma_antigas_mis_0</text>
+		<icon>ui_iconsTotal_found_thing</icon>
+		<infoportion_fail>esc_rma_antigas_stalker_dead</infoportion_fail>
+		<infoportion_complete>PMA_esc_antigas_mis_given_gun</infoportion_complete>
+		<article>PMA_esc_antigas_a</article>
+	</objective>
+	<objective>
+		<text>esc_rma_antigas_mis_1</text>
+		<icon>ui_iconsTotal_found_thing</icon>
+		<function_complete>PMA_escape.esc_has_bm16</function_complete>
+		<infoportion_set_complete>PMA_esc_antigas_mis_has_gun</infoportion_set_complete>
+	</objective>
+	<objective>
+		<text>esc_rma_antigas_mis_2</text>
+		<icon>ui_iconsTotal_found_thing</icon>
+		<infoportion_complete>PMA_esc_antigas_mis_given_gun</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="lekar_goto_af_mincer_meat">
+	<title>lekar_goto_af_mincer_meat_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>lekar_goto_af_mincer_meat_text_task</text>
+		<article>lekar_goto_af_mincer_meat</article>
+		<icon>ui_iconsTotal_artefact</icon>
+		<infoportion_complete>lekar_af_mincer_meat_out</infoportion_complete>
+		<infoportion_fail>lekar_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>lekar_goto_af_mincer_meat_text_task</text>
+		<function_complete>jekan_work.have_af_mincer_meat</function_complete>
+	</objective>
+	<objective>
+		<text>lekar_goto_af_mincer_meat_text2_task</text>
+		<map_location_type hint="lekar_goto_af_mincer_meat_text3_task">green_location</map_location_type>
+		<object_story_id>esc_lekar</object_story_id>
+		<infoportion_fail>lekar_dead</infoportion_fail>
+		<infoportion_complete>lekar_af_mincer_meat_out</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="find_first_shron">
+	<title>find_first_shron_text_task</title>
+	<objective>
+		<text>find_first_shron_text2_task</text>
+		<article>find_first_shron</article>
+		<icon>ui_iconsTotal_find_item</icon>
+		<infoportion_complete>first_planshet_info</infoportion_complete>
+		<infoportion_fail>bridge_lekar_dead</infoportion_fail>	
+	</objective>
+	<objective>
+		<text>find_first_shron_text3_task</text>
+		<map_location_type hint="find_first_shron_text4_task">green_location</map_location_type>
+		<object_story_id>lekar_place</object_story_id>
+		<function_complete>jekan_work.first_planshet_in</function_complete>
+		<infoportion_complete>first_planshet_in</infoportion_complete>
+	</objective>
+	<objective>
+		<text>find_first_shron_text5_task</text>
+		<infoportion_complete>first_planshet_info</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="find_flash_1">
+	<title>find_flash_1_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>find_flash_1_text_task</text>
+		<article>find_flash_1</article>
+		<icon>ui_iconsJek@nflashcard1</icon>
+		<infoportion_complete>arthunter_quest_reward</infoportion_complete>
+		<!--infoportion_fail>digger_dead</infoportion_fail-->
+		<function_fail>jekan_work.fleshka_1_failure</function_fail>
+	</objective>
+	<objective>
+		<text>find_flash_1_text2_task</text>
+		<icon>ui_iconsTotal_tutorial_help_wounded</icon>
+		<map_location_type hint="find_flash_1_text3_task">green_location</map_location_type>
+		<object_story_id>esc_digger</object_story_id>
+		<infoportion_complete>digger_give_info</infoportion_complete>
+		<infoportion_fail>digger_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>find_flash_1_text4_task</text>
+		<icon>ui_iconsTotal_tutorial_help_wounded</icon>
+		<function_complete>jekan_work.fleshka_1_find</function_complete>
+		<infoportion_fail>arthunter_dead</infoportion_fail>
+	</objective>
+</game_task>
+
+<game_task id="find_flash_2">
+	<title>find_flash_2_text_task</title>
+	<objective>
+		<text>find_flash_2_text_task</text>
+		<article>find_flash_2</article>
+		<icon>ui_iconsJek@nflashcard2</icon>
+		<infoportion_complete>fleshka_2_find</infoportion_complete>
+		<infoportion_fail>bar_kulg_agent_flash_lost</infoportion_fail>
+	</objective>
+	<objective>
+		<text>find_flash_2_text2_task</text>
+		<icon>ui_iconsTotal_tutorial_help_wounded</icon>
+		<map_location_type hint="find_flash_2_text3_task">green_location</map_location_type>
+		<object_story_id>bar_dolg_polkovnik_petrenko</object_story_id>
+		<infoportion_complete>petrenko_about_odnoglaz</infoportion_complete>
+		<infoportion_fail>sar2_death_42</infoportion_fail>
+	</objective>
+	<objective>
+		<text>find_flash_2_text4_task</text>
+		<infoportion_complete>kulg_band_ambush</infoportion_complete>
+		<infoportion_fail>bar_kulg_agent_flash_lost</infoportion_fail>
+	</objective>
+	<objective>
+		<text>find_flash_2_text5_task</text>
+		<function_complete>jekan_work.fleshka_2_find</function_complete>
+		<infoportion_complete>fleshka_2_find</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="find_flash_3">
+	<title>find_flash_3_text_task</title>
+	<objective>
+		<text>find_flash_3_text_task</text>
+		<article>find_flash_3</article>
+		<icon>ui_iconsJek@nflashcard3</icon>
+		<infoportion_complete>fleshka_3_find</infoportion_complete>
+		<infoportion_fail>kulg_band_meet_speech_loose</infoportion_fail>
+	</objective>
+	<objective>
+		<text>find_flash_3_text2_task</text>
+		<map_location_type hint="find_flash_3_text3_task">green_location</map_location_type>
+		<object_story_id>yan_general_ecolog</object_story_id>
+		<infoportion_complete>yan_sold_in_lager</infoportion_complete>
+		<infoportion_fail>yan_soldier_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>find_flash_3_text4_task</text>
+		<function_complete>jekan_work.fleshka_3_find</function_complete>
+		<infoportion_complete>fleshka_3_find</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="find_flash_4">
+	<title>find_flash_4_text_task</title>
+	<objective>
+		<text>find_flash_4_text_task</text>
+		<article>find_flash_4</article>
+		<icon>ui_iconsJek@nflashcard4</icon>
+		<infoportion_complete>fleshka_4_find</infoportion_complete>
+		<infoportion_fail>kulg_band_meet_speech_loose</infoportion_fail>
+	</objective>
+	<objective>
+		<text>find_flash_4_text2_task</text>
+		<icon>ui_iconsTotal_tutorial_help_wounded</icon>
+		<map_location_type hint="find_flash_4_text3_task">green_location</map_location_type>
+		<object_story_id>iskatel_yuriy</object_story_id>
+		<infoportion_complete>lesop_iskatel_signal_2</infoportion_complete>
+		<infoportion_fail>yuriy_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>find_flash_4_text4_task</text>
+		<!--function_complete>jekan_work.prof_zapiska_find</function_complete-->
+		<!--infoportion_complete>prof_zapiska_find</infoportion_complete-->
+		<infoportion_complete>infa_about_boltun</infoportion_complete>
+	</objective>
+	<objective>
+		<text>find_flash_4_text5_task</text>
+		<function_complete>jekan_work.fleshka_4_find</function_complete>
+		<infoportion_complete>fleshka_4_find</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="find_flash_5">
+	<title>find_flash_5_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>find_flash_5_text_task</text>
+		<article>find_flash_5</article>
+		<icon>ui_iconsJek@nflashcard5</icon>
+		<infoportion_complete>fleshka_5_find</infoportion_complete>
+		<infoportion_fail>kulg_band_meet_speech_loose</infoportion_fail>
+	</objective>
+	<objective>
+		<text>find_flash_5_text2_task</text>
+		<infoportion_fail>zomb_mikluha_dead</infoportion_fail>
+		<infoportion_complete>filin_find</infoportion_complete>
+	</objective>
+	<objective>
+		<text>find_flash_5_text3_task</text>
+		<function_complete>jekan_work.fleshka_5_find</function_complete>
+		<infoportion_complete>fleshka_5_find</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="klondaik_ending_task">
+	<title>klondaik_ending_task_title</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>klondaik_ending_task_title</text>
+		<article>go_to_klondaik_task</article>
+		<icon>ui_iconsTotal_sar_monolith</icon>
+		<infoportion_complete>klondaik_find</infoportion_complete>
+		<infoportion_fail>kulg_band_meet_speech_loose</infoportion_fail>
+	</objective>
+	<objective>
+		<text>klondaik_ending_task_text_2</text>
+		<function_complete>jekan_work.klondaik_key_find</function_complete>
+		<map_location_type hint="find_klondaik_key_task">crlc_small</map_location_type>
+		<object_story_id>filin_flash_hideout</object_story_id>
+		<infoportion_complete>klondaik_key_find</infoportion_complete>
+		<infoportion_fail>kulg_band_meet_speech_loose</infoportion_fail>
+	</objective>
+	<objective>
+		<text>klondaik_ending_task_text_3</text>
+		<map_location_type hint="find_klondaik_task">crlc_small</map_location_type>
+		<object_story_id>klondaik</object_story_id>
+		<infoportion_complete>klondaik_find</infoportion_complete>
+		<infoportion_fail>kulg_band_meet_speech_loose</infoportion_fail>
+	</objective>
+</game_task>
+
+<game_task id="lekar_find_flover">
+	<title>lekar_find_flover_text_task</title>
+	<objective>
+		<text>lekar_find_flover_text_task</text>
+		<article>lekar_find_flover</article>
+		<icon>ui_iconsTotal_artefact</icon>
+		<infoportion_complete>lekar_give_info</infoportion_complete>
+		<infoportion_fail>lekar_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>lekar_find_flover_text2_task</text>
+		<function_complete>jekan_work.have_lekar_flover</function_complete>
+		<infoportion_complete>flover_in</infoportion_complete>
+		<infoportion_fail>lekar_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>lekar_find_flover_text3_task</text>
+		<map_location_type hint="lekar_find_flover_text4_task">green_location</map_location_type>
+		<object_story_id>esc_lekar</object_story_id>
+		<infoportion_complete>lekar_give_info</infoportion_complete>
+		<infoportion_fail>lekar_dead</infoportion_fail>
+	</objective>
+</game_task>
+
+<game_task id="digger_seif_task">
+	<title>digger_seif_task_text_task</title>
+	<objective>
+		<text>digger_seif_task_text_task</text>
+		<article>digger_seif_task</article>
+		<icon>ui_iconsTotal_dar_codedoor_2</icon>
+		<infoportion_complete>safe_1_opened</infoportion_complete>
+		<infoportion_fail>digger_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>digger_seif_task_text2_task</text>
+		<infoportion_complete>safe_1_opened</infoportion_complete>
+		<infoportion_fail>digger_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>digger_seif_task_text3_task</text>
+		<map_location_type hint="digger_seif_task_text4_task">green_location</map_location_type>
+		<object_story_id>esc_digger</object_story_id>
+		<infoportion_complete>digger_give_info</infoportion_complete>
+		<infoportion_fail>digger_dead</infoportion_fail>
+	</objective>
+</game_task>
+
+<game_task id="secret_villager_task" show_all_objectives="1">
+	<title>secret_villager_task_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>secret_villager_task_text_task</text>
+		<icon>ui_iconsTotal_locations</icon>
+		<article>secret_villager_task</article>
+		<infoportion_complete>muzikant_quest_1_reward</infoportion_complete>
+		<infoportion_fail>muzikant_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>secret_villager_task_text2_task</text>
+		<function_complete>jekan_work.have_all_bones</function_complete>
+		<infoportion_complete>all_bones_collected</infoportion_complete>
+	</objective>
+	<objective>
+		<text>secret_villager_task_text3_task</text>
+		<function_complete>jekan_work.have_bone_1</function_complete>
+	</objective>
+	<objective>
+		<text>secret_villager_task_text4_task</text>
+		<function_complete>jekan_work.have_bone_2</function_complete>
+	</objective>
+	<objective>
+		<text>secret_villager_task_text5_task</text>
+		<function_complete>jekan_work.have_bone_3</function_complete>
+	</objective>
+	<objective>
+		<text>secret_villager_task_text6_task</text>
+		<function_complete>jekan_work.have_bone_4</function_complete>
+	</objective>
+	<objective>
+		<text>secret_villager_task_text7_task</text>
+		<map_location_type hint="secret_villager_task_text8_task">green_location</map_location_type>
+		<object_story_id>hohol</object_story_id>
+		<infoportion_complete>muzikant_quest_1_reward</infoportion_complete>
+		<infoportion_fail>muzikant_dead</infoportion_fail>
+	</objective>
+</game_task>
+
+<game_task id="meet_arthunter">
+	<title>meet_arthunter_text_task</title>
+	<objective>
+		<text>meet_arthunter_text_task</text>
+		<icon>ui_iconsNpc_green_stalker_7</icon>
+		<article>meet_arthunter</article>
+		<infoportion_complete>arthunter_quest_reward</infoportion_complete>
+		<infoportion_fail>arthunter_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>meet_arthunter_text_task</text>
+		<map_location_type hint="meet_arthunter_text2_task">green_location</map_location_type>
+		<object_story_id>af_puzir_place</object_story_id>
+		<infoportion_complete>arthunter_task</infoportion_complete>
+		<infoportion_fail>arthunter_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>meet_arthunter_text3_task</text>
+		<function_complete>jekan_work.fleshka_1_find</function_complete>
+		<infoportion_fail>arthunter_dead</infoportion_fail>
+	</objective>
+</game_task>
+
+<game_task id="brother_trap_task">
+	<title>brother_trap_task_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>brother_trap_task_text_task</text>
+		<icon>ui_iconsTotal_esc_defend_lager</icon>
+		<infoportion_complete>zona_brother1_alive</infoportion_complete>
+		<infoportion_fail>zona_brother1_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>brother_trap_task_text2_task</text>
+		<map_location_type hint="brother_trap_task_text3_task">green_location</map_location_type>
+		<object_story_id>zona_brother1</object_story_id>
+		<infoportion_complete>brother_freezer_use</infoportion_complete>
+		<infoportion_fail>zona_brother1_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>brother_trap_task_text4_task</text>
+		<infoportion_complete>zona_brother1_alive</infoportion_complete>
+		<infoportion_fail>zona_brother1_dead</infoportion_fail>
+	</objective>
+</game_task>
+
+<game_task id="defend_bro2">
+	<title>defend_bro2_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>defend_bro2_text_task</text>
+		<icon>ui_iconsNpc_green_stalker_7</icon>
+		<infoportion_complete>brother2_reward</infoportion_complete>
+		<infoportion_fail>zona_brother2_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>defend_bro2_text2_task</text>
+		<map_location_type hint="defend_bro2_text3_task">green_location</map_location_type>
+		<object_story_id>zona_brother2</object_story_id>
+		<infoportion_complete>bro2_on_place</infoportion_complete>
+		<infoportion_fail>zona_brother2_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>defend_bro2_text4_task</text>
+		<infoportion_complete>brother2_reward</infoportion_complete>
+		<infoportion_fail>zona_brother2_dead</infoportion_fail>
+	</objective>
+</game_task>
+
+<game_task id="esc_tunnel_task">
+	<title>esc_tunnel_task_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>esc_tunnel_task_text_task</text>
+		<icon>ui_iconsJek@nEye</icon>
+		<article>find_cheb</article>
+		<infoportion_complete>cheb_greeting</infoportion_complete>
+	</objective>
+	<objective>
+		<text>esc_tunnel_task_text2_task</text>
+		<map_location_type hint="esc_tunnel_task_text3_task">green_location</map_location_type>
+		<object_story_id>cheb_birth_restrictor</object_story_id>
+		<infoportion_complete>cheb_greeting</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="atp_band_cheat">
+	<title>atp_band_cheat_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>atp_band_cheat_text_task</text>
+		<icon>ui_iconsTotal_gar_help_dymon</icon>
+		<article>atp_band_cheat</article>
+		<function_complete>xr_conditions.is_shustriy_in_lager</function_complete>
+		<infoportion_fail>shustriy_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>atp_band_cheat_text2_task</text>
+		<function_complete>xr_conditions.actor_wears_bandit_outfit</function_complete>
+	</objective>
+	<objective>
+		<text>atp_band_cheat_text3_task</text>
+		<map_location_type hint="atp_band_cheat_text4_task">green_location</map_location_type>
+		<object_story_id>atp_lider</object_story_id>
+		<infoportion_complete>atp_prisoner_freedom</infoportion_complete>
+		<infoportion_fail>atp_band_hitted</infoportion_fail>
+	</objective>
+	<objective>
+		<text>atp_band_cheat_text5_task</text>
+		<map_location_type hint="atp_band_cheat_text6_task">green_location</map_location_type>
+		<object_story_id>esc_wounded_flash</object_story_id>
+		<function_complete>xr_conditions.is_shustriy_in_lager</function_complete>
+		<infoportion_fail>shustriy_dead</infoportion_fail>
+	</objective>
+</game_task>
+
+
+
+<game_task id="unic_krovosos_quest">
+	<title>unic_krovosos_quest_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>unic_krovosos_quest_text_task</text>
+		<article>unic_krovosos_quest</article>
+		<icon>ui_iconsTotal_mil_kill_controller</icon>
+		<infoportion_complete>unic_krovosos_quest_complete</infoportion_complete>
+		<infoportion_fail>krovos_unic_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>unic_krovosos_quest_text2_task</text>
+		<map_location_type hint="unic_krovosos_quest_text3_task">green_location</map_location_type>
+		<object_story_id>bloodsucker_unic</object_story_id>
+		<infoportion_complete>unic_krovosos_sleeping</infoportion_complete>
+		<infoportion_fail>krovos_unic_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>unic_krovosos_quest_text4_task</text>
+		<map_location_type hint="unic_krovosos_quest_text5_task">crlc_mdl</map_location_type>
+		<object_story_id>krovos_scientists_place</object_story_id>
+		<infoportion_complete>sleep_bloodsucker_on_place</infoportion_complete>
+		<function_complete>xr_conditions.sleep_bloodsucker_on_place</function_complete>
+		<infoportion_fail>krovos_unic_dead</infoportion_fail>
+	</objective>
+</game_task>
+
+<game_task id="unic_pseudodog_quest">
+	<title>unic_pseudodog_quest_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>unic_pseudodog_quest_text_task</text>
+		<article>unic_pseudodog_quest</article>
+		<icon>ui_iconsTotal_doctor_meet</icon>
+		<infoportion_complete>unic_pseudodog_quest_complete</infoportion_complete>
+		<infoportion_fail>pseudodog_unic_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>unic_pseudodog_quest_text2_task</text>
+		<map_location_type hint="unic_pseudodog_quest_text3_task">green_location</map_location_type>
+		<object_story_id>pseudodog_unic</object_story_id>
+		<infoportion_complete>unic_pseudodog_sleeping</infoportion_complete>
+		<infoportion_fail>pseudodog_unic_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>unic_pseudodog_quest_text4_task</text>
+		<map_location_type hint="unic_pseudodog_quest_text5_task">crlc_mdl</map_location_type>
+		<object_story_id>krovos_scientists_place</object_story_id>
+		<infoportion_complete>sleep_pseudodog_on_place</infoportion_complete>
+		<function_complete>xr_conditions.sleep_pseudodog_on_place</function_complete>
+		<infoportion_fail>pseudodog_unic_dead</infoportion_fail>
+	</objective>
+</game_task>
+
+
+<game_task id="digger_weapon_quest1">
+	<title>digger_weapon_quest_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>digger_weapon_quest_text2_task</text>
+		<article>digger_weapon_quest</article>
+		<icon>ui_iconsTotal_weapons</icon>
+		<infoportion_complete>111</infoportion_complete>
+		<infoportion_fail>digger_weapon_quest5</infoportion_fail>
+		<function_fail>jekan_work.check_digger_weapon_quest_fail</function_fail>
+	</objective>
+	<objective>
+		<text>digger_weapon_quest_text3_task</text>
+		<map_location_type hint="digger_weapon_quest_text4_task">green_location</map_location_type>
+		<object_story_id>bar_sinyak</object_story_id>
+		<infoportion_complete>sinyak_work</infoportion_complete>
+		<infoportion_fail>sinyak_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>digger_weapon_quest_text5_task</text>
+		<infoportion_complete>sinyak_finish</infoportion_complete>
+		<infoportion_fail>sinyak_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>digger_weapon_quest_text6_task</text>
+		<map_location_type hint="digger_weapon_quest_text7_task">green_location</map_location_type>
+		<object_story_id>esc_digger</object_story_id>
+		<infoportion_complete>111</infoportion_complete>
+		<infoportion_fail>digger_weapon_quest2</infoportion_fail>
+		<function_fail>jekan_work.check_digger_weapon_quest_fail</function_fail>
+	</objective>
+</game_task>
+
+<game_task id="digger_weapon_quest2">
+	<title>digger_weapon_quest_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>digger_weapon_quest_text2_task</text>
+		<article>digger_weapon_quest</article>
+		<icon>ui_iconsTotal_weapons</icon>
+		<infoportion_complete>111</infoportion_complete>
+		<infoportion_fail>digger_weapon_quest5</infoportion_fail>
+		<function_fail>jekan_work.check_digger_weapon_quest_fail</function_fail>
+	</objective>
+	<objective>
+		<text>digger_weapon_quest_text3_task</text>
+		<map_location_type hint="digger_weapon_quest_text4_task">green_location</map_location_type>
+		<object_story_id>bar_sinyak</object_story_id>
+		<infoportion_complete>sinyak_work</infoportion_complete>
+		<infoportion_fail>sinyak_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>digger_weapon_quest_text5_task</text>
+		<infoportion_complete>sinyak_finish</infoportion_complete>
+		<infoportion_fail>sinyak_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>digger_weapon_quest_text6_task</text>
+		<map_location_type hint="digger_weapon_quest_text7_task">green_location</map_location_type>
+		<object_story_id>esc_digger</object_story_id>
+		<infoportion_complete>111</infoportion_complete>
+		<infoportion_fail>digger_weapon_quest5</infoportion_fail>
+		<function_fail>jekan_work.check_digger_weapon_quest_fail</function_fail>
+	</objective>
+</game_task>
+
+<game_task id="digger_weapon_quest5">
+	<title>digger_weapon_quest_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>digger_weapon_quest_text2_task</text>
+		<article>digger_weapon_quest</article>
+		<icon>ui_iconsTotal_weapons</icon>
+		<infoportion_complete>111</infoportion_complete>
+		<infoportion_fail>digger_weapon_quest_fail</infoportion_fail>
+		<function_fail>jekan_work.check_digger_weapon_quest_fail</function_fail>
+	</objective>
+	<objective>
+		<text>digger_weapon_quest_text3_task</text>
+		<map_location_type hint="digger_weapon_quest_text4_task">green_location</map_location_type>
+		<object_story_id>bar_sinyak</object_story_id>
+		<infoportion_complete>sinyak_work</infoportion_complete>
+		<infoportion_fail>sinyak_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>digger_weapon_quest_text5_task</text>
+		<infoportion_complete>sinyak_finish</infoportion_complete>
+		<infoportion_fail>sinyak_dead</infoportion_fail>
+	</objective>
+	<objective>
+		<text>digger_weapon_quest_text6_task</text>
+		<map_location_type hint="digger_weapon_quest_text7_task">green_location</map_location_type>
+		<object_story_id>esc_digger</object_story_id>
+		<infoportion_complete>111</infoportion_complete>
+		<infoportion_fail>digger_weapon_quest_fail</infoportion_fail>
+		<function_fail>jekan_work.check_digger_weapon_quest_fail</function_fail>
+	</objective>
+</game_task>
+
+
+<game_task id="atp_lider_work1">
+	<title>atp_lider_work1_text_task</title>
+	<!-- заголовок квеста -->
+	<objective>
+		<text>atp_lider_work1_text_task</text>
+		<article>atp_lider_work1</article>
+		<icon>ui_iconsAtp_lider</icon>
+		<infoportion_complete>111</infoportion_complete>
+		<infoportion_fail>222</infoportion_fail>
+	</objective>
+	<objective>
+		<text>atp_lider_work1_text2_task</text>
+		<map_location_type hint="atp_lider_work1_text3_task">green_location</map_location_type>
+		<object_story_id>caravan_loader</object_story_id>
+		<infoportion_complete>111</infoportion_complete>
+		<infoportion_fail>222</infoportion_fail>
+	</objective>
+	<objective>
+		<text>atp_lider_work1_text4_task</text>
+		<map_location_type hint="atp_lider_work1_text3_task">green_location</map_location_type>
+		<object_story_id>caravan_loader</object_story_id>
+		<infoportion_complete>caravan_loader_dead</infoportion_complete>
+		<infoportion_fail>222</infoportion_fail>
+	</objective>
+	<objective>
+		<text>atp_lider_work1_text5_task</text>
+		<map_location_type hint="atp_lider_work1_text3_task">green_location</map_location_type>
+		<object_story_id>caravan_loader</object_story_id>
+		<function_complete>jekan_work.have_loader_box</function_complete>
+		<infoportion_fail>222</infoportion_fail>
+	</objective>
+	<objective>
+		<text>atp_lider_work1_text6_task</text>
+		<map_location_type hint="atp_lider_work1_text7_task">green_location</map_location_type>
+		<object_story_id>atp_lider</object_story_id>
+		<infoportion_complete>111</infoportion_complete>
+		<infoportion_fail>222</infoportion_fail>
+	</objective>
+</game_task>
+
+<!-- Мирное получение Форта-15 у майора Кузнецова по заданию Сидоровича -->
+<!-- ищем водку и ломоть мяса для Кузнецова -->
+<game_task id="find_af_and_vodka" prio="10">
+    <title>find_af_and_vodka</title>
+    <objective>
+        <icon>ui_iconsTotal_locations</icon>
+        <infoportion_complete>find_af_and_vodka_for_kuzya_done</infoportion_complete>
+		<infoportion_fail>esc_kuzn_killed</infoportion_fail>
+		<article>find_af_and_vodka</article>
+    </objective>
+    <objective>
+        <text>find_af_1</text>
+		<function_complete>escape_dialog.actor_has_af</function_complete>
+		<infoportion_set_complete>actor_fond_af</infoportion_set_complete>
+		<infoportion_fail>esc_kuzn_killed</infoportion_fail>
+    </objective>
+	<objective>
+        <text>find_vodka_1</text>
+		<function_complete>escape_dialog.actor_has_vodka</function_complete>
+		<infoportion_set_complete>actor_fond_vodka</infoportion_set_complete>
+		<infoportion_fail>esc_kuzn_killed</infoportion_fail>
+    </objective>
+    <objective>
+        <text>find_af_and_vodka_1</text>
+		<map_location_type hint="find_af_and_vodka_text">blue_location</map_location_type>
+		<object_story_id>esc_kuznetsov</object_story_id>
+		<infoportion_complete>find_af_and_vodka_for_kuzya_done</infoportion_complete>
+		<infoportion_fail>esc_kuzn_killed</infoportion_fail>
+    </objective>
+</game_task>
+<!-- Мирное получение Форта-15 у майора Кузнецова по заданию Сидоровича -->

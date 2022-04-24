@@ -1,0 +1,14 @@
+[logic]
+active = camper
+
+[smart_terrains]
+none = true
+
+[camper]
+path_walk = captive_on_agr_mill_base_dolg_guard2_point
+path_look = captive_on_agr_mill_base_dolg_guard_look_point1
+on_actor_dist_ge_nvis = 80 | {+captive_on_agr_mill_base_say_thanks} %=del_npc%
+danger = danger_condition
+
+[danger_condition]
+ignore_distance = 10

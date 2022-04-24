@@ -1,0 +1,90 @@
+--НПС могут прикреплять к своему оружию разные прицелы, гранатомёты, глушители.
+--Сделано с учётом движковой системы многоприцельности OGSR Engine
+--KRodin (c) 2021
+
+local function process(npc)
+	local wpn_table, addon_table = {}, {}
+	--
+	npc:iterate_inventory( function(_, obj)
+		if not alife():object(obj:id()) then return end
+		--
+		--Сюда почему-то периодически попадают объекты, находящиеся в процессе удаления. Никакие проверки типа getDestroy() в движке не помогают, поэтому такую конструкцию написал:
+		--local res, err = pcall(function() obj:section(); end)
+		--if not res then
+		--	log3("!![%s] Destroyed object found!", script_name())
+		--	return
+		--end
+		--
+		if obj:is_weapon_magazined() then
+			table.insert(wpn_table, obj)
+		elseif obj:is_scope() or obj:is_silencer() or obj:is_grenade_launcher() then
+			table.insert(addon_table, obj)
+		end
+	end )
+	--
+	for i = #wpn_table, 1, -1 do
+		local wpn_obj = wpn_table[i]
+		for _i = #addon_table, 1, -1 do
+			local addon_obj = addon_table[_i]
+			local dbg_wpn_name, dbg_addon_name = wpn_obj:name(), addon_obj:name()
+			if wpn_obj:get_weapon_m():attach_addon( addon_obj:get_inventory_item(), true ) then
+				--Лог тут добавлен потому, что в теории из за переспавнов здесь могут быть зависы схем НПС и сопутствующие ошибки ( но это не точно, просто в огср моде такие проблемы встречались и причины остались не выясненными )
+				log3("~~[%s] try attach [%s] to weapon [%s] of npc [%s]", script_name(), dbg_addon_name, dbg_wpn_name, npc:name())
+				npc:binded_object()[ script_name() .. ".need_update" ] = true --возможно ещё один аддон на ствол нацепим через несколько секунд
+				return
+			end
+		end
+	end
+end
+
+
+local function npc_update( npc )
+  if not npc:binded_object()[ script_name() .. ".need_update" ] then
+    ogse_signals.get_mgr():reschedule( math.random( 60000, 100000 ) )
+    return
+  end
+
+  if not ( npc:best_enemy() or xr_wounded.is_wounded( npc ) or npc:is_talking() ) then
+    npc:binded_object()[ script_name() .. ".need_update" ] = nil
+    process( npc )
+  end
+
+  ogse_signals.get_mgr():reschedule( math.random( 5000, 6000 ) )
+end
+
+local function on_npc_spawn( obj, binder )
+  if not obj:alive() then return end
+  if rx_utils.IsTrader( obj ) then return end
+  local s = {
+    [ "signal" ] = "on_npc_update." .. obj:id(),
+    [ "fun"    ] = npc_update,
+    [ "queued" ] = true,
+  }
+  binder[ script_name() .. ".subscribed" ] = s
+  ogse_signals.get_mgr():subscribe( s )
+  obj:binded_object()[ script_name() .. ".need_update" ] = true
+end
+
+local function on_death( obj )
+  local binder     = obj:binded_object()
+  local subscribed = binder[ script_name() .. ".subscribed" ]
+  if subscribed then
+    ogse_signals.get_mgr():unsubscribe( subscribed )
+    binder[ script_name() .. ".subscribed" ] = nil
+    obj:binded_object()[ script_name() .. ".need_update" ] = nil
+  end
+end
+
+local function on_take( npc, obj ) --Если непись подобрал ствол, или какие-то аддоны, разрешаем апдейт
+	if obj:is_weapon_magazined() or obj:is_scope() or obj:is_silencer() or obj:is_grenade_launcher() then
+		--log3("[%s]: [%s] take [%s]", script_name(), npc:name(), obj:name())
+		npc:binded_object()[ script_name() .. ".need_update" ] = true
+	end
+end
+
+
+function attach( sm )
+  sm:subscribe({ signal = "on_npc_death", fun = on_death })
+  sm:subscribe({ signal = "on_npc_spawn", fun = on_npc_spawn })
+  sm:subscribe({ signal = "on_npc_item_take", fun = on_take })
+end

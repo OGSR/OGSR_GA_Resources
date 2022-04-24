@@ -1,0 +1,1251 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+
+--[[ ---------------------------------------------------------------------------------------------------
+ File        : tasks_dialogs.script
+ Description : tasks_dialogs
+ Version     : --
+ Copyright   : 2012 © OGSE Mod Team
+ Author      : Stalk15, Mixser
+ Last update : 14.03.2012
+--]]----------------------------------------------------------------------------------------------------
+
+--------------////////////   Квестовый диалог у Сидора  ////////////--------------
+
+--/Берем квесты
+function init_start_kvests_u_sidora_dlg(dlg)
+	local gg -- фраза Меченого
+	local sid --фраза Сидоровича
+    gg  = dlg:AddPhrase("esc_start_kvests_u_sidora_0", "0", "", -10000)
+    sid = dlg:AddPhrase("esc_start_kvests_u_sidora_1", "1", "0", -10000)
+	    sid:GetPhraseScript():AddPrecondition("tasks_functor.have_sidor_available_quest")
+	    sid:GetPhraseScript():AddAction("tasks_functor.esc_show_trader_kvests")
+
+		--/"Гитара Сидоровича"
+		gg  = dlg:AddPhrase("esc_start_kvests_u_sidora_2", "2", "1", -10000)
+			gg:GetPhraseScript():AddDontHasInfo("escape_kvest_search_guitar_start")
+			gg:GetPhraseScript():AddDontHasInfo("escape_kvest_search_guitar_fail")
+			gg:GetPhraseScript():AddDontHasInfo("escape_kvest_search_guitar_complete")
+		sid = dlg:AddPhrase("esc_start_kvests_u_sidora_3", "3", "2", -10000)
+		gg  = dlg:AddPhrase("phrase_yes", "4", "3", -10000)
+			gg:GetPhraseScript():AddGiveInfo("escape_kvest_search_guitar_start")
+			gg:GetPhraseScript():AddAction("tasks_functor.spawn_guitar_for_kvest_guitar")
+			gg:GetPhraseScript():AddAction("dialogs.break_dialog")
+		gg = dlg:AddPhrase("phrase_no", "100", "3", -10000)
+
+		--/"Сделка с военными"
+--[[		gg  = dlg:AddPhrase("esc_start_kvests_u_sidora_5", "5", "1", -10000)
+			gg:GetPhraseScript():AddDontHasInfo("esc_kvest_sdelka_with_mils_start")
+			gg:GetPhraseScript():AddDontHasInfo("agroprom_military_case_done")
+			gg:GetPhraseScript():AddPrecondition("tasks_functor.enable_kvest_sdelka_with_mils")
+			gg:GetPhraseScript():AddPrecondition("tasks_functor.Kuznecov_Alive")
+			gg:GetPhraseScript():AddPrecondition("tasks_functor.is_zaz_enable")
+		sid = dlg:AddPhrase("esc_start_kvests_u_sidora_6", "6", "5", -10000)
+		gg  = dlg:AddPhrase("phrase_yes", "7", "6", -10000)
+			gg:GetPhraseScript():AddGiveInfo("esc_kvest_sdelka_with_mils_start")
+			gg:GetPhraseScript():AddAction("tasks_functor.esc_kvest_sdelka_with_mils_make_kuznecov_neutral")
+			sid = dlg:AddPhrase("esc_start_kvests_u_sidora_8", "8", "7", -10000)
+				sid:GetPhraseScript():AddAction("tasks_functor.search_fuel_for_yashik_car")
+		gg  = dlg:AddPhrase("phrase_no", "100", "6", -10000)]]
+
+--[[
+		--/"Спасти сталкера из плена вояк с блокпоста"
+		gg  = dlg:AddPhrase("esc_start_kvests_blockpost_plennik_0", "9", "1", -10000)
+			gg:GetPhraseScript():AddDontHasInfo("esc_kvest_plennik_of_blockpost_start")
+		sid = dlg:AddPhrase("esc_start_kvests_blockpost_plennik_1", "10", "9", -10000)
+		gg  = dlg:AddPhrase("phrase_yes", "11", "10", -10000)
+			gg:GetPhraseScript():AddGiveInfo("esc_kvest_plennik_of_blockpost_start")
+			gg:GetPhraseScript():AddAction("tasks_functor.spawn_specotryad_for_kill_blockpost")
+			sid = dlg:AddPhrase("esc_start_kvests_blockpost_plennik_2", "12", "11", -10000)
+		gg  = dlg:AddPhrase("phrase_no", "100", "10", -10000)
+]]
+
+		--/"Военные у аномалий"
+		gg  = dlg:AddPhrase("esc_start_kvests_know_do_mils_near_anomaly_0", "13", "1", -10000)
+			gg:GetPhraseScript():AddDontHasInfo("esc_kvest_know_do_mils_near_anomaly_start")
+		sid = dlg:AddPhrase("esc_start_kvests_know_do_mils_near_anomaly_1", "14", "13", -10000)
+		gg  = dlg:AddPhrase("phrase_yes", "15", "14", -10000)
+			gg:GetPhraseScript():AddGiveInfo("esc_kvest_know_do_mils_near_anomaly_start")
+			gg:GetPhraseScript():AddAction("tasks_functor.spawn_mils_on_esc_anoms")
+			gg:GetPhraseScript():AddAction("dialogs.break_dialog")
+		gg  = dlg:AddPhrase("phrase_no", "100", "14", -10000)
+
+		--/"Наемники на Кордоне"
+		gg  = dlg:AddPhrase("esc_kvest_killers_mined_lager_start_0", "16", "1", -10000)
+			gg:GetPhraseScript():AddDontHasInfo("esc_kvest_killers_mined_lager_start")
+		sid = dlg:AddPhrase("esc_kvest_killers_mined_lager_start_1", "17", "16", -10000)
+		gg  = dlg:AddPhrase("esc_kvest_killers_mined_lager_start_2", "18", "17", -10000)
+			gg:GetPhraseScript():AddGiveInfo("esc_kvest_killers_mined_lager_start")
+			gg:GetPhraseScript():AddAction("tasks_functor.spawn_esc_killers")
+			sid = dlg:AddPhrase("esc_kvest_killers_mined_lager_start_3", "19", "18", -10000)
+				sid:GetPhraseScript():AddAction("tasks_functor.give_antena_to_actor")
+		gg  = dlg:AddPhrase("phrase_no", "100", "17", -10000)
+
+		--/"Гость на Элеваторе"
+		gg  = dlg:AddPhrase("esc_start_kvest_qest_on_elevator_0", "20", "1", -10000)
+			gg:GetPhraseScript():AddDontHasInfo("esc_kvest_qest_on_elevator_chek_start")
+			gg:GetPhraseScript():AddHasInfo("agroprom_military_case_done")
+		sid = dlg:AddPhrase("esc_start_kvest_qest_on_elevator_1", "21", "20", -10000)
+		gg  = dlg:AddPhrase("phrase_yes", "22", "21", -10000)
+			gg:GetPhraseScript():AddGiveInfo("esc_kvest_qest_on_elevator_chek_start")
+			gg:GetPhraseScript():AddAction("tasks_functor.spawn_metka_qest_on_elevator")
+			gg:GetPhraseScript():AddAction("dialogs.break_dialog")
+		gg  = dlg:AddPhrase("phrase_no", "100", "21", -10000)
+
+		gg  = dlg:AddPhrase("phrase_no", "100", "1", -10000)
+
+	sid = dlg:AddPhrase("phrase_job_not_done", "101", "0", -10000)
+	    sid:GetPhraseScript():AddPrecondition("tasks_functor.is_sidor_quest_started")
+	sid = dlg:AddPhrase("esc_start_kvests_u_sidora_no_job", "110", "0", -10000)
+		sid:GetPhraseScript():AddPrecondition("tasks_functor.have_sidor_no_quest")
+end
+
+--/Сдаем/проваливаем квесты
+function init_complete_kvests_u_sidora_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_complete_kvests_u_sidora_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_complete_kvests_u_sidora_1", "1", "0", -10000)
+
+--/"Гитара Сидоровича"
+	phr2 = dlg:AddPhrase("esc_complete_kvests_u_sidora_2", "2", "1", -10000)
+	    phr2:GetPhraseScript():AddHasInfo("escape_kvest_search_guitar_start")
+	    phr2:GetPhraseScript():AddDontHasInfo("escape_kvest_search_guitar_complete")
+	    phr2:GetPhraseScript():AddDontHasInfo("escape_kvest_search_guitar_fail")
+	phr3 = dlg:AddPhrase("esc_complete_kvests_u_sidora_2_1", "3", "1", -10000)
+	    phr3:GetPhraseScript():AddDontHasInfo("escape_kvest_search_guitar_complete")
+	    phr3:GetPhraseScript():AddDontHasInfo("escape_kvest_search_guitar_fail")
+	    phr3:GetPhraseScript():AddHasInfo("escape_kvest_search_guitar_start")
+		phr3:GetPhraseScript():AddAction("tasks_functor.give_guitar_to_npc")
+	    phr3:GetPhraseScript():AddPrecondition("tasks_functor.dostal_guitar_of_sidor")
+	phr4 = dlg:AddPhrase("phrase_fail_2", "4", "2", -10000)
+	    phr4:GetPhraseScript():AddGiveInfo("escape_kvest_search_guitar_fail")
+	phr5 = dlg:AddPhrase("esc_complete_kvest_search_guitar", "5", "3", -10000)
+	    phr5:GetPhraseScript():AddGiveInfo("escape_kvest_search_guitar_complete")
+		phr5:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_guitar_of_sidor")
+
+--/"Сделка с военными"
+--[[
+	phr6 = dlg:AddPhrase("esc_complete_kvests_u_sidora_7", "6", "1", -10000)
+        phr6:GetPhraseScript():AddHasInfo("esc_kvest_sdelka_with_mils_start")
+		phr6:GetPhraseScript():AddDontHasInfo("esc_kvest_sdelka_with_mils_fail")
+		phr6:GetPhraseScript():AddDontHasInfo("esc_kvest_sdelka_with_mils_complete")
+	    phr6:GetPhraseScript():AddPrecondition("tasks_functor.Kuznecov_Alive")
+	    phr6:GetPhraseScript():AddPrecondition("tasks_functor.wolf_alive")
+	--]]
+	--[[
+	phr7 = dlg:AddPhrase("esc_complete_kvests_u_sidora_8", "7", "1", -10000)
+        phr7:GetPhraseScript():AddHasInfo("escape_kvest_with_military_talk_with_volk")
+	    phr7:GetPhraseScript():AddDontHasInfo("esc_kvest_sdelka_with_mils_complete")
+	    phr7:GetPhraseScript():AddDontHasInfo("esc_kvest_sdelka_with_mils_fail")
+	--phr8 = dlg:AddPhrase("phrase_fail_2", "8", "6", -10000)
+	   -- phr8:GetPhraseScript():AddGiveInfo("esc_kvest_sdelka_with_mils_fail")
+
+	phr9 = dlg:AddPhrase("Неплохо, Меченый. Силенки, смотрю, есть. Если еще нужна работа - обращайся, для тебя всегда найдется. Держи обещанную награду. ", "9", "7", -10000)
+	    phr9:GetPhraseScript():AddGiveInfo("esc_kvest_sdelka_with_mils_complete")
+        phr9:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_sdelka_with_mils")
+	--]]
+--[[/"Спасти сталкера из плена вояк с блокпоста"
+	phr10 = dlg:AddPhrase("esc_kvest_plennik_of_blockpost_failorcom_0", "10", "1", -10000)
+        phr10:GetPhraseScript():AddHasInfo("esc_kvest_plennik_of_blockpost_start")
+	    phr10:GetPhraseScript():AddDontHasInfo("esc_kvest_plennik_of_blockpost_complete")
+	    phr10:GetPhraseScript():AddDontHasInfo("esc_kvest_plennik_of_blockpost_fail")
+	phr11 = dlg:AddPhrase("esc_kvest_plennik_of_blockpost_failorcom_1", "11", "1", -10000)
+        phr11:GetPhraseScript():AddHasInfo("esc_kvest_plennik_of_blockpost_guid_plennik_to_lager")
+	    phr11:GetPhraseScript():AddDontHasInfo("esc_kvest_plennik_of_blockpost_complete")
+	    phr11:GetPhraseScript():AddDontHasInfo("esc_kvest_plennik_of_blockpost_fail")
+	phr12 = dlg:AddPhrase("phrase_fail_2", "12", "10", -10000)
+	    phr12:GetPhraseScript():AddGiveInfo("esc_kvest_plennik_of_blockpost_fail")
+	phr13 = dlg:AddPhrase("esc_kvest_plennik_of_blockpost_complete_0", "13", "11", -10000)
+	    phr13:GetPhraseScript():AddGiveInfo("esc_kvest_plennik_of_blockpost_complete")
+		phr13:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_plennik_blockposta")
+	phr14 = dlg:AddPhrase("esc_kvest_plennik_of_blockpost_complete_1", "14", "13", -10000)
+	    phr14:GetPhraseScript():AddAction("dialogs.break_dialog")
+	phr15 = dlg:AddPhrase("esc_kvest_plennik_of_blockpost_complete_2", "15", "13", -10000)
+	    phr15:GetPhraseScript():AddAction("tasks_functor.give_bp_mily_otschet_to_npc")
+	phr16 = dlg:AddPhrase("esc_kvest_plennik_of_blockpost_complete_3", "16", "15", -10000)
+	    phr16:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_plennik_blockposta_2")
+--]]
+--/"Военные у аномалии"
+	phr17 = dlg:AddPhrase("esc_kvest_know_do_mils_near_anomaly_complete_0", "17", "1", -10000)
+        phr17:GetPhraseScript():AddHasInfo("esc_know_do_mils_near_anomaly_complete")
+	    phr17:GetPhraseScript():AddDontHasInfo("esc_kvest_know_do_mils_near_anomaly_complete")
+	    phr17:GetPhraseScript():AddDontHasInfo("esc_kvest_know_do_mils_near_anomaly_fail")
+	phr18 = dlg:AddPhrase("esc_kvest_know_do_mils_near_anomaly_complete_1", "18", "1", -10000)
+        phr18:GetPhraseScript():AddHasInfo("esc_kvest_know_do_mils_near_anomaly_complete")
+	    phr18:GetPhraseScript():AddPrecondition("tasks_functor.have_af_esc_anomaly")
+	    phr18:GetPhraseScript():AddDontHasInfo("esc_kvest_know_do_mils_near_anomaly_2_complete")
+	    phr18:GetPhraseScript():AddDontHasInfo("esc_kvest_know_do_mils_near_anomaly_2_fail")
+        phr18:GetPhraseScript():AddAction("tasks_functor.give_af_esc_anomaly_to_npc")
+	phr19 = dlg:AddPhrase("esc_kvest_know_do_mils_near_anomaly_start_2", "19", "17", -10000)
+	    phr19:GetPhraseScript():AddGiveInfo("esc_kvest_know_do_mils_near_anomaly_complete")
+		--phr19:GetPhraseScript():AddAction("tasks_functor.spawn_af_esc_anomaly")
+	phr20 = dlg:AddPhrase("esc_kvest_know_do_mils_near_anomaly_fail", "20", "1", -10000)
+        phr20:GetPhraseScript():AddHasInfo("esc_kvest_know_do_mils_near_anomaly_start")
+	    phr20:GetPhraseScript():AddDontHasInfo("esc_kvest_know_do_mils_near_anomaly_2_fail")
+	    phr20:GetPhraseScript():AddDontHasInfo("esc_kvest_know_do_mils_near_anomaly_fail")
+	    phr20:GetPhraseScript():AddDontHasInfo("esc_kvest_know_do_mils_near_anomaly_2_complete")
+--	    phr20:GetPhraseScript():AddPrecondition("tasks_functor.have_af_esc_anomaly")
+	    phr20:GetPhraseScript():AddGiveInfo("esc_kvest_know_do_mils_near_anomaly_2_fail")
+	    phr20:GetPhraseScript():AddGiveInfo("esc_kvest_know_do_mils_near_anomaly_fail")
+	phr21 = dlg:AddPhrase("esc_kvest_know_do_mils_near_anomaly_completed", "21", "18", -10000)
+	    phr21:GetPhraseScript():AddGiveInfo("esc_kvest_know_do_mils_near_anomaly_2_complete")
+        phr21:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_know_do_mils_near_anomaly_1")
+        --phr21:GetPhraseScript():AddAction("tasks_functor.delete_mils_near_anoms")
+
+--/"Наемники на Кордоне"
+	phr22 = dlg:AddPhrase("esc_kvest_kvest_killers_mined_lager_complete_0", "22", "1", -10000)
+        phr22:GetPhraseScript():AddHasInfo("esc_kvest_killers_mined_lager_wite_store_snd")
+	    phr22:GetPhraseScript():AddDontHasInfo("esc_kvest_killers_mined_lager_complete")
+	    phr22:GetPhraseScript():AddDontHasInfo("esc_kvest_killers_mined_lager_fail")
+        phr22:GetPhraseScript():AddAction("tasks_functor.kvest_killers_mined_cancel")
+	phr23 = dlg:AddPhrase("esc_kvest_kvest_killers_mined_lager_allcomplete", "23", "1", -10000)
+        phr23:GetPhraseScript():AddHasInfo("esc_kvest_killers_mined_lager_2_kill_killers")
+	    phr23:GetPhraseScript():AddDontHasInfo("esc_kvest_killers_mined_lager_2_complete")
+	    phr23:GetPhraseScript():AddDontHasInfo("esc_kvest_killers_mined_lager_2_fail")
+	phr24 = dlg:AddPhrase("esc_kvest_kvest_killers_mined_lager_complete_1", "24", "22", -10000)
+	phr25 = dlg:AddPhrase("esc_kvest_kvest_killers_mined_lager_fail", "25", "1", -10000)
+        phr25:GetPhraseScript():AddHasInfo("esc_kvest_killers_mined_lager_start")
+	    phr25:GetPhraseScript():AddDontHasInfo("esc_kvest_killers_mined_lager_fail")
+	    phr25:GetPhraseScript():AddDontHasInfo("esc_kvest_killers_mined_lager_2_fail")
+	    phr25:GetPhraseScript():AddDontHasInfo("esc_kvest_killers_mined_lager_2_complete")
+	    phr25:GetPhraseScript():AddGiveInfo("esc_kvest_killers_mined_lager_2_fail")
+	    phr25:GetPhraseScript():AddGiveInfo("esc_kvest_killers_mined_lager_fail")
+--		phr25:GetPhraseScript():AddAction("tasks_functor.kvest_killers_mined_cancel")
+				--	    phr25:GetPhraseScript():AddGiveInfo("esc_kvest_killers_mined_lager_2_complete")
+				--	    phr25:GetPhraseScript():AddGiveInfo("esc_kvest_killers_mined_lager_complete")
+	phr26 = dlg:AddPhrase("esc_kvest_kvest_killers_mined_lager_2_complete", "26", "23", -10000)
+	    phr26:GetPhraseScript():AddGiveInfo("esc_kvest_killers_mined_lager_2_complete")
+        phr26:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_killers_mined")
+--		phr26:GetPhraseScript():AddAction("dialogs.break_dialog")
+	phr27 = dlg:AddPhrase("esc_kvest_kvest_killers_mined_lager_complete_2", "27", "24", -10000)
+	    phr27:GetPhraseScript():AddGiveInfo("esc_kvest_killers_mined_lager_complete")
+--		phr27:GetPhraseScript():AddAction("tasks_functor.spawn_bomba")
+
+--/"Гость на элеваторе"
+	phr28 = dlg:AddPhrase("esc_kvest_qest_on_elevator_complete_0", "28", "1", -10000)
+        phr28:GetPhraseScript():AddHasInfo("esc_kvest_qest_on_elevator_chek_take_wpn")
+	    phr28:GetPhraseScript():AddDontHasInfo("esc_kvest_qest_on_elevator_show_wpn_complete")
+	    phr28:GetPhraseScript():AddDontHasInfo("esc_kvest_qest_on_elevator_show_wpn_fail")
+	phr29 = dlg:AddPhrase("esc_kvest_qest_on_elevator_complete_1", "29", "1", -10000)
+        phr29:GetPhraseScript():AddHasInfo("esc_kvest_qest_on_elevator_chek_start")
+	    phr29:GetPhraseScript():AddDontHasInfo("esc_kvest_qest_on_elevator_show_wpn_complete")
+	    phr29:GetPhraseScript():AddDontHasInfo("esc_kvest_qest_on_elevator_kill_sniper_fail")
+	    phr29:GetPhraseScript():AddDontHasInfo("esc_kvest_qest_on_elevator_chek_fail")
+	    phr29:GetPhraseScript():AddGiveInfo("esc_kvest_qest_on_elevator_show_wpn_complete")
+	    phr29:GetPhraseScript():AddGiveInfo("esc_kvest_qest_on_elevator_kill_sniper_fail")
+	    phr29:GetPhraseScript():AddGiveInfo("esc_kvest_qest_on_elevator_chek_fail")
+	phr30 = dlg:AddPhrase("phrase_fail_2", "30", "29", -10000)
+	phr31 = dlg:AddPhrase("esc_kvest_qest_on_elevator_complete_2", "31", "28", -10000)
+	phr32 = dlg:AddPhrase("esc_kvest_qest_on_elevator_complete_3", "32", "31", -10000)
+        phr32:GetPhraseScript():AddAction("tasks_functor.give_wpn_of_qest_on_elevator_to_npc")
+	phr33 = dlg:AddPhrase("esc_kvest_qest_on_elevator_complete_4", "33", "32", -10000)
+        phr33:GetPhraseScript():AddAction("tasks_functor.give_wpn_of_qest_on_elevator_to_actor")
+	    phr33:GetPhraseScript():AddGiveInfo("esc_kvest_qest_on_elevator_show_wpn_complete")
+	phr34 = dlg:AddPhrase("esc_kvest_qest_on_elevator_complete_5", "34", "33", -10000)
+        phr34:GetPhraseScript():AddAction("tasks_functor.break_wpn_of_qest_on_elevator")
+
+  --------------
+	phr_not_what = dlg:AddPhrase("phrase_not_what", "1000", "1", -10000)
+  --------------
+end
+
+
+--------------////////////   Квестовый диалог у Бармена  ////////////--------------
+--/Берем квесты
+function init_start_kvests_barman_dlg(dlg)
+    phr0 = dlg:AddPhrase("bar_start_kvests_barman_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("bar_start_kvests_barman_1", "1", "0", -10000)
+	    phr1:GetPhraseScript():AddPrecondition("tasks_functor.bar_dont_have_one_kvest_of_barman")
+	    phr1:GetPhraseScript():AddAction("tasks_functor.bar_show_barman_kvests")
+--/"Друг Бармена"
+	phr2 = dlg:AddPhrase("bar_start_kvest_friend_of_barman_0", "2", "1", -10000)
+	    phr2:GetPhraseScript():AddDontHasInfo("bar_kvest_friend_of_barman_start")
+	phr3 = dlg:AddPhrase("bar_start_kvest_friend_of_barman_1", "3", "2", -10000)
+	phr4 = dlg:AddPhrase("phrase_yes", "4", "3", -10000)
+	    phr4:GetPhraseScript():AddGiveInfo("bar_kvest_friend_of_barman_start")
+		phr4:GetPhraseScript():AddAction("dialogs.break_dialog")
+
+--[[/"Сделка Долга и Наемников"
+	phr5 = dlg:AddPhrase("bar_sdelka_dolg_and_killers_0", "5", "1", -10000)
+	    phr5:GetPhraseScript():AddDontHasInfo("bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start")
+	phr6 = dlg:AddPhrase("bar_sdelka_dolg_and_killers_1", "6", "5", -10000)
+	phr7 = dlg:AddPhrase("phrase_yes", "7", "6", -10000)
+	    phr7:GetPhraseScript():AddGiveInfo("bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start")
+		phr7:GetPhraseScript():AddAction("dialogs.break_dialog")
+		]]
+--/"Пленник на базе Военных"
+	phr8 = dlg:AddPhrase("bar_kvest_plennik_on_base_mils_start_0", "8", "1", -10000)
+	    phr8:GetPhraseScript():AddDontHasInfo("captive_on_agr_mill_base_start")
+	phr9 = dlg:AddPhrase("bar_kvest_plennik_on_base_mils_start_1", "9", "8", -10000)
+	phr10 = dlg:AddPhrase("phrase_yes", "10", "9", -10000)
+	    phr10:GetPhraseScript():AddGiveInfo("captive_on_agr_mill_base_start")
+		phr10:GetPhraseScript():AddGiveInfo("captive_on_agr_mill_base_spawn_captive")
+        --phr10:GetPhraseScript():AddAction("tasks_functor.spawn_agr_plennik")--
+	phr11 = dlg:AddPhrase("bar_kvest_plennik_on_base_mils_start_2", "11", "10", -10000)
+
+
+--/Фразы отказа
+	phrNo = dlg:AddPhrase("phrase_no", "100", "1", -10000)
+	phrNo = dlg:AddPhrase("phrase_no", "100", "3", -10000)
+--	phrNo = dlg:AddPhrase("phrase_no", "100", "6", -10000)
+	phrNo = dlg:AddPhrase("phrase_no", "100", "9", -10000)
+	phrNoTasks = dlg:AddPhrase("phrase_job_not_done", "101", "0", -10000)
+	    phrNoTasks:GetPhraseScript():AddPrecondition("tasks_functor.bar_have_one_kvest_of_barman")
+end
+
+--/Сдаем/проваливаем квесты
+function init_complete_kvests_barman_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_complete_kvests_u_sidora_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_complete_kvests_u_sidora_1", "1", "0", -10000)
+
+--/"Друг Бармена"
+	phr2 = dlg:AddPhrase("bar__kvest_friend_of_barman_complete_0", "2", "1", -10000)
+	    phr2:GetPhraseScript():AddHasInfo("bar_kvest_friend_of_barman_spasti_complete")
+	    phr2:GetPhraseScript():AddDontHasInfo("bar_kvest_friend_of_barman_2_complete")
+	    phr2:GetPhraseScript():AddDontHasInfo("bar_kvest_friend_of_barman_2_fail")
+	phr3 = dlg:AddPhrase("bar__kvest_friend_of_barman_fail", "3", "1", -10000)
+	    phr3:GetPhraseScript():AddDontHasInfo("bar_kvest_friend_of_barman_2_complete")
+	    phr3:GetPhraseScript():AddDontHasInfo("bar_kvest_friend_of_barman_2_fail")
+	    phr3:GetPhraseScript():AddHasInfo("bar_kvest_friend_of_barman_start")
+	phr4 = dlg:AddPhrase("phrase_fail_2", "4", "3", -10000)
+	    phr4:GetPhraseScript():AddGiveInfo("bar_kvest_friend_of_barman_2_fail")
+	    phr4:GetPhraseScript():AddGiveInfo("bar_kvest_friend_of_barman_fail")
+	phr5 = dlg:AddPhrase("bar_kvest_friend_of_barman_completed", "5", "2", -10000)
+		phr5:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_friend_of_barman")
+	    phr5:GetPhraseScript():AddGiveInfo("bar_kvest_friend_of_barman_2_complete")
+
+--/"Сделка Долга и Наемников"
+	phr6 = dlg:AddPhrase("bar_kvest_sdelka_dolg_and_killers_complete_0", "6", "1", -10000)
+	    phr6:GetPhraseScript():AddHasInfo("bar_kvest_sdelka_dolg_and_killers_kill_allkiller")
+	    phr6:GetPhraseScript():AddDontHasInfo("bar_kvest_sdelka_dolg_and_killers_slezhka_complete")
+	    phr6:GetPhraseScript():AddDontHasInfo("bar_kvest_sdelka_dolg_and_killers_plennik_death")
+	phr7 = dlg:AddPhrase("bar_kvest_sdelka_dolg_and_killers_fail", "7", "1", -10000)
+	    phr7:GetPhraseScript():AddDontHasInfo("bar_kvest_sdelka_dolg_and_killers_slezhka_complete")
+	    phr7:GetPhraseScript():AddDontHasInfo("bar_kvest_sdelka_dolg_and_killers_plennik_death")
+	    phr7:GetPhraseScript():AddHasInfo("bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start")
+	phr8 = dlg:AddPhrase("phrase_fail_2", "8", "7", -10000)
+	    phr8:GetPhraseScript():AddGiveInfo("bar_kvest_sdelka_dolg_and_killers_plennik_death")
+	    phr8:GetPhraseScript():AddGiveInfo("bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_fail")
+	phr9 = dlg:AddPhrase("bar_kvest_sdelka_dolg_and_killers_completed", "9", "6", -10000)
+		phr9:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_sdelka_dolg_and_killers")
+	    phr9:GetPhraseScript():AddGiveInfo("bar_kvest_sdelka_dolg_and_killers_slezhka_complete")
+
+--/"Пленник на базе Военных"
+	phr10 = dlg:AddPhrase("bar_kvest_plennik_on_base_mils_complete_0", "10", "1", -10000)
+		phr10:GetPhraseScript():AddHasInfo("captive_on_agr_mill_base_go_to_reward")
+	phr101 = dlg:AddPhrase("bar_kvest_plennik_on_base_mils_complete_dead", "101", "10", -10000)
+		phr101:GetPhraseScript():AddHasInfo("captive_on_agr_mill_base_killed")
+		phr101:GetPhraseScript():AddAction("tasks_functor.captive_on_agr_mill_base_reward_captive_dead")
+	    phr101:GetPhraseScript():AddGiveInfo("captive_on_agr_mill_base_complete")
+	phr102 = dlg:AddPhrase("bar_kvest_plennik_on_base_mils_complete_alive", "102", "10", -10000)
+		phr102:GetPhraseScript():AddHasInfo("captive_on_agr_mill_base_saved")
+		phr102:GetPhraseScript():AddAction("tasks_functor.captive_on_agr_mill_base_reward_captive_alive")
+	    phr102:GetPhraseScript():AddGiveInfo("captive_on_agr_mill_base_complete")
+	phr11 = dlg:AddPhrase("bar_kvest_plennik_on_base_mils_fail", "11", "1", -10000)
+		phr11:GetPhraseScript():AddHasInfo("captive_on_agr_mill_base_start")
+	    phr11:GetPhraseScript():AddDontHasInfo("captive_on_agr_mill_base_go_to_reward")
+		phr11:GetPhraseScript():AddDontHasInfo("captive_on_agr_mill_base_complete")
+	phr12 = dlg:AddPhrase("phrase_fail_2", "12", "11", -10000)
+	    phr12:GetPhraseScript():AddGiveInfo("captive_on_agr_mill_base_fail")
+
+  --------------
+	phr_not_what = dlg:AddPhrase("phrase_not_what", "1000", "1", -10000)
+  --------------
+end
+
+--------------////////////   Квестовый диалог у Макса  ////////////--------------
+--/Берем квесты
+function init_start_kvests_max_dlg(dlg)
+    phr0 = dlg:AddPhrase("mil_start_kvests_max_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("mil_start_kvests_max_1", "1", "0", -10000)
+	    phr1:GetPhraseScript():AddPrecondition("tasks_functor.mil_dont_have_one_kvest_of_max")
+	    phr1:GetPhraseScript():AddAction("tasks_functor.mil_show_max_kvests")
+--/"Помочь свобдовцу на Радаре"
+	phr2 = dlg:AddPhrase("mil_kvest_help_freedomer_on_radar_start_0", "2", "1", -10000)
+	    phr2:GetPhraseScript():AddDontHasInfo("mil_kvest_spasti_freedomer_on_radar_start")
+	phr3 = dlg:AddPhrase("mil_kvest_help_freedomer_on_radar_start_1", "3", "2", -10000)
+	phr4 = dlg:AddPhrase("phrase_yes", "4", "3", -10000)
+	    phr4:GetPhraseScript():AddGiveInfo("mil_kvest_spasti_freedomer_on_radar_start")
+        phr4:GetPhraseScript():AddAction("tasks_functor.on_spot_feedomer_on_radar")
+		phr4:GetPhraseScript():AddAction("dialogs.break_dialog")
+
+
+--/Фразы отказа
+	phrNo = dlg:AddPhrase("phrase_no", "100", "3", -10000)
+	phrNoTasks = dlg:AddPhrase("phrase_job_not_done", "101", "0", -10000)
+	    phrNoTasks:GetPhraseScript():AddPrecondition("tasks_functor.mil_have_one_kvest_of_max")
+end
+
+--/Сдаем/проваливаем квесты
+function init_complete_kvests_max_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_complete_kvests_u_sidora_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_complete_kvests_u_sidora_1", "1", "0", -10000)
+
+--/""
+	phr2 = dlg:AddPhrase("mil_kvest_help_freedomer_on_radar_complete_0", "2", "1", -10000)
+	    phr2:GetPhraseScript():AddHasInfo("mil_kvest_spasti_freedomer_on_radar_guid")
+	    phr2:GetPhraseScript():AddDontHasInfo("mil_kvest_spasti_freedomer_on_radar_complete")
+	    phr2:GetPhraseScript():AddDontHasInfo("mil_kvest_spasti_freedomer_on_radar_fail")
+	phr3 = dlg:AddPhrase("mil_kvest_help_freedomer_on_radar_fail_1", "3", "1", -10000)
+	    phr3:GetPhraseScript():AddDontHasInfo("mil_kvest_spasti_freedomer_on_radar_complete")
+	    phr3:GetPhraseScript():AddDontHasInfo("mil_kvest_spasti_freedomer_on_radar_fail")
+	    phr3:GetPhraseScript():AddHasInfo("bar_kvest_friend_of_barman_start")
+	phr4 = dlg:AddPhrase("phrase_fail_2", "4", "3", -10000)
+	    phr4:GetPhraseScript():AddGiveInfo("mil_kvest_spasti_freedomer_on_radar_fail")
+	phr5 = dlg:AddPhrase("mil_kvest_help_freedomer_on_radar_completed", "5", "2", -10000)
+		phr5:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_spasti_freedomer_on_radar")
+	    phr5:GetPhraseScript():AddGiveInfo("mil_kvest_spasti_freedomer_on_radar_complete")
+  --------------
+	phr_not_what = dlg:AddPhrase("phrase_not_what", "1000", "1", -10000)
+  --------------
+end
+
+------------------------------------------ Проводники ------------------------------------------
+
+
+------------------------------------------ Диалоги для других квестовых НПС -------------------------------------------
+--=====================================================================================
+
+--/Говорим со Стариком, берем квест на поиск его дочери
+function init_start_kvest_search_doch_of_starik_dlg(dlg)
+    phr0 = dlg:AddPhrase("start_kvest_search_doch_of_starik_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("start_kvest_search_doch_of_starik_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("start_kvest_search_doch_of_starik_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("start_kvest_search_doch_of_starik_3_1", "3", "2", -10000)
+	phr4 = dlg:AddPhrase("start_kvest_search_doch_of_starik_3_2", "4", "3", -10000)
+	phr5 = dlg:AddPhrase("start_kvest_search_doch_of_starik_3_3", "5", "4", -10000)
+	phr6 = dlg:AddPhrase("start_kvest_search_doch_of_starik_3_4", "6", "5", -10000)
+	phr7 = dlg:AddPhrase("start_kvest_search_doch_of_starik_3_5", "7", "6", -10000)
+	phr8 = dlg:AddPhrase("start_kvest_search_doch_of_starik_3_6", "8", "7", -10000)
+	phr9 = dlg:AddPhrase("start_kvest_search_doch_of_starik_3_7", "9", "8", -10000)
+    phr10 = dlg:AddPhrase("start_kvest_search_doch_of_starik_4", "10", "9", -10000)
+    phr11 = dlg:AddPhrase("start_kvest_search_doch_of_starik_5", "11", "10", -10000)
+    phr12 = dlg:AddPhrase("start_kvest_search_doch_of_starik_6", "12", "11", -10000)
+    phr13 = dlg:AddPhrase("start_kvest_search_doch_of_starik_7", "13", "11", -10000)
+    phr14 = dlg:AddPhrase("start_kvest_search_doch_of_starik_8", "14", "12", -10000)
+    phr15 = dlg:AddPhrase("start_kvest_search_doch_of_starik_9", "15", "13", -10000)
+    phr16 = dlg:AddPhrase("start_kvest_search_doch_of_starik_10", "16", "15", -10000)
+    phr17 = dlg:AddPhrase("start_kvest_search_doch_of_starik_11", "17", "15", -10000)
+		phr17:GetPhraseScript():AddGiveInfo("pri_kvest_search_doch_of_starik_start")
+	    phr17:GetPhraseScript():AddAction("tasks_functor.spawn_doch_of_starik")
+	    phr17:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+
+--/Говорим со Стариком, выполняем квест на поиск его дочери
+function init_kvest_search_doch_of_starik_complete_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_search_doch_of_starik_complete_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_search_doch_of_starik_complete_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_search_doch_of_starik_complete_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_search_doch_of_starik_complete_3", "3", "1", -10000)
+	    phr3:GetPhraseScript():AddPrecondition("tasks_functor.search_doch_of_starik_and_uliks")
+    phr4 = dlg:AddPhrase("esc_kvest_search_doch_of_starik_complete_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_search_doch_of_starik_complete_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("esc_kvest_search_doch_of_starik_complete_6", "6", "4", -10000)
+		phr6:GetPhraseScript():AddAction("tasks_functor.give_items_to_starik")
+    phr7 = dlg:AddPhrase("esc_kvest_search_doch_of_starik_complete_7", "7", "5", -10000)
+    phr8 = dlg:AddPhrase("esc_kvest_search_doch_of_starik_complete_8", "8", "6", -10000)
+    phr9 = dlg:AddPhrase("esc_kvest_search_doch_of_starik_complete_9", "9", "8", -10000)
+		phr9:GetPhraseScript():AddGiveInfo("pri_kvest_search_doch_of_starik_complete")
+	    phr9:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_search_doch_of_starik")
+	    phr9:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+--=====================================================================================
+--/Берем квест "Устроить встечу Долга и Свободы"
+function init_start_kvest_make_meet_dolg_freedom_dlg(dlg)
+    phr0 = dlg:AddPhrase("bar_kvest_make_meet_dolg_freedom_start_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("bar_kvest_make_meet_dolg_freedom_start_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("bar_kvest_make_meet_dolg_freedom_start_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("bar_kvest_make_meet_dolg_freedom_start_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("bar_kvest_make_meet_dolg_freedom_start_4", "4", "3", -10000)
+		phr4:GetPhraseScript():AddGiveInfo("bar_kvest_make_meet_dolg_freedom_start")
+    phr5 = dlg:AddPhrase("bar_kvest_make_meet_dolg_freedom_start_5", "5", "1", -10000)
+end
+
+--/Уговариваем лукаша на встечу с долгом
+function init_kvest_make_meet_dolg_freedom_talk_with_lukash_dlg(dlg)
+    phr0 = dlg:AddPhrase("mil_kvest_make_meet_dolg_freedom_talk_with_lukash_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("mil_kvest_make_meet_dolg_freedom_talk_with_lukash_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("mil_kvest_make_meet_dolg_freedom_talk_with_lukash_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("mil_kvest_make_meet_dolg_freedom_talk_with_lukash_3", "3", "2", -10000)
+	    phr3:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_make_meet_dolg_freedom")
+		phr3:GetPhraseScript():AddGiveInfo("bar_kvest_make_meet_dolg_freedom_talk_with_lukash")
+    phr4 = dlg:AddPhrase("mil_kvest_make_meet_dolg_freedom_talk_with_lukash_4", "4", "3", -10000)
+end
+
+--/Берем квест "Устроить встечу Долга и Свободы"
+function init_kvest_make_meet_dolg_freedom_take_reward_of_dolg_dlg(dlg)
+    phr0 = dlg:AddPhrase("bar_kvest_make_meet_dolg_freedom_take_reward_of_dolg_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("bar_kvest_make_meet_dolg_freedom_take_reward_of_dolg_1", "1", "0", -10000)
+	    phr1:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_make_meet_dolg_freedom_2")
+		phr1:GetPhraseScript():AddGiveInfo("bar_kvest_make_meet_dolg_freedom_complete")
+end
+--=====================================================================================
+--/Говорим со Свободовцем на радаре
+function init_kvest_spasti_freedomer_on_radar_talk_with_freedomer_dlg(dlg)
+    phr0 = dlg:AddPhrase("mil_kvest_spasti_freedomer_on_radar_talk_with_freedomer_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("mil_kvest_spasti_freedomer_on_radar_talk_with_freedomer_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("mil_kvest_spasti_freedomer_on_radar_talk_with_freedomer_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("mil_kvest_spasti_freedomer_on_radar_talk_with_freedomer_3", "3", "2", -10000)
+		phr3:GetPhraseScript():AddGiveInfo("mil_kvest_spasti_freedomer_on_radar_talk")
+end
+
+--/Берем в напарники Свободовца на радаре
+function init_kvest_spasti_freedomer_on_radar_talk_with_freedomer_2_dlg(dlg)
+    phr0 = dlg:AddPhrase("mil_kvest_spasti_freedomer_on_radar_talk_with_freedomer_4", "0", "", -10000)
+		phr0:GetPhraseScript():AddAction("tasks_functor.save_id_feedomer_on_radar")
+    phr1 = dlg:AddPhrase("mil_kvest_spasti_freedomer_on_radar_talk_with_freedomer_5", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("mil_kvest_spasti_freedomer_on_radar_talk_2")
+		phr1:GetPhraseScript():AddAction("dialogs.companion_start_following")
+		phr1:GetPhraseScript():AddAction("dialogs.companion_beh_walk_simple")
+end
+--=====================================================================================
+--/Берем квест "Помочь тетереву"
+function init_kvest_help_teterev_start_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_help_teterev_start_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_help_teterev_start_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_help_teterev_start_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_help_teterev_start_3", "3", "1", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_help_teterev_start_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_help_teterev_start_5", "5", "4", -10000)
+	    phr5:GetPhraseScript():AddAction("tasks_functor.spawn_bandits_of_teterev")
+		phr5:GetPhraseScript():AddGiveInfo("esc_kvest_help_teterev_start")
+    phr6 = dlg:AddPhrase("esc_kvest_help_teterev_start_6", "6", "4", -10000)
+end
+
+--/Говорим с Бандосами, чтоб взять арт для тетерева
+function init_kvest_help_teterev_talk_with_bandit_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_7", "7", "6", -10000)
+    phr8 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_8", "8", "6", -10000)
+    phr9 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_9", "9", "8", -10000)
+    phr10 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_10", "10", "9", -10000)
+    phr11 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_11", "11", "9", -10000)
+    phr12 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_12", "12", "9", -10000)
+    phr13 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_13", "13", "10", -10000)
+	    phr13:GetPhraseScript():AddAction("tasks_functor.kvest_help_teterev_bandits_on_combat_timer")
+    phr13_2 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_13", "13", "12", -10000)
+    phr14 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_14", "14", "11", -10000)
+	    phr14:GetPhraseScript():AddAction("tasks_functor.give_af_night_star_to_actor")
+    phr15 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_15", "15", "4", -10000)
+    phr16 = dlg:AddPhrase("esc_kvest_help_teterev_talk_with_bandit_16", "16", "14", -10000)
+		phr16:GetPhraseScript():AddGiveInfo("esc_kvest_help_teterev_bandits_on_pass")
+
+end
+
+--/БОтдаем тетереву его артефакт
+function init_kvest_help_teterev_complete_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_help_teterev_talk_end_1", "0", "", -10000)
+		phr0:GetPhraseScript():AddAction("tasks_functor.give_af_night_star_to_npc")
+    phr1 = dlg:AddPhrase("esc_kvest_help_teterev_talk_end_2", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("esc_kvest_help_teterev_complete")
+		phr1:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_help_teterev")
+
+end
+
+--\\\Пленник на базе Военных
+function init_agr_kvest_plennik_on_base_mils_talk_dlg(dlg)
+	phr0 = dlg:AddPhrase("agr_kvest_plennik_on_base_mils_talk_0", "0", "", -10000)
+	phr1 = dlg:AddPhrase("agr_kvest_plennik_on_base_mils_talk_1", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("captive_on_agr_mill_base_speak_with_captive")
+		phr1:GetPhraseScript():AddGiveInfo("captive_on_agr_mill_base_start_rescue_point")
+		phr1:GetPhraseScript():AddAction("tasks_functor.companion_start_following")
+		phr1:GetPhraseScript():AddAction("dialogs.break_dialog")
+	phr2 = dlg:AddPhrase("agr_kvest_plennik_on_base_mils_talk_2", "2", "0", -10000)
+		phr2:GetPhraseScript():AddGiveInfo("captive_on_agr_mill_base_captive_run")
+		phr2:GetPhraseScript():AddGiveInfo("captive_on_agr_mill_base_speak_with_captive")
+end
+
+--\\\Пленник на базе Военных
+function init_agr_kvest_plennik_on_base_mils_talk_finish_dlg(dlg)
+    phr0 = dlg:AddPhrase("agr_kvest_plennik_on_base_mils_talk_spasen_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("agr_kvest_plennik_on_base_mils_talk_spasen_1", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("captive_on_agr_mill_base_say_thanks")
+end
+
+--\\\
+--=====================================================================================
+--/Говорим с Барменом на счет типа на элеваторе
+function init_kvest_qest_on_elevator_kill_sniper_dlg(dlg)
+    phr0 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_2", "2", "1", -10000)
+		phr2:GetPhraseScript():AddAction("tasks_functor.give_wpn_of_qest_on_elevator_to_npc")
+    phr3 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_7", "7", "6", -10000)
+    phr8 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_8", "8", "7", -10000)
+    phr9 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_9", "9", "8", -10000)
+		phr9:GetPhraseScript():AddGiveInfo("esc_kvest_qest_on_elevator_show_wpn_to_barman_complete")
+		--phr9:GetPhraseScript():AddAction("tasks_functor.spawn_sniper_qest_on_elevator_2")
+end
+
+--/Убили снайпера берем награду у бармена
+function init_kvest_qest_on_elevator_kill_sniper_complete_dlg(dlg)
+    phr0 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_10", "0", "", -10000)
+    phr1 = dlg:AddPhrase("bar_kvest_qest_on_elevator_kill_sniper_11", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("esc_kvest_qest_on_elevator_kill_sniper_complete")
+		phr1:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_qest_on_elevator")
+end
+--=====================================================================================
+--/Берем квест у Чука
+function init_kvest_help_to_chuk_start_dlg(dlg)
+	phr0 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_1", "1", "0", -10000)
+	    phr1:GetPhraseScript():AddDontHasInfo("yan_kvest_help_to_chuk_know_zombied_start")
+    phr2 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_7", "7", "6", -10000)
+    phr8 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_8", "8", "6", -10000)
+    phr9 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_9", "9", "8", -10000)
+    phr10 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_10", "10", "9", -10000)
+    phr11 = dlg:AddPhrase("yan_kvest_help_to_chuk_start_11", "11", "9", -10000)
+		phr11:GetPhraseScript():AddGiveInfo("yan_kvest_help_to_chuk_know_zombied_start")
+end
+
+--/Беpеm квест - наполнить колбу
+function init_kvest_help_to_chuk_take_water_dlg(dlg)
+    phr0 = dlg:AddPhrase("yan_kvest_help_to_chuk_know_zombied_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("yan_kvest_help_to_chuk_know_zombied_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("yan_kvest_help_to_chuk_know_zombied_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("yan_kvest_help_to_chuk_know_zombied_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("yan_kvest_help_to_chuk_know_zombied_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("yan_kvest_help_to_chuk_know_zombied_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("yan_kvest_help_to_chuk_know_zombied_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("yan_kvest_help_to_chuk_know_zombied_7", "7", "6", -10000)
+		phr7:GetPhraseScript():AddGiveInfo("yan_kvest_help_to_chuk_know_zombied_complete")
+		phr7:GetPhraseScript():AddAction("tasks_functor.give_kolba_dummy_to_actor")
+end
+
+--/Получаем колбу для зомбирования
+function init_kvest_help_to_chuk_take_kolba_zombie_dlg(dlg)
+    phr0 = dlg:AddPhrase("yan_kvest_help_to_chuk_give_kilba_to_sahar_0", "0", "", -10000)
+		phr0:GetPhraseScript():AddAction("tasks_functor.give_kolba_to_npc")
+    phr1 = dlg:AddPhrase("yan_kvest_help_to_chuk_give_kilba_to_sahar_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("yan_kvest_help_to_chuk_give_kilba_to_sahar_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("yan_kvest_help_to_chuk_give_kilba_to_sahar_3", "3", "2", -10000)
+		phr3:GetPhraseScript():AddGiveInfo("yan_kvest_help_to_chuk_take_water_complete")
+		phr3:GetPhraseScript():AddAction("tasks_functor.give_kolba_zombie_to_actor")
+    phr4 = dlg:AddPhrase("yan_kvest_help_to_chuk_give_kilba_to_sahar_4", "4", "3", -10000)
+end
+
+--/Когда у нас уже есть пробирка, можно поговорить с Чуком
+function yan_kvest_have_kolba_zombie_dlg(dlg)
+	phr0 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_0", "0", "", -10000)
+	phr1 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_1", "1", "0", -10000)
+	phr2 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_2", "2", "1", -10000)
+	phr3 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_3", "3", "2", -10000)
+	phr4 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_4", "4", "3", -10000)
+		phr4:GetPhraseScript():AddGiveInfo("yan_kvest_help_to_chuk_take_water_complete_talked")
+		phr4:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+
+
+--/Когда у нас уже есть пробирка, можно поговорить с Чуком
+function yan_kvest_have_kolba_zombie_letsgo_dlg(dlg)
+	phr0 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_letsgo_0", "0", "", -10000)
+	phr1 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_letsgo_1", "1", "0", -10000)
+	phr2 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_letsgo_2", "2", "1", -10000)
+		phr4:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+
+--/Говорим с Чуком и идем на завод
+function init_kvest_help_to_chuk_talk_with_chuk_dlg(dlg)
+    phr0 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_5", "0", "", -10000)
+		phr0:GetPhraseScript():AddAction("tasks_functor.set_neutral_chuk")
+    phr1 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_6", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("yan_kvest_help_to_chuk_know_talk_with_chuk_complete")
+end
+
+--/Говорим с фигой
+function init_kvest_help_to_chuk_talk_with_figa_dlg(dlg)
+	phr0 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_7", "0", "", -10000)
+    phr0 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_8", "1", "0", -10000)
+    phr1 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_9", "2", "1", -10000)
+    phr2 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_10", "3", "2", -10000)
+		phr2:GetPhraseScript():AddAction("tasks_functor.on_death_figa")
+    phr3 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_11", "4", "3", -10000)
+    phr4 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_12", "5", "4", -10000)
+    phr5 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_13", "6", "5", -10000)
+		phr5:GetPhraseScript():AddGiveInfo("yan_kvest_help_to_chuk_search_figa_complete")
+		phr5:GetPhraseScript():AddAction("tasks_functor.death_figa")
+		phr5:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+
+--/Чук загнулся
+function init_kvest_help_to_chuk_death_chuk_dlg(dlg)
+    phr0 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_14", "0", "", -10000)
+    phr1 = dlg:AddPhrase("yan_kvest_help_to_chuk_talk_with_chuk_15", "1", "0", -10000)
+		phr1:GetPhraseScript():AddAction("tasks_functor.on_death_figa")
+end
+
+function init_yan_kvest_help_to_chuk_bring_zapisi_complete_dlg(dlg)
+    phr0 = dlg:AddPhrase("yan_kvest_help_to_chuk_bring_zapisi_complete_0", "0", "", -10000)
+		phr0:GetPhraseScript():AddAction("tasks_functor.give_zapisi_tomson_to_npc")
+    phr1 = dlg:AddPhrase("yan_kvest_help_to_chuk_bring_zapisi_complete_1", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("yan_kvest_help_to_chuk_bring_zapisi_complete")
+		phr1:GetPhraseScript():AddAction("tasks_functor.reward_biofirmwares")
+end
+--=====================================================================================
+
+function init_kvest_dobrozhelatel_talk_with_svyaznoy_2_dlg(dlg)
+    phr0 = dlg:AddPhrase("x10_kvest_dobrozhelatel_talk_with_svyaznoy_3", "0", "", -10000)
+    phr1 = dlg:AddPhrase("x10_kvest_dobrozhelatel_talk_with_svyaznoy_6", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("rad_kvest_dobrozhelatel_help_to_svyaznoy")
+		phr1:GetPhraseScript():AddAction("tasks_functor.on_actor_svyaznoy_stop_following")
+end
+--=====================================================================================
+--Далог со Скорым
+function init_esc_talk_with_scoryi_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_talk_with_scoryi_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_talk_with_scoryi_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_talk_with_scoryi_2", "2", "0", -10000)
+		phr2:GetPhraseScript():AddAction("tasks_functor.death_esc_scoryi_by_dialog")
+		phr2:GetPhraseScript():AddAction("dialogs.break_dialog")
+    phr3 = dlg:AddPhrase("esc_talk_with_scoryi_3", "3", "1", -10000)
+		phr3:GetPhraseScript():AddAction("tasks_functor.give_pda_scoryi_to_actor")
+		phr3:GetPhraseScript():AddGiveInfo("esc_kvest_help_to_scoryi_talk_with_him_complete")
+    phr4 = dlg:AddPhrase("esc_talk_with_scoryi_4", "4", "3", -10000)
+		phr4:GetPhraseScript():AddAction("tasks_functor.death_esc_scoryi_by_dialog")
+		phr4:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+--Перенес в хмлку старовых диалогов сидора
+--[[
+function init_kvest_help_to_scoryi_talk_with_sidor_dlg(dlg)
+    phr0 = dlg:AddPhrase("esckvest_help_to_scoryi_talk_with_sidor_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esckvest_help_to_scoryi_talk_with_sidor_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esckvest_help_to_scoryi_talk_with_sidor_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esckvest_help_to_scoryi_talk_with_sidor_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esckvest_help_to_scoryi_talk_with_sidor_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esckvest_help_to_scoryi_talk_with_sidor_5", "5", "4", -10000)
+		phr5:GetPhraseScript():AddGiveInfo("esc_kvest_help_to_scoryi_talk_with_sidor_complete")
+    phr6 = dlg:AddPhrase("esckvest_help_to_scoryi_talk_with_sidor_6", "6", "5", -10000)
+end
+--]]
+--Болтаем о жизни с Кузнецовым
+function init_esc_kvest_help_to_scoryi_about_sitnik_with_kuzn_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_4", "4", "3", -10000)
+		phr4:GetPhraseScript():AddAction("ogse_car_trade.gore_2")
+    phr5 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_7", "7", "6", -10000)
+    phr8 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_8", "8", "7", -10000)
+    phr9 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_9", "9", "8", -10000)
+    phr10 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_10", "10", "9", -10000)
+    phr11 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_11", "11", "10", -10000)
+    phr12 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_12", "12", "11", -10000)
+    phr13 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_13", "13", "12", -10000)
+    phr14 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_kuzn_14", "14", "13", -10000)
+		phr14:GetPhraseScript():AddGiveInfo("esc_kvest_help_to_scoryi_talk_with_kuzn_complete")
+end
+
+--Болтаем о Ситнике с Сидором
+function init_esc_kvest_help_to_scoryi_about_sitnik_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_6", "6", "5", -10000)
+		phr6:GetPhraseScript():AddAction("tasks_functor.give_pda_scoryi_to_npc")
+    phr7 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_7", "7", "6", -10000)
+    phr8 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_8", "8", "7", -10000)
+    phr9 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_9", "9", "8", -10000)
+    phr10 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_10", "10", "9", -10000)
+    phr11 = dlg:AddPhrase("esc_kvest_help_to_scoryi_about_sitnik_11", "11", "10", -10000)
+		phr11:GetPhraseScript():AddGiveInfo("esc_kvest_help_to_scoryi_about_sitnik_dlg")
+end
+
+function init_val_kvest_help_to_scoryi_talk_with_orlov_dlg(dlg)
+    phr0 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_7", "7", "6", -10000)
+    phr8 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_8", "8", "7", -10000)
+    phr9 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_9", "9", "8", -10000)
+    phr10 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_10", "10", "9", -10000)
+    phr11 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_11", "11", "10", -10000)
+    phr12 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_12", "12", "11", -10000)
+    phr13 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_13", "13", "12", -10000)
+    phr14 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_14", "14", "13", -10000)
+    phr15 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_15", "15", "14", -10000)
+    phr16 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_16", "16", "15", -10000)
+    phr17 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_17", "17", "16", -10000)
+    phr18 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_18", "18", "17", -10000)
+    phr19 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_19", "19", "18", -10000)
+    phr20 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_20", "20", "19", -10000)
+    phr21 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_21", "21", "20", -10000)
+    phr22 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_22", "22", "21", -10000)
+    phr23 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_23", "23", "22", -10000)
+		phr23:GetPhraseScript():AddGiveInfo("esc_kvest_help_to_scoryi_talk_with_orlov_complete")
+		phr23:GetPhraseScript():AddAction("tasks_functor.spawn_outfit_in_death_bandit")
+		phr23:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+
+function init_val_kvest_help_to_scoryi_talk_with_orlov3_dlg(dlg)
+    phr0 = dlg:AddPhrase("val_kvest_help_to_scoryi_talk_with_orlov_23___2", "0", "", -10000)
+    phr1 = dlg:AddPhrase("Понял.", "1", "0", -10000)
+		phr1:GetPhraseScript():AddAction("tasks_functor.talked_with_orlov3")
+		phr1:GetPhraseScript():AddGiveInfo("val_orlov_he_talked_with_actor")
+		phr1:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+
+function init_esc_kvest_help_to_scoryi_say_mils_info_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_help_to_scoryi_say_mils_info_dlg_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_help_to_scoryi_say_mils_info_dlg_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_help_to_scoryi_say_mils_info_dlg_2", "2", "1", -10000)
+		phr2:GetPhraseScript():AddAction("tasks_functor.give_notebook_mercs")
+    phr3 = dlg:AddPhrase("esc_kvest_help_to_scoryi_say_mils_info_dlg_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_help_to_scoryi_say_mils_info_dlg_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_help_to_scoryi_say_mils_info_dlg_5", "5", "4", -10000)
+		phr5:GetPhraseScript():AddGiveInfo("esc_kvest_help_to_scoryi_say_mils_info_complete")
+		phr5:GetPhraseScript():AddAction("tasks_functor.hit_cars_in_online_visitors")
+	phr6 = dlg:AddPhrase("esc_kvest_help_to_scoryi_say_mils_info_dlg_6", "6", "5", -10000)
+		phr6:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+
+function init_esc_kvest_help_to_scoryi_talk_with_sitnik_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_7", "7", "6", -10000)
+    phr8 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_8", "8", "7", -10000)
+    phr9 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_9", "9", "8", -10000)
+    phr10 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_10", "10", "9", -10000)
+		phr10:GetPhraseScript():AddGiveInfo("esc_kvest_help_to_scoryi_search_sitnik_complete")
+    phr11 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_11", "11", "10", -10000)
+    phr12 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sitnik_12", "12", "10", -10000)
+end
+
+function init_kvest_help_to_scoryi_send_money_to_wife_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_help_to_scoryi_send_money_to_wife_0", "0", "", -10000)
+		phr0:GetPhraseScript():AddAction("tasks_functor.give_moneys_of_scoryi_to_barman")
+    phr1 = dlg:AddPhrase("esc_kvest_help_to_scoryi_send_money_to_wife_1", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("esc_kvest_help_to_scoryi_send_money_complete")
+    phr2 = dlg:AddPhrase("esc_kvest_help_to_scoryi_send_money_to_wife_2", "2", "1", -10000)
+end
+
+function init_esc_kvest_help_to_scoryi_talk_with_sidor_end_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sidor_end_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sidor_end_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sidor_end_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_help_to_scoryi_talk_with_sidor_end_3", "3", "1", -10000)
+		phr3:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_end_prosba")
+end
+--=====================================================================================
+function init_esc_kvest_iscelenie_about_sidor_info_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_about_sidor_info_0", "0", "", -10000)
+		--phr0:GetPhraseScript():AddGiveInfo("yan_provodnik_spawn")
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_about_sidor_info_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_iscelenie_about_sidor_info_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_iscelenie_about_sidor_info_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_iscelenie_about_sidor_info_4", "4", "3", -10000)
+		phr4:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_talk_with_saharov_start")
+    phr5 = dlg:AddPhrase("esc_kvest_iscelenie_about_sidor_info_5", "5", "3", -10000)
+    phr6 = dlg:AddPhrase("esc_kvest_iscelenie_about_sidor_info_6", "6", "4", -10000)
+    phr7 = dlg:AddPhrase("esc_kvest_iscelenie_about_sidor_info_7", "7", "5", -10000)
+    phr8 = dlg:AddPhrase("esc_kvest_iscelenie_about_sidor_info_8", "8", "7", -10000)
+		phr8:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_end_first_dlg")
+    phr9 = dlg:AddPhrase("esc_kvest_iscelenie_about_sidor_info_9", "9", "7", -10000)
+		phr9:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_talk_with_saharov_start")
+end
+
+function init_esc_kvest_iscelenie_talk_with_saharov_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_saharov_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_saharov_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_saharov_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_saharov_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_saharov_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_saharov_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_saharov_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_saharov_7", "7", "6", -10000)
+		phr7:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_talk_with_saharov_complete")
+		phr7:GetPhraseScript():AddAction("tasks_functor.spawn_pda_preobr")
+    phr8 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_saharov_8", "8", "7", -10000)
+end
+
+function init_esc_kvest_iscelenie_talk_with_ecolog_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_7", "7", "6", -10000)
+		phr7:GetPhraseScript():AddAction("tasks_functor.give_pda_preobr_to_npc")
+    phr8 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_8", "8", "7", -10000)
+    phr9 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_9", "9", "8", -10000)
+		phr9:GetPhraseScript():AddAction("dialogs.transfer_medkit")
+    phr10 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_10", "10", "9", -10000)
+		phr10:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_guid_preobr_start")
+		phr10:GetPhraseScript():AddAction("dialogs.companion_start_following")
+		phr10:GetPhraseScript():AddAction("dialogs.companion_beh_walk_simple")
+    phr11 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_11", "11", "10", -10000)
+end
+
+function init_esc_kvest_iscelenie_talk_with_ecolog_2_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_2_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_2_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_2_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_2_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_2_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_2_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_2_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_2_7", "7", "6", -10000)
+		phr7:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_search_stebels_start")
+		phr7:GetPhraseScript():AddAction("tasks_functor.spawn_stebels_ri")
+    phr8 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_2_8", "8", "7", -10000)
+end
+
+function init_esc_kvest_iscelenie_talk_with_ecolog_3_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_3_0", "0", "", -10000)
+		phr0:GetPhraseScript():AddAction("tasks_functor.give_stebel_ri_to_npc")
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_3_1", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_search_stebels_start")
+		phr1:GetPhraseScript():AddAction("tasks_functor.start_wait_stebel_ri")
+end
+
+function init_esc_kvest_iscelenie_talk_with_ecolog_4_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_4_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_4_1", "1", "0", -10000)
+		phr1:GetPhraseScript():AddDontHasInfo("esc_kvest_iscelenie_stebel_ri_done")
+		phr1:GetPhraseScript():AddAction("tasks_functor.give_lekar_for_sidor_to_actor")
+		phr1:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_bring_lekarstvo_start")
+    phr2 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_4_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_4_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_4_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_ecolog_4_4", "5", "0", -10000)
+		phr5:GetPhraseScript():AddDontHasInfo("esc_kvest_iscelenie_stebel_ri_done")
+end
+
+function init_esc_kvest_iscelenie_bring_lekar_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_talk_bring_lekar_1", "0", "", -10000)
+		phr0:GetPhraseScript():AddAction("tasks_functor.give_lekar_for_sidor_to_npc")
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_talk_bring_lekar_2", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_search_stebels_start")
+		phr1:GetPhraseScript():AddAction("tasks_functor.start_wait_lechenie_sidor")
+end
+
+function init_esc_kvest_iscelenie_talk_with_sidor_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_7", "7", "6", -10000)
+    phr8 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_8", "8", "7", -10000)
+    phr9 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_9", "9", "8", -10000)
+		phr9:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_talk_with_sidor_complete")
+    phr10 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_10", "10", "9", -10000)
+    phr11 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_11", "11", "10", -10000)
+    phr12 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_sidor_12", "12", "11", -10000)
+end
+
+function init_esc_kvest_iscelenie_search_info_a_killer_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_search_info_a_killer_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_search_info_a_killer_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_iscelenie_search_info_a_killer_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_iscelenie_search_info_a_killer_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_iscelenie_search_info_a_killer_4", "4", "3", -10000)
+		phr4:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_about_diggers_complete")
+end
+
+function init_esc_kvest_iscelenie_search_talk_with_sitnik_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_sitnik_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_sitnik_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_sitnik_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_sitnik_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_sitnik_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_sitnik_5", "5", "4", -10000)
+		phr5:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_search_uzh_start")
+		phr5:GetPhraseScript():AddAction("tasks_functor.spawn_val_uzh")
+    phr6 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_sitnik_6", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_sitnik_7", "7", "6", -10000)
+    phr8 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_sitnik_8", "8", "7", -10000)
+end
+
+function init_esc_kvest_iscelenie_search_talk_with_uzh_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_uzh_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_uzh_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_uzh_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_uzh_3", "3", "2", -10000)
+    phr4 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_uzh_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_uzh_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_uzh_6", "6", "5", -10000)
+		phr6:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_on_combat_uzh")
+		phr6:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_search_uzh_complete")
+    phr7 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_uzh_7", "7", "5", -10000)
+		phr7:GetPhraseScript():AddAction("tasks_functor.spawn_esc_hitryi")
+    phr8 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_uzh_8", "8", "7", -10000)
+		phr8:GetPhraseScript():AddGiveInfo("esc_kvest_iscelenie_search_uzh_complete")
+    phr9 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_uzh_9", "9", "8", -10000)
+    phr10 = dlg:AddPhrase("esc_kvest_iscelenie_search_talk_with_uzh_10", "10", "9", -10000)
+end
+
+function init_esc_kvest_iscelenie_talk_with_hitryi_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_hitryi_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_hitryi_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_kvest_iscelenie_talk_with_hitryi_2", "2", "1", -10000)
+end
+
+--=====================================================================================
+--/Берем динамит у Волка
+function init_take_dinamyte_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_take_dinamyte_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_take_dinamyte_1", "1", "0", -10000)
+	    phr1:GetPhraseScript():AddAction("tasks_functor.give_dynamite_for_mils_to_actor")
+		phr1:GetPhraseScript():AddGiveInfo("escape_kvest_with_military_give_din")
+end
+
+--/Отдаем динамит военным (Освободили багажник)
+function init_give_dinamyte_to_mils_dlg_trunk(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_trunk_0", "0", "", -10000)
+    phr11 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_trunk_11", "11", "0", -10000)
+		phr11:GetPhraseScript():AddPrecondition("tasks_functor.precond_give_yashik_to_actor")
+		phr11:GetPhraseScript():AddDisableInfo("esc_kvest_sdelka_with_mils_trunk_clear")
+		phr11:GetPhraseScript():AddGiveInfo("escape_kvest_with_military_give_din_to_mils")
+		phr11:GetPhraseScript():AddAction("tasks_functor.spawn_esc_spawn_box_in_car")
+end
+
+--/Нашли машину, теперь можно положить динамит
+function init_give_dinamyte_to_mils_get_car_dlg(dlg)
+	phr0 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_01", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_12", "1", "0", -10000)
+		--phr1:GetPhraseScript():AddPrecondition("tasks_functor.precond_give_yashik_to_actor")
+		phr1:GetPhraseScript():AddAction("tasks_functor.spawn_esc_spawn_box_in_car")
+		phr1:GetPhraseScript():AddGiveInfo("escape_kvest_with_military_give_din_to_mils")
+end
+--/Отдаем динамит военным
+function init_give_dinamyte_to_mils_dlg(dlg)
+	phr0 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_0111", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_0", "1", "0", -10000)
+	    phr1:GetPhraseScript():AddAction("tasks_functor.give_dynamite_for_mils_to_npc")
+		phr1:GetPhraseScript():AddGiveInfo("escape_kvest_with_military_give_din_to_mils_give")
+    phr2 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_1", "2", "1", -10000)
+   -- phr3 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_2", "3", "2", -10000)
+		--phr3:GetPhraseScript():AddGiveInfo("esc_kvest_sdelka_with_mils_fail")
+		--phr3:GetPhraseScript():AddAction("tasks_functor.set_start_dlg_to_kuznecov2")
+    phr4 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_3", "4", "2", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_4", "5", "4", -10000)
+		phr5:GetPhraseScript():AddAction("tasks_functor.set_start_dlg_to_kuznecov2")
+		phr5:GetPhraseScript():AddPrecondition("tasks_functor.precond_give_yashik_to_actor")
+		phr5:GetPhraseScript():AddAction("tasks_functor.spawn_esc_spawn_box_in_car")
+		phr5:GetPhraseScript():AddGiveInfo("escape_kvest_with_military_give_din_to_mils")
+    phr51 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_41", "51", "4", -10000)
+		phr51:GetPhraseScript():AddAction("tasks_functor.set_start_dlg_to_kuznecov2")
+		phr51:GetPhraseScript():AddPrecondition("tasks_functor.precond_give_yashik_to_actor")
+		phr51:GetPhraseScript():AddGiveInfo("esc_kvest_sdelka_with_mils_trunk_clear")
+    phr6 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_5", "6", "5", -10000)
+    phr7 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_6", "7", "4", -10000)
+		phr7:GetPhraseScript():AddPrecondition("tasks_functor.precond_not_give_yashik_to_actor")
+    phr81 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_71", "81", "7", -10000)
+		phr81:GetPhraseScript():AddPrecondition("tasks_functor.not_precond_zaz_on_level")
+		phr81:GetPhraseScript():AddGiveInfo("esc_kvest_sdelka_with_mils_fail")
+		phr81:GetPhraseScript():AddAction("tasks_functor.set_start_dlg_to_kuznecov2")
+    phr91 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_81", "91", "81", -10000)
+    phr82 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_72", "82", "7", -10000)
+		phr82:GetPhraseScript():AddPrecondition("tasks_functor.precond_zaz_on_level")
+		phr82:GetPhraseScript():AddGiveInfo("esc_kvest_sdelka_with_mils_get_car")
+		phr82:GetPhraseScript():AddAction("tasks_functor.set_start_dlg_to_kuznecov2")
+    phr92 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_82", "92", "82", -10000)
+end
+
+
+--/Нас прервали
+function init_give_dinamyte_to_mils_something_happend_dlg(dlg)
+	phr0 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_something_happend_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_something_happend_1", "1", "0", -10000)
+		--phr1:GetPhraseScript():AddGiveInfo("escape_kvest_with_military_give_din_to_mils_give")
+    --phr2 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_1", "2", "1", -10000)
+   -- phr3 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_2", "2", "1", -10000)
+		--phr3:GetPhraseScript():AddGiveInfo("esc_kvest_sdelka_with_mils_fail")
+    phr4 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_3", "3", "1", -10000)
+    phr5 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_4", "4", "3", -10000)
+		phr5:GetPhraseScript():AddPrecondition("tasks_functor.precond_give_yashik_to_actor")
+		phr5:GetPhraseScript():AddAction("tasks_functor.spawn_esc_spawn_box_in_car")
+		phr5:GetPhraseScript():AddGiveInfo("escape_kvest_with_military_give_din_to_mils")
+    phr51 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_41", "41", "4", -10000)
+		phr51:GetPhraseScript():AddPrecondition("tasks_functor.precond_give_yashik_to_actor")
+		phr51:GetPhraseScript():AddGiveInfo("esc_kvest_sdelka_with_mils_trunk_clear")
+    phr6 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_5", "5", "4", -10000)
+	phr83 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_83", "83", "5", -10000)
+		phr83:GetPhraseScript():AddHasInfo("escape_kvest_with_military_give_din_to_mils")
+    phr7 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_6", "6", "3", -10000)
+		phr7:GetPhraseScript():AddPrecondition("tasks_functor.precond_not_give_yashik_to_actor")
+    phr81 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_71", "81", "6", -10000)
+		phr81:GetPhraseScript():AddPrecondition("tasks_functor.not_precond_zaz_on_level")
+		phr81:GetPhraseScript():AddGiveInfo("esc_kvest_sdelka_with_mils_fail")
+    phr91 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_81", "91", "81", -10000)
+    phr82 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_72", "82", "6", -10000)
+		phr82:GetPhraseScript():AddPrecondition("tasks_functor.precond_zaz_on_level")
+		phr82:GetPhraseScript():AddGiveInfo("esc_kvest_sdelka_with_mils_get_car")
+    phr92 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_82", "92", "82", -10000)
+
+end
+
+function init_kvest_sdelka_with_mils_talk_with_volk_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_0112", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_kvest_sdelka_with_mils_give_dinamyte_0113", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("escape_kvest_with_military_talk_with_volk")
+		phr1:GetPhraseScript():AddAction("tasks_functor.give_yashik_weapon_to_wolf")
+end
+
+--/Говорим со спецотрядом
+function init_talk_with_specotryad_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_talk_with_specotryad_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_talk_with_specotryad_1", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("esc_kvest_plennik_of_blockpost_meet_with_otryad")
+    phr2 = dlg:AddPhrase("esc_talk_with_specotryad_2", "2", "1", -10000)
+	    phr2:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+
+--/Говорим с пленным
+function init_talk_with_plennik_of_blockpost_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_talk_with_plennik_of_blockpost_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_talk_with_plennik_of_blockpost_1", "1", "0", -10000)
+	    phr1:GetPhraseScript():AddGiveInfo("esc_kvest_plennik_of_blockpost_talk_with_plennik")
+    phr2 = dlg:AddPhrase("esc_talk_with_plennik_of_blockpost_2", "2", "1", -10000)
+	    phr2:GetPhraseScript():AddAction("dialogs.companion_start_following")
+	    phr2:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+
+--/Даем водку вояке за инфу "что они делают у аномалий"
+function init_talk_with_anmaly_military_leader_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_2", "2", "1", -10000)
+		phr2:GetPhraseScript():AddAction("dialogs.break_dialog")
+    phr3 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_3", "3", "1", -10000)
+    phr4 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_5", "5", "4", -10000)
+	    phr5:GetPhraseScript():AddPrecondition("tasks_functor.have_5_vodka")
+        phr5:GetPhraseScript():AddAction("tasks_functor.give_5vodka_to_npc")
+    phr6 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_6", "6", "4", -10000)
+		phr6:GetPhraseScript():AddGiveInfo("esc_kvest_know_do_mils_near_anomaly_start_3")
+    phr7 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_7", "7", "6", -10000)
+    phr8 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_8", "8", "5", -10000)
+	   	phr8:GetPhraseScript():AddGiveInfo("esc_know_do_mils_near_anomaly_complete")
+end
+
+function init_talk_with_anmaly_military_leader__3_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_5", "0", "", -10000)
+		phr0:GetPhraseScript():AddPrecondition("tasks_functor.have_5_vodka")
+        phr0:GetPhraseScript():AddAction("tasks_functor.give_5vodka_to_npc")
+    phr1 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_8", "1", "0", -10000)
+		phr1:GetPhraseScript():AddGiveInfo("esc_know_do_mils_near_anomaly_complete")
+		phr1:GetPhraseScript():AddGiveInfo("esc_kvest_know_do_mils_near_anomaly_3_complete")
+end
+
+--/Говорим что можем подобрать арт
+function init_talk_with_anmaly_military_leader_2_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_2_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_2_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_2_2", "2", "1", -10000)
+    phr3 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_2_3", "3", "1", -10000)
+    phr4 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_2_4", "4", "3", -10000)
+    phr5 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_2_5", "5", "4", -10000)
+	   	phr5:GetPhraseScript():AddGiveInfo("esc_talk_with_anmaly_military_leader_2")
+end
+
+--/отдаем  арт
+function init_talk_with_anmaly_military_leader_3_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_3_0", "0", "", -10000)
+	    phr0:GetPhraseScript():AddPrecondition("tasks_functor.have_af_esc_anomaly")
+	   	phr0:GetPhraseScript():AddGiveInfo("esc_talk_with_anmaly_military_leader_3")
+    phr1 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_3_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_3_2", "2", "1", -10000)
+        phr2:GetPhraseScript():AddAction("tasks_functor.give_af_esc_anomaly_to_npc")
+    phr3 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_3_3", "3", "1", -10000)
+	   	phr3:GetPhraseScript():AddGiveInfo("esc_kvest_know_do_mils_near_anomaly_take_item")
+	    phr3:GetPhraseScript():AddAction("dialogs.break_dialog")
+		phr3:GetPhraseScript():AddAction("tasks_functor.punch_actor")
+    phr4 = dlg:AddPhrase("esc_talk_with_anmaly_military_leader_3_4", "4", "2", -10000)
+        phr4:GetPhraseScript():AddAction("tasks_functor.give_reward_on_kvest_know_do_mils_near_anomaly_2")
+	   	phr4:GetPhraseScript():AddGiveInfo("esc_kvest_know_do_mils_near_anomaly_actor_give_art_to_mils")
+end
+
+--/Говорим с захватчиками друга Бармена
+function init_talk_zahvatchik_friend_barman_dlg(dlg)
+    phr0 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_1", "1", "0", -10000)
+    phr2 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_2", "2", "1", -10000)
+		phr2:GetPhraseScript():AddGiveInfo("bar_kvest_friend_of_barman_sv_dlg_end")
+    phr3 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_3", "3", "1", -10000)
+    phr4 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_4", "4", "3", -10000)
+		phr4:GetPhraseScript():AddGiveInfo("bar_kvest_friend_of_barman_sv_dlg_end")
+    phr5 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_5", "5", "4", -10000)
+    phr6 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_6", "6", "5", -10000)
+	phr2_2 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_2", "2", "4", -10000)
+	phr2_3 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_2", "2", "6", -10000)
+	phr7 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_7", "7", "6", -10000)
+	phr8 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_8", "8", "7", -10000)
+	phr9 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_9", "9", "8", -10000)
+	phr10 = dlg:AddPhrase("esc_talk_zahvatchik_friend_barman_10", "10", "9", -10000)
+end
+
+--/Говорим с Прапором
+function init_talk_with_prapor_dlg(dlg)
+    phr0 = dlg:AddPhrase("gar_talk_with_prapor_0", "0", "", -10000)
+    phr1 = dlg:AddPhrase("gar_talk_with_prapor_1", "1", "0", -10000)
+	   	phr1:GetPhraseScript():AddGiveInfo("bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_complete")
+		phr1:GetPhraseScript():AddAction("tasks_functor.spawn_dolg_for_sdelka")
+    phr2 = dlg:AddPhrase("gar_talk_with_prapor_2", "2", "1", -10000)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

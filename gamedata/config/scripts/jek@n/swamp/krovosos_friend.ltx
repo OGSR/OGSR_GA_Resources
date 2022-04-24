@@ -1,0 +1,49 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = mob_remark@1
+on_death = mob_death
+on_hit = mob_hit
+
+[mob_remark@1]
+anim = stand_damaged_0
+actor_friendly = true
+target = actor
+;on_actor_dist_le_nvis = 2 | mob_remark@talk %=krovos_friend_talk%
+on_timer = 10000 | mob_remark@2
+
+[mob_remark@2]
+anim = stand_damaged_1
+actor_friendly = true
+target = actor
+;on_actor_dist_le_nvis = 2 | mob_remark@talk %=krovos_friend_talk%
+on_timer = 15000 | mob_remark@3
+
+[mob_remark@3]
+anim = stand_damaged_0
+actor_friendly = true
+target = actor
+;on_actor_dist_le_nvis = 2 | mob_remark@talk %=krovos_friend_talk%
+on_timer = 20000 | mob_remark@1
+
+
+[mob_remark@talk]
+anim = stand_threaten_0
+actor_friendly = true
+target = actor
+on_timer = 3500 | mob_remark@1
+
+[mob_remark@pain]
+anim = lie_sleep_0
+actor_friendly = true
+target = nil
+on_timer = 10000 | mob_remark@1
+
+
+[mob_death]
+on_info = %+krovos_friend_dead%
+
+[mob_hit]
+on_info = {=hit_by_actor} mob_remark@talk %=send_tip(swampdoc_dontdoobad_tip:swampdoc:7123) =krovos_friend_talk%
+

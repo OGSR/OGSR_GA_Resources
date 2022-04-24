@@ -1,0 +1,14 @@
+[logic]
+;active = ph_idle@closed
+active = ph_idle@temp
+
+[ph_idle@closed]
+on_info = {+safe_5_opened} ph_idle@opened
+tips   = hack_the_box
+on_use = {+seif5_task} %=safe_5_open%
+
+[ph_idle@opened]
+tips   = st_search_treasure
+on_use = %=safe_5_open%
+
+[ph_idle@temp]

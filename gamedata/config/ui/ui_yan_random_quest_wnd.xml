@@ -1,0 +1,90 @@
+<yan_random_quest_wnd>
+	<back_video x="25" y="10" width="440" height="325" stretch="1">
+		<texture>ui\credits_back_512_v10</texture>
+	</back_video>
+
+	<background x="0" y="5" width="480" height="335" stretch="1">
+		<texture x="0" y="0" width="350" height="460">ui\ui_dg_inventory</texture>
+	</background>
+	
+	<btn_quit x="340" y="300" width="117" height="29">
+		<texture_e>ui_button_ordinary_e</texture_e>
+		<texture_t>ui_button_ordinary_t</texture_t>
+		<texture_h>ui_button_ordinary_h</texture_h>
+		<text>ui_inv_exit</text>
+	</btn_quit>
+	
+	<btn_give_item x="25" y="300" width="117" height="29">
+		<texture_e>ui_button_ordinary_e</texture_e>
+		<texture_t>ui_button_ordinary_t</texture_t>
+		<texture_h>ui_button_ordinary_h</texture_h>
+		<text>yan_rand_quest_give_string</text>
+	</btn_give_item>
+	
+	<window_name x="70" y="8" width="80" height="35">
+		<text font="letterica18" r="238" g="155" b="23">yan_rand_quest_choose_string</text>
+	</window_name>
+		
+	<art_name x="35" y="30" width="390" height="35">
+		<text font="letterica18">yan_rand_quest_afacts_string</text>
+	</art_name>
+	
+	<monster_part_name x="250" y="30" width="390" height="35">
+		<text font="letterica18">yan_rand_quest_mut_string</text>
+	</monster_part_name>
+
+	<frame_1 x="25" y="45" width="77" height="77" stretch="1">
+		<texture x="233" y="19" width="254" height="148">ui\del_ui_static_loadgameinfo</texture>
+	</frame_1>
+
+	<edit_1 x="110" y="85" width="110" height="20" max_symb_count="2">
+		<text font="letterica18" r="235" g="219" b="185"/>
+		<texture>ui_linetext_e</texture>
+	</edit_1>
+	
+	<frame_2 x="25" y="125" width="77" height="77" stretch="1">
+		<texture x="233" y="19" width="254" height="148">ui\del_ui_static_loadgameinfo</texture>
+	</frame_2>
+
+	<edit_2 x="110" y="165" width="110" height="20" max_symb_count="2">
+		<text font="letterica18" r="235" g="219" b="185"/>
+		<texture>ui_linetext_e</texture>
+	</edit_2>
+
+	<frame_3 x="25" y="205" width="77" height="77" stretch="1">
+		<texture x="233" y="19" width="254" height="148">ui\del_ui_static_loadgameinfo</texture>
+	</frame_3>
+
+	<edit_3 x="110" y="245" width="110" height="20" max_symb_count="2">
+		<text font="letterica18" r="235" g="219" b="185"/>
+		<texture>ui_linetext_e</texture>
+	</edit_3>
+	
+	<frame_4 x="255" y="45" width="77" height="77" stretch="1">
+		<texture x="233" y="19" width="254" height="148">ui\del_ui_static_loadgameinfo</texture>
+	</frame_4>
+
+	<edit_4 x="340" y="85" width="110" height="20" max_symb_count="2">
+		<text font="letterica18" r="235" g="219" b="185"/>
+		<texture>ui_linetext_e</texture>
+	</edit_4>
+	
+	<frame_5 x="255" y="125" width="77" height="77" stretch="1">
+		<texture x="233" y="19" width="254" height="148">ui\del_ui_static_loadgameinfo</texture>
+	</frame_5>
+
+	<edit_5 x="340" y="165" width="110" height="20" max_symb_count="2">
+		<text font="letterica18" r="235" g="219" b="185"/>
+		<texture>ui_linetext_e</texture>
+	</edit_5>
+	
+	<frame_6 x="255" y="205" width="77" height="77" stretch="1">
+		<texture x="233" y="19" width="254" height="148">ui\del_ui_static_loadgameinfo</texture>
+	</frame_6>
+
+	<edit_6 x="340" y="245" width="110" height="20" max_symb_count="2">
+		<text font="letterica18" r="235" g="219" b="185"/>
+		<texture>ui_linetext_e</texture>
+	</edit_6>
+	
+</yan_random_quest_wnd>

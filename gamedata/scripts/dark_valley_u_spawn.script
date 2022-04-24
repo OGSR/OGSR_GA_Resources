@@ -1,0 +1,73 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+---------------Copyright_Quest_2009-------------------
+--------------Edited_by_stalbar_2009------------------
+local spawn_db = ogse_spawn_db.script_spawn_registry.dark_valley_u_spawn
+local rat_types = {"rat_plague", "rat_normal", "rat_strong", "rat_weak"}
+
+function rat_entry( actor, npc )
+	--log1("rat_enry() called")
+	--'При взятии Ключа у Борова при входе в лабораторию
+--SPAWN_V1
+	--ogse.quest_spawn(rat_types[math.random(4)], 2, vector():set(0.806, 9.408, -4.068), 10, 2884, 1109)
+--SPAWN_V2
+	ogse.quest_spawn_ex(rat_types[math.random(4)], 2, spawn_db.rat_entry)
+	--log1("rat_enry() completed")	
+end
+
+function entry2( actor, npc )
+	--log1("entry2() called")		
+	--'При взятии Ключа у Борова перед входом в лабораторию появляются крысы
+	--- отключено, иногда вылетает
+	--log1("entry2() completed")	
+end
+
+function key1( actor, npc )
+	-- log1("key1() called")		
+	--'При получении задания найти код к первой двери спаунятся крысы
+--SPAWN_V1
+	--ogse.quest_spawn(rat_types[math.random(4)], 2, vector():set(-9.515, 3.187, -8.75), 11, 1726, 1166)		
+--SPAWN_V2
+	ogse.quest_spawn_ex(rat_types[math.random(4)], 2, spawn_db.key1)
+	-- log1("key1() completed")	
+end
+
+function key2( actor, npc )
+	-- log1("key2() called")		
+	--'При получении задания найти код к первой двери спаунятся крысы
+--SPAWN_V1
+	--ogse.quest_spawn(rat_types[math.random(4)], 2, vector():set(-7.49, 2.479, 62.04), 11, 1726, 1166)		
+--SPAWN_V2
+	ogse.quest_spawn_ex(rat_types[math.random(4)], 2, spawn_db.key2)
+	-- log1("key2() completed")	
+end
+
+function rat74( actor, npc )
+	--log1("rat74() called")
+	--'При открытии первой и второй кодовой дверей		
+--SPAWN_V1
+	--ogse.quest_spawn(rat_types[math.random(4)], 1, vector():set(12.52, -16.34, 39.24), 5, 4695, 1160)	
+--SPAWN_V2
+	ogse.quest_spawn_ex(rat_types[math.random(4)], 1, spawn_db.rat74)
+	--log1("rat74() completed")
+end
+
+function rat75( actor, npc )
+	--log1("rat75() called")
+	--'При открытии первой и второй кодовой дверей		
+--SPAWN_V1
+	--ogse.quest_spawn(rat_types[math.random(4)], 1, vector():set(-0.025, -10.81, -7.797), 5, 2769, 1134)		
+--SPAWN_V2
+	ogse.quest_spawn_ex(rat_types[math.random(4)], 1, spawn_db.rat75)
+	--log1("rat75() completed")
+end
+
+function dead_stalker( actor, npc )
+--SPAWN_V1
+	--local obj = alife():create("dead_stalker",vector():set(22.29, -10.06, -26.11),5211 ,1139)
+--SPAWN_V2
+	local obj = ogse.spawn_object(spawn_db.dead_stalker)
+	alife():assign_story_id(obj.id, story_ids.x18_death_stalker)
+end
+---------------Copyright_Quest_2009-------------------
+--------------Edited_by_stalbar_2009------------------

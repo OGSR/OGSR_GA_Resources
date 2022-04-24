@@ -1,0 +1,30 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = kamp
+combat_ignore = combat_ignore
+danger = danger_ignore
+on_death = death
+
+[kamp]
+path_walk = koster_point_task
+center_point = koster_point
+radius = 2 
+def_state_moving = walk
+on_timer = 120000 | walker
+
+[walker]
+path_walk =	dusty_2_walk
+path_look =	dusty_2_look
+on_timer = 70000 | kamp
+
+[danger_ignore]
+ignore_distance = 10
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[death]
+on_info = %+dusty_dead%
+

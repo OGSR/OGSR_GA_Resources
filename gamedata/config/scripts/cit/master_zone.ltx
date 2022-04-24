@@ -1,0 +1,18 @@
+[logic]
+active = sr_psy_antenna@no_helmet
+
+[sr_psy_antenna@no_helmet]
+eff_intensity = 50
+hit_intensity = 50
+on_info = {=actor_wear_helmet(good_psy_helmet) =actor_in_zone(dead_city_psi_radiotion_master) +master_quest_helmet_ready} %+master_quest_inside_lair% sr_psy_antenna@good_psy_helmet
+on_info2 = {+master_quest_soup_ready} sr_idle@nil
+on_info3 = {+master_quest_start +master_quest_info_found -master_quest_helmet_ready =actor_in_zone(dead_city_psi_radiotion_master)} %+master_quest_cannot_enter%
+phantom_prob = 40
+
+[sr_psy_antenna@good_psy_helmet]
+eff_intensity = 20
+hit_intensity = 0
+on_info = {+master_quest_soup_ready} sr_idle@nil
+phantom_prob = 20
+
+[sr_idle@nil]

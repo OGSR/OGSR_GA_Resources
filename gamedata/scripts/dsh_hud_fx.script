@@ -1,0 +1,61 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+function attach(sm)
+  sm:subscribe({ signal = "on_update", fun = this.on_update_heart })
+end
+
+
+function on_update_heart()
+  ogse_signals.get_mgr():reschedule( 113 )
+  if not db.actor:alive() then return end
+  nlc7_actor_heart()
+end
+
+local delt   = 0
+local delt_h = 0
+
+function nlc7_actor_heart()
+  local npc = db.actor
+  if not npc then return end
+  local hb = npc.health
+  if hb <= 0 or not npc:alive() then return end
+  local time_curr = time_global()
+  local time_delt = 0
+  local step      = 1
+  if hb < 0.3 then
+    time_delt = time_curr - delt_h
+    if time_delt >= math.log( hb * 200 ) * 200 then
+      if     hb < 0.05 then
+        step = 3
+      elseif hb < 0.15 then
+        step = 2
+      else
+        step = 1
+      end
+      local snd_fname = "actor\\nlc7\\heartbeat_" .. step .. "_" .. math.random( 4 )
+      local snd = sound_object( snd_fname )
+      snd.volume = 1.5 - 5 * hb
+      snd:play( db.actor, 0, sound_object.s2d )
+      delt_h = time_curr
+    end
+  end
+  local r_h = npc.power
+
+  if r_h < 0.79 then
+    time_delt = time_curr - delt
+    if time_delt >= r_h * 1500 + 800 then
+      if     r_h < 0.2 then
+        step = 3
+      elseif r_h < 0.4  then
+        step = 2
+      else
+        step = 1
+      end
+      local snd_fname = "actor\\nlc7\\without_mask_" .. step .. "_" .. math.random( 6 )
+      local snd = sound_object( snd_fname )
+      snd.volume = 1 - 5 * r_h
+      snd:play( db.actor, 0, sound_object.s2d )
+      delt = time_curr
+    end
+end
+end

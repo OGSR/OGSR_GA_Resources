@@ -1,0 +1,38 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = mob_remark@start
+on_death = mob_death
+on_hit = mob_hit
+
+[mob_remark@start]
+anim = stand_idle_scared_0
+actor_friendly = true
+on_actor_dist_le_nvis = 18 | mob_remark@frighten %+pseudodog_unic_frighten%
+on_timer = 7000 | mob_remark@2 %=pseudodog_unic_scream%
+
+[mob_remark@2]
+anim = stand_sit_down_0
+actor_friendly = true
+on_actor_dist_le_nvis = 18 | mob_remark@frighten %+pseudodog_unic_frighten%
+on_timer = 14000 | mob_remark@3 %=pseudodog_unic_scream%
+
+[mob_remark@3]
+anim = _stand_sniff_0
+actor_friendly = true
+on_actor_dist_le_nvis = 18 | mob_remark@frighten %+pseudodog_unic_frighten%
+on_timer = 7000 | mob_remark@start %=pseudodog_unic_scream%
+
+
+[mob_remark@frighten]
+anim = stand_scared_0
+on_timer = 10 | nil
+
+
+[mob_death]
+on_info = %+pseudodog_unic_dead%
+
+[mob_hit]
+on_info = {=hit_by_actor =actor_armed_speccrossbow} %=spawn_pseudodog_unic_body%, {=hit_by_actor =actor_not_armed_speccrossbow} nil
+

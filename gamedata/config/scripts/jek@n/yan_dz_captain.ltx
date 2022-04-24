@@ -1,0 +1,56 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@captain
+
+[walker@captain]
+path_walk = yan_captain_walk
+path_look = yan_captain_look
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal = arrived | remark@mid_sect
+
+[remark@mid_sect]
+on_info = {+yan_soldier_dead} remark@search_radist, remark@punch_radist
+
+[remark@punch_radist]
+anim = vmordu
+snd = yan_captain_punch
+no_move = true
+meet = no_meet
+target = 7108
+reactions  = ignore
+danger = danger_condition
+combat_ignore_cond = always
+on_signal = anim_end | remark@search_radist %+yan_sold_hitted_by_major% 
+
+[remark@search_radist]
+anim = obisk_trupa
+no_move = true
+meet = no_meet
+target = 7108
+danger = danger_condition
+combat_ignore_cond = always
+on_signal = anim_end | walker@wait_for_actor %=spawn_third_klondaik_flash_to_captain%
+
+[walker@wait_for_actor]
+path_walk = yan_captain_walk
+path_look = yan_captain_look
+meet = meet
+danger = danger_condition
+combat_ignore_cond = always
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 3|actor
+victim_wpn = 3|actor
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0

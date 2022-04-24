@@ -1,0 +1,139 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-------------------------------------------------------------------------------
+-- ogse_misc_item_usage.script
+-- использование различный предметов, включа€ звуки из "Script by Barin from Dezowave Team"
+-- OGS Evolution Team 2015
+-------------------------------------------------------------------------------
+
+function attach(sm)
+	sm:subscribe({signal = "on_use", fun = this.on_item_use})
+end
+
+local instruments_music = {
+	harmonica_f = {-- губная гармошка
+		"characters_voice\\music\\harmonica_1","characters_voice\\music\\harmonica_2",
+		"characters_voice\\music\\harmonica_3","characters_voice\\music\\harmonica_4",
+		"characters_voice\\music\\harmonica_5","characters_voice\\music\\harmonica_6",
+		"characters_voice\\music\\harmonica_7","characters_voice\\music\\harmonica_8",
+		"characters_voice\\music\\harmonica_9","characters_voice\\music\\harmonica_10",
+	},
+	guitar_f = {-- гитара
+		"music\\guitar_1","music\\guitar_2","music\\guitar_3","music\\guitar_4",
+		"music\\guitar_5","music\\guitar_6","music\\guitar_7","music\\guitar_8",
+		"music\\guitar_9","music\\guitar_10","music\\guitar_11",
+		"characters_voice\\music\\guitar_1","characters_voice\\music\\guitar_3",
+		"characters_voice\\music\\guitar_5","characters_voice\\music\\guitar_6",
+		"characters_voice\\music\\guitar_7","characters_voice\\music\\guitar_8",
+		"characters_voice\\music\\guitar_9","characters_voice\\music\\guitar_10",
+	},
+}
+
+function on_item_use(obj, sobj)
+	local section = obj:section()
+	if instruments_music[section] then
+		play_instrument(section)
+		return true
+	end	
+end
+
+function play_instrument(section)
+	play_timer("instrument_play_timer"):init(section):start()
+end
+
+--------------------------------
+
+
+class "play_timer" (ogse_st_mgr.savable_timer)
+function play_timer:__init(timer_id) super(timer_id)
+	self.class = script_name()..".play_timer"
+end
+-- проверка того, что руки заняты в недопустимой степени для выбранного музыкального инструмента
+-- здесь можно задать так, чтобы скажем на гармошке можно было играть и держать в другой руке пистолет
+-- сейчас сделано просто: держишь что-то в руках - играть нельзя
+local function cannot_play_instrument(section)
+	local active_item = db.actor:active_item()
+	if active_item then -- взяли что-то в руки
+		return true
+		--[[
+		if section == "guitar_f" then
+			-- на гитаре играем двумя руками, останавливаемся вне зависимости от того, что взяли в руки
+			return true
+		elseif section == "harmonica_f" then
+			-- на гармошке можно играть одной рукой
+			if not get_bool(active_item:section(), "single_handed") then
+				return true
+			end
+		else -- на будушее
+		end
+		]]
+	end
+end
+function play_timer:start_musec_aux(item_section)
+	local sounds = instruments_music[item_section]
+	self.sound = sound_object(sounds[math.random(table.getn(sounds))])
+	self.sound:play_at_pos(db.actor, vector():set(0, 0, 0), 0.0, sound_object.s2d)
+end
+function play_timer:init(item_section)
+	self.item_section = item_section
+	self.actor_pos = db.actor:position()
+	-- скрываем окно инвентаря
+	local active_wnd = level.main_input_receiver()
+	if active_wnd then
+		level.start_stop_menu(active_wnd, true)
+	end
+	if cannot_play_instrument() then -- если руки недопустимо заняты для выбранного инструмента
+		-- то скрываем активный предмет
+		local item = db.actor:active_item()
+		if item then
+			db.actor:move_to_ruck(item)
+			db.actor:move_to_slot(item, true) -- no activate
+		end
+		self.deferred_play = true
+	else
+		self:start_musec_aux(item_section)
+	end
+	return self -- для вызова цепочкой
+end
+-- перегруженные методы загрузки/сохранения пользовательских данных
+function play_timer:load(t)
+	-- здесь намеренно сохраняется только секция предмета и не сохраняется играемая музыка
+	-- после загрузки игры никто не вспомнит, что сохранялся, играя на чём-то,
+	-- поэтому надо просто тихо вернуть в инвентарь предмет
+	self.item_section = table.remove( t, 1 )
+end
+function play_timer:save(t, template)
+	table.insert( template, "string" )
+	table.insert( t, self.item_section )
+	return template
+end
+function play_timer:condition()
+	-- проверяем ситуацию, когда всё ещё идёт скрывание активного предмета
+	if self.deferred_play then
+		if not db.actor:active_item() then
+			self:start_musec_aux(self.item_section)
+			self.deferred_play = false
+		end
+	else
+		if not self.sound then return true end -- после загрузки
+		if not self.sound:playing() then return true end -- закончился звук
+		if cannot_play_instrument(self.item_section) then return true end -- заняты руки
+	end
+	if level.main_input_receiver() then return true end -- открыли любое окно
+	-- если побежали куда-то
+	if --[[self.item_section == "guitar_f" and]] db.actor:position():distance_to(self.actor_pos) > 0.1 then 
+		-- не расхаживаем, играя на инструменте
+		return true
+	end
+	return false
+end
+-- действие по окончанию игры
+function play_timer:action()
+	-- если играем
+	if self.sound and self.sound:playing() then
+		self.sound:stop() -- то прерываемся
+	end
+	-- вертаем взад предмет
+	ogse.spawn_item_in_inv(self.item_section)
+end
+

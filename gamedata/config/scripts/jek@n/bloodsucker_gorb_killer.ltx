@@ -1,0 +1,24 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = mob_home
+on_death = mob_death
+friendly = true
+
+[mob_home]
+path_home = izgioy_doctor_walk
+home_min_radius = 5
+home_max_radius = 20
+friendly = false
+state = vis
+; snd = secret_villager_birth
+
+[mob_remark]
+snd = secret_villager_birth
+on_signal = sound_end | mob_home 
+friendly = true
+
+[mob_death]
+on_info = %+bloodsucker_gorb_killer_dead%
+

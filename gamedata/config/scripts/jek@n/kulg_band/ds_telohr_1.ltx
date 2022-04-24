@@ -1,0 +1,121 @@
+[smart_terrains]
+none = true
+
+
+[logic]
+active = walker@begin
+;combat_ignore = combat_ignore
+danger = danger_ignore
+on_death = death
+on_combat = combat
+threshold = threshold@telohr_1_threshold
+on_hit = hit
+
+
+[walker@begin]
+path_walk =	telohr_1_walk
+path_look =	telohr_1_look
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+on_timer = 100 | walker 
+
+
+[walker]
+path_walk =	telohr_1_walk
+path_look =	telohr_1_look
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+meet = meet@no_sigaret
+on_info = {+kulg_band_hutor_attacked} %=killactor%
+on_info2 = {+ds_telohr_1_give_the_way} %=give_item(sigaret)% walker1
+
+
+[walker1]
+path_walk =	telohr_1_walk1
+path_look =	telohr_1_look
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+meet = meet@zakurit
+on_info = {+kulg_band_hutor_attacked} %=killactor%
+;on_info2 = {+kulg_band_meet_speech_loose} walker@goodbye %=make_invulnerable%
+;on_timer = 100000 | walker %-ds_telohr_1_give_the_way%
+
+
+; Секция ожидания перед удалением:
+[walker@goodbye]
+path_walk =	telohr_1_walk1
+path_look =	telohr_1_look
+combat_ignore_cond = always
+on_actor_dist_ge_nvis = 30|%=release%
+
+
+
+
+[combat]
+combat_type = camper
+
+
+[camper]
+path_walk =	telohr_1_walk1
+path_look =	telohr_1_look
+radius = 55
+meet = no_meet
+
+
+[meet@no_sigaret]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 4|actor
+victim_wpn = 4|actor
+meet_state = 4|guard@ds_telohr1_hello|1|guard@ds_telohr1_hello
+meet_state_wpn = 4|guard@ds_telohr1_hello|1|guard@ds_telohr1_hello
+
+
+[meet@zakurit]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 4|actor
+victim_wpn = 4|actor
+meet_state = 4|kurit_stoya@ds_telohr1_hello|1|kurit_stoya@ds_telohr1_hello
+meet_state_wpn = 4|kurit_stoya@ds_telohr1_hello|1|kurit_stoya@ds_telohr1_hello
+
+
+[threshold@telohr_1_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+
+[danger_ignore]
+ignore_distance = 5
+
+
+[combat_ignore]
+combat_ignore_cond = always
+
+
+[death]
+on_info = %+ds_telohr_1_dead%
+
+
+[hit]
+on_info = {=hit_by_actor} %+kulg_band_hutor_attacked%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

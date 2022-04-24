@@ -1,0 +1,38 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+
+--' Мы отказываемся вступить в осознание, нас переносит на вторую станцию
+function osoznanie_decline(npc, actor)
+	db.actor:disable_info_portion("oso_init_dialog")
+	
+	npc:stop_talk()
+	db.actor:stop_talk()
+	
+	xr_effects.enable_ui(db.actor, db.actor)	
+	bind_stalker.hide_weapon()
+	level.disable_input()
+
+	for k, v in pairs(db.creature) do
+		local obj = level.object_by_id(k)
+		if v == false and obj and obj:alive() and string.find( obj:section(), "poltergeist") then
+			local sobj = alife():object(k)
+			if sobj then
+				alife():release(sobj, true)
+			end
+		end	
+	end
+
+	local snd = xr_sound.get_safe_sound_object("characters_voice\\scenario\\sarcofag\\o_soznanie_call")
+	snd:play_no_feedback(npc, sound_object.s3d, 0, npc:position(), 1.0)
+	ogse.start_timer("oso", snd:length()/1000)
+end
+
+
+--' Мы соглашаемся вступить в осознание, конец игры.
+function osoznanie_agree(npc, actor)
+	db.actor:disable_info_portion("oso_init_dialog")
+	npc:stop_talk()
+	actor:stop_talk()
+	xr_effects.enable_ui(db.actor, db.actor)	  
+	game.start_tutorial("mov_join_osoznanie")
+end

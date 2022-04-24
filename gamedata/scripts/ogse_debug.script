@@ -1,0 +1,116 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-----------------------------------------------------------------------
+--- ogse_debug.script
+--- Модуль отладки сбоев биндеров и коллбэков
+--- KamikaZze (c) OGS Evolution Team
+--- version 1.8 (05/10/2012)
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------	
+--- Флаг отладки для неопознанных вылетов
+--- при выставлении флага каждый вызов направляется в лог
+--- в том числе в лог направляются маркированные вызовы менеджера
+--- состояний целиком и срабатывания эвалуаторов схем поведения
+-----------------------------------------------------------------------
+verbose_debug = false
+local debug_prefix = "!!["..script_name().."]"
+local xtime = os.clock()
+
+function bench_log1(str)
+	log1(str)
+	xtime = os.clock()
+end
+-----------------------------------------------------------------------
+--- Флаг отладки эвалуаторов - при включенном каждый сработавший 
+--- эвалуатор будет добавляться в таблицу
+-----------------------------------------------------------------------
+local debug_eval = true
+-----------------------------------------------------------------------
+--- Таблицы данных
+-----------------------------------------------------------------------
+active_evaluators			= {}
+local last_eval				= {}
+-----------------------------------------------------------------------
+active_dangers				= {}
+local last_danger			= {}
+-----------------------------------------------------------------------
+active_anim					= {}
+local last_anim				= {}
+
+function add_active_eval( obj, _, eval_id )
+	if debug_eval and obj then
+		local d = debug.getinfo(2, "S")
+		local calling_script = "[".. d.short_src:gsub('^.-([^\\]+)%.[^.]+$', '%1') .. "." .. d.linedefined .."]"
+
+		if verbose_debug then
+			bench_log1(debug_prefix.." ["..(os.clock()-xtime).."] "..obj:name().." add_active_eval: "..calling_script.." code: "..eval_id)
+		end
+		local id = obj:id()
+		if not last_eval[id] or (last_eval[id] and last_eval[id] ~= calling_script.."["..eval_id.."]") then
+			if not active_evaluators[id] then
+				active_evaluators[id] = calling_script.."["..eval_id.."]"
+			else
+				local eval = active_evaluators[id]
+				local len = string.len(eval)
+				if len > 150 then
+					eval = string.sub(eval, len-150, len)
+					active_evaluators[id] = eval..","..calling_script.."["..eval_id.."]"
+				else
+					active_evaluators[id] = active_evaluators[id]..","..calling_script.."["..eval_id.."]"
+				end
+			end
+			last_eval[id] = calling_script.."["..eval_id.."]"
+		end
+	end
+end
+
+function add_active_danger( obj, _, eval_id )
+	if debug_eval and obj then
+		local d = debug.getinfo(2, "S")
+		local calling_script = "[".. d.short_src:gsub('^.-([^\\]+)%.[^.]+$', '%1') .. "." .. d.linedefined .."]"
+
+		if verbose_debug then
+			bench_log1(debug_prefix.." ["..(os.clock()-xtime).."] "..obj:name().." add_active_eval: "..calling_script.." code: "..eval_id)
+		end
+		local id = obj:id()
+		if not last_danger[id] or (last_danger[id] and last_danger[id] ~= calling_script.."["..eval_id.."]") then
+			if not active_dangers[id] then
+				active_dangers[id] = calling_script.."["..eval_id.."]"
+			else
+				local eval = active_dangers[id]
+				local len = string.len(eval)
+				if len > 80 then
+					eval = string.sub(eval, len-80, len)
+					active_dangers[id] = eval..","..calling_script.."["..eval_id.."]"
+				else
+					active_dangers[id] = active_dangers[id]..","..calling_script.."["..eval_id.."]"
+				end
+			end
+			last_danger[id] = calling_script.."["..eval_id.."]"
+		end
+	end
+end
+
+function add_active_anim( obj, eval_id )
+	if debug_eval and obj then
+		if verbose_debug then
+			bench_log1(debug_prefix.." ["..(os.clock()-xtime).."] "..obj:name().." add_active_anim code: "..eval_id)
+		end
+		local id = obj:id()
+		if not last_anim[id] or (last_anim[id] and last_anim[id] ~= "["..eval_id.."]") then
+			if not active_anim[id] then
+				active_anim[id] = "["..eval_id.."]"
+			else
+				local eval = active_anim[id]
+				local len = string.len(eval)
+				if len > 150 then
+					eval = string.sub(eval, len-150, len)
+					active_anim[id] = eval..",["..eval_id.."]"
+				else
+					active_anim[id] = active_anim[id]..",["..eval_id.."]"
+				end
+			end
+			last_anim[id] = "["..eval_id.."]"
+		end
+	end
+end

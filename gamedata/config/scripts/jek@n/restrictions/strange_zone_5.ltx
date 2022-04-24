@@ -1,0 +1,89 @@
+[logic]
+active = sr_idle@inactive
+
+[sr_idle@inactive]
+on_info = {+strangezones_on} sr_idle@start_2
+ 
+;Стартовые секции:
+[sr_idle@start_1]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_info2 = {+strangezone5_off} sr_idle@already_has_art
+on_info3 = {=actor_have_dark_art_1} sr_idle@already_has_art %-strangezone5_rebuild -af_invis5_1_birth =restart_strange_zone5%
+on_actor_inside = {!actor_have_dark_art_1 +af_invis5_1_birth}  sr_idle@middle_1 %=zone5birth1 -strange_zone5_charged -fakeart_deleted%
+
+[sr_idle@start_2]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_info2 = {+strangezone5_off} sr_idle@already_has_art
+on_info3 = {=actor_have_dark_art_2} sr_idle@already_has_art %-strangezone5_rebuild -af_invis5_1_birth =restart_strange_zone5%
+on_actor_inside = {!actor_have_dark_art_2 +af_invis5_1_birth} sr_idle@middle_2 %=zone5birth2 -strange_zone5_charged -fakeart_deleted%
+
+[sr_idle@start_3]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_info2 = {+strangezone5_off} sr_idle@already_has_art
+on_info3 = {=actor_have_dark_art_3} sr_idle@already_has_art %-strangezone5_rebuild -af_invis5_1_birth =restart_strange_zone5%
+on_actor_inside = {!actor_have_dark_art_3 +af_invis5_1_birth} sr_idle@middle_3 %=zone5birth3 -strange_zone5_charged -fakeart_deleted%
+
+
+;Промежуточные рабочие секции:
+[sr_idle@already_has_art]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_info2 = {+strangezone5_rebuild =actor_have_dark_art_2 =actor_have_dark_art_3} sr_idle@start_1
+on_info3 = {+strangezone5_rebuild =actor_have_dark_art_1 =actor_have_dark_art_3} sr_idle@start_2
+on_info4 = {+strangezone5_rebuild =actor_have_dark_art_1 =actor_have_dark_art_2} sr_idle@start_3
+on_info5 = {+strangezone5_rebuild =actor_have_dark_art_1} sr_idle@reload_23
+on_info6 = {+strangezone5_rebuild =actor_have_dark_art_2} sr_idle@reload_13
+on_info7 = {+strangezone5_rebuild =actor_have_dark_art_3} sr_idle@reload_12
+
+[sr_idle@reload_23]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_timer = 100 | {~70} sr_idle@start_2, {~30} sr_idle@start_3
+[sr_idle@reload_13]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_timer = 100 | {~50} sr_idle@start_1, {~50} sr_idle@start_3
+[sr_idle@reload_12]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_timer = 100 | {~30} sr_idle@start_1, {~70} sr_idle@start_2
+
+[sr_idle@middle_1]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_info2 = {=actor_have_dark_art_1} sr_idle@already_has_art %-strangezone5_rebuild -af_invis5_1_birth%
+on_actor_inside = {+fakeart_deleted !actor_have_dark_art_1} sr_idle@reload_1
+[sr_idle@middle_2]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_info2 = {=actor_have_dark_art_2} sr_idle@already_has_art %-strangezone5_rebuild -af_invis5_1_birth%
+on_actor_inside = {+fakeart_deleted !actor_have_dark_art_2} sr_idle@reload_2
+[sr_idle@middle_3]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_info2 = {=actor_have_dark_art_3} sr_idle@already_has_art %-strangezone5_rebuild -af_invis5_1_birth%
+on_actor_inside = {+fakeart_deleted !actor_have_dark_art_3} sr_idle@reload_3
+
+;Секция перезарядки:
+[sr_idle@reload_1]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_timer = 900 | sr_idle@start_1 %-af_invis5_1_birth +strange_zone5_charged%
+[sr_idle@reload_2]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_timer = 900 | sr_idle@start_2 %-af_invis5_1_birth +strange_zone5_charged%
+[sr_idle@reload_3]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+on_timer = 900 | sr_idle@start_3 %-af_invis5_1_birth +strange_zone5_charged%
+
+
+[sr_idle@nil]
+on_info = {+yan_sold_actor_wait_too_long} sr_particle@play1, {+yan_sold_generator_enabled} sr_particle@play1
+
+[sr_particle@play1]
+name = anomaly2\group_items\black-stars
+path = yan_sz_removing
+mode = 2
+looped = false
+on_signal = particle_end | sr_particle@play2
+
+[sr_particle@play2]
+name = anomaly2\group_items\aes_vivert
+path = yan_sz_removing
+mode = 2
+looped = false
+on_signal = particle_end | sr_idle@full_nil %+yan_strange_zone_ready_to_delete%
+
+[sr_idle@full_nil]

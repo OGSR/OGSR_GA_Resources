@@ -1,0 +1,18 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_info = {+yan_sold_anomaly_info} sr_sound@1
+
+[sr_sound@1]
+snd = ambient\fire2
+position = yan_soldier_look_rest1
+on_signal = sound_end | sr_sound@2
+on_info = {-yan_sold_anomaly_info} sr_idle
+
+[sr_sound@2]
+snd = nature\rt_dark_indoor_amb1
+position = yan_soldier_look_rest1
+on_signal = sound_end | sr_sound@1
+on_info = {-yan_sold_anomaly_info} sr_idle
+

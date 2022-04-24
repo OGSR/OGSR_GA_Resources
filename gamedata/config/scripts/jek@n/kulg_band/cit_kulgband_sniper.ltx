@@ -1,0 +1,68 @@
+[smart_terrains]
+none = true
+
+
+[logic]
+active = walker@1
+danger = danger_ignore
+threshold = threshold@cit_kulgband_sniper_threshold
+
+[walker@1]
+path_walk =	cit_kulgband_sniper_walk1
+path_look =	cit_kulgband_sniper_look1
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 1|walker@2 %=make_invulnerable =give_items(wpn_svd)%
+
+[walker@2]
+path_walk =	cit_kulgband_sniper_walk2
+path_look =	cit_kulgband_sniper_look2
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+on_signal     = arrived|walker@3
+
+[walker@3]
+path_walk =	cit_kulgband_sniper_walk2
+path_look =	cit_kulgband_sniper_look2
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 1000|walker@4 %=cit_kulgband_snipershot =unmake_invulnerable%
+
+[walker@4]
+path_walk =	cit_kulgband_sniper_walk2
+path_look =	cit_kulgband_sniper_look2
+combat_ignore_cond = always
+meet = no_meet
+
+[threshold@cit_kulgband_sniper_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[danger_ignore]
+ignore_distance = 5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

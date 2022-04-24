@@ -1,0 +1,700 @@
+#include "trade_unic.ltx"
+#include "trade_weapons.ltx"
+
+[trader]
+buy_condition = {+master_quest_soup_ready} billy_normal_buy, billy_generic_buy
+sell_condition = {+master_quest_soup_ready} billy_normal_sale, billy_generic_sale
+buy_supplies = billy_generic_supplies
+
+;------------------------- ПОКУПКА -----------------------
+[billy_generic_buy]:unic_buy, weapons_buy_billy
+;Броники
+;Новички и сталкеры
+novice_outfit				;NO TRADE
+stalker_outfit				;NO TRADE
+exo_outfit					;NO TRADE
+af_mobkiller		;NO TRADE
+;Бандиты
+bandit_plash   				= 0.2,	0.3
+bandit_plash_m1    			= 0.2,	0.3
+;Долг. Бармен долговскую снарягу неберёт, что-бы небыло лишних вопросов
+dolg_outfit					= 0.2,	0.3
+;Свобода
+svoboda_heavy_outfit		= 0.2,	0.3
+;Наемники
+killer_outfit				= 0.2,	0.3
+;Монолит
+monolit_outfit				= 0.2,	0.3
+monolit_exoskeleton    		= 0.2,	0.3
+;Ученые
+ecolog_outfit				= 0.2,	0.3
+protection_outfit			= 0.2,	0.3
+;Военные. Аналогично долговской снаряге. Просто страховка.
+soldier_outfit				;NO TRADE
+specops_outfit				;NO TRADE
+military_outfit				;NO TRADE
+
+;Артефакты
+af_medusa				= 0.4,	1.8
+af_cristall_flower		= 0.4,	1.8
+af_night_star			= 0.4,	1.8
+af_vyvert				= 0.4,	1.8
+af_gravi				= 0.4,	1.8
+af_gold_fish			= 0.4,	1.8
+af_blood				= 0.4,	1.8
+af_mincer_meat			= 0.4,	1.8
+af_soul				  	= 0.4,	1.8
+af_electra_sparkler		= 0.4,	1.8
+af_electra_flash		= 0.4,	1.8
+af_electra_moonlight	= 0.4,	1.8
+af_rusty_thorn			= 0.4,	1.8
+af_rusty_kristall		= 0.4,	1.8
+af_rusty_sea-urchin		= 0.4,	1.8
+af_ameba_slime			= 0.4,	1.8
+af_ameba_slug			= 0.4,	1.8
+af_ameba_mica			= 0.4,	1.8
+af_drops				= 0.4,	1.8
+af_fireball				= 0.4,	1.8
+af_cristall				= 0.4,	1.8
+
+af_dummy_glassbeads		= 1.0,	2.3
+af_dummy_pellicle		= 1.0,	2.3
+af_dummy_battery		= 1.0,	2.3
+af_dummy_dummy			= 1.0,	2.3
+af_dummy_spring			= 1.0,	2.3
+af_fuzz_kolobok			= 1.0,	2.3
+af_zombie_hand			= 1.0,	2.3
+af_kaktus				= 1.0,	2.3
+
+af_transmut_1			= 1.0,	2.3
+af_transmut_2			= 1.0,	2.3
+af_transmut_3			= 1.0,	2.3
+af_transmut_4			= 1.0,	2.3
+af_transmut_5			= 1.0,	2.3
+af_transmut_6			= 1.0,	2.3
+af_transmut_7			= 1.0,	2.3
+af_transmut_8			= 1.0,	2.3
+
+af_maska_1              = 0.1,	0.3
+
+;Гранаты
+grenade_f1				= 0.3,	0.5   
+grenade_rgd5			= 0.3,	0.5 
+
+;Оружие. Берёт всё, но за гроши.
+;Автоматы и ПП
+wpn_mp5				;NO TRADE
+wpn_l85		        = 0.3,	0.7
+wpn_p90				    = 0.3,	0.7
+wpn_sig552			= 0.3,	0.7
+wpn_bizon		    ;NO TRADE
+wpn_val				    = 0.3,	0.7
+wpn_groza				= 0.3,	0.7
+
+;Дробовики
+wpn_bm16			    ;NO TRADE
+wpn_bm16_full		    = 0.3,	0.7
+wpn_toz34			;NO TRADE
+wpn_saiga12				= 0.3,	0.7
+
+;Снайперские винтовки
+wpn_svu				    = 0.3,	0.7
+wpn_vintorez			= 0.3,	0.7  
+wpn_gauss			    = 1.0,	1.7
+wpn_svu				    ;NO TRADE
+
+;Пулеметы
+wpn_val				    = 0.3,	0.7
+
+;Другое
+wpn_pb				    = 0.3,	0.7
+wpn_rpg7				= 0.3,	0.7
+
+;ADDONS
+wpn_addon_scope_elcan	   			= 0.3,	0.6
+wpn_addon_scope_susat	    = 0.3,	0.6
+wpn_addon_scope_detector	    = 0.3,	0.6
+wpn_addon_scope_kobra	    = 0.3,	0.6
+wpn_addon_scope_pka	    = 0.3,	0.6
+wpn_addon_scope_eotech	    = 0.3,	0.6
+wpn_addon_scope_pso2	    = 0.3,	0.6
+wpn_addon_scope_kashtan	    = 0.3,	0.6
+
+wpn_addon_sil_918	= 0.3,	0.6
+wpn_addon_sil_1143	= 0.3,	0.6
+wpn_addon_sil_556	= 0.3,	0.6
+wpn_addon_sil_762	= 0.3,	0.6
+wpn_addon_sil_545	= 0.3,	0.6
+
+wpn_addon_grenade_launcher		= 0.3,	0.6
+wpn_addon_grenade_launcher_m203 = 0.3,	0.6
+
+
+;Детали монстров
+mutant_flesh_eye		;NO TRADE
+mutant_boar_leg			;NO TRADE
+mutant_dog_tail			;NO TRADE
+mutant_psevdodog_tail	;NO TRADE
+mutant_krovosos_jaw		;NO TRADE
+mutant_burer_hand		;NO TRADE
+mutant_zombie_hand		;NO TRADE
+mutant_snork_leg		;NO TRADE
+mutant_face_tushkano	;NO TRADE
+mutant_hand_kontroler	;NO TRADE
+mutant_poltergeist_glas	;NO TRADE
+mutant_psevdogigant_hand ;NO TRADE
+mutant_tail_cat		  	;NO TRADE
+mutant_chimera_kogot	;NO TRADE
+mutant_izlom_hand		;NO TRADE
+
+;Еда
+bread				= 2.0,	5.0
+kolbasa				= 2.0,	5.0
+conserva			= 2.0,	5.0
+vodka				= 2.0,	5.0
+energy_drink		= 2.0,	5.0
+kefir 				= 2.0,	5.0
+voda 				= 2.0,	5.0
+pivo		  	    = 2.0,	5.0
+
+;Предметы
+detector_simple		= 0.3,	0.8
+interactive_detector_simple	= 0.3,	0.8
+interactive_detector_advanced	= 0.3,	0.8
+interactive_detector_elite		= 0.3,	0.8
+detector_mine_finder = 0.3,	0.8
+autodoctor		    = 0.3,	0.8
+hand_radio		    = 0.3,	0.8
+hand_radio_f	 	= 0.3,	0.8
+guitar_a		    = 0.3,	0.8
+guitar_f		    = 0.3,	0.8
+harmonica_a		    = 0.3,	0.8
+harmonica_f		    = 0.3,	0.8
+explosive_tank	    = 0.3,	0.8
+repair_kit		    = 0.3,	0.8
+sigaret             = 0.3,	0.8
+amk_metka           = 0.3,	0.8
+
+;Уникальные предметы
+outfit_novice_m1		= 1,	2.0
+outfit_bandit_m1		= 1,	2.0
+outfit_dolg_m1			= 1,	2.0
+outfit_killer_m1		= 1,	2.0
+outfit_specnaz_m1		= 1,	2.0
+outfit_stalker_m1		= 1,	2.0
+outfit_stalker_m2		= 1,	2.0
+monolit_outfit_m1		= 1,	2.0
+wpn_fort_unic				= 1,	2.0
+wpn_mp5_tact				= 1,	2.0
+wpn_groza_tact			= 1,	2.0
+wpn_saiga12_unic			= 1,	2.0
+wpn_saiga12_unic		= 1,	2.0
+wpn_desert_eagle_unic			= 1,	2.0
+wpn_colt1911_unic				= 1,	2.0
+wpn_mp5_tact				= 1,	2.0
+wpn_vintorez				= 1,	2.0
+wpn_vintorez_tact			;NO TRADE
+
+[billy_normal_buy]:unic_buy, weapons_buy_billy
+;Броники
+;Новички и сталкеры
+novice_outfit				;NO TRADE
+stalker_outfit				;NO TRADE
+exo_outfit					;NO TRADE
+;Бандиты
+bandit_plash   				= 0.2,	0.3
+bandit_plash_m1    			= 0.2,	0.3
+;Долг. Бармен долговскую снарягу неберёт, что-бы небыло лишних вопросов
+dolg_outfit					= 0.2,	0.3
+;Свобода
+svoboda_heavy_outfit		= 0.2,	0.3
+;Наемники
+killer_outfit				= 0.2,	0.3
+;Монолит
+monolit_outfit				= 0.2,	0.3
+monolit_exoskeleton    		= 0.2,	0.3
+;Ученые
+ecolog_outfit				= 0.2,	0.3
+protection_outfit			= 0.2,	0.3
+;Военные. Аналогично долговской снаряге. Просто страховка.
+soldier_outfit				;NO TRADE
+specops_outfit				;NO TRADE
+military_outfit				;NO TRADE
+
+;Артефакты
+af_medusa				= 0.4,	1.8
+af_cristall_flower		= 0.4,	1.8
+af_night_star			= 0.4,	1.8
+af_vyvert				= 0.4,	1.8
+af_gravi				= 0.4,	1.8
+af_gold_fish			= 0.4,	1.8
+af_blood				= 0.4,	1.8
+af_mincer_meat			= 0.4,	1.8
+af_soul				  	= 0.4,	1.8
+af_electra_sparkler		= 0.4,	1.8
+af_electra_flash		= 0.4,	1.8
+af_electra_moonlight	= 0.4,	1.8
+af_rusty_thorn			= 0.4,	1.8
+af_rusty_kristall		= 0.4,	1.8
+af_rusty_sea-urchin		= 0.4,	1.8
+af_ameba_slime			= 0.4,	1.8
+af_ameba_slug			= 0.4,	1.8
+af_ameba_mica			= 0.4,	1.8
+af_drops				= 0.4,	1.8
+af_fireball				= 0.4,	1.8
+af_cristall				= 0.4,	1.8
+
+af_dummy_glassbeads		= 1.0,	2.3
+af_dummy_pellicle		= 1.0,	2.3
+af_dummy_battery		= 1.0,	2.3
+af_dummy_dummy			= 1.0,	2.3
+af_dummy_spring			= 1.0,	2.3
+af_fuzz_kolobok			= 1.0,	2.3
+af_zombie_hand			= 1.0,	2.3
+af_kaktus				= 1.0,	2.3
+
+af_transmut_1			= 1.0,	2.3
+af_transmut_2			= 1.0,	2.3
+af_transmut_3			= 1.0,	2.3
+af_transmut_4			= 1.0,	2.3
+af_transmut_5			= 1.0,	2.3
+af_transmut_6			= 1.0,	2.3
+af_transmut_7			= 1.0,	2.3
+af_transmut_8			= 1.0,	2.3
+
+af_maska_1              = 0.1,	0.3
+
+;Гранаты
+grenade_f1				= 0.3,	0.5   
+grenade_rgd5			= 0.3,	0.5 
+
+;Оружие. Берёт всё, но за гроши.
+;Автоматы и ПП
+wpn_mp5				;NO TRADE
+wpn_l85		        = 0.3,	0.7
+wpn_p90				    = 0.3,	0.7
+wpn_sig552			= 0.3,	0.7
+wpn_bizon		    ;NO TRADE
+wpn_val				    = 0.3,	0.7
+wpn_groza				= 0.3,	0.7
+
+;Дробовики
+wpn_bm16			    ;NO TRADE
+wpn_bm16_full		    = 0.3,	0.7
+wpn_toz34			;NO TRADE
+wpn_saiga12				= 0.3,	0.7
+
+;Снайперские винтовки
+wpn_svu				    = 0.3,	0.7
+wpn_vintorez			= 0.3,	0.7  
+wpn_gauss			    = 1.0,	1.7
+wpn_svu					= 0.1,	0.1
+
+;Пулеметы
+wpn_val				    = 0.3,	0.7
+
+;Другое
+wpn_pb				    = 0.3,	0.7
+wpn_rpg7				= 0.3,	0.7
+
+;ADDONS
+wpn_addon_scope_elcan	   			= 0.3,	0.6
+wpn_addon_scope_susat	    = 0.3,	0.6
+wpn_addon_scope_detector	    = 0.3,	0.6
+wpn_addon_scope_kobra	    = 0.3,	0.6
+wpn_addon_scope_pka	    = 0.3,	0.6
+wpn_addon_scope_eotech	    = 0.3,	0.6
+wpn_addon_scope_pso2	    = 0.3,	0.6
+wpn_addon_scope_kashtan	    = 0.3,	0.6
+
+wpn_addon_sil_918	= 0.3,	0.6
+wpn_addon_sil_1143	= 0.3,	0.6
+wpn_addon_sil_556	= 0.3,	0.6
+wpn_addon_sil_762	= 0.3,	0.6
+wpn_addon_sil_545	= 0.3,	0.6
+
+wpn_addon_grenade_launcher		= 0.3,	0.6
+wpn_addon_grenade_launcher_m203 = 0.3,	0.6
+
+;Детали монстров
+mutant_flesh_eye		;NO TRADE
+mutant_boar_leg			;NO TRADE
+mutant_dog_tail			;NO TRADE
+mutant_psevdodog_tail	;NO TRADE
+mutant_krovosos_jaw		;NO TRADE
+mutant_burer_hand		;NO TRADE
+mutant_zombie_hand		;NO TRADE
+mutant_snork_leg		;NO TRADE
+mutant_face_tushkano	;NO TRADE
+mutant_hand_kontroler	;NO TRADE
+mutant_poltergeist_glas	;NO TRADE
+mutant_psevdogigant_hand ;NO TRADE
+mutant_tail_cat		  	;NO TRADE
+mutant_chimera_kogot	;NO TRADE
+mutant_izlom_hand		;NO TRADE
+
+;Еда
+bread				= 0.3,	0.5
+kolbasa				= 0.3,	0.5
+conserva			= 0.3,	0.5
+vodka				= 0.3,	0.5
+energy_drink		= 0.3,	0.5
+kefir 				= 0.3,	0.5
+voda 				= 0.3,	0.5
+pivo		  	    = 0.3,	0.5
+
+;Предметы
+detector_simple		= 0.3,	0.8
+interactive_detector_simple	= 0.3,	0.8
+interactive_detector_advanced	= 0.3,	0.8
+interactive_detector_elite		= 0.3,	0.8
+detector_mine_finder = 0.3,	0.8
+autodoctor		    = 0.3,	0.8
+hand_radio		    = 0.3,	0.8
+hand_radio_f	 	= 0.3,	0.8
+guitar_a		    = 0.3,	0.8
+guitar_f		    = 0.3,	0.8
+harmonica_a		    = 0.3,	0.8
+harmonica_f		    = 0.3,	0.8
+explosive_tank	    = 0.3,	0.8
+repair_kit		    = 0.3,	0.8
+sigaret             = 0.3,	0.8
+amk_metka           = 0.3,	0.8
+
+;Уникальные предметы
+outfit_novice_m1		= 1,	2.0
+outfit_bandit_m1		= 1,	2.0
+outfit_dolg_m1			= 1,	2.0
+outfit_killer_m1		= 1,	2.0
+outfit_specnaz_m1		= 1,	2.0
+outfit_stalker_m1		= 1,	2.0
+outfit_stalker_m2		= 1,	2.0
+monolit_outfit_m1		= 1,	2.0
+wpn_fort_unic				= 1,	2.0
+wpn_mp5_tact				= 1,	2.0
+wpn_groza_tact			= 1,	2.0
+wpn_saiga12_unic			= 1,	2.0
+wpn_saiga12_unic		= 1,	2.0
+wpn_desert_eagle_unic			= 1,	2.0
+wpn_colt1911_unic				= 1,	2.0
+wpn_mp5_tact				= 1,	2.0
+wpn_vintorez				= 1,	2.0
+wpn_vintorez_tact			;NO TRADE
+
+;------------------------- АССОРТИМЕНТ -----------------------
+[billy_generic_supplies]
+stalker_outfit		= 1,	0.9
+af_maska_2          = 1,	1
+ammo_9x18_fmj		= 6,	1
+ammo_9x19_fmj		= 6,	1
+ammo_5.45x39_fmj	= 6,	1
+ammo_5.45x39_ap  	= 6,	0.8
+ammo_5.56x45_ss190	= 6,	1
+ammo_7.62x54_7h1	= 6,	1
+ammo_9x39_pab9		= 6,	1
+ammo_11.43x23_fmj	= 8,	1
+ammo_11.43x23_hydro	= 7,	0.8
+ammo_12x70_kart		= 6,	1
+ammo_vog-25p		= 5,	0.8
+ammo_vog-25			= 5,	0.8
+ammo_m209			= 5,	0.8
+
+grenade_rgd5		= 5,	1
+
+wpn_ak74			= 1,	0.01
+wpn_ak74u		    = 1,	0.01
+wpn_svd         = 1,	0.06
+wpn_ak101           = 1,	0.7
+
+wpn_mp5			    = 1,	0.9
+wpn_saiga12	= 1,	0.9
+wpn_saiga12			= 1,	0.9
+wpn_vintorez		= 1,	0.05
+wpn_val					= 1,	0.05
+wpn_toz34			= 1,	0.05
+wpn_bm16				= 1,	0.06
+wpn_groza				= 1,	0.9
+wpn_svu					= 1,	0.9
+wpn_p90					= 1,	0.06
+wpn_l85				= 1,	0.06
+
+bandage			= 8,	1
+medkit			= 7,	1
+medkit_army		= 4,	1
+antirad			= 7,	1
+yod				= 5,	1
+bipsizon		= 5,	1
+cartridge_a		= 5, 1
+cartridge_h		= 10, 1
+cartridge_s		= 10, 1
+cartridge_r		= 10, 1
+
+
+matras          = 1,	1
+
+bread			= 8,	0.3	
+kolbasa			= 8,	0.3	
+conserva		= 6,	0.3		
+vodka			= 5,	1	
+energy_drink	= 3,	1		
+kefir 			= 4,	1	
+voda 			= 6,	1	
+
+interactive_detector_simple	= 1,	0.8
+interactive_detector_advanced	= 1,	0.8
+guitar_f			= 1,	1
+harmonica_f		    = 1,	1
+hand_radio_f		= 1,	0.7
+repair_kit		    = 1,	1
+wpn_binoc		= 1,	1
+wpn_knife		= 1,	1
+
+explosive_mobiltank	= 2, 1
+
+;------------------------- ПРОДАЖА -----------------------
+[billy_generic_sale]:unic_sale
+;Броники
+novice_outfit				= 1,	3
+killer_outfit				= 1,	3
+monolit_outfit				;NO TRADE
+soldier_outfit				= 1,	3
+specops_outfit				= 1,	3
+military_outfit				= 1,	3
+stalker_outfit				= 1,	3
+scientific_outfit			= 1,	3
+exo_outfit					;NO TRADE
+svoboda_heavy_outfit		= 1,	3
+dolg_outfit					= 1,	3
+ecolog_outfit				= 1,	3
+protection_outfit			= 1,	3
+monolit_exoskeleton    		;NO TRADE
+bandit_plash   				= 1,	3
+bandit_plash_m1    			= 1,	3
+
+af_maska_1                = 1,	2
+
+;Аммуниция
+ammo_9x18_fmj			= 2,	7
+ammo_9x18_pmm			= 2,	7
+ammo_9x19_fmj			= 2,	7
+ammo_9x19_pbp			= 2,	7
+ammo_5.45x39_fmj		= 2,	7
+ammo_5.45x39_ap			= 2,	7
+ammo_5.56x45_ss190	    = 2,	7
+ammo_5.56x45_ap			= 2,	7
+ammo_7.62x54_7h1		= 2,	7
+ammo_7.62x54_ap			= 2,	7
+ammo_7.62x54_7h14		= 2,	7
+ammo_gauss				= 2,	7
+ammo_9x39_pab9			= 2,	7
+ammo_9x39_ap			= 2,	7
+ammo_11.43x23_fmj		= 2,	7
+ammo_11.43x23_hydro		= 2,	7
+ammo_12x76_zhekan		= 2,	7
+ammo_12x70_kart			= 2,	7
+ammo_og-7b				= 2,	7
+ammo_vog-25p			= 2,	7
+ammo_vog-25				= 2,	7
+ammo_m209				= 2,	7
+
+;Оружие
+wpn_abakan		= 1,	5   	   
+wpn_ak74			= 1,	5
+wpn_ak74u			= 1,	5
+wpn_svd         = 1,	4
+wpn_ak101          = 1,	4
+
+wpn_bm16			= 1,	3
+wpn_bm16_full		= 1,	5	   
+grenade_f1			= 1,	5
+grenade_rgd5		= 1,	6	   
+wpn_l85			= 1,	5
+wpn_p90				= 1,	5
+wpn_gauss			= 1,	5
+wpn_groza			= 1,	5
+wpn_sig552		= 1,	5
+wpn_mp5			= 1,	5
+wpn_mp5				= 1,	5
+wpn_pb				= 1,	5
+wpn_val				= 1,	5
+wpn_bizon		= 1,	4
+wpn_rpg7			= 1,	5
+wpn_saiga12			= 1,	5
+wpn_svu				= 1,	5
+wpn_toz34			= 1,	5
+wpn_toz34		= 1,	5
+wpn_val				= 1,	5
+wpn_vintorez		= 1,	5	   
+wpn_saiga12	= 1,	5
+wpn_svu		;NO TRADE
+
+;ADDONS
+wpn_addon_scope_susat	= 1,	6
+wpn_addon_scope_elcan		= 1,	6
+
+wpn_addon_sil_918	= 1,	6
+wpn_addon_sil_1143	= 1,	6
+wpn_addon_sil_556	= 1,	6
+wpn_addon_sil_762	= 1,	6
+wpn_addon_sil_545	= 1,	6
+
+wpn_addon_grenade_launcher	= 1,	6
+wpn_addon_grenade_launcher_m203 = 1,	6
+
+;Медикаменты
+bandage				= 1,  6
+medkit				= 1,  6
+medkit_scientic		= 1,  8
+medkit_army			= 1,  8
+antirad				= 1,  6
+dix                 = 1,  7
+
+;Еда
+bread				= 5,	10
+kolbasa				= 5,	10
+conserva			= 5,	10
+vodka				= 5,	10
+energy_drink		= 5,	10
+kefir 				= 5,	10
+voda 				= 5,	10
+
+;Предметы
+detector_simple		;NO TRADE
+interactive_detector_simple	= 1,	6
+interactive_detector_advanced		= 1,	5
+cartridge_a		= 1, 6
+cartridge_h		= 1, 5
+cartridge_s		= 1, 5
+cartridge_r		= 1, 5
+hand_radio_f		= 1,	6
+guitar_f		    = 1,	5
+harmonica_f		    = 1,	6
+explosive_tank	    = 1,	7
+repair_kit		    = 1,	8
+sigaret             = 1,	6
+matras              = 1,	2
+amk_metka           = 1,	2
+wpn_binoc			= 1,	2
+wpn_knife		= 1,	3
+
+[billy_normal_sale]:unic_sale
+;Броники
+novice_outfit				= 1,	2
+killer_outfit				= 1,	2
+monolit_outfit				;NO TRADE
+soldier_outfit				= 1,	2
+specops_outfit				= 1,	2
+military_outfit				= 1,	2
+stalker_outfit				= 1,	2
+scientific_outfit			= 1,	2
+exo_outfit					;NO TRADE
+svoboda_heavy_outfit		= 1,	2
+dolg_outfit					= 1,	2
+ecolog_outfit				= 1,	2
+protection_outfit			= 1,	2
+monolit_exoskeleton    		;NO TRADE
+bandit_plash   				= 1,	2
+bandit_plash_m1    			= 1,	2
+
+af_maska_1                = 1,	2
+
+;Аммуниция
+ammo_9x18_fmj			= 1,	3
+ammo_9x18_pmm			= 1,	3
+ammo_9x19_fmj			= 1,	3
+ammo_9x19_pbp			= 1,	3
+ammo_5.45x39_fmj		= 1,	3
+ammo_5.45x39_ap			= 1,	3
+ammo_5.56x45_ss190	    = 1,	3
+ammo_5.56x45_ap			= 1,	3
+ammo_7.62x54_7h1		= 1,	3
+ammo_7.62x54_ap			= 1,	3
+ammo_7.62x54_7h14		= 1,	3
+ammo_gauss				= 1,	3
+ammo_9x39_pab9			= 1,	3
+ammo_9x39_ap			= 1,	3
+ammo_11.43x23_fmj		= 1,	3
+ammo_11.43x23_hydro		= 1,	3
+ammo_12x76_zhekan		= 1,	3
+ammo_12x70_kart			= 1,	3
+ammo_og-7b				= 1,	3
+ammo_vog-25p			= 1,	3
+ammo_vog-25				= 1,	3
+ammo_m209				= 1,	3
+
+;Оружие
+wpn_abakan		= 1,	3  	   
+wpn_ak74			= 1,	3
+wpn_ak74u			= 1,	3
+wpn_svd         = 1,	2
+wpn_ak101           = 1,	2
+
+wpn_bm16			= 1,	3
+wpn_bm16_full		= 1,	3	   
+grenade_f1			= 1,	3
+grenade_rgd5		= 1,	2	   
+wpn_l85			= 1,	3
+wpn_p90				= 1,	3
+wpn_gauss			= 1,	3
+wpn_groza			= 1,	3
+wpn_sig552		= 1,	3
+wpn_mp5				= 1,	3
+wpn_pb				= 1,	3
+wpn_val				= 1,	3
+wpn_bizon		= 1,	2
+wpn_rpg7			= 1,	3
+wpn_saiga12			= 1,	3
+wpn_svu				= 1,	3
+wpn_toz34			= 1,	3
+wpn_val				= 1,	3
+wpn_vintorez		= 1,	3	   
+
+;ADDONS
+wpn_addon_scope_susat	= 1,	3
+wpn_addon_scope_elcan		= 1,	3
+
+wpn_addon_sil_918	= 1,	3
+wpn_addon_sil_1143	= 1,	3
+wpn_addon_sil_556	= 1,	3
+wpn_addon_sil_762	= 1,	3
+wpn_addon_sil_545	= 1,	3
+
+wpn_addon_grenade_launcher	= 1,	3
+wpn_addon_grenade_launcher_m203 = 1,	3
+
+;Медикаменты
+bandage				= 1,  3
+medkit				= 1,  3
+medkit_scientic		= 1,  3
+medkit_army			= 1,  3
+antirad				= 1,  3
+dix                 = 1,  3
+
+;Еда
+bread				= 1,	5
+kolbasa				= 1,	5
+conserva			= 1,	5
+vodka				= 1,	5
+energy_drink		= 1,	5
+kefir 				= 1,	5
+voda 				= 1,	5
+
+;Предметы
+detector_simple		;NO TRADE
+af_mobkiller		;NO TRADE
+interactive_detector_simple	= 1,	6
+interactive_detector_advanced		= 1,	5
+cartridge_a		= 1, 6
+cartridge_h		= 1, 5
+cartridge_s		= 1, 5
+cartridge_r		= 1, 5
+hand_radio_f		= 1,	6
+guitar_f		    = 1,	5
+harmonica_f		    = 1,	6
+explosive_tank	    = 1,	7
+repair_kit		    = 1,	8
+sigaret             = 1,	6
+matras              = 1,	2
+amk_metka           = 1,	2
+wpn_binoc			= 1,	2
+wpn_knife		= 1,	3

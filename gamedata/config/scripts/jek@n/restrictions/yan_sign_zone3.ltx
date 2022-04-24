@@ -1,0 +1,20 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_info = {+yan_attak} sr_particle@1
+
+[sr_particle@1]
+name = anomaly2\group_items\black-stars
+path = yan_attack_point1
+mode = 2
+looped = false
+on_signal = particle_end | sr_particle@2 %+spawn_yan_zombsoldier%
+
+[sr_particle@2]
+name = anomaly2\group_items\aes_vivert
+path = yan_attack_point1
+mode = 2
+looped = false
+on_signal = particle_end | nil
+

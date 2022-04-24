@@ -1,0 +1,60 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+---------------Copyright_Quest_2009-------------------
+--------------Edited_by_stalbar_2009------------------
+local spawn_db = ogse_spawn_db.script_spawn_registry.agr_u_spawn
+
+local zombie_types_1 = {"rat_weak", "rat_normal"}
+
+function rat1( actor, npc )
+	--log1("rat1() called")		
+	--'Крысы спаунятся после спасения Крота и второй раз после нахождения тайника Стрелка
+--SPAWN_V1
+	--ogse.quest_spawn(zombie_types_1[math.random(2)], 4, vector():set(-108.8979, -16.4644, -12.72), 2, 689, 759)	
+--SPAWN_V2
+	ogse.quest_spawn_ex(zombie_types_1[math.random(2)], 4, spawn_db.rat1)
+	--log1("rat1() completed")	
+end
+
+function rat2( actor, npc )
+	--log1("rat2() called")		
+	--'После спасения Крота в подземелье спаунятся крысы
+--SPAWN_V1
+	--ogse.quest_spawn("rat_weak", 2, vector():set( -38.473, -3.888, 29.396 ), 3, 4801, 725)	
+--SPAWN_V2
+	ogse.quest_spawn_ex("rat_weak", 2, spawn_db.rat2)
+	--log1("rat2() completed")	
+end
+
+function rat3( actor, npc )
+	--log1("rat3() called")		
+	--'После спасения Крота в подземелье спаунятся крысы
+--SPAWN_V1
+	--ogse.quest_spawn("rat_weak", 2, vector():set( -83.3829, -16.44, 3.377 ), 3, 2609, 711)	
+--SPAWN_V2
+	ogse.quest_spawn_ex("rat_weak", 2, spawn_db.rat3)
+	--log1("rat3() completed")	
+end
+
+function bloodsucker43( actor, npc )
+	--log1("bloodsucker43() called")		
+	--'При нахождении тайника стрелка спаунится сильный кровосос
+--SPAWN_V1
+	--ogse.quest_spawn("bloodsucker_v_strong", 1, vector():set( -88.31, -16.46, -72.136 ), 10, 2293, 717)	
+--SPAWN_V2
+	ogse.quest_spawn_ex("bloodsucker_v_strong", 1, spawn_db.bloodsucker43)
+	--log1("bloodsucker43() completed")	
+end
+
+function stalker_mon( actor, npc )
+	--log1("stalker_mon() called")		
+	--'При встрече с первым кровососом спаунится сталкер-нейтрал
+--SPAWN_V1
+	--ogse.quest_spawn("anatoliy", 1, vector():set( -88.31, -16.46, -72.136 ), 10, 2293, 717)	
+--SPAWN_V2
+	ogse.quest_spawn_ex("anatoliy", 1, spawn_db.stalker_mon)
+	--log1("stalker_mon() completed")	
+end
+
+---------------Copyright_Quest_2009-------------------
+--------------Edited_by_stalbar_2009------------------

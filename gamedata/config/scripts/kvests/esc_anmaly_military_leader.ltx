@@ -1,0 +1,41 @@
+[logic]
+active = walker
+combat_ignore = combat_ignore
+on_death = death
+on_hit = hit
+
+[death]
+on_info = %+esc_kvest_know_do_mils_near_anomaly_take_item%
+on_info2 = {-esc_kvest_know_do_mils_near_anomaly_complete} %+esc_kvest_know_do_mils_near_anomaly_fail%
+
+[hit]
+on_info = %+esc_kvest_know_do_mils_near_anomaly_take_item%
+
+[smart_terrains]
+none = true
+
+[walker]
+path_walk = esc_millitary_near_anomaly_commander_walk
+path_look = esc_millitary_near_anomaly_commander_look
+combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item -esc_kvest_know_do_mils_near_anomaly_fail =fighting_actor}
+meet = meet
+on_actor_dist_le = 24 | remark
+
+[remark]
+anim = guard
+no_move = true
+target = actor
+meet = meet
+combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item -esc_kvest_know_do_mils_near_anomaly_fail =fighting_actor}
+on_actor_dist_ge = 26 | walker
+
+[meet]
+victim = 25| actor
+victim_wpn = 25| actor
+use = true
+use_wpn = false
+
+[combat_ignore]
+;combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item}
+combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item -esc_kvest_know_do_mils_near_anomaly_fail =fighting_actor}
+

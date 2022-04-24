@@ -1,0 +1,133 @@
+[smart_terrains]
+
+none = true
+
+
+
+[logic]
+
+active = remark@sleep1
+
+on_death = death
+
+combat_ignore = combat_ignore
+
+on_hit = hit@atp
+
+danger = danger_condition@esc_fabrika_bandit
+
+
+
+[remark@sleep1]
+
+anim = sleep
+
+no_move = true
+
+target = 3
+
+meet = meet@friend
+
+combat_ignore_cond = {=actor_wears_bandit_outfit =fighting_actor +atp_band_access !is_shustriy_in_lager -atp_fail -atp_fail1}, {=check_fighting(004) !is_shustriy_in_lager}
+
+reactions  = ignore
+
+on_info = {+atp_fail} remark@punch1, {+atp_na_moroz} remark@sleep2
+
+
+
+[remark@punch1]
+
+snd = atp_lider_punch
+
+no_move = true
+
+target = actor
+
+meet = no_meet
+
+combat_ignore_cond = {=actor_wears_bandit_outfit =fighting_actor +atp_band_access !is_shustriy_in_lager -atp_fail -atp_fail1}, {=check_fighting(004) !is_shustriy_in_lager}
+
+reactions  = ignore
+
+on_signal = sound_end | remark@punch2, {+atp_na_moroz} remark@sleep2
+
+
+
+[remark@punch2]
+
+anim = punch
+
+no_move = true
+
+target = actor
+
+meet = no_meet
+
+combat_ignore_cond = {=actor_wears_bandit_outfit =fighting_actor +atp_band_access !is_shustriy_in_lager -atp_fail -atp_fail1}, {=check_fighting(004) !is_shustriy_in_lager}
+
+reactions  = ignore
+
+on_signal = anim_end | remark@sleep2 %=atp_proval +atp_na_moroz%
+on_info = {+atp_na_moroz} remark@sleep2
+
+
+
+[remark@sleep2]
+
+anim = sleep
+
+no_move = true
+
+target = 3
+
+meet = meet@friend
+
+;meet = no_meet
+
+combat_ignore_cond = {=actor_wears_bandit_outfit =fighting_actor +atp_band_access !is_shustriy_in_lager -atp_fail -atp_fail1}, {=check_fighting(004) !is_shustriy_in_lager}
+
+reactions  = ignore
+
+
+
+[combat_ignore]
+
+combat_ignore = always
+
+
+
+[hit@atp]
+
+on_info = {=hit_by_actor} %-atp_band_access =atp_band_access_off =killactor%
+
+
+
+[danger_condition@esc_fabrika_bandit]
+
+ignore_distance = 1
+
+
+
+[death]
+
+on_info = %+atp_lider_dead%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

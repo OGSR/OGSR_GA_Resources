@@ -1,0 +1,16 @@
+[logic]
+active = sr_idle
+ 
+[sr_idle]
+on_actor_inside = sr_tip
+ 
+[sr_tip]
+name = cheb_esc_tip1
+type = tips
+cond = {=actor_has_item(cheb) -cheb_item1_find} 
+sender = chebur1
+on_actor_inside = sr_idle1
+showtime = 15000
+
+[sr_idle1] 
+on_timer = 15000| sr_tip

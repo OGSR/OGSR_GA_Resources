@@ -1,0 +1,1951 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+------------------------- Copyright 2008-2010 OGSE Team -----------------------
+
+turn_pnv_off = ogse_night_vision.turn_pnv_off --KRodin: НЕ УДАЛЯТЬ! Вызывается из многих мест.
+
+function attach(sm)
+------------------Общие функции----------------
+	sm:subscribe({ signal = "on_storyline_start", fun = this.spawn_black_dealer })
+	sm:subscribe({ signal = "on_storyline_start", fun = this.scape_doors_start })
+	sm:subscribe({ signal = "on_spawn",			fun = this.dar_stalker_explorer_spawn })
+------Квест с мотором в подземке Агропрома-----
+	sm:subscribe({ signal = "on_spawn",			fun = this.check_subscribe_motor_on_spawn })
+---------Квест с сейфом в горкоме в МГ---------
+	sm:subscribe({ signal = "on_first_update",	fun = this.check_gorkom_books_on_first_upd })
+-------------------Квест с БТР-----------------
+	sm:subscribe({ signal = "on_sit_down_in_btr", fun = this.set_btr_fuel_empty })
+	sm:subscribe({ signal = "on_sit_down_in_btr", fun = this.set_btr_nonworking })
+	sm:subscribe({ signal = "on_exit_from_btr",	fun = this.set_btr_working })
+-----Привести Полковника из МГ на блокпост-----
+	sm:subscribe({ signal = "on_spawn",			fun = this.check_subscribe_colonel_enemy_callback })
+	sm:subscribe({ signal = "on_spawn",			fun = this.check_subscribe_colonel_follow_signal })
+	sm:subscribe({ signal = "on_info",			fun = this.check_colonel_quest_infos })
+-------------------Транспондер-----------------
+	sm:subscribe({ signal = "on_item_to_belt",	fun = this.on_transponder_to_belt })
+	sm:subscribe({ signal = "on_item_to_ruck",	fun = this.on_transponder_to_ruck })
+	--sm:subscribe({ signal = "on_spawn",			fun = this.check_subscribe_transponder_enemy_callback })
+-----------------------------------------------
+end
+
+--/ спавн квестовых предметов для OGSE и скриптовые квесты /--
+local spawn_db = ogse_spawn_db.script_spawn_registry.ogse_quests
+
+-- МГ квесты с БТР
+
+function btr_finished()
+	local sim = alife()
+	local btr = sim:story_object(story_ids.dead_city_btr_real)
+	if btr then
+		alife():release(btr, true)
+	end
+end
+
+function start_timer_finish_btr()
+	ogse.g_start_timer("btr_final",0, 0, 2)
+end
+
+function give_reward_btr()
+	dialogs.relocate_item_section(db.actor, "ammo_gauss", "in")
+	dialogs.relocate_item_section(db.actor, "ammo_gauss", "in")
+	dialogs.relocate_item_section(db.actor, "ammo_gauss", "in")
+	dialogs.relocate_item_section(db.actor, "wpn_gauss", "in")
+
+	dialogs.relocate_item_section(db.actor, "quest_btr_keys", "out")
+	dialogs.relocate_item_section(db.actor, "af_transmut_2", "in")
+	dialogs.relocate_item_section(db.actor, "af_transmut_3", "in")
+	dialogs.relocate_item_section(db.actor, "military_outfit_exo2", "in")
+end
+
+function set_freedom_friends()
+	relation_registry.set_community_goodwill ("freedom", db.actor:id(), 1000)
+end
+
+function btr_near_zaslon()
+	if not db.actor:has_info("btr_operable") then
+		return false
+	end
+	if db.actor:has_info("btr_in_zaslon_zone") then
+		return true
+	end	
+	local sim = alife()
+	local btr = sim:story_object(story_ids.dead_city_btr_real)
+	local captain = sim:story_object(story_ids.Mil_Kap)
+	local pos = nil
+	if not btr then
+		db.actor:give_info_portion("btr_destroyed")
+		return false
+	end
+	if level.name() ~= "l07_military" then 
+	return false end
+	if btr and captain and captain:alive() then
+		local pos_btr = db.actor:position()
+		local cap_pos = captain.position
+		if ogse_car_control.current_car and ogse_car_control.in_btr and btr.id == ogse_car_control.current_car:id() then
+			pos = pos_btr:distance_to(cap_pos)
+		end
+	else	
+		db.actor:give_info_portion("btr_destroyed")
+		return false
+	end
+	if pos and pos < 25 then
+		db.actor:give_info_portion("btr_in_zaslon_zone")
+		return true
+	else
+		return false
+	end	
+	
+end
+
+function remove_marks_btr_kap()
+	level_tasks.remove_location_by_sid(story_ids.dead_city_btr_real,"green_location")
+	level_tasks.remove_location_by_sid(story_ids.Mil_Kap,"green_location", true)
+	level_tasks.remove_location_by_sid(story_ids.Mil_Engineer,"green_location", true)
+end
+
+function actor_have_upgrade()
+	if db.actor:has_info("btr_targeting_computer") then
+		return true
+	end
+	if db.actor:object("btr_control_module_upgrade") ~= nil then
+		db.actor:give_info_portion("btr_targeting_computer")
+		return true
+	else	
+		return false
+	end
+	return false
+end
+
+function actor_have_cpu()
+	if db.actor:has_info("btr_control_set") then
+		return true
+	end
+	if db.actor:object("btr_control_module") ~= nil then
+		db.actor:give_info_portion("btr_control_set")
+		return true
+	else	
+		return false
+	end
+	return false
+end
+
+function actor_inside_btr_cpu()
+	if db.actor:has_info("btr_operable") then
+		return true
+	end
+	if ogse_car_control.current_car and ogse_car_control.in_btr then
+		local btr = level_object_by_sid(story_ids.dead_city_btr_real)
+		if btr and btr:id() == ogse_car_control.current_car:id() then
+			if not db.actor:has_info("btr_operable") and db.actor:object("btr_control_module") ~= nil then
+				db.actor:give_info_portion("btr_operable")
+				ogse.remove_item_from_inventory(db.actor:object("btr_control_module"),db.actor)
+				if db.actor:object("btr_control_module_upgrade") ~= nil then
+					ogse.remove_item_from_inventory(db.actor:object("btr_control_module_upgrade"),db.actor)
+					db.actor:give_info_portion("btr_targeting_computer")
+				end
+				level_tasks.remove_location_by_sid(story_ids.dead_city_btr_real,"green_location")
+				return true
+			end
+		else
+			return false
+		end
+	else	
+		return false
+	end
+	return false
+end
+
+function give_both_actor(first_speaker, second_speaker)
+	dialogs.relocate_money(db.actor, 35000, "out")
+	dialogs.relocate_item_section(db.actor, "btr_control_module", "in")
+	dialogs.relocate_item_section(db.actor, "btr_control_module_upgrade", "in")
+end
+
+function give_cpu_actor(first_speaker, second_speaker)
+	dialogs.relocate_money(db.actor, 25000, "out")
+	dialogs.relocate_item_section(db.actor, "btr_control_module", "in")
+end
+
+function not_enough_money(first,second)
+	return db.actor:money() < 25000
+end
+
+function enough_money_for_one(first,second)
+	return (db.actor:money() >= 25000 and db.actor:money() < 35000)
+end
+
+function enough_money_for_all(first,second)
+	return db.actor:money() >= 35000
+end
+
+function spawn_btr_comp()
+	ogse.spawn_object(spawn_db.agr_btr_comp)
+end
+
+function give_items_to_actor_btr(first_speaker, second_speaker)
+	dialogs.relocate_item_section(db.actor, "accum_full", "in")
+	dialogs.relocate_item_section(db.actor, "repair_kit", "in")
+	dialogs.relocate_item_section(db.actor, "explosive_mobiltank", "in")
+end
+
+function btr_get_accum_notice()
+  local news = game.translate_string("zaberi_accum_screw")
+  local from = game.translate_string("mil_Svoboda_engineer_name") 
+  local news_text = "%c[255,160,160,160]".. from ..":\\n%c[default]" .. news  
+  db.actor:give_game_news(news_text, "ui\\ui_iconsTotal", Frect():set(249,282,83,47), 0, 13000)
+end
+
+function btr_accum_charged()
+	if not db.actor:has_info("btr_get_full_accum") then
+		db.actor:give_info_portion("btr_get_full_accum")
+		remove_mark_shurup()
+	end
+end
+
+function give_accum_to_screw(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "accum_depleted", "out")
+
+	local n = 0
+	db.actor:iterate_inventory(function(_, item) 
+		if item:section() == "af_dummy_battery" then
+			n = n + 1
+			if n <= 3 then
+				ogse.remove_item_from_inventory(item)
+			end
+		end
+	end)
+end
+
+function start_accum_timer()
+	ogse.g_start_timer("btr_acc_rdy",0, 6, 0)
+end
+
+function actor_have_full_accum()
+	if db.actor:has_info("btr_have_full_accum") then
+		return true
+	end
+	if db.actor:object("accum_full") ~= nil then
+		db.actor:give_info_portion("btr_have_full_accum")
+		remove_mark_shurup()
+		return true
+	else	
+		return false
+	end
+	return false
+end
+
+
+function actor_have_depleted_accum()
+	return db.actor:object("accum_depleted") ~= nil
+end
+
+function actor_have_battery_for_accum()
+	local n = 0
+	db.actor:iterate_inventory(function(_, item) 
+		if item:section() == "af_dummy_battery" then
+			n = n + 1
+		end
+	end)
+	return n >= 3
+end
+
+function actor_have_depleted_accum_and_battery()
+	return actor_have_depleted_accum() and actor_have_battery_for_accum()
+end
+
+
+function comp_is_offline()
+	if not db.actor:has_info("btr_computer_offline") then
+		db.actor:give_info_portion("btr_computer_offline")
+	end
+end
+
+function actor_inside_btr_accum()
+	if db.actor:has_info("btr_get_accum_set") then
+		return true
+	end
+	if ogse_car_control.current_car and ogse_car_control.in_btr then
+		local btr = level_object_by_sid(story_ids.dead_city_btr_real)
+		if btr and btr:id() == ogse_car_control.current_car:id() then
+			if not db.actor:has_info("btr_get_accum_set") and db.actor:object("accum_full") ~= nil then
+				db.actor:give_info_portion("btr_get_accum_set")
+				ogse.remove_item_from_inventory(db.actor:object("accum_full"),db.actor)
+				level_tasks.remove_location_by_sid(story_ids.dead_city_btr_real,"green_location")
+				ogse.start_timer("btr_comp", 5, script_name() .. ".comp_is_offline")
+				return true
+			end
+		else
+			return false
+		end
+	else	
+		return false
+	end
+	return false
+end
+
+function spawn_accum()
+	ogse.spawn_object(spawn_db.gar_btr_accum)
+end
+
+function actor_have_btr_keys()
+	if not db.actor:has_info("btr_quest_start") then
+		return false
+	end
+	if db.actor:has_info("get_key_from_btr") then
+		return true
+	end
+	if db.actor:object("quest_btr_keys") ~= nil then
+		db.actor:give_info_portion("get_key_from_btr")
+		return true
+	end
+	return false
+end
+
+function actor_inside_btr()
+	if ogse_car_control.current_car and ogse_car_control.in_btr then
+		local btr = level_object_by_sid(story_ids.dead_city_btr_real)
+		if btr and btr:id() == ogse_car_control.current_car:id() then
+			if not db.actor:has_info("btr_offline_power") then
+				db.actor:give_info_portion("btr_offline_power")
+			end
+			return true
+		else
+			return false
+		end
+	else	
+		return false
+	end
+	return false
+end
+
+function btr_is_nearby()
+	if not db.actor:has_info("btr_quest_start") then
+		return false
+	end
+	if db.actor:has_info("btr_found") then
+		return true
+	end
+	local btr = level_object_by_sid(story_ids.dead_city_btr_fake)
+	local btr_2 = level_object_by_sid(story_ids.dead_city_btr_real)
+	if btr or btr_2 then
+		local pos = nil
+		if btr then
+			pos = btr:position():distance_to(db.actor:position())
+		elseif btr_2 then
+			pos = btr_2:position():distance_to(db.actor:position())
+		end
+		if pos < 15 then
+			db.actor:give_info_portion("btr_found")
+			return true
+		else	
+			return false
+		end
+	else	
+		return false
+	end
+	return false
+end
+
+function check_fail_btr_quest() --- проверка провала квеста на БТР
+	if db.actor:has_info("btr_own_freedom") then -- после того как сдали, актор за него не отвечает
+		return false
+	end
+	if not db.actor:has_info("btr_quest_start") then
+		return false
+	end
+	local sim = alife()
+	local lukash = sim:story_object(story_ids.Mil_Lukash)
+	local captain = sim:story_object(story_ids.Mil_Kap)
+	local shurup = sim:story_object(story_ids.Mil_Engineer)
+	local btr = sim:story_object(story_ids.dead_city_btr_real)
+	if lukash and captain and shurup then
+		if not lukash:alive() or not captain:alive() or not shurup:alive() then
+			return true -- убит кто-то из троицы Лукаш-Шуруп-Кэп
+		end
+	else	
+		return true -- убит и удален из игры кто-то из троицы Лукаш-Шуруп-Кэп
+	end
+	if db.actor:has_info("btr_fuel_empty_set") then
+		if btr then
+			local btr_game = level_object_by_sid(story_ids.dead_city_btr_real)
+			if not btr_game then return false end
+			local true_btr_game = btr_game:get_car()
+			if true_btr_game and true_btr_game:GetfHealth() < 0.20 then
+				db.actor:give_info_portion("btr_destroyed")
+				return true	 -- БТР сгорел, ниже 20% его невозможно починить
+			end		
+		else
+			db.actor:give_info_portion("btr_destroyed")
+			return true	 -- не существует серверный объект БТР
+		end		
+	end
+	return false
+end
+
+function can_take_btr_quest()
+	local sim = alife()
+	local lukash = sim:story_object(story_ids.Mil_Lukash)
+	local captain = sim:story_object(story_ids.Mil_Kap)
+	local shurup = sim:story_object(story_ids.Mil_Engineer)
+	if lukash and captain and shurup then
+		if lukash:alive() and captain:alive() and shurup:alive() then
+			return true
+		else
+			return false
+		end
+	else
+		return false		
+	end
+	return false
+end
+
+function release_fake_btr()
+	local sim = alife()
+	local sobj = sim:story_object(story_ids.dead_city_btr_fake)
+	if sobj then
+		alife():release(sobj, true)
+	end	
+end
+
+function remove_mark_shurup()
+	level_tasks.remove_location_by_sid(story_ids.Mil_Engineer,"green_location", true)
+end
+
+function set_btr_fuel_empty() --при влезании в квестовый БТР установим топливо в ноль и здоровье в треть
+	if not db.actor:has_info("btr_fuel_empty_set") then
+		local btr = level_object_by_sid(story_ids.dead_city_btr_real)
+		if btr then
+			local car_btr = btr:get_car()
+			local explode = car_btr:ExplodeTime()
+			car_btr:SetFuel(0)
+			car_btr:SetfHealth(0.5)
+			car_btr:SetExplodeTime(120000)
+			db.actor:give_info_portion("btr_fuel_empty_set")
+		end	
+	end
+end
+
+
+function set_btr_nonworking() --при отсутствии у ГГ аккумулятора, при влезании в БТР, блокируем старт двигателя
+	if db.actor:has_info( "btr_get_accum_set" ) then return end
+
+	local btr = level_object_by_sid( story_ids.dead_city_btr_real )
+	if btr and btr:id() == ogse_car_control.current_car:id() then
+		if not ogse.var_exists( "turn_engine_keys" ) then
+			local keys = bind_to_dik( key_bindings.kENGINE )
+			if keys then
+				ogse.save_var( "turn_engine_keys", keys, "u32" ) --сохраняем в хранилище клавиши запуска двигателя
+			end
+		end
+		if not ogse.var_exists( "quit_keys" ) then
+			local keys = bind_to_dik( key_bindings.kQUIT )
+			if keys then
+				ogse.save_var( "quit_keys", keys, "u32" )
+			end
+		end
+		if not ogse.var_exists( "quick_load_keys" ) then
+			local keys = bind_to_dik( key_bindings.kQUICK_LOAD )
+			if keys then
+				ogse.save_var( "quick_load_keys", keys, "u32" )
+			end
+		end
+		cmd( "unbind", "turn_engine" ) --Разбиндиваем кнопку запуска двигателя, чтобы сидя в неисправном бтр нельзя было запустить движок
+		cmd( "unbind_sec", "turn_engine" )
+		cmd( "unbind", "quit" ) --Кнопку выхода в меню тоже разбиндиваем, чтобы актор сидя в БТР не мог загружаться или выходить из игры (после этого слетят настройки некоторых клавиш)
+		cmd( "unbind_sec", "quit" )
+		cmd( "unbind", "quickload" ) --Кнопку быстрой загрузки игры разбиндиваем по той же причине.
+		cmd( "unbind_sec", "quickload" )
+	end
+end
+
+function set_btr_working() --при вылезании из БТР, возвращаем все как было
+	if ogse.var_exists( "quit_keys" ) then
+		local quit_keys = ogse.load_var( "quit_keys" )
+		--log3("--[%s.unblock_use_hotkeys] Loaded quit_keys: %s", script_name(), quit_keys)
+		cmd( "bind", "quit", dik_to_keyname( quit_keys ) )
+		ogse.delete_var( "quit_keys" )
+	end
+	if ogse.var_exists( "turn_engine_keys" ) then
+		local turn_engine_keys = ogse.load_var( "turn_engine_keys" )
+		--log3("--[%s.unblock_use_hotkeys] Loaded turn_engine_keys: %s", script_name(), turn_engine_keys)
+		cmd( "bind", "turn_engine", dik_to_keyname( turn_engine_keys ) )
+		ogse.delete_var("turn_engine_keys")
+	end
+	if ogse.var_exists( "quick_load_keys" ) then
+		local quick_load_keys = ogse.load_var( "quick_load_keys" )
+		--log3("--[%s.unblock_use_hotkeys] Loaded quick_load_keys: %s", script_name(), quick_load_keys)
+		cmd( "bind", "quickload", dik_to_keyname( quick_load_keys ) )
+		ogse.delete_var( "quick_load_keys" )
+	end
+end
+
+
+-- Кордон --
+-- Спавним артефакт для Сидоровича и ставим метку на его местоположение
+function art_sp()
+--SPAWN_V1
+	--[[local p = vector()
+	p.x = -247.6
+	p.y = -14.3
+	p.z = -22
+	local art_srv = alife():create("af_blood_tutorial",p,13307,67,65535)]]
+--SPAWN_V2
+	local art_srv = ogse.spawn_object(spawn_db.art_sp)
+	level_tasks.add_location_by_id(art_srv.id, "crlc_mdl", "find_da_art_text")
+end
+
+-- опустошение бензобака запорожца для квеста "Сделка с военными"
+function set_zaz_empty()
+	local car = ogse_car_control.get_nearest_car_by_section("vehicle_zaz")
+	if car then
+		car:get_car():SetFuel(0)
+	end
+end
+
+-- Снимаем метку на его местоположение при подбирании
+--[[
+Убрал KD 23.10.2015, не смог смотреть на эту наркоманию.
+function art_found()
+	local obj = nil
+
+	for id=1,65535 do
+		local art = alife():object(id)
+		if art and art:section_name() == "af_blood_tutorial" then
+			obj = art
+			break
+		end
+	end
+	if obj and level.map_has_object_spot(obj.id, "crlc_mdl") then
+		level_tasks.remove_location_by_id(obj.id, "crlc_mdl")
+	end
+end
+]]
+
+-- Спавним динамит для Волка
+function esc_dynamite_sp()
+--SPAWN_V1
+	----alife():create("dynamite",vector():set(132.52,-7.6829,-4.026),436512,134)
+	--alife():create("dynamite",vector():set(344.70,16.51,244.62),588104,251)
+--SPAWN_V2
+	--ogse.spawn_object(spawn_db.esc_dynamite_sp_1)
+	ogse.spawn_object(spawn_db.esc_dynamite_sp_2)
+end
+
+-- Новичёк в противогазе (не используется)
+function esc_st_angs_sp()
+--SPAWN_V1
+	--alife():create("rma_stalker_novice_antigas",vector():set(-186.862167,-20.199631,-151.723877),64274,46)
+--SPAWN_V2
+	ogse.spawn_object(spawn_db.esc_st_angs_sp)
+end
+
+-- Отдаём аптечку Толику
+function medkit_for_tolik(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "medkit", "out")
+	ogse.spawn_item_in_inv("medkit")
+end
+
+-- Квест от Лиса на кейс, потерянный за блокпостом
+-- Спавн чемодана Лиса за забором блок-поста возле ящиков
+function quest_fox_case_spawn()
+--SPAWN_V1
+   --local obj = alife():create("quest_fox_case", vector():set(-103.42, -30.637, -394.938),156117,16)
+--SPAWN_V2
+	ogse.spawn_object(spawn_db.quest_fox_case_spawn)
+end
+
+-- Проверяем не пропил ли Меченый чемодан
+function esc_main_fox_box_control(actor)
+	return actor:object("quest_fox_case") ~= nil
+end
+
+-- Передача чумадана Сидоровичу и награждение достойного Меченого
+function esc_main_fox_box_out (actor,trader)
+-- Заберем чемодан обратно
+	dialogs.relocate_item_section(actor, "quest_fox_case", "out")
+	dialogs.relocate_money(actor, 20000, "in")
+end
+
+-- Проверяем нашел ли Меченый чемодан
+function esc_main_fox_box_find_cont()
+	return db.actor:object("quest_fox_case") ~= nil
+end
+
+-- Кордон, Росток --
+-- Благодарность Толика (вал и телепорты в закрытую местность)
+function weapon_secret_dt()
+	ogse.spawn_objects(spawn_db.weapon_secret_dt)
+end
+
+-- Бар --
+
+-- Плата информатору за секретный телепорт в заднюю комнату в баре
+function bar_back_room_pay(actor)
+	dialogs.relocate_money(actor, 50000, "out")
+end
+
+function bar_back_room()
+--SPAWN_V1
+   --local obj = alife():create("m_teleport_13", vector():set(84.3548, 0.161, 56.1999),27474,1240)
+--SPAWN_V2
+	ogse.spawn_object(spawn_db.bar_back_room)
+end
+
+-- Военные склады --
+-- Проверяем, есть ли у Меченого динамит
+function volkdead_dinamit_check()
+	return db.actor:object("dynamite") ~= nil
+end
+
+-- Сдаём динамит Черепу
+function volkdead_dinamit_finish(first_speaker, second_speaker) 
+dialogs.relocate_item_section(second_speaker, "dynamite", "out")
+end
+
+-- Обмен с Поваром на Милитари
+function actor_have_svug(first_speaker, second_speaker)
+	return first_speaker:object("wpn_vintorez_tact") ~= nil
+end
+
+function give_svug(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "wpn_vintorez_tact", "out")
+	db.actor:change_character_reputation(100)
+end
+
+function povar_give_artefakty(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_dummy_glassbeads", "in")
+	dialogs.relocate_item_section(second_speaker, "af_dummy_spring", "in")
+	dialogs.relocate_item_section(second_speaker, "af_dummy_dummy", "in")
+	dialogs.relocate_item_section(second_speaker, "af_dummy_battery", "in")
+	dialogs.relocate_item_section(second_speaker, "af_dummy_pellicle", "in")
+end
+
+function povar_give_oruzhie(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "wpn_l85", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_5.56x45_ap", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_5.56x45_ap", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_5.56x45_ap", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_5.56x45_ap", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_5.56x45_ap", "in")
+end
+
+function povar_give_bablo(first_speaker, second_speaker)
+	dialogs.relocate_money(second_speaker, 25000, "in")
+end
+
+-- Спавн сталкера-искателя и документов в X-18
+function dar_stalker_explorer_spawn()
+	if level.name() == "l04u_labx18" then
+		if has_alife_info("dar_run_quest") and not has_alife_info("bar_darklab_document_done") and not has_alife_info("dar_stalker_explorer_spawned") then
+--SPAWN_V1
+		--local obj = alife():create ("dar_stalker_explorer", vector():set(-15.60, 6, 1.60), 1, 1109)
+--SPAWN_V2
+		local obj = ogse.spawn_object(spawn_db.dar_stalker_explorer_spawn)
+			ogse.spawn_item_in_inv("dar_document3", obj)
+-- Мирное получение документов у Жеки Дуплета в лаборатории 18
+			jeka_id = obj.id
+			xr_logic.pstor_store(db.actor,"jeka_id_s", obj.id) 
+-- Мирное получение документов у Жеки Дуплета в лаборатории 18
+			db.actor:give_info_portion("dar_stalker_explorer_spawned")
+		end
+	end
+end
+
+-- Квест на пустышки от торговца
+function transfer_trader_artnabor(first_speaker, second_speaker)
+	dialogs.relocate_item_section(first_speaker, "af_dummy_glassbeads", "out")
+	dialogs.relocate_item_section(first_speaker, "af_dummy_spring", "out")
+	dialogs.relocate_item_section(first_speaker, "af_dummy_dummy", "out")
+	dialogs.relocate_item_section(first_speaker, "af_dummy_battery", "out")
+	dialogs.relocate_item_section(first_speaker, "af_dummy_pellicle", "out")
+end
+
+function transfer_trader_serafim(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "scientific_outfit", "in")
+end
+
+function actor_has_artnabor()
+	return db.actor:object("af_dummy_glassbeads") ~= nil and
+		db.actor:object("af_dummy_spring") ~= nil and
+		db.actor:object("af_dummy_dummy") ~= nil and
+		db.actor:object("af_dummy_battery") ~= nil and
+		db.actor:object("af_dummy_pellicle") ~= nil
+end
+
+--- Финал игры с Генераторами
+function this_is_the_end()
+	if not db.actor_proxy.online or not has_alife_info("game_end") then
+		xr_effects.after_credits()
+	else
+		set_complete_tasks()
+	end
+end
+
+function set_complete_tasks()
+	if not has_alife_info("freeplay") and level.name() == "l13_generators_ogse" then
+
+		ogse_quests.turn_pnv_off()
+		level.add_pp_effector("blink.ppe", 99, false)			
+
+		local point = patrol("gen_actor_wakeup_walk")
+		local look = patrol("gen_actor_wakeup_look")
+		db.actor:set_actor_position(point:point(0))
+		local dir = look:point(0):sub(point:point(0))
+		db.actor:set_actor_direction(-dir:getH())	
+
+		local del_items_tbl = {
+			["gunslinger_flash"] = true,
+			["decoder"] = true,
+			["pri_decoder_documents"] = true,
+		}
+		db.actor:iterate_inventory(function(npc, item)
+			if del_items_tbl[item:section()] then
+				ogse.remove_item_from_inventory(item, npc)
+			end
+		end)
+
+		db.actor:give_info_portion("freeplay")
+		db.actor:disable_info_portion("game_end")
+		db.gameover_credits_started = false
+
+--[=[ --KRodin: вот тут, мне кажется, надо проверять как минимум группировку, а не имя профиля + сносить все респавнеры монолитовцев. Или вообще не делать ничего.
+		for k, v in pairs(db.creature) do
+			local npc = level.object_by_id(k)
+			if v == true and npc and npc:alive() and ( npc:is_stalker() or npc:is_actor() ) then
+				local profile = npc:profile_name()
+				if string.find(profile, "monolit") then
+					npc:kill( npc )
+				end
+			end
+		end
+--]=]
+		ogse.start_timer("fpl", 1)
+	end
+end
+
+-- Удаление левел-чейнджера в Саркофаг
+-- Deleting LC to Sarcofag.
+function disable_sar_entrance()
+	local sobj = alife():story_object(story_ids.lc_aes_to_sar)
+	if sobj then
+		alife():release(sobj, true)
+	end
+--[[	for i=1,65535 do
+		local obj = alife():object(i)
+		if obj and obj:name()=="exit_to_sarcofag_01" then
+			alife():release(obj, true)
+		end
+	end]]
+end
+
+function prepare_pripyat()
+	level.add_pp_effector("teleport.ppe", 2008, false)
+	-- Удаление ЧАЭС - Саркофаг
+	disable_sar_entrance()	
+	-- Перемещаем актора, засчитываем все задания
+	db.actor:set_actor_position(vector():set(1035.12,-0.0999,229.564))
+end
+
+local this_pain = xr_sound.get_safe_sound_object([[actor\pain_3]])
+local breath_cold = xr_sound.get_safe_sound_object([[actor\breath_cold]])
+
+function effects_talk()
+	this_pain:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+	ogse_quests.turn_pnv_off()
+	level.add_pp_effector("blink.ppe", 99, false)
+	level.add_pp_effector("deadcity_wake_old1.ppe", 2008, false)
+end
+
+function dark_trader_invitation()
+	news_manager.send_tip(db.actor, "pri_trader_come_in", nil, "pri_trader", 15000, nil)
+	level_tasks.add_location_by_sid(story_ids.pri_trader, "green_location", "pri_trader_name")
+end
+
+function spawn_black_dealer()
+	local black_dealer = ogse.spawn_object(spawn_db.pri_trader)
+	alife():assign_story_id(black_dealer.id, story_ids.pri_trader)
+end
+
+function total_recall_pripyat()
+	db.actor:stop_talk()
+	ogse_quests.turn_pnv_off()
+	this_pain:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+	level.add_pp_effector("blink.ppe", 99, false)
+	level.add_pp_effector("agr_u_fade.ppe", 2268, false)
+	ogse.start_timer("recall_all",2)
+end
+
+function flashback()
+	xr_effects.agr_contuz(db.actor, nil)
+	xr_effects.disable_ui(db.actor, nil)
+	level.add_cam_effector("camera_effects\\dis_consciousness.anm", 1984, false, "")
+	ogse.start_timer("final_dream",4)
+end
+
+function final_dream()
+	level.remove_cam_effector(1984)
+	game.start_tutorial("final_dream")
+end
+
+
+
+function end_final_dream()
+	breath_cold:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+	level.add_cam_effector("camera_effects\\prison_1.anm", 2506, false, "")
+	level.add_pp_effector("yantar_underground_psi.ppe", 2007, false)
+	level.add_pp_effector("total_recall.ppe", 2008, false)	
+	db.actor:give_info_portion("cit_fail_first_task")
+	db.actor:give_info_portion("pri_i_am_gunslinger")
+	ogse.start_timer("final_talk",4)
+end
+
+function init_talk_final()
+	level_tasks.remove_location_by_sid(story_ids.pri_trader,"green_location")
+	xr_effects.enable_ui(db.actor, nil)
+	local npc = level_object_by_sid(story_ids.pri_trader)
+	db.actor:run_talk_dialog(npc)
+	
+--- anomaly2\generator\generator_accum_thunderbolt
+--- bar_kvest_make_meet_dolg_freedom	
+end
+
+function scape_doors_start()
+	local sim = alife()
+	local door_2 = sim:story_object(story_ids.scape_lab_door_destr)
+	if door_2 then
+		sim:release(door_2, true)
+	end
+end
+
+function swap_scape_doors()
+	local sim = alife()
+	local door_1 = sim:story_object(story_ids.scape_lab_door)
+	local door_2 = sim:story_object(story_ids.scape_lab_door_destr)
+	
+	if door_1 then
+		sim:release(door_1, true)
+	end
+	if not door_2 then
+		local spawn_id = sim:spawn_id(story_ids.scape_lab_door_destr)
+		local door       = sim:create  (spawn_id)
+	end	
+	
+end
+
+--- Мотор Диггера
+local motor_idle = xr_sound.get_safe_sound_object([[ambient\indoors\small_fan]])
+local motor_on = xr_sound.get_safe_sound_object([[ambient\cooling_run]])
+local motor_start = xr_sound.get_safe_sound_object([[ambient\x18\h_or_metal_rusty]])
+local motor_pos = vector():set(-114.72, -14.46, -40.84) -- сюда позицию мотора
+local start_particle = "anomaly2\\emi_damage_big_electra"
+local dust_particle = "nc\\fog_base"
+
+function check_subscribe_motor_on_spawn()
+	if level.name() == "l03u_agr_underground" and has_alife_info("diggers_pda_info") then
+		--log3("--[%s] Motor subscribed!", script_name())
+		ogse_signals.get_mgr():subscribe({ signal = "on_update", fun = this.play_digger_motor_sound })
+	end
+end
+
+function play_digger_motor_sound()
+	--if level.name() == "l03u_agr_underground" and db.actor:has_info("diggers_pda_info") then
+		ogse_signals.get_mgr():reschedule( math.random(1000, 1500) )
+		local hasanom,anomid,pos,cls,dist,radius,sect = ogse_anomaly.get_nearest_anomaly_by_point(motor_pos)
+		if hasanom then
+			if dist < 2 and string.find(sect, "zone_witches_galantine") and not db.actor:has_info("diggers_motor") then
+				motor_start:play_at_pos(db.actor, motor_pos)
+				local part = particles_object(start_particle)
+				part:play_at_pos(motor_pos)
+				db.actor:give_info_portion("diggers_motor")
+				spawn_motor_reward()
+			end
+		end
+		if db.actor:has_info("diggers_motor") then
+			if motor_on and not motor_on:playing() then
+				motor_on:play_at_pos (db.actor, motor_pos, 0, sound_object.s3d + sound_object.looped)
+			end	
+		else
+			if motor_idle and not motor_idle:playing() then
+				motor_idle:play_at_pos (db.actor, motor_pos, 0, sound_object.s3d + sound_object.looped)
+			end		
+		end
+	--end
+end
+
+function spawn_motor_reward()
+	if ogse.var_exists("engine_id") then
+		level_tasks.remove_location_by_id(ogse.load_var("engine_id"), "green_location")
+		ogse.delete_var("engine_id")
+	end
+
+	local pos = vector():set(-100.577,-11.548,-33.631)
+	local vid  = 1574
+	local gvid = 789
+	local arts_by_level = {}
+	for art,lvl in pairs(ogse.art_levels) do
+		local arts = arts_by_level[lvl]
+		if arts == nil then
+			arts_by_level[lvl] = {}
+			arts = arts_by_level[lvl]
+		end
+		table.insert(arts, art)
+	end
+
+	local total = 15
+	while total > 0 do
+		local lvl = math.min(total, math.random(#arts_by_level))
+		local arts = arts_by_level[lvl]
+		local art = arts[math.random(#arts)]
+		local sobj = alife():create(art, pos, vid, gvid)
+		sobj.position = pos	
+		total = total - lvl
+		local part = particles_object(dust_particle)
+		local part_2 = particles_object(dust_particle)
+		local part_3 = particles_object(dust_particle)
+		local pos_0 = vector():set(-100.577,-11.548,-33.631)
+		local pos_1 = vector():set(-100.577,-12.548,-33.631)
+		local pos_2 = vector():set(-100.577,-13.548,-33.631)
+		part:play_at_pos(pos_0)	
+		part_2:play_at_pos(pos_1)
+		part_3:play_at_pos(pos_2)
+	end
+	
+end
+
+function spawn_books_gorkom()
+	alife():create("lenin_zapiska", vector():set(-46.277523040771,3.1503896713257,-71.7275390625), 419392, 3683)
+	alife():create("lenin_book_1", vector():set(-50.710,4.146,-71.213), 409583, 3657)
+	alife():create("lenin_book_2", vector():set(-50.625,4.239,-72.207), 409577, 3659)
+	alife():create("lenin_book_3", vector():set(-33.358474731445,2.1866717338562,-72.283805847168), 443213, 3667)
+	alife():create("lenin_book_4", vector():set(-39.483,7.583,-72.524), 430536, 3685)
+	alife():create("lenin_book_5", vector():set(-53.234,9.176,-63.176), 407131, 3679)
+end
+
+local books = {
+	["lenin_book_1"] = 1,
+	["lenin_book_2"] = 2,
+	["lenin_book_3"] = 3,
+	["lenin_book_4"] = 4,
+	["lenin_book_5"] = 5,
+}
+
+
+---------------------------------------------------------------------------------------
+local gorkom_books_subscribed
+
+function gorkom_books_subscribe()
+	if not gorkom_books_subscribed then
+		gorkom_books_subscribed = {signal = "on_update", fun = this.check_gorkom_books}
+		ogse_signals.get_mgr():subscribe( gorkom_books_subscribed )
+		--log3("--[%s] gorkom_books subscribed!", script_name())
+	end
+end
+
+function gorkom_books_unsubscribe()
+	if gorkom_books_subscribed then
+		ogse_signals.get_mgr():unsubscribe( gorkom_books_subscribed )
+		gorkom_books_subscribed = nil
+		--log3("~~[%s] gorkom_books UNsubscribed!", script_name())
+	end
+end
+
+function check_gorkom_books_on_first_upd()
+	if level.name() ~= "l09_deadcity_ogse" then return end
+
+	if has_alife_info("kpss_quest_begin") and not has_alife_info("kpss_freetogo") then
+		gorkom_books_subscribe()
+	end
+end
+
+function check_gorkom_books()
+	--if not db.actor:has_info("kpss_quest_begin") then return end
+
+	local safe = level_object_by_sid(story_ids.gorkom_safe)
+	local monster = level_object_by_sid(story_ids.gorkom_librarian)
+	if safe then
+		local weight_count = 0
+		for i=0,safe:inv_box_count()-1 do
+			local item = safe:object_from_inv_box(i)
+			if books[item:section()] then
+				weight_count = weight_count + books[item:section()]
+			end
+		end
+		if weight_count == 15 and not db.actor:has_info("ui_car_body") then
+			local se_obj = alife():object(safe:id())
+
+			db.actor:give_info_portion("kpss_freetogo")
+			gorkom_books_unsubscribe()
+
+			local fx_particle = "anomaly2\\teleport_out"
+			local pos = safe:position()
+			local snd = xr_sound.get_safe_sound_object([[anomaly\teleport_work_2]])
+			fx_particle = particles_object(fx_particle)
+			fx_particle:play_at_pos(pos)
+			snd:play_no_feedback(safe, sound_object.s3d, 0, safe:position(), 1.0)
+			local safe_obj = alife():story_object(story_ids.gorkom_safe_phys)
+			alife():release(safe_obj, true)			
+			alife():release(se_obj, true)
+			if monster then
+				monster:kill(monster)
+			end			
+		end
+		local dist = safe:position():distance_to( db.actor:position() )
+		ogse_signals.get_mgr():reschedule(
+			( dist < 15 and math.random(900, 1100) )
+			or ( dist < 25 and math.random(2000, 3000) )
+			or math.random( 5000, 7000 )
+		)
+	end
+end
+------------------------------------------------------------------------------------------
+
+
+local needed_infos = nil
+local info_1_notice, info_2_notice = nil, nil
+
+function check_scientists_story_ids()
+	if db.actor:has_info("master_quest_info_found") then 
+		return true
+	end
+	if not needed_infos then
+		needed_infos = ogse.load_var("master_quest_infos", 0, "number")
+	end
+	if needed_infos == 0 then
+		local info_1, info_2, info_3 = 0, 0, 0
+		info_1 = math.random(4,6)
+		info_2 = math.random(1,info_1-1)
+		info_3 = math.random(info_1+1,9)
+		needed_infos = tonumber(info_1..info_2..info_3)
+		ogse.save_var("master_quest_infos", needed_infos, "number")
+		return false
+	elseif needed_infos > 0 then
+		local unpack_value = tostring(needed_infos)
+		local check_info_1 = string.sub(unpack_value,1,1)
+		local check_info_2 = string.sub(unpack_value,2,2)
+		local check_info_3 = string.sub(unpack_value,3,3)
+		local counter = 0
+		for i=1,9 do
+			if db.actor:has_info("master_quest_info_"..tostring(i)) and 
+				(tostring(i) == check_info_1 or
+				tostring(i) == check_info_2 or
+				tostring(i) == check_info_3)
+			then
+				counter = counter + 1
+				if counter > 0 and counter < 3 then
+					if counter == 1 and not info_1_notice then
+						if level.name() == "l09_deadcity_ogse" and not db.actor:has_info("master_quest_get_info_1") then
+							news_manager.send_tip(db.actor, "deadcity_data_part_found", nil, "ecolog", 15000, nil)
+							db.actor:give_info_portion("master_quest_get_info_1")
+						end
+						info_1_notice = true
+					elseif counter == 2 and not info_2_notice then
+						if level.name() == "l09_deadcity_ogse" and not db.actor:has_info("master_quest_get_info_2") then
+							news_manager.send_tip(db.actor, "deadcity_data_part_found", nil, "ecolog", 15000, nil)
+							db.actor:give_info_portion("master_quest_get_info_2")
+						end
+						info_2_notice = true						
+					end
+				end
+			end
+		end
+		if counter >= 3 then
+			db.actor:give_info_portion("master_quest_info_found")
+			news_manager.send_tip(db.actor, "deadcity_all_data_part_found", nil, "ecolog", 15000, nil)
+			ogse.delete_var("master_quest_infos")
+			return true
+		end		
+	else
+		return false
+	end
+	return false
+end
+
+function mark_logovo()
+	level_tasks.add_location_by_sid(story_ids.master_lair, "crlc_big", "deadcity_logovo_mark")
+end
+
+function unmark_logovo()
+	news_manager.send_tip(db.actor, "mg_too_much_psi", nil, "actor", 15000, nil)
+	level_tasks.remove_location_by_sid(story_ids.master_lair,"crlc_big")
+end
+
+function have_all_bomb_components()
+	if db.actor:object("chinook_layer") ~= nil and db.actor:object("chinook_wheel") ~= nil then
+		return true
+	end
+	return false
+end
+
+function have_aluminium()
+	if db.actor:object("chinook_layer") ~= nil then
+		return true
+	end
+	return false
+end
+
+function have_magnesium()
+	if db.actor:object("chinook_wheel") ~= nil then
+		return true
+	end
+	return false
+end
+
+function transfer_helmet_to_colonel(first_speaker, second_speaker)
+	local helmet = db.actor:object("good_psy_helmet")
+	if helmet then
+		dialogs.relocate_item_section(second_speaker, "good_psy_helmet", "out")
+		ogse.save_var("colonel_helmet_id", helmet:id(), "u16")
+	else
+		helmet = db.actor:object("bad_psy_helmet")
+		if helmet then
+			dialogs.relocate_item_section(second_speaker, "bad_psy_helmet", "out")
+			ogse.save_var("colonel_helmet_id", helmet:id(), "u16")
+		end	
+	end
+	-- start timer
+	ogse.g_start_timer("psy_helm_up",0, 0, 30)
+end
+
+function transfer_helmet_to_actor(first_speaker, second_speaker)
+	dialogs.relocate_item_section(first_speaker, "good_psy_helmet", "in")
+end
+
+function wait_for_bomb()
+	ogse.g_start_timer("dead_bomb",0, 4, 0)
+end
+
+function spawn_chinook_parts()
+	-- вписать верные координаты
+	alife():create("chinook_wheel",vector():set(154.08450317383,-8.9977540969849,-180.48561096191),677392,3568)
+	alife():create("chinook_layer",vector():set(155.69102478027,-8.3446588516235,-171.55117797852),679081,3573)
+end
+
+function transfer_components_to_colonel(first_speaker, second_speaker)
+	-- на фразе актора
+	local wheel = db.actor:object("chinook_wheel")
+	if wheel then
+		dialogs.relocate_item_section(second_speaker, "chinook_wheel", "out")
+		ogse.save_var("colonel_chinook_wheel_id", wheel:id(), "u16")
+	end
+	local layer = db.actor:object("chinook_layer")
+	if db.actor:object("chinook_layer") ~= nil then
+		dialogs.relocate_item_section(second_speaker, "chinook_layer", "out")
+		ogse.save_var("colonel_chinook_layer_id", layer:id(), "u16")
+	end	
+	wait_for_bomb()
+end
+
+function transfer_bomb_to_actor(first_speaker, second_speaker)
+	-- на фразе актора
+	dialogs.relocate_item_section(first_speaker, "bidon_bomb", "in")
+	save_bidon_bomb()
+end
+
+local bomb_is_ok = false
+
+function save_bidon_bomb()
+	if bomb_is_ok == false then
+		if not ogse.var_exists("bidon_bomb") then
+			if db.actor:object("bidon_bomb") ~= nil then
+				local bomb = db.actor:object("bidon_bomb")
+				local id = bomb:id()
+				ogse.save_var("bidon_bomb", id, "u16")
+			end
+		else
+			bomb_is_ok = true
+		end
+	end
+	return false
+end
+
+function start_bomb_timer()
+	ogse.start_timer("thermite_bomb",150)
+	-- тут сделать замену Голоса Хозяина на спец. контролера, секция master_controller
+	local voice = alife():story_object(story_ids.master_voice)
+	if voice then
+		alife():release(voice, true)
+	end	
+	local obj = ogse.spawn_object(spawn_db.voice_combat)
+	if obj then
+		ogse.save_var("voice_combat", obj.id, "u16")
+	end
+	ogse_psycho_fov.fov_start()
+end
+
+function blow_bidon_bomb()
+	if db.actor:object("bidon_bomb") ~= nil then
+		local bomb = db.actor:object("bidon_bomb")
+		db.actor:drop_item(bomb)
+	end
+	local bomb_id = ogse.load_var("bidon_bomb")
+	local bomb_obj = level.object_by_id(bomb_id)
+	local master = alife():story_object(story_ids.the_master)
+	if not master then
+		abort("Deadcity master quest - cannot find master restrictor!")
+	end
+	if bomb_obj then
+		local bomb_pos = bomb_obj:position()
+		if db.actor:object("bidon_bomb") ~= nil then
+			bomb_pos = db.actor:position()
+		end
+		local dist = bomb_pos:distance_to(master.position)
+		if dist <= 30 then
+		-- win
+			db.actor:give_info_portion("master_quest_soup_ready")
+		else
+		-- epic fail
+			db.actor:give_info_portion("master_quest_total_failure")
+		end
+		bomb_obj:explode()
+		local hit = hit()
+		hit.type = hit.fire_wound
+		hit.power = 100
+		hit.impulse = 1
+		hit.draftsman = db.actor
+		hit.direction = vector():set(0,0,0)
+		bomb_obj:hit(hit)
+	else
+		local bomb_srv_obj = alife():object(bomb_id)
+		if bomb_srv_obj then
+			local bomb_pos = bomb_srv_obj.position
+			if db.actor:object("bidon_bomb") ~= nil then
+				bomb_pos = db.actor:position()
+			end
+			local dist = bomb_pos:distance_to(master.position)
+			-- offline explode
+			if dist <= 30 then
+			-- win
+				db.actor:give_info_portion("master_quest_soup_ready")
+			else
+			-- epic fail
+				db.actor:give_info_portion("master_quest_total_failure")
+			end
+			alife():release(bomb_srv_obj, true)
+		else	
+			abort("Deadcity master quest - cannot find the bomb!")
+		end	
+	end
+	--
+	if db.actor:has_info("master_quest_soup_ready") then
+		--Релизим респавнеры зомбаков в МГ, больше они не нужны.
+		local del_respawners = { "deadcity_zombied_respawn_1", "deadcity_zombied_respawn_2", "deadcity_contoler_respawn_1" }
+		for _, name in pairs(del_respawners) do
+			local sobj = alife():object( name )
+			if sobj then
+				dsh_respawn.release_respawner_by_name( name )
+			end
+		end
+		--Перезапускаем гулаги зомбаков в МГ, чтобы в них начали приходить сталкеры.
+		for i=1, 6 do
+			local smart = alife():object("deadcity_zombies_"..i)
+			smart:remove_gulag()
+		end
+	end
+end
+
+local master_dead = xr_sound.get_safe_sound_object([[ambient\x16\x16_brain_death]])
+
+function master_dying()
+	ogse_quests.turn_pnv_off()
+	ogse_psycho_fov.fov_end()
+	level.add_pp_effector("blink.ppe", 99, false)
+	
+	local tree_obj = alife():story_object(story_ids.master_tree)
+	if tree_obj then
+		alife():release(tree_obj, true)			
+	end
+
+	if ogse.var_exists("voice_combat") then
+		local voice_combat = ogse.load_var("voice_combat")
+		local comp_contr = alife():object(voice_combat)
+		if comp_contr then
+			alife():release(comp_contr, true)
+			ogse.delete_var("voice_combat")
+		else	
+			local comp_contr_id = 0
+			for npc_id, is_npc in pairs(db.creature) do
+				if not is_npc then
+					local npc = level.object_by_id(npc_id)
+					if npc and string.find(npc:name(), "master_controller") then
+						comp_contr_id = npc_id
+						break
+					end
+				end
+			end	
+			if comp_contr_id > 0 then
+				local comp_contr = alife():object(comp_contr_id)
+				if comp_contr then
+					alife():release(comp_contr, true)
+				end
+			end
+		end
+	else
+		local comp_contr_id = 0
+		for npc_id, is_npc in pairs(db.creature) do
+			if not is_npc then
+				local npc = level.object_by_id(npc_id)
+				if npc and string.find(npc:name(), "master_controller") then
+					comp_contr_id = npc_id
+					break
+				end
+			end
+		end	
+		if comp_contr_id > 0 then
+			local comp_contr = alife():object(comp_contr_id)
+			if comp_contr then
+				alife():release(comp_contr, true)
+			end
+		end
+	end
+
+	master_dead:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+	level.add_pp_effector("deadcity_wake_old1.ppe", 2008, false)
+
+	xr_gulag.setGulagFriend("deadcity_bar", db.actor)
+
+	if has_alife_info("actor_set_zombied") then
+		tasks_functor.make_actor_normal()
+	end		
+
+	if level_tasks.is_map_spot_present(story_ids.mg_barman, "green_location") then
+		level_tasks.remove_location_by_sid(story_ids.mg_barman, "green_location") --Удаляем метку с бара в МГ
+	end
+end
+
+
+function check_total_fail() --Вызывается из конфигов в нескольких местах
+	if db.actor:has_info("master_quest_total_failure") then
+		return true
+	end
+	local colonel = level_object_by_sid(story_ids.colonel_prohorov)
+	if not colonel then
+		colonel = alife():story_object(story_ids.colonel_prohorov)
+	end
+	if not colonel or not colonel:alive() then
+		db.actor:give_info_portion("master_quest_colonel_dead")
+		check_subscribe_colonel_enemy_callback()
+
+		if ogse.var_exists("colonel_chinook_wheel_id") then
+			local wheel_id = ogse.load_var("colonel_chinook_wheel_id")
+			local wheel = alife():object(wheel_id)
+			if wheel then
+				alife():release(wheel, true)
+			end
+			ogse.delete_var("colonel_chinook_wheel_id")
+		end
+
+		if ogse.var_exists("colonel_chinook_layer_id") then
+			local layer_id = ogse.load_var("colonel_chinook_layer_id")
+			local layer = alife():object(layer_id)
+			if layer then
+				alife():release(layer, true)
+			end
+			ogse.delete_var("colonel_chinook_layer_id")
+		end
+
+		if ogse.var_exists("colonel_helmet_id") then
+			local helmet_id = ogse.load_var("colonel_helmet_id")
+			local helmet = alife():object(helmet_id)
+			if helmet then
+				alife():release(helmet, true)
+			end
+			ogse.delete_var("colonel_helmet_id")
+		end
+		return true
+	end
+	return false
+end
+
+function colonel_follow_actor() --Вызывается из конфигов
+	local colonel = level_object_by_sid(story_ids.colonel_prohorov)
+	if colonel and colonel:alive() then
+		dialogs.companion_start_following(colonel, db.actor)
+		dialogs.companion_beh_walk_simple(db.actor, colonel)
+		colonel:set_character_community("mil_stalker", 0, 0)
+	else
+		abort("ERROR! No colonel!")
+	end
+end
+
+function colonel_stop_follow_actor() --Вызывается из конфигов
+	local colonel = level_object_by_sid(story_ids.colonel_prohorov)
+	if colonel and colonel:alive() then
+		dialogs.companion_stop_following(colonel, db.actor)
+		colonel:set_character_community("military", 0, 0)
+		colonel:set_relation(game_object.friend, db.actor)
+		colonel:set_goodwill(2000, db.actor)
+	else
+		abort("ERROR! No colonel!")	
+	end
+end
+
+function check_colonel_quest_infos(npc, info_id) --инфопорции выдаются из конфигов, поэтому пришлось проверять вот так
+	if info_id == "master_quest_finished" or info_id == "master_quest_evac_colonel" then
+		check_subscribe_colonel_enemy_callback()
+	elseif info_id == "master_quest_release_colonel" then
+		check_subscribe_colonel_follow_signal()
+	end
+end
+
+local colonel_follow_signal
+function check_subscribe_colonel_follow_signal() --Если надо подписать - подписываем функцию make_colonel_follow на апдейт, если надо отписать - отписываем.
+	if has_alife_info("master_quest_colonel_arrived") and not has_alife_info("master_quest_release_colonel") and not colonel_follow_signal then
+		--log3("--[%s] make_colonel_follow subscribed!", script_name())
+		colonel_follow_signal = { signal = "on_update", fun = this.make_colonel_follow }
+		ogse_signals.get_mgr():subscribe(colonel_follow_signal)
+	elseif colonel_follow_signal then
+		--log3("~~[%s] make_colonel_follow UNsubscribed!", script_name())
+		ogse_signals.get_mgr():unsubscribe(colonel_follow_signal)	
+		colonel_follow_signal = nil
+	end
+end
+
+function make_colonel_follow()
+	if db.actor:has_info("master_quest_colonel_arrived") and not db.actor:has_info("master_quest_colonel_talk") then --Пришли на блокпост и ещё не получили награду
+		local colonel = level_object_by_sid(story_ids.colonel_prohorov)
+		if colonel and colonel:alive() then
+			local dist = colonel:position():distance_to(db.actor:position())
+			if dist > 3 then
+				local assist_point = db.actor:level_vertex_id()
+				colonel:movement_enabled(true)
+				colonel:set_desired_direction()
+				colonel:set_desired_position ()
+				colonel:set_detail_path_type ( move.curve )
+				colonel:set_path_type        ( game_object.level_path )
+				utils.send_to_nearest_accessible_vertex(colonel, assist_point)
+				state_mgr.set_state( script_name(), colonel, "rush", {look_object = db.actor})
+			elseif dist <= 3 then
+				state_mgr.set_state( script_name(), colonel, "wait", {look_object = db.actor})
+				if not db.actor:is_talking() then
+					colonel:set_start_dialog("deadcity_quest_final_dialog")
+					db.actor:run_talk_dialog(colonel)
+				end
+			end		
+		end
+	elseif db.actor:has_info("master_quest_colonel_arrived") and db.actor:has_info("master_quest_colonel_talk") and not db.actor:has_info("master_quest_release_colonel") then --Пришли на блокпост, получили награду и... какая-то проверочная инфопорция, выдается в том же диалоге, но на другой фразе, после выдачи награды походу
+		local colonel = level_object_by_sid(story_ids.colonel_prohorov)
+		if colonel and colonel:alive() then
+			state_mgr.set_state( script_name(), colonel, "wait", {look_object = db.actor})
+		end
+	end
+end
+
+function final_scene_master() --Вызывается по инфопоршню master_quest_colonel_talk
+	local colonel = level_object_by_sid(story_ids.colonel_prohorov)
+	if colonel and colonel:alive() then
+		db.actor:give_info_portion("master_quest_colonel_military")
+		ogse_quests.turn_pnv_off()
+		level.add_pp_effector("agr_u_fade.ppe", 2268, false)
+		ogse_st_mgr.start_timer("final_mast_bl", 3, script_name()..".final_scene_master_end")
+	else
+		abort("ERROR! No colonel!")	
+	end
+end
+
+function final_scene_master_end() --вызывается по таймеру final_mast_bl
+	local colonel_srv = alife():story_object(story_ids.colonel_prohorov)
+	if colonel_srv then
+		ogse.teleport_npc(colonel_srv.id, vector():set(-116.05413818359,-30.054990768433,-386.22964477539))
+	end	
+	local point = patrol("master_final_talk_walk")
+	local look = patrol("master_final_talk_look")
+	db.actor:set_actor_position(point:point(0))
+	local dir = look:point(0):sub(point:point(0))
+	db.actor:set_actor_direction(-dir:getH())
+	ogse_st_mgr.start_timer("final_mast", 3, script_name()..".final_scene_master_talk")
+end
+
+function final_scene_master_talk() --вызывается по таймеру final_mast
+	local colonel = level_object_by_sid(story_ids.colonel_prohorov)
+	if colonel and colonel:alive() then
+		colonel:set_start_dialog("deadcity_quest_reward_dialog")
+		db.actor:run_talk_dialog(colonel)
+	else
+		abort("ERROR! No colonel!")	
+	end
+end
+
+function reward_actor(first_speaker, second_speaker) --Выдача награды и завершение квеста. Вызывается из конфигов.
+	if has_alife_info("actor_set_zombied") then
+		tasks_functor.make_actor_normal()
+	end
+
+	xr_gulag.setGulagNeutral("esc_blokpost", db.actor)
+
+	dialogs.relocate_item_section(second_speaker, "mil_transponder", "in")
+	dialogs.relocate_item_section(second_speaker, "military_outfit", "in") --лучше тут экзу выдавать, наверно
+	dialogs.relocate_item_section(second_speaker, "wpn_ak101_tact", "in")
+	dialogs.relocate_item_section(second_speaker, "wpn_addon_sil_556", "in")
+
+	dialogs.relocate_money(second_speaker, 55000, "in") --а деньги можно и не выдавать, если прописать выше более серьезную награду
+
+	--check_subscribe_transponder_enemy_callback()
+
+	local colonel = level_object_by_sid(story_ids.colonel_prohorov)
+	colonel:restore_default_start_dialog()
+end
+
+function colonel_check_arrival() --Проверка входа в рестриктор на блокпосту. Вызывается из конфигов
+	if db.actor:has_info("master_quest_finished") then
+		return true
+	end
+	local colonel = level_object_by_sid(story_ids.colonel_prohorov)
+	if colonel and colonel:alive() and utils.npc_in_zone(colonel, db.zone_by_name["esc_colonel_arrival_restrictor"]) then
+		if not db.actor:has_info("master_quest_colonel_arrived") then
+			db.actor:give_info_portion("master_quest_colonel_arrived")
+			check_subscribe_colonel_follow_signal()
+		end
+	end
+	return false
+end
+
+local colonel_enemy_callback
+function check_subscribe_colonel_enemy_callback() --Если надо подписать - подписываем, если надо отписать - отписываем.
+	if
+		has_alife_info("master_quest_evac_colonel") --Вышли с Полковником из МГ
+		and not has_alife_info("master_quest_finished") --Но ещё не пришли на блокпост
+		and not has_alife_info("master_quest_colonel_dead") --Полковник жив
+		and not colonel_enemy_callback --ещё не подписались на сигналы
+	then
+		--log3("--[%s] prohibit_military_attacks_actor subscribed!", script_name())
+		colonel_enemy_callback = {
+			{ signal = "on_npc_enemy_callback", fun = this.prohibit_military_attacks_actor },
+			{ signal = "on_npc_hit",            fun = this.on_npc_hit },
+		}
+		local sm = ogse_signals.get_mgr()
+		for _, s in ipairs( colonel_enemy_callback ) do
+			sm:subscribe( s )
+		end
+	elseif colonel_enemy_callback then
+		--log3("~~[%s] prohibit_military_attacks_actor UNsubscribed!", script_name())
+		local sm = ogse_signals.get_mgr()
+		for _, s in ipairs( colonel_enemy_callback ) do
+			sm:unsubscribe( s )
+		end
+		colonel_enemy_callback = nil
+	end
+end
+
+--Запрещаем военным атаковать актора и его напарников, если он ведёт полковника на блокпост.
+function prohibit_military_attacks_actor( obj, enemy, result )
+  if not ( enemy:is_stalker() or enemy:is_actor() ) then return end
+
+  if
+    ( obj:character_community() == "military" and (enemy:is_actor() or xr_companion.is_companion(enemy:id())) ) --Запрещаем военным атаковать актора и его напарников
+	or ( enemy:character_community() == "military" and  xr_companion.is_companion(obj:id())) --Запрещаем напарникам актора атаковать военных
+  then
+    table.insert( result, false )
+    return true
+  end
+end
+
+function on_npc_hit( obj, amount, local_direction, who, bone_index ) --Военные нас не атакуют, а мы лезем в бой - квест провален!
+  if
+	obj:character_community() ~= "military"
+    or not who:is_actor()
+  then
+    return
+  end
+
+  db.actor:give_info_portion("master_quest_colonel_dead") --Чтобы провалить квест
+  check_subscribe_colonel_enemy_callback()
+
+  local colonel = level_object_by_sid(story_ids.colonel_prohorov)
+  if colonel and colonel:alive() then
+	dialogs.companion_stop_following(colonel, db.actor)
+	relation_registry.set_personal_goodwill(colonel:id(), db.actor:id(), -3000) --делаем полковника врагом
+	colonel:set_character_community("military", 0, 0)
+  end
+end
+
+
+function timer_notify_actor_mg()
+	ogse.start_timer("master_notice",20)
+end
+
+function notify_actor_mg()
+	if utils.is_day() then
+		news_manager.send_tip(db.actor, "mg_trader_come_in_day", nil, "barman_mg_name", 15000, nil)
+		level_tasks.add_location_by_sid(story_ids.mg_barman, "green_location", "deadcity_vault_mark")
+	else
+		news_manager.send_tip(db.actor, "mg_trader_come_in_night", nil, "barman_mg_name", 15000, nil)
+		level_tasks.add_location_by_sid(story_ids.mg_barman, "green_location", "deadcity_vault_mark")
+	end
+end
+
+function time_to_fire_siren()
+	return level.get_time_hours() == 20 and level.get_time_minutes() >= 40
+end
+
+function sound_master_go_away()
+	-- озвучка Хозяина
+end
+
+function check_actor_has_no_mil_friends()
+	return db.actor:character_community() ~= "mil_stalker"
+end
+
+function check_actor_failed_military()
+	if db.actor:has_info("master_quest_colonel_dead") then 
+		return true
+	end
+	return false
+end
+
+local dolg_infuence_points = 0
+
+function init_actor_points_dolg(first_speaker, second_speaker)
+	dolg_infuence_points = 0
+end
+
+function count_actor_points_dolg_quests(first_speaker, second_speaker)
+-- +1 очко за инфо bar_kill_svoboda_ambush_done - уничтожение наймов Тирана и возврат его КПК
+-- +1 очко за инфо bar_svoboda_rg6_done	- доставание для Долга реактивного огнемета
+-- +1 очко за отсутствие инфо bar_heli_scene_professor_die - помог выжить Круглову
+	if db.actor:has_info("bar_kill_svoboda_ambush_done") then
+		dolg_infuence_points = dolg_infuence_points + 1
+	end
+	if db.actor:has_info("bar_svoboda_rg6_done") then
+		dolg_infuence_points = dolg_infuence_points + 1
+	end
+	if not db.actor:has_info("bar_heli_scene_professor_die") then
+		dolg_infuence_points = dolg_infuence_points + 1
+	end	
+end
+
+function add_actor_points_dolg(first_speaker, second_speaker)
+	dolg_infuence_points = dolg_infuence_points + 1
+end
+
+function actor_have_needed_points_dolg(first_speaker, second_speaker)
+	return dolg_infuence_points >= 6
+end
+
+function actor_doesnt_have_needed_points_dolg(first_speaker, second_speaker)
+	return dolg_infuence_points < 6
+end
+
+function check_actor_failed_dolg()
+	if db.actor:has_info("final_battle_dolg_refuse") or db.actor:has_info("bar_voronin_dead") then 
+		return true
+	end
+	return false
+end
+
+local freedom_infuence_points = 0
+
+function init_actor_points_freedom(first_speaker, second_speaker)
+	freedom_infuence_points = 0
+end
+
+function count_actor_points_freedom_quests(first_speaker, second_speaker)
+-- +1 очко за инфо mil_lukash_dolg_task_complete - уничтожение Черепа и его товарищей
+-- +1 очко за инфо mil_fblockpost_quest_reward	- помощь на Барьере
+-- +1 очко за инфо btr_quest_finished - пригнал БТР на Барьер
+	if db.actor:has_info("mil_lukash_dolg_task_complete") then
+		freedom_infuence_points = freedom_infuence_points + 1
+	end
+	if db.actor:has_info("mil_fblockpost_quest_reward") then
+		freedom_infuence_points = freedom_infuence_points + 1
+	end
+	if db.actor:has_info("btr_quest_finished") then
+		freedom_infuence_points = freedom_infuence_points + 1
+	end	
+end
+
+function add_actor_points_freedom(first_speaker, second_speaker)
+	freedom_infuence_points = freedom_infuence_points + 1
+end
+
+function actor_have_needed_points_freedom(first_speaker, second_speaker)
+	return freedom_infuence_points >= 6
+end
+
+function actor_doesnt_have_needed_points_freedom(first_speaker, second_speaker)
+	return freedom_infuence_points < 6
+end
+
+function check_actor_failed_freedom()
+	if db.actor:has_info("final_battle_freedom_refuse") or db.actor:has_info("mil_lukash_dead") then 
+		return true
+	end
+	return false
+end
+
+function mark_dolg_team()
+	level_tasks.add_location_by_sid(story_ids.warlab_dolg_commander, "green_location", "warlab_dolg_group_name")
+end
+
+function mark_freedom_team()
+	level_tasks.add_location_by_sid(story_ids.warlab_freedom_commander, "green_location", "warlab_free_group_name")
+end
+
+function mark_heli_team()
+	level_tasks.add_location_by_sid(story_ids.warlab_heli_commander, "green_location", "warlab_heli_group_name")
+end
+
+function mark_backdoor_tube()
+	level_tasks.add_location_by_sid(story_ids.warlab_secret_entrance, "green_location", "warlab_backdoor_name")
+end
+
+function check_forces_assembled()
+	if db.actor:has_info("final_battle_dolg_help") and db.actor:has_info("final_battle_freedom_help") then
+		if db.actor:has_info("final_battle_military_help") or check_actor_has_no_mil_friends() then
+			db.actor:give_info_portion("final_battle_force_assembled")
+			return true
+		end
+	end
+	if db.actor:has_info("game_end") or db.actor:has_info("freeplay") then
+		return true
+	end
+	return false
+end
+
+function check_forces_assembled_failed()
+	if (db.actor:has_info("final_battle_dolg_refuse") or db.actor:has_info("bar_voronin_dead")) 
+	and (db.actor:has_info("final_battle_freedom_refuse") or db.actor:has_info("mil_lukash_dead")) 
+	and (check_actor_has_no_mil_friends() or db.actor:has_info("master_quest_colonel_dead"))
+	then
+		return true
+	end
+	return false
+end
+
+function nuke_burn_everyone()
+	level.add_pp_effector("blink.ppe", 99, false)
+	for k, v in pairs(db.creature) do
+		local npc = level.object_by_id(k)
+		if npc then
+			dsh_particles.play_particle(npc, {
+				obj=npc,
+				particle="damage_fx\\body_burn_02",
+				bone = get_string( npc:section(), "bone_torso", "bip01_spine" )
+			})
+
+			local blast_pos = vector():set(20.762310028076,34.853042602539,-250.56936645508)
+			local dist = npc:position():distance_to(blast_pos)
+			if dist < 150 then
+				log1("!!DEBUG HITNPC_1 "..npc:name())
+				npc:kill( npc )
+				local dir = blast_pos:sub(npc:position())
+				dir = dir:invert()
+				local hit = hit()
+				hit.type = hit.strike
+				hit.power = 1000
+				hit.impulse = 50000
+				hit.draftsman = npc
+				hit.direction = dir
+				npc:hit(hit)
+				local constant = 200000
+				dir:add(vector():set(0,20000,0))
+				local ps = npc:get_physics_shell()
+				if ps then 
+					local bone = ps:get_element_by_bone_name( get_string( npc:section(), "bone_torso", "bip01_spine" ) )
+					if bone then bone:apply_force(constant*dir.x,constant*dir.y,constant*dir.z) end	
+				end
+			end
+		end
+	end
+end
+
+function deadly_blowout()
+	if not actor_was_hit and not is_indoor and not ogse_hideouts.npc_inside_safe_zone(db.actor) then
+		-- Hit by explosion
+		local blow = hit()
+		blow.direction = vector():set(0,0,0)
+		blow.impulse = 0
+		blow.draftsman = db.actor
+		blow.power = 0.09*ogse.armor_class(db.actor)
+		blow.type = hit.explosion
+		db.actor:hit(blow)
+		
+		level.add_cam_effector("camera_effects\\fusker.anm",959,false,"")
+		
+		local active_item = db.actor:active_item()
+		if active_item and active_item:section()~= "bolt" and not active_item:is_knife() then
+			db.actor:drop_item(active_item)
+		end		
+		
+		local protection = db.actor:item_in_slot(6)
+		if protection then
+			local current_cond = protection:condition()
+			local damage = 0.2*ogse.armor_class(db.actor)
+			local new_cond = current_cond - damage
+			if new_cond > 0 then
+				protection:set_condition(new_cond)
+			else protection:set_condition(0.1) end
+		end		
+	end
+end
+
+
+function nuke_kill_everyone()
+	level.add_cam_effector("camera_effects\\head_shot.anm", 100, false, "")
+	deadly_blowout()
+	for k, v in pairs(db.creature) do
+		local npc = level.object_by_id(k)
+		if npc and not npc:is_actor() then
+			log1("!!DEBUG HITNPC "..npc:name())
+			npc:kill( npc )
+			local blast_pos = vector():set(20.762310028076,34.853042602539,-250.56936645508)
+			local dir = blast_pos:sub(npc:position())
+			dir = dir:invert()
+			local hit = hit()
+			hit.type = hit.strike
+			hit.power = 1000
+			hit.impulse = 50000
+			hit.draftsman = npc
+			hit.direction = dir
+			npc:hit(hit)
+			local constant = 200000
+			dir:add(vector():set(0,20000,0))
+			local ps = npc:get_physics_shell()
+			if ps then 
+				local bone = ps:get_element_by_bone_name( get_string( npc:section(), "bone_torso", "bip01_spine" ) )
+				if bone then bone:apply_force(constant*dir.x,constant*dir.y,constant*dir.z) end	
+			end
+		end
+	end
+	ogse.start_timer("stop_bomb_effector", 10)
+end
+
+function tutor_zombied()
+	if not db.actor:has_info("encyclopedy_tutorial_zombied") then -- если ещё не видели, то выдаём совет
+		db.actor:give_info_portion("encyclopedy_tutorial_zombied")
+		game.start_tutorial("part_18_zombied")	
+	end
+end
+
+
+function block_use_hotkeys() --Вызывается из tasks_functor.actor_switch_to_trade (которая вызывается в нескольких местах из config\gameplay\dialogs_tasks.xml)
+	if not ogse.var_exists( "quit_keys" ) then
+		local keys = bind_to_dik( key_bindings.kQUIT, true )
+		if keys then
+			ogse.save_var( "quit_keys", keys, "u32" )
+			cmd( "unbind", "quit" )
+			cmd( "unbind_sec", "quit" )
+		end
+	end
+	if not ogse.var_exists( "use_keys" ) then
+		local keys = bind_to_dik( key_bindings.kUSE )
+		if keys then
+			ogse.save_var( "use_keys", keys, "u32" )
+			cmd( "unbind", "use" )
+			cmd( "unbind_sec", "use" )
+		end
+	end
+	if not ogse.var_exists( "quick_load_keys" ) then
+		local keys = bind_to_dik( key_bindings.kQUICK_LOAD )
+		if keys then
+			ogse.save_var( "quick_load_keys", keys, "u32" )
+			cmd( "unbind", "quickload" )
+		end
+	end
+end
+
+function unblock_use_hotkeys() --Вот это вызывается при КАЖДОЙ выдаче инфопорции ui_trade_hide.
+	if ogse.var_exists( "quit_keys" ) then
+		local quit_keys = ogse.load_var( "quit_keys" )
+		--log3("--[%s.unblock_use_hotkeys] Loaded quit_keys: %s", script_name(), quit_keys)
+		cmd( "bind", "quit", dik_to_keyname( quit_keys ) )
+		ogse.delete_var( "quit_keys" )
+	end
+	if ogse.var_exists( "use_keys" ) then
+		local use_keys = ogse.load_var( "use_keys" )
+		--log3("--[%s.unblock_use_hotkeys] Loaded use_keys: %s", script_name(), use_keys)
+		cmd( "bind", "use", dik_to_keyname( use_keys ) )
+		ogse.delete_var("use_keys")
+	end
+	if ogse.var_exists( "quick_load_keys" ) then
+		local quick_load_keys = ogse.load_var( "quick_load_keys" )
+		--log3("--[%s.unblock_use_hotkeys] Loaded quick_load_keys: %s", script_name(), quick_load_keys)
+		cmd( "bind", "quickload", dik_to_keyname( quick_load_keys ) )
+		ogse.delete_var( "quick_load_keys" )
+	end
+end
+
+
+
+--[==[
+local transponder_enemy_callback = false
+local actor_killed_military = false
+function check_subscribe_transponder_enemy_callback()
+	if
+		has_alife_info("master_quest_finished")
+		and not actor_killed_military
+		and not transponder_enemy_callback --ещё не подписались на сигналы
+	then
+		transponder_enemy_callback = {
+			{ signal = "on_npc_enemy_callback", fun = function( obj, enemy, result ) --Запрещаем военным атаковать актора и его напарников
+				if not ( enemy:is_stalker() or enemy:is_actor() ) then return end
+				
+				local tp_obj = db.actor:object("mil_transponder")
+				local gl = obj:character_community() == "military" and xr_gulag.get_npc_gulag(obj) or ( enemy:character_community() == "military" and xr_gulag.get_npc_gulag(enemy) or false )
+				if not ( ( tp_obj and db.actor:is_on_belt(tp_obj) ) or ( gl and gl.name == "esc_blokpost") ) then return end
+
+				if
+					( obj:character_community() == "military" and (enemy:is_actor() or xr_companion.is_companion(enemy:id())) ) --Запрещаем военным атаковать актора и его напарников
+					or ( enemy:character_community() == "military" and  xr_companion.is_companion(obj:id())) --Запрещаем напарникам актора атаковать военных
+				then
+					--log3("~~skipped attack from [%s] to [%s]", obj:name(), enemy:name())
+					table.insert( result, false )
+					return true
+				end
+			end },
+			{ signal = "on_npc_hit", fun = function( obj, amount, local_direction, who, bone_index ) --Военные нас не атакуют, а мы лезем в бой - так делать не надо
+				if obj:character_community() ~= "military" or not who:is_actor() then return end
+
+				actor_killed_military = true
+				check_subscribe_transponder_enemy_callback()
+			end },
+		}
+		local sm = ogse_signals.get_mgr()
+		for _, s in ipairs( transponder_enemy_callback ) do
+			sm:subscribe( s )
+		end
+	elseif transponder_enemy_callback then
+		local sm = ogse_signals.get_mgr()
+		for _, s in ipairs( transponder_enemy_callback ) do
+			sm:unsubscribe( s )
+		end
+		transponder_enemy_callback = nil
+	end
+end
+--]==]
+
+local return_functions = {
+	["actor"] 			= dialogs.actor_clear_community,
+	["mil_stalker"] 	= dialogs.actor_clear_community,	
+	["actor_dolg"]		= dialogs.actor_set_dolg,
+	["actor_freedom"]	= dialogs.actor_set_freedom,
+	["bandit"]			= dialogs.actor_set_bandit,
+	["actor_prebandit"]	= dialogs.set_actor_prebandit,
+}
+
+function on_transponder_to_belt(obj)
+	if obj:section() == "mil_transponder" then
+		if not db.actor:has_info("actor_set_milstalker") and not db.actor:has_info("actor_set_zombied") then
+			local comm = db.actor:character_community()
+			ogse.save_variable("actor_orig_comm", comm)
+			dialogs.set_actor_milstalker()
+		end
+		--if not db.actor:has_info("esc_bridge_pass_on") then
+		--	db.actor:give_info_portion("esc_bridge_pass_on")
+		--end
+		return true
+	end
+end
+
+function on_transponder_to_ruck(obj)
+	if obj:section() == "mil_transponder" then
+		if db.actor:has_info("actor_set_milstalker") and not db.actor:has_info("actor_set_zombied") then
+			local comm = ogse.load_variable("actor_orig_comm", "actor")
+			local run_funct = return_functions[comm]
+			run_funct()		
+		end
+		--if db.actor:has_info("esc_bridge_pass_on") then
+		--	db.actor:disable_info_portion("esc_bridge_pass_on")
+		--end
+		return true
+	end
+end

@@ -1,0 +1,12 @@
+[logic]
+active = sr_idle
+ 
+[sr_idle]
+on_actor_inside = sr_cutscene
+ 
+[sr_cutscene]
+point = hunter_kuhnya_point
+look = hunter_kuhnya_point
+cam_effector = jekan_camera_travel_5
+;cam_effector = jekan_camera_travel_5_1
+on_signal = cameff_end | nil

@@ -1,0 +1,89 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--Чистильщик ID для OGSE
+--Авторы: Stalbar, KamikaZze
+
+function attach(sm)
+	sm:subscribe({signal = "on_spawn", fun = this.check_ids})
+end
+
+
+local duplicates = {}
+
+function check_ids()
+	local id_counter = 0	
+
+	for i = 1,65535 do
+		local obj = alife():object(i)
+		if obj then
+			id_counter = id_counter + 1
+			--log1("OBJECT ID "..tostring(i).." TYPE "..tostring(obj:name()))
+		end
+	end	
+
+	if id_counter > 60000 then
+		log1("!!WARNING: There is too much ID's in use: "..tostring(id_counter).."! Commencing cleanup of ammo and artefacts!")
+		check_inv()
+	end
+end
+
+function check_inv()
+	for i = 1,65535 do
+	local obj = alife():object(i)
+		if obj then
+			if IsStalker(obj) and obj.id ~= 0 then
+				local obj_sect = obj:section_name()
+				local obj_name = obj:name()
+				local posobj = obj.position  --- получим позицию непися
+				local actorpos = db.actor:position()  --- получим позицию актора
+				if not ogse.is_quest_npc(obj) and obj.online then
+					if posobj:distance_to(actorpos) > 5 then
+						-- log1("DEBUG: Cleaning up items of "..obj:name())
+						local sobj = level.object_by_id(obj.id)
+						if sobj then sobj:iterate_inventory(del_items,sobj) end 
+						duplicates = {}
+					end
+				end	
+			else
+				local sobj = level.object_by_id(obj.id)
+				if not sobj and (string.find(obj:name(),"af_") or string.find(obj:name(),"ammo_")) then
+					local o_gv = obj.m_game_vertex_id
+					local o_lv = obj.m_level_vertex_id
+					local vid  = db.actor:level_vertex_id()
+					local gvid = db.actor:game_vertex_id()				
+					if math.random() > 0.03 and o_gv ~= gvid and o_lv ~= vid and obj then alife():release(obj, true) end
+				end
+			end
+		end
+	end
+end
+
+-- Добавление в таблицу
+function insert_to_table(tbl, section)
+	if tbl[section] == nil then
+		tbl[section] = 1
+	else
+		tbl[section] = tbl[section] + 1
+	end
+end
+
+function del_items(npc, item)
+     if item == nil or alife():object(item:id()) == nil then return end
+     local section = item:section()
+	 if not watcher_act.do_not_touch(item) then
+		if string.find(section,"ammo_") or string.find(section,"af_") or string.find(section,"grenade") then
+			-- log1("DEBUG: Item "..item:section().." will be released because NPC have same one already.")
+			local s_obj = alife():object(item:id())
+			if math.random() > 0.3 and s_obj then alife():release(s_obj, true) end
+		else
+			insert_to_table(duplicates, section)
+			if duplicates[section] and duplicates[section] > 1 then 
+				-- log1("DEBUG: Item "..item:section().." will be released because NPC have same one already.")
+				local s_obj = alife():object(item:id())
+				if s_obj then
+					alife():release(s_obj, true)
+				end
+			end
+		end
+	end
+end

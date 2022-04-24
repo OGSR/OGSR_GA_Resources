@@ -1,0 +1,18 @@
+[logic]
+active = sr_idle@0
+
+[sr_idle@0]
+on_info = {=actor_in_zone(dead_city_master_sound) -master_quest_soup_ready} sr_sound_act@psy_sound
+on_info2 = {+master_quest_soup_ready} sr_idle@nil
+on_info3 = {+actor_set_zombied =actor_in_zone(dead_city_master_sound) -master_quest_soup_ready} %=aes_kill_actor%
+on_info4 = {-master_quest_helmet_ready =actor_in_zone(dead_city_master_sound) -master_quest_soup_ready} %=aes_kill_actor%
+
+[sr_sound_act@psy_sound]
+theme = radar_drone
+stereo = false
+on_info = {!actor_in_zone(dead_city_master_sound) -master_quest_soup_ready} sr_idle@0
+on_info2 = {+master_quest_soup_ready} sr_idle@nil
+on_info3 = {+actor_set_zombied =actor_in_zone(dead_city_master_sound) -master_quest_soup_ready} %=aes_kill_actor%
+on_info4 = {-master_quest_helmet_ready =actor_in_zone(dead_city_master_sound) -master_quest_soup_ready} %=aes_kill_actor%
+
+[sr_idle@nil]

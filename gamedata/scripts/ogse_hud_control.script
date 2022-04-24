@@ -1,0 +1,78 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+---------------------------
+--|ogse_hud_control.script
+--|Управление худом.
+--|KRodin © 2018
+--|Version: 5.0
+---------------------------
+
+function attach(sm)
+	sm:subscribe({ signal = "on_actor_death",	fun = this.on_actor_death })
+	sm:subscribe({ signal = "on_update",		fun = this.on_update })
+end
+
+------------------------------------------------------
+function on_actor_death() --При смерти актора
+	level.hide_indicators() --Убираем худ
+	level.disable_input() --Блокируем нажатия клавиш
+end
+------------------------------------------------------
+
+local function actor_keeps_wpn_with_optical_sight() --Проверка, держит ли актор в руках оружие с оптическим прицелом
+	local wpn = db.actor:active_item() --Проверяем что в руках у актора
+	if	not wpn --Если в руках ничего нет
+		or not wpn:is_weapon_magazined() --или в руках не оружие
+	then
+		return false
+	end
+
+	if wpn:clsid() == clsid.wpn_binocular_s then return true end --Оружие на классе бинокля всегда с оптикой
+
+	local scope = ogse_wpn_utils.get_scope_flag(wpn) --Есть ли на оружии прицел
+	local gl_mode = false
+	if wpn:is_weapon_gl() then gl_mode = ogse_wpn_utils.get_gl_mode(wpn) end --Находится ли оружие в режиме стрельбы из ПГ
+	return scope and not gl_mode --Если на оружии есть прицел и при этом оружие не находится в режиме стрельбы из ПГ - true
+end
+
+local show_indicators = true --нужно для правильного убирания худа при прицеливании.
+local aiming_complete = false --нужно для правильной работы сигналов on/off_sniper_mode
+local indicators_shown = false --на случай, чтобы не было проблем, если вдруг показ худа выключит игрок (num+ / num-)
+
+function on_update()
+	if db.actor:zoom_mode() and actor_keeps_wpn_with_optical_sight() then --Если актор смотрит в оптику
+		if show_indicators and db.actor:active_item():get_weapon():UseScopeTexture() then
+			indicators_shown = level.game_indicators_shown()
+			if indicators_shown then
+				level.hide_indicators() --убираем худ
+			end
+			show_indicators = false
+		end
+		local act_it = db.actor:active_item()
+		if act_it and ogse_wpn_utils.is_aiming_complete(act_it) then --Ждём, пока завершится "наезжание" прицела
+			if not aiming_complete then
+				--log1("--Called on sniper mode")
+				ogse_signals.get_mgr():call("on_sniper_mode") --Делаем что-то по факту "наезжания" прицела.
+				aiming_complete = true
+			end
+		else
+			aiming_complete = false
+		end
+	elseif level.main_input_receiver() then --Если актор вдруг открыл инвентарь, ПДА или любое другое окно
+		if aiming_complete then
+			--log1("--Called off sniper mode")
+			ogse_signals.get_mgr():call("off_sniper_mode") --Делаем что-то по окончанию прицеливания
+			aiming_complete = false
+		end
+	elseif not show_indicators then --Если актор не смотрит в оптику
+		if aiming_complete then
+			--log1("--Called off sniper mode")
+			ogse_signals.get_mgr():call("off_sniper_mode") --Делаем что-то по окончанию прицеливания
+			aiming_complete = false
+		end
+		if indicators_shown then
+			level.show_indicators() --покажем худ
+		end
+		show_indicators = true
+	end
+end

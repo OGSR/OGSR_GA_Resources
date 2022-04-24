@@ -1,0 +1,42 @@
+[collide]
+
+ignore_static
+
+
+
+[logic]
+
+;active = ph_idle
+
+active = ph_button@unpressed
+
+
+
+[ph_button@unpressed]
+
+anim_blend  = true
+
+anim        = lab_primary_switcher_idle
+
+tooltip     = crached_btr_use
+
+on_press    = %=city_btr_crashed_use%
+
+
+
+
+; не пашет, сука
+
+;[ph_idle]
+
+;on_use = %=city_btr_crashed_use%
+
+;on_use = ph_sound
+
+
+
+;[ph_sound]
+
+;snd = trabantnoise
+
+;on_signal = sound_end| ph_idle

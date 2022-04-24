@@ -1,0 +1,79 @@
+[logic]
+active = ph_sound@day
+on_hit = hit@mafon
+
+[ph_sound@day]
+tips = switcher_on
+nonscript_usable = false
+on_use = %+sidor_receiver_off =play_snd_from_obj2(device\click10b)%
+snd = sidor_music_day
+volume_control = sidor_radio_volume_control
+on_info = {-blowout -horror_time -sidor_receiver_off} ph_sound@day
+on_info2 = {+horror_time -blowout -sidor_receiver_off} ph_sound@horrortime
+on_info3 = {+blowout -sidor_receiver_off} ph_sound@blowout
+on_info4 = {+sidor_receiver_broke} sr_sound_act@sidor
+on_info5 = {+sidor_receiver_off} ph_sound@off
+
+[ph_sound@horrortime]
+;?не доигрывает, перекл. на ph_sound@day (что-то убирает horror_time?)
+tips = switcher_on
+nonscript_usable = false
+on_use = %+sidor_receiver_off =play_snd_from_obj2(device\click10b)%
+snd = esc_music_horror_time
+on_info = {+horror_time -blowout -sidor_receiver_off} ph_sound@horrortime
+on_info2 = {+blowout -sidor_receiver_off} ph_sound@blowout
+on_info3 = {-blowout -horror_time -sidor_receiver_off} ph_sound@day
+on_info4 = {+sidor_receiver_broke} sr_sound_act@sidor
+on_info5 = {+sidor_receiver_off} ph_sound@off
+
+[ph_sound@blowout]
+;+звука нет
+tips = switcher_on
+nonscript_usable = false
+on_use = %+sidor_receiver_off =play_snd_from_obj2(device\click10b)%
+on_info = {-blowout -horror_time -sidor_receiver_off} ph_sound@day
+on_info2 = {+horror_time -blowout -sidor_receiver_off} ph_sound@horrortime
+on_info3 = {+blowout -sidor_receiver_off} ph_sound@blowout
+on_info4 = {+sidor_receiver_broke} sr_sound_act@sidor
+on_info5 = {+sidor_receiver_off} ph_sound@off
+
+[ph_sound@off]
+on_info = {+sidor_receiver_broke} sr_sound_act@sidor
+;В sound_theme.script в секции ph_themes прописать пустой звук ph_snd_themes["no_music"] = {[[no_sound]]
+;и проиграть его snd = no_music
+;или - сделать тише volume_control = 0.0
+;или - не дать схеме звук :) 
+tips = switcher_off
+nonscript_usable = false
+on_use =  %-sidor_receiver_off =play_snd_from_obj2(device\click10b)% ph_sound@day
+
+
+[hit@mafon]
+;по дефолту НЕ отрабатывается, надо physic_destroyable_object!!!
+on_info = %+sidor_receiver_broke%
+
+
+[sr_sound_act@sidor]
+;проигрывает 1 раз звук относительно gamedata\sounds\
+;+++snd = characters_voice\scenario\trader\trader_tutorial_rejection_4
+;или случайный звук из темы из sound_theme.script (будет играть зациклено)
+theme = sidor_music_broke
+;+trader_script1c_15 хочешь убить - значит есть за что
+;+trader_tutorial_rejection_5 не зли меня!
+;-коротко trader_script1b_3 ты что, пьян?
+;trader_tutorial_rejection_4 ты часом не зомбирован?
+;delay = 10000					;задержка перед проигрыванием. По умолчанию - 0.
+;delay_max = 15000				;между проигрыванием звука будет взят случайный промежуток между delay и delay_max.
+;stereo = true
+on_signal = sound_end | sr_particle@smoke
+
+
+[sr_particle@smoke]
+name = explosions\expl_car_smoke_small
+;одиночный вейпоинт, не требует НИ
+path = esc_gorizont_look
+mode = 2
+looped = false
+;on_signal = particle_end | nil
+;можно "починить" :)
+on_info = {-sidor_receiver_broke} ph_sound@day

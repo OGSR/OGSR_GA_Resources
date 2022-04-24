@@ -1,0 +1,33 @@
+
+
+[logic]
+active = kamp@ukostra
+on_death = death
+
+[death]
+on_info = %+esc_kvest_help_teterev_fail%
+
+[smart_terrains]
+none = true
+
+[kamp@ukostra]
+center_point = esc_teterev_kamp_center
+path_walk = esc_teterev_task
+radius = 1
+;path_look = esc_teterev_camp_look
+meet = meet
+on_info = {+esc_kvest_help_teterev_complete} camper@lager
+
+[camper@lager]
+path_walk = esc_teterev_walk
+path_look = esc_teterev_look
+meet = meet
+
+[meet]
+meet_state = 5| hello@talk_hello| 3| wait@wait| 2| ward@wait
+meet_state_wpn = 5| hello@talk_hello| 3| threat@threat_weap
+victim = 7| actor
+victim_wpn = 9| actor
+use = true
+use_wpn = false
+

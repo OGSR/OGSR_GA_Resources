@@ -1,0 +1,50 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = {+kulgband_informer_deal} walker@1, {+kulgband_informer_fight} walker@3
+;on_combat = combat
+threshold = threshold@kulgband_informer_assist2_threshold
+
+[walker@1]
+path_walk =	kulgband_informer_walk
+path_look =	kulgband_informer_look
+on_timer = 1000|walker@2 %=give_items(kulgband_informer_assist_pda) =set_neutral%
+
+[walker@2]
+path_walk =	kulgband_informer_walk
+path_look =	kulgband_informer_look
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+meet = no_meet
+on_actor_dist_le = 10|%=killactor%
+
+
+[walker@3]
+path_walk =	kulgband_informer_walk4
+path_look =	kulgband_informer_look4
+meet = no_meet
+on_timer = 1|walker@4 %=give_items(wpn_mp5)%
+
+[walker@4]
+path_walk =	kulgband_informer_walk4
+path_look =	kulgband_informer_look4
+meet = no_meet
+
+
+
+[combat]
+combat_type = {+kulgband_informer_deal} camper
+
+[threshold@kulgband_informer_assist2_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+
+
+
+
+
+
+

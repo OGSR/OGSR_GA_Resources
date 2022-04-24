@@ -1,0 +1,470 @@
+[wpn_scope]:identity_immunities,base_wpn_zoom
+GroupControlSection	= spawn_group
+discovery_dependency = 
+class			= WP_SCOPE
+cform           = skeleton
+$prefetch 		= 32
+
+icon_group = 2
+
+
+
+;ПРИЦЕЛ-ЗАГЛУШКА НЕ ТРОГАЕМ ЕГО
+[wpn_addon_scope]:wpn_scope
+$spawn			= "weapons\addons\scope" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\pso1sn.ogf
+description		= enc_addon_scope
+cost			= 5000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= addon_scope
+inv_name_short	= addon_scope
+inv_weight		= 0.4
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 5
+inv_grid_y			= 8
+
+
+
+
+[wpn_addon_scope_pso]:wpn_scope
+$spawn			= "weapons\addons\scope_pso" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\pso1sn.ogf
+description		= gunsl_addon_scope_pso1m2_descr
+cost			= 2000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_pso1m2
+inv_name_short	= gunsl_addon_scope_pso1m2
+inv_weight		= .62
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 10
+inv_grid_y			= 17
+
+scope_texture		= crosshair2d\crosshair_pso1sn
+scope_zoom_factor	= 20
+
+scope_lense_fov_factor	= 15
+scope_inertion_factor   = 8
+scope_dynamic_zoom 	= true
+scope_lense_hud_fov = 0.25
+
+
+
+
+[wpn_addon_scope_pso2]:wpn_addon_scope
+$spawn			= "weapons\addons\scope_x2.7" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\pso1as.ogf
+description		= gunsl_addon_scope_pso1m2_1_descr
+cost			= 2000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_pso1m2_1
+inv_name_short	        = gunsl_addon_scope_pso1m2_1
+inv_weight		= .62
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x		= 10
+inv_grid_y		= 16
+
+scope_texture		= crosshair2d\crosshair_pso1as
+scope_zoom_factor	= 20
+
+scope_lense_fov_factor	= 8
+scope_inertion_factor   = 8
+scope_dynamic_zoom 	= true
+scope_lense_hud_fov = 0.25
+
+
+
+
+[wpn_addon_scope_rakurs]:wpn_scope
+$spawn			= "weapons\addons\scope" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\rakurs.ogf
+description		= gunsl_addon_scope_rakurs_descr
+cost			= 1600
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_rakurs
+inv_name_short	        = gunsl_addon_scope_rakurs
+inv_weight		= .5
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 9
+inv_grid_y		= 26
+
+scope_zoom_factor	= 1.06
+scope_zoom_hud_fov = 0.45
+
+
+
+
+[wpn_addon_scope_detector]:wpn_addon_scope
+$spawn			= "weapons\addons\scope_detector" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\1pn93x4.ogf
+description		= gunsl_addon_scope_1pn93_4_descr
+cost			= 10000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_1pn93_4
+inv_name_short	        = gunsl_addon_scope_1pn93_4
+inv_weight		= 1.3
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x		= 4
+inv_grid_y		= 16
+
+scope_texture		= crosshair2d\crosshair_1pn93x4
+scope_zoom_factor	= 20
+
+scope_lense_fov_factor	= 15
+scope_inertion_factor   = 8
+scope_dynamic_zoom 	= true
+
+nightvision_sect	= effector_nightvision
+scope_lense_hud_fov = 0.25
+
+
+
+
+[wpn_addon_scope_night]:wpn_addon_scope
+$spawn			= "weapons\addons\scope_night" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\1pn93x1.ogf
+description		= gunsl_addon_scope_1pn93_1_descr
+cost			= 3000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_1pn93_1
+inv_name_short	        = gunsl_addon_scope_1pn93_1
+inv_weight		= 1.0
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x		= 4
+inv_grid_y		= 17
+
+scope_texture		= crosshair2d\crosshair_1pn93x1
+scope_zoom_factor	= 20
+
+scope_lense_fov_factor	= 8
+scope_inertion_factor   = 8
+scope_dynamic_zoom 	= true
+
+nightvision_sect	= effector_nightvision
+scope_lense_hud_fov = 0.25
+
+
+
+
+[wpn_addon_scope_kobra]:wpn_scope
+$spawn			= "weapons\addons\scope_cobra" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\cobra.ogf
+description		= gunsl_addon_scope_cobra_descr
+cost			= 1600
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_cobra
+inv_name_short	        = gunsl_addon_scope_cobra
+inv_weight		= 0.4
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 16
+inv_grid_y		= 7
+
+scope_zoom_factor	= 1.06
+scope_zoom_hud_fov = 0.45
+
+
+
+
+[wpn_addon_scope_pka]:wpn_scope
+$spawn			= "weapons\addons\scope_pka" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\pka.ogf
+description		= gunsl_addon_scope_pka_descr
+cost			= 1600
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_pka
+inv_name_short	        = gunsl_addon_scope_pka
+inv_weight		= .6
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 18
+inv_grid_y		= 6
+
+scope_zoom_factor	= 1.06
+scope_zoom_hud_fov = 0.25
+
+
+
+
+[wpn_addon_scope_kashtan]:wpn_scope
+$spawn			= "weapons\addons\scope_kashtan" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\kashtan.ogf
+description		= gunsl_addon_scope_kashtan_descr
+cost			= 800
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_kashtan
+inv_name_short	        = gunsl_addon_scope_kashtan
+inv_weight		= .5
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 18
+inv_grid_y		= 1
+
+scope_texture		= crosshair2d\crosshair_kashtan
+scope_zoom_factor	= 20
+scope_lense_fov_factor	= 21
+scope_inertion_factor   = 8
+scope_dynamic_zoom 	= true
+scope_lense_hud_fov = 0.25
+
+
+
+
+[wpn_addon_scope_po4x34]:wpn_scope
+$spawn			= "weapons\addons\scope_po4x34" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\po4x34.ogf
+description		= gunsl_addon_scope_po4x34_descr
+cost			= 3000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_po4x34
+inv_name_short  	= gunsl_addon_scope_po4x34
+inv_weight		= .36
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x		= 18
+inv_grid_y		= 8
+
+scope_texture		= crosshair2d\crosshair_pu
+scope_zoom_factor	= 17
+
+scope_lense_fov_factor	= 10
+scope_inertion_factor   = 8
+scope_dynamic_zoom 	= true
+scope_lense_hud_fov = 0.35
+
+
+
+
+[wpn_addon_scope_eotech]:wpn_scope
+$spawn			= "weapons\addons\scope_eotech" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\eotech.ogf
+description		= gunsl_addon_scope_eotech_descr
+cost			= 1800
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_eotech
+inv_name_short	        = gunsl_addon_scope_eotech
+inv_weight		= .255
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 14
+inv_grid_y		= 22
+
+scope_zoom_factor	= 1.06
+scope_zoom_hud_fov = 0.45
+
+
+
+
+[wpn_addon_scope_susat]:wpn_scope
+$spawn			= "weapons\addons\scope_susat" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\susat.ogf
+description		= gunsl_addon_scope_susat_descr
+cost			= 2000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_susat
+inv_name_short	        = gunsl_addon_scope_susat
+inv_weight		= .417
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 19
+inv_grid_y		= 1
+
+scope_texture		= crosshair2d\crosshair_susat
+scope_zoom_factor	= 20
+
+scope_lense_fov_factor	= 15
+scope_inertion_factor   = 8
+scope_dynamic_zoom 	= true
+scope_lense_hud_fov = 0.25
+
+
+
+
+[wpn_addon_scope_susat_dusk]:wpn_scope
+$spawn			= "weapons\addons\scope" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\aimpoint.ogf
+description		= gunsl_addon_scope_aimpoint_descr
+cost			= 2000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_aimpoint
+inv_name_short	        = gunsl_addon_scope_aimpoint
+inv_weight		= .376
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 15
+inv_grid_y		= 22
+scope_zoom_hud_fov = 0.45
+
+
+
+
+[wpn_addon_scope_susat_night]:wpn_scope
+$spawn			= "weapons\addons\scope_susat_night" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\pn23.ogf
+description		= gunsl_addon_scope_pn23_descr
+cost			= 10000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_pn23
+inv_name_short   	= gunsl_addon_scope_pn23
+inv_weight		= 0.83
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x		= 14
+inv_grid_y		= 31
+
+scope_texture		= crosshair2d\crosshair_pn23
+scope_zoom_factor	= 20
+
+scope_lense_fov_factor	= 15
+scope_inertion_factor   = 8
+scope_dynamic_zoom 	= true
+
+nightvision_sect	= effector_nightvision
+scope_lense_hud_fov = 0.3
+
+
+
+
+[wpn_addon_scope_elcan]:wpn_scope
+$spawn			= "weapons\addons\scope_susat_custom" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\elcan.ogf
+description		= gunsl_addon_scope_elcan_descr
+cost			= 800
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_elcan
+inv_name_short	        = gunsl_addon_scope_elcan
+inv_weight		= .66
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 10
+inv_grid_y			= 18
+
+scope_texture		= crosshair2d\crosshair_elcan
+scope_zoom_factor	= 20
+
+scope_lense_fov_factor	= 15
+scope_inertion_factor   = 8
+scope_dynamic_zoom 	= true
+scope_lense_hud_fov = 0.4
+
+
+
+[wpn_addon_scope_pu]:wpn_scope
+$spawn			= "weapons\addons\scope_pu" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\pu.ogf
+description		= gunsl_addon_scope_pu_descr
+cost			= 600
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_pu
+inv_name_short	        = gunsl_addon_scope_pu
+inv_weight		= .5
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x		= 18
+inv_grid_y		= 26
+
+scope_texture		= crosshair2d\crosshair_pu
+scope_zoom_factor	= 17
+
+scope_lense_fov_factor	= 17
+scope_inertion_factor   = 8
+scope_dynamic_zoom 	= true
+scope_lense_hud_fov = 0.4
+
+
+
+
+[wpn_addon_scope_pgo7]:wpn_scope
+$spawn			= "weapons\addons\scope" ; option for Level Editor
+visual          = dynamics\weapons\addons\scopes\pgo7v.ogf
+description		= gunsl_addon_scope_pgo7v_descr
+cost			= 5000
+
+holder_range_modifier	= 1.2
+holder_fov_modifier	= 1.0
+
+inv_name		= gunsl_addon_scope_pgo7v
+inv_name_short	= gunsl_addon_scope_pgo7v
+inv_weight		= 0.4
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 19
+inv_grid_y			= 22
+
+scope_texture		= crosshair2d\crosshair_pgo7v
+scope_zoom_factor		= 20
+
+scope_lense_fov_factor	= 18
+scope_inertion_factor   = 8
+scope_dynamic_zoom 	= true
+scope_lense_hud_fov = 0.35

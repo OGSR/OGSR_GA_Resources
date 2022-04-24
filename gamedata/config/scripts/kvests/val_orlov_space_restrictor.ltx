@@ -1,0 +1,8 @@
+[logic]
+active = sr_idle@listen
+
+[sr_idle@listen]
+on_actor_inside = {+val_orlov_hear_what_orlov_will_say -esc_kvest_help_to_scoryi_search_sitnik_fail} %+actor_can_hear_orlov =launch_dialog% sr_idle@nil
+on_info = {+esc_kvest_help_to_scoryi_search_sitnik_fail} sr_idle@nil
+
+[sr_idle@nil]

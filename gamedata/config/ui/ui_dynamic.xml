@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<music_box>
+  <main y="88" width="705" height="680" x="159.5" />
+  <bg_static x="0" stretch="1" y="0" height="680" width="705">
+    <texture>ui\mbox\mbox_ramka</texture>
+    <text y="50" align="c" font="graffiti50">Музыкальный автомат FONICA M-120-M</text>
+  </bg_static>
+  <plates_static y="110" x="75" height="400" width="150">
+    <text b="255" align="c" r="153" font="letterica25" g="51">Пластинки :</text>
+  </plates_static>
+  <plates_frame y="30" x="0" height="370" width="150">
+    <texture>ui_stroketextbox</texture>
+  </plates_frame>
+  <tracks_static x="232.5" stretch="1" y="110" height="400" width="150">
+    <text b="255" align="c" r="102" font="letterica25" g="153">Песни :</text>
+  </tracks_static>
+  <tracks_frame y="30" x="0" height="370" width="150">
+    <texture>ui_stroketextbox</texture>
+  </tracks_frame>
+  <poster_static x="2" stretch="1" y="2" height="366" width="146">
+    <texture>ui\mbox\poster</texture>
+  </poster_static>
+  <logo_static y="110" x="390" height="400" width="240">
+    <text b="50" align="c" r="255" font="letterica25" g="204">Приятного прослушивания !</text>
+  </logo_static>
+  <img_frame y="30" x="0" height="320" width="240">
+    <texture>ui_stroketextbox</texture>
+  </img_frame>
+  <img_static x="4" stretch="1" y="4" height="312" width="232">
+    <texture>ui\mbox\mbox_logo_start</texture>
+  </img_static>
+  <timer_frame y="355" x="0" height="60" width="240">
+    <texture>ui_stroketextbox</texture>
+  </timer_frame>
+  <timer_static y="2" x="2" height="56" width="236">
+    <text b="0" align="c" r="204" font="graffiti50" g="102" />
+  </timer_static>
+  <btn_plate width="145" height="40" stretch="1">
+    <texture>ui_button_ordinary_d</texture>
+    <text b="150" align="c" r="150" font="letterica16" g="150">пусто</text>
+  </btn_plate>
+  <btn_track width="145" height="40" stretch="1">
+    <texture>ui_button_ordinary_e</texture>
+    <text align="c" font="letterica18" />
+  </btn_track>
+  <btn_sys width="183.75" height="60" stretch="1">
+    <texture>ui_button_ordinary_e</texture>
+    <text align="c" font="letterica25" />
+  </btn_sys>
+</music_box>

@@ -1,0 +1,41 @@
+[logic]
+active = walker
+combat_ignore = combat_ignore
+on_death = death
+on_hit = hit
+
+[smart_terrains]
+none = true
+
+[hit]
+on_info = {=hit_by_actor} %+esc_kvest_help_teterev_bandits_on_combat%
+
+[death]
+on_info = {=killed_by_actor} %+esc_kvest_help_teterev_bandits_on_combat%
+
+[walker]
+;anim = guard
+;no_move = true
+;target = actor
+meet = meet
+path_walk = esc_bandit_leader1_teterev_walk
+path_look = esc_bandit_leader1_teterev_look
+combat_ignore_cond = {-esc_kvest_help_teterev_bandits_on_combat =fighting_actor}
+on_info = {+esc_kvest_help_teterev_bandits_on_pass} walker@ff
+
+[walker@ff]
+path_walk = esc_bandit_teterev_walk
+path_look = esc_bandit_teterev_look
+meet = no_meet
+combat_ignore_cond = {-esc_kvest_help_teterev_bandits_on_combat =fighting_actor}
+
+[meet] 
+meet_state = 2|threat
+meet_state_wpn = 3|threat
+victim = 2|actor
+victim_wpn = 3|actor
+use = true
+use_wpn = false
+
+[combat_ignore]
+combat_ignore_cond = {-esc_kvest_help_teterev_bandits_on_combat =fighting_actor}

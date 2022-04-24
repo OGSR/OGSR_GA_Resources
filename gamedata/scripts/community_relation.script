@@ -1,0 +1,158 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--TODO: Удалить все вызовы этого скрипта из диалогов, has_30000 и relocate_30000 используются в диалоге bar_informator_enter_bandit, перенести куда-нибудь.
+
+--------------------------------------------------------------------------------------------------------
+function has_1000(actor, npc)
+	return actor:money() >= 1000
+end
+
+function has_10000(actor, npc)
+	return actor:money() >= 10000
+end
+
+function has_20000(actor, npc)
+	return actor:money() >= 20000
+end
+
+function has_30000(actor, npc)
+	return actor:money() >= 30000
+end
+
+function has_40000(actor, npc)
+	return actor:money() >= 40000
+end
+
+function has_50000(actor, npc)
+	return actor:money() >= 50000
+end
+
+function has_60000(actor, npc)
+	return actor:money() >= 60000
+end
+
+function has_80000(actor, npc)
+	return actor:money() >= 80000
+end
+
+
+--------------------------------------------------------------------------------------------------------
+function relocate_1000(trader, actor)
+	dialogs.relocate_money(actor, 1000, "out")
+end
+
+function relocate_10000(trader, actor)
+	dialogs.relocate_money(actor, 10000, "out")
+end
+
+function relocate_20000(trader, actor)
+	dialogs.relocate_money(actor, 20000, "out")
+end
+
+function relocate_30000(trader, actor)
+	dialogs.relocate_money(actor, 30000, "out")
+end
+
+function relocate_40000(trader, actor)
+	dialogs.relocate_money(actor, 40000, "out")
+end
+
+function relocate_50000(trader, actor)
+	dialogs.relocate_money(actor, 50000, "out")
+end
+
+function relocate_60000(trader, actor)
+	dialogs.relocate_money(actor, 60000, "out")
+end
+
+function relocate_80000(trader, actor)
+	dialogs.relocate_money(actor, 80000, "out")
+end
+
+--------------------------------------------------------------------------------------------------------
+function bad_relation_stalker(trader, actor)
+	return relation_registry.community_goodwill ("stalker", db.actor:id()) < -50
+end
+
+function bad_relation_stalker_10000(trader, actor)
+	return relation_registry.community_goodwill ("stalker", db.actor:id()) >= -150
+end
+
+function bad_relation_stalker_30000(trader, actor)
+	return relation_registry.community_goodwill ("stalker", db.actor:id()) < -150 and
+	relation_registry.community_goodwill ("stalker", db.actor:id()) >= -1000
+end
+
+function bad_relation_stalker_50000(trader, actor)
+	return relation_registry.community_goodwill ("stalker", db.actor:id()) < -1000
+end
+
+function repair_relation_stalker(trader, actor)
+	relation_registry.set_community_goodwill ("stalker", db.actor:id(), 0)
+end
+
+--------------------------------------------------------------------------------------------------------
+function bad_relation_dolg()
+	return relation_registry.community_goodwill ("dolg", db.actor:id()) < -50
+end
+
+function bad_relation_dolg_10000(trader, actor)
+	return relation_registry.community_goodwill ("dolg", db.actor:id()) >= -150
+end
+
+function bad_relation_dolg_30000(trader, actor)
+	return relation_registry.community_goodwill ("dolg", db.actor:id()) < -150 and
+	relation_registry.community_goodwill ("dolg", db.actor:id()) >= -1000
+end
+
+function bad_relation_dolg_80000(trader, actor)
+	return relation_registry.community_goodwill ("dolg", db.actor:id()) < -1000
+end
+
+function repair_relation_dolg()
+	relation_registry.set_community_goodwill ("dolg", db.actor:id(), 500)
+end
+
+--------------------------------------------------------------------------------------------------------
+function bad_relation_freedom()
+	return relation_registry.community_goodwill ("freedom", db.actor:id()) < -50
+end
+
+function bad_relation_freedom_10000(trader, actor)
+	return relation_registry.community_goodwill ("freedom", db.actor:id()) >= -150
+end
+
+function bad_relation_freedom_30000(trader, actor)
+	return relation_registry.community_goodwill ("freedom", db.actor:id()) < -150 and
+	relation_registry.community_goodwill ("freedom", db.actor:id()) >= -1000
+end
+
+function bad_relation_freedom_80000(trader, actor)
+	return relation_registry.community_goodwill ("freedom", db.actor:id()) < -1000
+end
+
+function repair_relation_freedom()
+	relation_registry.set_community_goodwill ("freedom", db.actor:id(), 500)
+end
+
+--------------------------------------------------------------------------------------------------------
+function bad_relation_bandit(trader, actor)
+	return relation_registry.community_goodwill ("bandit", db.actor:id()) < -50
+end
+
+function bad_relation_bandit_10000(trader, actor)
+	return relation_registry.community_goodwill ("bandit", db.actor:id()) >= -150
+end
+
+function bad_relation_bandit_30000(trader, actor)
+	return relation_registry.community_goodwill ("bandit", db.actor:id()) < -150 and
+	relation_registry.community_goodwill ("bandit", db.actor:id()) >= -1000
+end
+
+function bad_relation_bandit_50000(trader, actor)
+	return relation_registry.community_goodwill ("bandit", db.actor:id()) < -1000
+end
+
+function repair_relation_bandit(trader, actor)
+	relation_registry.set_community_goodwill ("bandit", db.actor:id(), 0)
+end

@@ -1,0 +1,80 @@
+
+[logic]
+active = walker@start
+on_death = death
+combat_ignore = combat_ignore
+
+[walker@start]
+path_walk = lekar_point1
+path_look = lekar_look_point
+on_timer = 10 | walker@begin  
+
+[walker@begin]
+path_walk = lekar_point1
+path_look = lekar_look_point
+combat_ignore_cond = always
+on_info = {+lekar_give_info} camper@podval2
+on_info2 = {+lekar_af_mincer_meat_out_1} walker@to_wounded, {+spawn_bridge_lekar} walker@elevator %=make_invulnerable%
+
+[walker@to_wounded]
+path_walk =	first_neutral_point_1
+path_look =	first_neutral_point
+meet = no_meet
+combat_ignore_cond = always
+on_signal       = arrived | remark@lechenie
+
+[remark@lechenie]
+anim = dynamite 
+no_move = true
+target = 34
+combat_ignore_cond = always
+on_signal = anim_end | camper@podval1 %+first_neutral_standup -lekar_af_mincer_meat_out_1% 
+meet = no_meet
+
+[camper@podval1]
+path_walk = lekar_point
+path_look = first_neutral_point
+def_state_campering = sit
+radius = 1
+anim = sit
+meet = no_meet
+combat_ignore_cond = always
+on_info = {+first_neural_death} camper@podval
+
+[camper@podval]
+path_walk = lekar_point
+path_look = first_neutral_point
+def_state_campering = sit
+radius = 1
+anim = sit
+combat_ignore_cond = always
+on_info = {+spawn_bridge_lekar} walker@elevator %=make_invulnerable%
+
+[walker@elevator]
+path_walk = bridge_lekar_walk
+path_look = bridge_lekar_look
+combat_ignore_cond = always
+on_info = {+lekar_give_info} walker@elevator2
+
+[walker@elevator2]
+path_walk = bridge_lekar_walk
+path_look = bridge_lekar_look
+combat_ignore_cond = {=dist_to_enemy_ge(20)}
+on_timer = 40000 | camper@podval2 %=unmake_invulnerable%
+
+[camper@podval2]
+path_walk = lekar_point
+path_look = first_neutral_point
+def_state_moving = sprint
+radius = 1
+anim = sit
+meet = no_meet
+on_timer = 1000 | kamp@house
+combat_ignore_cond = {=dist_to_enemy_ge(30)}
+
+[kamp@house]
+center_point = esc_teterev_kamp_center
+combat_ignore_cond = {=dist_to_enemy_ge(40)}
+
+[death]
+on_info = %+lekar_dead% 

@@ -1,0 +1,119 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--- психованный фов
+local fov_vol
+local max_alarm_fov_vol = 90
+local min_alarm_fov_vol = 30
+
+local sound_obj_right = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror1]])
+local sound_obj_left = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror1]])
+
+
+function attach(sm)
+	sm:subscribe({signal = "on_first_update", fun = this.on_first_update})
+end
+
+function on_first_update()
+	if has_alife_info("fov_play_start") then
+		subscribe()
+	end
+end
+
+local sm = ogse_signals.get_mgr()
+local subscribed
+
+function subscribe()
+	if not subscribed then
+		subscribed = {signal = "on_update", fun = this.on_actor_update}
+		sm:subscribe( subscribed )
+		--log3("--[%s] subscribed!", script_name())
+		level.add_cam_effector("camera_effects\\drunk.anm", 7447, true, "")
+		fov_vol = ogse.load_var("OGSR_ACTOR_FOV", get_console():get_float("fov"))
+	end
+end
+
+function unsubscribe()
+	if subscribed then
+		sm:unsubscribe( subscribed )
+		subscribed = nil
+		--log3("~~[%s] UNsubscribed!", script_name())
+		level.remove_cam_effector(7447)
+	end
+end
+
+
+function fov_start()
+	db.actor:give_info_portion("fov_play_start")
+	subscribe()
+end
+
+function fov_end()
+	db.actor:give_info_portion("fov_play_end")
+end
+
+function is_psycho_fov_active()
+	return subscribed ~= nil
+end
+
+
+local up_or_down = nil
+
+function on_actor_update()
+	-- балуемся с фовом
+	if has_alife_info("fov_play_start") then
+		if not up_or_down then
+			-- начинаем веселямбу
+			up_or_down = 1 -- понижаем, 2 - повышаем
+			local current_fov = db.actor:get_camera_fov()
+			if current_fov > min_alarm_fov_vol then
+				current_fov = current_fov - 1
+				db.actor:set_camera_fov(current_fov)
+			end
+		elseif up_or_down == 1 then
+			local current_fov = db.actor:get_camera_fov()
+			if current_fov > min_alarm_fov_vol then
+				current_fov = current_fov - 1
+				db.actor:set_camera_fov(current_fov)
+			elseif current_fov == min_alarm_fov_vol then	
+				up_or_down = 2
+			end
+		elseif up_or_down == 2 then
+			local current_fov = db.actor:get_camera_fov()
+			if current_fov < max_alarm_fov_vol then
+				current_fov = current_fov + 1
+				db.actor:set_camera_fov(current_fov)
+			elseif current_fov == max_alarm_fov_vol then	
+				up_or_down = 1
+			end		
+		end
+		play_sounds()
+	else
+		if up_or_down ~= nil then
+			local current_fov = db.actor:get_camera_fov()
+			if current_fov < fov_vol then
+				current_fov = current_fov + 1
+				db.actor:set_camera_fov(current_fov)
+			elseif current_fov > fov_vol then	
+				current_fov = current_fov - 1
+				db.actor:set_camera_fov(current_fov)					
+			elseif current_fov == fov_vol then	
+				unsubscribe() --отписываемся от менеджера сигналов
+				up_or_down = nil
+			end
+		end	
+	end
+end
+
+function play_sounds()
+	sound_obj_right.volume = 0.8
+	sound_obj_left.volume = 0.8
+
+	if not sound_obj_left:playing() then 
+		sound_obj_left = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror]]..math.random(4))
+		sound_obj_left:play_at_pos(db.actor, vector():set(1, 0, 1), 0, sound_object.s2d) 
+	end
+	if not sound_obj_right:playing() then 
+		sound_obj_right = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror]]..math.random(4))
+		sound_obj_right:play_at_pos(db.actor, vector():set(-1, 0, 1), 0, sound_object.s2d) 
+	end
+end

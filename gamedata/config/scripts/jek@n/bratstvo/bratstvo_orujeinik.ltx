@@ -1,0 +1,116 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@orujeinik_threshold
+
+[walker@begin]
+path_walk =	bratstvo_orujeinik_walk
+path_look =	bratstvo_orujeinik_look
+on_timer = 100 | walker 
+
+[walker]
+path_walk =	bratstvo_orujeinik_walk
+path_look =	bratstvo_orujeinik_look
+combat_ignore_cond = always
+danger = danger_condition
+meet = meet@orujeinik
+on_info = {+vrach_about_agent} walker@p1
+
+[walker@p1]
+;path_walk =	bratstvo_orujeinik_walk_p1
+;path_look =	bratstvo_orujeinik_look_p1
+path_walk =	bratstvo_vrach_walk_p5
+path_look =	bratstvo_vrach_look_p5
+combat_ignore_cond = always
+danger = danger_condition
+on_info = {+vrach_goto_p2} walker@p6
+
+[walker@p2]
+path_walk =	bratstvo_vrach_walk_p2
+path_look =	bratstvo_vrach_look_p2
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p3
+
+[walker@p3]
+path_walk =	bratstvo_vrach_walk_p3
+path_look =	bratstvo_vrach_look_p3
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p4
+
+[walker@p4]
+path_walk =	bratstvo_vrach_walk_p4
+path_look =	bratstvo_vrach_look_p4
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p5
+
+[walker@p5]
+path_walk =	bratstvo_vrach_walk_p5
+path_look =	bratstvo_vrach_look_p5
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p6
+
+[walker@p6]
+path_walk =	bratstvo_vrach_walk_p6
+path_look =	bratstvo_vrach_look_p6
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p7
+
+[walker@p7]
+path_walk =	bratstvo_orujeinik_walk_p7
+path_look =	bratstvo_orujeinik_look_p7
+combat_ignore_cond = always
+danger = danger_condition
+on_info = { +bratstvo_saving_1} remark@bunkerport %-vrach_goto_p2 -vrach_about_agent%, { +bratstvo_saving_2} remark@bunkerport %-vrach_goto_p2 -vrach_about_agent%
+
+[remark@bunkerport]
+anim = artefact_activation
+; snd = vrach_port_goodbye
+snd_anim_sync = true
+target = actor
+meet = no_meet
+no_move = true
+combat_ignore_cond = always
+on_signal = anim_end | walker %=orujeinik_bunkerport_effect%
+
+[meet@orujeinik]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 3|nil
+victim_wpn = 3|nil
+meet_state = 3|ward@orujeinik_hello|1|ward@orujeinik_hello
+meet_state_wpn = 3|ward@orujeinik_hello|1|ward@orujeinik_hello
+
+
+
+[danger_condition]
+ignore_distance = 10
+ignore_distance_grenade = 10
+ignore_distance_corpse = 10
+ignore_distance_hit = 10
+ignore_distance_sound = 10
+
+[threshold@orujeinik_threshold]
+max_ignore_distance = 10
+ignore_monster = 10
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[death]
+on_info = %+bratstvo_orujeinik_dead%
+

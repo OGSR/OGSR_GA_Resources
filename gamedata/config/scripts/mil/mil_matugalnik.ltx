@@ -1,0 +1,29 @@
+[logic]
+active = ph_sound@1
+on_hit = hit
+
+[hit]
+on_info = %+mil_matugalnik_off%
+
+[ph_sound@1]
+snd = freedom_speech_normal
+min_idle = 10000
+max_idle = 50000
+on_info = {+mil_freedom_under_attack} ph_sound@2
+on_info3 = {+blowout -mil_freedom_under_attack} ph_sound@2
+on_info4 = {+horror_time -blowout -mil_freedom_under_attack} ph_sound@3
+on_info5 = {+mil_matugalnik_off} nil
+
+[ph_sound@2]
+snd = siren
+on_info6 = {-blowout -horror_time -mil_freedom_under_attack} ph_sound@1
+on_info4 = {+horror_time -blowout -mil_freedom_under_attack} ph_sound@3
+on_info5 = {+mil_matugalnik_off} nil
+looped = true
+on_timer = 20000 | nil
+
+[ph_sound@3]
+snd = esc_music_horror_time
+on_info6 = {-blowout -horror_time -mil_freedom_under_attack} ph_sound@1
+on_info = {+mil_freedom_under_attack} ph_sound@2
+on_info5 = {+mil_matugalnik_off} nil

@@ -1,0 +1,73 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@cleaner_threshold
+
+[walker@begin]
+path_walk =	bratstvo_cleaner_walk
+path_look =	bratstvo_cleaner_look
+on_timer = 100 | walker@chest 
+
+[walker@chest]
+path_walk =	bratstvo_cleaner_walk
+path_look =	bratstvo_cleaner_look
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_timer = 15000 | walker@shkaf
+
+[walker@shkaf]
+path_walk =	bratstvo_cleaner_walk1
+path_look =	bratstvo_cleaner_look1
+combat_ignore_cond = always
+danger = danger_condition
+meet = meet@behind
+on_timer = 15000 | walker@plakat
+
+[remark@dress]
+anim = prepare_suit
+target = nil
+no_move = true
+combat_ignore_cond = always
+danger = danger_condition
+meet = meet@behind
+on_timer = 5000 | walker@plakat
+
+[walker@plakat]
+path_walk =	bratstvo_cleaner_walk2
+path_look =	bratstvo_cleaner_look2
+combat_ignore_cond = always
+danger = danger_condition
+meet = meet@behind
+on_timer = 20000 | walker@chest
+
+[meet@behind]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 2|nil
+victim_wpn = 2|nil
+meet_state = 2|ward@cleaner_hello|1|ward@cleaner_hello
+meet_state_wpn = 2|ward@cleaner_hello|1|ward@cleaner_hello
+
+[danger_condition]
+ignore_distance = 10
+ignore_distance_grenade = 10
+ignore_distance_corpse = 10
+ignore_distance_hit = 10
+ignore_distance_sound = 10
+
+[threshold@cleaner_threshold]
+max_ignore_distance = 10
+ignore_monster = 10
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[death]
+on_info = %+bratstvo_cleaner_dead%
+

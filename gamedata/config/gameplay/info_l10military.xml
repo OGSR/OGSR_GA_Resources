@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+<game_information_portions>
+	<!-- Vstuplenie v gruppirovku Svoboda-->
+	<info_portion id="actor_set_freedom"></info_portion>
+
+	<info_portion id="mil_freedom_rg6_task"></info_portion>
+    <info_portion id="mil_freedom_rg6_task_complete">
+	<action>bar_spawn.killer30</action></info_portion>
+
+	<!-- Soobschenie v dnevnik -->
+	<info_portion id="mil_actor_main_quest">
+	</info_portion>
+
+	<!-- Vyklyuchenie matyugal'nika -->
+	<info_portion id="mil_matugalnik_off"></info_portion>
+
+	<!-- Boltovnya s ohrannikom u vorot -->
+	<info_portion id="mil_cook_question_already"></info_portion>
+	<info_portion id="mil_cook_map_spot">
+		<action>mil_tasks.set_cook_mapspot</action>
+	</info_portion>
+	<info_portion id="mil_lukash_question_already"></info_portion>
+	<info_portion id="mil_lukash_map_spot">
+		<action>mil_tasks.set_lukash_mapspot</action>
+	</info_portion>
+	
+	<info_portion id="mil_ugrumy_dead"></info_portion>
+	
+	<info_portion id="mil_go_to_miser">
+		<task>mil_go_to_miser</task>
+	</info_portion>
+	<info_portion id="mil_go_to_miser_end"></info_portion>
+	<info_portion id="mil_miser_dead"></info_portion>
+	
+	<!-- Napadenie na bazu Svobody -->
+	<info_portion id="mil_enemy_nearest"></info_portion>
+	
+	<!-- Izbienie patrulya Svobody -->
+	<info_portion id="mil_actor_nearest">
+	<!--action>bar_spawn.arbalet</action-->
+	</info_portion>
+	<info_portion id="mil_patrol_kill_continue"></info_portion>
+	<info_portion id="mil_dolg_dialog_already"></info_portion>
+	<info_portion id="mil_patrol_man1_dead"></info_portion>
+	<info_portion id="mil_patrol_man2_dead"></info_portion>
+	<info_portion id="mil_patrol_man3_dead"></info_portion>
+	<info_portion id="mil_patrol_go_cover"></info_portion>
+	<info_portion id="mil_dolg_task_final"></info_portion>
+	
+	<!-- Razgovory s patrulyami na baze Svobody -->
+	<info_portion id="mil_patrol1_talk"></info_portion>
+	<info_portion id="mil_patrol2_talk"></info_portion>
+	
+	<!-- Ataka Dolga -->
+	<info_portion id="mil_dolg_attack"></info_portion>
+	<info_portion id="mil_patrol_dead"></info_portion>
+	<info_portion id="mil_dolg_before_explode"></info_portion>
+	<info_portion id="mil_dolg_after_explode"></info_portion>
+	<info_portion id="mil_scull_dead"></info_portion>
+	<info_portion id="mil_dolg_phase1"></info_portion>
+	<info_portion id="mil_dolg_phase2"></info_portion>
+	<info_portion id="mil_dolg_phase3"></info_portion>
+	<info_portion id="mil_dolg_skull_talk"></info_portion>
+	<info_portion id="mil_dolg_skull_sniper_end"></info_portion>
+	<info_portion id="mil_dolg_final_task">
+		<task>mil_kill_lukash</task>
+	</info_portion>
+	<info_portion id="mil_dolg_gulag_free"></info_portion>
+	<info_portion id="mil_dolg_lukash_kill_fail"></info_portion>
+	<info_portion id="mil_dog_payment_already"></info_portion>
+	<info_portion id="mil_dolg_auto_attack"></info_portion>
+	
+	<info_portion id="mil_sniper1_dead"></info_portion>
+	<info_portion id="mil_sniper2_dead"></info_portion>
+	<info_portion id="mil_sniper3_dead"></info_portion>
+	
+	<info_portion id="mil_dolg_sound_1"></info_portion>
+	<info_portion id="mil_dolg_sound_2"></info_portion>
+	<info_portion id="mil_dolg_sound_3"></info_portion>
+	<info_portion id="mil_dolg_sound_4"></info_portion>
+	<info_portion id="mil_dolg_sound_5"></info_portion>
+	<info_portion id="mil_dolg_sound_6"></info_portion>
+	<info_portion id="mil_dolg_sound_7"></info_portion>
+	<info_portion id="mil_dolg_sound_8"></info_portion>
+	<info_portion id="mil_dolg_sound_9"></info_portion>
+	<info_portion id="mil_dolg_sound_10"></info_portion>
+	<info_portion id="mil_dolg_sound_11"></info_portion>
+	<info_portion id="mil_dolg_soldier_1_dead"></info_portion>
+	<info_portion id="mil_dolg_soldier_2_dead"></info_portion>
+	<info_portion id="mil_dolg_soldier_3_dead"></info_portion>
+	<info_portion id="mil_dolg_soldier_4_dead"></info_portion>
+	<info_portion id="mil_dolg_soldier_cherep_dead"></info_portion>
+	
+	
+	<!-- Baza Svobody pod atakoy-->
+	<info_portion id="mil_freedom_under_attack"></info_portion>
+	
+	<!-- Dialogovye infoporsheny-->
+	<info_portion id="mil_lukash_guard_talked"></info_portion>
+	
+	<!-- Dialog s dolgovcami-->
+	<info_portion id="mil_dolg_first"></info_portion>
+	<info_portion id="mil_dolg_mission_complete"></info_portion>
+	<info_portion id="mil_sniper_i_think"></info_portion>
+	<info_portion id="mil_sniper_dead"></info_portion>
+	<info_portion id="mil_sniper_get_job">
+		<task>mil_kill_sniper</task>
+    </info_portion>
+	<info_portion id="mil_sniper_job_failed"></info_portion>
+	<info_portion id="mil_sniper_job_complete"></info_portion>
+	<info_portion id="mil_sniper_final"></info_portion>
+	<info_portion id="mil_dolg_dead"></info_portion>
+	<info_portion id="mil_scull_sniper_info_get"></info_portion>
+	<info_portion id="mil_dolg_task_complete"></info_portion>
+	<info_portion id="mil_dolg_collected"></info_portion>
+	<info_portion id="mil_dolg_task_fail"></info_portion>
+
+	<info_portion id="mil_headquarter_attack"></info_portion>
+	
+	<!-- Dialog s ohrannikom u vorot-->
+	<info_portion id="mil_zoneguard_first"></info_portion>
+	<info_portion id="mil_zoneguard_talk"></info_portion>
+	<info_portion id="mil_zoneguard_dont_talk"></info_portion>
+	<info_portion id="mil_zoneguard_test1_passed"></info_portion>
+	<info_portion id="mil_zoneguard_test2_passed"></info_portion>
+
+	<!-- Dialog s patrulyami-->
+	<info_portion id="mil_freedom_speak_patrol1"></info_portion>
+	<info_portion id="mil_freedom_speak_patrol2"></info_portion>
+		
+	
+	<!-- Dialog s Maksom-->
+	<info_portion id="mil_max_first"></info_portion>
+	<info_portion id="mil_max_talk"></info_portion>
+	<info_portion id="mil_max_talk2"></info_portion>
+	<info_portion id="mil_max_talk3"></info_portion>
+	<info_portion id="mil_max_job">
+		<task>mil_mad_job</task>
+	</info_portion>
+	<info_portion id="mil_max_lukash_call"></info_portion>
+	<info_portion id="mil_max_flash_get">
+		<article>mil_crazy_flash_info</article>
+    </info_portion>
+	<info_portion id="mil_max_job_complete"></info_portion>
+	<info_portion id="mil_max_job_failed"></info_portion>
+	<info_portion id="mil_max_dolg_killed"></info_portion>
+	<info_portion id="mil_max_arrive"></info_portion>
+	<info_portion id="mil_max_dead"></info_portion>
+	
+	<!-- Dialog s Lukashem-->
+	<info_portion id="mil_lukash_first_talk"></info_portion>
+	<info_portion id="mil_lukash_get_job">
+		<task>mil_lukash_job</task>
+	</info_portion>
+	<info_portion id="mil_lukash_go_to_max"></info_portion>
+	<info_portion id="mil_lukash_job_failed"></info_portion>
+	<info_portion id="mil_lukash_job_complete"></info_portion>
+	<info_portion id="mil_lukash_final"></info_portion>
+	<info_portion id="mil_lukash_arrive"></info_portion>
+	<info_portion id="mil_lukash_dead"></info_portion>
+	<info_portion id="mil_lukash_blockpost">
+		<task>mil_blockpost_job</task>
+	</info_portion>		
+	<info_portion id="mil_blockpost_free_task">
+		<task>mil_blockpost_job</task>
+	</info_portion>
+	<info_portion id="mil_actor_on_lukash"></info_portion>
+	<info_portion id="mil_bodyguard_talk"></info_portion>
+	<info_portion id="mil_lukash_delay"></info_portion>
+	
+	
+	<!-- Kvest s kur'erom-->
+	<info_portion id="mil_courier_quest_part1"></info_portion>
+	<info_portion id="mil_courier_quest_part2"></info_portion>
+	<info_portion id="mil_courier_quest_part3"></info_portion>
+	<info_portion id="mil_courier_quest_part4"></info_portion>
+	<info_portion id="mil_courier_quest"></info_portion>	
+	<info_portion id="mil_courier_quest_failed"></info_portion>
+	<info_portion id="mil_courier_quest_complete"></info_portion>
+	<info_portion id="mil_courier_dead"></info_portion>
+	<info_portion id="mil_courier_in_khutor_zone"></info_portion>
+	<info_portion id="mil_actor_in_khutor_zone_inside"></info_portion>
+	<info_portion id="mil_courier_khutor_leave"></info_portion>
+	<info_portion id="mil_courier_report"></info_portion>
+	<info_portion id="mil_courier_call"></info_portion>
+	<info_portion id="mil_ara_arrive"></info_portion>
+	<info_portion id="mil_ara_end"></info_portion>	
+	<info_portion id="mil_ara_entered"></info_portion>	
+	<info_portion id="mil_ara_dead"></info_portion>	
+	<info_portion id="mil_courier_start"></info_portion>
+	<info_portion id="mil_courier_death"></info_portion>
+	<info_portion id="mil_courier_meet"></info_portion>
+	<info_portion id="mil_courier_visited"></info_portion>
+	<info_portion id="mil_ara_leave"></info_portion>	
+	<info_portion id="mil_mutants_offline"></info_portion>
+
+	<!-- Hutor naemnikov -->
+	<info_portion id="mil_killer_with_bandits_combat"></info_portion>
+	<info_portion id="mil_khutor_visited"></info_portion>
+	<info_portion id="mil_actor_in_khutor_zone"></info_portion>
+	
+	
+	<!-- Napadenie na hutor Dolga-->
+	<info_portion id="mil_lukash_dolg_task">
+		<task>mil_lukash_job</task>
+	</info_portion>
+	<info_portion id="mil_lukash_dolg_task_complete">
+		<action>bar_spawn.killer1</action></info_portion>
+	<info_portion id="mil_lukash_dolg_task_fail"></info_portion>
+	<info_portion id="mil_lukash_task_dolg_end"></info_portion>
+	<info_portion id="mil_freedom_attack"></info_portion>
+	<info_portion id="mil_freedom_attack_complete">
+	</info_portion>
+	<info_portion id="mil_freedom_arrive"></info_portion>
+	<info_portion id="mil_freedom_attack_continue1"></info_portion>
+	<info_portion id="mil_freedom_attack_continue2"></info_portion>
+	<info_portion id="mil_freedom_attack_continue3">
+		<action>bar_spawn.killer2</action></info_portion>
+	
+	<!-- Zadacha na stukacha-->
+	<info_portion id="mil_lukash_courier_task"></info_portion>
+	<info_portion id="mil_ugrum_flash_get"><article>mil_flash_ugrumy</article></info_portion>
+	<info_portion id="mil_bandit_flash_get"><article>mil_flash_bandit</article></info_portion>
+	<info_portion id="mil_max_owner_flash_get"><article>mil_flash_max</article></info_portion>
+	
+	<info_portion id="mil_rg6_gain"></info_portion>
+	<info_portion id="mil_bandit_secret_found"></info_portion>
+	
+	<info_portion id="mil_leader_quest1_start"></info_portion>
+	<info_portion id="mil_leader_quest1_complete"></info_portion>
+	
+	<info_portion id="mil_leader_quest2_start">
+		<task>mil_courier_job</task>
+	</info_portion>
+	<info_portion id="mil_leader_quest2_complete"></info_portion>
+	<info_portion id="mil_leader_quest2_failed"></info_portion>
+	<info_portion id="mil_courier_see_actor"></info_portion>
+	<info_portion id="mil_leader_quest2_phase1"></info_portion>
+	<info_portion id="mil_leader_quest2_phase2"></info_portion>
+	<info_portion id="mil_leader_quest2_phase3"></info_portion>
+	<info_portion id="mil_leader_quest2_phase4"></info_portion>
+	<info_portion id="mil_leader_quest2_phase5"></info_portion>
+	<info_portion id="mil_leader_attach_community"></info_portion>
+	<info_portion id="mil_leader_task_set">
+		<task>mil_lukash_job</task>
+	</info_portion>
+	
+	<!-- Dialog s povarom-->
+	<info_portion id="mil_cook_dialog1"></info_portion>
+	<info_portion id="mil_cook_dialog2"></info_portion>
+	<info_portion id="mil_cook_dialog3"></info_portion>
+	<info_portion id="mil_cook_dialog4"></info_portion>
+	<info_portion id="mil_cook_dialog5"></info_portion>
+	<info_portion id="mil_cook_dialog6"></info_portion>
+	<info_portion id="mil_cook_dead"></info_portion>
+	
+	<!-- P'yanka s povarom-->
+	<info_portion id="mil_freedom_cook_drink_1"></info_portion>
+	<info_portion id="mil_freedom_cook_drink_2"></info_portion>
+	<info_portion id="mil_freedom_cook_drink_3"></info_portion>
+	<info_portion id="mil_freedom_cook_rg6_1"></info_portion>
+	<info_portion id="mil_freedom_cook_rg6_2"></info_portion>
+	<info_portion id="mil_freedom_cook_rg6_3"></info_portion>
+	<info_portion id="mil_freedom_cook_rg6_4"></info_portion>
+	<info_portion id="mil_freedom_cook_rg6_ask">
+		<action>bar_spawn.killer4</action></info_portion>
+	
+	<info_portion id="mil_village_monsters_spawn"></info_portion>
+	<info_portion id="mil_arsenal_inside"></info_portion>
+	
+	<!-- Gulag mutantov okolo trub -->
+	<info_portion id="mil_actor_in_tubes_zone"></info_portion>
+	
+	<!-- Gulag Svobody u vyhoda na Radar -->
+	<info_portion id="mil_fblockpost_alarm"></info_portion>
+	<info_portion id="mil_fblockpost_quest">
+			<task>mil_blockpost_job</task>
+	</info_portion>			
+	<info_portion id="mil_fblockpost_quest_complete"></info_portion>
+	<info_portion id="mil_fblockpost_quest_reward"></info_portion>
+	<info_portion id="mil_fblockpost_quest_fail"></info_portion>
+	<info_portion id="mil_fblockpost_rush_end"></info_portion>
+	<info_portion id="mil_fblockpost_ammo"></info_portion>
+	<info_portion id="mil_fblockpost_rush_wave1"></info_portion>
+	<info_portion id="mil_fblockpost_rush_wave2"></info_portion>
+	<info_portion id="mil_fblockpost_rush_wave3"></info_portion>
+	<info_portion id="mil_fblockpost_rush_wave4"></info_portion>
+	<info_portion id="mil_fblockpost_final"></info_portion>
+	<info_portion id="mil_fblockpost_spot"></info_portion>
+	<info_portion id="mil_fblockpost_spot_set"></info_portion>
+	<info_portion id="mil_fblockpost_spot_remove"></info_portion>
+	<info_portion id="mil_actor_blockpost">
+	<action>soundtrack.occusion</action></info_portion>
+	<info_portion id="mil_neutral_commander_talk"></info_portion>
+	<info_portion id="mil_fblockpost_actor_outside"></info_portion>
+	<info_portion id="mil_freedom_commander_talk">
+		<action>bar_spawn.killer6</action></info_portion>
+	<info_portion id="mil_fblockpost_commander_dead"></info_portion>
+	
+	<!-- Zadacha Ckryagi -->
+	<info_portion id="mil_miser_task">
+		<task>mil_hunters_task</task>
+	</info_portion>
+	<info_portion id="mil_controller_dead"></info_portion>
+	<info_portion id="mil_miser_task_complete"></info_portion>
+	<info_portion id="mil_miser_task_failed"></info_portion>
+	<info_portion id="mil_ugrumy_found"></info_portion>
+	<info_portion id="mil_after_hunt_talked"></info_portion>
+	<info_portion id="mil_bloodsucker1_dead"></info_portion>
+	<info_portion id="mil_bloodsucker2_dead"></info_portion>
+	<info_portion id="mil_bloodsucker3_dead"></info_portion>
+	<info_portion id="mil_bloodsucker4_dead"></info_portion>
+	<!-- Ohotnichki, mlya -->
+	<info_portion id="mil_hunt_ready"></info_portion>
+	<info_portion id="mil_controller_ready">
+		<task>mil_kill_controller</task>
+	</info_portion>
+	<info_portion id="mil_hunt_end"></info_portion>
+	<info_portion id="mil_hunter_after_dialog"></info_portion>
+
+
+    <info_portion id="mil_village_bloodsucker1">
+	<action>soundtrack.occusion</action></info_portion>
+    <info_portion id="mil_village_bloodsucker2">
+	<action>soundtrack.occusion</action></info_portion>
+    <info_portion id="mil_village_bloodsucker3">
+	<action>soundtrack.occusion</action></info_portion>
+    <info_portion id="mil_village_bloodsucker4">
+	<action>soundtrack.occusion</action></info_portion>
+    <info_portion id="mil_village_bloodsucker5"></info_portion>
+    <info_portion id="mil_village_bloodsucker6"></info_portion>
+    <info_portion id="mil_village_bloodsucker7"></info_portion>
+    <info_portion id="mil_village_bloodsucker8"></info_portion>
+    <info_portion id="mil_village_bloodsucker9"></info_portion>
+
+	<!-- Otmetki na karte mest -->
+	<info_portion id="mil_barier_locator"></info_portion>
+
+	<!-- Telohraniteli mochat igroka -->
+	<info_portion id="mil_bodyguard_kill"></info_portion>
+	
+	<!-- Testovaya zadachka -->
+	<info_portion id="mil_test_task">
+		<task>mil_test_task</task>
+	</info_portion>
+	
+	<info_portion id="mil_screw_talk"></info_portion>
+	<info_portion id="mil_screw_talk_short"></info_portion>
+	
+	<info_portion id="mil_actor_in_kamp_zone"></info_portion>
+	
+	<info_portion id="mil_crazy_dead"></info_portion>
+	
+	<info_portion id="mil_freedom_quests_end"></info_portion>
+	<info_portion id="mil_car_ok"></info_portion>
+	
+	<info_portion id="mil_courier_doc">
+		<article>mil_courier_doc</article>
+	</info_portion>
+	
+	<info_portion id="mil_cap_death"></info_portion>
+	<info_portion id="mil_scull_message1"></info_portion>
+	<info_portion id="mil_scull_message2"></info_portion>
+	<info_portion id="mil_sniper_payment"></info_portion>
+	<info_portion id="mil_dolg_c_ignore_false"></info_portion>
+  <info_portion id="military_scull_give_reward_1"></info_portion>
+  <info_portion id="military_scull_give_reward_2"></info_portion>	
+
+  <info_portion id="mil_merc_trader_lc_info"></info_portion>
+  <info_portion id="mil_merc_trader_intro"></info_portion>
+
+<!-- Dot Pack Info -->
+
+    <info_portion id="povar_svug_asked"></info_portion>	
+
+<!-- DotPack -->
+
+
+<!-- Узники Радара -->
+
+    <info_portion id="spawn_rad_zomb_company"><task>meet_mikluha_band</task></info_portion>
+    <info_portion id="rad_zomb_mikluha_info"></info_portion>
+    <info_portion id="mikluha_is_alive"></info_portion>
+<info_portion id="rad_zomb_company_signal"><action>jekan_work.zomb_company_tip</action></info_portion>
+    <info_portion id="rad_zomb_company_mobs_attack"><task>mobs_attack_1</task></info_portion>
+    <info_portion id="zomb_che_dead"></info_portion>
+    <info_portion id="zomb_markiz_dead"></info_portion>
+	<info_portion id="zomb_fidel_dead"></info_portion>
+	<info_portion id="zomb_graf_dead"></info_portion>
+    <info_portion id="zomb_mikluha_dead"></info_portion>
+    <info_portion id="zomb_zahar_dead"></info_portion>
+	<info_portion id="rad_filin_searched"></info_portion>
+    <info_portion id="rad_zomb_company_mobs_attack_2"><task>mobs_attack_2</task></info_portion>
+    <info_portion id="rad_zomb_company_superkontroler_atack"><action>jekan_work.rad_company_set_zombies_timer</action><task>superkontroller_kill</task></info_portion>
+
+    <info_portion id="rad_attack_boar_1wave_1_dead"></info_portion>
+    <info_portion id="rad_attack_boar_1wave_2_dead"></info_portion>
+    <info_portion id="rad_attack_boar_1wave_3_dead"></info_portion>
+    <info_portion id="rad_attack_boar_glavar_dead"></info_portion>
+    <info_portion id="rad_attack_snork_1_dead"></info_portion>
+    <info_portion id="rad_attack_snork_2_dead"></info_portion>
+    <info_portion id="rad_attack_snork_3_dead"></info_portion>
+    <info_portion id="rad_attack_snork_4_dead"></info_portion>
+    <info_portion id="rad_attack_snork_5_dead"></info_portion>
+    <info_portion id="rad_attack_superkontroler_dead"><action>jekan_work.mikluha_thanks_tip</action></info_portion>
+
+    <info_portion id="mikluha_give_mines"><action>jekan_work.mikluha_give_mines</action></info_portion>
+
+    <info_portion id="mikluha_first_wave_reward"></info_portion>
+    <info_portion id="mikluha_first_wave_reward2"></info_portion>
+    <info_portion id="mikluha_send_to_door"><task>look_on_door</task></info_portion>
+    <info_portion id="supercontroler_call"><action>jekan_work.superkontroler_call</action></info_portion>
+    <info_portion id="mikluha_final_reward">
+		<action>jekan_work.mikluha_reward</action>
+	</info_portion>
+	
+	<info_portion id="lukash_scalp_reward"/>
+
+    <info_portion id="rad_zomb_company_mobs_attack_3"><task>mobs_attack_3</task></info_portion>
+    <info_portion id="rad_attack_pseudogig_1_dead"></info_portion>
+    <info_portion id="rad_attack_pseudogig_2_dead"></info_portion>
+    <info_portion id="rad_attack_pseudogig_dead"></info_portion>
+    <info_portion id="rad_kompany_set_zombies"></info_portion>
+    <info_portion id="lukash_mikluha_reward"></info_portion>
+	<info_portion id="lukash_give_lc"></info_portion>
+	
+	<!-- Разговоры о Филине -->
+	<info_portion id="mil_filin_talked_to_lukash_about_filin"></info_portion>
+	<info_portion id="mil_filin_talked_to_screw_about_filin"></info_portion>
+	<info_portion id="filin_find"></info_portion>
+	
+	<info_portion id="mil_freedom_departed_1"></info_portion>
+	<info_portion id="mil_freedom_departed_2"></info_portion>
+	<info_portion id="mil_freedom_departed_3"></info_portion>
+	<info_portion id="mil_freedom_departed_4"></info_portion>
+	<info_portion id="mil_freedom_departed_5"></info_portion>
+	<info_portion id="mil_freedom_departed_6"></info_portion>
+	<info_portion id="mil_freedom_departed_7"></info_portion>
+	<info_portion id="mil_freedom_departed_8"></info_portion>
+	<info_portion id="mil_freedom_departed_9"></info_portion>
+	<info_portion id="mil_freedom_returned_1"></info_portion>
+	<info_portion id="mil_freedom_returned_2"></info_portion>
+	<info_portion id="mil_freedom_returned_3"></info_portion>
+	<info_portion id="mil_freedom_returned_4"></info_portion>
+	<info_portion id="mil_freedom_returned_5"></info_portion>
+	<info_portion id="mil_freedom_returned_6"></info_portion>
+	<info_portion id="mil_freedom_returned_7"></info_portion>
+	<info_portion id="mil_freedom_returned_8"></info_portion>
+	<info_portion id="mil_freedom_returned_9"></info_portion>		
+	
+</game_information_portions>

@@ -1,0 +1,146 @@
+[smart_terrains]
+none = true
+
+[known_info]
+arthunter_info
+
+[dont_spawn_loot]
+
+[logic]
+active = walker
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@arthunter_threshold
+
+[walker]
+path_walk = garb_arthunter_walk
+path_look = garb_arthunter_look
+meet = meet
+danger = danger_condition
+combat_ignore_cond = always
+on_timer = 25000 | remark1
+on_info = {+arthunter_task} remark7, {+af_puzir_destroyed} walker2
+
+[walker1]
+path_walk = garb_arthunter_walk
+path_look = garb_arthunter_look
+;meet = meet
+danger = danger_condition
+combat_ignore_cond = always
+
+[walker2]
+path_walk = garb_arthunter_walk2
+path_look = garb_arthunter_look2
+meet = meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+arthunter_quest_reward} walker3
+
+[walker3]
+path_walk = garb_arthunter_walk2
+path_look = garb_arthunter_look2
+meet = meet
+danger = danger_condition
+combat_ignore_cond = always
+on_timer = 20000 | kamp@angar
+
+[kamp@angar]
+center_point = gar_angar_gar_seryi_kamp
+path_walk = gar_angar_gar_seryi_kamp_task
+on_actor_dist_ge_nvis = 80 | %=del_npc%
+danger = danger_condition
+
+
+[remark1]
+anim = search
+snd = garb_arthunter_phrase_1
+;snd_anim_sync = true
+no_move = true
+target = 199
+meet = meet
+combat_ignore_cond = always
+on_signal = action_end | remark2
+
+[remark2]
+anim = search
+snd = garb_arthunter_phrase_2
+snd_anim_sync = true
+no_move = true
+target = 199
+meet = no_meet
+combat_ignore_cond = always
+on_signal = action_end | remark3
+
+[remark3]
+anim = search
+snd = garb_arthunter_phrase_3
+snd_anim_sync = true
+no_move = true
+target = 199
+meet = no_meet
+combat_ignore_cond = always
+on_signal = action_end | remark4
+
+[remark4]
+anim = refuse
+snd = garb_arthunter_phrase_4
+snd_anim_sync = true
+no_move = true
+target = 199
+meet = no_meet
+combat_ignore_cond = always
+on_signal = action_end | remark5
+
+[remark5]
+anim = caution
+snd = garb_arthunter_phrase_5
+snd_anim_sync = true
+no_move = true
+target = 199
+meet = no_meet
+combat_ignore_cond = always
+on_signal = action_end | remark6
+
+[remark6]
+anim = search
+snd = garb_arthunter_phrase_6
+snd_anim_sync = true
+no_move = true
+target = 199
+meet = no_meet
+combat_ignore_cond = always
+on_signal = action_end | walker
+
+[remark7]
+;anim = search
+snd = garb_arthunter_phrase_7
+;snd_anim_sync = true
+no_move = true
+target = actor
+meet = no_meet
+combat_ignore_cond = always
+on_timer = 4000 | walker2
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 1|actor
+victim_wpn = 1|actor
+;meet_state = 9|hello@val_escort_phrase_invite|5|wait@wait
+;meet_state_wpn = 9|hello@val_escort_phrase_invite|5|wait@wait
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@arthunter_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+arthunter_dead%
+

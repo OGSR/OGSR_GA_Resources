@@ -1,0 +1,45 @@
+[logic]
+active = walker
+combat_ignore = combat_ignore
+
+[walker]
+path_walk = gen_escape_nuke_walk
+path_look = gen_escape_nuke_look
+meet = meet
+danger = danger_ignore
+on_actor_dist_le_nvis = 3 | walker@2 %=forest_init_dialod%
+combat_ignore_cond = always
+on_info = {+final_battle_npc_meet} walker@3
+
+[walker@2]
+path_walk = gen_escape_nuke_walk
+path_look = gen_escape_nuke_look
+meet = meet
+danger = danger_ignore
+combat_ignore_cond = always
+on_info = {+final_battle_npc_meet} walker@3
+
+[walker@3]
+path_walk = gen_escape_nuke_run_walk
+path_look = gen_escape_nuke_run_look
+def_state_moving1 = run_p
+def_state_moving2 = run_p
+def_state_moving2 = run_p
+meet = no_meet
+danger = danger_ignore
+combat_ignore_cond = always
+
+[meet]
+meet_state 		= 10 | hello_wpn@talk_hello
+meet_state_wpn 	        = 10 | hello_wpn@talk_hello
+victim 			= 5 | actor
+victim_wpn 		= 5 | actor
+use					= true
+use_wpn		        = true
+abuse               = false
+
+[danger_ignore]
+ignore_distance = 0
+
+[combat_ignore]
+combat_ignore_cond = always

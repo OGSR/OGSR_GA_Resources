@@ -1,0 +1,96 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = {+kulgband_strelka_task2} walker@5, walker@begin
+threshold = threshold@dar_bridge_kulgband_man1_threshold
+
+[walker@begin]
+path_walk =	dar_bridge_kulgband_man1_walk
+path_look =	dar_bridge_kulgband_assist_look2
+show_spot = false
+on_timer = 1|walker@1 %=make_invulnerable%
+
+
+[walker@1]
+path_walk =	dar_bridge_kulgband_man1_walk
+path_look =	dar_bridge_kulgband_assist_look2
+combat_ignore_cond = always
+show_spot = false
+on_info = {+bridge_kulgband_man_shoot} remark
+
+[remark]
+anim = button_press
+snd = bridge_kulgband_shoot
+no_move = true
+target = actor
+combat_ignore_cond = always
+meet = no_meet
+show_spot = false
+on_signal = sound_end|walker@2 %+bridge_kulgband_man_shoot2%
+
+[walker@2]
+path_walk =	dar_bridge_kulgband_man1_walk
+path_look =	dar_bridge_kulgband_assist_look2
+combat_ignore_cond = always
+meet = no_meet
+show_spot = false
+on_info = {+dar_bridge_kulgband_assist1_dead +dar_bridge_kulgband_assist2_dead} walker@3
+
+[walker@3]
+path_walk =	dar_bridge_kulgband_man1_walk
+path_look =	dar_bridge_kulgband_assist_look2
+combat_ignore_cond = always
+show_spot = false
+on_info = {+bridge_kulgband_man_info} walker@4
+
+[walker@4]
+path_walk =	dar_bridge_kulgband_man1_walk
+path_look =	dar_bridge_kulgband_assist_look2
+combat_ignore_cond = always
+meet = no_meet
+show_spot = false
+on_info = {=dist_to_actor_ge(50) +bridge_kulgband_man_info} %=release%
+
+
+; Вторая стрелка:
+[walker@5]
+path_walk =	dar_bridge_kulgband_man1_walk
+path_look =	dar_bridge_kulgband_assist_look2
+combat_ignore_cond = always
+meet = no_meet
+show_spot = false
+on_info = {+bridge_kulgband_glavar_on_place} remark@2
+
+[remark@2]
+anim = button_press
+snd = bridge_kulgband_speech
+no_move = true
+target = 7382
+combat_ignore_cond = always
+meet = no_meet
+show_spot = false
+on_signal = sound_end|walker@6
+
+[walker@6]
+path_walk =	dar_bridge_kulgband_man1_walk
+path_look =	dar_bridge_kulgband_assist_look2
+combat_ignore_cond = always
+meet = no_meet
+show_spot = false
+on_info = {=dist_to_actor_ge(40) +bridge_kulgband_glavar_go_away} %=release%
+on_info2 = {+kulgband_scout_talk} %=release%
+
+
+
+[threshold@dar_bridge_kulgband_man1_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+
+
+
+
+
+
+

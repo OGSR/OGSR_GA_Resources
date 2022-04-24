@@ -1,0 +1,270 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+----------------------------------------------------------------------------------------------------
+-- ui_autodoc.script                                                                              --
+-- Модуль автодока, скрипт интерфейса пользователя                                                --
+-- OGS Evolution Team                                                                             --
+-- Merc13, Malandrinus                                                                            --
+-- 01.2013                                                                                        --
+-- зависит от: ogse_autodoc.script                                                                --
+----------------------------------------------------------------------------------------------------
+local full_charges = sys_ini:r_s32("autodoctor", "ad_full_charges")	-- Макс. кол-во зарядов в подсистемах ИДЛК
+local WIDTH_FACTOR  = device().height / device().width / 0.75
+
+function open_autodoc_ui()
+	local spwn = autodoc()
+	ogse_autodoc.get_autodoc_states()
+	level.start_stop_menu(spwn,true)
+end
+
+
+class "autodoc" (CUIScriptWnd)
+function autodoc:__init() super()
+	self.ui_bars = {}
+
+	self:InitLuaXml()
+	self:InitControls()
+	self:InitCallBacks()
+	--log1("--autodoc:__init()")
+end
+function autodoc:__finalize()
+	--log1("~~autodoc:__finalize()")
+end
+
+function autodoc:InitLuaXml()
+    local luaxml = xml.new("autodoc")
+        -- main_wnd  ------------------------------
+        local main = luaxml:append('main_wnd')
+        main.x      = 100
+        main.y      = 100
+        main.width  = 789 * WIDTH_FACTOR
+        main.height = 457
+        -- background  ------------------------------
+        local background = luaxml:append('background')
+        background.x       = 0
+        background.y       = 0
+        background.width   = 789 * WIDTH_FACTOR
+        background.height  = 457
+        background.stretch = 1
+            local background_texture = background:append('texture')
+            background_texture[1] = "ui_ad_box"
+        -- led ------------------------------
+        local led = luaxml:append('led')
+        led.x       = 82 * WIDTH_FACTOR
+        led.y       = 42
+        led.width   = 28 * WIDTH_FACTOR
+        led.height  = 28
+        led.stretch = 1
+            local led_texture = led:append('texture')
+            led_texture[1] = "ui_ad_led"
+        -- btn_main_static ------------------------------
+        local btn_main_static = luaxml:append('btn_main_static')
+        btn_main_static.x       = 136 * WIDTH_FACTOR
+        btn_main_static.y       = 26
+        btn_main_static.width   = 140 * WIDTH_FACTOR
+        btn_main_static.height  = 57
+        btn_main_static.stretch = 1
+            local btn_main_static_texture = btn_main_static:append('texture')
+            btn_main_static_texture[1] = "ui_ad_btn_main"
+        -- btn_main ------------------------------
+        local btn_main = luaxml:append('btn_main')
+        btn_main.x       = 136 * WIDTH_FACTOR
+        btn_main.y       = 26
+        btn_main.width   = 140 * WIDTH_FACTOR
+        btn_main.height  = 57
+        -- btn_h ------------------------------
+        local btn_h = luaxml:append('btn_h')
+        btn_h.x       = 669 * WIDTH_FACTOR
+        btn_h.y       = 143
+        btn_h.width   = 79 * WIDTH_FACTOR
+        btn_h.height  = 45
+        -- btn_h_static ------------------------------
+        local btn_h_static = luaxml:append('btn_h_static')
+        btn_h_static.x       = 669 * WIDTH_FACTOR
+        btn_h_static.y       = 143
+        btn_h_static.width   = 79 * WIDTH_FACTOR
+        btn_h_static.height  = 45
+        btn_h_static.stretch = 1
+            local btn_h_texture = btn_h_static:append('texture')
+            btn_h_texture[1] = "ui_ad_btn_kind"
+        -- btn_s ------------------------------
+        local btn_s = luaxml:append('btn_s')
+        btn_s.x       = 669 * WIDTH_FACTOR
+        btn_s.y       = 233
+        btn_s.width   = 79 * WIDTH_FACTOR
+        btn_s.height  = 45
+        -- btn_s_static ------------------------------
+        local btn_s_static = luaxml:append('btn_s_static')
+        btn_s_static.x       = 669 * WIDTH_FACTOR
+        btn_s_static.y       = 233
+        btn_s_static.width   = 79 * WIDTH_FACTOR
+        btn_s_static.height  = 45
+        btn_s_static.stretch = 1
+            local btn_s_texture = btn_s_static:append('texture')
+            btn_s_texture[1] = "ui_ad_btn_kind"
+        -- btn_r ------------------------------
+        local btn_r = luaxml:append('btn_r')
+        btn_r.x       = 669 * WIDTH_FACTOR
+        btn_r.y       = 324
+        btn_r.width   = 79 * WIDTH_FACTOR
+        btn_r.height  = 45
+         -- btn_r_static ------------------------------
+        local btn_r_static = luaxml:append('btn_r_static')
+        btn_r_static.x       = 669 * WIDTH_FACTOR
+        btn_r_static.y       = 324
+        btn_r_static.width   = 79 * WIDTH_FACTOR
+        btn_r_static.height  = 45
+        btn_r_static.stretch = 1
+            local btn_r_texture = btn_r_static:append('texture')
+            btn_r_texture[1] = "ui_ad_btn_kind"
+        -- bar_empty_h ------------------------------
+        local bar_empty_h = luaxml:append('bar_empty_h')
+        bar_empty_h.x       = 94 * WIDTH_FACTOR
+        bar_empty_h.y       = 139
+        bar_empty_h.width   = 562 * WIDTH_FACTOR
+        bar_empty_h.height  = 54
+        bar_empty_h.stretch = 1
+        --bar_empty_h.heading = 1
+            local bar_empty_h_texture = bar_empty_h:append('texture')
+            bar_empty_h_texture[1] = "ui_ad_bar_empty"
+        -- bar_empty_h ------------------------------
+        local bar_empty_s = luaxml:append('bar_empty_s')
+        bar_empty_s.x       = 94 * WIDTH_FACTOR
+        bar_empty_s.y       = 229
+        bar_empty_s.width   = 562 * WIDTH_FACTOR
+        bar_empty_s.height  = 54
+        bar_empty_s.stretch = 1
+            local bar_empty_s_texture = bar_empty_s:append('texture')
+            bar_empty_s_texture[1] = "ui_ad_bar_empty"
+        -- bar_empty_r ------------------------------
+        local bar_empty_r = luaxml:append('bar_empty_r')
+        bar_empty_r.x       = 94 * WIDTH_FACTOR
+        bar_empty_r.y       = 320
+        bar_empty_r.width   = 562 * WIDTH_FACTOR
+        bar_empty_r.height  = 54
+        bar_empty_r.stretch = 1
+            local bar_empty_r_texture = bar_empty_r:append('texture')
+            bar_empty_r_texture[1] = "ui_ad_bar_empty"
+        -- bar_transp ------------------------------
+        local bar_transp = luaxml:append('bar_transp')
+        bar_transp.x       = 12 * WIDTH_FACTOR
+        bar_transp.y       = 12
+        bar_transp.width   = 536 * WIDTH_FACTOR
+        bar_transp.height  = 32
+        -- bar_full ------------------------------
+        local bar_full = luaxml:append('bar_full')
+        bar_full.x       = 0
+        bar_full.y       = 0
+        bar_full.width   = 536 * WIDTH_FACTOR
+        bar_full.height  = 32
+        bar_full.stretch = 1
+            local bar_full_texture = bar_full:append('texture')
+            bar_full_texture[1] = "ui_ad_bar_full1"
+    -- Save XML ------------------------------
+    luaxml:save(DYN_XML_SAVE_PATH)
+end
+
+
+function autodoc:InitControls()
+	self.xml = CScriptXmlInit()
+	self.xml:ParseFile("ui_dynamic.xml")
+	self.xml:InitWindow("main_wnd", 0, self)
+	self.xml:InitStatic("background", self) -- коробка
+    self.led = self.xml:InitStatic("led", self) -- светодиод. Изображение зависит от вкл/выкл автодока
+    self.btn_main_static = self.xml:InitStatic("btn_main_static", self)
+    self.btn_main = self.xml:InitButton("btn_main", self)-- Вкл/выкл автодока
+	self:Register(self.btn_main, "btn_main")
+	
+	local t = {
+		'h', -- вкл/выкл лечилки
+		's', -- вкл/выкл стимулятора
+		'r',-- вкл/выкл антирада
+	}
+	for _,k in ipairs(t) do
+		local btn_name = "btn_"..k
+        local btn_static_name = btn_name..'_static'
+        self[btn_static_name] = self.xml:InitStatic(btn_static_name, self)
+        
+		self[btn_name] = self.xml:InitButton(btn_name, self)
+		self:Register(self[btn_name], btn_name)
+
+		local b = {}
+		self.ui_bars[k] = b
+		b.bar_empty = self.xml:InitStatic("bar_empty_"..k, self)
+		b.bar_transp = self.xml:InitStatic("bar_transp", b.bar_empty)
+		b.bar_full = self.xml:InitStatic("bar_full", b.bar_transp)
+		b.SetValue = function(self, v)
+			if v > 0 then
+				b.bar_full:Show(true)
+				local max_width = b.bar_transp:GetWidth()
+				b.bar_full:SetWidth(max_width*v)
+			else
+				b.bar_full:Show(false)
+			end
+		end
+	end
+end
+
+function autodoc:InitCallBacks() --Тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	local function switch(_, v)
+		ogse_autodoc.switch_on[v] = not ogse_autodoc.switch_on[v]
+	end
+	--KRodin: self передаём, чтобы сборщик мусора не удалил объект раньше времени!
+	self:Connect("btn_main", ui_events.BUTTON_CLICKED, switch, self, "ad")
+	self:Connect("btn_h",    ui_events.BUTTON_CLICKED, switch, self, "h")
+	self:Connect("btn_s",    ui_events.BUTTON_CLICKED, switch, self, "s")
+	self:Connect("btn_r",    ui_events.BUTTON_CLICKED, switch, self, "r")
+end
+
+function autodoc:Update()
+	CUIScriptWnd.Update(self) -- обязательно вызвать метод базового класса
+    
+	local tex = ogse_autodoc.switch_on.ad and 'ui_ad_btn_main_t' or 'ui_ad_btn_main_e'
+	self.btn_main_static:InitTexture(tex)
+    
+    tex = ogse_autodoc.switch_on.ad and ogse_autodoc.ad_on_belt and 'ui_ad_led_t' or 'ui_ad_led_e'
+	self.led:InitTexture(tex)
+	
+    tex = ogse_autodoc.switch_on.h and 'ui_ad_btn_kind_t' or 'ui_ad_btn_kind_e'
+	self.btn_h_static:InitTexture(tex)
+    
+	self.ui_bars.h:SetValue(1.0 * ogse_autodoc.charges.h / full_charges)
+	
+    tex = ogse_autodoc.switch_on.s and 'ui_ad_btn_kind_t' or 'ui_ad_btn_kind_e'
+	self.btn_s_static:InitTexture(tex)
+    
+	self.ui_bars.s:SetValue(1.0 * ogse_autodoc.charges.s / full_charges)
+	
+    tex = ogse_autodoc.switch_on.r and 'ui_ad_btn_kind_t' or 'ui_ad_btn_kind_e'
+	self.btn_r_static:InitTexture(tex)
+    
+	self.ui_bars.r:SetValue(1.0 * ogse_autodoc.charges.r / full_charges)
+	--log3("h: %f", ogse_autodoc.charges.h)
+	--log3("s: %f", ogse_autodoc.charges.s)
+	--log3("r: %f", ogse_autodoc.charges.r)
+end
+
+function autodoc:on_quit()
+	ogse_autodoc.save_autodoc_states()
+	self:GetHolder():start_stop_menu(self,true)
+	self:ClearCallbacks()
+end
+
+function autodoc:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED
+	then
+		if dik == DIK_keys.DIK_ESCAPE then
+			self:on_quit()-- на выход повесим Esc
+		elseif dik == DIK_keys.DIK_NUMPAD7 then
+			ogse_autodoc.switch_on.ad = not ogse_autodoc.switch_on.ad
+		elseif dik == DIK_keys.DIK_NUMPAD9 then
+			ogse_autodoc.switch_on.h = not ogse_autodoc.switch_on.h
+		elseif dik == DIK_keys.DIK_NUMPAD6 then
+			ogse_autodoc.switch_on.s = not ogse_autodoc.switch_on.s
+		elseif dik == DIK_keys.DIK_NUMPAD3 then
+			ogse_autodoc.switch_on.r = not ogse_autodoc.switch_on.r
+		end
+	end
+	return true
+end

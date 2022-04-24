@@ -1,0 +1,21 @@
+[collide]
+ignore_static
+
+[logic]
+active = ph_idle@1
+
+; Ожидание:
+[ph_idle@1]
+tips     = moonshine_apparat_use
+on_use    = ph_idle@2 %=moonshine_apparat_use1 +dar_apparat_recharge%
+
+[ph_idle@2]
+;tips     = moonshine_apparat_use_empty
+on_timer = 5000|ph_idle@4 %=moonshine_apparat_use2 =spawn_glassful_on_table%
+
+
+; Перезарядка:
+[ph_idle@4]
+tips     = moonshine_apparat_use_empty
+on_info = {-dar_samogon_bonus -dar_apparat_recharge} ph_idle@1
+;on_timer = 300000|ph_idle@1

@@ -1,0 +1,13 @@
+[logic]
+active = ph_sound@play
+
+[ph_sound@play]
+tips = switcher_on
+nonscript_usable = false
+on_use = %=play_snd_from_obj2(device\click10b)% ph_idle@wait
+snd = radio_music
+
+[ph_idle@wait]
+tips = switcher_off
+nonscript_usable = false
+on_use =  %=play_snd_from_obj2(device\click10b)% ph_sound@play

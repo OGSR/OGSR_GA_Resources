@@ -1,0 +1,725 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+------------------------------------------------------------
+-- Продажа и спавн всего транспорта в игре (OGSE mod)
+-- Тотальная переделка: KamikaZze, 2010 год для OGSE 0692
+-- Доработки: Dusty79, для OGSE 0693
+-- version 1.9 (27/04/2011)--
+------------------------------------------------------------
+
+function attach(sm) -- для менеджера сигналов
+	sm:subscribe({signal = "on_spawn",           fun = this.on_spawn})
+	sm:subscribe({signal = "on_storyline_start", fun = this.on_storyline_start})
+end
+
+local spawn_db = ogse_spawn_db.script_spawn_registry.ogse_car_trade
+
+local sim
+function on_spawn()
+	sim = alife()
+end
+
+function on_storyline_start()
+	transport_spawn_load(object)
+end
+------------------------------------------------------------
+-- Таблица транспорта
+------------------------------------------------------------
+
+local trade_cars = {
+	-- Кордон. Сидорович
+	[1] = { section = "vehicle_uaz2",
+			name = game.translate_string("ogse_car_trade_name_1_text"),
+			disabled = 0,
+			precond = "nil",
+			trader = "escape_trader",
+			price = 9000,
+--SPAWN_V1
+			--[[coord_x = 127.8561,
+			coord_y = -7.6820,
+			coord_z = -6.9047,
+			l_vid = 431980,
+			g_vid = 134,]]
+--SPAWN_V2
+			spawn_item = spawn_db.vehicle_uaz2,
+			location = game.translate_string("ogse_car_trade_loc_1_text"),
+			descript = game.translate_string("ogse_car_trade_desc_1_text")		
+
+			},
+	-- Свалка. Сидорович 
+	[2] = { section = "vehicle_moskvich",
+			name = game.translate_string("ogse_car_trade_name_2_text"),
+			disabled = 0,	
+			precond = "agroprom_military_case_done",
+			trader = "escape_trader",
+			price = 8000,
+--SPAWN_V1
+			--[[coord_x = -82.1,
+			coord_y = -2.6,
+			coord_z = -224.7,
+			l_vid = 124015,
+			g_vid = 271,]]
+--SPAWN_V2
+			spawn_item = spawn_db.vehicle_moskvich,
+			location = game.translate_string("ogse_car_trade_loc_2_text"),
+			descript = game.translate_string("ogse_car_trade_desc_2_text")			
+
+			},
+	-- Свалка. Сидорович
+	[3] = { section = "vehicle_uaz",
+			name = game.translate_string("ogse_car_trade_name_3_text"),
+			disabled = 0,	
+			precond = "nil",
+			trader = "escape_trader",
+			price = 11000,
+--SPAWN_V1
+			--[[coord_x = 74,
+			coord_y = 0.6,
+			coord_z = 163.3,
+			l_vid = 244359,
+			g_vid = 364,]]
+--SPAWN_V2
+			spawn_item = spawn_db.vehicle_uaz_1,
+			location = game.translate_string("ogse_car_trade_loc_3_text"),
+			descript = game.translate_string("ogse_car_trade_desc_3_text")		
+
+			},
+	-- Агропром. Сидорович
+	[4] = { section = "vehicle_uaz",
+			name = game.translate_string("ogse_car_trade_name_4_text"),
+			disabled = 0,	
+			precond = "agroprom_military_case_done",
+			trader = "escape_trader",
+			price = 12000,
+--SPAWN_V1
+			--[[coord_x = 165.3,
+			coord_y = 0.2,
+			coord_z = 33.6,
+			l_vid = 989487,
+			g_vid = 584,]]
+--SPAWN_V2
+			spawn_item = spawn_db.vehicle_uaz_2,
+			location = game.translate_string("ogse_car_trade_loc_4_text"),
+			descript = game.translate_string("ogse_car_trade_desc_4_text")		
+
+			},
+	-- Агропром. Сидорович
+	[5] = { section = "vehicle_niva",
+			name = game.translate_string("ogse_car_trade_name_5_text"),
+			disabled = 0,	
+			precond = "agroprom_military_case_done",
+			trader = "escape_trader",
+			price = 11000,
+--SPAWN_V1
+			--[[coord_x = 96.1,
+			coord_y = 0.4,
+			coord_z = -125.7,
+			l_vid = 330377,
+			g_vid = 611,]]
+--SPAWN_V2
+			spawn_item = spawn_db.vehicle_niva_1,
+			location = game.translate_string("ogse_car_trade_loc_5_text"),
+			descript = game.translate_string("ogse_car_trade_desc_5_text")		
+
+			},
+	-- Тёмная долина. Сидорович
+	[6] = { section = "vehicle_uazbuhanka",
+			name = game.translate_string("ogse_car_trade_name_6_text"),
+			disabled = 0,	
+			precond = "dar_document5",
+			trader = "escape_trader",
+			price = 15000,
+--SPAWN_V1
+			--[[coord_x = 16.8,
+			coord_y = -1.6,
+			coord_z = -151,
+			l_vid = 194168,
+			g_vid = 871,]]
+--SPAWN_V2
+			spawn_item = spawn_db.vehicle_uazbuhanka,
+			location = game.translate_string("ogse_car_trade_loc_6_text"),
+			descript = game.translate_string("ogse_car_trade_desc_6_text")		
+
+			},
+	-- Бар. Сидорович
+	[7] = { section = "vehicle_niva",
+			name = game.translate_string("ogse_car_trade_name_7_text"),
+			disabled = 0,	
+			precond = "bar_darklab_document_done",
+			trader = "escape_trader",
+			price = 12000,
+--SPAWN_V1
+			--[[coord_x = 57.3,
+			coord_y = 0,
+			coord_z = 127.6,
+			l_vid = 26697,
+			g_vid = 1240,]]
+--SPAWN_V2
+			spawn_item = spawn_db.vehicle_niva_2,
+			location = game.translate_string("ogse_car_trade_loc_7_text"),
+			descript = game.translate_string("ogse_car_trade_desc_7_text")	
+
+			},
+	-- Янтарь. Сидорович
+	[8] = { section = "vehicle_zaz",
+			name = game.translate_string("ogse_car_trade_name_8_text"),
+			disabled = 0,	
+			precond = "yan_labx16_switcher_primary_off",
+			trader = "escape_trader",
+			price = 8000,
+--SPAWN_V1
+			--[[coord_x = 152.5,
+			coord_y = 2,
+			coord_z = -245.7,
+			l_vid = 125438,
+			g_vid = 1438,]]
+--SPAWN_V2
+			spawn_item = spawn_db.vehicle_zaz,
+			location = game.translate_string("ogse_car_trade_loc_8_text"),
+			descript = game.translate_string("ogse_car_trade_desc_8_text")	
+
+			},
+	-- Армейские склады.
+	[9] = { section = "vehicle_baggi",
+			name = game.translate_string("ogse_car_trade_name_9_text"),
+			disabled = 0,
+			precond = "nil",			
+			trader = "mil_Svoboda_engineer",
+			price = 10000,
+--SPAWN_V1
+			--[[coord_x = -2.6,
+			coord_y = -6.9,
+			coord_z = 105.9,
+			l_vid = 304939,
+			g_vid = 1636,]]
+--SPAWN_V2
+			spawn_item = spawn_db.vehicle_baggi,
+			location = game.translate_string("ogse_car_trade_loc_9_text"),
+			descript = game.translate_string("ogse_car_trade_desc_9_text")			
+
+			},
+	-- Армейские склады.
+	[10] = { section = "vehicle_moskvich2",
+			name = game.translate_string("ogse_car_trade_name_10_text"),
+			disabled = 0,	
+			precond = "nil",
+			trader = "mil_Svoboda_engineer",
+			price = 20000,
+--SPAWN_V1
+			--[[coord_x = -218,
+			coord_y = -12.5,
+			coord_z = 63.5,
+			l_vid = 111228,
+			g_vid = 1679,]]
+--SPAWN_V2
+			spawn_item = spawn_db.vehicle_moskvich2,
+			location = game.translate_string("ogse_car_trade_loc_10_text"),
+			descript = game.translate_string("ogse_car_trade_desc_10_text")		
+
+			},
+	-- Радар. Шуруп
+	[11] = { section = "vehicle_uaz",
+			name = game.translate_string("ogse_car_trade_name_11_text"),
+			disabled = 0,	
+			precond = "nil",
+			trader = "mil_Svoboda_engineer",
+			price = 25000,
+--SPAWN_V1
+			--[[coord_x = 558.9,
+			coord_y = -44,
+			coord_z = 59.44,
+			l_vid = 197257,
+			g_vid = 1902,]]
+--SPAWN_V2
+			spawn_item = spawn_db.vehicle_uaz_shurup,
+			location = game.translate_string("ogse_car_trade_loc_11_text"),
+			descript = game.translate_string("ogse_car_trade_desc_11_text")			
+
+			}
+}
+
+------------------------------------------------------------
+-- Интерфейс покупки транспорта
+------------------------------------------------------------
+
+local trader_sect = nil
+
+function open_car_trade_dialog(actor, trader)
+	trader_sect = trader:profile_name()
+	local spwn = car_trade_dialog()
+	level.start_stop_menu(spwn, true)	
+end
+
+
+class "select_car_trade_items" (CUIListItemEx)
+function select_car_trade_items:__init() super()
+	self.item_name		= "itemname"
+	self:SetWndRect		(0,0,320,22)
+	
+	local ca = 255
+	local cr = 216
+	local cg = 186
+	local cb = 140
+	
+	self.itmnum				= CUIStatic	()
+	self.itmnum:SetAutoDelete	(true)
+	self:AttachChild		(self.itmnum)
+	self.itmnum:SetWndRect	(0,0,20,22)
+	self.itmnum:SetText		("itemnum")
+	self.itmnum:SetFont		(GetFontLetterica16Russian())
+	self.itmnum:SetTextColor	(0,cr,cg,cb)
+	
+	self.itmnmr				= CUIStatic	()
+	self.itmnmr:SetAutoDelete	(true)
+	self:AttachChild		(self.itmnmr)
+	self.itmnmr:SetWndRect	(0,0,20,22)
+	self.itmnmr:SetText		("itemnum")
+	self.itmnmr:SetFont		(GetFontLetterica16Russian())
+	self.itmnmr:SetTextColor	(ca,cr,cg,cb)	
+
+	self.itmn					= CUIStatic	()
+	self.itmn:SetAutoDelete	(true)
+	self:AttachChild		(self.itmn)
+	self.itmn:SetWndRect		(25,0,205,22)
+	self.itmn:SetText			("itemname")
+	self.itmn:SetFont			(GetFontLetterica18Russian())
+	self.itmn:SetTextColor	(ca,cr,cg,cb)
+
+	self.itmage				= CUIStatic	()
+	self.itmage:SetAutoDelete	(true)
+	self:AttachChild		(self.itmage)
+	self.itmage:SetWndRect	(250,0,40,22)
+	self.itmage:SetText		("itemage")
+	self.itmage:SetFont		(GetFontLetterica16Russian())
+	self.itmage:SetTextColor	(ca,cr,cg,cb)
+end
+
+class "select_car_descr" (CUIListItemEx)
+function select_car_descr:__init() super()
+	self.item_name		= "itemname"
+	self:SetWndRect		(0,0,320,22)
+	
+	local ca = 255
+	local cr = 216
+	local cg = 186
+	local cb = 140
+	
+	self.itmnum				= CUIStatic	()
+	self.itmnum:SetAutoDelete	(true)
+	self:AttachChild		(self.itmnum)
+	self.itmnum:SetWndRect	(0,0,20,200)
+	self.itmnum:SetText		("itemnum")
+	self.itmnum:SetFont		(GetFontLetterica18Russian())
+	self.itmnum:SetTextColor	(ca,cr,cg,cb)
+
+end
+
+
+class "car_trade_dialog" (CUIScriptWnd)
+function car_trade_dialog:__init() super()
+	self:InitControls()
+	self:InitCallBacks()
+	self:FillList()
+end
+
+function car_trade_dialog:__finalize() end
+
+
+function car_trade_dialog:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(50,50,550,450)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	local ctrl
+	
+	xml:ParseFile("ui_car_trade.xml")
+	-- видео на заднем плане
+	xml:InitStatic("back_video", self)
+	-- рамка
+	xml:InitStatic("background", self)
+
+	-- рамка предмета
+	xml:InitStatic("item_frame2", self)
+
+	-- список предметов
+	xml:InitFrame("list_frame", self)
+	xml:InitFrame("desc_frame", self)
+	xml:InitFrame("desc_list", self)
+
+	ctrl = xml:InitList("list", self)
+	ctrl:ShowSelectedItem(true)
+	
+	self:Register(ctrl, "list_window")
+	
+	ctrl = xml:InitList("desc_list", self)
+	ctrl:ShowSelectedItem(true)	
+	
+	self:Register(ctrl, "desc_window")
+
+	-- кнопки
+	self:Register(xml:Init3tButton("window_name", self),"window_name")
+	
+	
+	self:Register(xml:Init3tButton("caption1", self),"caption1")
+	self:Register(xml:Init3tButton("caption2", self),"caption2")
+	self:Register(xml:Init3tButton("caption4", self),"caption4")
+	
+	self:Register(xml:Init3tButton("caption5", self),"caption4")
+	self:Register(xml:Init3tButton("caption6", self),"caption4")
+	
+	self.btn_4 = xml:Init3tButton("btn_4", self)
+	self:Register(self.btn_4, "btn_4")
+	self.btn_4:Enable(false)	
+	
+	-- кнопка выхода
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+
+	self.message_box = CUIMessageBoxEx()
+	self:Register(self.message_box,"message_box")
+
+	local money = db.actor:money()
+	self:DrawMoney(money, 260, 63)
+end
+
+
+function car_trade_dialog:InitCallBacks()
+	self:AddCallback("btn_4", ui_events.BUTTON_CLICKED, self.buy_car, self)
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+	self:AddCallback("list_window", ui_events.LIST_ITEM_CLICKED, 			  self.OnListItemClicked,		self)
+	self:AddCallback("list_window", ui_events.WINDOW_LBUTTON_DB_CLICK,		  self.OnListItemDbClicked,		self)
+	self:AddCallback("message_box",		ui_events.MESSAGE_BOX_OK_CLICKED,	  self.OnMsgYes,				self)
+end
+
+
+function car_trade_dialog:FillList()
+	local i = 1
+	local added = 0
+	while (trade_cars[i]) do
+	
+		if trade_cars[i].disabled == 0 and string.find(trader_sect, trade_cars[i].trader) then
+			if trade_cars[i].precond == "nil" or has_alife_info(trade_cars[i].precond) then
+				added = added + 1
+				local s_item = trade_cars[i]
+				local s_item_section = trade_cars[i].section
+				local _item_num = "" .. i .. ""
+				local _item_name = trade_cars[i].name
+				local _item_location = trade_cars[i].location
+				-- ogse.logf("Передаём строку в список")
+				self:AddItemToList(added, _item_num, _item_name, _item_location)
+			end
+		end
+		i = i+1
+	end
+end
+
+
+function car_trade_dialog:OnListItemClicked()
+
+	local list_box = self:GetListWnd("list_window")
+	local desc_box = self:GetListWnd("desc_window")
+	
+	if list_box:GetSize() == 0 then return end
+	
+	local itm_index = list_box:GetSelectedItem()
+	
+	local item = list_box:GetItem(itm_index)
+
+	if item == nil then return end
+	
+	self.btn_4:Enable(true)
+
+	local destr_item_index = tonumber(item.itmnum:GetText())
+	local destr_item = trade_cars[destr_item_index]
+	local money = db.actor:money()
+	local cost = destr_item.price
+	
+	local str = destr_item.descript
+	
+	self:DrawCurCar(destr_item.section, 300, 90)
+	self:DrawMoney(money, 260, 63)
+	self:DrawPrice(cost, 260, 83)
+	
+	local first = 1
+	local last = 45
+
+	desc_box:RemoveAll()
+
+	for _, line in ipairs( str:width( is_16_9_mode() and 50 or 30, true ) ) do
+		self:AddItemToDesc(line)
+	end
+
+	self.car_textur:Show(true)
+	self.carprice:Show(true)
+end
+
+
+function car_trade_dialog:OnListItemDbClicked()
+	self:buy_car()
+end
+
+
+function car_trade_dialog:buy_car()
+
+	local console = get_console()
+	local list = self:GetListWnd("list_window")	
+	if list:GetSize()==0 then
+		return
+	end
+
+	local index = list:GetSelectedItem()
+	if index == -1 then
+		self.msgbox_id = 1
+		self.message_box:Init("message_box_select_item")
+		self:GetHolder():start_stop_menu(self.message_box, true)
+		return
+	end
+
+	local item = list:GetItem(index)
+	local destr_item_index = tonumber(item.itmnum:GetText())
+	local destr_item = trade_cars[destr_item_index]
+
+
+	local money = db.actor:money()
+	local cost = destr_item.price
+	
+	if money >= cost then 
+
+		--alife():create( destr_item.section, vector():set(destr_item.coord_x, destr_item.coord_y, destr_item.coord_z), destr_item.l_vid, destr_item.g_vid)
+		ogse.spawn_object(destr_item.spawn_item)
+
+		destr_item.disabled = 1
+	
+		db.actor:give_money(0-cost)
+		
+		local list_box = self:GetListWnd("list_window")
+		local desc_box = self:GetListWnd("desc_window")
+
+		self.car_textur:Show(false)
+		self.carprice:Show(false)
+		
+--		remkit_main.play_repair_sound()
+
+		desc_box:RemoveAll()
+		list_box:RemoveAll()
+		self:FillList()
+
+		local money = db.actor:money()
+		self:DrawMoney(money, 260, 63)		
+		
+	else
+		self.msgbox_id = 1
+		self.message_box:Init("message_box_cartrade_nomoney")
+		self:GetHolder():start_stop_menu(self.message_box, true)	
+	end
+
+end	
+
+function car_trade_dialog:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+-- на выход повесим Esc
+		if dik == DIK_keys.DIK_ESCAPE then
+			self:on_quit()
+		end
+		if dik == DIK_keys.DIK_NUMPAD4 then
+			self:buy_car()
+		end
+		
+	end
+	return true
+end
+
+
+function car_trade_dialog:on_quit()
+	self:GetHolder():start_stop_menu(self, true)
+	self:ClearCallbacks()
+end
+
+
+function car_trade_dialog:AddItemToList(add_num, item_num, item_name, item_location)
+	local _itm = select_car_trade_items()
+	_itm.itmnum:SetText(item_num)
+	_itm.itmnmr:SetText(add_num)
+	_itm.itmn:SetText(item_name)
+	_itm.itmage:SetText(item_location)
+	local list_box = self:GetListWnd("list_window")
+	list_box:AddItem(_itm)
+end
+
+function car_trade_dialog:AddItemToDesc(text)
+
+	local _itm = select_car_descr()
+	_itm.itmnum:SetText(text)
+	local list_box = self:GetListWnd("desc_window")
+	list_box:AddItem (_itm)
+	
+end
+
+
+
+
+function car_trade_dialog:DrawCurCar(car, x, y)
+	local icons = {
+		["vehicle_baggi"] = "ui\\ui_vechicle_baggi",
+		["vehicle_btr"] = "ui\\ui_vechicle_btr",
+		["vehicle_niva"] = "ui\\ui_vechicle_niva",
+		["vehicle_moskvich"] = "ui\\ui_vechicle_moskvich",
+		["vehicle_moskvich2"] = "ui\\ui_vechicle_moskvich",
+		["vehicle_tr13"] = "ui\\ui_vechicle_traktor",
+		["vehicle_uaz"] = "ui\\ui_vechicle_uaz",
+		["vehicle_uaz2"] = "ui\\ui_vechicle_uaz",
+		["vehicle_uazbuhanka"] = "ui\\ui_vechicle_uazb",
+		["vehicle_zaz"] = "ui\\ui_vechicle_zapor",
+		["vehicle_zaz968"] = "ui\\ui_vechicle_zaporu"
+	}
+
+	if not car then return end
+	if x == nil then x = 0 end
+	if y == nil then y = 0 end
+
+	local a = self.car_textur
+	if not a then
+		self.car_textur = CUIStatic()
+		a = self.car_textur
+		a:SetWindowName("car_textur")
+		a:SetAutoDelete(true)  
+		a:InitTexture(icons[car]) 
+		a:SetStretchTexture(true)
+		self:AttachChild(a)
+	end	
+	if car then
+		a:InitTexture(icons[car]) 
+		a:SetStretchTexture(true)
+	else
+		a:Init(0,0,0,0)
+	end
+
+	a:SetOriginalRect(0,0,256,256)
+	a:Init(257,57,80,80)
+end
+
+function car_trade_dialog:DrawMoney(insert_text, x, y)
+	if x == nil then x = 0 end
+	if y == nil then y = 0 end
+	local w = self.money
+	if not w then
+		self.money = CUI3tButton()
+		w = self.money
+		w:SetWindowName("money")
+		w:SetAutoDelete(true)
+		self:AttachChild(w) 
+	end
+	if insert_text then
+		w:SetFont(GetFontLetterica16Russian())
+		w:SetTextColor (255,255,255,255)
+		w:SetText(insert_text)
+		w:Init(x-100,y,200,10)
+		w:SetTextAlign(CGameFont.alLeft)
+	else
+		w:SetText("")
+		w:Init(0,0,0,0)
+	end
+end
+
+function car_trade_dialog:DrawPrice(insert_text, x, y)
+	if x == nil then x = 0 end
+	if y == nil then y = 0 end
+	local w = self.carprice
+	if not w then
+		self.carprice = CUI3tButton()
+		w = self.carprice
+		w:SetWindowName("carprice")
+		w:SetAutoDelete(true)
+		self:AttachChild(w) 
+	end
+	if insert_text then
+		w:SetFont(GetFontLetterica16Russian())
+		w:SetTextColor (255,255,255,255)
+		w:SetText(insert_text)
+		w:Init(x-100,y,200,10)
+		w:SetTextAlign(CGameFont.alLeft)
+	else
+		w:SetText("")
+		w:Init(0,0,0,0)
+	end
+end
+
+function car_trade_dialog:DrawDescript(insert_text, x, y)
+	if x == nil then x = 0 end
+	if y == nil then y = 0 end
+	local w = self.descr
+	if not w then
+		self.descr = CUIEditBox()
+		w = self.descr
+		w:SetWindowName("descr")
+		w:SetAutoDelete(true)
+		w:SetWidth(100);
+		w:SetHeight(57);	
+		self:AttachChild(w) 
+	end
+	if insert_text then	
+		w:SetFont(GetFontLetterica18Russian())
+		w:SetTextColor (255,216,186,140)
+		w:SetTextAlignment(CGameFont.alLeft)
+		w:SetText(insert_text)
+		w:Init(x,y,100,57)
+	else
+		w:SetText("")
+		w:Init(0,0,0,0)
+	end
+end
+
+function car_trade_dialog:OnMsgYes()
+
+	if self.msgbox_id == 1 then return end
+	
+	self.msgbox_id = 0
+end
+
+
+
+------------------------------------------------------------
+--	Горе :(
+------------------------------------------------------------
+
+function gore_1(first_speaker, second_speaker)
+	dialogs.relocate_item_section(first_speaker, "vodka", "in")
+end
+
+function gore_2(actor)
+	local vodka = db.actor:object("vodka")
+	if vodka then
+		db.actor:eat(vodka)
+	end
+end
+
+------------------------------------------------------------
+--	ПРЕКОНДИШЕНЫ
+------------------------------------------------------------
+
+function military_info()
+	return has_alife_info("mil_dolg_skull_sniper_end") or has_alife_info("mil_lukash_dolg_task_complete") 
+end
+
+------------------------------------------------------------
+--	Спавн транспорта без покупки
+------------------------------------------------------------
+
+function transport_spawn_load()
+	-- На Кордоне.																					--Вынес в all.spawn + дописал стори_айди 099 Призрак
+	--sim:create( "vehicle_zaz", vector():set(-226.2, -20.3, -158.4), 28485, 48)
+
+	--sim:create( "vehicle_btr", vector():set(-148.15, -30.0, -383), 101494, 15)
+	sim:create( "vehicle_tr13", vector():set(9, 0.5, 280.3), 286415, 181)
+
+	-- На Агропроме. на территории института у гаражей
+	--sim:create("vehicle_moskvich2", vector():set(-143.9, -0.2, -212.7) ,93986, 677)
+
+	-- Территория Бара
+	sim:create( "vehicle_uaz2", vector():set(413.73626, 14.3532, -414.77145), 97806, 1289)
+
+	-- На АЭС 2
+	sim:create("vehicle_uazbuhanka",vector():set(794.17,-0.0,279.42),212718,2643)
+	sim:create("vehicle_uaz2",vector():set(1040.425,0.0,140.485),603417,2755)
+end

@@ -1,0 +1,49 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@tower
+on_death = death
+combat_ignore = combat_ignore
+threshold = threshold@tikar_threshold
+
+[walker@tower]
+path_walk = tikar_walk1
+path_look = tikar_look1
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+danger = danger_condition
+combat_ignore_cond = always
+meet = meet@common
+on_info = {+major_give_items} walker@room
+
+[walker@room]
+path_walk = tikar_walk2
+path_look = tikar_look2
+danger = danger_condition
+combat_ignore_cond = always
+
+
+[meet@common]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 10|actor
+victim_wpn = 10|actor
+meet_state = 10|hello@tikar_common|5|hello@tikar_common
+meet_state_wpn = 10|hello@tikar_common|5|hello@tikar_common
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@tikar_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+tikar_dead%

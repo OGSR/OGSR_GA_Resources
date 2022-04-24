@@ -1,0 +1,174 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@vrach_threshold
+
+[walker@begin]
+path_walk =	bratstvo_vrach_walk
+path_look =	bratstvo_vrach_look
+on_timer = 100 | walker 
+
+[walker]
+path_walk =	bratstvo_vrach_walk
+path_look =	bratstvo_vrach_look
+combat_ignore_cond = always
+danger = danger_condition
+meet = meet@vrach_hello
+on_info = {+vrach_about_agent} walker@p1
+
+[walker@p1]
+;path_walk =	bratstvo_vrach_walk_p1
+;path_look =	bratstvo_vrach_look_p1
+path_walk =	bratstvo_vrach_walk_p5
+path_look =	bratstvo_vrach_look_p5
+combat_ignore_cond = always
+danger = danger_condition
+on_info = {+vrach_goto_p2} walker@p6
+
+[walker@p2]
+path_walk =	bratstvo_vrach_walk_p2
+path_look =	bratstvo_vrach_look_p2
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p3
+
+[walker@p3]
+path_walk =	bratstvo_vrach_walk_p3
+path_look =	bratstvo_vrach_look_p3
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p4
+
+[walker@p4]
+path_walk =	bratstvo_vrach_walk_p4
+path_look =	bratstvo_vrach_look_p4
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p5
+
+[walker@p5]
+path_walk =	bratstvo_vrach_walk_p5
+path_look =	bratstvo_vrach_look_p5
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p6
+
+[walker@p6]
+path_walk =	bratstvo_vrach_walk_p6
+path_look =	bratstvo_vrach_look_p6
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p7
+
+[walker@p7]
+path_walk =	bratstvo_vrach_walk_p7
+path_look =	bratstvo_vrach_look_p7
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p8
+
+[walker@p8]
+path_walk =	bratstvo_vrach_walk_p10
+path_look =	bratstvo_vrach_look_p10
+combat_ignore_cond = always
+danger = danger_condition
+on_signal       = arrived | walker@p9
+
+[walker@p9]
+path_walk =	bratstvo_vrach_walk_p9
+path_look =	bratstvo_vrach_look_p9
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@p10 %+dar_dolg_gaz66_desant%
+
+[walker@p10]
+path_walk =	bratstvo_vrach_walk_p10
+path_look =	bratstvo_vrach_look_p10
+combat_ignore_cond = always
+danger = danger_condition
+on_timer = 5000 | walker@p11
+on_info = { +bratstvo_saving_1} remark@bunkerport2 %-vrach_goto_p2 -vrach_about_agent%, { +bratstvo_saving_2} remark@bunkerport1 %-vrach_goto_p2 -vrach_about_agent%, { +bratstvo_saving_3} remark@bunkerport3 %-vrach_goto_p2 -vrach_about_agent%
+
+[walker@p11]
+path_walk =	bratstvo_vrach_walk_p10
+path_look =	bratstvo_vrach_look_p10
+combat_ignore_cond = always
+danger = danger_condition
+on_timer = 5000 | walker@p10
+on_info = { +bratstvo_saving_1} remark@bunkerport2 %-vrach_goto_p2 -vrach_about_agent%, { +bratstvo_saving_2} remark@bunkerport1 %-vrach_goto_p2 -vrach_about_agent%, { +bratstvo_saving_3} remark@bunkerport3 %-vrach_goto_p2 -vrach_about_agent%
+
+[remark@bunkerport1]
+anim = artefact_activation
+snd = vrach_port_goodbye
+; snd_anim_sync = true
+target = actor
+meet = no_meet
+no_move = true
+combat_ignore_cond = always
+on_signal = action_end | walker@bunker %=vrach_bunkerport_effect1%
+
+[remark@bunkerport2]
+anim = artefact_activation
+; snd = vrach_port_goodbye
+; snd_anim_sync = true
+target = actor
+meet = no_meet
+no_move = true
+combat_ignore_cond = always
+on_signal = anim_end | walker@bunker %=vrach_bunkerport_effect2%
+
+[remark@bunkerport3]
+anim = artefact_activation
+; snd = vrach_port_goodbye
+; snd_anim_sync = true
+target = actor
+meet = no_meet
+no_move = true
+combat_ignore_cond = always
+on_signal = anim_end | walker@bunker %=vrach_bunkerport_effect3%
+
+[walker@bunker]
+path_walk =	bratstvo_vrach_walk_agent
+path_look =	bratstvo_vrach_look_agent
+combat_ignore_cond = always
+danger = danger_condition
+meet = meet@vrach_hello
+
+
+[meet@vrach_hello]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 5|actor
+victim_wpn = 5|actor
+meet_state = 3|hello@vrach_hello|1|hello@vrach_hello
+meet_state_wpn = 3|hello@vrach_hello|1|hello@vrach_hello
+
+[danger_condition]
+ignore_distance = 10
+ignore_distance_grenade = 10
+ignore_distance_corpse = 10
+ignore_distance_hit = 10
+ignore_distance_sound = 10
+
+[threshold@vrach_threshold]
+max_ignore_distance = 10
+ignore_monster = 10
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[death]
+on_info = %+bratstvo_vrach_dead%
+

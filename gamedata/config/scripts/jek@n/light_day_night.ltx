@@ -1,0 +1,6 @@
+[logic]
+active = ph_idle@off
+[ph_idle@off]
+on_info = {!is_day} ph_idle@on %=turn_on_object%
+[ph_idle@on]
+on_info = {=is_day} ph_idle@off %=turn_off_object%

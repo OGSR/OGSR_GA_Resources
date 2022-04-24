@@ -1,0 +1,24 @@
+[logic]
+active = ph_sound@day
+
+[ph_sound@day]
+snd = kulgband_hutor_radio_snd
+on_info = {-blowout -horror_time} ph_sound@day
+on_info2 = {+horror_time -blowout} ph_sound@3
+on_info3 = {+blowout} ph_sound@blowout
+on_info4 = {+kulgband_deadcity_meet} ph_sound@off
+
+[ph_sound@blowout]
+on_info = {-blowout -horror_time} ph_sound@day
+on_info2 = {+horror_time -blowout} ph_sound@3
+on_info3 = {+blowout} ph_sound@blowout
+
+
+[ph_sound@3]
+on_info = {-blowout -horror_time} ph_sound@day
+on_info2 = {+horror_time -blowout} ph_sound@3
+on_info3 = {+blowout} ph_sound@blowout
+
+
+[ph_sound@off]
+snd = no_music

@@ -1,0 +1,35 @@
+[logic]
+active = heli_move@idle
+
+[heli_move@idle]
+on_info = {+bar_ecolog_crush_heli_start} heli_move@wait
+path_move = rostok_heli_idle_walk
+path_look = rostok_heli_idle_look
+engine_sound = false
+mute = true
+
+[heli_move@wait]
+on_timer = 1000|heli_move@start
+path_move = rostok_heli_idle_walk
+path_look = rostok_heli_idle_look
+engine_sound = false
+mute = true
+
+[heli_move@start]
+path_move = rostok_heli_start_walk
+path_look = rostok_heli_start_look
+combat_ignore = true
+invulnerable = true
+engine_sound = true
+on_signal = flame| heli_move@end %+bar_ecolog_crush_heli_down%
+mute = true
+on_info = {-bar_heli_scene_stay_online} nil %=heli_die%
+
+[heli_move@end]
+path_move = rostok_heli_end
+path_look = rostok_heli_start_look
+combat_ignore = true
+engine_sound = true
+mute = true
+invulnerable = true
+on_info = {-bar_heli_scene_stay_online} nil %=heli_die%

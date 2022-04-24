@@ -1,0 +1,30 @@
+
+
+
+
+[logic]
+active = walker
+combat_ignore = combat_ignore
+on_death = death
+combat_ignore_keep_when_attacked = true
+
+[death]
+on_info = %+yan_kvest_help_to_chuk_death%
+
+[walker]
+path_walk = yan_zombied_chuk_walk
+path_look = yan_zombied_chuk_look
+danger = danger_condition
+combat_ignore_cond = {=dist_to_enemy_ge(10)}
+combat_ignore_keep_when_attacked = true
+on_info  = {-yan_kvest_help_to_chuk_take_water_complete_talked} %=make_invulnerable%
+on_info2 = {+yan_kvest_help_to_chuk_take_water_complete_talked} %=unmake_invulnerable%
+
+[smart_terrains]
+none = true
+
+[danger_condition]
+ignore_distance = 0
+
+[combat_ignore]
+combat_ignore = always

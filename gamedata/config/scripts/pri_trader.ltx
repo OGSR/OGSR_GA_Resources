@@ -1,0 +1,57 @@
+[spawner]
+cond = {+pri_monolith_decoder_got}
+
+[logic]
+active = walker@begin
+trade = misc\trade_pri.ltx
+on_death = death
+combat_ignore = combat_ignore
+
+[death]
+on_info = %+pri_trader_dead%
+
+[walker@begin]
+path_walk = pri_trader_walk
+path_look = pri_trader_look
+on_info = {+pri_talks_end} walker@end
+on_timer = 100 | walker %=make_invulnerable%
+
+[walker]
+path_walk = pri_trader_walk
+path_look = pri_trader_look
+meet = meet
+danger = danger_condition
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+on_info = {+pri_i_am_gunslinger} remark
+
+[walker@end]
+path_walk = pri_trader_walk
+path_look = pri_trader_look
+meet = meet
+danger = danger_condition
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 9|actor
+victim_wpn = 9|actor
+meet_state = 9|hello@val_escort_phrase_invite|5|wait@wait
+meet_state_wpn = 9|hello@val_escort_phrase_invite|5|wait@wait
+
+[remark]
+anim = pripyat_wakeup
+target = actor
+combat_ignore_cond = always
+on_signal = anim_end | %+pri_talks_end% walker@end 
+meet = meet
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[smart_terrains]
+none = true
+
+[combat_ignore]

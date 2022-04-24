@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding="windows-1251"?>
+<game_information_portions>
+
+	<info_portion id="btr_fuel_empty_set"/>
+	<info_portion id="btr_talk_about_get"/> 
+	<info_portion id="btr_quest_start">
+		<task>ds_get_btr_for_freedom_quest</task>
+	</info_portion>	
+	<info_portion id="btr_talk_shurup">
+		<action>ogse_quests.remove_mark_shurup</action>
+	</info_portion>		
+	<info_portion id="btr_found"/>
+	<info_portion id="get_key_from_btr">
+		<action>ogse_quests.release_fake_btr</action>	  
+	</info_portion>	  	
+	<info_portion id="get_key_from_btr_quest">
+		<task>ds_get_btr_for_freedom_keys_quest</task>
+	</info_portion>	
+	<info_portion id="btr_offline_power">
+		<task>ds_get_btr_for_freedom_power_offline_quest</task>
+	</info_portion>
+	<info_portion id="btr_need_get_accum">
+		<action>ogse_quests.spawn_accum</action>
+		<action>ogse_quests.remove_mark_shurup</action>
+		<task>ds_get_btr_for_freedom_get_accum_quest</task>
+	</info_portion>
+	<info_portion id="btr_get_accum_shurup">
+		<action>ogse_quests.start_accum_timer</action>
+	</info_portion>
+	<info_portion id="btr_get_full_accum">
+		<action>ogse_quests.btr_get_accum_notice</action>
+	</info_portion>	
+	<info_portion id="btr_have_full_accum"/>	
+	<info_portion id="btr_get_accum_set"/>	
+	<info_portion id="btr_computer_offline">
+		<task>ds_get_btr_for_freedom_computer_offline_quest</task>
+	</info_portion>
+	<info_portion id="btr_get_computer">
+		<action>ogse_quests.remove_mark_shurup</action>
+		<action>ogse_quests.spawn_btr_comp</action>  <!-- а ещё недурно бы там БТР заспавнить стреляющий по ГГ, чтобы был реально резон купить -->
+		<task>ds_get_btr_for_freedom_computer_find_quest</task>
+	</info_portion>
+	<info_portion id="btr_control_set"/>	
+	<info_portion id="btr_operable">
+		<task>ds_get_btr_for_freedom_drive_quest</task>
+	</info_portion>
+	<info_portion id="btr_in_zaslon_zone"/>
+	<info_portion id="btr_own_freedom">
+		<action>ogse_quests.remove_marks_btr_kap</action>
+		<action>ogse_quests.set_freedom_friends</action>
+	</info_portion>
+	<info_portion id="btr_destroyed"/>
+	<info_portion id="btr_talk_reward"/>
+	<info_portion id="btr_quest_finished">  <!-- тут релизим реальный БТР и создаем скриптовый -->
+		<action>ogse_quests.start_timer_finish_btr</action>
+	</info_portion>
+	
+	<info_portion id="kpss_quest_begin">
+		<action>ogse_quests.spawn_books_gorkom</action>
+	</info_portion>
+	<info_portion id="kpss_gotcha"/>
+	<info_portion id="kpss_freetogo"/>
+
+ </game_information_portions>

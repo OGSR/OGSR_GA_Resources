@@ -1,0 +1,3716 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--[[ ---------------------------------------------------------------------------------------------------
+ File        : tasks_functor.script
+ Description : functions for new tasks
+ Copyright   : 2012 © OGSE Mod Team
+ Author      : Stalk15, Mixser, _призрак_, RvP, Phoenix
+ Last update : 16.07.2012
+--]]----------------------------------------------------------------------------------------------------
+--local actor = db.actor -- <<== не надо так делать!!!
+
+local spawn_db = ogse_spawn_db.script_spawn_registry.task_functor
+
+function attach(sm) -- для менеджера сигналов
+	sm:subscribe({signal = "on_take", fun = this.on_take})
+	sm:subscribe({signal = "on_use", fun = this.on_use})
+	sm:subscribe({signal = "on_sleep_finished", fun = this.on_sleep_finished})
+	sm:subscribe({signal = "on_first_update", fun = this.on_first_update})
+	sm:subscribe({signal = "on_info", fun = this.on_info})
+end
+
+function on_take(obj, sobj)
+	--if sobj == nil then return end
+	local sect = obj:section()
+	if sect == "pda_friend_barman" and not db.actor:has_info("bar_kvest_friend_of_barman_used_pda") then
+		db.actor:give_info_portion("bar_kvest_friend_of_barman_used_pda")
+		return true
+	elseif sect == "diggers_weapon" then
+		obj:set_condition(0)
+		return true
+	elseif sect == "zapis_3_a_case" then
+		db.actor:give_info_portion("rad_kvest_dobrozhelatel_letter_get_letter")
+		ogse.save_var("help_to_svyaznoy", true, "bool")
+		db.actor:give_info_portion("rad_kvest_dobrozhelatel_have_all_password")
+		return true
+	elseif sect == "pda_monolit" then
+		db.actor:give_info_portion("rad_kvest_dobrozhelatel_get_pda_monolit")
+		return true
+--[[	elseif sect == "crazy_flash" and db.actor:has_info("military_psycho_suicide") and db.actor:dont_has_info("military_psycho_deleted") then
+		military_psycho_surprise()]]
+	elseif sect == "crazy_flash" and db.actor:dont_has_info("mil_max_flash_get") then
+		db.actor:give_info_portion ("mil_max_flash_get")
+		return true
+	elseif sect == "af_muten" then
+		if not db.actor:has_info("dead_stalker_question_of_immortality_get_muten") then
+			db.actor.radiation = 0.7
+			db.actor:give_info_portion("dead_stalker_question_of_immortality_get_muten")
+		end
+		if not db.actor:has_info("dead_stalker_question_of_immortality_delete_muten_trash") then
+			question_of_immortality_fisrt_part_delete_muten_trash()
+		end
+		return true
+	elseif sect == "af_firefly" then
+		db.actor:give_info_portion("dead_stalker_question_of_immortality_get_firefly")
+		if not db.actor:has_info("dead_stalker_question_of_immortality_delete_firefly_trash") then
+			question_of_immortality_fisrt_part_delete_firefly_trash()
+		end
+		return true
+	elseif sect == "af_chameleon" then
+		db.actor:give_info_portion("dead_stalker_question_of_immortality_get_chameleon")
+		ogse.delete_var("art_chameleon_id")
+		return true
+	elseif sect == "af_esc_anomaly" then
+		if not db.actor:has_info("af_esc_anomaly_off") then
+			db.actor.radiation = 0.7
+			delete_psy_art_trash("af_esc_anomaly")
+			ogse.give_info("af_esc_anomaly_off")
+		end
+		return true
+	elseif sect == "af_serdce_yantar" then
+		local artid = ogse.load_variable("ArtSerdceYantar")
+		if artid then
+			level_tasks.remove_location_by_id(artid, "green_location")
+		end
+		return true
+	elseif sect == "bomba" then
+		level.start_stop_menu(this.ui_neutralize_bomb(), true)
+		return true
+	elseif sect == "kid_zapisi" and not has_alife_info("kid_zapisi_read") then
+		db.actor:give_info_portion("kid_zapisi_read")
+		return true
+	end
+end
+
+function on_use(obj, sobj)
+	--if sobj == nil then return end
+	local sect = obj:section()
+	if sect == "bp_mily_otschet" then
+		db.actor:give_info_portion("agr_dezerter_report_read")
+		return true
+	elseif sect == "psycho_military_note" then
+		db.actor:give_info_portion("military_psycho_surprise")
+		return true
+	elseif sect == "kolba_dummy" then
+		on_use_kolba_dummy()
+		return true
+	elseif sect == "af_serdce_yantar" then
+		on_use_af_serdce_yantar()
+		return true
+	elseif sect == "case_use_rub" then
+		on_use_case_use_rub()
+		return true
+	elseif sect == "antena" then
+		on_use_mic()
+		return true
+	end
+end
+
+function on_info(npc, info_id)
+	if db.actor:has_info("mil_max_flash_get") and not db.actor:has_info("military_psycho_deleted") then
+		military_psycho_surprise()
+	end
+	if db.actor:has_info("dead_stalker_question_of_immortality_first_part_start") and not db.actor:has_info("dead_stalker_question_of_immortality_get_chameleon") then
+		if not isIndoor(level.name()) then
+			if info_id == "surge_process_stage_06" then
+				question_of_immortality_fisrt_part_spawn_chameleon()
+			elseif info_id == "surge_process_stage_15" then
+				question_of_immortality_fisrt_part_delete_chameleon()
+			end
+		end
+	end
+	check_freedom_attack_end()
+end
+
+function check_freedom_attack_end()
+	if not db.actor:has_info("mil_freedom_attack") then
+		return
+	end
+
+	local check = false
+
+	if db.actor:has_info("mil_freedom_departed_1") or
+	db.actor:has_info("mil_freedom_departed_2") or
+	db.actor:has_info("mil_freedom_departed_3") or
+	db.actor:has_info("mil_freedom_departed_4") or
+	db.actor:has_info("mil_freedom_departed_5") or
+	db.actor:has_info("mil_freedom_departed_6") or
+	db.actor:has_info("mil_freedom_departed_7") or
+	db.actor:has_info("mil_freedom_departed_8") or
+	db.actor:has_info("mil_freedom_departed_9") then
+		check = true
+	end
+	
+	if check == true then
+		if db.actor:has_info("mil_freedom_departed_1") and not db.actor:has_info("mil_freedom_returned_1") then
+			return
+		end
+		if db.actor:has_info("mil_freedom_departed_2") and not db.actor:has_info("mil_freedom_returned_2") then
+			return
+		end
+		if db.actor:has_info("mil_freedom_departed_3") and not db.actor:has_info("mil_freedom_returned_3") then
+			return
+		end
+		if db.actor:has_info("mil_freedom_departed_4") and not db.actor:has_info("mil_freedom_returned_4") then
+			return
+		end
+		if db.actor:has_info("mil_freedom_departed_5") and not db.actor:has_info("mil_freedom_returned_5") then
+			return
+		end
+		if db.actor:has_info("mil_freedom_departed_6") and not db.actor:has_info("mil_freedom_returned_6") then
+			return
+		end
+		if db.actor:has_info("mil_freedom_departed_7") and not db.actor:has_info("mil_freedom_returned_7") then
+			return
+		end
+		if db.actor:has_info("mil_freedom_departed_8") and not db.actor:has_info("mil_freedom_returned_8") then
+			return
+		end
+		if db.actor:has_info("mil_freedom_departed_9") and not db.actor:has_info("mil_freedom_returned_9") then
+			return
+		end
+				
+		db.actor:disable_info_portion("mil_freedom_attack")
+		
+		db.actor:disable_info_portion("mil_freedom_departed_1")
+		db.actor:disable_info_portion("mil_freedom_departed_2")
+		db.actor:disable_info_portion("mil_freedom_departed_3")
+		db.actor:disable_info_portion("mil_freedom_departed_4")
+		db.actor:disable_info_portion("mil_freedom_departed_5")
+		db.actor:disable_info_portion("mil_freedom_departed_6")
+		db.actor:disable_info_portion("mil_freedom_departed_7")
+		db.actor:disable_info_portion("mil_freedom_departed_8")
+		db.actor:disable_info_portion("mil_freedom_departed_9")
+		
+		db.actor:disable_info_portion("mil_freedom_returned_1")
+		db.actor:disable_info_portion("mil_freedom_returned_2")
+		db.actor:disable_info_portion("mil_freedom_returned_3")
+		db.actor:disable_info_portion("mil_freedom_returned_4")
+		db.actor:disable_info_portion("mil_freedom_returned_5")
+		db.actor:disable_info_portion("mil_freedom_returned_6")
+		db.actor:disable_info_portion("mil_freedom_returned_7")
+		db.actor:disable_info_portion("mil_freedom_returned_8")
+		db.actor:disable_info_portion("mil_freedom_returned_9")
+
+	end
+end
+
+function on_sleep_finished()
+	if db.actor:has_info("military_psycho_spawn_note_when_sleeping") then
+		ogse.spawn_item_in_inv("psycho_military_note")
+		ogse.spawn_item_in_inv("af_mopheus")
+		news_manager.pda_tips:play(db.actor, 0, sound_object.s2d)
+		ogse.autohiding_msg("task_functor_1_text", 5000)
+		db.actor:disable_info_portion("military_psycho_spawn_note_when_sleeping")
+	end
+end
+
+-- Для динамического подключения определенных модулей в разных частях игры
+function on_first_update()
+	on_first_update_firefly()
+	on_first_update_chameleon()
+end
+
+
+local wolf_pos = vector():set(-200.87, -20.04, -147.76)
+
+--------------------- Вспом. функции --------------------------
+--/Проверка наличия итемов
+function Actor_Has_Items(ItemSec, CntItems)
+	if not CntItems or CntItems == 1 then
+		return db.actor:object(ItemSec)
+	end
+
+	if type(CntItems) ~= "number" then
+		CntItems = 1
+	end
+	local oActor = db.actor
+	local iCnt = 0
+	if oActor and ItemSec then
+		oActor:iterate_inventory(
+				function (dummy, oItem)
+					if oItem:section() == ItemSec then
+						iCnt = iCnt + 1
+						if iCnt >= CntItems then
+							return true
+						end
+					end
+				end
+			,nil)
+	end
+	return iCnt >= CntItems
+end
+
+--/Ф-ия для выдачи награды игроку за квест
+function give_reward_on_kvest(who, Money, tSections)
+	local Cnt
+	if type(tSections) == "table" then
+		for k, v in pairs(tSections) do
+			for k, v in pairs (tSections[k]) do
+				Cnt = k
+				for i=1, Cnt do
+					dialogs.relocate_item_section(who, v, "in")
+				end
+			end
+		end
+	end
+	if Money ~= nil then
+		dialogs.relocate_money(who, Money, "in")
+	end
+end
+function give_reward(to, money, what)
+	what = what or {}
+	for k, v in pairs(what) do
+		for i=1, v do
+			dialogs.relocate_item_section(to, k, "in")
+		end
+	end
+	if money then
+	    dialogs.relocate_money(to, money, "in")
+	end
+end
+
+
+
+--Ставим метку на объект.
+--ObjId - обжект айди объекта на которого ставим метку
+--VarName - имя метки. Произвольное
+--Txt - имя метки
+--location - необязательный параметр (вариант метки)
+function add_map_spot(ObjId, VarName, Txt, location)
+	if ObjId then
+		if not location then location = "green_location" end
+		level_tasks.add_location_by_id(ObjId, location, Txt)
+		ogse.save_var(VarName, ObjId, "u16")
+	else
+		abort("error in tasks_functor.add_map_spot("..tostring(ObjId)..","..tostring(VarName)..","..tostring(Txt)..",*"..tostring(location)..")")
+	end
+end
+
+--VarName - имя метки
+--Delete - удалять объект?
+function delete_map_spot(VarName, Delete, location)
+	if not ogse.var_exists(VarName) then return end
+
+	if not location then location = "green_location" end
+	local ReadSpot = ogse.load_var(VarName)
+	if level.map_has_object_spot(ReadSpot, location) then
+		level_tasks.remove_location_by_id(ReadSpot, location)
+		ogse.delete_var(VarName)
+		if Delete then
+			local sObj = alife():object(ReadSpot)
+			if sObj then
+				alife():release(sObj, true)
+			end
+		end
+	end
+end
+
+function companion_start_following(actor, npc)
+	dialogs.companion_start_following(npc, actor)
+end
+
+------------------------------------------ Проводники ------------------------------------------
+
+
+
+------------------------------------------// Сидор //------------------------------------------
+
+local task = {
+	not_avail = 0, -- не доступно
+	avail = 1, -- доступно
+	started = 2, -- начато
+	done = 3, -- выполнено
+	failed = 4, -- провалено
+}
+
+local sidor_tasks = {
+
+	--/"Гитара Сидоровича"
+	["search_guitar"] = {
+		get_status = function()
+			if has_alife_info("escape_kvest_search_guitar_complete") then return task.done end
+			if has_alife_info("escape_kvest_search_guitar_fail") then return task.failed end;
+			if has_alife_info("escape_kvest_search_guitar_start") then return task.started end
+			if has_alife_info("esc_serious_talk") then return task.avail end
+			return task.not_avail
+		end,
+	},
+
+	--/"Сделка с военными"
+--[[	["sdelka_with_mils"] = {
+		get_status = function()
+			if has_alife_info("esc_kvest_sdelka_with_mils_complete") then return task.done end
+			if has_alife_info("esc_kvest_sdelka_with_mils_fail") then return task.failed end;
+			if has_alife_info("esc_kvest_sdelka_with_mils_start") then return task.started end
+			if has_alife_info("agroprom_military_case_done") then return task.avail end
+			return task.not_avail
+		end,
+	},]]
+	
+	--[[	--/"Спасти сталкера из плена вояк с блокпоста"
+	["plennik_of_blockpost"] = {
+		get_status = function()
+			if has_alife_info("esc_kvest_plennik_of_blockpost_complete") then return task.done end
+			if has_alife_info("esc_kvest_plennik_of_blockpost_fail") then return task.failed end;
+			if has_alife_info("esc_kvest_plennik_of_blockpost_start") then return task.started end
+			return task.avail -- всегда доступно
+		end,
+	},]]
+
+	--/"Военные у аномалий"
+	["mils_near_anomaly"] = {
+		get_status = function()
+			if has_alife_info("esc_kvest_know_do_mils_near_anomaly_2_complete") then return task.done end
+			if has_alife_info("esc_kvest_know_do_mils_near_anomaly_2_fail") then return task.failed end;
+			if has_alife_info("esc_kvest_know_do_mils_near_anomaly_start") then return task.started end
+			if has_alife_info("esc_serious_talk") then return task.avail end
+			return task.not_avail
+		end,
+	},
+
+	--/"Наемники на Кордоне"
+	["killers_lager"] = {
+		get_status = function()
+			if has_alife_info("esc_kvest_killers_mined_lager_2_complete") then return task.done end
+			if has_alife_info("esc_kvest_killers_mined_lager_2_fail") then return task.failed end;
+			if has_alife_info("esc_kvest_killers_mined_lager_start") then return task.started end
+			if has_alife_info("esc_serious_talk") then return task.avail end
+			return task.not_avail
+		end,
+	},
+
+	--/"Гость на Элеваторе"
+	["guest_on_elevator"] = {
+		get_status = function()
+			if has_alife_info("esc_kvest_qest_on_elevator_show_wpn_complete") then return task.done end
+			if has_alife_info("esc_kvest_qest_on_elevator_show_wpn_fail") then return task.failed end;
+			if has_alife_info("esc_kvest_qest_on_elevator_chek_start") then return task.started end
+			if has_alife_info("agroprom_military_case_done") then return task.avail end
+			return task.not_avail
+		end,
+	},
+}
+
+--/Если есть квест сидора, но не выполнен или не провален
+function is_sidor_quest_started()
+	local result = false
+	for _,v in pairs(sidor_tasks) do
+		result = result or (v.get_status() == task.started)
+	end
+	return result
+end
+
+function have_sidor_available_quest()
+	if is_sidor_quest_started() then return false end
+
+	local result = false
+	for _,v in pairs(sidor_tasks) do
+		result = result or (v.get_status() == task.avail)
+	end
+	return result
+end
+
+function have_sidor_no_quest()
+	return not is_sidor_quest_started() and not have_sidor_available_quest()
+end
+
+-- Остались ли у Сидоровича поручения, которые мы не брали
+function have_sidor_undone_quest()
+	local result = false
+	for _,v in pairs(sidor_tasks) do
+		result = result or (v.get_status() == task.avail or v.get_status() == task.not_avail)
+	end
+	return result
+end
+
+--/Показ доступных квестов у Сидора
+function esc_show_trader_kvests(npc, actor)
+    if not (has_alife_info("escape_kvest_search_guitar_start") or has_alife_info("escape_kvest_search_guitar_fail") or has_alife_info("escape_kvest_search_guitar_complete")) then
+        db.actor:give_talk_message(game.translate_string("task_functor_esc_show_trader_kvests_1_text"), "ui\\ui_iconstotal", Frect():set(83,846,83,47), "other_iconed_answer_item")
+	end
+	if not has_alife_info("esc_kvest_know_do_mils_near_anomaly_start") then
+        db.actor:give_talk_message(game.translate_string("task_functor_esc_show_trader_kvests_2_text"), "ui\\ui_iconstotal", Frect():set(332,0,83,47), "other_iconed_answer_item")
+    end
+	if not has_alife_info("esc_kvest_killers_mined_lager_start") then
+        db.actor:give_talk_message(game.translate_string("task_functor_esc_show_trader_kvests_3_text"), "ui\\ui_iconstotal", Frect():set(332,512,83,47), "other_iconed_answer_item")
+    end
+	if not has_alife_info("esc_kvest_qest_on_elevator_chek_start") and has_alife_info("agroprom_military_case_done") then
+        db.actor:give_talk_message(game.translate_string("task_functor_esc_show_trader_kvests_4_text"), "ui\\ui_iconstotal", Frect():set(166,564,83,47), "other_iconed_answer_item")
+    end
+end
+
+function esc_deal_with_mils_done(first_speaker, second_speaker)
+	if not db.actor:has_info("esc_kvest_sdelka_with_mils_start") then
+		return true
+	else
+		if db.actor:has_info("esc_kvest_sdelka_with_mils_complete") or db.actor:has_info("esc_kvest_sdelka_with_mils_fail") then return true end
+	end
+	return false
+end
+
+function esc_deal_with_mils_fail_start_dialog_precondition(first_speaker, second_speaker)
+	return db.actor:dont_has_info("esc_kvest_sdelka_with_mils_start") or db.actor:has_info("esc_kvest_sdelka_with_mils_fail") or db.actor:has_info("esc_kvest_sdelka_with_mils_complete")
+end
+
+------------------------------------------// Бармен //------------------------------------------
+--/Показ доступных квестов у Бармена
+function bar_show_barman_kvests()
+    if not has_alife_info("bar_kvest_friend_of_barman_start") then
+        db.actor:give_talk_message(game.translate_string("task_functor_bar_show_barman_kvests_1_text"), "ui\\ui_iconstotal", Frect():set(83,846,83,47), "other_iconed_answer_item")
+	end
+    --[[if not has_alife_info("bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start") then
+        db.actor:give_talk_message(game.translate_string("Сделка Долговцев с Наемниками"), "ui\\ui_iconstotal", Frect():set(0,282,83,47), "other_iconed_answer_item")
+	end--]]
+    if not has_alife_info("captive_on_agr_mill_base_start") then
+        db.actor:give_talk_message(game.translate_string("task_functor_bar_show_barman_kvests_2_text"), "ui\\ui_iconstotal", Frect():set(166,376,83,47), "other_iconed_answer_item")
+	end
+end
+
+--/Если есть квест бармена, но не выполнен или не провален
+function bar_have_one_kvest_of_barman()
+    if (has_alife_info("bar_kvest_friend_of_barman_start")) and not (has_alife_info("bar_kvest_friend_of_barman_2_complete") or has_alife_info("bar_kvest_friend_of_barman_2_fail")) or
+	   (has_alife_info("bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start")) and not (has_alife_info("bar_kvest_sdelka_dolg_and_killers_slezhka_complete") or has_alife_info("bar_kvest_sdelka_dolg_and_killers_plennik_death")) or
+	   (has_alife_info("captive_on_agr_mill_base_start")) and not (has_alife_info("captive_on_agr_mill_base_complete") or has_alife_info("captive_on_agr_mill_base_fail"))
+
+	then
+	return true
+   else
+   return false
+  end
+end
+
+function bar_dont_have_one_kvest_of_barman()
+    return not bar_have_one_kvest_of_barman()
+end
+
+--/Если брали все квесты у бермена, то убираем диалог с квестами
+function bar_all_kvests_of_barman_completed()
+    if has_alife_info("bar_kvest_friend_of_barman_start") and
+	   --has_alife_info("bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start") and
+	   has_alife_info("captive_on_agr_mill_base_start")
+
+	then
+	return false
+   else
+   return true
+  end
+end
+
+------------------------------------------// Макс //------------------------------------------
+--/Показ доступных квестов у Максa
+function mil_show_max_kvests()
+    if not has_alife_info("mil_kvest_spasti_freedomer_on_radar_start") then
+        db.actor:give_talk_message(game.translate_string("task_functor_mil_show_max_kvests_1_text"), "ui\\ui_iconstotal", Frect():set(249,752,83,47), "other_iconed_answer_item")
+	end
+end
+
+--/Если есть квест макса, но не выполнен или не провален
+function mil_have_one_kvest_of_max()
+    return has_alife_info("mil_kvest_spasti_freedomer_on_radar_start") and not (has_alife_info("mil_kvest_spasti_freedomer_on_radar_complete") or has_alife_info("mil_kvest_spasti_freedomer_on_radar_fail"))
+end
+
+function mil_dont_have_one_kvest_of_max()
+    return not mil_have_one_kvest_of_max()
+end
+
+--/Если брали все квесты у макса, то убираем диалог с квестами
+function mil_all_kvests_of_max_completed()
+    return not has_alife_info("mil_kvest_spasti_freedomer_on_radar_start")
+end
+
+----------------------- Квест "Гитара Сидоровича" -----------------------
+function spawn_guitar_for_kvest_guitar()
+	ogse.spawn_object_rand(spawn_db.GuiPoses)
+end
+
+function dostal_guitar_of_sidor()
+    return db.actor:object("guitar_sidr")
+end
+
+function give_guitar_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "guitar_sidr", "out")
+end
+
+function give_reward_on_kvest_guitar_of_sidor(first_speaker, second_speaker)
+    local t = {
+		["ammo_5.45x39_fmj"] = 1,
+	}
+	this.give_reward(second_speaker, 1000, t)
+end
+
+----------------------- Квест "Сделка с военными" -----------------------
+
+function precond_give_yashik_to_actor()
+	return ogse_car_control.car_in_range_exist(story_ids.esc_kuznetsov, "vehicle_zaz", 20.0)
+end
+
+function precond_zaz_on_level()
+	return ogse_car_control.is_car_on_level("vehicle_zaz")
+end
+
+function not_precond_zaz_on_level()
+	return not ogse_car_control.is_car_on_level("vehicle_zaz")
+end
+
+function precond_not_give_yashik_to_actor()
+	return not precond_give_yashik_to_actor()
+end
+
+function give_dynamite_for_mils_to_actor(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "dynamite_for_mils", "in")
+end
+
+function give_dynamite_for_mils_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "dynamite_for_mils", "out")
+	local object = db.actor:object("dynamite_for_mils")
+	if object then
+		local sobject = alife():object(object:id())
+		if sobject then alife():release(sobject, true) end
+	end
+end
+
+function is_dynamite_with_actor(first_speaker, second_speaker)
+	return db.actor:object("dynamite_for_mils") or db.actor:has_info("esc_kvest_sdelka_with_mils_get_car")
+end
+
+function give_yashik_weapon_to_actor(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "yashik_weapon", "in")
+end
+
+function give_yashik_weapon_to_wolf(first_speaker, second_speaker)
+	local car = level_object_by_sid(story_ids.esc_zaz_in_novice_lager)
+	if not car then return end
+	if dsh_rukzak.is_item_in_rukzak(car:id(), "yashik_weapon") then
+		dsh_rukzak.remove_item_from_rukzak( car:id(), "yashik_weapon" )
+	end
+end
+
+function give_reward_on_kvest_sdelka_with_mils(first_speaker, second_speaker)
+	give_reward_on_kvest(second_speaker, 4000, t)
+end
+
+function set_start_dlg_to_kuznecov()
+	local o = level_object_by_sid(story_ids.esc_kuznetsov)
+	if o and o:get_start_dialog() ~= "esc_give_dinamyte_to_mils_dialog" and distance_between(db.actor, o) < 10 then	--50^2
+		o:set_start_dialog("esc_give_dinamyte_to_mils_dialog")
+	end
+end
+
+function search_fuel_complete()
+	if level.name() == "l01_escape" then
+		local sobj = alife():story_object(story_ids.esc_zaz_in_novice_lager)
+		if sobj then
+			local obj = level.object_by_id(sobj.id)
+			ASSERT(obj, "zaz is not available now!")
+			local car = obj:get_car()
+			return car:GetFuel() > 0.01
+		end
+	end
+	return false
+end
+
+function set_start_dlg_to_kuznecov2()
+	level_object_by_sid(story_ids.esc_kuznetsov):set_start_dialog("esc_bridge_soldiers_start")
+end
+
+function drive_yashik_to_lager()
+	if level.name() == "l01_escape" then
+		local car = level_object_by_sid(story_ids.esc_zaz_in_novice_lager)
+		if car and has_alife_info("escape_kvest_with_military_give_din_to_mils") then
+			if car:position():distance_to(wolf_pos) < 10 then
+				if dsh_rukzak.is_item_in_rukzak(car:id(), "yashik_weapon") then
+					return true
+				end
+			end
+		end
+	end
+end
+
+function zaz_set_fuel_0()
+	local car = level_object_by_sid(story_ids.esc_zaz_in_novice_lager)
+	if car then
+		car:get_car():SetFuel(0)
+	end
+end
+
+function esc_kvest_sdelka_with_mils_messsage_car_is_near()
+	local car = ogse_car_control.get_actor_car()
+	if car and car:section() == level_object_by_sid(story_ids.esc_zaz_in_novice_lager):section()
+	and not (db.actor:has_info("esc_kvest_sdelka_with_mils_complete") or db.actor:has_info("esc_kvest_sdelka_with_mils_fail")) then
+		local text = game.translate_string("esc_kvest_sdelka_with_mils_messsage_car_is_near_1_text")
+		ogse.send_tip(text, game.translate_string("esc_kvest_sdelka_with_mils_messsage_car_is_near_2_text"), nil, nil, nil, "news")
+	elseif db.actor:has_info("esc_kvest_sdelka_with_mils_get_car_done") then
+		db.actor:disable_info_portion("esc_kvest_sdelka_with_mils_get_car_done")
+	end
+end
+
+function is_zaz_enable()
+	return level_object_by_sid(story_ids.esc_zaz_in_novice_lager)
+	--log1("is_zaz_enable() finish")
+end
+
+function esc_kvest_sdelka_with_mils_make_kuznecov_neutral()
+	xr_gulag.setGulagNeutral("esc_bridge", db.actor)
+	db.actor:disable_info_portion("esc_bridge_pass_fire")
+end
+
+function make_esc_bridge_enemy()
+	xr_gulag.setGulagEnemy("esc_bridge", db.actor)
+end
+
+function enable_kvest_sdelka_with_mils(first_speaker, second_speaker)
+--	return Kuznecov_Alive() and wolf_alive() and not ogse.has_info("agroprom_military_case_done")
+	return not(not Kuznecov_Alive() or not wolf_alive() or ogse.has_info("agroprom_military_case_done") or not is_zaz_enable())
+end
+
+function not_enable_kvest_sdelka_with_mils(first_speaker, second_speaker)
+	return not enable_kvest_sdelka_with_mils(first_speaker, second_speaker)
+end
+
+function esc_kvest_sdelka_with_mils_talk_with_wolf_fail()
+	if level.name() == "l01_escape" then
+		if not wolf_alive() then
+			db.actor:give_info_portion("esc_kvest_sdelka_with_mils_fail")
+			return true
+		end
+	end
+	return false
+end
+
+function esc_kvest_sdelka_with_mils_zaz_fail()
+	if level.name() == "l01_escape" then
+		if not is_zaz_enable() then
+			db.actor:give_info_portion("esc_kvest_sdelka_with_mils_fail")
+			return true
+		end
+	end
+	return false
+end
+
+function esc_kvest_sdelka_with_mils_give_arts_to_mils_fail()
+	if level.name() == "l01_escape" then
+		if not Kuznecov_Alive() or db.actor:has_info("esc_bridge_pass_fire") then
+			db.actor:give_info_portion("esc_kvest_sdelka_with_mils_fail")
+			return true
+		end
+	end
+	return false
+end
+
+----------------------- Квест "Спасти сталкера из плена вояк с блокпоста" -----------------------
+function spawn_specotryad_for_kill_blockpost()
+	local esc_specotryad_leader = ogse.spawn_object(spawn_db.esc_specotryad_leader)
+	add_map_spot(esc_specotryad_leader.id, "esc_otryad_spot_id", "spawn_specotryad_for_kill_blockpost_1_text")
+	ogse.spawn_objects(spawn_db.esc_specotryad_npc)
+end
+
+function search_info_about_plennik_complete()
+    if Actor_Has_Items("bp_mily_otschet") then
+	    delete_map_spot("esc_otryad_spot_id", false, "green_location")
+	    db.actor:give_info_portion("esc_kvest_plennik_of_blockpost_search_info_about_plennik")
+		ogse.spawn_object(spawn_db.esc_plennik_on_blockpost)
+	    return true
+	else
+	    return false
+	end
+end
+
+function search_plennik_complete()
+    return db.actor:position():distance_to_sqr(vector():set(-123.722, -26.784,-476.410),129144,11) < 4
+end
+
+function guid_plennik_to_lager_complete()
+    if has_alife_info("esc_kvest_plennik_of_blockpost_talk_with_plennik") then
+	 local sidor = level_object_by_sid(story_ids.Escape_Trader)
+	  if sidor and distance_between(db.actor, sidor) < 60^2 then
+	    db.actor:give_info_portion("esc_kvest_plennik_of_blockpost_guid_plennik_to_lager")
+	    return true
+	else
+	    return false
+	end
+  end
+end
+
+function give_bp_mily_otschet_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "bp_mily_otschet", "out")
+end
+
+function give_reward_on_kvest_plennik_blockposta(first_speaker, second_speaker)
+	dialogs.relocate_money(second_speaker, 4000, "in")
+end
+function give_reward_on_kvest_plennik_blockposta_2(first_speaker, second_speaker)
+    local t = {{[1]="af_cristall_flower"}}
+	give_reward_on_kvest(second_speaker, 1000, t)
+end
+
+----------------------- Квест "Военные у аномалий" -----------------------
+function have_af_esc_anomalyr()
+    if Actor_Has_Items("af_esc_anomaly") then
+		if not has_alife_info("esc_talk_with_anmaly_military_leader_2") then
+			db.actor:give_info_portion("esc_kvest_know_do_mils_near_anomaly_take_item")
+		end
+		return true
+    end
+	return false
+end
+
+--TODO: messanges
+function update_have_af_esc_anomaly_1()
+	if not db.actor then return false end
+	local dis = db.actor:position():distance_to_sqr(vector():set(-253.87, -13.04, -9.76),8570,67)
+	if dis < 50 then
+		ogse.send_tip(game.translate_string("kill_him_now_text"))
+		ogse.give_info("esc_kvest_know_do_mils_near_anomaly_take_item")
+		ogse.give_info("esc_kvest_know_do_mils_near_anomaly_fail")
+		ogse.give_info("esc_kvest_know_do_mils_near_anomaly_complete")
+	elseif dis < 400 then
+		if not ogse.has_info("esc_millitary_near_anomaly_send_ahtung") then
+			ogse.send_tip(game.translate_string("update_have_af_esc_anomaly_1_text"))
+			ogse.give_info("esc_millitary_near_anomaly_send_ahtung")
+		end
+	end
+end
+
+--TODO: messanges
+function update_have_af_esc_anomaly_2()
+	if not db.actor then return false end
+	local dis = db.actor:position():distance_to_sqr(vector():set(-253.87, -13.04, -9.76),8570,67)
+
+    if dis > 50^2 and Actor_Has_Items("af_esc_anomaly") and not ogse.has_info("esc_kvest_know_do_mils_near_anomaly_take_item") then
+		ogse.send_tip(game.translate_string("kill_him_now_text"))
+		db.actor:give_info_portion("esc_kvest_know_do_mils_near_anomaly_take_item")
+	end
+
+	if dis > 75^2 and db.actor:has_info("esc_kvest_know_do_mils_near_anomaly_actor_give_art_to_mils") and not Actor_Has_Items("af_esc_anomaly") then
+		db.actor:give_info_portion("esc_kvest_know_do_mils_near_anomaly_2_fail")
+	end
+
+end
+
+function have_af_esc_anomaly(first_speaker, second_speaker)
+	return Actor_Has_Items("af_esc_anomaly")
+end
+
+function give_af_esc_anomaly_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_esc_anomaly", "out")
+end
+
+function spawn_mils_on_esc_anoms()
+	local cd = "[logic] \nactive = ogsm_effector \n[ogsm_effector] on_info = {+af_esc_anomaly_off} nil"
+	spawn_psy_art("af_esc_anomaly", spawn_db.af_esc_anomaly, 4, 6, cd)
+end
+
+function have_5_vodka()
+    return Actor_Has_Items("kolbasa", 2) and Actor_Has_Items("bread", 3) and Actor_Has_Items("vodka", 1)
+end
+
+function give_5vodka_to_npc(first_speaker, second_speaker)
+    for i = 1, 3 do
+	    dialogs.relocate_item_section(first_speaker, "bread", "out")
+	end
+    for i = 1, 2 do
+	    dialogs.relocate_item_section(first_speaker, "kolbasa", "out")
+	end
+	dialogs.relocate_item_section(first_speaker, "vodka", "out")
+	ogse.remove_inv_items_by_section("bread", 3)
+	ogse.remove_inv_items_by_section("kolbasa", 2)
+	ogse.remove_inv_items_by_section("vodka", 1)
+end
+
+function punch_actor()
+    sound = sound_object("actor\\pain_"..tostring(math.random(1, 8)))
+    sound:play_at_pos(db.actor, vector():set(0,0,0), 0, sound_object.s2d)
+	level.add_pp_effector("fire_hit.ppe", 1977, false)
+	--level.add_cam_effector("camera_effects\\empty.anm", 1972, false, "tasks_functor.punch_actor_2")
+	level.add_cam_effector("camera_effects\\fusker.anm", 9993, false, "")
+end
+
+function punch_actor_2()
+    sound = sound_object("actor\\pain_"..tostring(math.random(1, 8)))
+    sound:play_at_pos(db.actor, vector():set(0,0,0), 0, sound_object.s2d)
+	level.add_pp_effector("fire_hit.ppe", 1977, false)
+	level.add_cam_effector("camera_effects\\dis_consciousness.anm", 9993, false, "")
+end
+
+function give_reward_on_kvest_know_do_mils_near_anomaly_1(first_speaker, second_speaker)
+    local t = {{[1]="wpn_ak74u_tact", [2]="grenade_f1"}}
+	give_reward_on_kvest(second_speaker, 2000, t)
+end
+
+function give_reward_on_kvest_know_do_mils_near_anomaly_2(first_speaker, second_speaker)
+    local t = {{[1]="wpn_ak74u", [2]="grenade_f1"}}
+	give_reward_on_kvest(second_speaker, 1000, t)
+end
+
+--[[
+function delete_mils_near_anoms()
+	for i = 1, 65535 do
+	  local obj = alife():object(i)
+		if obj then
+			if string.find(obj:name(), "esc_millitary_near_anomaly") then
+				if level.object_by_id(i)==nil then
+					alife():release(obj, true)
+				else
+					ogse_st_mgr.start_timer("del_anom_mils", 10, "tasks_functor.delete_mils_near_anoms")
+				end
+			end
+        end
+	end
+end]]
+----------------------- Квест "Наемники на Кордоне" -----------------------
+--todo:
+--1. ГГ не должен подходить слишком близко когда пишет звук
+--2. ГГ не должны заметить
+--3. Наймов нужно обезопасить от собак
+--4. Места для бомбы на Кордоне
+local garb_forest = vector():set(257, -8, -138)
+function actor_near_esc_killers()
+	if level.name() == "l02_garbage" and db.actor:position():distance_to(garb_forest) < 75 then
+		return true
+	else
+		return false
+	end
+end
+
+local sound_obj_mic = xr_sound.get_safe_sound_object([[characters_voice\scenario\killers_bomb_talk]])
+
+function actor_far_esc_killers()
+	if mic_used() then
+		if not sound_obj_mic:playing() then
+			sound_obj_mic:play_at_pos(db.actor, vector():set(-1, 0, 1), 0, sound_object.s2d)
+		end
+	
+		local dist = db.actor:position():distance_to(garb_forest)
+		if sound_obj_mic:playing() then
+			local vol = 1 - ( dist / 125 )
+			if has_alife_info("esc_kvest_killers_mined_lager_fail") then
+				sound_obj_mic.volume  = 0
+			else
+				sound_obj_mic.volume  = vol
+			end
+		end		
+	    if dist > 125 then
+			db.actor:give_info_portion("esc_kvest_killers_mined_lager_fail")
+			return true
+		elseif not has_alife_info("esc_kvest_killers_mined_lager_distance125") and dist > 100 then
+			news_manager.send_tip(db.actor, "actor_far_esc_killers_text", 0, "stalker", 7000)
+			db.actor:give_info_portion("esc_kvest_killers_mined_lager_distance125")
+		end
+	end
+end
+
+function spawn_esc_killers()
+	if math.random() > 0.5 then
+		db.actor:give_info_portion("esc_bomb_cable_green")
+	end
+	ogse.spawn_objects(spawn_db.spawn_esc_killers)
+end
+
+function spawn_bomba()
+	local sbomb = ogse.spawn_object_rand(spawn_db.PosesBomb)
+	ogse.save_var("BombID", sbomb.id, "u16")
+	level.client_spawn_manager():add( sbomb.id, -1, function(id, obj)
+		obj:set_tip_text("spawn_bomba_text")
+	end )
+	ogse_st_mgr.start_conditional_visual_timer(nil, 180, script_name() .. ".DetonateBombCond", script_name() .. ".DetonateBomb")
+end
+
+function DetonateBombCond()
+	--return has_alife_info("esc_bomb_ui")
+	return (has_alife_info("esc_kvest_killers_mined_lager_kill_killers") or has_alife_info("esc_kvest_killers_mined_lager_fail"))
+end
+
+function DetonateBomb()
+	db.actor:give_info_portion("esc_kvest_killers_mined_lager_2_fail")
+	db.actor:give_info_portion("esc_kvest_killers_mined_lager_fail")
+	ASSERT(ogse.var_exists("BombID"), "cannot get id")
+	local b = level.object_by_id(ogse.load_var("BombID"))
+	hit_object(b, vector():set(0, 0, 0), 0, db.actor, 1000000, hit.explosion) --1000
+	ogse.delete_var("BombID")
+end
+
+function ReleaseBomb()
+	local b = db.actor:object("bomba")
+	ASSERT(b, "why i don't have a bomb?")
+	local sobj = alife():object(b:id())
+	alife():release(sobj, true)
+
+	if ogse.var_exists("BombID") then
+		ogse.delete_var("BombID")
+	end
+end
+
+function give_antena_to_actor(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "antena", "in")
+end
+
+function on_use_mic()
+	if actor_near_esc_killers() then
+		ogse.save_var("StoreSound", true, "bool")
+		ogse_st_mgr.start_conditional_visual_timer(nil, 51, script_name() .. ".WaitSoundRecordCond", script_name() .. ".WaitSoundRecord")
+	else
+		news_manager.send_tip(db.actor, "on_use_mic_text", 0, "stalker", 7000)
+		local act = db.actor
+		alife():create("antena", act:position(), act:level_vertex_id(), act:game_vertex_id(), act:id())
+	end
+end
+
+function mic_used()
+	if ogse.var_exists("StoreSound") then
+		return true
+	end
+    return false
+end
+
+function WaitSoundRecordCond()
+	return has_alife_info("esc_kvest_killers_mined_lager_fail")
+end
+
+function WaitSoundRecord()
+    db.actor:give_info_portion("esc_kvest_killers_mined_lager_wite_store_snd")
+    news_manager.send_tip(db.actor, "%c[255,255,128,128]"..game.translate_string("escape_trader_name").."\\n%c[default]"..game.translate_string("wait_sound_record_1_text"), 0, "trader", 20000)
+	if ogse.var_exists("StoreSound") then
+		ogse.delete_var("StoreSound")
+	end
+end
+
+function search_esc_lager_bomba_complete()
+    if db.actor:object("bomba") then
+--		level.start_stop_menu(this.ui_neutralize_bomb(), true)
+		return true
+	end
+	if db.actor and db.actor:position():distance_to(wolf_pos) < 37 and not has_alife_info("esc_kvest_killers_mined_lager_spwn_bomb") then
+		spawn_bomba()
+		db.actor:give_info_portion("esc_kvest_killers_mined_lager_spwn_bomb")
+	end
+	return false
+end
+
+class "ui_neutralize_bomb" (CUIScriptWnd)
+function ui_neutralize_bomb:__init() super()
+	db.actor:give_info_portion("esc_bomb_ui")
+
+	local W, H = device().width,device().height
+	local mul = H/W
+	local width = 768
+	if mul < 0.75 then
+		width = width * 0.75
+	end
+	local w = 1024 - width
+	local off_w = w / 2
+	local h = 768 - 384
+	local off_h = h / 2		
+	self:Init(off_w, off_h, width, 384)
+
+	self.bg = CUIStatic()
+    self.bg:SetAutoDelete(true)
+    self.bg:InitTexture([[ui\ui_bomb]])
+    self.bg:Init(0, 0, width, 384)
+	self.bg:SetStretchTexture(true)
+	self:AttachChild(self.bg)
+
+	self.btn_yellow = CUIButton()
+	self.btn_yellow:SetWindowName("btn_yellow")
+	self.btn_yellow:SetAutoDelete(true)
+	self.btn_yellow:SetText(game.translate_string("ui_neutralize_bomb_1_text"))
+    self.btn_yellow:Init(0, 200, 128, 32)
+	self.btn_yellow:InitTexture([[ui\ui_btn_01_t]])
+    self:AttachChild(self.btn_yellow)
+	self:AddCallback("btn_yellow", ui_events.BUTTON_CLICKED, self.on_press_yellow,  self)
+
+	self.btn_green = CUIButton()
+	self.btn_green:SetWindowName("btn_green")
+	self.btn_green:SetText(game.translate_string("ui_neutralize_bomb_2_text"))
+	self.btn_green:SetAutoDelete(true)
+    self.btn_green:Init(0, 168, 128, 32)
+	self.btn_green:InitTexture([[ui\ui_btn_01_t]])
+    self:AttachChild(self.btn_green)
+	self:AddCallback("btn_green",  ui_events.BUTTON_CLICKED, self.on_press_green,   self)
+end
+
+function ui_neutralize_bomb:on_press_green()
+	if has_alife_info("esc_bomb_cable_green") then
+		this.messege_of_sidor_a_kill_mercs()
+		this.ReleaseBomb()
+	else
+		this.DetonateBomb()
+	end
+	self:quit()
+end
+
+function ui_neutralize_bomb:OnKeyboard(dik, key_act)
+	CUIScriptWnd.OnKeyboard(self, dik, key_act)
+	if key_act == ui_events.WINDOW_KEY_PRESSED then
+        if dik == DIK_keys.DIK_ESCAPE then 
+			this.ReleaseBomb()
+			local sbomb = alife():create("bomba", db.actor:position():add(db.actor:direction()), db.actor:level_vertex_id(), db.actor:game_vertex_id())
+			level.client_spawn_manager():add( sbomb.id, -1, function(id, obj)
+				obj:set_tip_text("spawn_bomba_text")
+			end )
+			ogse.save_var("BombID", sbomb.id, "u16")
+			self:quit()
+		end
+    end
+	return true
+end
+
+function ui_neutralize_bomb:on_press_yellow()
+	if not has_alife_info("esc_bomb_cable_green") then
+		this.messege_of_sidor_a_kill_mercs()
+		this.ReleaseBomb()
+	else
+		this.DetonateBomb()
+	end
+	self:quit()
+end
+
+function ui_neutralize_bomb:quit()
+	level.start_stop_menu(self, true)
+	self:ClearCallbacks()
+end
+
+function messege_of_sidor_a_kill_mercs()
+	db.actor:give_info_portion("esc_kvest_killers_mined_lager_kill_killers")
+    news_manager.send_tip(db.actor, "messege_of_sidor_a_kill_mercs_text", 0, "trader", 21000)
+end
+
+function kill_killers_mined()
+	local info = "esc_kvest_killers_mined_lager_killed_killer_"
+	for i=1, 5 do
+		if not has_alife_info(info .. i) then
+			return false
+		end
+	end
+	db.actor:give_info_portion("esc_kvest_killers_mined_lager_2_kill_killers")
+	return true
+end
+
+function kvest_killers_mined_cancel()
+	local mic = db.actor:object("antena")
+	if mic then
+		local sobj = alife():object(mic:id())
+		alife():release(sobj, true)
+	end
+end
+
+function give_reward_on_kvest_killers_mined(first_speaker, second_speaker)
+	local t = {
+		["grenade_f1"] 		= 7,
+		["wpn_saiga12_unic"] = 1,
+	}
+	this.give_reward(second_speaker, 2000, t)
+end
+
+----------------------- Квест "Друг Бармена" -----------------------
+
+function spawn_pda_friend_barman()
+	local spda = ogse.spawn_object(spawn_db.pda_friend_barman)
+end
+
+function val_spawn_scene_st_sv()
+    local shvid_sobj = ogse.spawn_object(spawn_db.val_friend_of_barman)
+    local stl1 = ogse.spawn_object(spawn_db.val_stalkers_barman1)
+    local stl2 = ogse.spawn_object(spawn_db.val_stalkers_barman2)
+    local stl3 = ogse.spawn_object(spawn_db.val_stalkers_barman3)
+    local stl4 = ogse.spawn_object(spawn_db.val_stalkers_barman4)
+	local bomb = ogse.spawn_object(spawn_db.bomba_easy)
+	-- Запомним ID Швида, дабы не плодить лишнего SID'а (да и остальных на всякий случай)
+	ogse.save_var("shvid_id", shvid_sobj.id, "u16")
+	ogse.save_var("val_stalkers_barman_ids", { stl1.id, stl2.id, stl3.id, stl4.id }, "array", "u16")
+	ogse.save_variable("val_bomba_id", bomb.id)
+end
+
+function val_delete_all_from_quest()
+    local id = ogse.load_variable("val_bomba_id",-1)
+	if id then
+		local sObj = alife():object(id)
+		if sObj then
+			alife():release(sObj, true)
+		end
+	else
+		log1("В квесте друг Бармена произошла маленькая ошибка, не сохранилось id бомбы")
+	end
+end
+
+function make_shvid_trade_obmen(first_speaker, second_spreaker)
+	local shvid_obj = level.object_by_id(ogse.load_var("shvid_id"))
+	if shvid_obj then
+		trade_manager.trade_init(shvid_obj, "misc\\trade_obmen.ltx")
+	else log1("!! Cannot find shvid!")
+	end
+end
+
+function make_shvid_trade_generic(first_speaker, second_spreaker)
+	local shvid_obj = level.object_by_id(ogse.load_var("shvid_id"))
+	if shvid_obj then
+		trade_manager.trade_init(shvid_obj, "misc\\trade_generic.ltx")
+	else log1("!! Cannot find shvid!")
+	end
+end
+
+function actor_switch_to_trade()
+	ogse_quests.block_use_hotkeys()
+	db.actor:switch_to_trade()
+end
+
+function barman_friend_go_to_him()
+    if db.actor:position():distance_to(vector():set(-56.047, 0.103, 18.256)) < 3 and level.name() == "l04_darkvalley" then
+		return true
+	else
+	    return false
+    end
+end
+
+function take_pda_of_friend_barman()
+    if Actor_Has_Items("pda_friend_barman") then
+	    messege_barman_search_him_friend()
+		val_spawn_scene_st_sv()
+		ogse.give_info("bar_kvest_friend_of_barman_2_spawn")
+		return true
+	else
+	    return false
+    end
+end
+
+function actor_have_af_dummy_glassbeads()
+    return Actor_Has_Items("af_dummy_glassbeads")
+end
+
+function actor_not_have_af_dummy_glassbeads()
+	return not Actor_Has_Items("af_dummy_glassbeads")
+end
+
+function give_af_dummy_glassbeads(first_speaker, second_speaker)
+	if db.actor:object("af_dummy_glassbeads") then
+		dialogs.relocate_item_section(first_speaker, "af_dummy_glassbeads", "out")
+	end
+end
+
+function messege_barman_search_him_friend()
+	news_manager.send_tip(db.actor, "messege_barman_search_him_friend_text", 0, "barman", 20000)
+	ogse_st_mgr.start_timer("messege_barman_search_him_friend_timer", 10.0, "tasks_functor.start_kvest_search_friend_barman")
+end
+
+function start_kvest_search_friend_barman()
+	db.actor:give_info_portion("bar_kvest_friend_of_barman_complete")
+	db.actor:give_info_portion("bar_kvest_search_friend_barman_start")
+end
+
+function search_barman_friend()
+    return db.actor:position():distance_to(vector():set(136.30,0.27,-203.48)) < 30 and level.name() == "l04_darkvalley"
+end
+
+function on_hit_sv_enemy()
+    news_manager.send_tip(db.actor, "on_hit_sv_enemy_text", 0, "freedom", 7000)
+	local time_to_explose = 90
+	if db.actor:has_info("bar_kvest_friend_of_barman_lost_glassbeads") then time_to_explose = time_to_explose*2 end
+	ogse_st_mgr.start_visual_timer("bar_kvest_friend_of_barman_bomb_explose", time_to_explose, script_name()..".babah_bomba_friend_barman")
+end
+
+function add_spot_friend_barman()
+	local id = ogse.load_var("shvid_id")
+	local sobj = alife():object(id)
+	ASSERT(sobj, "")
+	if ogse.check_offline_npc(sobj) == true then
+		-- ogse.send_tip("Швид жив, id = "..id)
+		level_tasks.add_location_by_id(id, "blue_location", game.translate_string("scvid_location_string"))		
+	end
+end
+
+function remove_spot_friend_barman()
+	level_tasks.remove_location_by_id(ogse.load_var("shvid_id"), "blue_location")	
+end
+
+function bar_kvest_friend_of_barman_check_status_of_bomb()
+	local id = ogse.load_var("shvid_id")
+	local shvid_obj = level.object_by_id(id)
+	local sobj = alife():object(id)
+	if sobj and not shvid_obj then
+		return -- Пока Швид в оффлайне
+	end
+
+	if shvid_obj and not shvid_obj:alive() then
+		db.actor:give_info_portion("bar_kvest_friend_of_barman_2_fail")
+	end
+
+	local is_all_dead = true
+	for i=2,8 do
+		if not db.actor:has_info("bar_kvest_friend_of_barman_val_freedom_death_"..tostring(i)) then
+			is_all_dead = false
+			break
+		end
+	end
+	if is_all_dead == true then
+		if ogse_st_mgr.timer_exists("bar_kvest_friend_of_barman_bomb_explose") then
+			local bomb_timer = ogse_st_mgr.get_timer("bar_kvest_friend_of_barman_bomb_explose")
+			bomb_timer:stop()
+			db.actor:give_info_portion("bar_kvest_friend_of_barman_val_freedom_all_dead")
+		end
+	end
+end
+
+function bar_kvest_friend_of_barman_id_dead()
+	-- Отключаем таймер
+	if ogse_st_mgr.timer_exists("bar_kvest_friend_of_barman_bomb_explose") then
+		local bomb_timer = ogse_st_mgr.get_timer("bar_kvest_friend_of_barman_bomb_explose")
+		bomb_timer:stop()
+	end
+
+	-- При выходе в оффлайн удалим товарищей-пленников
+	local tbl = ogse.load_var("val_stalkers_barman_ids")
+	for i=1, #tbl do
+		local id = tbl[i]
+		local sobj = alife():object(id)
+		if sobj then
+			local obj = level.object_by_id(id)
+			if not obj then
+				alife():release(sobj, true)
+			else
+				delete_when_offline(id):start()
+			end
+		end
+	end
+	ogse.delete_var("val_stalkers_barman_ids")
+
+	-- Если есть возможность - удалим и Швида
+
+	local id = ogse.load_var("shvid_id")
+	local sobj = alife():object(id)
+	if sobj then
+		local obj = level.object_by_id(id)
+		if not obj then
+			alife():release(sobj, true)
+		else
+			delete_when_offline(id):start()
+		end
+		remove_spot_friend_barman()
+		ogse.delete_var("shvid_id")
+	end
+
+	-- Да и бомбу все же удалим
+	local id = ogse.load_variable("val_bomba_id",-1)
+	local sobj = alife():object(id)
+	if sobj then
+		local obj = level.object_by_id(id)
+		if not obj then
+			alife():release(sobj, true)
+		else
+			delete_when_offline(id):start()
+		end
+		ogse.del_variable("val_bomba_id")
+	end
+
+	-- Удалим ССИ
+	friend_of_barman_disable_infoportion()
+end
+
+function babah_bomba_friend_barman()
+    --db.actor:give_info_portion("bar_kvest_friend_of_barman_2_fail")
+	if level.object_by_id(ogse.load_variable("val_bomba_id")) then
+		hit_obj_by_id_simple(ogse.load_variable("val_bomba_id"), 1000, 0)
+	end
+	ogse.del_variable("val_bomba_id")
+end
+
+function give_detonator_of_shvid_to_actor(first_speaker, second_speaker)
+    if not Actor_Has_Items("detonator_of_shvid") then
+	    dialogs.relocate_item_section(second_speaker, "detonator_of_shvid", "in")
+	end
+end
+
+function give_pda_of_shvid_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(first_speaker, "pda_friend_barman", "out")
+	remove_spot_friend_barman()
+end
+
+function give_reward_on_kvest_friend_of_barman(first_speaker, second_speaker)
+    local t = {{[3]="medkit_army", [1]="wpn_groza_tact", [2]="grenade_f1"}}
+	give_reward_on_kvest(second_speaker, 7000, t)
+	local bomb = alife():object(ogse.load_variable("val_bomba_id", -1))
+	if bomb then
+		alife():release(bomb, true)
+		ogse.del_variable("val_bomba_id")
+	end
+	ogse.delete_var("shvid_id")
+	ogse.delete_var("val_stalkers_barman_ids")
+	friend_of_barman_disable_infoportion()
+end
+
+-- Удаляем ССИ
+function friend_of_barman_disable_infoportion()
+	local my_table =
+	{
+		"bar_kvest_friend_of_barman_sv_dlg_end",
+		"bar_kvest_friend_of_barman_weapon_select",
+		"bar_kvest_friend_of_barman_search_in_inventory",
+		"bar_kvest_friend_of_barman_hit_terror",
+--		"bar_kvest_friend_of_barman_2_spawn",
+		"bar_kvest_friend_of_barman_glassbeads_spawn",
+		"bar_kvest_friend_of_barman_go_from_glassbeads",
+		"bar_kvest_friend_of_barman_lost_glassbeads",
+		"bar_kvest_friend_of_barman_val_freedom_death_1",
+		"bar_kvest_friend_of_barman_val_freedom_death_2",
+		"bar_kvest_friend_of_barman_val_freedom_death_3",
+		"bar_kvest_friend_of_barman_val_freedom_death_4",
+		"bar_kvest_friend_of_barman_val_freedom_death_5",
+		"bar_kvest_friend_of_barman_val_freedom_death_6",
+		"bar_kvest_friend_of_barman_val_freedom_death_7",
+		"bar_kvest_friend_of_barman_val_freedom_death_8",
+		"bar_kvest_friend_of_barman_val_freedom_all_dead"
+	}
+	for k,v in pairs(my_table) do
+		if db.actor:has_info(v) then
+			db.actor:disable_info_portion(v)
+		end
+	end
+end
+
+----------------------- Квест "Сделка Долга и Наемников" -----------------------
+local UpHealthDolgPlennik = 0
+function spawn_dolg_for_sdelka()
+	local obj = ogse.spawn_object(spawn_db.gar_dolg_on_sdelka_1)
+	ogse.spawn_objects(spawn_db.spawn_dolg_for_sdelka)
+	ogse.save_variable("DolgPlennikOfKillers", obj.id)
+	add_map_spot(obj.id, "gar_dolg_on_sdelka_id", "spawn_dolg_for_sdelka_text")
+end
+
+function meet_with_dolg_otryad()
+    if db.actor:position():distance_to_sqr(vector():set(28.30,0.45,-79.48),201846,292) < 8^2 then
+	    db.actor:give_info_portion("bar_kvest_sdelka_dolg_and_killers_meet_with_dolg_otryad")
+		delete_map_spot("gar_dolg_on_sdelka_id", false, "green_location")
+		local obj = ogse.spawn_object(spawn_db.meet_with_dolg_otryad_bread)
+		add_map_spot(obj.id, "gar_dolg_on_sdelka_id", "meet_with_dolg_otryad_text")
+		return true
+	else
+	    return false
+    end
+end
+
+function sdelka_slezhka_go()
+    if db.actor:position():distance_to_sqr(vector():set(142.30,14.0,22.48),302187,385) < 3^2 then
+	 local DolgPlennik = xr_logic.pstor_retrieve(db.actor, "DolgPlennikOfKillers", 0)
+	 local ObjDolg = level.object_by_id(DolgPlennik)
+	  if ObjDolg ~= nil and ObjDolg:position():distance_to_sqr(vector():set(193.85,-2.53,14.77),337843,386) < 11^2 then
+	    delete_map_spot("dolg_on_sdelka_tochka", false, "green_location")
+		ogse_st_mgr.start_timer("sdelka_slezhka_go_timer", 35.0, "tasks_functor.slezhka_end")
+		talking_dolg_with_killers_on_sdelka()
+		return true
+	else
+	    return false
+	  end
+   end
+end
+
+function kill_killers_on_sdelka()
+    if has_alife_info("bar_kvest_sdelka_dolg_and_killers_kill_killer_1") and
+	   has_alife_info("bar_kvest_sdelka_dolg_and_killers_kill_killer_2") and
+	   has_alife_info("bar_kvest_sdelka_dolg_and_killers_kill_killer_3") and
+	   has_alife_info("bar_kvest_sdelka_dolg_and_killers_kill_killer_4") and
+	   has_alife_info("bar_kvest_sdelka_dolg_and_killers_kill_killer_5") and
+	   has_alife_info("bar_kvest_sdelka_dolg_and_killers_kill_killer_6") then
+	   db.actor:give_info_portion("bar_kvest_sdelka_dolg_and_killers_kill_allkiller")
+	   thanks_of_dolg_on_sdelka()
+	   ogse.del_variable("DolgPlennikOfKillers")
+	        return true
+	     else
+	  	return false
+	end
+end
+
+function talking_dolg_with_killers_on_sdelka()
+    news_manager.send_tip(db.actor, "talking_dolg_with_killers_1_text", 5, "dolg", 5000)
+    news_manager.send_tip(db.actor, "talking_dolg_with_killers_2_text", 10, "killer", 5000)
+    news_manager.send_tip(db.actor, "talking_dolg_with_killers_3_text", 15, "dolg", 5000)
+    news_manager.send_tip(db.actor, "talking_dolg_with_killers_4_text", 20, "killer", 5000)
+    news_manager.send_tip(db.actor, "talking_dolg_with_killers_5_text", 25, "dolg", 5000)
+    news_manager.send_tip(db.actor, "talking_dolg_with_killers_6_text", 30, "killer", 5000)
+end
+
+function slezhka_end()
+--    db.actor:give_info_portion("bar_kvest_sdelka_dolg_and_killers_slezhka_end")
+    db.actor:give_info_portion("bar_kvest_sdelka_dolg_and_killers_kill_dolg")
+end
+function thanks_of_dolg_on_sdelka()
+    news_manager.send_tip(db.actor, "thanks_of_dolg_on_sdelka_text", 0, "dolg", 15000)
+end
+
+function give_reward_on_kvest_sdelka_dolg_and_killers(first_speaker, second_speaker)
+    local t = {{[7]="medkit_army"}}
+	give_reward_on_kvest(second_speaker, 5500, t)
+end
+
+----------------------- Квест "Пленник на базе Военных" -----------------------
+
+-- Функция, проверяющая, находится ли актор на локации "Агропром"
+function captive_on_agr_mill_base_save_is_on_agroprom()
+	if level.name() == "l03_agroprom" then
+		captive_on_agr_mill_base_send_tip_about_heli()
+		return true
+	end
+	return false
+end
+
+function is_captive_alive()
+	return not (db.actor:has_info("captive_on_agr_mill_base_fail") or db.actor:has_info("captive_on_agr_mill_base_killed"))
+end
+
+function is_captive_dead()
+	return not is_captive_alive()
+end
+
+-- Вывод типса на экран о вертолёте + таймер + спаун рестрикторов
+function captive_on_agr_mill_base_send_tip_about_heli()
+	local timeout = 15
+	local showtime = 20
+	ogse.send_tip(game.translate_string("captive_save_sos_msg"), game.translate_string("bar_barmen_name"), timeout, showtime, "barman", "pda_sos")
+	ogse_st_mgr.start_timer(nil, timeout + 1, script_name()..".captive_on_agr_mill_base_start_heli_timer")
+	captive_on_agr_mill_base_spawn_guard_restr()
+end
+
+function captive_on_agr_mill_base_start_heli_timer()
+	ogse_st_mgr.start_visual_timer("captive_on_agr_mill_base_start_heli", 6*60, script_name()..".captive_on_agr_mill_base_save_start_heli")
+end
+
+-- Вертолет летит по душу пленника
+function captive_on_agr_mill_base_save_start_heli()
+	--ogse.send_tip("Вылет вертолёта для забирания пленника!")
+	db.actor:give_info_portion("captive_on_agr_mill_base_spawn_heli")
+end
+
+-- Вертолет летит высаживать спецназ
+function captive_on_agr_mill_base_actor_inside_building()
+	if ogse_st_mgr.timer_exists("captive_on_agr_mill_base_start_heli") then
+		local timer = ogse_st_mgr.get_timer("captive_on_agr_mill_base_start_heli")
+		timer:stop()
+		--ogse.send_tip("Вылет вертолёта для высадки десанта!")
+		db.actor:give_info_portion("captive_on_agr_mill_base_spawn_specnaz")
+		db.actor:give_info_portion("captive_on_agr_mill_base_spawn_heli")
+	end
+end
+
+-- 1) Проверка на вход в здание
+-- 2) Отслеживание состояния квеста
+function captive_on_agr_mill_base_get_status_of_quest()
+	-- Определяем, а внутри ли мы здания
+	local sobj = alife():object("agr_nii_sr_building")
+	if sobj then
+		local restrictor = level.object_by_id(sobj.id)
+		if restrictor then
+			if restrictor:inside(db.actor:position()) then
+				-- Если да, то выдаем флажок, что спасать мужика не надо, а надо просто высаживать спецназ на вертолётах
+				if not db.actor:has_info("captive_on_agr_mill_base_actor_inside_building") then
+					db.actor:give_info_portion("captive_on_agr_mill_base_actor_inside_building")
+				end
+			end
+		end
+	end
+
+	if db.actor:has_info("captive_on_agr_mill_base_saved")
+	or db.actor:has_info("captive_on_agr_mill_base_killed")
+	then
+		return true
+	else
+		return false
+	end
+end
+
+-- Проверка на фейл таска
+function captive_on_agr_mill_base_go_to_rescue_point_is_fail()
+	if db.actor:has_info("captive_on_agr_mill_base_killed") then
+		return true
+	else
+		return false
+	end
+end
+
+-- Спаун рестрикторов, связанных с охранниками Связиста
+function captive_on_agr_mill_base_spawn_guard_restr()
+	local logic = "[logic]\nactive = sr_idle\n[sr_idle]\non_actor_inside = nil %+captive_on_agr_mill_base_actor_guards_attack%"
+	for _,v in pairs(spawn_db.captive_on_agr_mill_base_spawn_guard_restr) do
+		local obj = ogse.spawn_object(v)
+		local packet = get_netpk(obj, 1)
+		ASSERT( packet:isOk(), "can't read netpacket of %s", obj:name() )
+		local my_table = packet:get()
+		my_table.shapes:addSphere(5)
+		my_table.restrictor_type = 3
+		my_table.custom_data:set(logic)
+		packet:set(my_table)
+	end
+end
+
+-- Связист находится в радиусе 15 метров?
+function captive_on_agr_mill_base_is_captive_near()
+	local captive = level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist)
+	if captive and captive:alive() then
+		if db.actor:position():distance_to(captive:position()) <= 15 then
+			return true
+		end
+	end
+	return false
+end
+
+-- Связист дальше 15 метров?
+function captive_on_agr_mill_base_is_captive_far()
+	return not captive_on_agr_mill_base_is_captive_near()
+end
+
+-- Убираем напарничество
+function captive_on_agr_mill_base_disable_captive_companion()
+	local captive = level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist)
+	local pos = nil
+	local gv, lv = nil, nil
+	if captive and captive:alive() then
+		dialogs.companion_stop_following(captive, db.actor)
+		pos = captive:position()
+		lv = captive:level_vertex_id()
+		gv = captive:game_vertex_id()
+	end	
+	--agr_plennik_on_base_mils
+	if level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist) and level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist):alive() then
+		rx_utils.switch_offline(id_by_sid(story_ids.captive_on_agr_mill_base_svyazist)) -- принудительно сбрасываем в оффлайн
+		ogse.kill_living_npc(id_by_sid(story_ids.captive_on_agr_mill_base_svyazist))
+		if pos and gv and lv then
+			local sobj = alife():create("agr_plennik_on_base_mils", pos, lv, gv)
+		end		
+	end	
+end
+
+-- Спаун спецназа в НИИ
+function captive_on_agr_mill_base_spawn_specnaz_on_nii()
+	local respawns = {"val_soldier_respawn_1", "rad_specnaz_respawn_specnaz", "esc_soldier_respawn_specnaz", "agr_soldier_veteran"}
+	for k,v in pairs(spawn_db.captive_on_agr_mill_base_spawn_specnaz_on_nii) do
+		for i = 1, 2 do
+			local sect = respawns[math.random(#respawns)]
+			local sobj = alife():create(sect, vector():set(unpack(v.pos)), v.lvid, v.gvid)
+			level.client_spawn_manager():add( sobj.id, -1,
+				function( id, obj )
+					obj:set_relation(game_object.enemy, db.actor)
+					obj:set_goodwill(-5000, db.actor)
+				end)
+		end
+	end
+end
+
+function captive_on_agr_mill_base_spawn_dolg_squad()
+	ogse.spawn_objects(spawn_db.captive_on_agr_mill_base_spawn_dolg_squad)
+	local commander_obj = ogse.spawn_object(spawn_db.captive_on_agr_mill_base_dolg_guard4)
+	alife():assign_story_id(commander_obj.id, story_ids.captive_on_agr_mill_base_dolg_commander)
+end
+
+-- Вызывается, когда отлетает вертолет
+function captive_on_agr_mill_base_final_chance()
+	--ogse.send_tip("captive_on_agr_mill_base_final_chance")
+	-- 1. Удаляем Связиста
+	if level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist) and level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist):alive() then
+		rx_utils.switch_offline(id_by_sid(story_ids.captive_on_agr_mill_base_svyazist)) -- принудительно сбрасываем в оффлайн
+		ogse.kill_living_npc(id_by_sid(story_ids.captive_on_agr_mill_base_svyazist))
+	end
+	-- 2 Удаляем охрану
+	if level_object_by_sid(story_ids.captive_on_agr_mill_base_guard_1) and level_object_by_sid(story_ids.captive_on_agr_mill_base_guard_1):alive() then
+		rx_utils.switch_offline(id_by_sid(story_ids.captive_on_agr_mill_base_guard_1))
+		ogse.kill_living_npc(id_by_sid(story_ids.captive_on_agr_mill_base_guard_1))
+	end
+	if level_object_by_sid(story_ids.captive_on_agr_mill_base_guard_2) and level_object_by_sid(story_ids.captive_on_agr_mill_base_guard_2):alive() then
+		rx_utils.switch_offline(id_by_sid(story_ids.captive_on_agr_mill_base_guard_2))
+		ogse.kill_living_npc(id_by_sid(story_ids.captive_on_agr_mill_base_guard_2))
+	end
+	-- 3. Ставим метку на вертолёт - пленник как бы на борту
+	level_tasks.add_location_by_sid(story_ids.captive_on_agr_mill_base_heli, "blue_location", "prisoner_map_mark_text")
+	-- 4. Удаляем долговский отряд
+	delete_when_offline(id_by_sid(story_ids.captive_on_agr_mill_base_dolg_quard1)):start()
+	delete_when_offline(id_by_sid(story_ids.captive_on_agr_mill_base_dolg_quard2)):start()
+	delete_when_offline(id_by_sid(story_ids.captive_on_agr_mill_base_dolg_quard3)):start()
+	delete_when_offline(id_by_sid(story_ids.captive_on_agr_mill_base_dolg_commander)):start()
+end
+
+-- Вызывается, когда вертолет уходит
+function captive_on_agr_mill_base_delete_heli()
+	-- Проваливаем задание, если вертолет улетел с пленником
+	if db.actor:has_info("captive_on_agr_mill_base_final_chance") then
+		db.actor:give_info_portion("captive_on_agr_mill_base_fail")
+	end
+	-- Удаляем вертолет из игры
+	local sobj = alife():story_object(story_ids.captive_on_agr_mill_base_heli)
+	if sobj then
+		alife():release(sobj, true)
+	end
+end
+
+-- Умирает ли пленник/спасем его - выдаём ССИ о завершении
+function captive_on_agr_mill_base_go_to_reward()
+	db.actor:give_info_portion("captive_on_agr_mill_base_go_to_reward")
+end
+
+-- Подчищаем за собой хвосты
+function captive_on_agr_mill_base_clean_ssi()
+	local my_table =
+	{
+		"captive_on_agr_mill_base_spawn_captive",
+		"captive_on_agr_mill_base_go_to_reward",
+		"captive_on_agr_mill_base_start_rescue_point",
+		"captive_on_agr_mill_base_captive_run",
+		"captive_on_agr_mill_base_actor_inside_building",
+		"captive_on_agr_mill_base_spawn_heli",
+		"captive_on_agr_mill_base_spawn_specnaz",
+		"captive_on_agr_mill_base_final_chance",
+		"captive_on_agr_mill_base_spawn_specnaz_on_nii",
+		"captive_on_agr_mill_base_spawn_specnaz_on_rescue_point",
+		"captive_on_agr_mill_base_delete_heli",
+		"captive_on_agr_mill_base_heli_is_waiting",
+		"captive_on_agr_mill_base_actor_guards_attack",
+		"captive_on_agr_mill_base_captive_on_rooftop"
+	}
+	for k,v in pairs(my_table) do
+		if db.actor:has_info(v) then
+			db.actor:disable_info_portion(v)
+		end
+	end
+end
+
+function captive_on_agr_mill_base_shutdown_news()
+	ogse.save_var("need_shutdown_stalker_news", true, "bool")
+	local text = game.translate_string("captive_on_agr_mill_base_shutdown_news_text")
+	ogse.send_tip(text, game.translate_string("bar_barmen_name"), 5, 10, "barman", "pda_news")
+
+	ogse_st_mgr.delayed_fun_start("captive_on_agr_mill_base_shutdown_news_timer")
+	:set_gdelayDHMS(2, 0, 0, 0)
+	:init(script_name()..".captive_on_agr_mill_base_shutdown_news_timer_taction")
+	:start()
+end
+
+-- Награда за фиговую концовку
+function captive_on_agr_mill_base_reward_captive_dead(first_speaker, second_speaker)
+	give_reward_on_kvest(second_speaker, 5000, nil)
+	captive_on_agr_mill_base_clean_ssi()
+end
+
+-- Награда за хорошую концовку
+function captive_on_agr_mill_base_reward_captive_alive(first_speaker, second_speaker)
+	local reward = {{[1]="wpn_p90_tact"}}
+	give_reward_on_kvest(second_speaker, 10000, reward)
+	captive_on_agr_mill_base_clean_ssi()
+end
+--                           ******** Квесты у других разных НПС ********                         --
+
+----------------------- Квест "Поиск дочери старика" -----------------------
+function spawn_doch_of_starik()
+	local obj = ogse.spawn_object(spawn_db.af_of_doch_starik)
+	add_map_spot(obj.id, "pri_doch_of_starik", "pri_kvest_search_doch_of_starik_text5_task")
+	ogse.spawn_object(spawn_db.kid_zapisi)
+end
+
+function delete_starik()
+    local starik = alife():story_object(story_ids.esc_starik_searcing_doch)
+	if starik and level_object_by_sid(story_ids.esc_starik_searcing_doch) == nil then
+		alife():release(starik, true)
+	else
+		ogse_st_mgr.start_timer("delete_starik", 120, "tasks_functor.delete_starik")
+	end
+	--obj:on_death()
+end
+
+function go_to_room_of_starik()
+    if level.name()=="l11_pripyat" and db.actor:position():distance_to_sqr(vector():set(-111.485,4.461,108.447)) < 7^2 then
+		delete_map_spot("pri_doch_of_starik", false, "green_location")
+		return true
+	else
+	    return false
+    end
+end
+
+function search_doch_of_starik_and_uliks()
+    if Actor_Has_Items("af_of_doch_starik") and Actor_Has_Items("kid_zapisi") then
+		return true
+	end
+end
+
+local tPpe =  {
+				"escape.ppe",
+				"yantar_underground_psi.ppe",
+				"acidic_mine1.ppe",
+				"dead_zone.ppe",
+				"electra1.ppe"
+			}
+
+local Snd_Horr = {
+[1] = [[ambient\random\rnd_ratchant]],
+[2] = [[soundtrack\controller\3]],
+[3] = [[soundtrack\controller\4]],
+[4] = [[soundtrack\controller\5]],
+[5] = [[soundtrack\controller\8]],
+[6] = [[soundtrack\controller\9]]
+}
+
+function af_of_doch_starik_effects()
+    if Actor_Has_Items("af_of_doch_starik") and not has_alife_info("pri_kvest_search_doch_of_starik_complete") and not has_alife_info("pri_kvest_search_doch_of_starik_fail") then
+		level.add_pp_effector(tPpe[math.random(1, #tPpe)], 1971, false)
+		ogse_st_mgr.start_timer("af_of_doch_starik_effects", math.random(20, 50), "tasks_functor.af_of_doch_starik_effects")
+		local snd_name = Snd_Horr[math.random(1,6)]
+		local snd_obj = xr_sound.get_safe_sound_object(snd_name)
+		snd_obj:play_at_pos(db.actor, vector():set(0,0,0), 0, sound_object.s2d)		
+		if not has_alife_info("tanya_diary") then
+			db.actor:give_info_portion("tanya_diary")
+		end		
+	end
+end
+
+function give_items_to_starik(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_of_doch_starik", "out")
+	dialogs.relocate_item_section(second_speaker, "kid_zapisi", "out")
+end
+
+function give_reward_on_kvest_search_doch_of_starik(first_speaker, second_speaker)
+	level.add_pp_effector("blink.ppe", 99, false)
+	db.actor:give_info_portion("blessing_of_old_man")   
+	ogse.autohiding_msg("blessing_of_old_man_tip", 10000)	
+	local starik = alife():story_object(story_ids.esc_starik_searcing_doch)
+	if starik then
+		delete_when_offline(starik.id):start()
+	end
+end
+
+----------------------- Квест "Устроить встречу Долга Свободы" -----------------------
+function give_reward_on_kvest_make_meet_dolg_freedom(first_speaker, second_speaker)
+	give_reward_on_kvest(second_speaker, 1700, nil)
+end
+
+function give_reward_on_kvest_make_meet_dolg_freedom_2(first_speaker, second_speaker)
+	give_reward_on_kvest(second_speaker, 1700, nil)
+end
+
+----------------------- Квест "Спасти свободовца на радаре" -----------------------
+function on_spot_feedomer_on_radar()
+	local obj = ogse.spawn_object(spawn_db.on_spot_feedomer_on_radar_kolbasa)
+	add_map_spot(obj.id, "radar_vert_spot", "spawn_feedomer_on_radar_text")
+end
+
+function spawn_feedomer_on_radar()
+    db.actor:give_info_portion("mil_kvest_spasti_freedomer_on_radar_spawn_freedomer")
+	delete_map_spot("radar_vert_spot", true)
+	local obj = ogse.spawn_object(spawn_db.rad_freedomer_on_vetr)
+	add_map_spot(obj.id, "radar_freedomer_spot", "task_functor_mil_show_max_kvests_1_text")
+end
+
+function save_id_feedomer_on_radar(a, n)
+	ogse.save_variable("RadarFreedomerId", n:id())
+end
+
+function rad_search_feedomer_complete()
+    if db.actor:position():distance_to_sqr(vector():set(354.13,-42.17,-225.98),96916,2080) < 7^2 then
+		db.actor:give_info_portion("mil_kvest_spasti_freedomer_on_radar_search_complete")
+		return true
+	end
+	if not has_alife_info("mil_kvest_spasti_freedomer_on_radar_spawn_freedomer") then
+		if db.actor:position():distance_to_sqr(vector():set(354.13,-42.17,-225.98),96916,2080) < 37^2 then
+			spawn_feedomer_on_radar()
+		end
+	end
+  return false
+end
+
+function mil_guid_feedomer_to_base()
+    if db.actor:position():distance_to_sqr(vector():set(585.045959472656,-52.4301338195801,-373.261566162109),207546,1879) < 20^2 then
+		local FreedomerId = ogse.load_variable("RadarFreedomerId")
+		local Npc = level.object_by_id(FreedomerId)
+	    if FreedomerId ~= nil and Npc ~= nil and Npc:profile_name() == "rad_freedomer_on_vetr" and Npc:position():distance_to_sqr(vector():set(585.045959472656,-52.4301338195801,-373.261566162109),207546,1879) < 25^2 then
+	        db.actor:give_info_portion("mil_kvest_spasti_freedomer_on_radar_guid")
+			dialogs.companion_stop_following(level.object_by_id(FreedomerId), db.actor)
+			local text = game.translate_string("mil_guid_feedomer_to_base_text")
+			ogse.send_tip(text, game.translate_string(level.object_by_id(FreedomerId):character_name())..":", 0, 10, "freedom", "task")
+			delete_map_spot("radar_freedomer_spot", false)
+			delete_when_offline(FreedomerId):start()
+		    return true
+        end
+	end
+	return false
+end
+
+function give_reward_on_kvest_spasti_freedomer_on_radar(first_speaker, second_speaker)
+	give_reward_on_kvest(second_speaker, 4000, t)
+end
+
+----------------------- Квест "Помочь тетереву" -----------------------
+function spawn_bandits_of_teterev()
+	ogse.spawn_objects(spawn_db.spawn_bandits_of_teterev)
+end
+
+function kvest_help_teterev_bandits_on_combat_timer()
+	ogse_st_mgr.start_timer("kvest_help_teterev_bandits_on_combat_timer", 3.0, "tasks_functor.kvest_help_teterev_bandits_on_combat")
+end
+
+function kvest_help_teterev_bandits_on_combat()
+    db.actor:give_info_portion("esc_kvest_help_teterev_bandits_on_combat")
+end
+
+function kvest_help_teterev_bandits_on_pass()
+    db.actor:give_info_portion("esc_kvest_help_teterev_bandits_on_pass")
+end
+
+function spawn_art_for_teterev()
+	local EBandOfTeterevID = ogse.load_variable("EBandOfTeterev")
+	ogse_st_mgr.start_timer("spawn_art_for_teterev_timer", 2.0, "tasks_functor.spawn_art_for_teterev_2", EBandOfTeterevID)
+end
+function spawn_art_for_teterev_2(EBandOfTeterevID)
+	local EBandOfTeterev = level.object_by_id(EBandOfTeterevID)
+	ogse.spawn_item_in_inv("af_star_teterev", EBandOfTeterev)
+	news_manager.send_tip(db.actor, "Спавн.af_star_teterev", 0, "stalker", 7000)
+end
+
+function take_art_for_teterev()
+	if Actor_Has_Items("af_star_teterev") then
+		delete_map_spot("esc_bandit_of_teterev_leader", false, "green_location")
+		return true
+	else
+		return false
+	end
+end
+
+function give_reward_on_kvest_help_teterev(first_speaker, second_speaker)
+    local t = {{[1]="af_for_night_stalker"}}
+	give_reward_on_kvest(second_speaker, 1000, nil)
+end
+
+function give_af_night_star_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_star_teterev", "out")
+end
+
+function give_af_night_star_to_actor(first_speaker, second_speaker)
+    local t = {{[1]="af_star_teterev"}}
+	give_reward_on_kvest(second_speaker, nil, t)
+end
+
+----------------------- Квест "Гость на Элеваторе" -------------------------------
+function spawn_metka_qest_on_elevator()
+	local obj = ogse.spawn_object(spawn_db.spawn_metka_qest_on_elevator)
+	--
+	local pk = get_netpk(obj, 1)
+	ASSERT( pk:isOk(), "can't read netpacket of %s", obj:name() )
+	local t = pk:get()
+	t.visual_name = "actors\\novice\\green_stalker_3"
+	t.fixed_bones = "bip01_pelvis"
+	pk:set(t)
+	--
+	add_map_spot(obj.id, "sniper_qest_on_elevator", game.translate_string("guest_on_elevator_string"), "crlc_big")
+	ogse.save_var("elevator_sniper", obj.id, "u16")
+end
+
+function esc_qest_on_elevator_go_to()
+	if Actor_Has_Items("wpn_of_qest_on_elevator") then
+		delete_map_spot("sniper_qest_on_elevator", false, "crlc_big")
+	    db.actor:give_info_portion("esc_kvest_qest_on_elevator_chek_take_wpn")
+		return true
+	end
+	return false
+end
+
+function give_wpn_of_qest_on_elevator_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "wpn_of_qest_on_elevator", "out")
+end
+
+function give_wpn_of_qest_on_elevator_to_actor(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "wpn_of_qest_on_elevator", "in")
+end
+
+function break_wpn_of_qest_on_elevator()
+   if db.actor and (db.actor:object("wpn_of_qest_on_elevator"))  then
+      db.actor:iterate_inventory(function (dummy,item)
+      local s_obj = alife():object(item:id())
+      if s_obj and item:section()=="wpn_of_qest_on_elevator" then
+		item:set_condition(0)
+      end 
+      end, nil)
+   end
+end
+
+function esc_qest_on_elevator_kill_sniper()
+	if not db.actor:has_info("esc_kvest_qest_on_elevator_target_kill_sniper_2") then
+		return has_alife_info("esc_kvest_qest_on_elevator_kill_sniper_2") and has_alife_info("esc_kvest_qest_on_elevator_kill_target")
+	else
+		return db.actor:has_info("esc_kvest_qest_on_elevator_kill_target")
+	end
+end
+
+function esc_qest_on_elevator_kill_sniper_fail()
+	if db.actor:has_info("esc_kvest_qest_on_elevator_kill_sniper_2_by_actor") and not db.actor:has_info("esc_kvest_qest_on_elevator_kill_target") then
+		local text = game.translate_string("quest_elevator_string1")
+		ogse.send_tip(text, game.translate_string("quest_elevator_string3"), 0, 10, "barman", "task")
+		return true
+	end
+	if not db.actor:has_info("esc_kvest_qest_on_elevator_target_kill_sniper_2") then
+		return has_alife_info("esc_kvest_qest_on_elevator_kill_sniper_2") and not has_alife_info("esc_kvest_qest_on_elevator_kill_target")
+	end
+end
+
+function esc_kvest_qest_on_elevator_barman_want_to_kill_target()
+	local text = game.translate_string("quest_elevator_string2")
+	ogse.send_tip(text, game.translate_string("quest_elevator_string3"), 0, 10, "barman", "task")
+end
+
+function give_reward_on_kvest_qest_on_elevator(first_speaker, second_speaker)
+   -- local t = {{[1]="af_for_night_stalker"}}
+	give_reward_on_kvest(second_speaker, 10000, nil)
+end
+
+----------------------- Квест "Секрет Янтаря" -----------------------
+
+function set_neutral_chuk(actorw, chuk)
+	local cchuk = level.object_by_id(chuk:id())
+	chuk:set_relation(game_object.neutral, db.actor)
+--	chuk:set_goodwill(0, db.actor)
+--	chuk:set_start_dialog("yan_kvest_help_to_chuk_talk_with_chuk_dialog")
+end
+
+function on_use_kolba_dummy()
+	if db.actor:position():distance_to_sqr(vector():set(-48.79,-13.36,-255.92)) < 30^2 then
+		db.actor:give_info_portion("yan_help_to_chuk_take_water_complete")
+		ogse.spawn_item_in_inv("kolba")
+		delete_map_spot("zone_on_kolba", false, "green_location")
+	else
+		news_manager.send_tip(db.actor, game.translate_string("flask_string2"), 0, "stalker", 7000)
+		ogse.spawn_item_in_inv("kolba_dummy")
+	end
+end
+
+function actor_zombie()
+	if db.actor:character_community() == "zombied" then
+		db.actor:give_info_portion("yan_kvest_help_to_chuk_know_zombied_complete")
+		db.actor:give_info_portion("yan_kvest_help_to_chuk_take_water_complete")
+		db.actor:give_info_portion("yan_help_to_chuk_take_water_complete")
+		db.actor:give_info_portion("yan_help_to_chuk_on_actor_zombie")
+		return true
+	end
+  return false
+end
+
+function give_kolba_dummy_to_actor(first_speaker, second_speaker)
+	local t={{[1]="kolba_dummy"}}
+	give_reward_on_kvest(second_speaker, nil, t)
+	local obj = ogse.spawn_object(spawn_db.give_kolba_dummy_to_actor)
+	add_map_spot(obj.id, "zone_on_kolba", game.translate_string("flask_string1"))
+end
+
+function give_kolba_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "kolba", "out")
+end
+
+function give_bioradar_reward(npc, money)
+	if db.actor:object("bioradar") then
+		local t={
+--			{[1]="firmware_dog"},
+			{[1]="firmware_psevdodog"},
+--			{[1]="firmware_flesh"},
+--			{[1]="firmware_boar"},
+			{[1]="firmware_tushkano"},
+			{[1]="firmware_krovosos"},
+			{[1]="firmware_burer"},
+--			{[1]="firmware_zombie"},
+			{[1]="firmware_snork"},
+			{[1]="firmware_kontroler"},
+			{[1]="firmware_poltergeist"},
+			{[1]="firmware_psevdogigant"},
+			{[1]="firmware_cat"},
+			{[1]="firmware_chimera"},
+		}
+		give_reward_on_kvest(npc, need_money, t)		
+	else
+		dialogs.relocate_item_section(npc, "bioradar", "in")
+		if need_money then
+			dialogs.relocate_money(npc, need_money, "in")
+		end
+	end
+end
+
+function reward_biofirmwares(first_speaker, second_speaker)
+	give_bioradar_reward(first_speaker, 10000)
+	dialogs.relocate_item_section(first_speaker, "zapis_treasure_of_figa", "out")
+end
+
+function give_kolba_zombie_to_actor(first_speaker, second_speaker)
+	local t={{[1]="kolba_zombie"}}
+	give_reward_on_kvest(second_speaker, nil, t)
+end
+
+function can_use_kolba_zombie()
+	local chuk = level_object_by_sid(story_ids.yan_zombied_chuk)
+	if chuk then
+		if db.actor:position():distance_to(chuk:position()) > 5 then
+			news_manager.send_tip(db.actor, game.translate_string("flask_string3"), 0, "stalker", 10000)
+			return false
+		end
+	end
+	return true
+end
+
+function use_kolba_zombie()
+	level.add_cam_effector("camera_effects\\surge_02.anm", 6666, false, "tasks_functor.on_use_kolba_zombie")
+	level.add_pp_effector("surge_fade.ppe", 11, false)
+	return true
+end
+
+function on_use_kolba_zombie()
+	ogse_quests.turn_pnv_off()
+	db.actor:set_actor_position(vector():set(104.907, 0.28, -36.83))
+	jekan_work.teleport_chuk()
+	db.actor:give_info_portion("yan_help_to_chuk_on_actor_zombie")
+	dialogs.actor_set_zombied()
+	level.add_cam_effector("camera_effects\\surge_01.anm", 1972, false, "tasks_functor.on_actor_zombie_2")
+end
+
+function on_actor_zombie_2()
+	local chuk = level_object_by_sid(story_ids.yan_chuk_really_zombied)
+	if chuk then
+		dialogs.companion_start_following(chuk, db.actor)
+		dialogs.companion_beh_walk_simple(db.actor, chuk)
+	else
+		log1("ERROR! No chuk!")
+	end
+	-- Запустим таймер окончания зомбирования
+	ogse_st_mgr.start_visual_timer(nil, 420, script_name() .. ".make_actor_normal")
+end
+
+function make_actor_normal()
+	ogse_quests.turn_pnv_off()
+	level.add_pp_effector("deadcity_wake.ppe", 2008, false)
+	dialogs.actor_clear_community(db.actor, db.actor) -- чистим коммунити главгероя
+	if has_alife_info("actor_set_zombied") then
+		db.actor:disable_info_portion("actor_set_zombied")-- зачищаем инфу о том, что ГГ зомби
+	end
+end
+
+function kvest_help_to_chuk_go_to_zavod()
+	if db.actor and db.actor:position():distance_to_sqr(vector():set(32.79,0.0,-48.92)) < 50^2 then
+		local chuk = level_object_by_sid(story_ids.yan_chuk_really_zombied)
+		if chuk and chuk:position():distance_to_sqr(vector():set(32.79,0.0,-48.92)) < 50^2 then
+			return true
+		end
+	end
+	return false
+end
+
+local StalkerZombFiga
+function on_death_figa(actor, figa)
+	StalkerZombFiga = figa
+end
+function death_figa()
+	--ogse.spawn_item_in_inv("medkit", nil, 16)
+	--ogse.spawn_item_in_inv("bandage", nil, 16)
+	ogse_st_mgr.start_timer("death_figa_timer", 1.0, "tasks_functor.death_figa_2")
+end
+function death_figa_2()
+	StalkerZombFiga:kill(StalkerZombFiga)
+	local chuk = level_object_by_sid(story_ids.yan_chuk_really_zombied)
+	ogse.spawn_item_in_inv("af_gold_fish", chuk)
+	chuk_stop_following_special()
+end
+
+function chuk_stop_following_special()
+	local chuk = level_object_by_sid(story_ids.yan_chuk_really_zombied)
+	if chuk then
+		chuk:set_start_dialog("yan_kvest_help_to_chuk_death_chuk_dialog")
+		dialogs.quest_companion_stop_following(chuk, db.actor)
+	else
+		log1("ERROR! No chuk!")
+	end
+end
+
+local SpwnTrsrFiga = false
+function go_to_treasure_figa()
+	if not has_alife_info("yan_kvest_help_to_chuk_spawn_treasure_figa") then
+		local my_table = {
+			["zapis_treasure_of_figa"] = 1,
+			["af_gold_fish"] = 1
+		}
+		jekan_work.spawn_items_in_treasure_box(story_ids.bar_secret_0011, my_table)
+		level_tasks.add_location_by_sid(story_ids.bar_secret_0011, "crlc_big", game.translate_string("flask_string4"))
+		SpwnTrsrFiga = true
+		db.actor:give_info_portion("yan_kvest_help_to_chuk_spawn_treasure_figa")
+	else
+		SpwnTrsrFiga = true
+	end
+end
+
+function have_zapis_treasure_of_figa()
+	go_to_treasure_figa()
+	if Actor_Has_Items("zapis_treasure_of_figa") then
+		level_tasks.remove_location_by_sid(story_ids.bar_secret_0011, "crlc_big")
+		db.actor:give_info_portion("yan_kvest_help_to_chuk_on_taina_start")
+		return true
+	end
+  return false
+end
+
+function have_af_serdce_yantar()
+	if Actor_Has_Items("af_serdce_yantar") then
+		db.actor:give_info_portion("yan_kvest_help_to_chuk_on_taina_2_start")
+		local artid = ogse.load_variable("ArtSerdceYantar")
+		if artid then
+			level_tasks.remove_location_by_id(artid, "green_location")
+			ogse.del_variable("ArtSerdceYantar")
+		end
+		return true
+	end
+  return false
+end
+
+local ArtSerdceYantar = nil
+function spawn_af_serdce_yantar()
+	local Hours = level.get_time_hours()
+	local Minutes = level.get_time_minutes()
+
+	if db.actor and not has_alife_info("yan_kvest_help_to_chuk_spawn_serdce") and
+			db.actor:position():distance_to_sqr(vector():set(16.80,0.31,10.55)) < 50^2 then
+		if Hours == 21 and Minutes >= 01 then
+			ArtSerdceYantar = ogse.spawn_object(spawn_db.af_serdce_yantar)
+		    ArtSerdceYantar = ArtSerdceYantar.id
+			ogse.save_variable("ArtSerdceYantar", ArtSerdceYantar)
+			db.actor:give_info_portion("yan_kvest_help_to_chuk_spawn_serdce")
+			level_tasks.add_location_by_id(ArtSerdceYantar, "green_location", "scary_mistery_of_the_yantar_text20_task")
+		end
+	end
+	
+	if Hours >= 22 then
+		local art, artid = nil, ogse.load_variable("ArtSerdceYantar")
+		if artid then
+			art = alife():object(artid)
+		end
+		if art ~= nil and art ~= 0 then
+			alife():release(art, true)
+			db.actor:disable_info_portion("yan_kvest_help_to_chuk_spawn_serdce")
+			level_tasks.remove_location_by_id(artid, "green_location")
+		end
+	end
+	return false
+--[[	local YanBox = level_object_by_sid(story_ids.yan_secret_0005)
+	if YanBox ~= nil and not has_alife_info("yan_kvest_help_to_chuk_spawn_trsr_tomson") then
+		ogse.spawn_item_in_inv("dnevnik_tomsona", YanBox)
+		ogse.spawn_item_in_inv("unknow_zapisi_tomsona", YanBox)
+		db.actor:give_info_portion("yan_kvest_help_to_chuk_spawn_trsr_tomson")
+	end]]
+
+end
+
+function spawn_dnevnik_tomsona()
+	local YanBox = alife():story_object(story_ids.yan_secret_0005)
+	if YanBox and not has_alife_info("yan_kvest_help_to_chuk_spawn_trsr_tomson") then
+		alife():create("dnevnik_tomsona", YanBox.position, YanBox.m_level_vertex_id, YanBox.m_game_vertex_id, YanBox.id)
+		alife():create("unknow_zapisi_tomsona", YanBox.position, YanBox.m_level_vertex_id, YanBox.m_game_vertex_id, YanBox.id)
+		db.actor:give_info_portion("yan_kvest_help_to_chuk_spawn_trsr_tomson")
+	end
+end
+
+function near_zone_for_kill_af_serdce_yantar()
+	return db.actor and db.actor:position():distance_to_sqr(vector():set(308.65,-2.19,-465.45)) < 10^2
+end
+
+function on_use_af_serdce_yantar()
+	if near_zone_for_kill_af_serdce_yantar() then
+		db.actor:give_info_portion("yan_kvest_help_to_chuk_kill_serdce_yan")
+		local ps = particles_object([[anomaly2\electra2_blast_02]])
+		ps:play_at_pos(db.actor:position())
+	elseif has_alife_info("yan_kvest_help_to_chuk_on_taina_complete") and not near_zone_for_kill_af_serdce_yantar() then
+		news_manager.send_tip(db.actor, game.translate_string("heart_of_yantar_string1"), 0, "stalker", 10000)
+		ogse.spawn_item_in_inv("af_serdce_yantar")
+	else
+		ogse.spawn_item_in_inv("af_serdce_yantar")
+	end
+end
+
+function chuk_or_figa_death()
+	return db.actor and has_alife_info("yan_kvest_help_to_chuk_death") and has_alife_info("yan_kvest_help_to_chuk_figa_death")
+end
+
+function give_zapisi_tomson_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "dnevnik_tomsona", "out")
+	dialogs.relocate_item_section(second_speaker, "unknow_zapisi_tomsona", "out")
+end
+
+----------------------- Квест "Доброжелатель" -----------------------
+local WpnToSvyaznoi = nil
+
+function start_kvest_yan_search_case()
+    news_manager.send_tip(db.actor, game.translate_string("yan_kvest_search_case_tip"), 0, "stalker", 37000)
+	local obj = ogse.spawn_object(spawn_db.zapis_a_case)
+	--
+	local pk = get_netpk(obj, 1)
+	ASSERT( pk:isOk(), "can't read netpacket of %s", obj:name() )
+	local t = pk:get()
+	t.fixed_bones = "bone_base"
+	pk:set(t)
+	--
+	local obj_2 = ogse.spawn_object(spawn_db.case_use_rub)
+	add_map_spot(obj_2.id, "get_your_case", game.translate_string("dobrozhelatel_string1"))
+	spawn_mines_near_yan_search_case()
+	local sobj = alife():object("val_prisoner_jail_restr")
+	if sobj then
+		alife():release(sobj, true)
+	end
+end
+
+function spawn_mines_near_yan_search_case()
+	-- Радость тестеров не была бы полной, если не мины на полу рядом с кейсом :D
+	-- Работает теперь нормально, починил всё. Нетпакеты не виноваты. KamikaZze 27/08/12
+	for _,v in pairs(spawn_db.mines_table) do
+		local obj = ogse.spawn_object(v)
+		local pk = get_netpk(obj, 1)
+		ASSERT( pk:isOk(), "can't read netpacket of %s", obj:name() )
+		local my_table = pk:get()
+		my_table.shapes:addSphere(0.8, vector():set(0,0,0))
+		my_table.max_power = 35
+		pk:set(my_table)
+	end
+end
+
+function have_yan_case()
+	if Actor_Has_Items("case_use_rub") then
+		-- have_yan_case
+		db.actor:give_info_portion("rad_kvest_dobrozhelatel_search_code_start")
+		for index,v in ipairs(spawn_db.have_yan_case_spawn_table) do
+			local s_obj = ogse.spawn_object(v)
+			local pk = get_netpk(s_obj, 1)
+			ASSERT( pk:isOk(), "can't read netpacket of %s", s_obj:name() )
+			local data = pk:get()
+			local custom_data_string = "[logic] \nactive = camper \n[camper] \npath_walk = yan_wellwisher_mon_"..tostring(index).."_walk_point \npath_look = "
+			local substring = ""
+			if index ~= 1 then substring = "yan_wellwisher_mon_look_point" else substring = "yan_wellwisher_mon_1_look_point" end
+			custom_data_string = custom_data_string..substring.." \ndanger = danger_condition \n[danger_condition] \nignore_distance = 5"
+			--local custom_data = data.custom_data:getTable()
+			--log3("~~[%s] Custom_data of [%s]: %s", script_name(), s_obj:name(), custom_data_string)
+			data.custom_data:setString(custom_data_string)
+			pk:set(data)
+			--
+			s_obj.force_offline = true
+			amkii_equip.go_offline_watch_timer(s_obj.id):start()
+		end
+
+		tell_about_monolith_near_yan_case()
+		ogse.spawn_object(spawn_db.zapis_2_a_case)
+		delete_map_spot("get_your_case", false, "green_location")
+		return true
+	end
+  return false
+end
+
+function tell_about_monolith_near_yan_case()
+	local text = game.translate_string("dobrozhelatel_string2")
+	ogse.send_tip(text, game.translate_string("dobrozhelatel_string3"), 0, 10, "monolith", "task")
+end
+
+function set_svyazony_trade()
+local svyaznoy = level_object_by_sid(story_ids.val_kvestx10_svyaznoy)
+	if svyaznoy then
+		trade_manager.trade_init(svyaznoy, "misc\\trade_obmen.ltx")
+	else
+		log1("ERROR! No svyaznoy!")
+	end
+end
+
+local svyaznoy_has_weapon = false
+
+function svyazony_check_weapon()
+	local svyaznoy = level_object_by_sid(story_ids.val_kvestx10_svyaznoy)
+	if svyaznoy then
+		svyaznoy:iterate_inventory(search_weapon,svyaznoy)
+	else
+		log1("ERROR! No svyaznoy!")
+	end
+end
+
+function svyazony_have_weapon()
+	return svyaznoy_has_weapon == true
+end
+
+function svyazony_not_have_weapon()
+	return svyaznoy_has_weapon == false
+end
+
+function search_weapon(npc, item)
+	if item and item:is_weapon_magazined() then
+		local weapon_section = item:section()
+		local w_cl = 0
+		w_cl = xr_companion.get_parameters_from_table(weapon_section)
+		if xr_companion.weapon_class[w_cl] then
+			svyaznoy_has_weapon = true
+		end
+	end
+end
+
+
+function on_actor_save_svyaznoy()
+	local svyaznoy = level_object_by_sid(story_ids.val_kvestx10_svyaznoy)
+	if svyaznoy then
+		dialogs.companion_start_following(svyaznoy, db.actor)
+		dialogs.companion_beh_walk_simple(db.actor, svyaznoy)
+	else
+		log1("ERROR! No svyaznoy!")
+	end
+end
+
+function on_actor_svyaznoy_stop_following()
+	local svyaznoy = level_object_by_sid(story_ids.val_kvestx10_svyaznoy)
+	if svyaznoy then
+		dialogs.quest_companion_stop_following(svyaznoy, db.actor)
+	else
+		log1("ERROR! No svyaznoy!")
+	end
+end
+
+function search_code_of_case()
+	if Actor_Has_Items("zapis_2_a_case") then
+		ogse.save_var("zapis_2_a_case", true, "bool")
+		return true
+	end
+	return false
+end
+
+function on_use_case_use_rub()
+	level.start_stop_menu(tasks_functor.case_use_rub(), true)
+end
+
+class "case_use_rub" (CUIScriptWnd)
+function case_use_rub:__init() super()
+	self:InitControls()
+	self:InitCallBacks()
+	self:SetWindowName("case_use_rub")
+end
+
+function case_use_rub:__finalize()
+end
+
+function case_use_rub:InitControls()
+    self:SetWndRect(Frect():set(200,177,1000,1000))
+	local xml = CScriptXmlInit()
+	xml:ParseFile("ui_tasks.xml")
+	xml:InitStatic("case_use_rub:background", self)
+	xml:InitStatic("case_use_rub:caption", self)
+	xml:InitStatic("case_use_rub:item_frame1", self)
+	xml:InitStatic("case_use_rub:txt_edit_box", self)
+	self.EditBoxPassword = xml:InitEditBox("case_use_rub:edit_box", self)
+
+	self:Register(xml:Init3tButton("case_use_rub:btn_1", self), "btn_1")
+	self:Register(xml:Init3tButton("case_use_rub:btn_2", self), "btn_2")
+	self:Register(xml:Init3tButton("case_use_rub:btn_3", self), "btn_3")
+end
+
+function case_use_rub:InitCallBacks()
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED, self.open_case, self)
+	self:AddCallback("btn_2", ui_events.BUTTON_CLICKED, self.crash_case, self)
+	self:AddCallback("btn_3", ui_events.BUTTON_CLICKED, self.quit, self)
+end
+
+function case_use_rub:open_case()
+  local password = self.EditBoxPassword:GetText()
+	if password == "20061204" and ogse.var_exists("zapis_2_a_case") then
+		ogse.spawn_item_in_inv("pol_code_of_case")
+		db.actor:give_info_portion("rad_kvest_dobrozhelatel_search_code_2_start")
+		local obj = ogse.spawn_object(spawn_db.case_use_rub_open_case_bread)
+		add_map_spot(obj.id, "search_code_2_svaznoi", game.translate_string("dobrozhelatel_string4"))
+		self:GetHolder():start_stop_menu(self, true)
+		ogse.delete_var("zapis_2_a_case")
+	else
+		ogse.autohiding_msg(game.translate_string("dobrozhelatel_string5"), 5000)
+	end
+end
+
+function case_use_rub:crash_case()
+	self:quit()
+	local actor_hit = hit()
+	actor_hit.direction = vector():set(0, 0, 0)
+	actor_hit.impulse = 1 --20
+	actor_hit.draftsman = db.actor
+	actor_hit.power = 0 --10
+	actor_hit.type = hit.explosion
+	db.actor:hit(actor_hit)
+	db.actor:kill(db.actor)
+end
+
+function case_use_rub:quit()
+	if not Actor_Has_Items("case_use_rub") and not has_alife_info("rad_kvest_dobrozhelatel_search_code_2_start") then
+		ogse.spawn_item_in_inv("case_use_rub")
+	end
+	self:GetHolder():start_stop_menu(self, true)
+	self:ClearCallbacks()
+end
+
+function case_use_rub:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		if dik == DIK_keys.DIK_ESCAPE  then
+			self:quit()
+		end
+	end
+end
+
+
+function search_code2_meet_with_svyaznoi()
+	if db.actor and db.actor:position():distance_to_sqr(vector():set(-194.79,-13.0,37.92),130801,1657) < 11^2 then
+		news_manager.send_tip(db.actor, game.translate_string("search_code2_meet_with_svyaznoi_text"), 0, "stalker", 20000)
+		db.actor:give_info_portion("rad_kvest_dobrozhelatel_plen_start")
+		db.actor:give_info_portion("kpss_quest_begin")
+		delete_map_spot("search_code_2_svaznoi", false, "green_location")
+		return true
+	end
+  return false
+end
+
+function guid_svyaznoy_from_base_bantits()
+	local svyaznoy = level_object_by_sid(story_ids.val_kvestx10_svyaznoy)
+	if db.actor and svyaznoy and db.actor:position():distance_to_sqr(vector():set(244.990,1.228,1.920),778875,3468) < 50^2 and svyaznoy:position():distance_to_sqr(vector():set(244.990,1.228,1.920),778875,3468) < 50^2 then
+			db.actor:give_info_portion("rad_kvest_dobrozhelatel_help_to_svyaznoy_near_lc")
+		return true
+	end
+  return false
+end
+
+function not_guid_svyaznoy_from_base_bantits()
+	return not guid_svyaznoy_from_base_bantits()
+end
+
+function spawn_monolit_on_base_bantits()
+	ogse.spawn_objects(spawn_db.spawn_monolit_on_base_bantits)
+end
+
+function rad_kvest_dobrozhelatel_help_to_svyaznoy()
+	ogse.save_var("help_to_svyaznoy", true, "bool")
+	delete_when_offline(id_by_sid(story_ids.val_kvestx10_svyaznoy)):start()
+	db.actor:give_info_portion("rad_kvest_dobrozhelatel_have_all_password")
+end
+
+function if_svyaznoy_is_dead()
+	local items = {["zapis_3_a_case"] = 1}
+	jekan_work.spawn_items_in_treasure_box(5201, items) -- спауним фиготень в ящик
+end
+
+function rad_kvest_dobrozhelatel_spawn_letter_in_treasure()
+	if db.actor:has_info("rad_kvest_dobrozhelatel_help_to_svyaznoy") then return end
+	local text = game.translate_string("rad_kvest_dobrozhelatel_spawn_letter_in_treasure_text")
+	ogse.send_tip(text, "Доброжелатель:", 0, 10, "stalker", "task")
+	db.actor:give_info_portion("rad_kvest_dobrozhelatel_letter_start")
+	if_svyaznoy_is_dead()
+end
+
+function bun_primary_switcher_press()
+	if has_alife_info("rad_kvest_dobrozhelatel_password_enter") then
+		db.actor:give_info_portion("bar_deactivate_radar_done")
+	else
+		bun_spawn_bomba()
+	end
+end
+
+function bun_spawn_bomba()
+	local pos = db.actor:position()
+    local bomba = alife():create("bomba", vector():set(pos.x+1, pos.y, pos.z+1), db.actor:level_vertex_id(), db.actor:game_vertex_id())
+	ogse_st_mgr.start_timer("bun_babah_bomba", 2, "tasks_functor.bun_babah_bomba", bomba.id)
+end
+
+function bun_babah_bomba(bomb_id)
+	--news_manager.send_tip(db.actor, "spawn_pda_monolit", 0, "stalker", 9000)
+	hit_obj_by_id_simple(bomb_id, 1000, 0)
+end
+
+
+class "ui_bun_comp" (CUIScriptWnd)
+
+function ui_bun_comp:__init() super()
+	self:InitControls()
+	self:InitCallBacks()
+	self:SetWindowName("ui_bun_comp")
+end
+
+function ui_bun_comp:__finalize()
+end
+
+function ui_bun_comp:InitControls()
+    self:SetWndRect(Frect():set(200,177,1000,1000))
+	local xml = CScriptXmlInit()
+	xml:ParseFile("ui_tasks.xml")
+	xml:InitStatic("case_use_rub:background", self)
+	xml:InitStatic("ui_bun_comp:caption", self)
+	xml:InitStatic("ui_bun_comp:txt_edit_box", self)
+	self.EditBoxPassword = xml:InitEditBox("ui_bun_comp:edit_box", self)
+
+	self:Register(xml:Init3tButton("ui_bun_comp:btn_1", self), "btn_1")
+	self:Register(xml:Init3tButton("ui_bun_comp:btn_2", self), "btn_2")
+end
+
+function ui_bun_comp:InitCallBacks()
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED, self.ok, self)
+	self:AddCallback("btn_2", ui_events.BUTTON_CLICKED, self.quit_ui_bun_comp, self)
+end
+
+function ui_bun_comp:ok()
+  local password = self.EditBoxPassword:GetText()
+	if password == "cnfkrthrksr" and ogse.var_exists("help_to_svyaznoy") then
+		db.actor:give_info_portion("rad_kvest_dobrozhelatel_password_enter")
+		self:quit_ui_bun_comp()
+		delete_dobroshelatel_docs()
+		ogse.autohiding_msg(game.translate_string("dobrozhelatel_string6"), 10000)
+		ogse.delete_var("help_to_svyaznoy")
+	else
+		ogse.autohiding_msg(game.translate_string("dobrozhelatel_string5"), 5000)
+	end
+end
+
+function ui_bun_comp:quit_ui_bun_comp()
+	self:GetHolder():start_stop_menu(self, true)
+	self:ClearCallbacks()
+end
+
+function ui_bun_comp:OnKeyboard(dik, keyboard_action) --не тестил
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		if dik == DIK_keys.DIK_ESCAPE  then
+			self:ClearCallbacks()
+		end
+	end
+end
+
+function ui_bun_comp_show()
+	if not has_alife_info("rad_kvest_dobrozhelatel_password_enter") then
+		level.start_stop_menu(tasks_functor.ui_bun_comp(), true)
+	end
+end
+
+function delete_dobroshelatel_docs()
+	local items = {"zapis_a_case", "zapis_2_a_case", "zapis_3_a_case", "pol_code_of_case", "pda_monolit"}
+	for k,v in pairs(items) do
+		if db.actor:object(v) then
+			alife():release(alife():object(db.actor:object(v):id()), true)
+		end
+	end
+end
+----------------------- Квест "Последняя просьба" -----------------------
+function death_esc_scoryi()
+	local Scoryi = level.object_by_id(ogse.load_variable("ScoryiID"))
+	if Scoryi then
+		if not Scoryi:is_talking() then
+			Scoryi:kill(Scoryi)
+		end
+	else
+		Scoryi=alife():object(ogse.load_variable("ScoryiID"))
+		if Scoryi then
+			ogse.kill_offline_npc(Scoryi)
+		end
+	end
+	ogse.del_variable("ScoryiID")
+end
+
+function death_esc_scoryi_by_dialog(actor,npc)
+	ogse_st_mgr.start_timer("scoryi_talk_with_sidor", 30, "tasks_functor.kvest_scoryi_talk_with_sidor")
+	npc:kill(npc)
+	ogse.del_variable("ScoryiID")
+end
+
+function give_pda_scoryi_to_actor(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "pda_scoryi", "in")
+end
+
+function give_pda_scoryi_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "pda_scoryi", "out")
+end
+
+function kvest_scoryi_talk_with_sidor()
+	db.actor:give_info_portion("esc_kvest_help_to_scoryi_talk_with_sidor_start")
+    news_manager.send_tip(db.actor, "Зайди-ка ко мне, тут одно дельце наклевывается.", 0, "trader", 20000)
+end
+
+function spawn_val_kvest_sniper()
+	ogse.spawn_object(spawn_db.val_kvest_sniper)
+end
+
+--Итого из 3 огромных, пышных блоков я оставил только проверку здоровья, а все остальное ушло в логику
+function shpion_to_orlov_complete()
+	if has_alife_info("val_orlov_last_request_teleport_to_the_prison") then return true end
+	local Orlov = level_object_by_sid(story_ids.val_orlov)
+	if Orlov then
+		if Orlov.health < 1.0 then
+			Orlov.health = 1.0
+		end
+	end
+	return false
+end
+
+function shpion_to_orlov_fail()
+	local Orlov = level_object_by_sid(story_ids.val_orlov)
+	--А собственно зачем нам нужно проверять дистанцию? Нам нужнен только переход в оффлайн :), А все остальное загоним в логику
+	if has_alife_info("val_orlov_wait_end") and not Orlov then del_orlov() return true end
+	if has_alife_info("esc_kvest_help_to_scoryi_orlov_killed") then return true end
+	return false
+end
+
+function actor_has_vodka()
+	return db.actor:object("vodka")~=nil
+end
+
+function del_orlov()
+	local Obj = alife():story_object(story_ids.val_orlov)
+	if Obj then
+		alife():release(Obj, true)
+	end
+end
+
+function orlov_killed()
+	return has_alife_info("esc_kvest_help_to_scoryi_orlov_killed")
+end
+
+function spawn_outfit_in_death_bandit()
+	for k,v in pairs(db.storage) do
+		local obj = level.object_by_id(k)
+		if obj then
+			if obj:profile_name()=="val_bandit_orlov_death_bandit" then
+				ogse.spawn_item_in_inv("bandit_plash",obj)
+				break
+			end
+		end
+	end
+end
+
+function actor_look_at_sitnik_hit_to_actor()
+	xr_effects.disable_ui()
+    local sound = sound_object("actor\\pain_"..tostring(math.random(1, 8)))
+    sound:play_at_pos(db.actor, vector():set(0,0,0), 0, sound_object.s2d)
+	level.add_pp_effector("fire_hit.ppe", 1977, false)
+	level.add_cam_effector("camera_effects\\prison_1.anm", 9993, false, "")
+	level.add_cam_effector("camera_effects\\empty.anm", 1972, false, "tasks_functor.actor_look_at_sitnik_hit_to_actor_2")
+    level.add_pp_effector("peace_fade.ppe", 1971, false)
+	ogse.give_info("val_orlov_last_request_teleport_to_the_prison")
+	local sOrlov = alife():story_object(story_ids.val_orlov)
+	if sOrlov then
+		ogse.teleport_npc(sOrlov.id,vector():set(46.559043884277,1.0227054357529,-31.403017044067))
+	end
+	local sUnknown = alife():story_object(story_ids.val_unknown_stalker_quest_last_request)
+	if sUnknown then
+		alife():release(sUnknown, true)
+	end
+end
+
+function rob_actor (item)
+    local section = item:section()
+	if section == "hand_radio_f"
+	or section == "device_pda"
+	or section == "device_torch"
+	or section == "separator"
+	or section == "mobile_changer"
+	or section == "bolt" then
+		return
+	end
+
+	if sys_ini:line_exist(section, "quest_item") then
+		if sys_ini:r_bool(section, "quest_item") then
+			return
+		end
+	end
+	local percent = level.get_game_difficulty()
+	if percent then
+		percent = 100-percent*4
+	end
+	--math.random()  -- вызов-пустышка
+	local rnd = math.random(0,100)
+	if rnd<percent then
+		local cbox = level_object_by_sid(story_ids.val_simulation_box_2)
+		if cbox then
+			db.actor:transfer_item(item,cbox)
+		end
+	else
+		alife():release(item,true)
+	end
+end
+
+function actor_look_at_sitnik_hit_to_actor_2()
+	level.add_pp_effector("peace_unfade.ppe", 1971, false)
+	xr_effects.enable_ui()
+	db.actor:set_actor_position(vector():set(47.591911315918,-2.42911243438721,-58.130298614502))
+	
+	local items_to_delete = {}
+	
+	local box = level_object_by_sid(story_ids.val_simulation_box_2)
+	if box then
+		for i = 0, db.actor:object_count() - 1 do
+			local obj = db.actor:object(i)
+			if obj and alife():object(obj:id()) then
+				local sect = obj:section()
+				if obj 
+					and not (sys_ini:line_exist(sect, "quest_item") and sys_ini:r_bool(sect, "quest_item")) 
+					and not string.find(sect, "hand_radio_f") 
+					and not string.find(sect, "device_pda") 
+					and not string.find(sect, "device_torch") 
+					and not string.find(sect, "separator") 
+					and not string.find(sect, "mobile_changer") 
+					and not string.find(sect, "bolt") then
+					
+					local percent = level.get_game_difficulty()
+					if percent then
+						percent = 100-percent*4
+					end
+					local rnd = math.random(0,100)
+					if rnd<percent then
+						db.actor:transfer_item(obj,box)
+					else
+						items_to_delete[obj:id()] = true
+					end
+				end
+			end
+		end
+	end
+	for k,v in pairs(items_to_delete) do
+		if v then
+			local obj = db.actor:object(k)
+			if obj then
+				alife():release(obj, true)
+			end
+		end
+	end
+end
+
+function orlov_and_actor_teleport_to_fab(actor, orlov)
+	xr_effects.disable_ui()
+	level.add_cam_effector("camera_effects\\empty.anm", 1972, false, "tasks_functor.orlov_and_actor_teleport_to_fab_2")
+    level.add_pp_effector("peace_fade.ppe", 1971, false)
+end
+
+function actor_in_bandit_plash()
+	local item = db.actor:item_in_slot(6)
+	if item then
+		if item:section()=="bandit_plash" then
+			db.actor:set_character_community("bandit", 0, 0)
+			return true
+		else
+			return false
+		end
+	end
+end
+
+function set_actor_community()
+	db.actor:set_character_community("actor",0,0)
+end
+
+function orlov_and_actor_teleport_to_fab_2()
+	xr_effects.enable_ui()
+	level.add_cam_effector("camera_effects\\empty.anm", 1972, false, "tasks_functor.orlov_and_actor_teleport_to_fab_3")
+	level.add_pp_effector("peace_unfade.ppe", 1971, false)
+	ogse.spawn_objects(spawn_db.orlov_and_actor_teleport_to_fab_2)
+	db.actor:set_actor_position(vector():set(49.11,0.05,-247.11),236237,855)
+	local sOrlov = alife():story_object(story_ids.val_orlov)
+	if sOrlov then
+		ogse.teleport_npc(sOrlov.id,vector():set(49.11,0.05,-247.11))
+	end
+end
+
+function orlov_and_actor_teleport_to_fab_3()
+	local orlov = level_object_by_sid(story_ids.val_orlov)
+	orlov:set_start_dialog("val_kvest_help_to_scoryi_talk_with_orlov3_dialog")
+	db.actor:run_talk_dialog(orlov)
+end
+
+function talked_with_orlov3(actor, Orlov)
+	Orlov:set_start_dialog("hello_dialog")
+end
+
+function have_notebook_mercs()
+    if Actor_Has_Items("notebook_mercs") then
+		if Kuznecov_Alive() then
+			db.actor:give_info_portion("esc_kvest_help_to_scoryi_say_mils_info_start")
+		else
+			db.actor:give_info_portion("esc_kvest_help_to_scoryi_say_mils_info_2_start")
+		end
+		db.actor:give_info_portion("val_killers_kvest_on_combat")
+		dialogs.actor_clear_community()
+		news_manager.send_tip(db.actor, "Беги!", 0, "stalker", 5000)
+		level_object_by_sid(story_ids.val_orlov):set_character_community("stalker",0,0)	--ОРЛОВ
+		return true
+	end
+  return false
+end
+
+function actor_not_in_zone_near_orlov_staying()
+	if not xr_conditions.actor_in_zone(nil,nil,{"val_orlov_last_request_actor_hear_orlov"}) and db.actor:has_info("orlov_meet_unknown_quest_last_request") then
+		ogse.give_info("esc_kvest_help_to_scoryi_search_sitnik_fail")
+		return true
+	end
+	return false
+end
+
+function Kuznecov_Alive()
+	return not ogse.has_info("esc_kuzn_killed")
+end
+
+function wolf_alive()
+	return not ogse.has_info("esc_wolf_dead")
+end
+
+function Kuznecov_NotAlive()
+	if ogse.has_info("esc_kuzn_killed") then spawn_esc_mercs_attack_bridge() return true end
+end
+
+function spawn_esc_mercs_attack_bridge()
+	if db.actor:position():distance_to_sqr(vector():set(53.25,0.57,131.86),338604,94) < 30^2 and not has_alife_info("esc_kvest_help_to_scoryi_spawn_mercs_attack_bridge") then
+		ogse.spawn_object(spawn_db.esc_mercs_attack_bridge)
+		db.actor:give_info_portion("esc_kvest_help_to_scoryi_spawn_mercs_attack_bridge")
+	end
+end
+
+function take_actor_items_from_box()
+	local InvBox = level_object_by_sid(story_ids.val_simulation_box_2)
+    if InvBox and has_alife_info("val_orlov_go_to_merc_boss") then
+		if InvBox:is_inv_box_empty() then
+			return true
+		end
+	end
+  return false
+end
+
+function precond_dlg_say_info_to_mils()
+	return has_alife_info("esc_kvest_help_to_scoryi_say_mils_info_start") or has_alife_info("esc_kvest_help_to_scoryi_say_mils_info_2_start")
+end
+
+function hit_cars_in_online_visitors()
+	ogse.save_variable("last_request_actor_comm", db.actor:character_community())
+	db.actor:set_character_community("mil_stalker", 0, 0)
+	xr_companion.set_community_by_actor()
+	local killers = ogse.spawn_objects(spawn_db.hit_cars_in_online_visitors_1)
+	for i,obj in ipairs(killers) do
+		ogse.save_variable("last_request_esc_killer_"..tostring(i), obj.id)
+	end
+	ogse_st_mgr.start_timer("esc_visitors_hit_btr_01", 2, "tasks_functor.hit_btr_01")
+	ogse_st_mgr.start_timer("esc_visitors_hit_btr_02", 3, "tasks_functor.hit_btr_02")
+	ogse_st_mgr.start_timer("esc_visitors_hit_kamaz", 10, "tasks_functor.hit_kamaz")
+	local objects = ogse.spawn_objects(spawn_db.hit_cars_in_online_visitors_3)
+	for _,obj in ipairs(objects) do ogse.kill_offline_npc(obj) obj:on_death() end
+end
+
+function hit_car(car_sid)
+	local obj = level_object_by_sid(car_sid)
+	if obj then
+		local h = hit()
+		h.power = 1000
+		h.direction = vector():set (1, 0, 0)
+		h.impulse = 500
+		h.draftsman = obj
+		h.type = hit.explosion
+		obj:hit(h)
+	end
+end
+
+function hit_btr_01()
+	hit_car(story_ids.vehicle_esc_last_request_btr_01)
+end
+
+function hit_btr_02()
+	hit_car(story_ids.vehicle_esc_last_request_btr_02)
+end
+
+function hit_kamaz()
+	hit_car(story_ids.vehicle_esc_last_request_kamaz)
+end
+
+function is_gulag_with_killers_empty()
+	local dead_killers = 0
+	for i=1,9 do
+		local killer = level.object_by_id(ogse.load_variable("last_request_esc_killer_"..tostring(i), -1))
+		if killer and not killer:alive() then
+			dead_killers = dead_killers + 1
+		end
+	end
+	if dead_killers == 9 then
+		ogse.give_info("esc_last_request_actor_kill_all_killers")
+		for i=1,9 do
+			ogse.save_variable("last_request_esc_killer_"..tostring(i), nil)
+		end
+		return true
+	else
+		return false
+	end
+end
+
+function set_hp_to_sitnik()
+end
+
+function add_tip_about_pass_from_kuzn()
+	news_manager.send_tip( db.actor, "Еще раз спасибо, Меченый. Теперь проход под мостом для тебя бесплатный.", nil, "trader", nil )
+end
+
+function return_old_comm_to_actor()
+	ogse_st_mgr.start_timer("make_actor_himself_again", 2, "tasks_functor.return_old_comm_to_actor_impl")
+end
+
+function return_old_comm_to_actor_impl()
+	db.actor:set_character_community(ogse.load_variable("last_request_actor_comm", "actor"), 0, 0)
+	xr_companion.set_community_by_actor()
+	ogse.del_variable("last_request_actor_comm")
+end
+
+function esc_last_request_load_mils_in_gaz66()
+	ogse_st_mgr.start_timer("tip_about_pass_from_kuzn", 3, "tasks_functor.add_tip_about_pass_from_kuzn")
+	local mils = xr_gulag.get_gulag_by_name("esc_visitors_in_car_last_request")
+	if mils then
+		for k,v in pairs(mils.Object) do
+			if v then
+				if level.object_by_id(k) then
+					local sObj = alife():object(k)
+					if sObj then
+						sObj.force_offline = true
+					end
+					delete_when_offline(k):start()
+				else
+					local sObj = alife():object(k)
+					if sObj then
+						alife():release(sObj, true)
+					end
+				end				
+			end
+		end
+	end
+end
+
+function set_kuzn_health_normaly()
+--Да, это фактически читерство. Но что поделать - иначе кузнецова в первые секунды пристрелят!
+	local ckuzn = level_object_by_sid(story_ids.esc_kuznetsov)
+	if ckuzn and ckuzn.health < 0.8 then
+		ckuzn.health = 1.0 - ckuzn.health
+	end
+	return false
+end
+
+function give_notebook_mercs(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "notebook_mercs", "out")
+end
+
+function is_car_destroyed()
+	local gaz66 = level_object_by_sid(story_ids.vehicle_esc_last_request_gaz66)
+	if gaz66 then 
+		return gaz66:get_car():GetfHealth() < 0.05
+	end
+	return false
+end
+
+
+function have_moneys_of_scoryi()
+    if Actor_Has_Items("box_moneys") then
+		return false
+	end
+	local GarBox = level_object_by_sid(story_ids.gar_secret_0010)
+	if GarBox ~= nil and not has_alife_info("esc_kvest_help_to_scoryi_spawn_box_moneys") then
+		ogse.spawn_item_in_inv("box_moneys", GarBox)
+		db.actor:give_info_portion("esc_kvest_help_to_scoryi_spawn_box_moneys")
+	end
+end
+
+function give_moneys_of_scoryi_to_barman(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "box_moneys", "out")
+end
+
+function killed_orlov_disable_kvests()
+	if not db.actor:has_info("val_killers_kvest_on_combat") then
+		db.actor:give_info_portion("esc_kvest_help_to_scoryi_search_sitnik_fail")
+	end
+end
+
+function give_reward_on_kvest_end_prosba(first_speaker, second_speaker)
+	give_reward_on_kvest(second_speaker, 10000, nil)
+end
+----------------------- Квест "Исцеление" -----------------------
+local NumSndKillPreobr = 0
+
+function spawn_pda_preobr()
+	local pda_preobr = ogse.spawn_object(spawn_db.pda_preobr)
+	add_map_spot(pda_preobr.id, "pda_preobr_spot", "Найти Преображенского")
+end
+
+function search_preobr_complete()
+	if db.actor:object("pda_preobr") and not has_alife_info("esc_kvest_iscelenie_snd_kill_preobr_1")  then
+		local Trup1 = ogse.spawn_object(spawn_db.Trup1)
+		ogse.kill_offline_npc(Trup1)
+		ogse_st_mgr.start_timer("snd_kill_preobr", 10, "tasks_functor.snd_kill_preobr_play")
+		db.actor:give_info_portion("esc_kvest_iscelenie_snd_kill_preobr_1")
+	end
+
+	if has_alife_info("esc_kvest_iscelenie_guid_preobr_start") then
+		return true
+	end
+	return false
+end
+
+function snd_kill_preobr_play()
+	if NumSndKillPreobr == 0 then
+		soundtrack.s_play_no_feedback([[ambient\random\rnd_ak47_1]], 1.0)
+		ogse_st_mgr.start_timer("snd_kill_preobr", 2, "tasks_functor.snd_kill_preobr_play")
+		NumSndKillPreobr = NumSndKillPreobr + 1
+	elseif NumSndKillPreobr == 1 then
+		soundtrack.s_play_no_feedback([[ambient\random\rnd_ak47_2]], 1.0)
+		ogse_st_mgr.start_timer("snd_kill_preobr", 2, "tasks_functor.snd_kill_preobr_play")
+		NumSndKillPreobr = NumSndKillPreobr + 1
+	else
+		soundtrack.s_play_no_feedback([[ambient\battle_2]], 1.0)
+	end
+end
+
+function give_pda_preobr_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "pda_preobr", "out")
+end
+
+function guid_preobr_to_yan()
+	if level.name() == "l04_darkvalley" then
+		local Preobr = level_object_by_sid(story_ids.yan_ecolog_preobr)
+		if Preobr and db.actor then
+			if db.actor:position():distance_to_sqr(vector():set(-44.56,0.43,-528.89),122632,815) < 4^2 and Preobr:position():distance_to_sqr(vector():set(-44.56,0.43,-528.89),122632,815) < 4^2 then
+				dialogs.companion_stop_following(Preobr, db.actor)
+				db.actor:give_info_portion("esc_kvest_iscelenie_guid_preobr")
+				ogse_st_mgr.start_timer("del_preobr", 7, "tasks_functor.del_preobr")
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function del_preobr()
+	if distance_between(db.actor, level_object_by_sid(story_ids.yan_ecolog_preobr)) > 110 then
+		local Obj = alife():story_object(story_ids.yan_ecolog_preobr)
+		if Obj then
+			alife():release(Obj, true)
+		end
+	end
+end
+
+function spawn_stebels_ri()
+	ogse.spawn_objects(spawn_db.stebel_ri)
+end
+
+function have_stebel_ri_to_preobr()
+    return Actor_Has_Items("stebel_ri", 3)
+end
+
+function give_stebel_ri_to_npc(first_speaker, second_speaker)
+	for a = 1, 3 do
+		dialogs.relocate_item_section(second_speaker, "stebel_ri", "out")
+	end
+end
+
+function on_timer_wait_stebel_ri()
+	db.actor:give_info_portion("esc_kvest_iscelenie_stebel_ri_done")
+end
+
+function start_wait_stebel_ri()
+	ogse_st_mgr.start_timer("wait_stebel_ri", 9*60, script_name()..".on_timer_wait_stebel_ri")
+end
+
+function on_timer_wait_lechenie_sidor()
+	tasks_functor.wait_lechenie_sidor_end()
+end
+
+function start_wait_lechenie_sidor()
+	ogse_st_mgr.start_timer("wait_lechenie_sidor", 60*60, script_name()..".on_timer_wait_lechenie_sidor")
+end
+
+function give_lekar_for_sidor_to_actor(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "lekar_for_sidor", "in")
+end
+
+function give_lekar_for_sidor_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "lekar_for_sidor", "out")
+end
+
+function give_medkit_to_npc(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "medkit", "out")
+end
+
+function wait_lechenie_sidor_end()
+	db.actor:give_info_portion("esc_kvest_iscelenie_talk_with_sidor_start")
+	news_manager.send_tip(db.actor, "Меченый, зайди ко мне, разговор к тебе есть.", 0, "trader", 15000)
+end
+
+
+function search_diggers_in_x16()
+	if db.actor:object("pda_gribnik") and db.actor:object("pda_leshyi") then
+		local sobj = ogse.spawn_object(spawn_db.ros_dogger_gaz)
+		local pk = get_netpk(sobj)
+		ASSERT( pk:isOk(), "can't read netpacket of %s", sobj:name() )
+		local tbl = pk:get()
+		tbl.health = 0.27
+		tbl.upd.health = 0.27
+		pk:set(tbl)
+		return true
+	end
+  return false
+end
+
+function spawn_val_uzh()
+	ogse.spawn_object(spawn_db.val_bandit_uzh)
+end
+
+function spawn_esc_hitryi()
+	ogse.spawn_object(spawn_db.esc_hitryi)
+end
+
+function val_uzh_on_combat()
+	db.actor:give_info_portion("esc_kvest_iscelenie_on_combat_uzh")
+end
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------Призрак-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+function spawn_esc_spawn_box_in_car()
+	local car = ogse_car_control.get_nearest_car_by_section("vehicle_zaz")
+	ASSERT(car, "spawn_esc_spawn_box_in_car: car with section 'vehicle_zaz' doesn't exist or is offline")
+	dsh_rukzak.spawn_item_in_rukzak( car:id(), "yashik_weapon" )
+end
+
+
+function take_1000(first,second)
+	dialogs.relocate_money(second, 1000, "out")
+end
+
+function take_700(first,second)
+	dialogs.relocate_money(second, 700, "out")
+end
+
+
+function have_1000(first,second)
+	return db.actor:money() >= 1000
+end
+
+function have_700(first,second)
+	return db.actor:money() >= 700
+end
+
+
+function actor_good_boy()
+	--return db.actor:character_reputation()>25
+	return math.random(1,3)==1
+end
+
+function actor_bad_boy()
+	return db.actor:character_reputation()<25
+end
+
+-- Mixser --
+-- Функции под новые квесты --
+-- + многочисленные правки предыдуших --
+
+-- Таймеры --
+
+-- Таймер, удаляющий объект, когда он уходит в оффлайн
+-- Данные таймера сохраняются даже после окончания текущей игровой сессии
+
+class "delete_when_offline" (ogse_st_mgr.savable_timer)
+function delete_when_offline:__init(npc_id) super(npc_id) --НЕ НАДО ТАК ДЕЛАТЬ! В конструкторе должно быть не npc_id, а уникальное имя таймера! А так могут и дублирования имён таймеров возникнуть, что вызовет вылет.
+	-- обязательная строка с именем класса таймера
+	self.class = script_name()..".delete_when_offline"
+	self.npc_id = npc_id
+end
+
+function delete_when_offline:condition()
+	return not level.object_by_id(self.npc_id)
+end
+
+function delete_when_offline:load(t)
+	self.npc_id = table.remove( t, 1 )
+end
+
+function delete_when_offline:save(t, template)
+  table.insert( template, "u16" )
+  table.insert( t, self.npc_id )
+  return template
+end
+
+function delete_when_offline:action()
+	local sobj = alife():object(self.npc_id)
+	if sobj then 
+		if IsAnomaly(sobj) and not ogse_anomaly.is_not_anomaly(sobj) then --С аномалиями разберется менеджер аномалий.
+			ogse_anomaly.set_anomaly_mode(sobj.id, "anom_off")
+		else
+			alife():release(sobj, true)
+		end
+	end
+end
+
+-- Таймер переодевания дезертира
+
+class "clothes_changing_actor_dont_see" (ogse_qt.quick_timer)
+function clothes_changing_actor_dont_see:__init(npc_id) super()
+	self.npc_id = npc_id -- запоминаем в таймере id непися
+end
+function clothes_changing_actor_dont_see:condition()
+	return ( not db.actor:see(level.object_by_id(self.npc_id)) )
+end
+function clothes_changing_actor_dont_see:action()
+	ogse.send_tip("Меченый, я готов! Пошли потихоньку.", game.translate_string(level.object_by_id(self.npc_id):character_name())..":")
+
+	local novice_visuals =
+	{
+		[[actors\novice\green_stalker_2]],
+		[[actors\novice\green_stalker_4]],
+		[[actors\novice\green_stalker_10]],
+		[[actors\novice\green_stalker_antigas]]
+	}
+
+	local stalker_visuials =
+	{
+		[[actors\neytral\stalker_2_gas]],
+		[[actors\neytral\stalker_2_ochki]],
+		[[actors\neytral\stalker_3_gas]],
+		[[actors\neytral\stalker_4_gas]],
+		[[actors\neytral\stalker_4_ochki]],
+		[[actors\neytral\stalker_4_rozh3]],
+		[[actors\neytral\stalker_neytral_hood_8]],
+		[[actors\neytral\stalker_neytral_balon_8]],
+		[[actors\neytral\stalker_neytral_hood_9]]
+	}
+
+    
+    local novice_visuals_dez =
+    {
+        [[actors\novice\green_stalker_antigas]]
+    }
+
+    local stalker_visuials_dez=
+    {
+        [[actors\neytral\stalker_3_gas]]
+    }
+
+    local vis = {}
+    --if level.object_by_id(self.npc_id):object("novice_outfit") then vis = novice_visuals else vis = stalker_visuials end
+
+    --if ogse.load_var("agr_swamp_ratcatcher_actor_give_stalker_outfit", "novice_outfit") == "stalker_outfit" then vis = stalker_visuials else vis = novice_visuals end
+    if ogse.load_var("agr_swamp_ratcatcher_actor_give_stalker_outfit", "novice_outfit") == "stalker_outfit" then vis = stalker_visuials_dez else vis = novice_visuals_dez end
+
+	local ratcatcher = level.object_by_id(self.npc_id)
+	if ratcatcher then
+		local out = ratcatcher:object(ogse.load_var("agr_swamp_ratcatcher_actor_give_stalker_outfit", "novice_outfit"))
+		if out then
+			local s_out = alife():object(out:id())
+			alife():release(s_out, true)
+		end
+	end
+
+	ogse.delete_var("agr_swamp_ratcatcher_actor_give_stalker_outfit")
+
+	local s_obj = alife():object(self.npc_id)
+
+	local pk = get_netpk(s_obj, 1)
+	ASSERT( pk:isOk(), "can't read netpacket of %s", s_obj:name() )
+	local data = pk:get()
+	data.visual_name = vis[math.random(#vis)]
+	--local custom_data = data.custom_data:getTable()
+	--log3("~~[%s] Custom_data of [%s]: %s", script_name(), s_obj:name(), custom_data)
+	local custom_data_string = "[logic] \n[logic] \non_death = death \n[death] \non_info = %+agr_dezerter_died% \n[smart_terrains] \nesc_lager = true"
+	data.custom_data:setString(custom_data_string)
+	pk:set(data)
+
+	s_obj.force_offline = true
+	amkii_equip.go_offline_watch_timer(self.npc_id):start()
+
+	dialogs.companion_start_following(level.object_by_id(self.npc_id), db.actor)
+end
+
+
+-- Таймер, выдающий через определенное время ССИ, дающий возможность получить записку от Психа
+function ogse_military_psycho_surprise_taction()
+	db.actor:give_info_portion("military_psycho_spawn_note_when_sleeping")
+end
+
+-- Включение сталкеровской сети через сутки
+function captive_on_agr_mill_base_shutdown_news_timer_taction()
+	ogse.delete_var("need_shutdown_stalker_news")
+end
+
+
+-- Функции для работы с дезертиром на Агропроме
+function agr_swamp_ratcatcher_actor_has_stalker_outfit()
+	return db.actor:has_info("agr_swamp_ratcatcher_go_to_novice_outfit") and (db.actor:object("novice_outfit") or db.actor:object("stalker_outfit"))
+end
+
+function agr_swamp_ratcatcher_actor_has_bp_mily_otschet()
+	return db.actor:has_info("agr_dezerter_report_read")
+end
+
+function agr_swamp_ratcatcher_actor_give_stalker_outfit(first_speaker, second_speaker)
+	local outfit = ""
+
+	if 	(db.actor:object("novice_outfit") and db.actor:object("stalker_outfit"))
+			or db.actor:object("stalker_outfit") then
+				outfit = "stalker_outfit"
+				ogse.save_var("agr_swamp_ratcatcher_actor_give_stalker_outfit", "stalker_outfit")
+	elseif db.actor:object("novice_outfit") then
+		outfit = "novice_outfit"
+		ogse.save_var("agr_swamp_ratcatcher_actor_give_stalker_outfit", "novice_outfit")
+	end
+
+	dialogs.relocate_item_section(second_speaker, outfit, "out")
+	clothes_changing_actor_dont_see(id_by_sid(story_ids.agr_deserter)):start()
+end
+
+function agr_swamp_ratcatcher_talk_with_sidr_about_dezerter()
+	local deserter = level_object_by_sid(story_ids.agr_deserter)
+	local des_id = nil
+	if deserter then
+		des_id = deserter:id()
+	end
+	return (deserter and deserter:alive() and db.storage[des_id] and db.storage[des_id].companion and db.storage[des_id].companion.enabled == true)
+end
+
+function agr_swamp_ratcatcher_spawn_report_about_lc()
+	local items = {["bp_mily_otschet"] = 1}
+	jekan_work.spawn_items_in_treasure_box(2010, items) -- спауним фиготень в ящик
+end
+
+-- Функции по работе с Психом
+
+function military_psycho_talk_about_psycho_precondition()
+	return (level_object_by_sid(story_ids.Mil_Crazy) and level_object_by_sid(story_ids.Mil_Crazy):alive())
+end
+
+function military_psycho_quest_fail()
+	return (db.actor:has_info("mil_crazy_dead") and not db.actor:has_info("military_psycho_delete_body"))
+end
+
+function military_psycho_leave_companion()
+	dialogs.companion_stop_following(level_object_by_sid(story_ids.Mil_Crazy), db.actor)
+	alife():teleport_object(id_by_sid(story_ids.Mil_Crazy), vector():set(51.683,-11.698,-262.403), 65884, 1480)
+	local npc = level_object_by_sid(story_ids.Mil_Crazy)
+	if npc then
+		local sobject = alife():object(npc:id())
+		db.storage[npc:id()].active_section = "camper2"
+	end
+end
+
+function military_psycho_drop_weapon()
+	local psycho = level_object_by_sid(story_ids.Mil_Crazy)
+	if psycho then
+		local best_weapon = psycho:best_weapon()
+		if best_weapon then
+			alife():release(alife():object(best_weapon:id()), true)
+		end
+		-- если у психа нет пистолета, выдадим, на случай, если актор его "раздел"
+		if not psycho:object("wpn_pm") then
+			ogse.spawn_item_in_inv("wpn_pm", psycho) 
+		end
+		local sobject = alife():object(psycho:id())
+		db.storage[psycho:id()].active_section = "walker"
+	end
+end
+
+function military_psycho_surprise()
+	-- закрываем инвентарь
+	local wnd = level.main_input_receiver()
+	if wnd then
+		wnd:GetHolder():start_stop_menu(wnd, true)
+	end
+
+	-- Именно тут и удалим тело со вспышкой и музыкой
+	level.add_pp_effector ("teleport.ppe", 2006, false) -- вспышка
+	local thunder_sound = xr_sound.get_safe_sound_object([[nature\thunder-3]])
+	thunder_sound:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) -- гроза
+	local psycho = level_object_by_sid(story_ids.Mil_Crazy)
+	if psycho then
+		alife():release(alife():object(psycho:id()), true)
+	end
+	db.actor:give_info_portion("military_psycho_deleted")
+end
+
+function military_psycho_delete_body()
+	-- Через 6 часов во время сна нам может придти записка
+	ogse_st_mgr.delayed_fun_start("ogse_military_psycho_surprise")
+	:set_gdelayDHMS(0, 6, 0, 0)
+	:init(script_name()..".ogse_military_psycho_surprise_taction")
+	:start()
+end
+
+-- Цена бессмертия
+-- Часть первая
+
+function question_of_immortality_get_all_arts(first_speaker, second_speaker)
+	return db.actor:object("af_muten") and db.actor:object("af_firefly") and db.actor:object("af_chameleon") and not db.actor:has_info("dead_stalker_question_of_immortality_first_part_complete")
+end
+
+function question_of_immortality_give_arts(first_speaker, second_speaker)
+	dialogs.relocate_item_section(first_speaker, "af_muten", "out")
+	dialogs.relocate_item_section(first_speaker, "af_firefly", "out")
+	dialogs.relocate_item_section(first_speaker, "af_chameleon", "out")
+end
+
+function question_of_immortality_fisrt_part_start_quest()
+	question_of_immortality_fisrt_part_spawn_muten()
+	question_of_immortality_fisrt_part_prepare_spawn_firefly()
+end
+
+function spawn_psy_art(store_prefix, spawn_db, r_min, r_max, custom_data)
+	local obj = ogse.spawn_object_rand(spawn_db)
+	ogse.save_var(store_prefix.."_id", obj.id, "u16")
+	local ps_obj = alife():create("space_restrictor", obj.position, obj.m_level_vertex_id, obj.m_game_vertex_id)
+	local packet = get_netpk(ps_obj, 1)
+	ASSERT( packet:isOk(), "can't read netpacket of %s", ps_obj:name() )
+	local my_table = packet:get()
+	my_table.shapes:addSphere(math.random(r_min, r_max))
+	my_table.restrictor_type = 3
+	my_table.custom_data:set(custom_data)
+	packet:set(my_table)
+	ogse.save_var(store_prefix.."_ps_id", ps_obj.id, "u16") -- удалим после квеста данную пси-зону
+end
+
+function delete_psy_art_trash(store_prefix)
+	-- Удалим пси-зону при сдаче артефакта
+	local id = ogse.load_var(store_prefix.."_ps_id")
+	local sobj = alife():object(id)
+	if sobj then
+		delete_when_offline(id):start()
+		ogse.delete_var(store_prefix.."_ps_id")
+		ogse.delete_var(store_prefix.."_id")
+	end
+end
+
+function question_of_immortality_fisrt_part_spawn_muten()
+	-- Спауним Мутень
+	local cd = "[logic] \nactive = ogsm_effector \n[ogsm_effector]"
+	spawn_psy_art("muten", spawn_db.question_of_immortality_fisrt_part_spawn_muten, 3, 5, cd)
+end
+
+function question_of_immortality_fisrt_part_delete_muten_trash()
+	delete_psy_art_trash("muten")
+	db.actor:give_info_portion("dead_stalker_question_of_immortality_delete_muten_trash")
+end
+
+--[[
+-- Сначала спавнятся зеленая электра и ее обычный заместитель
+-- Зеленая электра включается на время дождя
+-- На время дождя спавнится "Светляк". Когда дождь заканчивается, артефакт удаляется.
+-- Когда подбираем артефакт, отключаем зеленую электру, включаем обычную и ставим их на удаление
+]]
+
+function question_of_immortality_fisrt_part_prepare_spawn_firefly()
+	local set_anom_param = function(sobj, max_power)
+		local packet = get_netpk(sobj, 1)
+		ASSERT( packet:isOk(), "can't read netpacket of %s", sobj:name() )
+		local my_table = packet:get()
+		my_table.shapes:addSphere(5.0, vector():set(0,0,0))
+		my_table.max_power = max_power
+		packet:set(my_table)
+	end
+
+	-- Темная долина идет 2 раза в списке специально. Юра сказал шанс спавна на ней в 2 раза выше :)
+	local lvls = {"l01_escape", "l03_agroprom", "l04_darkvalley", "l04_darkvalley", "l07_military", "l08_yantar"}
+	local lvl = lvls[math.random(#lvls)]
+	local spawn_tbl = spawn_db.question_of_immortality_fisrt_part_spawn_firefly[lvl]
+	local spawn_item = spawn_tbl[math.random(#spawn_tbl)]
+	local green_anom = ogse.quest_spawn_ex("noartf_witches_galantine_green", 1, spawn_item)
+	set_anom_param(green_anom, 1.0)
+	ogse.save_var("green_anomaly_id", green_anom.id, "u16")
+	local common_anom = ogse.quest_spawn_ex("firefly_anom_common", 1, spawn_item)
+	set_anom_param(common_anom, 0.4)
+	ogse.save_var("common_anomaly_id", common_anom.id, "u16")
+end
+
+local firefly_upd_signal = false
+local anom_status = ""
+
+function on_first_update_firefly()
+	if not db.actor:has_info("dead_stalker_question_of_immortality_first_part_start") or
+	db.actor:has_info("dead_stalker_question_of_immortality_get_firefly") then return end
+
+	if not ogse.var_exists("green_anomaly_id") then return end
+	local sobj = alife():object(ogse.load_var("green_anomaly_id"))
+	if not sobj then return end
+	if level.name() ~= level_system_name_by_gvid(sobj.m_game_vertex_id) then return end
+
+	firefly_upd_signal = { signal = "on_update", fun = this.on_firefly_update, queued = true }
+	ogse_signals.get_mgr():subscribe( firefly_upd_signal )
+
+	--KRodin: будем респавнить арт после каждой загрузки сейва
+	local art_spawned = ogse.var_exists("art_firefly_id")
+	if art_spawned then
+		question_of_immortality_fisrt_part_delete_firefly()
+	end
+	if anom_status ~= "common" then
+		question_of_immortality_fisrt_part_green(false)
+		anom_status = "common"
+	end
+end
+
+function on_firefly_update()
+	ogse_signals.get_mgr():reschedule(math.random(5000, 10000))
+
+	local art_spawned = ogse.var_exists("art_firefly_id")
+	if level.rain_factor() > 0 then
+		if not art_spawned then
+			question_of_immortality_fisrt_part_spawn_firefly()
+		end
+		if anom_status ~= "green" then
+			question_of_immortality_fisrt_part_green(true)
+			anom_status = "green"
+		end
+	else
+		if art_spawned then
+			question_of_immortality_fisrt_part_delete_firefly()
+		end
+		if anom_status ~= "common" then
+			question_of_immortality_fisrt_part_green(false)
+			anom_status = "common"
+		end
+	end
+end
+
+function fix_art(art_id, bone)
+	local obj = level.object_by_id(art_id)
+	if not obj then return end
+	local ph_shell = obj:get_physics_shell()
+	if not ph_shell then return end
+	local ph_element = ph_shell:get_element_by_bone_name(bone)
+	if not ph_element then return end
+
+	local bone_id = obj:get_bone_id( bone )
+	if bone_id ~= 65535 then
+		ph_element:fix()
+	end
+end
+
+
+function question_of_immortality_fisrt_part_green(enable)
+	local green_anom = level.object_by_id(ogse.load_var("green_anomaly_id"))
+	local common_anom = level.object_by_id(ogse.load_var("common_anomaly_id"))
+	if enable then
+		green_anom:enable_anomaly()
+		common_anom:disable_anomaly()
+	else
+		green_anom:disable_anomaly()
+		common_anom:enable_anomaly()
+	end
+end
+
+function question_of_immortality_fisrt_part_spawn_firefly()
+	local green_anom = alife():object(ogse.load_var("green_anomaly_id"))
+	ASSERT(green_anom, "green_anom ~= nil")
+	local art = alife():create("af_firefly", green_anom.position, green_anom.m_level_vertex_id, green_anom.m_game_vertex_id)
+	alife():use_ai_locations( art, false ) --Может поможет от проваливания
+	ogse.save_var("art_firefly_id", art.id, "u16")
+	level.client_spawn_manager():add( art.id, -1, function() fix_art(art.id, "root") end )
+end
+
+function question_of_immortality_fisrt_part_delete_firefly()
+	local sobj = alife():object(ogse.load_var("art_firefly_id"))
+	ASSERT(sobj, "")
+	alife():release(sobj, true)
+	ogse.delete_var("art_firefly_id")
+end
+
+function question_of_immortality_fisrt_part_delete_firefly_trash()
+	question_of_immortality_fisrt_part_green(false)
+
+	ogse_anomaly.set_anomaly_mode(ogse.load_var("green_anomaly_id"), "anom_off")
+	ogse_anomaly.set_anomaly_mode(ogse.load_var("common_anomaly_id"), "anom_off")
+
+	ogse.delete_var("green_anomaly_id")
+	ogse.delete_var("common_anomaly_id")
+	ogse.delete_var("art_firefly_id")
+
+	if firefly_upd_signal then
+		ogse_signals.get_mgr():unsubscribe(firefly_upd_signal)
+		firefly_upd_signal = false
+	end
+	ogse.give_info("dead_stalker_question_of_immortality_delete_firefly_trash")
+end
+
+function on_first_update_chameleon()
+	if not ogse.var_exists("art_chameleon_id") then return end
+
+	local art_id = ogse.load_var("art_chameleon_id")
+	level.client_spawn_manager():add( art_id, -1, function() fix_art(art_id, "bone01") end )
+end
+
+function question_of_immortality_fisrt_part_spawn_chameleon()
+	local l_name = level.name()
+	if l_name ~= "l05_bar" and l_name ~= "l04u_labx18" and  l_name ~= "l08u_brainlab" and  l_name ~= "l10u_bunker" then 
+		local direction = db.actor:direction()
+		direction.y = 0;
+--		local art_lvid = level.vertex_in_direction(db.actor:level_vertex_id(), direction, math.random(15,30))
+--		local art_pos = level.vertex_position(art_lvid)
+		local art_lvid, art_pos
+		local max_dist = 6
+		local actor_hide = ogse_hideouts.get_current_hide(db.actor)
+		while max_dist < 30 do
+			art_lvid = level.vertex_in_direction(db.actor:level_vertex_id(), direction, max_dist)
+			art_pos = level.vertex_position(art_lvid)
+--			log1("art_lvid is "..tostring(art_lvid).." art_pos is "..tostring(art_pos.x)..", "..tostring(art_pos.y)..", "..tostring(art_pos.z))
+			if actor_hide == "none" or (not actor_hide:inside(art_pos)) then
+				break
+			end
+			max_dist = max_dist + 1
+		end
+--		log1("FINAL VALUES: art_lvid is "..tostring(art_lvid).." art_pos is "..tostring(art_pos.x)..", "..tostring(art_pos.y)..", "..tostring(art_pos.z))
+		art_pos:add(direction:mul(math.random(6,8)))
+--		log1("FINAL art_pos is "..tostring(art_pos.x)..", "..tostring(art_pos.y)..", "..tostring(art_pos.z))
+		local art = alife():create("af_chameleon", art_pos, art_lvid, db.actor:game_vertex_id())
+		if art then
+			ogse.save_var("art_chameleon_id", art.id, "u16")
+			local fix_chameleon = function() fix_art(art.id, "bone01") end
+			level.client_spawn_manager():add(art.id, -1, fix_chameleon)
+		end
+	end
+end
+
+function question_of_immortality_fisrt_part_delete_chameleon()
+	if not ogse.var_exists("art_chameleon_id") then return end
+
+	local sobj = alife():object(ogse.load_var("art_chameleon_id"))
+	if sobj then
+		alife():release(sobj, true)
+	end
+end
+
+-- Часть вторая
+
+function question_of_immortality_second_part_return_arts(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_muten", "in")
+	dialogs.relocate_item_section(second_speaker, "af_firefly", "in")
+	dialogs.relocate_item_section(second_speaker, "af_chameleon", "in")
+	ogse.spawn_object(spawn_db.question_of_immortality_second_part_return_arts)
+end
+
+function question_of_immortality_second_part_get_black_soul(first_speaker, second_speaker)
+	return db.actor:object("af_for_night_stalker")
+end
+
+function question_of_immortality_second_part_give_black_soul(first_speaker, second_speaker)
+	dialogs.relocate_item_section(first_speaker, "af_for_night_stalker", "out")
+	dialogs.relocate_item_section(first_speaker, "af_dummy_glassbeads", "in")
+	dialogs.relocate_item_section(first_speaker, "af_transmut_1", "in")
+end
+
+function question_of_immortality_second_part_find_black_soul()
+	local anom_pos = vector():set(2.544, 4.686, -12.925)
+	local distance = db.actor:position():distance_to_sqr(anom_pos)
+	if distance < 4 then
+		-- Удаляем артефакты, спауним Душу, добавляем сюрпризы
+		ogse.remove_item_from_inventory_by_name("af_muten", db.actor)
+		ogse.remove_item_from_inventory_by_name("af_firefly", db.actor)
+		ogse.remove_item_from_inventory_by_name("af_chameleon", db.actor)
+		local ps = particles_object([[anomaly2\electra2_blast_02]])
+		ps:play_at_pos(anom_pos)
+		ogse.spawn_item_in_inv("af_for_night_stalker")
+		ogse.spawn_object(spawn_db.question_of_immortality_second_part_find_black_soul)
+		return true
+	else
+		return false
+	end
+end
+
+-- Маленький гигант
+
+function dead_stalker_little_pseudogigant_spawn_sound_zone()
+	local obj = ogse.spawn_object(spawn_db.dead_stalker_little_pseudogigant_spawn_sound_zone)
+	local packet = get_netpk(obj, 1)
+	ASSERT( packet:isOk(), "can't read netpacket of %s", obj:name() )
+	--log1(packet:dumpDesc())
+	local my_table = packet:get()
+	my_table.shapes:addSphere(5)
+	my_table.restrictor_type = 3
+	my_table.custom_data:set("[logic]\nactive = sr_idle\n[sr_idle]\non_actor_inside =  ph_sound\n[ph_sound]\nsnd = little_giant_hello\nlooped = false\non_signal = sound_end| nil")
+	packet:set(my_table)
+end
+
+function dead_stalker_little_pseudogigant_spawn_gigant()
+	ogse.spawn_object(spawn_db.dead_stalker_little_pseudogigant_spawn_gigant)
+end
+
+function dead_stalker_little_pseudogigant_give_reward()
+	-- Тут будет награда - наводка на тайник
+end

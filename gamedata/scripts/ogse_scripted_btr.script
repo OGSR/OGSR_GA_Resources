@@ -1,0 +1,494 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-----------------------------------------------------------------------
+--- ogse_scripted_btr.script
+--- Модуль логики управления стационарного охранного БТР
+--- Авторы: KamikaZze
+--- version 1.0.00 (22/06/2014)
+-----------------------------------------------------------------------
+
+function attach(sm)
+	sm:subscribe({signal = "on_init", fun = this.check_subscribe}) --При спавне актора рано, т.к надо подписывать до начала спавна монстров и НПС
+end
+
+local cars_by_location = {
+	["l07_military"] = {story_ids.military_btr_freedom},
+	["l13_generators_ogse"] = {story_ids.gen_btr_monolith},
+}
+
+function check_subscribe()
+	if cars_by_location[level.name()] then
+		--log3("--[%s] Subscribed!", script_name())
+		local sm = ogse_signals.get_mgr()
+		sm:subscribe({signal = "on_update", fun = this.update})
+		--
+		sm:subscribe({signal = "on_monster_spawn", fun = this.register_target})
+		sm:subscribe({signal = "on_monster_net_destroy", fun = this.unregister_target})
+		sm:subscribe({signal = "on_monster_death", fun = this.unregister_target})
+		sm:subscribe({signal = "on_npc_spawn", fun = this.register_target})
+		sm:subscribe({signal = "on_npc_net_destroy", fun = this.unregister_target})
+		sm:subscribe({signal = "on_npc_death", fun = this.unregister_target})
+	end
+end
+
+
+cars_comm = {
+	["military_btr_freedom"] = "freedom",
+	["gen_btr_monolith"] = "monolith",
+	["dead_city_btr_real"] = "stalker",
+}
+
+local current_target_id = nil
+local targets = {}
+local can_fire				= {}
+local objects				= {}
+
+local reprioritize_timeout = 500 	-- интервал реприоретизации, мсек - нельзя делать слишком низким - будет судорожно метаться между целями
+local memory_timeout = 60000		-- время, сколько помнить о появлении врага, миллиссекунд
+local combat_mult_npc = 0.5			-- множитель веса ближней цели неписей
+local combat_mult_monster = 0.3		-- множитель веса ближней цели неписей
+
+local target_detect_range             = 180                         -- радиус захвата целей
+local target_max_range                = 150                         -- наибольший радиус сопровождения целей
+local target_min_range                = 4                           -- наименьший радиус сопровождения целей
+
+local last_reprioritize		= nil
+local primary_target = nil 			-- кого окучивать будем, id
+local cannon_firing = false
+
+local targets_list = {}		-- список целей
+local last_target = {}				-- последняя цель, [id] = last_time 
+------- структура записи таблицы
+-- targets_list[npc_id] = {
+	-- npc = непись или нет
+	-- range = расстояние
+	-- vis = видим или нет
+-- }
+
+function register_target(obj)
+	local t = {}
+	t.obj_id = obj:id()
+	t.obj = obj
+	t.desc = ogse_car_control.resolve_target(obj)
+	targets[t.obj_id] = t
+	--log3("--Registered target: [%s]", obj:name())
+end
+function unregister_target(obj)
+	targets[obj:id()] = nil
+	if current_target_id == obj:id() then 
+		current_target_id = nil
+	end
+	--log3("!!UNRegistered target: [%s]", obj:name())
+end
+
+function enable_car_gun(car, enable)
+	local script_car = car:get_car()
+	if script_car:HasWeapon() then
+		--log3("~~Enable car gun for [%s]", car:name())
+		script_car:Action(CCar.eWpnActivate, enable and 1 or 0)
+	end	
+end
+
+function switch_firing(car, fire)
+	ASSERT(car, "switch_firing: car is a nil reference")
+	local script_car = car:get_car()
+	ASSERT(script_car, "switch_firing: script_car is a nil reference, object is not a car!")
+	if not script_car:HasWeapon() then return end
+	if cannon_firing ~= fire then
+		local v = fire and 1 or 0
+		script_car:Action(CCar.eWpnAutoFire,v)
+		script_car:Action(CCar.eWpnFire, v)						
+		cannon_firing = fire
+	end
+end
+
+-- обновление направления пушки
+function update_car_gun_direction(car)
+	local script_car = car:get_car()
+	if not script_car:HasWeapon() then return end -- у машины нет оружия
+	local position
+	local targ_item = targets[current_target_id]
+	local targ
+	if targ_item then
+		targ = targ_item.obj
+	end
+	if not targ or not targ:alive() then -- цель отсутствует, в оффлайне или дохлая
+		--log3("~~[update_car_gun_direction] not target for car [%s]", car:name())
+		current_target_id = nil
+		script_car:SetParam(CCar.eWpnToDefaultDir, vector())
+		return
+	end
+	position = ogse_car_control.get_aiming_point_for_target(targ)
+	if position then
+		--log3("~~[update_car_gun_direction] car [%s] has target [%s]", car:name(), targ:name())
+		script_car:SetParam(CCar.eWpnDesiredPos, position)
+	end
+end
+
+function combat_multiplier(enemy_is_npc)
+	if enemy_is_npc then
+		return combat_mult_npc
+	else
+		return combat_mult_monster
+	end
+end
+
+function process_enemy(car, enemy)
+	--log3("Called process_enemy for [%s]", enemy:name())
+	if enemy and enemy:alive() then
+		if enemy:is_stalker() or enemy:is_actor() or enemy:is_monster() then
+			-- человек ты иль монструшка
+			register_as_target(car, enemy)
+		else
+			return
+		end
+	end
+end
+
+function register_as_target(car, enemy)
+	local id = enemy:id()
+	if not targets_list[id] then
+		local script_car = car:get_car()
+		local dist = car:position():distance_to(enemy:position())
+		local enemy_record = {
+			npc = false,
+			range = 0,
+			vis = false		
+		}
+		enemy_record.npc = ( enemy:is_stalker() or enemy:is_actor() )
+		enemy_record.range = dist
+		enemy_record.vis = script_car:IsObjectVisible(enemy) or enemy:see(car) -- мы видим текущую цель или она видит нас
+		enemy_record.weight = 1000
+		if enemy_record.vis == true and enemy_record.npc == true then
+			enemy_record.last_time_seen = time_global()
+			enemy_record.vertex = enemy:level_vertex_id()
+		end
+		targets_list[id] = enemy_record
+		--log3("--[register_as_target] registered target [%s]", enemy:name())
+	end
+end
+
+function get_targets_from_registry(car)
+	-- сбор врагов, вызывается из reprioritize_targets
+	for id, target_item in pairs(targets) do
+		local target = target_item.obj --level.object_by_id(id)
+		if target and can_be_target(car, target) then
+			process_enemy(car,target)
+		end
+	end
+	if can_be_target(car, db.actor) then
+		register_target(db.actor)
+		process_enemy(car,db.actor)
+	end
+end
+
+function refresh_targets_btr(car)
+	-- обновление реестра врагов, вызывается из апдейта
+	--
+	local script_car = car:get_car()
+	for k, v in pairs(targets_list) do
+		local check_target = level.object_by_id(k)
+		if check_target and check_target:alive() then
+			local dist	= car:position():distance_to(check_target:position())
+			local vis	= script_car:IsObjectVisible(check_target) or check_target:see(car) -- мы видим текущую цель или она видит нас
+			v.range	= dist
+			if vis then
+				v.vis	= true
+			else	
+				v.vis	= false
+			end
+			if v.vis == false then
+				if v.npc == false then
+					if dist > (target_max_range/2) then
+						if primary_target == k then
+							last_target[primary_target] = time_global()
+							primary_target = nil
+						end
+						targets_list[k] = nil
+					elseif dist <= target_min_range then
+						need_issue_targeting_warning = true
+						if primary_target == k then
+							last_target[primary_target] = time_global()
+							primary_target = nil
+						end
+						targets_list[k] = nil						
+					end
+				else
+					if dist > target_max_range then
+						if primary_target == k then
+							last_target[primary_target] = time_global()
+							primary_target = nil
+						end	
+						targets_list[k] = nil
+					elseif dist <= target_min_range then	
+						-- need_issue_targeting_warning = true
+						if primary_target == k then
+							last_target[primary_target] = time_global()
+							primary_target = nil
+						end
+						targets_list[k] = nil						
+					else
+						if script_car:IsObjectVisible(check_target) then
+							v.last_time_seen = time_global()
+							v.vertex = check_target:level_vertex_id()
+						end						
+					end
+				end
+			else
+				if v.npc == true then
+					v.last_time_seen = time_global()
+					v.vertex = check_target:level_vertex_id()
+				end
+				if dist <= target_min_range then
+					-- need_issue_targeting_warning = true
+					if primary_target == k then
+						last_target[primary_target] = time_global()
+						primary_target = nil
+					end
+						targets_list[k] = nil						
+					end				
+				end
+		elseif check_target then
+			if primary_target == k then
+				last_target[primary_target] = time_global()
+				primary_target = nil
+			end
+			targets_list[k] = nil			
+		else	
+			if primary_target == k then
+				primary_target = nil
+			end
+			targets_list[k] = nil			
+		end
+	end
+	table.sort(targets_list,function(a,b) return a.range < b.range end)
+end
+
+function reprioritize_targets(car)
+	-- обновление основной цели, вызывается из апдейта
+	-- обновим предварительно реестр целей
+	
+	if last_reprioritize and time_global() < (last_reprioritize+reprioritize_timeout) and primary_target then
+		return
+	end
+	
+	get_targets_from_registry(car)
+	refresh_targets_btr(car)
+	
+	--
+	--log3("targets_list tbl: %s", targets_list)
+	--
+	-- На дистанциях выше 20 метров приоритет неписям, ближе 20 метров приоритет монстрам. При дистанции ниже 10 метров но выше минимальной объект сразу становится примари_таргет без вариантов. 
+	-- При варианте далее 20 метров проверяем видимость, приоритет видимому.
+	local last_weight 	= 1000
+	
+	for k, v in pairs(targets_list) do
+		if v.vis == true then -- если цель видит нас
+			local close_combat, far_combat = 20, 100
+			local mult = combat_multiplier(v.npc)
+			if v.npc == true then -- если она непись
+				if v.range >= close_combat and v.range < far_combat then -- и цель на средней дистанции
+					v.weight = v.range * combat_multiplier(v.npc)
+				elseif v.range < close_combat then -- а если вплотную
+					v.weight = 0
+				end
+			else -- а если монстр
+				if v.range >= close_combat and v.range < far_combat then -- если не ближний бой
+					v.weight = v.range
+				elseif v.range < close_combat then -- а если ближний
+					v.weight = v.range * combat_multiplier(v.npc)
+				end
+			end
+		else -- если невидима
+			if primary_target == k then
+				last_target[primary_target] = time_global()
+				primary_target = nil
+			end
+			if v.npc == false then -- если она монстр
+				if v.range < 20 then 
+					v.weight = v.range * 2
+				else
+					v.weight = 1000
+				end
+			else -- а если непись
+				if v.range < 50 then -- если в радиусе "слуха"
+					v.weight = v.range * 3
+				elseif v.range < 100 then -- если в радиусе максимального отхода от ГГ
+					if v.last_time_seen and (v.last_time_seen + memory_timeout) > time_global() then -- если видели её не менее минуты назад
+						v.weight = v.range * 4
+					else	
+						v.weight = 1000
+					end					
+				else
+					v.weight = 1000
+				end
+			end
+		end
+	end
+
+	for k, v in pairs(targets_list) do
+		if v.weight < last_weight then
+			last_weight = v.weight
+			primary_target = k
+			last_target = {}
+
+			--local obj = level.object_by_id(primary_target)
+			--log3("--BTR_SKYNET_COMBAT1: Выбрана цель: [%s]", obj:name())
+		end	
+	end
+	
+	if primary_target ~= nil then
+		last_reprioritize = time_global()
+		return
+	else
+		last_target = {}
+	end
+
+end
+
+function update_btr_targets(car)
+
+	reprioritize_targets(car)
+	
+	if primary_target then
+		current_target_id = primary_target
+
+		--local obj = level.object_by_id(current_target_id)
+		--log3("[update_btr_targets] Current target: [%s]", obj:name())
+	else	
+		current_target_id = nil
+	end
+
+end
+
+function update_fire_status(car)
+
+	local script_car = car:get_car()
+	
+	if current_target_id and can_fire[car:id()] and script_car:GetfHealth() > 0.05 then
+		-- стреляем
+		local tget = level.object_by_id(current_target_id)
+		switch_firing(car, (script_car:IsObjectVisible(tget) or tget:see(car)))
+	else	
+		-- прекращаем
+		switch_firing(car, false)
+	end	
+
+end
+
+function is_enemy(car, object)
+	local comm = cars_comm[car:name()]
+	if not comm then
+		comm = "military"
+	end
+	return (( object:is_stalker() or object:is_actor() ) and utils2.community_relation_safe(comm, object:id(), object:character_community()) <= -400) or object:is_monster()
+end
+
+function can_be_target(car, object)
+	--log3("[can_be_target] Called for obj [%s]!", object:name())
+	if object:id() == car:id() then return false end -- объект - наша сабственная машина
+	if not is_enemy(car, object) then return false end -- если цель нам не враг, то игнорируем
+	local obj_dist = object:position():distance_to(car:position()) -- расстояние от БТР до объекта
+	if obj_dist > target_detect_range or obj_dist < target_min_range then return false end -- цель вне пределов досягаемости - игнорируем
+	--log3("--[can_be_target] object [%s] can be target!", object:name())
+	return true
+end
+
+
+function check_single_object(car, obj)
+	if obj and obj.clsid and obj:alive() and car:id()~=obj:id() then
+		if ( obj:is_stalker() or obj:is_actor() ) and primary_target ~= obj:id() then 
+			local comm = cars_comm[car:name()]
+			if not comm then
+				comm = "military"
+			end
+			local relation = utils2.community_relation_safe(comm, obj:id(), obj:character_community())
+			if relation <= -150 then
+				objects[game_object.enemy][obj:id()] = obj
+			elseif relation > -150 and relation < 500 then	
+				objects[game_object.neutral][obj:id()] = obj
+			elseif relation >= 500 then
+				objects[game_object.friend][obj:id()] = obj
+			end
+		elseif obj:is_monster() then
+			objects.monsters[obj:id()] = obj
+		end 
+	end
+end
+
+-- Возвращает угол между проекциями векторов vec1 и vec2 на горизонтальную плоскость
+-- положительный угол - доворот vec1 до vec2 по часовой.
+function horz_angle(vec1,vec2)
+	local a = vec1:getH() - vec2:getH()
+	if a < -math.pi then return a + 2*math.pi end
+	if a > math.pi then return a - 2*math.pi end
+	return a
+end
+
+function check_npc_on_fire_line(car, obj)
+	if obj:is_monster() then return false end
+
+	local gun_pos = car:bone_position("mashine_gun_fire_point")
+	if primary_target then
+		local be = level.object_by_id(primary_target)
+		if be then
+			local target_dist = be:position():distance_to(gun_pos)
+			local check_dist = obj:position():distance_to(gun_pos)
+			
+			local enemy_pos = be:bone_position( get_string( be:section(), "bone_torso", "bip01_spine" ) )
+			local check_pos = obj:bone_position( get_string( obj:section(), "bone_torso", "bip01_spine" ) )
+			
+			local dangerang = 1./target_dist
+			local ang = horz_angle(check_pos:sub(gun_pos), enemy_pos:sub(gun_pos))
+			local tgt = ang > -dangerang and ang < dangerang
+			if tgt and check_dist < target_dist then
+				return true
+				-- объект между нами и врагом
+			end			
+		end
+	end
+	return false
+end
+
+function check_objects(car)
+	if not can_fire[car:id()] then can_fire[car:id()] = true end
+	
+	objects.monsters={}
+	objects[game_object.friend]={}
+	objects[game_object.neutral]={}
+	objects[game_object.enemy]={}
+	for k, v in pairs(db.creature) do
+		local obj = level.object_by_id(k)
+		if obj then
+			check_single_object(car, obj)
+		end		
+	end
+	local nnonf,fnonf = true,true
+	for k,v in pairs(objects[game_object.friend]) do
+		if check_npc_on_fire_line(car, v) == true then
+			fnonf = false
+			break
+		end
+	end
+	for k,v in pairs(objects[game_object.neutral]) do
+		if check_npc_on_fire_line(car, v) == true then
+			nnonf = false
+			break
+		end
+	end
+	can_fire[car:id()] = nnonf and fnonf
+end
+
+function update()
+	for k, btr_sid in pairs(cars_by_location[level.name()]) do
+		local car = level_object_by_sid(btr_sid)
+		if car then
+			--log3("Called upd for [%s]", car:name())
+			enable_car_gun(car, true)
+			update_btr_targets(car)
+			update_car_gun_direction(car)
+			check_objects(car)
+			update_fire_status(car)
+		end
+	end
+end

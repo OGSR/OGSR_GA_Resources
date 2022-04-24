@@ -1,0 +1,415 @@
+<game_task id="yan_kill_brain_task" prio="335">
+	<title>yan_kill_brain</title>
+	<objective>
+		<text>yan_kill_brain</text>
+		<icon>ui_iconsTotal_yan_kill_brain_task</icon>
+		<infoportion_complete>yan_labx16_switcher_primary_off</infoportion_complete>
+		<article>descr_yan_kill_brain</article>
+	</objective>
+	<objective>
+		<text>yan_switcher_off_1</text>
+		<map_location_type>green_location</map_location_type>
+		<object_story_id>yan_labx16switcher_lamp3</object_story_id>
+		<infoportion_complete>yan_labx16_switcher_3_off</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_switcher_off_2</text>
+		<map_location_type>green_location</map_location_type>
+		<object_story_id>yan_labx16switcher_lamp2</object_story_id>
+		<infoportion_complete>yan_labx16_switcher_2_off</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_switcher_off_3</text>
+		<map_location_type>green_location</map_location_type>
+		<object_story_id>yan_labx16switcher_lamp1</object_story_id>
+		<infoportion_complete>yan_labx16_switcher_1_off</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_kill_brain_task</text>
+		<map_location_type>green_location</map_location_type>
+		<object_story_id>yan_labx16switcher_primary_1_green</object_story_id>
+		<infoportion_complete>yan_labx16_switcher_primary_off</infoportion_complete>
+	</objective>
+</game_task>
+<game_task id="yan_kill_brain_task_2" prio="330">
+	<title>yan_kill_brain_task_2</title>
+	<objective>
+		<text>yan_kill_brain_task_2</text>
+		<icon>ui_iconsTotal_yan_kill_brain_task_2</icon>
+		<infoportion_complete>yan_kill_brain_done</infoportion_complete>
+		<article>descr_yan_kill_brain_2</article>
+	</objective>
+	<objective>
+		<text>yan_secret_tonnel</text>
+		<map_location_type hint="yan_secret_tonnel">green_location</map_location_type>
+		<object_story_id>yan_secret_exit</object_story_id>
+		<infoportion_complete>yantar_tunnel_finish</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_scientist_return</text>
+		<map_location_type hint="yan_scientist_return">green_location</map_location_type>
+		<object_story_id>yan_general_ecolog</object_story_id>
+		<infoportion_complete>yan_kill_brain_done</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="yan_find_scientist" prio="355">
+	<title>yan_find_scientist</title>
+	<objective>
+		<text>yan_find_scientist</text>
+		<icon>ui_iconsTotal_yan_find_scientist</icon>
+		<map_location_type hint="yan_find_scientist">green_location</map_location_type>
+		<object_story_id>yan_ecolog_help</object_story_id>
+		<infoportion_complete>yan_find_scientist_done</infoportion_complete>
+		<function_fail>yantar_tasks.yan_scientist_task_fail</function_fail>
+		<article>descr_yan_find_scientist</article>
+	</objective>
+	<objective>
+		<text>yan_talk_to_kruglov</text>
+		<map_location_type hint="yan_talk_to_kruglov">green_location</map_location_type>
+		<object_story_id>yan_ecolog_help</object_story_id>
+		<infoportion_complete>yan_kruglov_after_actor</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_psi_zone_find</text>
+		<map_location_type hint="yan_psi_zone_find">green_location</map_location_type>
+		<object_story_id>yan_ecolog_help</object_story_id>
+		<infoportion_complete>yan_scientist_return_to_bunker</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_return_to_bunker</text>
+		<map_location_type hint="yan_return_to_bunker">green_location</map_location_type>
+		<object_story_id>yan_general_ecolog</object_story_id>
+		<infoportion_complete>yan_find_scientist_done</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="yan_find_scientist_semenov" prio="355">
+	<title>yan_find_scientist</title>
+	<objective>
+		<text>yan_find_scientist</text>
+		<icon x="450" y="150" width="50" height="50">ui\ui_icons_task</icon>
+		<map_location_type hint="yan_find_scientist">green_location</map_location_type>
+		<object_story_id>yan_semenov_help</object_story_id>
+		<infoportion_complete>yan_find_scientist_done</infoportion_complete>
+		<function_fail>yantar_tasks.yan_scientist_task_fail</function_fail>
+		<article>descr_yan_find_scientist_semenov</article>
+	</objective>
+	<objective>
+		<text>yan_talk_to_semenov</text>
+		<map_location_type hint="yan_talk_to_semenov">green_location</map_location_type>
+		<object_story_id>yan_semenov_help</object_story_id>
+		<infoportion_complete>yan_kruglov_after_actor</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_psi_zone_find_semenov</text>
+		<map_location_type hint="yan_psi_zone_find_semenov">green_location</map_location_type>
+		<object_story_id>yan_semenov_help</object_story_id>
+		<infoportion_complete>yan_scientist_return_to_bunker</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_return_to_bunker</text>
+		<map_location_type hint="yan_return_to_bunker">green_location</map_location_type>
+		<object_story_id>yan_general_ecolog</object_story_id>
+		<infoportion_complete>yan_find_scientist_done</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="yan_scientist_return_task" prio="345">
+	<title>yan_scientist_return_task</title>
+	<objective>
+		<text>yan_scientist_return_task</text>
+		<icon x="450" y="150" width="50" height="50">ui\ui_icons_task</icon>
+		<infoportion_complete>yan_find_vasilyev_start</infoportion_complete>
+		<article>descr_yan_scientist_return_task</article>
+	</objective>
+	<objective>
+		<text>yan_scientist_return</text>
+		<map_location_type hint="yan_scientist_return">green_location</map_location_type>
+		<object_story_id>yan_general_ecolog</object_story_id>
+		<infoportion_complete>yan_find_vasilyev_start</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="yan_find_vasilyev_task" prio="340">
+	<title>yan_find_vasilyev_task</title>
+	<objective>
+		<text>yan_find_vasilyev_task</text>
+		<icon>ui_iconsTotal_yan_find_vasilyev_task</icon>
+		<infoportion_complete>yan_find_laboratory_end</infoportion_complete>
+		<article>descr_yan_find_lab</article>
+	</objective>
+	<objective>
+		<text>yan_find_vasilyev</text>
+		<map_location_type hint="yan_find_vasilyev">green_location</map_location_type>
+		<object_story_id>yan_vasilyev</object_story_id>
+		<infoportion_complete>yan_find_vasilyev_end</infoportion_complete>
+		<!--function_call_complete>yantar_tasks.yantar_vasilyev_spam</function_call_complete-->
+	</objective>
+	<objective>
+		<text>yan_find_vasilyev_task</text>
+		<map_location_type hint="yan_find_vasilyev_task">green_location</map_location_type>
+		<object_story_id>yan_mapspot_from_vasilyev</object_story_id>
+		<map_location_hidden>1</map_location_hidden>
+		<infoportion_complete>yan_find_laboratory_end</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="yan_find_loschina_lab_task" prio="315">
+	<title>yan_find_loschina_lab_task</title>
+	<objective>
+		<text>yan_find_loschina_lab_task</text>
+		<icon>ui_iconsTotal_yan_scientist_job</icon>
+		<infoportion_complete>loschina_task_finished</infoportion_complete>
+		<article>yan_find_loschina_gosearch_task_desc</article>
+	</objective>	
+	<objective>
+		<text>yan_find_loschina_gosearch_task</text>
+		<function_complete>yantar_tasks.arrived_to_loschina</function_complete>
+	</objective>
+	<objective>
+		<text>yan_find_loschina_lab_place_task</text>
+		<function_complete>yantar_tasks.actor_in_labs_zone</function_complete>
+		<infoportion_complete>loschina_found</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_find_lablog_task</text>
+		<function_complete>yantar_tasks.actor_have_lablog</function_complete>
+	</objective>
+	<objective>
+		<text>yan_return_lablog_task</text>
+		<map_location_type hint="yan_return_mark">green_location</map_location_type>
+		<object_story_id>yan_general_ecolog</object_story_id>
+		<infoportion_complete>loschina_task_finished</infoportion_complete>
+	</objective>	
+</game_task>
+
+<game_task id="yan_find_ghost_task" prio="325">
+	<title>yan_find_ghost_task</title>
+	<objective>
+		<text>yan_find_ghost_task</text>
+		<icon x="350" y="50" width="50" height="50">ui\ui_icons_task</icon>
+		<infoportion_complete>yantar_find_ghost_task_end</infoportion_complete>
+		<article>descr_yan_find_ghost_task</article>
+	</objective>
+	<objective>
+		<text>yan_find_labX16</text>
+		<map_location_type hint="yan_find_labX16">green_location</map_location_type>
+		<object_story_id>yan_mapspot_from_vasilyev</object_story_id>
+		<infoportion_complete>labx16_find</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_find_ghost</text>
+		<map_location_type hint="yan_find_ghost">green_location</map_location_type>
+		<object_story_id>yan_ghost</object_story_id>
+		<function_complete>yantar_tasks.has_labx16_documents</function_complete>
+	</objective>
+</game_task>
+<game_task id="yan_provodnik_task">
+	<title>yan_provodnik_task</title>
+	<objective>
+		<text>yan_provodnik_task</text>
+		<icon>ui_iconsTotal_yan_provodnik_task</icon>
+		<infoportion_complete>esc_find_doctor_start</infoportion_complete>
+		<article>descr_yan_provodnik_task</article>
+	</objective>
+	<objective>
+		<text>yan_provodnik_about_doctor</text>
+		<map_location_type hint="yan_provodnik_about_doctor">green_location</map_location_type>
+		<object_story_id>escape_provodnik</object_story_id>
+		<infoportion_complete>esc_find_doctor_start</infoportion_complete>
+	</objective>
+</game_task>
+
+
+<game_task id="yan_scientist_job" prio="0">
+	<title>yan_scientist_job</title>
+	<objective>
+		<icon>ui_iconsTotal_yan_scientist_job</icon>
+		<infoportion_complete>yan_find_vasilyev_start</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_scientist_job_text</text>
+		<map_location_type hint="yan_scientist_job_text">green_location</map_location_type>
+		<object_story_id>yan_general_ecolog</object_story_id>
+		<infoportion_complete>yan_find_vasilyev_start</infoportion_complete>
+	</objective>
+</game_task>
+
+<!-- Prinesti  Saharovu Zolotuyu rybku -->
+<game_task id="yan_find_gold_fish_start">
+	<title>yan_find_gold_fish_start_text_task</title>
+	<objective>
+		<text>yan_find_gold_fish_start_text2_task</text>
+		<icon>ui_iconsTotal_artefact</icon>
+		<infoportion_complete>actor_set_actor</infoportion_complete>
+	</objective>
+	<objective>
+		<text>yan_find_gold_fish_start_text3_task</text>
+		<icon height="50" width="50" x="100" y="250">ui\ui_icons_task</icon>
+		<function_complete>dialogs_yantar.saharov_af_gold_fish_have</function_complete>
+		<infoportion_set_complete>saharov_af_gold_fish_have</infoportion_set_complete>
+	</objective>
+	<objective>
+		<text>yan_find_gold_fish_start_text4_task</text>
+		<map_location_type>green_location</map_location_type>
+		<object_story_id>yan_general_ecolog</object_story_id>
+	</objective>
+</game_task>
+<!-- Mechenyy bol'she ne  zombi-->
+
+
+
+<game_task id="yan_find_scientists">
+	<title>dangerous_science_quest_text_task</title>
+	<objective>
+		<text>dangerous_science_quest_text_task</text>
+		<icon>ui_iconsTotal_yan_scientist_job</icon>
+		<article>yan_find_scientists</article>
+		<infoportion_fail>yan_soldier_dead</infoportion_fail>
+		<infoportion_complete>yan_sold_say_true</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text2_task</text>
+		<map_location_type hint="dangerous_science_quest_text3_task">green_location</map_location_type>
+		<object_story_id>strangezone5</object_story_id>
+		<infoportion_complete>yan_sold_in_lager</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text4_task</text>
+		<infoportion_complete>yan_sold_nahodka</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text5_task</text>
+		<map_location_type hint="dangerous_science_quest_text6_task">green_location</map_location_type>
+		<object_story_id>yan_soldier</object_story_id>
+		<infoportion_complete>yan_sold_read_info</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text7_task</text>
+		<infoportion_complete>yan_sold_say_true</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="yan_find_diplomat">
+	<title>dangerous_science_quest_text8_task</title>
+	<objective>
+		<text>dangerous_science_quest_text8_task</text>
+		<icon>ui_iconsTotal_bar_darklab_documents2</icon>
+		<article>yan_find_diplomat</article>
+		<infoportion_fail>yan_soldier_dead</infoportion_fail>
+		<infoportion_complete>check_yan_sign_place</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text9_task</text>
+		<map_location_type hint="dangerous_science_quest_text10_task">crlc_big</map_location_type>
+		<object_story_id>yan_diplomat_zone</object_story_id>
+		<function_complete>jekan_work.have_kommander_key</function_complete>
+		<infoportion_complete>kommander_key_finded</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text11_task</text>
+		<infoportion_complete>kommander_box_open</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text12_task</text>
+		<function_complete>jekan_work.have_kommander_map</function_complete>
+		<infoportion_complete>kommander_map_finded</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text13_task</text>
+		<map_location_type hint="dangerous_science_quest_text6_task">green_location</map_location_type>
+		<object_story_id>yan_soldier</object_story_id>
+		<infoportion_complete>check_yan_sign_place</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="check_yan_sign_place">
+	<title>dangerous_science_quest_text14_task</title>
+	<objective>
+		<text>dangerous_science_quest_text14_task</text>
+		<icon>ui_iconsTotal_locations</icon>
+		<infoportion_fail>yan_soldier_dead</infoportion_fail>
+		<infoportion_complete>yan_attak</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text15_task</text>
+		<map_location_type hint="dangerous_science_quest_text16_task">green_location</map_location_type>
+		<object_story_id>yan_sign_zone</object_story_id>
+		<infoportion_complete>yan_attak</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="get_afscanner">
+	<title>dangerous_science_quest_text17_task</title>
+	<objective>
+		<text>dangerous_science_quest_text17_task</text>
+		<icon>ui_iconsNpc_soldier_bandana_6</icon>
+		<article>get_afscanner</article>
+		<infoportion_fail>yan_soldier_dead</infoportion_fail>
+		<infoportion_complete>yan_sold_say_true</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text18_task</text>
+		<map_location_type hint="dangerous_science_quest_text6_task">green_location</map_location_type>
+		<object_story_id>yan_soldier</object_story_id>
+		<infoportion_complete>yan_sold_say_true</infoportion_complete>
+	</objective>
+</game_task>
+
+<game_task id="yan_sold_final_task">
+	<title>dangerous_science_quest_text19_task</title>
+	<objective>
+		<text>dangerous_science_quest_text19_task</text>
+		<icon>ui_iconsJek@nEye</icon>
+		<article>yan_sold_final_task</article>
+		<infoportion_fail>yan_sold_anomaly_is_gone</infoportion_fail>
+		<infoportion_complete>yan_sold_yan_anomaly_discharged</infoportion_complete>
+	</objective>
+<!--	<objective>
+		<text>dangerous_science_quest_text20_task</text>
+		<function_complete>jekan_work.have_scient_suite</function_complete>
+		<infoportion_complete>ecolog_outfit_finded</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text21_task</text>
+		<map_location_type hint="dangerous_science_quest_text6_task">green_location</map_location_type>
+		<object_story_id>yan_soldier</object_story_id>
+		<infoportion_complete>yan_sold_goto_rostok</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text22_task</text>
+		<infoportion_complete>rostok_soldier_spawn</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text23_task</text>
+		<map_location_type hint="dangerous_science_quest_text6_task">green_location</map_location_type>
+		<object_story_id>ros_soldier</object_story_id>
+		<infoportion_fail>ros_soldier_dead</infoportion_fail>
+		<infoportion_complete>ros_sold_second_spot_found</infoportion_complete>
+	</objective> -->
+	<objective>
+		<text>dangerous_science_quest_text24_task</text>
+		<function_complete>jekan_work.afscanner_found</function_complete>
+		<infoportion_complete>ros_sold_afscanner_found</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text25_task</text>
+		<function_complete>jekan_work.strange_zones_searched</function_complete>
+		<infoportion_complete>yan_sold_strange_zones_searched</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text26_task</text>
+		<map_location_type hint="dangerous_science_quest_text6_task">green_location</map_location_type>
+		<object_story_id>yan_soldier</object_story_id>
+		<infoportion_fail>yan_soldier_dead</infoportion_fail>
+		<infoportion_complete>yan_sold_generator_ready</infoportion_complete>
+	</objective>
+	<objective>
+		<text>dangerous_science_quest_text27_task</text>
+		<map_location_type hint="dangerous_science_quest_text28_task">green_location</map_location_type>
+		<object_story_id>strangezone5</object_story_id>
+		<infoportion_fail>yan_sold_anomaly_is_gone</infoportion_fail>
+		<infoportion_complete>yan_sold_yan_anomaly_discharged</infoportion_complete>
+	</objective>
+</game_task>

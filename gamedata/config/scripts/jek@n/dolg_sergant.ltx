@@ -1,0 +1,92 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@dolg_sergant_threshold
+
+[walker@begin]
+path_walk = dolg_sergant_walk
+path_look = dolg_sergant_look
+on_timer = 100 | walker 
+
+[walker]
+path_walk = dolg_sergant_walk
+path_look = dolg_sergant_look
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+actor_goto_rasstrel} walker3, {+flesh_2_giveto_sergant} walker1
+
+[remark@punch_1]
+anim = punch
+no_move = true
+;meet = no_meet
+target = actor
+on_signal = anim_end | walker %-sergant_punch_1%
+
+[remark@punch_2]
+anim = punch
+no_move = true
+;meet = no_meet
+target = actor
+on_signal = anim_end | walker %-sergant_punch_2%
+
+[walker1]
+path_walk = dolg_sergant_walk1
+path_look = dolg_sergant_look1
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+actor_goto_rasstrel} walker3
+
+
+
+
+[walker3]
+path_walk = dolg_sergant_walk3
+path_look = dolg_sergant_look3
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_timer = 9000 | remark@rasstrel
+
+[remark@rasstrel]
+snd = dolg_sergant_speech
+snd_anim_sync = true
+no_move = true
+target = actor
+danger = danger_condition
+meet = no_meet
+on_signal = sound_end | walker3 %+rasstrel_start%
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 1|actor
+victim_wpn = 1|actor
+meet_state = 1|ward@bar_dolg_guard_busy|1|ward@wait
+meet_state_wpn = 1|ward@bar_dolg_guard_busy|1|ward@wait
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_grenade = 0
+ignore_distance_corpse = 0
+ignore_distance_hit = 0
+ignore_distance_sound = 0
+danger_inertion_time = 1
+
+[threshold@dolg_sergant_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+dolg_sergant_dead%
+

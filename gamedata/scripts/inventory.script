@@ -1,0 +1,257 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+
+function attach(sm)
+	sm:subscribe({ signal = "on_first_update", fun = this.on_first_update })
+-------------------------------------------------------------------------------
+	sm:subscribe({signal = "on_item_to_slot", fun = this.check_remove_gasmask})
+-------------------------------------------------------------------------------
+	sm:subscribe({signal = "on_spawn",  fun = this.on_spawn})
+	sm:subscribe({signal = "on_update", fun = this.hit_from_arts, queued = true})
+-------------------------------------------------------------------------------
+end
+
+
+function on_first_update()
+  rescan_belt()
+  local sm = ogse_signals.get_mgr()
+  sm:subscribe({ signal = "on_drop",         fun = this.on_belt_drop })
+  sm:subscribe({ signal = "on_item_to_belt", fun = this.rescan_belt  })
+  sm:subscribe({ signal = "on_item_to_ruck", fun = this.on_belt_drop })
+  sm:subscribe({ signal = "on_item_to_slot", fun = this.on_belt_drop })
+end
+
+
+local belt = {}
+local belt_id  = {}
+local af_restore_speeds = {
+  --[ "additional_inventory_weight"  ] = 0,
+  --[ "additional_inventory_weight2" ] = 0,
+  [ "bleeding_restore_speed"   ] = 0,
+  [ "health_restore_speed"     ] = 0,
+  [ "power_restore_speed"      ] = 0,
+  [ "psy_health_restore_speed" ] = 0,
+  [ "radiation_restore_speed"  ] = 0,
+  [ "satiety_restore_speed"    ] = 0,
+}
+
+
+function on_belt_drop( item )
+  if belt_id[ item:id() ] then
+    rescan_belt()
+  end
+end
+
+
+function rescan_belt()
+  for k, _ in pairs( af_restore_speeds ) do
+    af_restore_speeds[ k ] = 0
+  end
+  belt     = {}
+  belt_id  = {}
+  for i = 0, db.actor:belt_count() - 1 do
+    local item = db.actor:item_on_belt( i )
+    local sect = item:section()
+    belt[ sect ] = ( belt[ sect ] or 0 ) + 1
+    belt_id[ item:id() ] = true
+    local props = get_af_props( sect )
+    for k, total in pairs( af_restore_speeds ) do
+      af_restore_speeds[ k ] = total + props[ k ]
+    end
+  end
+end
+
+
+local cached_props = {}
+function get_af_props( sect )
+  if not cached_props[ sect ] then
+    local t = {}
+    local imm_sect = get_string( sect, "hit_absorbation_sect" )
+    for k, _ in pairs( af_restore_speeds ) do
+      t[ k ] = get_float( sect, k, 0 )
+    end
+    cached_props[ sect ] = t
+  end
+  return cached_props[ sect ]
+end
+
+
+function on_belt_restore_speed( k )
+  --log3("~~af_restore_speeds tbl: %s", af_restore_speeds)
+  return af_restore_speeds[ k ] or 0
+end
+
+
+-------------[Проверка надевания противогаза на костюм с худом]-------------
+--Перенесено из модуля динамического худа
+function have_gasmask() --проверка, имеет ли костюм встроенный противогаз
+	local armor = db.actor:get_current_outfit()
+	if not armor then return false end
+
+	local armorname = armor:section()
+	if 	string.find(armorname, "monolit_exoskeleton") or string.find(armorname, "exo2") or
+		string.find(armorname, "military_outfit") or
+		string.find(armorname, "svoboda_heavy_outfit") or
+		string.find(armorname, "scientific_outfit") or
+		string.find(armorname, "ecolog_outfit") or
+		string.find(armorname, "protection_outfit") or
+		string.find(armorname, "specops_outfit") or
+		string.find(armorname, "outfit_specnaz") or
+		string.find(armorname, "outfit_dolg")
+		--or string.find(armorname, "killer_outfit") or string.find(armorname, "outfit_killer_m1")
+	then
+		return true
+	end
+end
+
+local counter = 0
+function check_remove_gasmask()
+	local bio_belt = db.actor:item_in_slot(10)
+	if not bio_belt then return end
+
+	local sect = bio_belt:section()
+	if sect == "af_maska_1" or sect == "af_maska_2" then
+		if have_gasmask() then
+			db.actor:move_to_ruck(bio_belt)
+			update_inventory_window()
+			counter = counter + 1
+			if counter == 1 then
+				news_text = game.translate_string("dinhud_gasmask_text")
+				db.actor:give_game_news(news_text, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)	
+			end
+		end
+	end
+end
+----------------------------------------------------------------------------
+
+------------------------------------[Побочные эффекты от артов]--------------------------------------
+local warning_last = nil
+local make_hits = false
+
+-- служебный таймер, считающий 300 апдейтов до срабатывания
+class "count300" (ogse_qt.quick_timer)
+function count300:__init() super()
+	self.count = 0
+end
+function count300:condition()
+	self.count = self.count + 1
+	return self.count > 300
+end
+function count300:action()
+	make_hits = true
+end
+
+function on_spawn()
+	count300():start()
+end
+
+-- Выбор случайного типа хита
+local function random_hit_type_select(ignore_type)
+	local hit_type = {
+		0,		-- burn
+		1,		-- shock
+		2,		-- strike
+		3,		-- wound
+		4,		-- radiation
+		5,		-- telepatic
+		6,		-- chemical_burn
+		7,		-- explosion
+		8		-- fire_wound
+	}
+	if ignore_type ~= nil then
+		for i,v in pairs(hit_type) do
+			if v == ignore_type then
+				table.remove(hit_type, i)
+			end
+		end
+	end
+
+	return hit_type[math.random(#hit_type)]
+end
+
+-- Список ограничений по типам для иммунитетов, даваемых артефактами, в процентах
+local immunities_data = {
+	burn_immunity          = {min=80, max=99, hit_type=0, d_type="fire"},
+	strike_immunity        = {min=80, max=99, hit_type=1, d_type="strike"},
+	shock_immunity         = {min=80, max=99, hit_type=2, d_type="shock"},
+	wound_immunity         = {min=80, max=99, hit_type=3, d_type="wound"},
+	radiation_immunity     = {min=80, max=99, hit_type=4, d_type="radiation"},
+	telepatic_immunity     = {min=80, max=99, hit_type=5, d_type="telepatic"},
+	chemical_burn_immunity = {min=80, max=99, hit_type=6, d_type="chemical"},
+	explosion_immunity     = {min=71, max=99, hit_type=7, d_type="explosive"},
+	fire_wound_immunity    = {min=71, max=99, hit_type=8, d_type="fire_wound"},
+}
+
+local art_hit_koef = 0.02	-- Коэффициент хита, наносимого актору при превышении ограничения по иммунитету от артефактов
+
+-- Нанесение хита актору при превышении ограничения по иммунитетам, получаемым от артефактов
+function hit_from_arts()
+	if not make_hits then return end
+	--
+	ogse_signals.get_mgr():reschedule(800)
+	--
+	local immunities = {
+		burn_immunity = 0,
+		strike_immunity = 0,
+		shock_immunity = 0,
+		wound_immunity = 0,
+		radiation_immunity = 0,
+		telepatic_immunity = 0,
+		chemical_burn_immunity = 0,
+		explosion_immunity = 0,
+		fire_wound_immunity  = 0,
+	}
+
+	for section, obj_num in pairs(belt) do
+		if string.find(section, "af_") and section ~= "af_maska" then
+-- -- log1("Найден артефакт: " .. section .. ", " .. obj_num .. " штук.")
+			if sys_ini:section_exist(section) then
+				if sys_ini:line_exist(section, "hit_absorbation_sect") then
+					local obj_hit_absorbation_sect = sys_ini:r_string(section, "hit_absorbation_sect")
+					if sys_ini:section_exist(obj_hit_absorbation_sect) then
+-- -- log1("Его секция иммунитетов: " .. obj_hit_absorbation_sect)
+						for immunity, value in pairs(immunities) do
+							if sys_ini:line_exist(obj_hit_absorbation_sect, immunity) then
+								local tmp_immunity = sys_ini:r_string(obj_hit_absorbation_sect, immunity)
+								tmp_immunity = (1-tmp_immunity)*100
+								immunities[immunity] = immunities[immunity] + (tmp_immunity*obj_num)
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	--print_table_inlog(immunities, "immunities")
+	for immunity, immunity_value in pairs(immunities) do
+		local immunity_data = immunities_data[immunity]
+		if immunity_value > immunity_data.min then
+			local burn_hit = immunity_value - immunity_data.min
+			local art_hit = hit()
+			local d_type = immunity_data.d_type
+			art_hit.direction = vector():set(0,0,0)
+			art_hit.impulse = 0
+			art_hit.draftsman = db.actor
+			art_hit.power = burn_hit*art_hit_koef
+			art_hit.type = immunity_data.hit_type
+			db.actor:hit(art_hit)
+	-- -- log1("Наносим хит: " .. art_hit.type .. art_hit.power)
+			if not has_alife_info("hit_from_arts_story") then
+				db.actor:give_info_portion("hit_from_arts_story")
+			end
+			if (not warning_last or warning_last ~= d_type) and not immunity_data.warning_given then
+				news_text = string.format(game.translate_string("inventory_art_warning_pattern_text"), game.translate_string("inventory_"..d_type.."_protect_text"), tostring(immunity_data.min), game.translate_string("inventory_"..d_type.."_protect_effect_text"))
+				db.actor:give_game_news(news_text, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 10000)
+				warning_last = d_type	
+				immunity_data.warning_given = true
+			end
+			if immunity_value > immunity_data.max then
+				art_hit.type = random_hit_type_select(immunity_data.hit_type)
+				db.actor:hit(art_hit)
+	-- -- log1("Наносим хит: " .. art_hit.type .. art_hit.power)
+			end
+
+		end
+	end
+end
+------------------------------------------------------------------------------------------------------

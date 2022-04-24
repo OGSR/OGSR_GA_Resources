@@ -1,0 +1,23 @@
+[logic]
+active = walker
+combat_ignore = combat_ignore
+
+[smart_terrains]
+none = true
+
+[walker]
+path_walk = agr_quest_plennik_millitary2_walk
+path_look = agr_quest_plennik_plennik_sit_point
+combat_ignore_cond = {-captive_on_agr_mill_base_actor_guards_attack}
+on_info = {+captive_on_agr_mill_base_heli_is_waiting} walker@prepare
+
+[walker@prepare]
+path_walk = agr_quest_plennik_millitary2_walk
+path_look = agr_quest_plennik_plennik_sit_point
+combat_ignore_cond = {-captive_on_agr_mill_base_actor_guards_attack}
+on_timer = 6000 | walker@rooftop
+
+[walker@rooftop]
+path_walk = captive_on_agr_mill_base_escort
+path_look = agr_quest_plennik_plennik_sit_point
+combat_ignore_cond = {-captive_on_agr_mill_base_actor_guards_attack}

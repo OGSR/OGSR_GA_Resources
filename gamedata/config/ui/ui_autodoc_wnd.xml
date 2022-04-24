@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+
+<autodoc>	
+	<main_wnd x="100" y="100" width="789" height="457"/>
+	
+	<background x="0" y="0" width="789" height="457">
+		<texture>ui_ad_box</texture>
+	</background>
+	
+	<led x="80" y="40" width="0" height="0">
+		<texture>ui_ad_led</texture>
+	</led>
+	
+	<!-- Кнопка включения/выключения -->
+	<btn_main x="136" y="26" width="105" height="57">
+		<texture>ui_ad_btn_main</texture>
+	</btn_main>
+	<!-- Кнопка включения/выключения лечилки-->	
+	<btn_h x="669" y="143" width="59" height="45">
+		<texture>ui_ad_btn_kind</texture>
+	</btn_h>
+	<!-- Кнопка включения/выключения энергетика-->
+	<btn_s x="669" y="233" width="59" height="45">
+		<texture>ui_ad_btn_kind</texture>
+	</btn_s>	
+	<!-- Кнопка включения/выключения антирада-->
+	<btn_r x="669" y="324" width="59" height="45">
+		<texture>ui_ad_btn_kind</texture>
+	</btn_r>
+
+	<bar_empty_h x="94" y="139" width="562" height="54" stretch="1">
+		<texture>ui_ad_bar_empty</texture>
+	</bar_empty_h>
+	
+	<bar_empty_s x="94" y="229" width="562" height="54" stretch="1">
+		<texture>ui_ad_bar_empty</texture>
+	</bar_empty_s>
+	
+	<bar_empty_r x="94" y="320" width="562" height="54" stretch="1">
+		<texture>ui_ad_bar_empty</texture>
+	</bar_empty_r>
+	
+	<bar_transp x="12" y="12" width="536" height="32" />
+	
+	<bar_full x="0" y="0" width="536" height="32" stretch="1">
+		<texture>ui_ad_bar_full1</texture>
+	</bar_full>
+
+</autodoc>

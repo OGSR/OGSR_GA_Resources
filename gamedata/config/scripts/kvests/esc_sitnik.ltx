@@ -1,0 +1,54 @@
+
+
+[logic]
+active = camper
+combat_ignore = combat_ignore
+on_combat = combat
+on_death = death
+on_hit = hit
+
+[death]
+on_info = %+esc_kvest_help_to_scoryi_search_sitnik_fail%
+
+[hit]
+on_info = {=hitted_by(7011)} %+esc_kvest_help_to_scoryi_on_sitnik_wound%
+
+[camper]
+path_walk =	esc_sitnik_walk
+path_look =	esc_sitnik_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+radius = 10
+sniper = true
+target = 7009
+combat_ignore_cond = {!check_fighting(7009)}
+danger = danger_condition
+on_info = {+esc_kvest_help_to_scoryi_on_sitnik_wound} walker
+
+[walker]
+path_walk =	esc_sitnik_walk
+path_look =	esc_sitnik_look
+wounded = wounded@esc_sitnik
+
+[wounded@esc_sitnik]
+hp_state = 100|wounded_heavy@help_heavy
+;hp_state_see = 100|wounded_heavy@esc_tolik_help
+hp_victim = 100|nil
+hp_cover = 100|false
+hp_fight = 100|false
+help_dialog = tutorial_wounded_give_medkit
+
+[danger_condition]
+danger_expiration_time = 30000
+danger_inertion_time =  60000
+
+[combat_ignore]
+combat_ignore_cond = {!check_fighting(7009)}
+
+[combat]
+combat_type = camper
+
+[smart_terrains]
+none = true

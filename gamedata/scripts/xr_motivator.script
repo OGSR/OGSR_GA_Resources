@@ -1,0 +1,876 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--[[-----------------------------
+автор: Диденко Руслан (Stohe)
+
+порядок вызова методов биндера:
+reload
+reinit
+load
+net_spawn
+-------------------------------]]
+
+--*****************************************************************************************************
+--[==[ --KRodin: выключено.
+
+local warn_check_timer = {}
+local snd_check_timer = {}
+
+local function look_to_shot(object, who)
+	if object and who then
+		if ( object:is_stalker() or object:is_actor() ) and object:alive() and not xr_wounded.is_wounded(object)
+			and who:alive() and (( ( who:is_stalker() or who:is_actor() ) and object:relation(who) ~= game_object.friend) or who:is_monster())
+		then
+			if object:best_enemy() then
+				local be = object:best_enemy()
+				local enemy_dist = object:position():distance_to_sqr(be:position())
+				local who_dist = object:position():distance_to_sqr(who:position())
+				if who_dist < enemy_dist then
+					object:set_sight(look.danger,who:bone_position(get_string(who:section(), "bone_head", "bip01_head")))
+				end		
+			else	
+				object:set_sight(look.danger,who:bone_position(get_string(who:section(), "bone_head", "bip01_head")))
+			end
+		end
+	end
+end
+
+local function recognize_sound(sound_type)
+	-- Выясняем тип звука
+	local sn_t = "NIL"
+	
+	if bit_and(sound_type, snd_type.weapon) == snd_type.weapon then
+		sn_t = "WPN"
+		if bit_and(sound_type, snd_type.weapon_shoot) == snd_type.weapon_shoot then
+			sn_t = "WPN_shoot"
+		elseif bit_and(sound_type, snd_type.weapon_empty) == snd_type.weapon_empty then
+			sn_t = "WPN_empty"
+		elseif bit_and(sound_type, snd_type.weapon_bullet_hit) == snd_type.weapon_bullet_hit then
+			sn_t = "WPN_hit"
+		elseif bit_and(sound_type, snd_type.weapon_reload) == snd_type.weapon_reload then
+			sn_t = "WPN_reload"
+		end
+	elseif bit_and(sound_type, snd_type.item) == snd_type.item then
+		sn_t = "ITM"
+		if bit_and(sound_type, snd_type.item_pick_up) == snd_type.item_pick_up then
+			sn_t = "ITM_pckup"
+		elseif bit_and(sound_type, snd_type.item_drop) == snd_type.item_drop then
+			sn_t = "ITM_drop"
+		elseif bit_and(sound_type, snd_type.item_hide) == snd_type.item_hide then
+			sn_t = "ITM_hide"
+		elseif bit_and(sound_type, snd_type.item_take) == snd_type.item_take then
+			sn_t = "ITM_take"
+		elseif bit_and(sound_type, snd_type.item_use) == snd_type.item_use then
+			sn_t = "ITM_use"
+		end
+	elseif bit_and(sound_type, snd_type.monster) == snd_type.monster then
+		sn_t = "MST"
+		if bit_and(sound_type, snd_type.monster_die) == snd_type.monster_die then
+			sn_t = "MST_die"
+		elseif bit_and(sound_type, snd_type.monster_injure) == snd_type.monster_injure then
+			sn_t = "MST_damage"
+		elseif bit_and(sound_type, snd_type.monster_step) == snd_type.monster_step then
+			sn_t = "MST_step"
+		elseif bit_and(sound_type, snd_type.monster_talk) == snd_type.monster_talk then
+			sn_t = "MST_talk"
+		elseif bit_and(sound_type, snd_type.monster_attack) == snd_type.monster_attack then
+			sn_t = "MST_attack"
+		elseif bit_and(sound_type, snd_type.monster_eat) == snd_type.monster_eat then
+			sn_t = "MST_eat"
+		end
+	elseif sound_type == snd_type.attack then
+		sn_t = "ATTCK"
+	elseif sound_type == snd_type.bullet_hit then
+		sn_t = "BULLET"
+	elseif sound_type == snd_type.die then
+		sn_t = "DIE"
+	elseif sound_type == snd_type.injure then
+		sn_t = "INJURE"
+	end
+	
+	return sn_t
+end
+
+local sil_levels_tbl = {
+	--["l06_rostok"] = true,
+	["l08u_brainlab"] = true,
+	["l10u_bunker"] = true,
+	["l12_stancia"] = true,
+	["l12u_sarcofag"] = true,
+	["l12u_control_monolith"] = true,
+	["l12_stancia_2"] = true,
+}
+
+local function silent_level()
+	return sil_levels_tbl[level.name()]
+end
+
+local function check_sound(self, who, sound_type, sound_position, sound_power)
+	if not ( self and who and alife():object( who:id() ) and sound_type and sound_position and sound_power ) then
+		return
+	end
+
+	local actsch
+	if db.storage[self:id()] and db.storage[self:id()].active_scheme then
+		actsch = db.storage[self:id()].active_scheme
+	end
+	if actsch and (actsch == "remark" or actsch == "wounded" or actsch == "actor_dialogs") then 
+		return 
+	end
+
+	-- Реакция на звуки --
+	-- Расстояния проверки
+	local who_dist = 1000
+	local check_dist = 25*sound_power
+	local who_dist = self:position():distance_to(who:position())
+
+	if who_dist > 100 then
+		return
+	end
+
+	-- Отсеиваем свои звуки и звуки друзей
+	if (who:is_monster() or who:is_stalker() or who:is_actor()) 
+	and (who:alive() and self:alive()) then
+		if who:id() == self:id() 
+		or (who:is_car() and self:relation(db.actor) ~= game_object.enemy)
+		or xr_wounded.is_wounded(self) then
+			return
+		end
+	else	
+		return
+	end
+
+	local snd_t = recognize_sound(sound_type)
+
+--[=[
+	local blow = hit()
+	blow.power = 0.001
+	blow.impulse = 1
+	blow.draftsman = who
+	blow.type = hit.wound
+	blow.direction = utils.vector_copy_by_val(self:position()):sub(who:position())
+--]=]
+	-- Если тип задан проверим реакцию на него
+	if snd_t and snd_t ~= "NIL" and not self:best_enemy() then
+		if ( who:is_stalker() or who:is_actor() ) and self:relation(who) == game_object.enemy and self:binded_object():enemy_callback( self, who ) then
+			if snd_t == "WPN_empty" or
+			snd_t == "WPN_reload" or 
+			snd_t == "ITM_drop" or
+			snd_t == "ITM_use" then		
+				check_dist = 8*sound_power
+				who_dist = self:position():distance_to(who:position())
+				if who_dist > check_dist then
+					if not silent_level() then
+						if not warn_check_timer[self:id()] or warn_check_timer[self:id()] < time_global() then
+							local snd_name = "characters_voice\\human_01\\dolg\\reactions\\nothing\\nothing_"..math.random(7)
+							if snd_name and self:character_community() ~= "zombied" then
+								local snd_obj = xr_sound.get_safe_sound_object(snd_name)
+								if snd_obj and not snd_obj:playing() then
+									self:set_sight(look.point,sound_position)
+									snd_obj:play_no_feedback(self, sound_object.s3d, 0, self:position(), 1.0)
+									warn_check_timer[self:id()] = time_global() + math.random(15000, 25000) 
+								end
+							end
+						end
+					end				
+					return
+				else
+					if not silent_level() then
+						if not warn_check_timer[self:id()] or warn_check_timer[self:id()] < time_global() then
+							local snd_name = "characters_voice\\human_01\\dolg\\reactions\\hear_something\\hear_"..math.random(9)
+							if snd_name and self:character_community() ~= "zombied" then
+								local snd_obj = xr_sound.get_safe_sound_object(snd_name)
+								if snd_obj and not snd_obj:playing() then
+									self:set_sight(look.point,sound_position)
+									snd_obj:play_no_feedback(self, sound_object.s3d, 0, self:position(), 1.0)
+									warn_check_timer[self:id()] = time_global() + math.random(5000, 10000) 
+								end
+							end
+						end
+					end
+					self:set_sight(look.point,sound_position)
+					self:set_mental_state(anim.danger)
+					self:make_object_visible_somewhen(who)
+				end
+			elseif snd_t == "WPN_shoot" then
+				-- self:hit(blow) -- попробуем без хита прямого, поглядим что будет
+				stop_play_sound(self)
+				self:set_mental_state(anim.danger)
+				self:set_sight(look.point,sound_position)
+				self:make_object_visible_somewhen(who)
+			end
+		elseif ( who:is_stalker() or who:is_actor() ) and self:relation(who) ~= game_object.enemy then
+			if snd_t == "ATTCK" or
+			snd_t == "BULLET" or
+			snd_t == "DIE" or
+			snd_t == "INJURE" then
+				self:set_sight(look.point,sound_position)
+				self:set_mental_state(anim.danger)			
+			end			
+		elseif who:is_monster() and self:relation( who ) == game_object.enemy and self:binded_object():enemy_callback( self, who ) then
+			if who_dist > check_dist then
+				if not silent_level() then
+					if not warn_check_timer[self:id()] or warn_check_timer[self:id()] < time_global() then
+						local snd_name = "characters_voice\\human_01\\dolg\\reactions\\nothing\\nothing_"..math.random(7)
+						if snd_name and self:character_community() ~= "zombied" then
+							local snd_obj = xr_sound.get_safe_sound_object(snd_name)
+							if snd_obj and not snd_obj:playing() then
+								self:set_sight(look.point,sound_position)
+								snd_obj:play_no_feedback(self, sound_object.s3d, 0, self:position(), 1.0)
+								warn_check_timer[self:id()] = time_global() + math.random(15000, 25000) 
+							end
+						end
+					end
+				end				
+				return
+			end		
+			if snd_t == "MST_step" or snd_t == "MST_talk" then
+				self:set_sight(look.point,sound_position)
+				self:set_mental_state(anim.danger)
+				self:make_object_visible_somewhen(who)
+			elseif snd_t == "MST_attack" then
+				--self:hit(blow) --KRodin: убрал хит и тут, посмотрим
+				stop_play_sound(self)
+				self:set_sight(look.point,sound_position)
+				self:set_mental_state(anim.danger)
+				self:make_object_visible_somewhen(who)
+			end
+		end
+	end
+end
+
+--]==]
+--*****************************************************************************************************
+
+class "motivator_binder" (object_binder)
+
+function motivator_binder:__init (obj) super(obj)
+	self.loaded = false
+    self.first_update = false
+
+	self.am = ogse_signals.get_mgr()
+	self.am:call( "on_npc_init", obj, self )
+end
+function motivator_binder:__finalize()
+	--log1("--motivator_binder:__finalize() called!")
+end
+
+function motivator_binder:extrapolate_callback(cur_pt)
+	if self.st.active_section then
+		xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "extrapolate_callback")
+		self.st.move_mgr:extrapolate_callback(self.object)
+	end
+	--
+	if patrol(self.object:patrol()):flags(cur_pt):get() == 0 then
+		return true
+	end
+	return false
+end
+
+function motivator_binder:reinit()
+--log3("~~[%s] Start reinit [%s]", script_name(), self.object and self.object:name() or "nil")
+
+    object_binder.reinit(self)
+
+    db.storage[self.object:id()] = {  followers = {} }
+    self.st = db.storage[self.object:id()]
+
+	if self.object:alive() then
+		self.st.state_mgr = state_mgr.bind_manager(self.object) --Создание менеджера контроля положений тела
+
+		self.st.move_mgr = move_mgr.move_mgr(self.object)
+		self.st.move_mgr:initialize()
+	end
+--log3("--[%s] End reinit [%s]", script_name(), self.object and self.object:name() or "nil")
+end
+
+function motivator_binder:net_spawn(sobject)
+--log3("~~[%s] Start net_spawn [%s]", script_name(), self.object and self.object:name() or "nil")
+
+	if not object_binder.net_spawn(self, sobject) then return false end
+
+	db.add_obj(self.object)
+	--
+	if not self.loaded then --Загрузка историй для лагеря и не только. Там же выдаются инфопорции из кастомдаты. Делается походу при первом спавне каждого НПС. Нужно это делать для всех, и мертвых, и живых.
+		local char_ini = self.object:spawn_ini() or dsh.cached_ini_file("scripts\\dummy.ltx")
+		xr_info.loadInfo(self.object, char_ini)
+	end
+	--
+	self.object:set_callback(callback.use_object, self.use_callback, self)
+	--
+	self:subscribe_updaters()
+	--
+	if not self.object:alive() then
+		--' Наносим небольшой импульс вперед.
+--[=[ -- KRodin: выключено, если будут повисания трупов в воздухе - включить.
+		local h = hit()
+		h.draftsman = self.object
+		h.type = hit.fire_wound
+		h.direction = db.actor:position():sub(self.object:position())
+		h:bone( get_string( self.object:section(), "bone_torso", "bip01_spine" ) )
+		h.power = 0.01
+		h.impulse = 1
+		self.object:hit(h)
+--]=]
+		local s_obj = alife():object(self.object:id())
+		--log3("~~offline_dead [%s] is [%s], game.time() is [%s]", s_obj:name(), s_obj.offline_dead, game.time())
+		if s_obj.offline_dead == 0 then
+			if s_obj.treasure_processed then --Вечные трупы будут удаляться только после того как их обыщет актор
+				--log3("--[%s] Added trup to delete: [%s]", script_name(), s_obj:name())
+				s_obj.offline_dead = game.time()+(1*24*60*60*1000)
+			end
+		elseif s_obj.offline_dead == 1 then
+			self.object:iterate_inventory(death_manager.keep_item)
+			s_obj.offline_dead = game.time()+(1*24*60*60*1000)
+		elseif s_obj.offline_dead > 1 and s_obj.offline_dead <= game.time() then
+			if
+				not death_manager.offline_dead_quest_check(self.object)
+				and self.object:position():distance_to( db.actor:position() ) > ( alife():switch_distance() / 2 ) --Удаляем только вдалеке от актора
+			then
+				log3("--[%s] Released trup: [%s]", script_name(), s_obj:name())
+				alife():release(s_obj, true)
+			end
+		end
+
+		return true
+	end
+	--
+	self.object:set_patrol_extrapolate_callback(self.extrapolate_callback, self)
+	self.object:set_callback(callback.hit, self.hit_callback, self)
+	self.object:set_callback(callback.death, self.death_callback, self)
+	self.object:set_callback(callback.entity_alive_before_hit, self.before_hit_callback, self)
+	self.object:set_callback(callback.on_item_drop, self.on_item_drop, self)	
+	self.object:set_callback(callback.on_item_take, self.on_item_take, self)
+	--if not ogse.is_quest_npc(self.object) then
+	--	self.object:set_callback(callback.sound, self.hear_callback, self)
+	--end
+	self.object:set_enemy_callback( self.enemy_callback, self )
+	--
+	local manager = self.object:motivation_action_manager()
+	manager:remove_evaluator(stalker_ids.property_anomaly)
+	manager:add_evaluator(stalker_ids.property_anomaly, property_evaluator_const(false))
+	--
+	-- отключить движковую схему подбирания оружия
+	manager:remove_evaluator( stalker_ids.property_items )
+	manager:add_evaluator(
+		stalker_ids.property_items, property_evaluator_const( false )
+	)
+	--
+	if xr_combat_companion then
+		manager:add_evaluator(xr_combat_companion.prop_combat, property_evaluator_const(false))
+	end
+	if xrs_battle_ai then
+		manager:add_evaluator(xrs_battle_ai.evid_altcombat, property_evaluator_const(false))	
+	end
+	if xr_companion then
+		manager:add_evaluator(xr_companion.property_need_companion, property_evaluator_const(false))
+	end
+	if xrs_grenade then
+		manager:add_evaluator(xrs_grenade.prop_fire, property_evaluator_const(false))
+		manager:add_evaluator(xrs_grenade.prop_grenade, property_evaluator_const(false))
+	end
+	if ogsm_hideout then
+		manager:add_evaluator(ogsm_hideout.property_blowout, property_evaluator_const(false))
+		manager:add_evaluator(ogsm_hideout.property_hideout_lost, property_evaluator_const(false))
+		manager:add_evaluator(ogsm_hideout.property_inhide, property_evaluator_const(false))
+	end
+	--
+	if not self.loaded then --Нужно для того, чтоб логика сохранялась/загружалась при перебросе непися в оффлайн/онлайн. В этом случае метод load() не вызывается.
+		self.loaded = xr_logic.load_logic_online(self.object)
+		local st = self.st
+		st.loaded_ini_filename = st.ini_filename
+		st.loaded_section_logic = st.section_logic
+		st.loaded_active_section = st.active_section
+		st.loaded_gulag_name = st.gulag_name
+	end
+	--
+	self.am:call( "on_npc_before_spawn", self.object, self ) --тут происходит загрузка озвучки
+	--
+	xr_gulag.setup_gulag_and_logic_on_spawn( self.object, self.st, sobject, modules.stype_stalker, self.loaded )
+	--
+	self.am:call( "on_npc_spawn", self.object, self )
+	--
+	return true
+end
+
+
+function motivator_binder:subscribe_updaters()
+  local s_name = "on_npc_update." .. self.object:id()
+  if self.object:alive() then
+    self.updaters = {
+      {
+        [ "signal" ] = s_name,
+        [ "self"   ] = self,
+        [ "fun"    ] = self.check_art_weapon,
+        [ "queued" ] = true,
+      },
+      {
+        [ "signal" ] = s_name,
+        [ "self"   ] = self,
+        [ "fun"    ] = self.update_tip_text,
+        [ "queued" ] = true,
+      },
+    }
+  else
+    self.updaters = {}
+  end
+  for _, s in ipairs( self.updaters ) do
+    self.am:subscribe( s )
+  end
+end
+
+function motivator_binder:unsubscribe_updaters()
+  if not self.updaters then return end
+
+  for k, s in pairs( self.updaters ) do
+    self.am:unsubscribe( s )
+	self.updaters[k] = nil
+  end
+  self.updaters = nil
+end
+
+
+function motivator_binder:net_destroy()
+--log3("~~[%s] Start destroy [%s]", script_name(), self.object and self.object:name() or "nil")
+	xr_logic.save_logic_online(self.object)
+
+	local st = db.storage[self.object:id()]
+	if st.active_scheme then
+		xr_logic.issue_event(self.object, st[st.active_scheme], "net_destroy", self.object)
+	end
+
+	db.del_obj(self.object)
+
+	db.storage[self.object:id()] = nil
+
+	self:clear_callbacks()
+	self.object:set_callback(callback.use_object, nil)
+
+	self.am:call( "on_npc_net_destroy", self.object, self )
+	self:unsubscribe_updaters()
+	self.am:cleanup_signal_subs( "on_npc_update." .. self.object:id() )
+
+	object_binder.net_destroy(self)
+
+	local id   = self.object:id()
+	local sobj = alife():object( id )
+	if sobj then
+		alife():remove_in_restrictions( sobj )
+	end
+
+--log3("--[%s] End destroy [%s]", script_name(), self.object and self.object:name() or "nil")
+end
+
+function motivator_binder:clear_callbacks()
+	self.object:set_patrol_extrapolate_callback(nil)
+	self.object:set_callback(callback.hit, nil)
+	self.object:set_callback(callback.death, nil)
+	self.object:set_callback(callback.on_item_drop, nil)
+	self.object:set_callback(callback.on_item_take, nil)
+	self.object:set_callback(callback.entity_alive_before_hit, nil)
+	--self.object:set_callback(callback.sound, nil)
+	self.object:set_enemy_callback()
+end
+
+function motivator_binder:before_hit_callback(hit_data)
+--log3("--[%s] Called before_hit_callback for [%s]: %s", script_name(), self.object:name(), hit_data)
+--log3("--Hit_data: who: [%s], who_id: [%s], dir.x: [%s], hit_type: [%s], weapon_id: [%s]", hit_data.who and hit_data.who:name() or "NIL", hit_data.who_id, hit_data.dir.x, hit_data.hit_type, hit_data.weapon_id)
+	if hit_data.who_id then
+		local obj = hit_data.who
+		if obj then -- если есть виновник хита
+			if
+				( bind_statpkm.pkm_captured and hit_data.who_id == bind_statpkm.pkm_captured ) -- если это турель
+				or ( ogse_car_control.current_car and ogse_car_control.current_car:id() == hit_data.who_id ) -- если это БТР, в котором сидит актор
+			then -- то надо заменить на реального виновника, т.е. ГГ
+				hit_data.who = db.actor
+				hit_data.who_id = db.actor:id()
+			elseif --Проверяем условия игнорирования урона от дружественного огня
+				obj:is_stalker()
+				and ( hit_data.who_id ~= self.object:id() or hit_data.hit_type == hit.explosion ) --Попробую обработать ситуацию, когда тупой НПС себе гранату под ноги швырнул.
+				and (
+					( not self.object:is_relation_enemy( obj ) and not obj:is_relation_enemy( self.object ) )
+					or ( xr_companion.is_companion(self.object:id()) and xr_companion.is_companion(hit_data.who_id) )
+				)
+			then
+				--log3("~~[%s] Friendly-Fire detected! [%s --> %s]", script_name(), obj:name(), self.object:name())
+				hit_data.ignore_hit = true
+				return -- хит проигнорировали - дальше делать нечего.
+			end
+		end
+	end
+	--
+	if not self.last_hit_data then
+		self.last_hit_data = {}
+	end
+	dsh.copy_hit_data( hit_data, self.last_hit_data )
+	--
+	self.am:call( "on_npc_before_hit", self.object, hit_data, self )
+end
+
+function motivator_binder:hit_callback(obj, amount, local_direction, who, bone_index)
+	local chk_dist = self.object:position():distance_to(who:position())
+	local range = self.object:range()
+	if chk_dist > range then
+		self.object:set_range(chk_dist*1.1)
+	end
+	self.object:make_object_visible_somewhen(who)
+	--
+--[=[ --Хрень. Выключаю.
+	local warn_timer = time_global()
+	if not ogse.is_quest_npc(self.object) and not xr_companion.is_companion(self.object:id()) then
+		if not warn_check_timer[self.object:id()] then
+			warn_check_timer[self.object:id()] = warn_timer + math.random(1000, 2000) 
+		else
+			if warn_check_timer[self.object:id()] < warn_timer then
+				look_to_shot(self.object, who)
+				warn_check_timer[self.object:id()] = warn_timer + math.random(1000, 2000)
+			end
+		end
+	end
+--]=]
+	--
+	if amount < 0.3 and xr_companion.is_companion(self.object:id()) then --Зачем оно нужно? Типа напарник прекращает говорить когда слышит выстрелы где-то?
+		xr_sound.set_sound(self.object, nil)
+		stop_play_sound(self.object)
+	end
+	--
+	if amount == 0 or bone_index == 0 then return end --Далее не учитываем выстрелы в воздух. Причина:
+--[=[
+	https://github.com/dsh2dsh/op2ogse/commit/cca8d619581116be44e48a54dfab8039b39a96db
+	Я делал все это в предположении, что перед любым hit_callback
+	вызывается before_hit_callback, а если был вызван hit_callback, значит
+	100% перед ним был вызван before_hit. Всегда. Но это не так. Если было
+	указано игнорирование хита, как в случае дружественного огня, то
+	hit_callback вызван не будет. Если движок нанесет хит для привлечения
+	внимания, с power == 0, то before_hit не будет вызван.
+--]=]
+--log3("~~[%s] Called hit callback: obj: [%s], amount: [%s], local_direction: [%s], who: [%s], bone_index: [%s]", script_name(), self.object:name() or "nil", amount or "nil", local_direction or "nil", who:name() or "nil", bone_index or "nil")
+	--
+	-- FIXME: коллбеки неплохо было бы регистрировать в общем storage, а не посхемно...
+	-- просто всегда ставить их при включении схемы и снимать при отключении.
+	if self.st.active_section then
+		xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "hit_callback", self.object, amount, local_direction, who, bone_index)
+	end
+
+	if self.st.combat_ignore then
+		xr_logic.issue_event(self.object, self.st.combat_ignore, "hit_callback", self.object, amount, local_direction, who, bone_index)
+	end
+
+	if self.st.combat then
+		xr_logic.issue_event(self.object, self.st.combat, "hit_callback", self.object, amount, local_direction, who, bone_index)
+	end
+
+	if self.st.hit then
+		xr_logic.issue_event(self.object, self.st.hit, "hit_callback", self.object, amount, local_direction, who, bone_index)
+	end
+
+	sr_territory.issue_event(self.object, "hit_callback", self.object, amount, local_direction, who, bone_index)
+
+	xr_wounded.hit_callback(self.object:id())
+
+	self.am:call( "on_npc_hit", self.object, amount, local_direction, who, bone_index )
+end
+
+function motivator_binder:death_callback(victim, who)
+	self:unsubscribe_updaters()
+
+	self.object:set_tip_text_default()
+
+	--log3("!!![%s][%s] killed from [%s]!!!", script_name(), self.object:name(), who:name())
+
+	if self.st.death then
+		xr_logic.issue_event(self.object, self.st.death, "death_callback", self.object, who)
+	end
+
+	if self.st.active_section then
+		xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "death_callback", self.object, who)
+	end
+
+	sr_territory.issue_event(self.object, "death_callback", self.object, who)
+
+	smart_terrain.on_death(self.object:id())
+
+	self:clear_callbacks()
+
+	xr_statistic.addKillCount(who, self.object) --Добавление опыта за убийство
+
+	self.st.move_mgr = nil
+
+	self.am:call("on_npc_death", self.object, who)
+end
+
+function motivator_binder:use_callback(obj, who)
+	if self.object:alive() then
+		xr_use.notify_on_use(self.object, who)
+
+		if self.st.active_section then
+			xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "use_callback", self.object, who)
+		end
+	end
+
+	self.am:call("on_npc_use", self.object, who)
+end
+
+function motivator_binder:update(delta)
+	object_binder.update(self, delta)
+
+	if not self.first_update then
+		self.first_update = true
+		self.am:call( "on_npc_first_update", self.object, delta )
+	end
+	self.am:call( "on_npc_update." .. self.object:id(), self.object, delta )
+end
+
+function motivator_binder:update_tip_text()
+	if self.object:is_talk_enabled() then
+		self.object:set_tip_text("character_use")
+	else
+		self.object:set_tip_text("")
+	end
+end
+
+function motivator_binder:check_art_weapon()
+-------------------------------------
+--' Изредка движок сглюкивает,
+--' назначая неписю в слот артефакт
+--' этого следует избежать,
+--' так как такие неписи
+--' застревают на попытке 
+--' применения арта как оружия
+-------------------------------------
+	ogse_signals.get_mgr():reschedule( math.random( 1000, 5000 ) )
+	local item_in_slot = self.object:item_in_slot(1)
+	local act_item = self.object:active_item()
+	if act_item and item_in_slot and act_item:id() == item_in_slot:id() then
+		local item_in_slot_sec = act_item:section()
+		local item_in_slot_id = act_item:id()
+		if item_in_slot_sec and item_in_slot_id and act_item:is_artefact() then
+			--' Если непись получил арт в слот по ошибке при загрузке игры, мы просто
+			--' обновим ему оружие в руках и всё. Иначе, если он взял арт в руки и отказывается
+			--' его убирать, а лучшее оружие получить не удаётся, придётся арт выбросить, отрелизить и вернуть ему в рюкзак.
+			-- log1("WARNING! Engine error - art in NPC weapon slot! "..tostring(item_in_slot_sec).." ID "..tostring(item_in_slot_id))
+			-- local s_obj = alife():object(item_in_slot_id)
+			local bw = rx_utils.get_weapon(self.object)
+			local be = self.object:best_enemy()
+			local rem_id = self.object:active_item():id()
+			self.object:drop_item(self.object:active_item())
+			local s_obj = alife():object(rem_id)
+			if s_obj then
+				-- log1("ITEM RESET "..tostring(item_in_slot_sec))
+				alife():release(s_obj, true)
+				alife():create(item_in_slot_sec,self.object:position(),self.object:level_vertex_id(),self.object:game_vertex_id(),self.object:id())
+			end			
+			if bw and bw:is_weapon() then
+				-- log1("TOSS WEAPON TO "..bw:section().." FROM "..tostring(rem_id))
+				if be then
+					self.object:set_item(object.fire1, bw)
+				else
+					self.object:set_item(object.idle, bw)
+				end
+			end
+		end
+	end
+end
+
+function motivator_binder:reload(section)
+	object_binder.reload(self, section)
+end
+
+function motivator_binder:net_save_relevant()
+	return true
+end
+
+function motivator_binder:save(packet)
+	xr_logic.pstor_store(self.object, "is_invulnerable", self.object:invulnerable())
+
+	object_binder.save(self, packet)
+
+	xr_logic.save_obj(self.object, packet)
+
+	dialog_manager.save(self.object, packet)
+end
+
+function motivator_binder:load(reader)
+--log3("~~[%s] Start loading [%s]", script_name(), self.object and self.object:name() or "nil")
+
+	self.loaded = true
+
+	object_binder.load(self, reader)
+
+	if reader:r_eof() then
+		if self.object:alive() then
+			abort("SAVE FILE IS CORRUPT - XR_MOTIV, OBJ: "..tostring(self.object:name()).." ID "..self.object:id().." PRO: "..self.object:profile_name())
+		else
+			log1("ERROR: CORRUPTED QUEST BODY FOUND! "..tostring(self.object:name()).." ID "..self.object:id().." PRO: "..self.object:profile_name())
+			db.actor:give_game_news(game.translate_string("xr_motivator_debug7")..self.object:character_name()..game.translate_string("xr_motivator_debug8")..self.object:id()..game.translate_string("xr_motivator_debug9")..self.object:profile_name()..game.translate_string("xr_motivator_debug10"), "ui\\ui_iconsTotal", Frect():set(498,47,83,47),7000, 20000)
+
+			return true
+		end
+	end
+
+	xr_logic.load_obj(self.object, reader)
+
+	self.npc_script_version = alife():object(self.object:id()).script_version
+	dialog_manager.load(self.object, reader, self.npc_script_version)
+
+	local is_invulnerable = xr_logic.pstor_retrieve(self.object, "is_invulnerable", false)
+	self.object:invulnerable(is_invulnerable)
+--log3("--[%s] End loading [%s]", script_name(), self.object and self.object:name() or "nil")
+end
+
+--[=[
+function motivator_binder:hear_callback(obj, who, sound_type, sound_position, sound_power)
+	if xr_companion.is_companion(self.object:id()) then return end
+
+	if
+		who:id() == bind_statpkm.pkm_captured -- если это турель
+		or ( ogse_car_control.current_car and ogse_car_control.current_car:id() == who:id() ) -- если это БТР, в котором сидит актор
+	then -- то надо заменить на реального виновника, т.е. ГГ
+		who = db.actor
+	end
+
+	local snd_timer = time_global()
+	if not snd_check_timer[self.object:id()] then
+		snd_check_timer[self.object:id()] = snd_timer + math.random(1000, 2000) 
+	else
+		if snd_check_timer[self.object:id()] < snd_timer then
+			check_sound(self.object, who, sound_type, sound_position, sound_power)
+			snd_check_timer[self.object:id()] = snd_timer + math.random(1000, 2000)
+		end
+	end
+end
+--]=]
+
+class "timer_drop_weapon" (ogse_qt.quick_timer)
+function timer_drop_weapon:__init(item, parent) super()
+	self.item_id = item:id()
+	self.parent_id = parent:id()
+end
+function timer_drop_weapon:condition()
+	local item = level.object_by_id(self.item_id)
+	local sobj = alife():object( self.item_id )
+	if not item or not sobj then
+		self:stop()
+	elseif not item:parent() or sobj.parent_id == 65535 then
+		return true
+	elseif item:parent():id() ~= self.parent_id or sobj.parent_id ~= self.parent_id then
+		self:stop()
+	end
+	return false
+end
+function timer_drop_weapon:action()
+	local parent = level.object_by_id(self.parent_id)
+	local item = level.object_by_id(self.item_id)
+	if item then
+		death_manager.set_weapon_drop_condition(item, parent)
+	end
+end
+
+function motivator_binder:on_item_drop(obj)
+	if not obj then return end
+	local sobj = alife():object(obj:id())
+	if not sobj then return end
+
+	if obj:is_weapon() then
+		timer_drop_weapon(obj, obj:parent()):start()
+	end
+
+	self.am:call( "on_npc_item_drop", self.object, obj, sobj )
+end
+
+function motivator_binder:on_item_take(obj)
+	if not obj then return end
+	local sobj = alife():object(obj:id())
+	if not sobj then return end
+
+	if obj:is_torch() then
+		local t_obj = get_torch_obj(obj)
+		if t_obj.on then
+			t_obj:enable( false )
+		end
+	end
+
+	self.am:call( "on_npc_item_take", self.object, obj, sobj )
+end
+
+--Функция проверяет, может ли объект вступать в бой с предполагаемым противником (enemy_st).
+--Если вернёт false - объект не будет вступать в бой.
+--Вызывается:
+--Одноименным калбеком из движка (для движковой боёвки)
+--Из xrs_battle_ai.check_is_enemy (скриптовая боёвка)
+--Из xr_danger
+--Из xr_camper.action_patrol:process_danger()
+--Из функции check_sound в мотиваторе
+local enemy_callback_freq = 1000
+function motivator_binder:enemy_callback( obj, enemy_st )
+  local valid, enemy = validate_enemy_object( enemy_st )
+  if not valid then return false end
+
+  local res, ttl, t
+  local cached = self[ "xr_motivator.cached" ]
+  if cached then
+    t = cached[ enemy:id() ]
+	if t then
+      res, ttl = unpack( t )
+    end
+  end
+  if res == nil or ttl < time_global() then
+    --log3("~~[%s] Called add_cache_rec for [%s], [%s]", script_name(), self.object:name(), enemy:name())
+    local result = {}
+    self.am:call( "on_npc_enemy_callback", self.object, enemy, result )
+    res = result[1] ~= false
+    if cached then
+	--
+      if t then
+        t[ 1 ] = res
+        t[ 2 ] = time_global() + enemy_callback_freq
+      else
+        cached[ enemy:id() ] = { res, time_global() + enemy_callback_freq }
+      end
+    else
+      self[ script_name() .. ".cached" ] = {
+        [ enemy:id() ] = { res, time_global() + enemy_callback_freq }
+      }
+    end
+  end
+  return res
+end
+
+
+function AddToMotivator(npc)
+	if alife() then
+		npc:bind_object(this.motivator_binder(npc))
+	end
+end
+
+-- Эвалюаторы, которые имеют высший приоритет, и, соответственно, перебивают остальные скрипты собой
+function addCommonPrecondition(action)
+	action:add_precondition (world_property(xr_evaluators_id.stohe_meet_base + 1,false))
+	action:add_precondition (world_property(xr_evaluators_id.sidor_wounded_base + 0,  false))
+	action:add_precondition (world_property(xr_evaluators_id.chugai_heli_hunter_base, false))
+	action:add_precondition (world_property(xr_evaluators_id.abuse_base, false))
+
+	if xr_combat_companion and xr_companion then
+		action:add_precondition (world_property(xr_combat_companion.prop_combat, false))
+		action:add_precondition (world_property(xr_companion.property_need_companion, false))
+	end
+
+	if xrs_battle_ai then
+		action:add_precondition (world_property(xrs_battle_ai.evid_altcombat, false))
+	end	
+
+	if ogsm_hideout then
+		action:add_precondition(world_property(ogsm_hideout.property_blowout, false))
+		action:add_precondition(world_property(ogsm_hideout.property_hideout_lost, false))
+		action:add_precondition(world_property(ogsm_hideout.property_inhide, false))
+	end
+
+	if xrs_ai then xrs_ai.addCommonPrecondition(action) end
+
+	if rx_ai then rx_ai.addCommonPrecondition(action) end
+
+	if watcher_act then
+		action:add_precondition (world_property(watcher_act.evid_see_stuff, false))
+		action:add_precondition (world_property(watcher_act.evid_near_stuff, false))
+	end
+end

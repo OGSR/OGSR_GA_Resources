@@ -1,0 +1,17 @@
+[logic]
+active = heli_move1
+
+[heli_move1]
+path_move = pri_heli2_wait_path
+on_info = {+pri_helicopters_start} heli_move2
+engine_sound = false
+invulnerable = true
+immortal = true
+combat_ignore = true
+
+[heli_move2]
+path_move = pri_heli2_go_path
+invulnerable = true
+immortal = true
+combat_ignore = true
+on_signal = arrived | %+pri_followers_heli_look%

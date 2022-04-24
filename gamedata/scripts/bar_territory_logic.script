@@ -1,0 +1,96 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--Контроль поведения актора на территории Долга.
+--Вынесено из логики bar_territory_zone.ltx и xr_effects.script. Ну и оторвано от схемы sr_territory.
+
+function attach( sm )
+	sm:subscribe({ signal = "on_first_update", fun = this.on_first_update })
+end
+
+local death_signal, hit_signal
+
+function on_first_update()
+	if level.name() == "l05_bar" then
+		death_signal = { signal = "on_npc_death", fun = this.bar_territory_death }
+		hit_signal = { signal = "on_npc_hit", fun = this.bar_territory_hit }
+		local sm = ogse_signals.get_mgr()
+		sm:subscribe(hit_signal)
+		sm:subscribe(death_signal)
+	end
+end
+
+local hit_objects_ids = {}
+local bar_hit_count = 0
+function bar_territory_hit(obj, amount, local_direction, who)
+	if who:is_actor() and obj:relation(who) ~= game_object.enemy then
+		local bar_territory_sobj = alife():object("bar_dolg_territory")
+		if not bar_territory_sobj then return end
+		local bar_territory_obj = level.object_by_id(bar_territory_sobj.id)
+		if not bar_territory_obj or not bar_territory_obj:inside(obj:position()) then return end
+
+		bar_hit_count = bar_hit_count + 1
+		hit_objects_ids[obj:id()] = true
+		local actor_in_dolg = dialogs.actor_in_dolg()
+		if bar_hit_count == 1 then
+			if actor_in_dolg then
+				news_manager.send_tip(who, "bar_territory_dolg_1_hit", nil, "dolg", nil, 507)
+			else
+				who:give_info_portion("bar_territory_nodolg_1_hit") --Надо для логики мегафона (bar_dolg_megafone.ltx)
+				news_manager.send_tip(who, "bar_territory_nodolg_1_hit", nil, "dolg", nil, 507)
+			end
+		elseif bar_hit_count == 2 then
+			if actor_in_dolg then
+				news_manager.send_tip(who, "bar_territory_dolg_2_hit", nil, "dolg", nil, 507)
+			else
+				who:give_info_portion("bar_territory_nodolg_2_hit") --Надо для логики мегафона (bar_dolg_megafone.ltx)
+				news_manager.send_tip(who, "bar_territory_nodolg_2_hit", nil, "dolg", nil, 507)
+			end
+		elseif bar_hit_count == 3 then
+			if actor_in_dolg then
+				news_manager.send_tip(who, "bar_territory_dolg_3_hit", nil, "dolg", nil, 507)
+			end
+		elseif bar_hit_count > 3 then
+			ogse_signals.get_mgr():unsubscribe(hit_signal)
+		end
+
+		if obj:relation(who) == game_object.neutral then
+			who:change_character_reputation(-25)
+			obj:set_goodwill(-5000, who)
+			obj:set_relation(game_object.enemy, who)
+			relation_registry.set_community_goodwill(obj:character_community(), who:id(), -5000)
+		elseif obj:relation(who) == game_object.friend then
+			who:change_character_reputation(-50)
+			obj:set_goodwill( 0, who )
+			obj:set_relation(game_object.neutral, who)
+			relation_registry.set_community_goodwill(obj:character_community(), who:id(), 0)
+		end
+	end
+end
+
+function bar_territory_death(obj, who)
+	if who:is_actor() and ( hit_objects_ids[obj:id()] or obj:relation(who) ~= game_object.enemy ) then
+		local bar_territory_sobj = alife():object("bar_dolg_territory")
+		if not bar_territory_sobj then return end
+		local bar_territory_obj = level.object_by_id(bar_territory_sobj.id)
+		if not bar_territory_obj or not bar_territory_obj:inside(obj:position()) then return end
+
+		for id, is_stalker in pairs(db.creature) do
+			local npc = level.object_by_id(id)
+			if is_stalker == true and npc and npc:alive() then
+				who:change_character_reputation(-50)
+				npc:set_goodwill(-5000, who)
+				npc:set_relation(game_object.enemy, who)
+				relation_registry.set_community_goodwill(npc:character_community(), who:id(), -5000)
+			end
+		end
+
+		if dialogs.actor_in_dolg() then
+			news_manager.send_tip(who, "bar_territory_dolg_kill", nil, "dolg", nil, 507)
+		else
+			who:give_info_portion("bar_territory_nodolg_kill") --Инфо используется в логике мегафона (bar_dolg_megafone.ltx)
+			news_manager.send_tip(who, "bar_territory_nodolg_kill", nil, "dolg", nil, 507)
+		end
+
+		ogse_signals.get_mgr():unsubscribe(death_signal)
+	end
+end

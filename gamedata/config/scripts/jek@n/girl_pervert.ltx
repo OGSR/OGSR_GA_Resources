@@ -1,0 +1,50 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker
+on_death = death
+
+[walker]
+path_walk = test_place_1
+path_look = test_place_1
+;on_timer = 9000 | remark@morph1
+
+[remark@morph1]
+anim = hello
+snd = girl_smeh
+;snd_anim_sync = true
+no_move = true
+meet = no_meet
+target = nil
+on_signal = action_end | remark@morph2
+
+[remark@morph2]
+anim = say_no
+snd = girl_talking
+;snd_anim_sync = true
+no_move = true
+meet = no_meet
+target = nil
+on_signal = action_end | remark@morph3
+
+[remark@morph3]
+anim = backoff
+snd = girl_metamorph
+;snd_anim_sync = true
+no_move = true
+meet = no_meet
+target = nil
+on_signal = action_end | remark@morph4
+
+[remark@morph4]
+anim = otpad
+; snd = girl_metamorph
+;snd_anim_sync = true
+no_move = true
+meet = no_meet
+target = nil
+on_signal = anim_end | walker %=girl_pervert_dead%
+
+[death]
+on_info = %=girl_pervert_dead%

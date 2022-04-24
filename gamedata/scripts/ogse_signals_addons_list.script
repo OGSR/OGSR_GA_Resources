@@ -1,0 +1,115 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+-- список явно подключаемых модулей
+
+addons = {
+	"ogse_fixes", --должен быть самым первым.
+	"death_manager",
+	"ogse_unist",
+	"ogse_qt",
+	"ogse_st_mgr",
+	"ogse_car_control",
+	"ogse_hideouts", --Должен быть перед менеджером аномалий!
+	"ogse_anomaly",
+	"ogse",
+	"ogse_detectors",
+	"ogse_sleep_mgr",
+	"ogse_weather_mgr",
+	"ogse_surge_mgr",
+	"ogse_lights_mgr",
+	"ogse_mental_fix",
+	"ogse_actor_conditions_mgr",
+	"ogse_water_restrictor",
+	"ogse_healing",
+	"ogse_autodoc",
+	"ogse_campfire",
+	"ogse_car_trade",
+	"ogse_lc_mngr",
+	"ogse_musicbox",
+	"ogse_metka",
+	"ogse_misc_item_usage",
+	"ogse_psycho_fov",
+	"ogse_scripted_btr",
+	"ogse_night",
+	"ui_ogse_quicklaunch",
+	"ogse_night_vision",
+	"ui_handradio",
+	"ogse_quests",
+	"ogse_news_and_off_alife_proxy",
+	"ogse_hud_control",
+	"biodetector",
+	"ui_rad",
+	"ui_ogse_exo_control",
+	"remkit_main",
+	"bind_statpkm",
+	"dsh",
+	"dsh_drag_drop",
+	"dsh_hud_fx",	
+	"dsh_rukzak",
+	"dsh_particles",
+	"dsh_monster_attack",
+	"dsh_deadmans_table_proxy",
+	"dsh_respawn",
+	"dsh_enemies",
+	"dsh_anomaly_detector", --должен быть после ogse_anomaly!
+	"dsh_hud_icons",
+	"dsh_walking_stalkers",
+	"clear_garbage",
+	"trade_manager",
+	"xr_combat_companion",
+	"xrs_battle_ai",
+	"xr_combat_ignore",
+	"quest_deadcity",
+	"jekan_books",
+	"tasks_functor",
+	"jekan_update",
+	"jekan_work",
+	"sr_light",
+	"xrs_grenade",
+	"xrs_medic",
+	"amkii_equip",
+	"state_mgr",
+	"pma_escape",
+	"ogsm_quests",
+	"ogse_teleport_art_quest",
+	"ogse_deadcity_zombies_respawn",
+	"ogsm_respawn",
+	"aem_manager",
+	"treasure_manager",
+	"task_manager",
+	"sound_theme",
+	"xr_sound",
+	--"id_cleaner",
+	"ogse_death_artefact",
+	"bar_territory_logic",
+	"xr_kamp",
+	"ogse_hitfx",
+	"ogse_dynamic_hud",
+	"ogsr_ammo_discharge",
+	"ogsr_memory_control",
+	"ogsr_quick_saveload",	
+	--"ogsr_torch",	
+	"ogsr_addons_npc",
+	"ogsr_items_anims",
+	"ogsr_quick_slots",
+	"ui_body_add",
+	"ui_inv_add",
+	"ui_trade_add",	
+	"ogsr_quick_info",
+	"ogsr_body_states",
+	"inventory", --должен быть последним!
+}
+
+--Для быстрого отключения/включения скриптов
+if rx_ai then
+	table.insert( addons, "rx_ai" )
+end
+if rx_gl then
+	table.insert( addons, "rx_gl" )
+end
+if rx_wmgr then
+	table.insert( addons, "rx_wmgr" )
+end
+
+if ogse_dbg_teleport then
+	table.insert( addons, "ogse_dbg_teleport" )
+end

@@ -1,0 +1,142 @@
+[logic]
+active = kamp@house
+combat_ignore = combat_ignore
+on_death = death
+combat_ignore = combat_ignore
+
+[follower]
+leader = 7084
+formation_line = true
+distance = 2
+anim_sprint = sprint
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+zona_brother1_dead} remark@gore2, {+brother_trap_task} follower@freezer, {!is_day -brother_trap_task} kamp@house
+
+[kamp@house]
+center_point = esc_teterev_kamp_center
+path_walk = esc_teterev_task
+radius = 2
+meet = meet@brother1meet
+on_info = {+brother_trap_task -freezer_bandos_dead} follower
+combat_ignore_cond = always
+bind = 3
+
+[follower@freezer]
+leader = 7084
+formation_line = true
+distance = 2
+anim_sprint = sprint
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+zona_brother1_dead} remark@gore2
+
+[remark@gore]
+anim = psy_pain
+snd = brother_cry
+no_move = true
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_signal = action_end | kamp@house
+on_info = {+freezer_bandos_dead} kamp@house, {+freez_band_terror_start} remark@scare1
+
+[remark@gore2]
+anim = psy_pain
+snd = brother_cry
+no_move = true
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+target = 7084
+on_info = {+freez_bandos_kulgband_info} walker@freezer
+
+[walker@freezer]
+path_walk = brother1_walk5
+path_look = brother1_look5
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+brother2_goto_rest} walker@house1
+
+[walker@house1]
+path_walk = brother_house_camp
+path_look = brother_house_camp
+danger = danger_condition
+combat_ignore_cond = always
+meet = no_meet
+on_signal       = arrived | walker@house2 %+bro2_on_place%
+
+[walker@house2]
+path_walk = brother_house_camp
+path_look = brother_house_camp
+combat_ignore_cond = always
+on_info = {+freez_band_terror_start} remark@scare1
+
+[remark@scare1]
+snd = bro2_scare
+snd_anim_sync = true
+no_move = true
+target = 7093
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_signal = sound_end | remark@scare2
+on_info = {+freezer_bandos_dead} kamp@house
+on_timer = 10000 | remark@death
+
+[remark@scare2]
+snd = bro2_scare
+snd_anim_sync = true
+no_move = true
+target = 7093
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_signal = sound_end | remark@scare1
+on_info = {+freezer_bandos_dead} kamp@house
+on_timer = 10000 | remark@death
+
+[remark@death]
+anim = wounded_knee
+no_move = true
+target = 7093
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_timer = 10 | nil %=bro2_dead%
+
+
+[walker@house3]
+path_walk = brother_house_camp
+path_look = brother_house_camp
+danger = danger_condition
+combat_ignore_cond = always
+
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@zona_brother2_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = {=killed_by_actor =actor_armed_knife} %+zona_brother2_dead_by_knife =give_items(zona_bro2_pda)%, {=killed_by_actor !actor_armed_knife} %+zona_brother2_dead =give_items(zona_bro2_pda)%
+
+
+
+
+
+
+
+

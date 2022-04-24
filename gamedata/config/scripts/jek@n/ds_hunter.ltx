@@ -1,0 +1,118 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+on_death = death
+
+[walker@begin]
+path_walk =	hunter_kuhnya_point
+path_look =	hunter_kuhnya_point_look
+on_timer = 1000 | walker %=make_invulnerable%
+
+
+
+[walker]
+path_walk =	hunter_kuhnya_point
+path_look =	hunter_kuhnya_point_look
+meet = meet
+combat_ignore_cond = always
+danger = danger_condition
+on_timer = 57000 | walker1
+on_info = {+hunter_samogon_quest_done} walker@samogon
+
+[walker1]
+path_walk =	hunter_okno_point
+path_look =	hunter_okno_point_look
+meet = meet
+combat_ignore_cond = always
+danger = danger_condition
+on_timer = 57000 | walker
+on_info = {+hunter_samogon_quest_done} walker@samogon
+
+[walker2]
+path_walk =	hunter_divan_point
+path_look =	hunter_divan_point_look
+meet = meet@behind
+combat_ignore_cond = always
+danger = danger_condition
+on_signal       = arrived | remark@sleep
+on_info = {+hunter_samogon_quest_done} walker@samogon
+
+[remark@sleep]
+anim = sleep
+snd = sleep
+snd_anim_sync = true
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+target = 7065
+no_move = true
+on_timer = 70000 | walker
+
+[walker@samogon]
+path_walk =	hunter_kuhnya_point
+path_look =	hunter_kuhnya_point_look
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+on_timer = 10000 | remark@samogon
+
+[remark@samogon]
+anim = choose
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+target = 7065
+no_move = true
+on_signal = anim_end | walker@new1 %=spawn_apparat_on_table%
+
+[walker@new1]
+path_walk =	hunter_kuhnya_point
+path_look =	hunter_kuhnya_point_look
+meet = meet
+combat_ignore_cond = always
+danger = danger_condition
+on_timer = 57000 | walker@new2
+
+[walker@new2]
+path_walk =	hunter_okno_point
+path_look =	hunter_okno_point_look
+meet = meet
+combat_ignore_cond = always
+danger = danger_condition
+on_timer = 57000 | walker@new1
+
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 3|actor
+victim_wpn = 3|actor
+meet_state = 3|privet_hand@hunter_hello|2|privet_hand@hunter_hello
+meet_state_wpn = 3|privet_hand@hunter_hello|2|privet_hand@hunter_hello
+
+[meet@behind]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 2|nil
+victim_wpn = 2|nil
+meet_state = 2|privet_hand@hunter_hello|1|privet_hand@hunter_hello
+meet_state_wpn = 2|privet_hand@hunter_hello|1|privet_hand@hunter_hello
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_grenade = 0
+ignore_distance_corpse = 0
+ignore_distance_hit = 0
+ignore_distance_sound = 0
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[death]
+on_info = %+ds_hunter_dead%
+

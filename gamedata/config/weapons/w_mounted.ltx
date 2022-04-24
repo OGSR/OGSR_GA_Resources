@@ -1,0 +1,171 @@
+//Пулемёт БТР'а
+[stationary_mgun]:identity_immunities
+GroupControlSection		= spawn_group
+class				= W_STMGUN
+$spawn				= "weapons\stationary_mgun"
+cform   	        = skeleton
+visual  	        = weapons\mounted_weapons\wpn_pkm_trenoga.ogf  
+
+cam_relax_speed     = 5.0	;3;скорость возврата в исходное положение
+cam_max_angle		= 8	;максимальный угол отдачи
+
+;------------------------------ O.G.S.E. sound remake -----------------------
+snd_shoot			= weapons\pkm\pkm_shoot
+;-----------------------------------------------------------------------------
+use_aim_bullet		= false
+
+ammo_class			= ammo_7.62x54_7h1
+fire_dispersion_base = 1 	;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+rpm            		= 650
+hit_power			= 1.2
+hit_impulse			= 220
+fire_distance  		= 500
+bullet_speed		= 800	;начальная скорость пули
+
+light_color			= 0.9,0.9,0.5
+light_range			= 6
+light_var_color		= 0.05
+light_var_range		= 0.5
+light_time 			= 0.3
+
+flame_particles		= weapons\generic_weapon_btr
+smoke_particles		= weapons\generic_shoot_00
+shell_point			= 0.0, 0.0, 0.0
+shell_particles		= weapons\generic_shells00
+
+tracer_trail_scale	= 0.15
+tracer_start_length	= 2
+tracer_width		= 0.07
+
+inv_name	       	= Mounted Weapon								; name in inventory	
+inv_name_short		= Mounted Weapon
+
+//Ещё один пулемёт БТР'а
+[kpvt_mgun]:stationary_mgun
+$spawn				= "weapons\kpvt_mgun"
+hit_power			= 2.2
+bullet_speed		= 920
+;------------------------------ O.G.S.E. sound remake -----------------------
+snd_shoot			= weapons\weapon_btr_kpvt
+;-----------------------------------------------------------------------------
+ammo_class			= ammo_12x76_zhekan_heli
+flame_particles		= weapons\heli_weapon
+shell_particles		= weapons\generic_shells
+
+
+//------------------------------------------------------------------------------
+// Сборная турель ПКМ
+[stationary_pkm]
+GroupControlSection	= spawn_group
+$spawn				= "weapons\turret_mgun"
+$prefetch			= 1
+cform				= skeleton
+class				= TURRETMG
+visual = weapons\mounted_weapons\wpn_pkm_trenoga.ogf
+script_binding		= bind_statpkm.bind
+
+wallmarks			= explosion_marks
+
+// SHeliMovementState::Load
+path_angular_sp_pitch	= 0.35
+path_angular_sp_heading	= 0.75
+path_linear_acc_fw		= 6
+path_linear_acc_bk		= 4
+on_point_range_dist		= 10.0
+velocity			    = 30
+min_altitude			= -15
+path_angular_sp_pitch_0	= 0.2
+path_angular_sp_heading_0	= 1
+safe_altitude			= -10
+
+// SHeliBodyState::Load
+model_angular_sp_bank	= 0.5
+model_angular_sp_pitch	= 0.1
+model_pitch_koef		= 0.016
+model_bank_koef			= 0.018
+
+// SHeliEnemy::Load
+use_fire_trail			= false
+fire_trail_length		= 0
+
+death_angular_vel		= 0.1,6.0,0.2
+death_lin_vel_koeff		= 1
+
+immunities_sect			= turret_usable_immunities
+
+// CShootingObject::Load
+rpm				    = 650
+// CShootingObject::LoadFireParams
+fire_dispersion_base = 0.22
+hit_power			= 1.23
+hit_impulse			= 30
+fire_distance		= 250
+bullet_speed		= 870
+use_aim_bullet		= false
+
+// CShootingObject::LoadLights
+light_color			= 0.9,0.8,0.4
+light_range			= 5
+light_var_color		= 0.05
+light_var_range		= 0.5
+light_time			= 0.2
+
+// CShootingObject::LoadShellParticles
+shell_particles		= weapons\generic_shells00
+shell_point			= 0.0,0.0,0.0
+
+// CShootingObject::LoadFlameParticles
+flame_particles				= weapons\generic_weapon09
+smoke_particles				= weapons\generic_shoot_00
+;shot_particles		=
+
+;------------------------------ O.G.S.E. sound remake -----------------------
+snd_shoot			= weapons\pkm\pkm_shoot
+snd_shoot_rocket	= weapons\weapon_heli_rocket_shoot
+;-----------------------------------------------------------------------------
+
+// CRocketLauncher::Load
+launch_speed			= 60
+
+// CHelicopter::UseFireTrail
+fire_dispersion_null		= 1.0
+
+ammo_class			= ammo_7.62x54_ap
+rocket_class		= wpn_rpg7_missile
+use_rocket			= false
+use_mgun			= true
+min_rocket_attack_dist		= 0
+max_rocket_attack_dist		= 0
+min_mgun_attack_dist		= 3
+max_mgun_attack_dist		= 200
+time_between_rocket_attack	= 0
+syncronize_rocket		= false
+barrel_dir_tolerance		= 2
+
+smoke_particle			= damage_fx\heli_burn
+
+// хе-хе, конфликт имён?
+;light_range			= 10.0
+light_brightness		= 5.0
+;light_color			= 0.9,0.9,0.5
+light_color_animmator		= koster_00
+
+// CHelicopter::MoveStep
+magic_angle			= 0.3
+
+// CHelicopter::OnShot
+fire_trace_width		= 0.1
+
+// CHelicopter::DieHelicopter
+broken_snd			= $no_sound
+
+[turret_usable_immunities]
+burn_immunity			= 0.0
+strike_immunity			= 0.0
+shock_immunity			= 0.0
+wound_immunity			= 0.0
+radiation_immunity		= 0.0
+telepatic_immunity		= 0.0
+chemical_burn_immunity	= 0.0
+fire_wound_immunity		= 0.0
+explosion_immunity		= 0.0

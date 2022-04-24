@@ -1,0 +1,14 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--Респавн всего живого в Зоне переехал в dsh_respawn.script
+--Ночной респавн зомби в МГ переехал в ogse_deadcity_zombies_respawn.script
+
+
+------------------------------------------------
+--Затычка для совместимости.
+class "se_respawn" (cse_alife_space_restrictor)
+function se_respawn:__init(s) super(s) end
+function se_respawn:keep_saved_data_anyway()
+	return true
+end
+------------------------------------------------

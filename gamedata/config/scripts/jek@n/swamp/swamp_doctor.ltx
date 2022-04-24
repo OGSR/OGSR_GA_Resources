@@ -1,0 +1,71 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = remark@start
+on_death = death
+combat_ignore = combat_ignore
+danger = danger_condition@doctor
+trade = misc\trade_swamp_doc.ltx
+
+[remark@start]
+anim = guard
+no_move = true
+target = actor
+on_timer = 10 | remark@idle1 %=make_invulnerable%
+
+
+[remark@idle1]
+anim = guard
+no_move = true
+target = actor
+meet = meet@swamp_doc
+combat_ignore_cond = always
+reactions  = ignore
+on_info = {+unic_krovosos_quest_complete -unic_pseudodog_quest_talk} remark@idle2
+on_info2 = {+unic_krovosos_quest_complete +unic_pseudodog_quest_talk} remark@idle3
+
+[remark@idle2]
+anim = guard
+no_move = true
+target = actor
+meet = meet@swamp_doc
+combat_ignore_cond = always
+reactions  = ignore
+on_actor_dist_ge_nvis = 25 | {+unic_krovosos_quest_complete} remark@idle3 %=send_tip(swampdoc_second_tip:swampdoc:7123) +unic_pseudodog_quest_talk%
+
+[remark@idle3]
+anim = guard
+no_move = true
+target = actor
+meet = meet@swamp_doc
+combat_ignore_cond = always
+reactions  = ignore
+;on_actor_dist_ge_nvis = 25 | {+unic_pseudodog_quest_complete} remark@idle4 %=send_tip(swampdoc_third_tip:swampdoc:7123) +karlito_quest_talk%
+on_actor_dist_ge_nvis = 25 | {+unic_pseudodog_quest_complete} remark@idle4 %+karlito_quest_talk%
+
+[remark@idle4]
+anim = guard
+no_move = true
+target = actor
+meet = meet@swamp_doc
+combat_ignore_cond = always
+reactions  = ignore
+
+
+
+
+[meet@swamp_doc]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 2|actor
+victim_wpn = 2|actor
+meet_state = 2|privet_hand@swamp_doc_hello
+meet_state_wpn = 2|privet_hand@swamp_doc_hello
+
+[combat_ignore]
+combat_ignore = always
+
+[danger_condition@doctor]
+ignore_distance = 1

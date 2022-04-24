@@ -1,0 +1,18 @@
+[logic]
+active = sr_sound@1
+
+[sr_idle]
+on_info = {-strangezone7_off} sr_sound@1
+
+[sr_sound@1]
+snd = nature\rt_dark_indoor_amb1
+position = strange_zone_7_point2
+on_signal = sound_end | sr_sound@2
+on_info = {+strangezone7_off} sr_idle
+
+[sr_sound@2]
+snd = nature\rt_dark_indoor_amb1
+position = strange_zone_7_point2
+on_signal = sound_end | sr_sound@1
+on_info = {+strangezone7_off} sr_idle
+

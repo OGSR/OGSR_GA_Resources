@@ -1,0 +1,21 @@
+
+--Авторазряжалка оружия при взятии ствола в инвентарь.
+--KRodin (c) 2019
+
+local enabled = get_bool("options", "autounload_wpn", false)
+
+function attach( sm )
+	if not enabled then return end
+
+	sm:subscribe({
+		signal = "on_take",
+		fun = function( obj )
+			if device().precache_frame > 1 then return end --Во время загрузки ничего не делаем
+			if not obj:is_weapon_magazined() then return end --Не оружие не учитываем
+			if db.actor:is_in_slot( obj ) then return end --Оружие в слотах не разряжаем.
+			if db.actor:has_info("ui_inventory") then return end --Чтоб не было возможных проблем с системой ogse_addons
+
+			obj:unload_magazine(true, true) --Теперь движок всё сам разряжает, в т.ч. подствольник, и сам спавнит патроны владельцу.
+		end
+	})
+end

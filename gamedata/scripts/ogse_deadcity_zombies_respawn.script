@@ -1,0 +1,179 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--Ночной респавн зомби в МГ пока Хозяин жив. Вынесено из se_respawn.script и немного переделано.
+
+function attach( sm )
+  sm:subscribe({ signal = "on_first_update", fun = this.on_first_update })
+end
+
+
+local base_deadcity_zombies = 60 --Кол-во зомби, до которого они постоянно будут доспавниваться
+local deadcity_zombies = {} --Массив с id живых зомбарей в МГ. Убитые из массива удаляются.
+
+local zombie_types = {
+	"city_zombied_respawn_1", 
+	"city_zombied_respawn_2", 
+	"city_zombied_respawn_3", 
+	"yan_zombied_respawn_1",
+	"yan_zombied_respawn_2",
+	"yan_zombied_respawn_3",
+	"rad_zombied_respawn_1",
+	"rad_zombied_respawn_2",
+	"rad_zombied_respawn_3",
+}
+
+local spawn_points = {
+	"deadcity_zombies_1_kamp_1",
+	"deadcity_zombies_1_kamp_2",
+	"deadcity_zombies_1_kamp_3",
+	"deadcity_zombies_1_kamp_4",
+	"deadcity_zombies_1_kamp_5",
+	"deadcity_zombies_1_kamp_6",
+	"deadcity_zombies_1_kamp_7",
+	"deadcity_zombies_2_kamp_1",
+	"deadcity_zombies_2_kamp_2",
+	"deadcity_zombies_2_kamp_3",
+	"deadcity_zombies_2_kamp_4",
+	"deadcity_zombies_2_kamp_5",
+	"deadcity_zombies_2_kamp_6",
+	"deadcity_zombies_3_kamp_1",
+	"deadcity_zombies_3_kamp_2",
+	"deadcity_zombies_3_kamp_3",
+	"deadcity_zombies_3_kamp_4",
+	"deadcity_zombies_3_kamp_5",
+	"deadcity_zombies_4_kamp_1",
+	"deadcity_zombies_4_kamp_2",
+	"deadcity_zombies_4_kamp_3",
+	"deadcity_zombies_4_kamp_4",
+	"deadcity_zombies_4_kamp_5",
+	"deadcity_zombies_4_kamp_6",
+	"deadcity_zombies_4_kamp_7",
+	"deadcity_zombies_4_kamp_8",
+	"deadcity_zombies_5_kamp_1",
+	"deadcity_zombies_5_kamp_2",
+	"deadcity_zombies_5_kamp_3",
+	"deadcity_zombies_5_kamp_4",
+	"deadcity_zombies_5_kamp_5",
+	"deadcity_zombies_5_kamp_6",
+	"deadcity_zombies_6_kamp_1",
+	"deadcity_zombies_6_kamp_2",
+	"deadcity_zombies_6_kamp_3",
+	"deadcity_zombies_6_kamp_4",
+	"deadcity_zombies_6_kamp_5",
+	"deadcity_zombies_6_kamp_6",
+}
+
+function get_random_spawn_location_deadcity()
+	local point = patrol(spawn_points[math.random(#spawn_points)])
+	local position = point:point(0)
+	local lv = point:level_vertex_id()
+	local gv = point:game_vertex_id()
+	local spawn_point = {
+		pos = position,
+		y_offs = 1,
+		lvid = lv,
+		gvid = gv		
+	}
+	return spawn_point
+end
+
+function convert_pos_to_table(point)
+	local tab = {point.x, point.y, point.z}
+	return tab
+end
+
+-- Возвращает угол между проекциями векторов vec1 и vec2 на горизонтальную плоскость
+-- положительный угол - доворот vec1 до vec2 по часовой.
+function horz_angle(vec1,vec2)
+  local x=vec2.x*vec1.x+vec2.z*vec1.z
+  local y=-vec2.z*vec1.x+vec2.x*vec1.z -- повернули систему координат     
+  return math.atan2(y,x) -- угол доворота от -pi до pi
+end
+
+function add_deadcity_zombies(number)
+	local check_spawn = number
+	while check_spawn > 0 do
+		local spawn_point = get_random_spawn_location_deadcity()
+		if spawn_point then
+			local dist = db.actor:position():distance_to(spawn_point.pos)
+			if dist < 150 then
+				local dangerang = 1
+				local ang = horz_angle(device().cam_dir, spawn_point.pos:sub(device().cam_pos))
+				local tgt = ang > -dangerang and ang < dangerang
+				if not tgt then -- не справним в направлении взгляда
+					local sect = zombie_types[math.random(#zombie_types)]
+					spawn_point.pos = convert_pos_to_table(spawn_point.pos)
+
+					--KRodin: Способ спавна изменён, чтобы зомбей не затягивало в свободные гулаги.
+					local zomb = dsh.create_free_mob(sect, vector():set(unpack(spawn_point.pos)), spawn_point.lvid, spawn_point.gvid)
+
+					table.insert(deadcity_zombies, zomb.id)
+					--log3("--Spawning zombie: [%s], id: [%s]", zomb:name(), zomb.id)
+					check_spawn = check_spawn - 1
+				end
+			else
+				local sect = zombie_types[math.random(#zombie_types)]
+				spawn_point.pos = convert_pos_to_table(spawn_point.pos)
+
+				--KRodin: Способ спавна изменён, чтобы зомбей не затягивало в свободные гулаги.
+				local zomb = dsh.create_free_mob(sect, vector():set(unpack(spawn_point.pos)), spawn_point.lvid, spawn_point.gvid)
+
+				table.insert(deadcity_zombies, zomb.id)
+				--log3("--Spawning zombie: [%s], id: [%s]", zomb:name(), zomb.id)
+				check_spawn = check_spawn - 1
+			end
+		end
+	end
+end
+
+local subscribed = nil
+
+function on_first_update()
+	if level.name() ~= "l09_deadcity_ogse" or has_alife_info("master_quest_soup_ready") then return end
+
+	for id, npc in alife():objects() do --Да, тормозной вариант, но хз, как сделать без этого. db.creature же учитывает только онлайновых НПС, а нам нужны все на локации, в т.ч. в которые в оффлайне.
+		local sect = npc:section_name()
+		if IsStalker(npc) and npc.alive and npc:alive() then
+			if object_level_name(npc) == "l09_deadcity_ogse" then
+				if npc:community() == "zombied" then	
+					if not ogse.is_quest_npc(npc) then
+						table.insert(deadcity_zombies, id)
+					end						
+				end
+			end
+		end
+	end
+
+	--log3("~~DCity zombies count on FIRST update: %s: %s", #deadcity_zombies, deadcity_zombies)
+	if not subscribed then
+		subscribed = { signal = "on_update", fun = this.update }
+		ogse_signals.get_mgr():subscribe(subscribed)
+	end
+end
+
+function update()
+	if has_alife_info("master_quest_soup_ready") and subscribed then
+		ogse_signals.get_mgr():unsubscribe(subscribed)
+		subscribed = nil
+		return
+	end
+	--
+	if not utils.is_day() then
+		for i = #deadcity_zombies, 1, -1 do --Цикл в обратном порядке, чтобы адекватно работал table.remove
+			local id = deadcity_zombies[i]
+			local npc
+			if id then npc = alife():object(id) end
+			if not npc or not npc:alive() then
+				table.remove(deadcity_zombies, i)
+			end
+		end
+		--
+		--log3("~~DCity zombies count on update: %s: %s", #deadcity_zombies, deadcity_zombies)
+		if #deadcity_zombies < base_deadcity_zombies then
+			local num = base_deadcity_zombies - #deadcity_zombies
+			add_deadcity_zombies(num)
+		end
+	end
+	--
+	ogse_signals.get_mgr():reschedule(math.random(60000, 80000))
+end

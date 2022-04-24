@@ -1,0 +1,55 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker1
+on_death = death
+inv_max_weight = 10000
+meet = meet
+danger = danger
+
+[walker1]
+path_walk = bar_new_location_walk_1
+path_look = bar_new_location_look_1
+
+on_info = {+walker1} walker3
+on_info2 = {+walker2} walker4
+on_info3 = {+walker3} walker1
+on_info4 = {+walker4} walker2
+
+[walker3]
+path_walk = bar_clear_sky_walk
+path_look = bar_clear_sky_look
+
+on_info = {+walker1} walker3
+on_info2 = {+walker2} walker4
+on_info3 = {+walker3} walker1
+on_info4 = {+walker4} walker2
+
+[walker2]
+path_walk = bar_clear_sky_walk1
+path_look = bar_clear_sky_look1
+
+on_info = {+walker1} walker3
+on_info2 = {+walker2} walker4
+on_info3 = {+walker3} walker1
+on_info4 = {+walker4} walker2
+
+[walker4]
+path_walk = bar_bar_visitor_hunter_walk
+path_look = bar_bar_visitor_hunter_look
+
+on_info = {+walker1} walker3
+on_info2 = {+walker2} walker4
+on_info3 = {+walker3} walker1
+on_info4 = {+walker4} walker2
+
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 10|actor
+
+[danger]
+ignore_distance       = 100

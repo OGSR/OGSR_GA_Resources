@@ -1,0 +1,35 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+---------------Copyright_Quest_2009-------------------
+--------------Edited_by_stalbar_2009------------------
+local spawn_db = ogse_spawn_db.script_spawn_registry.rostok_spawn
+
+local zombie_types_1 = {"pri_monolith_respawn_1","pri_monolith_respawn_2", "pri_monolith_respawn_3", 
+						"rad_monolith_respawn_1", "rad_monolith_respawn_2" }
+						
+function monolith_rostok_1( actor, npc )
+	--log1("monolith_rostok_1() called")		
+	--'Монолит над тоннелем с жарками
+--SPAWN_V1
+	--ogse.quest_spawn(zombie_types_1[math.random(5)], math.random(6), vector():set(75.3, 2.56, -81.919), 1, 31643, 1404)	
+--SPAWN_V2
+	ogse.quest_spawn_ex(zombie_types_1[math.random(5)], math.random(6), spawn_db.monolith_rostok_1)
+	--log1("monolith_rostok_1() completed")
+end
+
+local zombie_types_2 = {"pseudodog_weak","pseudodog_normal", "pseudodog_strong", "pseudodog_v_strong", 
+						"dog_weak", "dog_normal", "dog_strong", "dog_v_strong" }
+						
+function yantar_dogs1( actor, npc )
+	--log1("dogs1() called")		
+	--'собаки атакуют, в основном, с тыла бара
+	if has_alife_info("yantar_professor_talk_about_brain") then 
+--SPAWN_V1
+		--ogse.quest_spawn(zombie_types_2[math.random(8)], math.random(5), vector():set(-166, -10.7, -323.54), 1, 33831, 1434)
+--SPAWN_V2
+		ogse.quest_spawn_ex(zombie_types_2[math.random(8)], math.random(5), spawn_db.yantar_dogs1)
+	end
+	--log1("dogs1() completed")	
+end
+---------------Copyright_Quest_2009-------------------
+--------------Edited_by_stalbar_2009------------------

@@ -1,0 +1,51 @@
+[smart_terrains]
+
+none = true
+
+
+[logic]
+active = remark@1
+danger = danger_ignore
+threshold = threshold@kulgband_driver_threshold
+
+[remark@1]
+anim = ward
+no_move = true
+target = actor
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+on_game_timer = 1|remark@2 %=make_invulnerable%
+
+[remark@2]
+anim = ward
+no_move = true
+target = actor
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+meet = meet@idle
+on_info = {=dist_to_actor_ge(40)}%=release%
+
+
+[meet@idle]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 3|actor
+victim_wpn = 3|actor
+meet_state = 3|wait@shesterka_hello|1|wait@shesterka_hello
+meet_state_wpn = 3|wait@shesterka_hello|1|wait@shesterka_hello
+
+
+[danger_ignore]
+ignore_distance = 10
+
+[threshold@kulgband_driver_threshold]
+max_ignore_distance = 10
+;ignore_monster = 0
+
+
+
+
+
+
+
+
+

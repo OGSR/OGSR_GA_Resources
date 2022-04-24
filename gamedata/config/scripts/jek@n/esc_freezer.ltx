@@ -1,0 +1,19 @@
+[physics_common]
+fixed_bones=root
+
+[logic]
+active = ph_door@locked
+
+[ph_door@locked]
+locked = true
+on_info = {+zona_brother1_blow} ph_door@opened
+
+[ph_door@opened]
+locked = false
+closed = false
+on_use = ph_door@closed
+
+[ph_door@closed]
+locked = false
+closed = true
+on_use = ph_door@opened

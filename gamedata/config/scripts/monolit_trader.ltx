@@ -1,0 +1,31 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker
+trade = misc\trade_monolit.ltx
+combat_ignore = combat_ignore
+
+[walker]
+path_walk = monolit_trader_walk
+path_look = monolit_trader_look
+meet = meet
+danger = danger_condition
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 9|actor
+victim_wpn = 9|actor
+meet_state = 9|hello@val_escort_phrase_invite|5|wait@wait
+meet_state_wpn = 9|hello@val_escort_phrase_invite|5|wait@wait
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[combat_ignore]

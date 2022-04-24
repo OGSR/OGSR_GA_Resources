@@ -1,0 +1,45 @@
+[smart_terrains]
+
+none = true
+
+
+
+[logic]
+
+active = kamp
+
+on_death = death
+
+danger = danger_ignore
+
+; threshold = threshold@kulg_zasada_1_boets_3_threshold
+
+
+
+[kamp]
+center_point = drifter_walk_pos_1
+
+radius = 5 
+
+def_state_moving = run
+
+
+
+[danger_ignore]
+
+ignore_distance = 80
+
+
+
+[threshold@kulg_zasada_1_boets_3_threshold]
+
+max_ignore_distance = 0
+
+ignore_monster = 0
+
+
+
+[death]
+
+on_info = %+kulg_zasada_1_boets_3_dead%
+

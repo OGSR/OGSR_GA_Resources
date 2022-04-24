@@ -1,0 +1,25 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = remark
+on_death = death
+combat_ignore = combat_ignore
+
+[remark]
+anim = sit
+no_move = true
+target = nil
+meet = no_meet
+combat_ignore_cond = never
+reactions  = ignore
+;on_timer = 10 |  walker
+
+[walker]
+path_walk = prisoner_walk
+path_look = prisoner_look
+;combat_ignore_cond = always
+
+[combat_ignore]
+combat_ignore = always
+

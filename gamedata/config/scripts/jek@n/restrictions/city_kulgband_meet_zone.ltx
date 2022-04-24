@@ -1,0 +1,47 @@
+[logic]
+active = {+cit_kulgband_glavar_cheat} sr_idle@2, sr_idle@1
+
+[sr_idle@1] 
+on_info = {+kulgband_goto_deadcity1} sr_particle@1 %=delete_dar_kulgband =spawn_city_kulgband%
+on_info2 = {+kulgband_goto_deadcity2} sr_particle@1 %=delete_dar_kulgband =spawn_city_kulgband%
+on_info3 = {-kulg_band_meet_speech_loose +klondaik_flashes_collected =actor_has_item(klondaik_key)} nil %+klondike_acess =delete_dar_kulgband +kulg_band_meet_speech_fail%
+
+[sr_particle@1]
+name = explosions\group_items\campfire_01_flame00
+path = city_kulgband_kamp_point
+mode = 2
+looped = true
+on_actor_inside = sr_particle@2 %+kulgband_deadcity_meet%
+
+[sr_particle@2]
+name = explosions\group_items\campfire_01_flame00
+path = city_kulgband_kamp_point
+mode = 2
+looped = true
+on_info = {+cit_kulgband_glavar_cheat} sr_sound_act@1
+on_info2 = {=klondike_is_too_far +klondike_acess -cit_kulgband_glavar_cheat =actor_has_klondike_arts} sr_idle@3 %+cit_kulgband_task_fail +cit_kulgband_enemy =cit_kulgband_klondike_fail_snd%
+on_info3 = {=klondike_is_too_far +klondike_on +cit_kulgband_glavar2_dead =actor_has_item(ds_glavar_bag)} sr_idle@3 %=play_snd(scripts\remkit\ui_repairweapon_01) =send_tip(ds_glavar_bag_opened) =remove_item(ds_glavar_bag) +cit_kulgband_enemy =klondike_arts_special_spawn =cit_kulgband_klondike_fail_snd +cit_kulgband_task_fail%
+
+[sr_sound_act@1]
+snd = characters_voice\scenario\scenario_music_03
+delay = 0
+delay_max = 100
+stereo = false
+on_signal       = sound_end|sr_idle@2
+
+[sr_idle@2]
+on_info = {=actor_has_item(ds_glavar_bag) +cit_kulgband_car_go} sr_idle@3 %=play_snd(scripts\remkit\ui_repairweapon_01) =send_tip(ds_glavar_bag_opened) =remove_item(ds_glavar_bag) =klondike_arts_give_back%
+
+[sr_idle@3]
+on_info = {=actor_has_item(ds_glavar_bag) +cit_kulgband_sniper_spawn +city_kulgband_assist1_dead +city_kulgband_assist2_dead +cit_kulgband_patruln_dead +cit_kulgband_shesterka_dead +cit_kulgband_telohr1_dead +cit_kulgband_telohr2_dead} nil %=play_snd(scripts\remkit\ui_repairweapon_01) =send_tip(ds_glavar_bag_opened) =remove_item(ds_glavar_bag) =klondike_arts_special_spawn +cit_kulgband_task_fail%
+
+
+
+
+
+
+
+
+
+
+

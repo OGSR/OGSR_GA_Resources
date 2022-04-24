@@ -1,0 +1,468 @@
+[wpn_fort]:identity_immunities,base_wpn_zoom
+GroupControlSection			= spawn_group
+$spawn                  	= "weapons\fort"					; option for Level Editor
+$npc			 					= on				; option for Level Editor
+$prefetch 						= 8
+scheduled            		= off              ; option for ALife Simulator
+cform                   	= skeleton
+class                   	= WP_PM
+description					= gunsl_wpn_fort12_descr
+
+ef_main_weapon_type = 0
+ef_weapon_type					= 5
+
+hidden_bones = sight, barrel_silencer
+silencer_bone = wpn_silencer
+
+;-----------------------------------------------------------------------------
+cost					= 600
+inv_weight				= 0.83
+
+;-TTX-----------------------------------------------------------------------------
+hit_power           		= 1.0, 1.0, 1.0, 1.0
+hit_impulse	 		 		= 75
+hit_type 					= fire_wound
+fire_distance           	= 200
+bullet_speed		 		= 175
+rpm                     	= 183
+rpm_empty_click 	 		= 120
+
+
+use_aim_bullet				= false		;Поддерживается ли первая суппер пуля
+time_to_aim					= 0.5
+
+hud                      	= wpn_fort_hud
+
+misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.6
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.1
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.0075
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.075
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.0004
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.0004
+
+;////////////////////////////////////////////Осечки////////////////////////////////////////////////////////////
+;Это - разновидность задержки => происходит только в указанных для задержек пределах
+;включаем использование осечек
+use_light_misfire = true
+;начальное состояние оружия, при котором происходят осечки; независимо от указанного тут значения, при состояниях лучшем, чем misfire_start_condition, осечек не будет
+light_misfire_start_condition = 0.5
+;состояние, хуже которого вероятность осечки константа
+light_misfire_end_condition = 0.1
+;какая часть всех задержек будет осечками в начальном состоянии
+light_misfire_start_probability = 0.8
+;какая часть всех задержек будет осечками на нижнем пороге
+light_misfire_end_probability = 0.4
+
+fire_dispersion_condition_factor = 10	;увеличение дисперсии в процентах при максимальном износе
+
+ammo_elapsed		 	= 12
+ammo_mag_size		 	= 12
+fire_modes		  = 1
+ammo_class		 		= ammo_9x18_fmj, ammo_9x18_pmm
+grenade_class     = ammo_vog-25         ; name of the ltx-section of used grenades
+
+launch_speed      = 0
+hand_dependence		 	= 1
+single_handed			= 1
+
+;---DOF-------------------------------------------------------------------------
+zoom_dof					= -1000, 1.0, 1000
+reload_dof				= 0.0, 0.5, 5, 1.7
+
+;---дисперсия---------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base	= 0.24 ;0.18  ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor = 1.0
+crosshair_inertion		= 2.6
+
+;отдача
+cam_return				= 0
+cam_relax_speed         = 6	;скорость возврата в исходное положение
+cam_relax_speed_ai      = 360
+cam_dispersion          = 0.9	;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc		= 0.7	;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac		= 1.0	;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle			= 30.0	;максимальный угол отдачи
+cam_max_angle_horz		= 5.0	;(degree) maximum shot horizontal degree
+cam_step_angle_horz		= 1.0	;(degree) size of step camera moved in horizontal position while shooting
+detector_disp_factor            = 3                     ;во сколько раз увеличится дисперсия оружия при активном детекторе в другой руке.
+
+PDM_disp_base 				= 1.5
+PDM_disp_vel_factor 		= 1.2
+PDM_disp_accel_factor 		= 1.1
+PDM_disp_crouch	 			= 0.9
+PDM_disp_crouch_no_acc 		= 0.9
+
+
+zoom_cam_relax_speed        = 10    ; scope & ironsight
+zoom_cam_relax_speed_ai     = 120.75
+zoom_cam_dispersion         = 0.3
+zoom_cam_dispersion_inc     = 0.75
+zoom_cam_dispersion_frac    = 0.7
+zoom_cam_max_angle          = 25.0
+zoom_cam_max_angle_horz     = 10.0
+zoom_cam_step_angle_horz    = 1.5
+;-------------------------------------------------------------------------------
+holder_range_modifier	= 1.0               ; во сколько раз увеличивается eye_range
+holder_fov_modifier		= 1.0              ; во сколько раз увеличивается eye_fov
+
+hit_probability_gd_novice	= 0.80
+hit_probability_gd_stalker	= 0.80
+hit_probability_gd_veteran	= 0.80
+hit_probability_gd_master	= 0.80
+
+min_radius              	= 0
+max_radius              	= 30
+
+;-------------------------------------------------------------------------------
+slot 			 	= 1
+animation_slot			= 1	
+
+
+inv_name				= gunsl_wpn_fort12
+inv_name_short			= gunsl_wpn_fort12
+
+inv_grid_width			= 2
+inv_grid_height			= 1
+inv_grid_x				= 0
+inv_grid_y				= 25
+
+upgr_icon_x			= 855
+upgr_icon_y			= 129
+upgr_icon_width		= 163
+upgr_icon_height   	= 128
+
+kill_msg_x				= 104
+kill_msg_y				= 178
+kill_msg_width			= 28
+kill_msg_height			= 21
+
+;-------------------------------------------------------------------------------
+position                         = -0.006500, -0.097000, -0.002500
+orientation                      = 0.000000, 0.000000, 0.000000
+
+fire_point              	= 0.0, 0.148, 0.161
+fire_point2                 = 0.0, 0.148, 0.161
+
+flame_particles		= weapons\generic_weapon03
+smoke_particles		= weapons\generic_shoot_00
+grenade_flame_particles = weapons\generic_weapon01
+
+explode_flame_particles = weapons\generic_weapon01
+explode_shell_particles = weapons\generic_weapon01
+explode_smoke_particles = weapons\generic_rpg_shot
+
+shell_point		= 0.0, 0.133, 0.047
+shell_dir		= 0.0, 0.0, 0.4
+shell_particles	 	= ;
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;startup_ammo           	= 90
+visual                   	= dynamics\weapons\wpn_fort\wpn_fort.ogf
+
+light_disabled                                = false
+light_color		 				= 0.6,0.5,0.3
+light_range		 				= 3.0
+light_var_color		 		= 0.05
+light_var_range		 		= 0.5
+light_time 		 				= 0.2
+
+ph_mass	= 1
+;addons
+scope_status				= 0
+silencer_status				= 2
+grenade_launcher_status		= 0
+
+zoom_enabled					= true
+zoom_rotate_time				= 0.25
+
+scope_name              = wpn_addon_scope       ; section name for the attachable scope
+scope_x              	= 47                 ; offset in inventory icon
+scope_y                 = 0
+silencer_name  				= wpn_addon_sil_918		; section name for the attachable silencer
+silencer_x 						= 62		; offset in inventory icon
+silencer_y 						= -17
+grenade_launcher_name   = wpn_addon_grenade_launcher; section name for the attachable grenade launcher
+grenade_launcher_x      = 126                ; offset in inventory icon
+grenade_launcher_y      = 24
+
+;звуки
+snd_draw		= weapons\m1911\draw
+snd_holster		= weapons\m1911\hide
+snd_shoot		= weapons\fort12\fort_shoot
+snd_empty		= weapons\pistol_empty
+snd_reload		= weapons\fort12\fort_reload
+snd_reload_empty        = weapons\fort12\fort_reload_full
+snd_reload_jammed       = weapons\grach\grach_revival
+snd_reload_jammed_last  = weapons\grach\grach_revival
+snd_close		= $silent
+snd_bore                = weapons\fort\fort_bore
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; silencer
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;params when silencer is attached
+;similar to corresponding params without prefix silencer_
+
+;silencer_flame_particles  = weapons\generic_weapon01
+silencer_smoke_particles 	= weapons\generic_shoot_00
+snd_silncer_shot				= weapons\fort12\fort_shoot_s
+silencer_light_color			= 0.6,0.5,0.3
+silencer_light_range			= 0.01
+silencer_light_var_color	= 0.05
+silencer_light_var_range	= 0.01
+silencer_light_time 			= 0.01
+
+[wpn_fort_hud]:hud_base
+zoom_hide_crosshair			= true
+zoom_dof_near = 0.48
+zoom_dof_focus = 0.53
+
+
+hands_position				= 0.0,-0.13,0.03
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.0,-0.13,0.03
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+aim_hud_offset_pos = 0.000300,0.026000,0.0
+aim_hud_offset_rot = -0.0050000,-0.000800,0.0
+
+aim_hud_offset_pos_16x9 = 0.000300,0.026000,0.0
+aim_hud_offset_rot_16x9 = -0.0050000,-0.000800,0.0
+
+item_position			= 0.0,0.0,0.0
+item_orientation		= 0.0,0.0,0.0
+
+item_visual             	= dynamics\weapons\wpn_fort\wpn_fort_hud
+attach_place_idx		= 0
+
+shell_point			= 0.0,-9.0,0.0
+shell_bone              	= wpn_body
+
+fire_point			= -0.015,0.10,0.37
+fire_bone               	= wpn_body
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = fort12_draw
+anm_show_empty             = fort12_draw, idle_empty
+anm_show_jammed            = fort12_draw, idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = fort12_hide
+anm_hide_empty             = fort12_hide, idle_empty
+anm_hide_jammed            = fort12_hide, idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = fort12_idle
+anm_idle_empty                      = fort12_idle, idle_empty
+anm_idle_jammed                     = fort12_idle, idle_jammed
+anm_idle_slow                       = fort12_idle
+anm_idle_crouch                    = fort12_idle
+anm_idle_crouch_slow               = fort12_idle
+anm_idle_slow_empty                 = fort12_idle, idle_empty
+anm_idle_crouch_empty              = fort12_idle, idle_empty
+anm_idle_crouch_slow_empty         = fort12_idle, idle_empty
+anm_idle_slow_jammed                = fort12_idle, idle_jammed
+anm_idle_crouch_jammed             = fort12_idle, idle_jammed
+anm_idle_crouch_slow_jammed        = fort12_idle, idle_jammed
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = fort12_aim_start
+anm_idle_aim_start_empty       = fort12_aim_start, idle_empty
+anm_idle_aim_start_jammed      = fort12_aim_start, idle_jammed
+
+anm_idle_aim                   = fort12_aim
+anm_idle_aim_empty             = fort12_aim, idle_empty
+anm_idle_aim_jammed            = fort12_aim, idle_jammed
+
+anm_idle_aim_end               = fort12_aim_end
+anm_idle_aim_end_empty         = fort12_aim_end, idle_empty
+anm_idle_aim_end_jammed        = fort12_aim_end, idle_jammed
+
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					= fort12_walk
+anm_idle_moving_jammed 					= fort12_walk, idle_jammed
+anm_idle_moving_empty					= fort12_walk, idle_empty
+
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= fort12_slow
+anm_idle_moving_slow_jammed 				= fort12_slow, idle_jammed
+anm_idle_moving_slow_empty				= fort12_slow, idle_empty
+
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					= fort12_slow_down
+anm_idle_moving_crouch_jammed 					= fort12_slow_down, idle_jammed
+anm_idle_moving_crouch_empty					= fort12_slow_down, idle_empty
+
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 					= fort12_slow_super
+anm_idle_moving_crouch_slow_jammed 				= fort12_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty				= fort12_slow_super, idle_empty
+
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                   = fort12_slow_aim
+anm_idle_aim_moving_forward_empty             = fort12_slow_aim, idle_empty
+anm_idle_aim_moving_forward_jammed            = fort12_slow_aim, idle_jammed
+
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                   = fort12_slow_aim_back
+anm_idle_aim_moving_back_empty             = fort12_slow_aim_back, idle_empty
+anm_idle_aim_moving_back_jammed            = fort12_slow_aim_back, idle_jammed
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                   = fort12_slow_aim_left
+anm_idle_aim_moving_left_empty             = fort12_slow_aim_left, idle_empty
+anm_idle_aim_moving_left_jammed            = fort12_slow_aim_left, idle_jammed
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                   = fort12_slow_aim_right
+anm_idle_aim_moving_right_empty             = fort12_slow_aim_right, idle_empty
+anm_idle_aim_moving_right_jammed            = fort12_slow_aim_right, idle_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                   = fort12_slow_aim_left
+anm_idle_aim_moving_forward_left_empty             = fort12_slow_aim_left, idle_empty
+anm_idle_aim_moving_forward_left_jammed            = fort12_slow_aim_left, idle_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                   = fort12_slow_aim_right
+anm_idle_aim_moving_forward_right_empty             = fort12_slow_aim_right, idle_empty
+anm_idle_aim_moving_forward_right_jammed            = fort12_slow_aim_right, idle_jammed
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                   = fort12_slow_aim_left
+anm_idle_aim_moving_back_left_empty             = fort12_slow_aim_left, idle_empty
+anm_idle_aim_moving_back_left_jammed            = fort12_slow_aim_left, idle_jammed
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                   = fort12_slow_aim_right
+anm_idle_aim_moving_back_right_empty             = fort12_slow_aim_right, idle_empty
+anm_idle_aim_moving_back_right_jammed            = fort12_slow_aim_right, idle_jammed
+
+
+;Бег//////////////////////////////////////////////////////////////////
+lock_time_anm_idle_sprint_start = 0.15
+lock_time_anm_idle_sprint_start_empty = 0.15
+lock_time_anm_idle_sprint_start_jammed = 0.15
+anm_idle_sprint_start             = fort12_sprint_start
+anm_idle_sprint_start_empty       = fort12_sprint_start, idle_empty
+anm_idle_sprint_start_jammed      = fort12_sprint_start, idle_jammed
+
+anm_idle_sprint                   = fort12_sprint
+anm_idle_sprint_empty             = fort12_sprint, idle_empty
+anm_idle_sprint_jammed            = fort12_sprint, idle_jammed
+
+lock_time_anm_idle_sprint_end        = 0.4
+lock_time_anm_idle_sprint_end_empty  = 0.4
+lock_time_anm_idle_sprint_end_jammed = 0.4
+anm_idle_sprint_end             = fort12_sprint_end
+anm_idle_sprint_end_empty       = fort12_sprint_end, idle_empty
+anm_idle_sprint_end_jammed      = fort12_sprint_end, idle_jammed
+
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = coltm1911_bore
+anm_bore_empty             = coltm1911_bore, idle_empty
+anm_bore_jammed            = coltm1911_bore, idle_jammed
+
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                = fort12_shoot
+anm_shoot_sil            = fort12_shoot
+anm_shoot_jammed	 = fort12_shoot, idle_jammed
+anm_shoot_jammed_sil	 = fort12_shoot, idle_jammed
+anm_shoot_last           = fort12_shoot_empty
+anm_shoot_last_sil       = fort12_shoot_empty
+anm_shoot_aim            = fort12_aim_shoot
+anm_shoot_aim_sil        = fort12_aim_shoot
+anm_shoot_aim_jammed	 = fort12_aim_shoot, idle_jammed
+anm_shoot_aim_jammed_sil = fort12_aim_shoot, idle_jammed
+anm_shoot_aim_last       = fort12_aim_shoot_empty
+anm_shoot_aim_last_sil   = fort12_aim_shoot_empty
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty      = fort12_dry_empty, idle_empty
+anm_fakeshoot_aim_empty      = fort12_aim_dry, idle_empty
+anm_fakeshoot_jammed     = fort12_dry, idle_jammed
+anm_fakeshoot_aim_jammed     = fort12_aim_dry, idle_jammed
+
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                       = fort12_reload
+anm_reload_empty                 = fort12_reload_full
+anm_reload_detector                       = fort12_det_reload, fort12_reload
+anm_reload_empty_detector                 = fort12_det_reload_full, fort12_reload_full
+anm_reload_jammed                = fort12_revival
+anm_reload_jammed_last           = fort12_revival_last
+anm_reload_ammochange            = fort12_reload
+anm_reload_empty_ammochange      = fort12_reload_full
+anm_reload_ammochange_detector            = fort12_det_reload, fort12_reload
+anm_reload_empty_ammochange_detector      = fort12_det_reload_full, fort12_reload_full
+
+anm_reload_jammed_detector                = fort12_det_revival
+use_jammed_detector_snd = true
+anm_reload_jammed_last_detector           = fort12_det_revival_last
+use_jammed_last_detector_snd = true
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on = fort12_headflash
+lock_time_start_anm_headlamp_on = 0.58
+lock_time_end_anm_headlamp_on = 0.5
+
+anm_headlamp_on_empty = fort12_headflash, idle_empty
+lock_time_start_anm_headlamp_on_empty = 0.58
+lock_time_end_anm_headlamp_on_empty = 0.5
+
+anm_headlamp_on_jammed = fort12_headflash, idle_jammed
+lock_time_start_anm_headlamp_on_jammed = 0.58
+lock_time_end_anm_headlamp_on_jammed = 0.5
+
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off = fort12_headflash
+lock_time_start_anm_headlamp_off = 0.58
+lock_time_end_anm_headlamp_off = 0.5
+
+anm_headlamp_off_empty = fort12_headflash, idle_empty
+lock_time_start_anm_headlamp_off_empty = 0.58
+lock_time_end_anm_headlamp_off_empty = 0.5
+
+anm_headlamp_off_jammed = fort12_headflash, idle_jammed
+lock_time_start_anm_headlamp_off_jammed = 0.58
+lock_time_end_anm_headlamp_off_jammed = 0.5
+
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on = fort12_nv_on
+anm_nv_on_empty = fort12_nv_on, idle_empty
+anm_nv_on_jammed = fort12_nv_on, idle_jammed
+
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off = fort12_nv_off
+anm_nv_off_empty = fort12_nv_off, idle_empty
+anm_nv_off_jammed = fort12_nv_off, idle_jammed
+
+[wpn_fort_unic]:wpn_fort
+
+hidden_bones = barrel_silencer
+
+inv_grid_x				= 18
+inv_grid_y				= 34
+
+hud = wpn_fort_unic_hud
+
+[wpn_fort_unic_hud]:wpn_fort_hud

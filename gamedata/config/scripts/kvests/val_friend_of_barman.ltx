@@ -1,0 +1,41 @@
+[logic]
+active = walker
+combat_ignore = combat_ignore
+on_death = death
+
+[death]
+on_info = {-bar_kvest_friend_of_barman_spasti_complete} %+bar_kvest_friend_of_barman_2_fail%
+
+[smart_terrains]
+none = true ;{-bar_kvest_friend_of_barman_spasti_complete}
+;bar_visitors = {+bar_kvest_friend_of_barman_spasti_complete}
+
+[walker]
+path_walk = val_shvid_walk
+path_look = val_freedom_enemy_look
+meet = meet
+combat_ignore_cond = {-bar_kvest_friend_of_barman_on_freedom_strike}
+danger = danger_condition
+on_info = {+bar_kvest_friend_of_barman_on_freedom_strike} walker2
+
+[meet]
+meet_state = 5| hello| 3| hello| 2| hello
+meet_state_wpn = 5| hello| 3| hello
+victim = 15| actor
+victim_wpn = 15| actor
+use = true
+use_wpn = false
+
+[walker2]
+path_walk = val_freedom_enemy_commander_walk
+path_look = val_freedom_enemy_look
+meet = meet
+danger = danger_condition
+on_actor_dist_ge_nvis = 80 | %=del_npc%
+
+
+[danger_condition]
+ignore_distance = 25
+
+[combat_ignore]
+combat_ignore_cond = {-bar_kvest_friend_of_barman_on_freedom_strike}

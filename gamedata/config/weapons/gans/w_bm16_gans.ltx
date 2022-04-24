@@ -1,0 +1,560 @@
+[wpn_bm16]:identity_immunities,base_wpn_zoom
+GroupControlSection		= spawn_group
+$spawn                  = "weapons\bm16"		; option for Level Editor
+$npc			 		= on						; option for Level Editor
+$prefetch 		 		= 8
+scheduled               = off    				; option for ALife Simulator
+cform                   = skeleton
+class                   = WP_BM16
+
+description				= gunsl_wpn_bm16_descr
+
+ef_main_weapon_type		= 1
+ef_weapon_type			= 7
+
+hidden_bones = stock, barrel, sight
+
+;-----------------------------------------------------------------------------
+cost					= 1000
+weapon_class			= shotgun
+inv_weight				= 2.7
+
+;---TTX-------------------------------------------------------------------------
+hit_power       = 0.75, 0.75, 0.75, 0.75
+hit_impulse     = 120
+hit_type 		= fire_wound
+fire_distance       	= 80
+bullet_speed		= 270
+rpm                 	= 1000
+rpm_empty_click         = 200
+
+hud                      		= wpn_bm16_hud
+
+misfire_probability        = 0.01 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.6
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.1
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.01
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.1
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.0006
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.0006
+
+
+ammo_elapsed		 	= 2
+ammo_mag_size		 	= 2
+ammo_class		 	= ammo_12x70_kart, ammo_12x76_zhekan
+hand_dependence 		= 1
+single_handed			= 0
+
+;---DOF-------------------------------------------------------------------------
+zoom_dof			    = 0.5, 1.0, 180
+;reload_dof           = 0.0, 0.5, 5, 1.7
+;----дисперсия--------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base		= 0.25  	;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor		= 1.6f
+crosshair_inertion			= 7
+
+;отдача
+cam_return				= 1
+cam_relax_speed         = 8.0		;скорость возврата в исходное положение
+cam_relax_speed_ai      = 360
+cam_dispersion          = 5 	;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc		= 4.0 	;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac		= 0.4 	;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle			= 15 		;максимальный угол отдачи
+cam_max_angle_horz		= 15 		;(degree) maximum shot horizontal degree
+cam_step_angle_horz		= 1.0 	;(degree) size of step camera moved in horizontal position while shooting
+
+PDM_disp_base 				= 2.5
+PDM_disp_vel_factor 		= 1.6
+PDM_disp_accel_factor 		= 1.6
+PDM_disp_crouch	 				= 1.0
+PDM_disp_crouch_no_acc 			= 0.8
+
+zoom_cam_relax_speed        = 4.0    ; scope & ironsight
+zoom_cam_relax_speed_ai     = 120.75
+zoom_cam_dispersion         = 2.7
+zoom_cam_dispersion_inc     = 2.4
+zoom_cam_dispersion_frac    = 0.5
+zoom_cam_max_angle          = 6.0
+zoom_cam_max_angle_horz     = 6.0
+zoom_cam_step_angle_horz    = 0.7
+
+fire_dispersion_condition_factor = 6	;увеличение дисперсии в процентах при максимальном износе
+
+;-------------------------------------------------------------------------------
+holder_range_modifier	= 1.0     ; во сколько раз увеличивается eye_range
+holder_fov_modifier		= 1.0     ; во сколько раз увеличивается eye_fov
+
+min_radius              = 0
+max_radius              = 50
+
+hit_probability_gd_novice	= 0.80
+hit_probability_gd_stalker	= 0.80
+hit_probability_gd_veteran	= 0.80
+hit_probability_gd_master	= 0.80
+
+;-------------------------------------------------------------------------------
+slot 					= 2
+animation_slot			= 3
+
+inv_name				= gunsl_wpn_bm16
+inv_name_short			= gunsl_wpn_bm16
+
+inv_grid_width  = 3
+inv_grid_height	= 2
+inv_grid_x	= 1
+inv_grid_y      = 31
+
+kill_msg_x				= 0
+kill_msg_y		  		= 104
+kill_msg_width			= 54
+kill_msg_height			= 16
+
+position                         = -0.025000, -0.123500, 0.068000
+orientation                      = 0.000000, 30.000000, 0.000000
+
+shell_point				= 0.0, 0.136, 0.07
+fire_point              = 0.000000,0.136000,0.390000     ;r
+fire_point2             = 0.000000,0.136000,0.390000		;l
+
+flame_particles		   	=  
+smoke_particles		   	= weapons\generic_shoot_00 
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;под мишкой
+strap_position         			= -0.26,-0.11,0.15
+strap_orientation      			= -15,-9,110
+;на спине
+strap_bone0							= bip01_spine2
+strap_bone1							= bip01_spine1
+
+startup_ammo             		= 10
+visual                   		= dynamics\weapons\wpn_bm16\wpn_bm16.ogf
+
+light_color		 					= 0.6,0.5,0.3
+light_range		 					= 6.0
+light_var_color		 			= 0.05
+light_var_range		 			= 0.5
+light_time 		 					= 0.2
+
+ph_mass			 					= 3
+
+;addons
+scope_status						= 0
+silencer_status					= 0
+grenade_launcher_status			= 0
+
+zoom_enabled						= true
+
+;звуки
+snd_draw		= weapons\toz34\toz34_draw
+snd_holster		= weapons\toz34\toz34_hide
+snd_shoot         	= weapons\toz34\toz34_shoot
+snd_shoot_1         	= weapons\toz34\toz34_shoot
+snd_empty		= weapons\glock17\glock17_dry
+
+snd_shoot_duplet  	= weapons\toz34\toz34_shoot
+snd_jammed_click        = $silent
+snd_reload              = weapons\toz66\toz66_reload_full
+snd_reload_1            = weapons\toz66\toz66_reload
+snd_reload_jammed       = weapons\toz66\toz66_revival
+snd_reload_jammed_last  = weapons\toz66\toz66_revival
+
+[wpn_bm16_hud]:hud_base
+
+zoom_dof_near = 0.25
+zoom_dof_focus = 0.5
+
+zoom_hide_crosshair				= true
+
+hands_position				= 0.01,-0.032,0.05
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.01,-0.032,0.05
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position				= 0.0,0.0,0.0
+item_orientation			= 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.010000,0.019000,0.0
+aim_hud_offset_rot = -0.006000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = -0.010000,0.018000,0.0
+aim_hud_offset_rot_16x9 = -0.006000,0.000000,0.000000
+
+shell_point		      = 0, 0.01, 0.443
+shell_dir                     = 0.0, 1.0, 0.0
+shell_bone		      = wpn_body
+
+fire_point		      = 0, 0.01, 0.443
+fire_bone                     = wpn_body
+
+attach_place_idx	      = 0
+item_visual		      = dynamics\weapons\wpn_bm16\wpn_bm16_hud
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+anm_show_0                    = toz66_draw, idle_empty
+anm_show_1                    = toz66_draw, idle_1
+anm_show_2                    = toz66_draw
+anm_show_jammed_0             = toz66_draw, idle_empty
+anm_show_jammed_1             = toz66_draw, idle_empty
+anm_show_jammed_2             = toz66_draw, idle_1
+
+anm_hide_0		      = toz66_hide, idle_empty
+anm_hide_1		      = toz66_hide, idle_1
+anm_hide_2		      = toz66_hide
+anm_hide_jammed_0             = toz66_hide, idle_empty
+anm_hide_jammed_1	      = toz66_hide, idle_empty
+anm_hide_jammed_2	      = toz66_hide, idle_1
+
+
+anm_idle_0		      = toz66_idle, idle_empty
+anm_idle_1		      = toz66_idle, idle_1
+anm_idle_2		      = toz66_idle
+anm_idle_jammed_0	      = toz66_idle, idle_empty
+anm_idle_jammed_1	      = toz66_idle, idle_empty
+anm_idle_jammed_2	      = toz66_idle, idle_1
+anm_idle_crouch_0             = toz66_idle, idle_empty
+anm_idle_crouch_slow_0        = toz66_idle, idle_empty
+anm_idle_slow_0               = toz66_idle, idle_empty
+anm_idle_crouch_1             = toz66_idle, idle_1
+anm_idle_crouch_slow_1        = toz66_idle, idle_1
+anm_idle_slow_1               = toz66_idle, idle_1
+anm_idle_crouch_2             = toz66_idle
+anm_idle_crouch_slow_2        = toz66_idle
+anm_idle_slow_2               = toz66_idle
+anm_idle_crouch_jammed_0      = toz66_idle, idle_empty
+anm_idle_crouch_slow_jammed_0 = toz66_idle, idle_empty
+anm_idle_slow_jammed_0        = toz66_idle, idle_empty
+anm_idle_crouch_jammed_1      = toz66_idle, idle_empty
+anm_idle_crouch_slow_jammed_1 = toz66_idle, idle_empty
+anm_idle_slow_jammed_1        = toz66_idle, idle_empty
+anm_idle_crouch_jammed_2      = toz66_idle, idle_1
+anm_idle_crouch_slow_jammed_2 = toz66_idle, idle_1
+anm_idle_slow_jammed_2        = toz66_idle, idle_1
+   
+
+anm_idle_aim_start_0	      = toz66_aim_start, idle_empty
+anm_idle_aim_start_1	      = toz66_aim_start, idle_1
+anm_idle_aim_start_2	      = toz66_aim_start
+anm_idle_aim_start_jammed_0   = toz66_aim_start, idle_empty
+anm_idle_aim_start_jammed_1   = toz66_aim_start, idle_empty
+anm_idle_aim_start_jammed_2   = toz66_aim_start, idle_1
+
+anm_idle_aim_0	              = toz66_aim, idle_empty
+anm_idle_aim_1		      = toz66_aim, idle_1
+anm_idle_aim_2		      = toz66_aim
+anm_idle_aim_jammed_0	      = toz66_aim, idle_empty
+anm_idle_aim_jammed_1         = toz66_aim, idle_empty
+anm_idle_aim_jammed_2	      = toz66_aim, idle_1
+
+anm_idle_aim_end_0	      = toz66_aim_end, idle_empty
+anm_idle_aim_end_1            = toz66_aim_end, idle_1
+anm_idle_aim_end_2	      = toz66_aim_end
+anm_idle_aim_end_jammed_0     = toz66_aim_end, idle_empty
+anm_idle_aim_end_jammed_1     = toz66_aim_end, idle_empty
+anm_idle_aim_end_jammed_2     = toz66_aim_end, idle_1
+
+
+anm_idle_moving_0		     = toz66_walk, idle_empty
+anm_idle_moving_1		     = toz66_walk, idle_1
+anm_idle_moving_2		     = toz66_walk
+anm_idle_moving_jammed_0             = toz66_walk, idle_empty
+anm_idle_moving_jammed_1             = toz66_walk, idle_empty
+anm_idle_moving_jammed_2	     = toz66_walk, idle_1
+anm_idle_moving_crouch_0             = toz66_slow_down, idle_empty
+anm_idle_moving_crouch_slow_0        = toz66_slow_super, idle_empty
+anm_idle_moving_slow_0               = toz66_slow, idle_empty
+anm_idle_moving_crouch_1             = toz66_slow_down, idle_1
+anm_idle_moving_crouch_slow_1        = toz66_slow_super, idle_1
+anm_idle_moving_slow_1               = toz66_slow, idle_1
+anm_idle_moving_crouch_2             = toz66_slow_down
+anm_idle_moving_crouch_slow_2        = toz66_slow_super
+anm_idle_moving_slow_2               = toz66_slow
+anm_idle_moving_crouch_jammed_0      = toz66_slow_down, idle_empty
+anm_idle_moving_crouch_slow_jammed_0 = toz66_slow_super, idle_empty
+anm_idle_moving_slow_jammed_0        = toz66_slow, idle_empty
+anm_idle_moving_crouch_jammed_1      = toz66_slow_down, idle_empty
+anm_idle_moving_crouch_slow_jammed_1 = toz66_slow_super, idle_empty
+anm_idle_moving_slow_jammed_1        = toz66_slow, idle_empty
+anm_idle_moving_crouch_jammed_2      = toz66_slow_down, idle_1
+anm_idle_moving_crouch_slow_jammed_2 = toz66_slow_super, idle_1
+anm_idle_moving_slow_jammed_2        = toz66_slow, idle_1
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_0                   = toz66_aim_walk, idle_empty
+anm_idle_aim_moving_forward_1                   = toz66_aim_walk, idle_1
+anm_idle_aim_moving_forward_2                   = toz66_aim_walk
+anm_idle_aim_moving_forward_jammed_0            = toz66_aim_walk, idle_empty
+anm_idle_aim_moving_forward_jammed_1            = toz66_aim_walk, idle_empty
+anm_idle_aim_moving_forward_jammed_2            = toz66_aim_walk, idle_1
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_0                   = toz66_aim_walk, idle_empty
+anm_idle_aim_moving_back_1                   = toz66_aim_walk, idle_1
+anm_idle_aim_moving_back_2                   = toz66_aim_walk
+anm_idle_aim_moving_back_jammed_0            = toz66_aim_walk, idle_empty
+anm_idle_aim_moving_back_jammed_1            = toz66_aim_walk, idle_empty
+anm_idle_aim_moving_back_jammed_2            = toz66_aim_walk, idle_1
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left_0                   = toz66_aim_walk_left, idle_empty
+anm_idle_aim_moving_left_1                   = toz66_aim_walk_left, idle_1
+anm_idle_aim_moving_left_2                   = toz66_aim_walk_left
+anm_idle_aim_moving_left_jammed_0            = toz66_aim_walk_left, idle_empty
+anm_idle_aim_moving_left_jammed_1            = toz66_aim_walk_left, idle_empty
+anm_idle_aim_moving_left_jammed_2            = toz66_aim_walk_left, idle_1
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right_0                   = toz66_aim_walk_right, idle_empty
+anm_idle_aim_moving_right_1                   = toz66_aim_walk_right, idle_1
+anm_idle_aim_moving_right_2                   = toz66_aim_walk_right
+anm_idle_aim_moving_right_jammed_0            = toz66_aim_walk_right, idle_empty
+anm_idle_aim_moving_right_jammed_1            = toz66_aim_walk_right, idle_empty
+anm_idle_aim_moving_right_jammed_2            = toz66_aim_walk_right, idle_1
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left_0                   = toz66_aim_walk_left, idle_empty
+anm_idle_aim_moving_forward_left_1                   = toz66_aim_walk_left, idle_1
+anm_idle_aim_moving_forward_left_2                   = toz66_aim_walk_left
+anm_idle_aim_moving_forward_left_jammed_0            = toz66_aim_walk_left, idle_empty
+anm_idle_aim_moving_forward_left_jammed_1            = toz66_aim_walk_left, idle_empty
+anm_idle_aim_moving_forward_left_jammed_2            = toz66_aim_walk_left, idle_1
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right_0                   = toz66_aim_walk_right, idle_empty
+anm_idle_aim_moving_forward_right_1                   = toz66_aim_walk_right, idle_1
+anm_idle_aim_moving_forward_right_2                   = toz66_aim_walk_right
+anm_idle_aim_moving_forward_right_jammed_0            = toz66_aim_walk_right, idle_empty
+anm_idle_aim_moving_forward_right_jammed_1            = toz66_aim_walk_right, idle_empty
+anm_idle_aim_moving_forward_right_jammed_2            = toz66_aim_walk_right, idle_1
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left_0                   = toz66_aim_walk_left, idle_empty
+anm_idle_aim_moving_back_left_1                   = toz66_aim_walk_left, idle_1
+anm_idle_aim_moving_back_left_2                   = toz66_aim_walk_left
+anm_idle_aim_moving_back_left_jammed_0            = toz66_aim_walk_left, idle_empty
+anm_idle_aim_moving_back_left_jammed_1            = toz66_aim_walk_left, idle_empty
+anm_idle_aim_moving_back_left_jammed_2            = toz66_aim_walk_left, idle_1
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right_0                   = toz66_aim_walk_right, idle_empty
+anm_idle_aim_moving_back_right_1                   = toz66_aim_walk_right, idle_1
+anm_idle_aim_moving_back_right_2                   = toz66_aim_walk_right
+anm_idle_aim_moving_back_right_jammed_0            = toz66_aim_walk_right, idle_empty
+anm_idle_aim_moving_back_right_jammed_1            = toz66_aim_walk_right, idle_empty
+anm_idle_aim_moving_back_right_jammed_2            = toz66_aim_walk_right, idle_1
+
+
+lock_time_anm_idle_sprint_start_0 = 0.15
+lock_time_anm_idle_sprint_start_1 = 0.15
+lock_time_anm_idle_sprint_start_2 = 0.15
+lock_time_anm_idle_sprint_start_jammed_0 = 0.15
+lock_time_anm_idle_sprint_start_jammed_1 = 0.15
+lock_time_anm_idle_sprint_start_jammed_2 = 0.15
+anm_idle_sprint_start_0        = toz66_sprint_start, idle_empty
+anm_idle_sprint_start_1        = toz66_sprint_start, idle_1
+anm_idle_sprint_start_2        = toz66_sprint_start
+anm_idle_sprint_start_jammed_0 = toz66_sprint_start, idle_empty
+anm_idle_sprint_start_jammed_1 = toz66_sprint_start, idle_empty
+anm_idle_sprint_start_jammed_2 = toz66_sprint_start, idle_1
+
+anm_idle_sprint_0	       = toz66_sprint, idle_empty
+anm_idle_sprint_1	       = toz66_sprint, idle_1
+anm_idle_sprint_2	       = toz66_sprint
+anm_idle_sprint_jammed_0       = toz66_sprint, idle_empty
+anm_idle_sprint_jammed_1       = toz66_sprint, idle_empty
+anm_idle_sprint_jammed_2       = toz66_sprint, idle_1
+
+lock_time_anm_idle_sprint_end_0  = 0.35
+lock_time_anm_idle_sprint_end_1  = 0.35
+lock_time_anm_idle_sprint_end_2  = 0.35
+lock_time_anm_idle_sprint_end_jammed_0 = 0.35
+lock_time_anm_idle_sprint_end_jammed_1 = 0.35
+lock_time_anm_idle_sprint_end_jammed_2 = 0.35
+anm_idle_sprint_end_0          = toz66_sprint_end, idle_empty
+anm_idle_sprint_end_1          = toz66_sprint_end, idle_1
+anm_idle_sprint_end_2          = toz66_sprint_end
+anm_idle_sprint_end_jammed_0   = toz66_sprint_end, idle_empty
+anm_idle_sprint_end_jammed_1   = toz66_sprint_end, idle_empty
+anm_idle_sprint_end_jammed_2   = toz66_sprint_end, idle_1
+
+
+anm_reload				= toz66_reload_full
+anm_reload_0				= toz66_reload_full
+anm_reload_only_0		        = toz66_reload_last
+anm_reload_1				= toz66_reload
+anm_reload_2				= toz66_reload_full
+anm_reload_jammed_1			= toz66_revival_last
+anm_reload_jammed_2			= toz66_revival
+anm_shoot_1				= toz66_shoot_last
+anm_shoot_2				= toz66_shoot
+anm_shoot_jammed_1		        = toz66_dry_empty, toz66_shoot_last
+anm_shoot_jammed_2			= toz66_dry_empty, toz66_shoot
+anm_shoot_aim_1	              = toz66_aim_shoot, toz66_shoot_last
+anm_shoot_aim_2		      = toz66_aim_shoot, toz66_shoot
+anm_shoot_aim_jammed_1		        = toz66_aim_dry, toz66_shoot_last
+anm_shoot_aim_jammed_2			= toz66_aim_dry, toz66_shoot
+anm_fakeshoot_0				        = toz66_dry_empty, idle_empty
+anm_fakeshoot_1				        = toz66_dry_empty
+anm_fakeshoot_2				        = toz66_dry_empty
+anm_fakeshoot_jammed_0				= toz66_dry, idle_empty
+anm_fakeshoot_jammed_1				= toz66_dry, idle_empty
+anm_fakeshoot_jammed_2				= toz66_dry, idle_1
+anm_fakeshoot_aim_0				= toz66_aim_dry, idle_empty
+anm_fakeshoot_aim_jammed_0			= toz66_aim_dry, idle_empty
+anm_fakeshoot_aim_jammed_1			= toz66_aim_dry, idle_empty
+anm_fakeshoot_aim_jammed_2			= toz66_aim_dry, idle_1
+
+anm_bore_0		      = toz66_reload
+anm_bore_1		      = toz66_reload
+anm_bore_2                    = toz66_reload
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on_0 = toz66_headflash, idle_empty
+lock_time_start_anm_headlamp_on_0 = 0.58
+lock_time_end_anm_headlamp_on_0 = 0.5
+
+anm_headlamp_on_1 = toz66_headflash, idle_1
+lock_time_start_anm_headlamp_on_1 = 0.58
+lock_time_end_anm_headlamp_on_1 = 0.5
+
+anm_headlamp_on_2 = toz66_headflash
+lock_time_start_anm_headlamp_on_2 = 0.58
+lock_time_end_anm_headlamp_on_2 = 0.5
+
+anm_headlamp_on_jammed_1 = toz66_headflash, idle_empty
+lock_time_start_anm_headlamp_on_jammed_1 = 0.58
+lock_time_end_anm_headlamp_on_jammed_1 = 0.5
+
+anm_headlamp_on_jammed_2 = toz66_headflash, idle_1
+lock_time_start_anm_headlamp_on_jammed_2 = 0.58
+lock_time_end_anm_headlamp_on_jammed_2 = 0.5
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off_0 = toz66_headflash, idle_empty
+lock_time_start_anm_headlamp_off_0 = 0.58
+lock_time_end_anm_headlamp_off_0 = 0.5
+
+anm_headlamp_off_1 = toz66_headflash, idle_1
+lock_time_start_anm_headlamp_off_1 = 0.58
+lock_time_end_anm_headlamp_off_1 = 0.5
+
+anm_headlamp_off_2 = toz66_headflash
+lock_time_start_anm_headlamp_off_2 = 0.58
+lock_time_end_anm_headlamp_off_2 = 0.5
+
+anm_headlamp_off_jammed_1 = toz66_headflash, idle_empty
+lock_time_start_anm_headlamp_off_jammed_1 = 0.58
+lock_time_end_anm_headlamp_off_jammed_1 = 0.5
+
+anm_headlamp_off_jammed_2 = toz66_headflash, idle_1
+lock_time_start_anm_headlamp_off_jammed_2 = 0.58
+lock_time_end_anm_headlamp_off_jammed_2 = 0.5
+
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on_0 = toz66_nv_on, idle_empty
+lock_time_start_anm_nv_on_0 = 0.58
+lock_time_end_anm_nv_on_0 = 0.5
+
+anm_nv_on_1 = toz66_nv_on, idle_1
+lock_time_start_anm_nv_on_1 = 0.58
+lock_time_end_anm_nv_on_1 = 0.5
+
+anm_nv_on_2 = toz66_nv_on
+lock_time_start_anm_nv_on_2 = 0.58
+lock_time_end_anm_nv_on_2 = 0.5
+
+anm_nv_on_jammed_1 = toz66_nv_on, idle_empty
+lock_time_start_anm_nv_on_jammed_1 = 0.58
+lock_time_end_anm_nv_on_jammed_1 = 0.5
+
+anm_nv_on_jammed_2 = toz66_nv_on, idle_1
+lock_time_start_anm_nv_on_jammed_2 = 0.58
+lock_time_end_anm_nv_on_jammed_2 = 0.5
+
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off_0 = toz66_nv_off, idle_empty
+lock_time_start_anm_nv_off_0 = 0.58
+lock_time_end_anm_nv_off_0 = 0.5
+
+anm_nv_off_1 = toz66_nv_off, idle_1
+lock_time_start_anm_nv_off_1 = 0.58
+lock_time_end_anm_nv_off_1 = 0.5
+
+anm_nv_off_2 = toz66_nv_off
+lock_time_start_anm_nv_off_2 = 0.58
+lock_time_end_anm_nv_off_2 = 0.5
+
+anm_nv_off_jammed_1 = toz66_nv_off, idle_empty
+lock_time_start_anm_nv_off_jammed_1 = 0.58
+lock_time_end_anm_nv_off_jammed_1 = 0.5
+
+anm_nv_off_jammed_2 = toz66_nv_off, idle_1
+lock_time_start_anm_nv_off_jammed_2 = 0.58
+lock_time_end_anm_nv_off_jammed_2 = 0.5
+
+[wpn_bm16_full]:wpn_bm16
+hidden_bones = stock_short, barrel_short, sight
+hud = wpn_bm16_full_hud
+
+inv_grid_width  = 6
+inv_grid_height	= 2
+inv_grid_x	= 0
+inv_grid_y      = 31
+
+;---TTX-------------------------------------------------------------------------
+hit_power       = 1.0, 1.0, 1.0, 1.0
+hit_impulse     = 120
+hit_type 		= fire_wound
+fire_distance       	= 100
+bullet_speed		= 270
+rpm                 	= 1000
+rpm_empty_click         = 200
+
+control_inertion_factor = 2.1f
+
+;отдача
+cam_return				= 1
+cam_relax_speed         = 9.0		;скорость возврата в исходное положение
+cam_relax_speed_ai      = 360
+cam_dispersion          = 4 	;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc		= 3.0 	;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac		= 0.4 	;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle			= 13 		;максимальный угол отдачи
+cam_max_angle_horz		= 13 		;(degree) maximum shot horizontal degree
+cam_step_angle_horz		= 1.0 	;(degree) size of step camera moved in horizontal position while shooting
+
+PDM_disp_base 				= 2.3
+PDM_disp_vel_factor 		= 1.6
+PDM_disp_accel_factor 		= 1.6
+PDM_disp_crouch	 				= 1.0
+PDM_disp_crouch_no_acc 			= 0.8
+
+zoom_cam_relax_speed        = 5.0    ; scope & ironsight
+zoom_cam_relax_speed_ai     = 120.75
+zoom_cam_dispersion         = 2.5
+zoom_cam_dispersion_inc     = 2.2
+zoom_cam_dispersion_frac    = 0.5
+zoom_cam_max_angle          = 5.0
+zoom_cam_max_angle_horz     = 5.0
+zoom_cam_step_angle_horz    = 0.5
+
+fire_dispersion_condition_factor = 6	;увеличение дисперсии в процентах при максимальном износе
+
+position                         = -0.025000, -0.114500, 0.060000
+
+[wpn_bm16_full_hud]:wpn_bm16_hud
+
+
+[wpn_bm16_arena]:wpn_bm16

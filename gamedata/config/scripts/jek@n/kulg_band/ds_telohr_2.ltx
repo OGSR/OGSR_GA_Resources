@@ -1,0 +1,120 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = {+kulgband_informer_map_info} walker@5, {+kulgband_hutor_deadman_hello} walker@5, walker@begin
+;combat_ignore = combat_ignore
+danger = danger_ignore
+on_death = death
+threshold = threshold@telohr_2_threshold
+on_hit = hit
+
+
+[walker@begin]
+path_walk =	telohr_2_walk
+path_look =	telohr_2_look
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+on_timer = 1|walker 
+
+[walker]
+path_walk =	telohr_2_walk
+path_look =	telohr_2_look
+meet = meet@patrol_bored
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+on_info = {+kulg_band_hutor_attacked} %=killactor%
+on_info2 = {+ds_telohr_2_go_out} walker@1
+;on_info2 = {+kulg_band_meet_speech_loose} walker@goodbye %=make_invulnerable%
+
+
+; Секция ожидания перед удалением:
+[walker@goodbye]
+path_walk =	telohr_2_walk
+path_look =	telohr_2_look
+combat_ignore_cond = always
+on_actor_dist_ge_nvis = 30|%=release%
+
+
+; У крыльца:
+[walker@1]
+path_walk =	telohr_2_walk2
+path_look =	telohr_2_look2
+meet = no_meet
+combat_ignore_cond = always
+on_info = {+kulgband_hutor_deadman_hello} walker@5
+on_signal       = arrived|walker@2 %=play_snd_on_me(characters_voice\scenario\telohr_2_on_place)%
+
+[walker@2]
+path_walk =	telohr_2_walk2
+path_look =	telohr_2_look2
+combat_ignore_cond = always
+on_info = {+kulgband_hutor_deadman_hello} walker@3_1
+
+[walker@3_1]
+path_walk =	telohr_2_walk2
+path_look =	telohr_2_look2
+meet = no_meet
+combat_ignore_cond = always
+on_timer = 11000|walker@3 %=play_snd_on_me(characters_voice\scenario\telohr_2_wondered)%
+
+
+; Идём сливать Кульгавого:
+[walker@3]
+path_walk =	telohr_2_walk3
+path_look =	telohr_2_look3
+meet = no_meet
+combat_ignore_cond = always
+on_signal       = arrived|walker@4 %=play_snd_on_me(characters_voice\human_01\bandit\fight\attack\attack_3)%
+
+[walker@4]
+path_walk =	telohr_2_walk3
+path_look =	telohr_2_look3
+meet = no_meet
+combat_ignore_cond = always
+on_timer = 2000|walker@5 %=kulgband_telohr_glavar_shoot%
+
+[walker@5]
+path_walk =	telohr_2_walk
+path_look =	telohr_2_look
+meet = no_meet
+combat_ignore_cond = always
+
+
+
+
+[danger_ignore]
+ignore_distance = 5
+
+
+[meet@patrol_bored]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 5|actor
+victim_wpn = 5|actor
+meet_state = 3|checkpda@patrol_bored|1|checkpda@patrol_bored
+meet_state_wpn = 3|checkpda@patrol_bored|1|checkpda@patrol_bored
+
+
+[combat_ignore]
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+
+
+[threshold@telohr_2_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+
+[death]
+on_info = %+ds_telohr_2_dead%
+
+
+[hit]
+on_info = {=hit_by_actor} %+kulg_band_hutor_attacked%
+
+
+
+
+
+
+
+

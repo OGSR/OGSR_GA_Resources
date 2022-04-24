@@ -1,0 +1,154 @@
+
+-- ухудшение зрения неписей ночью -- учитывает опыт непися - подразумевая наличие ПНВ
+--------------------------- Copyright 2009 KamikaZze для OGSE -----------------------
+
+local fov_normal = 120
+local fov_in_danger = 150
+local range_normal = 120
+local range_danger_night = 75
+
+
+function attach(sm)
+  sm:subscribe({ signal = "on_npc_death", fun = this.on_death     })
+  sm:subscribe({ signal = "on_npc_hit",   fun = this.on_hit       })
+  sm:subscribe({ signal = "on_npc_spawn", fun = this.on_npc_spawn })
+end
+
+
+function on_npc_spawn( obj, binder )
+  if obj:character_community() == "zombied" or not obj:alive() then return end
+
+  local s = {
+    [ "signal" ] = "on_npc_update." .. obj:id(),
+    [ "fun"    ] = this.on_update,
+    [ "queued" ] = true,
+  }
+  binder[ script_name() .. ".subscribed" ] = s
+  ogse_signals.get_mgr():subscribe( s )
+end
+
+
+function on_death( obj )
+  local binder = obj:binded_object()
+  local s      = binder[ script_name() .. ".subscribed" ]
+  if s then
+    ogse_signals.get_mgr():unsubscribe( s )
+    binder[ script_name() .. ".subscribed" ] = nil
+  end
+end
+
+
+function on_hit( obj, amount, local_direction, who, bone_index )
+  if obj:character_community() == "zombied" or not obj:alive() then return end
+
+  obj:binded_object()[ script_name() .. ".being_hit" ] = time_global() + 10000
+  check_night( obj )
+end
+
+
+function on_update( obj )
+  ogse_signals.get_mgr():reschedule( 10000 + math.random( 2000 ) )
+  check_night( obj )
+end
+
+
+function check_night( npc )
+  local nid = npc:id()
+  if xr_companion.is_companion( nid ) then return end
+
+  local npc_rank = ranks.get_obj_rank_name( npc )
+  if
+    npc:best_enemy()
+    or xrs_battle_ai.in_combat[ nid ]
+    or (
+      npc:binded_object()[ script_name() .. ".being_hit" ]
+      and npc:binded_object()[ script_name() .. ".being_hit" ] > time_global()
+    )
+  then
+    if npc:fov() < fov_in_danger then
+      npc:set_fov( fov_in_danger )
+    end
+    -- если мы заметили врага то увеличим и дальность обзора тоже, так
+    -- как по сути нас уже заметили
+    if is_night() then
+      -- ночь
+      if npc:range() < range_danger_night then
+        npc:set_range( range_danger_night )
+      end
+    else
+      -- день
+      if npc:range() < range_normal then
+        npc:set_range( range_normal )
+      end
+    end
+
+  elseif npc:best_danger() then
+    -- если мы напуганы увеличим угол обзора имитируя опасливое
+    -- осматривание по сторонам и повышенную внимательность
+    if npc:fov() < fov_in_danger then
+      npc:set_fov( fov_in_danger )
+    end
+
+  else
+    -- пока мы спокойны
+    if is_night() then
+      -- ночь
+      if npc_rank == "novice" then
+        npc:set_fov(  90 )
+        npc:set_range( 40 )
+      elseif npc_rank == "experienced" then
+        npc:set_fov(  95 )
+        npc:set_range( 45 )
+      elseif npc_rank == "veteran" then
+        npc:set_fov( 100 )
+        npc:set_range( 50 )
+      else
+        npc:set_fov( 110 )
+        npc:set_range( 55 )
+      end
+
+    elseif is_twilight() then
+      -- сумерки
+      npc:set_fov( fov_normal )
+      if npc_rank == "novice" then
+        npc:set_range( 60 )
+      elseif npc_rank == "experienced" then
+        npc:set_range( 65 )
+      elseif npc_rank == "veteran" then
+        npc:set_range( 70 )
+      else
+        npc:set_range( 75 )
+      end
+
+    else
+      -- день
+      npc:set_fov( fov_normal )
+      npc:set_range( range_normal )
+    end
+  end
+end
+
+
+function is_night()
+  local htime = level.get_time_hours()
+  return (
+    ( htime <= 4 or htime >= 21 )
+    and not dsh.is_torch_enabled()
+  )
+end
+
+
+function is_twilight()
+  local htime   = level.get_time_hours()
+  local weather = ogse_weather_mgr.monitoring_weather_sect
+  return (
+    (
+      ( ( htime <= 6 and htime > 4 ) or ( htime >= 19 and htime < 21 ) )
+      or (
+        ( not is_night() )
+        and ( weather and string.find( weather, "storm" ) )
+      )
+    )
+    and not dsh.is_torch_enabled()
+  )
+end

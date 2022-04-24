@@ -1,0 +1,118 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-- Мирное получение документов у Жеки Дуплета в лаборатории 18
+local items = {"dar_document1", "dar_document2", "dar_document4", "dar_document5"}
+local money_amount = 20000
+
+-- Жека Дуплет забирает все документы
+function explorer_take_away_docs(actor, npc)
+	for k,v in pairs(items) do
+		local obj = actor:object(v)
+		if obj ~= nil then
+			dialogs.relocate_item(npc, obj, "out")
+		end		
+	end
+--проваливаем квест найти рыбку	
+	if has_alife_info("dar_explorer_find_af") then
+		level_tasks.set_task_state (task.fail, "find_af_gold_fish", 0)
+	end
+--проваливаем квест найти деньги	
+	if has_alife_info("dar_explorer_find_money") then
+		level_tasks.set_task_state (task.fail, "find_money", 0)
+	end
+-- удаляем метку с Жеки
+	metka_off()
+end
+
+-- проверка наличия документов у гг
+function explorer_has_docs()
+	for k,v in pairs(items) do
+		if db.actor:object(v) ~= nil then
+			db.actor:give_info_portion("dar_explorer_has_docs")
+		end
+	end	
+end
+
+-- проверка наличия золотой рыбки у гг
+function explorer_has_af()
+-- нужно для инфопоршней
+	if db.actor:object("af_gold_fish") ~= nil then
+		db.actor:give_info_portion("dar_explorer_has_af")
+	end
+--	нужно для проверки, и чтобы не срабатывало несколько раз
+	if has_alife_info("dar_explorer_find_af") then
+		return	db.actor:object("af_gold_fish") ~= nil
+	end
+end
+
+-- гг отдает золотую рыбку
+function explorer_take_away_af(actor, npc)
+	if db.actor:object("af_gold_fish") ~= nil then
+		dialogs.relocate_item_section(npc, "af_gold_fish", "out")
+	end
+end
+
+-- проверка наличия 20000 денег у гг
+function explorer_has_money()
+-- нужно для инфопоршней
+	if	db.actor:money() >= money_amount then
+		db.actor:give_info_portion("dar_explorer_has_money")
+	end
+--	нужно для проверки, и чтобы не срабатывало несколько раз	
+	if has_alife_info("dar_explorer_find_money") then
+		return db.actor:money() >= money_amount
+	end
+end
+
+-- гг отдает 20000 денег
+function explorer_take_away_money(actor, npc)
+	if	db.actor:money() >= money_amount then
+		dialogs.relocate_money(npc, money_amount, "out")
+	end
+end
+
+-- сообщение, что найдена рыбка
+function send_message_af(actor, npc)
+	news_manager.send_tip(db.actor, "finde_af", nil, nil, 6000, nil)
+end
+
+-- сообщение, что достаточно денег
+function send_message_money(actor, npc)
+	news_manager.send_tip(db.actor, "finde_money", nil, "money", 6000, nil)
+end
+
+-- Жека Дуплет отдает 3-й документ, удаляем документ из инвентаря Жеки
+function explorer_give_away_doc(actor, npc)
+	dialogs.relocate_item_section(npc, "dar_document3", "in")
+	if has_alife_info("dar_explorer_found_doc") then
+		local jeka_id_s = xr_logic.pstor_retrieve(db.actor,"jeka_id_s") or jeka_id
+		local npc = level.object_by_id(jeka_id_s) or level.object_by_id(jeka_id)
+		ogse.remove_item_from_inventory_by_name("dar_document3", npc)
+	end
+end
+
+-- ставим метку на Жеку Дуплета после того, как нашли артефакт/деньги
+function metka_on()
+local jeka_id_s = xr_logic.pstor_retrieve(db.actor,"jeka_id_s") or jeka_id
+local text_1 = game.translate_string("find_af_gold_fish_2")
+local text_2 = game.translate_string("find_money_2")
+	if has_alife_info("dar_explorer_find_af") then
+		text = text_1
+	elseif has_alife_info("dar_explorer_find_money") then
+		text = text_2
+	end
+	if	jeka_id_s then
+		level.map_add_object_spot_ser(jeka_id_s, "blue_location", text)
+	end
+end
+
+-- убираем с него метку после сдачи/провала задания
+function metka_off()
+local jeka_id_s = xr_logic.pstor_retrieve(db.actor,"jeka_id_s") or jeka_id
+	if	jeka_id_s then
+		level.map_remove_object_spot(jeka_id_s, "blue_location")
+		jeka_id = nil
+		jeka_id_s = nil
+	end
+end
+-- Мирное получение документов у Жеки Дуплета в лаборатории 18

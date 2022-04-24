@@ -1,0 +1,38 @@
+[logic]
+active = walker
+
+[smart_terrains]
+none = true
+
+[walker]
+path_walk = agr_quest_plennik_millitary3_walk
+path_look = agr_quest_plennik_millitary3_look
+danger = danger_condition
+on_info = {+bar_kvest_plennik_on_base_mils_fail} remark1
+
+[remark1]
+target = 351
+anim = threat
+on_timer = 24000 | remark2
+danger = danger_condition
+
+[remark2]
+target = 351
+anim = threat_fire
+on_timer = 1000 | walker1
+danger = danger_condition
+
+
+[walker1]
+path_walk = agr_quest_plennik_go_off
+on_signal = path_end | %=del_npc%
+danger = danger_condition
+
+
+[danger_condition]
+ignore_distance_corpse = 0
+
+
+
+
+

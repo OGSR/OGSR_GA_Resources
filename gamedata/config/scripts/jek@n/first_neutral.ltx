@@ -1,0 +1,72 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+on_death = death
+combat_ignore_keep_when_attacked = true
+
+[walker@begin]
+path_walk =	first_neutral_point
+path_look =	lekar_point
+on_timer = 100 | walker
+combat_ignore_cond = always
+combat_ignore_keep_when_attacked = true
+
+[walker]
+path_walk =	first_neutral_point
+path_look =	lekar_point
+danger = danger_condition
+on_info = {+first_neutral_standup} walker1
+meet = no_meet
+combat_ignore_cond = always
+combat_ignore_keep_when_attacked = true
+
+[walker1]
+path_walk =	first_neutral_point
+path_look =	lekar_point
+danger = danger_condition
+on_timer = 6000 | remark1
+meet = no_meet
+combat_ignore_cond = always
+combat_ignore_keep_when_attacked = true
+
+[remark1]
+anim = trans_0
+no_move = true
+target = actor
+combat_ignore_cond = always
+on_info = {+first_quest_info} remark2
+combat_ignore_keep_when_attacked = true
+
+[remark2]
+anim = wounded_heavy_3
+no_move = true
+snd = first_neutral_bred_2
+;snd_anim_sync = true
+target = nil
+meet = no_meet
+combat_ignore_cond = always
+on_signal = action_end | walker %+first_neural_death%
+combat_ignore_keep_when_attacked = true
+
+[danger_condition]
+ignore_distance = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[meet]
+meet_state = 10| trans_0
+meet_state_wpn = 10| trans_0
+victim = 0| nil
+victim_wpn = 0| nil
+use = true
+use_wpn = true
+
+[death]
+on_info = %+first_neutral_dead%
+

@@ -1,0 +1,10 @@
+[collide]
+ignore_static
+
+
+[logic]
+active = ph_idle@1
+
+[ph_idle@1]
+tips = zapiska_use
+on_use = %=give_items_to_actor(book_9) =play_snd(characters_voice\scenario\shelest_1) =release%

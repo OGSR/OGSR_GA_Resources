@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="phrase_yes">
+		<text>Я берусь.</text>
+	</string>
+	<string id="phrase_no">
+		<text>Я передумал.</text>
+	</string>
+	<string id="phrase_what_kvest">
+		<text>Ну, и что же ты хотел?</text>
+	</string>
+	<string id="phrase_complete">
+		<text>Я выполнил это задание.</text>
+	</string>
+	<string id="phrase_fail">
+		<text>Я отказываюсь выполнять это задание.</text>
+	</string>
+	<string id="phrase_fail_2">
+		<text>Зря ты так. Ну, дело твое.</text>
+	</string>
+	<string id="phrase_not_what">
+		<text>Ничего. Мне идти надо.</text>
+	</string>
+	<string id="phrase_job_not_done">	
+		<text>Какая тебе работа? Ты со старым заданием еще не разобрался!</text>
+	</string>
+	
+	<string id="actor_break_dialog_0">
+		<text>До встречи!</text>
+	</string>
+	<string id="actor_help_wounded_0">
+		<text>Как ты?</text>
+	</string>
+	<string id="actor_help_wounded_1">
+		<text>Хреново мне, не видишь что ли? Нужна аптечка или хотя бы бинт.</text>
+	</string>
+	<string id="actor_help_wounded_11">
+		<text>Держи аптечку.</text>
+	</string>
+	<string id="actor_help_wounded_111">
+		<text>Спасибо, брат, не забуду.</text>
+	</string>
+	<string id="actor_help_wounded_12">
+		<text>Держи бинт.</text>
+	</string>
+	<string id="actor_help_wounded_13">
+		<text>Извини, ничего нет.</text>
+	</string>
+	<string id="actor_help_wounded_131">
+		<text>Как же ты в Зоне ходишь? Зацепит тебя какая-то зараза, а ты даже вылечить себя не сможешь.</text>
+	</string>
+	<string id="actor_help_wounded_14">
+		<text>Хех, что ж ты так? Извини, свои я тебе не дам, иначе сам останусь ни с чем.</text>
+	</string>
+	<string id="actor_help_wounded_141">
+		<text>Твое дело, но не думай, что это делает тебе чести.</text>
+	</string>
+	<string id="hello_dialog_2">
+		<text>Привет!</text>
+	</string>
+	<string id="hello_dialog_3">
+		<text>Слышь, браток, помоги!</text>
+	</string>
+
+<!-- COMPANION STALKER -->	
+	
+	<string id="companion_release_dialog_0">
+		<text>Спасибо тебе, дружище. Дальше один пойду.</text>
+	</string>	
+	
+	<string id="companion_release_dialog_1">
+		<text>И тебе спасибо. Удачи.</text>
+	</string>
+
+	<string id="companion_hire_dialog_0">
+		<text>Не желаешь составить мне компанию?</text>
+	</string>	
+	
+	<string id="companion_hire_dialog_1">
+		<text>Отчего бы и не составить. Я согласен.</text>
+	</string>
+
+	<string id="companion_hire_dialog_2">
+		<text>Извини, у меня другие планы.</text>
+	</string>
+
+	<string id="companion_hire_dialog_3">
+		<text>Не, ну тебя нахрен, я боюсь с тобой идти.</text>
+	</string>
+
+	<string id="companion_hire_dialog_4">
+		<text>Шел бы ты к черту, Меченый, с тобой еще никто назад не возвращался. Ищи себе отмычек в другом месте.</text>
+	</string>
+
+	<string id="companion_hire_dialog_5">
+		<text>Извини, но не могу. Устал я мотаться по Зоне, передохнуть мне надо.</text>
+	</string>
+
+	<string id="companion_hire_dialog_6">
+		<text>Не, парниша, зелен ты еще со мной в Зону ходить. Не потянешь, уж не обижайся.</text>
+	</string>
+
+	<string id="companion_hire_dialog_7">
+		<text>Не, Меченый, я с тобой боюсь идти. Ты в такие закоулки Зоны лазишь, где я и часа не продержусь. Разве что отмычкой поработаю... Лучше уж я сам тут пока, на мелкой воде. Глядишь, и хабарка найду, и жив останусь.</text>
+	</string>
+
+	<string id="companion_hire_dialog_8">
+		<text>Нет, с тобой и так уже достаточно народу, ни к чему толпами по Зоне бродить, не любит она этого.</text>
+	</string>
+
+	<string id="companion_hire_dialog_9">
+		<text>Меченый, ты уж не обижайся, но пока ты не из наших -  у нас с тобой общих дел быть не может.</text>
+	</string>
+
+	<string id="companion_management_dialog_0">
+		<text>Давай обсудим нашу тактику.</text>
+	</string>
+
+	<string id="companion_management_dialog_1">
+		<text>Я слушаю.</text>
+	</string>
+
+	<string id="companion_management_dialog_2">
+		<text>Следуй за мной.</text>
+	</string>
+
+	<string id="companion_management_dialog_3">
+		<text>Как мне при этом себя вести?</text>
+	</string>
+
+	<string id="companion_management_dialog_4">
+		<text>Просто иди за мной и будь настороже.</text>
+	</string>
+
+	<string id="companion_management_dialog_5">
+		<text>Иди за мной и старайся подпустить врага поближе.</text>
+	</string>
+
+	<string id="companion_management_dialog_6">
+		<text>Иди за мной и атакуй только при самой крайней необходимости.</text>
+	</string>	
+	
+	<string id="companion_management_dialog_7">
+		<text>Жди здесь.</text>
+	</string>
+
+	<string id="companion_management_dialog_8">
+		<text>Как мне при этом себя вести?</text>
+	</string>
+
+	<string id="companion_management_dialog_9">
+		<text>Просто жди здесь и будь настороже.</text>
+	</string>
+
+	<string id="companion_management_dialog_10">
+		<text>Жди здесь и старайся подпустить врага поближе.</text>
+	</string>
+
+	<string id="companion_management_dialog_11">
+		<text>Жди здесь и атакуй только при самой крайней необходимости.</text>
+	</string>
+
+	<string id="companion_management_dialog_12">
+		<text>Крадись за мной.</text>
+	</string>
+
+	<string id="companion_management_dialog_13">
+		<text>Как мне при этом себя вести?</text>
+	</string>
+
+	<string id="companion_management_dialog_14">
+		<text>Просто крадись за мной и будь настороже.</text>
+	</string>
+
+	<string id="companion_management_dialog_15">
+		<text>Крадись за мной и старайся подпустить врага поближе.</text>
+	</string>
+
+	<string id="companion_management_dialog_16">
+		<text>Крадись за мной и атакуй только при самой крайней необходимости.</text>
+	</string>
+
+	<string id="companion_management_dialog_17">
+		<text>Спрячься здесь.</text>
+	</string>
+
+	<string id="companion_management_dialog_18">
+		<text>Как мне при этом себя вести?</text>
+	</string>
+
+	<string id="companion_management_dialog_19">
+		<text>Просто спрячься здесь и будь настороже.</text>
+	</string>
+
+	<string id="companion_management_dialog_20">
+		<text>Спрячься здесь и старайся подпустить врага поближе.</text>
+	</string>
+
+	<string id="companion_management_dialog_21">
+		<text>Спрячься здесь и атакуй только при самой крайней необходимости.</text>
+	</string>	
+	
+	<!-- COMPANION DOLG -->
+	
+	<string id="companion_release_dialog_dolg_0">
+		<text>Спасибо за службу, боец. Свободен!</text>
+	</string>	
+	
+	<string id="companion_release_dialog_dolg_1">
+		<text>Служу Долгу!</text>
+	</string>
+
+	<string id="companion_hire_dialog_dolg_0">
+		<text>Боец, вместе повоюем?</text>
+	</string>	
+	
+	<string id="companion_hire_dialog_dolg_1">
+		<text>Так точно. Ожидаю ваших распоряжений.</text>
+	</string>
+
+	<string id="companion_hire_dialog_dolg_2">
+		<text>Нет, Меченый, у меня задание, занят я.</text>
+	</string>
+
+	<string id="companion_hire_dialog_dolg_3">
+		<text>Извини, не пойду. Бойцы про тебя всякое рассказывают...</text>
+	</string>
+
+	<string id="companion_hire_dialog_dolg_4">
+		<text>Нет уж, Меченый, о тебе дурная слава ходит. Ты каждый раз в одиночку возвращаешься, а жить всем охота.</text>
+	</string>
+
+	<string id="companion_hire_dialog_dolg_5">
+		<text>Извини, но не могу. Передохнуть мне надо после вылазок, умаялся монстров валить.</text>
+	</string>
+
+	<string id="companion_hire_dialog_dolg_6">
+		<text>Меченый, тебе со мной в Зону идти опыта не хватит. Научись сначала монстров валить как следует, да звание получи повыше.</text>
+	</string>
+
+	<string id="companion_hire_dialog_dolg_7">
+		<text>Не пойду, уж не обижайся. Опыта у меня маловато с тобой тягаться - ты боец закаленный, я салага по сравнению с тобой.</text>
+	</string>
+
+	<string id="companion_hire_dialog_dolg_8">
+		<text>Нет, с тобой и так уже достаточно народу, я тут нужнее буду.</text>
+	</string>
+
+	<string id="companion_hire_dialog_dolg_9">
+		<text>Меченый, ты уж не обижайся, но пока ты не из наших -  у нас с тобой общих дел быть не может.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_0">
+		<text>Боец, слушай указания.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_1">
+		<text>Так точно!</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_2">
+		<text>Следуй за мной.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_3">
+		<text>Как реагировать на угрозы?</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_4">
+		<text>Сохраняй повышенную боеготовность.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_5">
+		<text>Следуй позади, веди огонь со средней дистанции.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_6">
+		<text>Иди за мной и атакуй только при самой крайней необходимости.</text>
+	</string>	
+	
+	<string id="companion_management_dialog_dolg_7">
+		<text>Жди здесь.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_8">
+		<text>Как реагировать на угрозы?</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_9">
+		<text>Сохраняй повышенную боеготовность.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_10">
+		<text>Жди здесь и веди огонь со средней дистанции.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_11">
+		<text>Жди здесь и вступай в бой только при самой крайней необходимости.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_12">
+		<text>Крадись за мной.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_13">
+		<text>Как реагировать на угрозы?</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_14">
+		<text>Сохраняй повышенную боеготовность.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_15">
+		<text>Крадись за мной и веди огонь со средней дистанции.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_16">
+		<text>Крадись за мной и вступай в бой только при самой крайней необходимости.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_17">
+		<text>Спрячься здесь.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_18">
+		<text>Как реагировать на угрозы?</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_19">
+		<text>Сохраняй повышенную боеготовность.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_20">
+		<text>Спрячься здесь и веди огонь со средней дистанции.</text>
+	</string>
+
+	<string id="companion_management_dialog_dolg_21">
+		<text>Спрячься здесь и вступай в бой только при самой крайней необходимости.</text>
+	</string>		
+	
+	<!-- COMPANION FREEDOM -->
+	
+	<string id="companion_release_dialog_freedom_0">
+		<text>Сэнькс, мэн. Дальше сам потопаю, зачетно потусили!</text>
+	</string>	
+	
+	<string id="companion_release_dialog_freedom_1">
+		<text>Покедова, чувак, Свобода рулит!</text>
+	</string>
+
+	<string id="companion_hire_dialog_freedom_0">
+		<text>Эй, мэн, потусим вместе? На пару веселее!</text>
+	</string>	
+	
+	<string id="companion_hire_dialog_freedom_1">
+		<text>Не против, пошли потусуемся, я в теме.</text>
+	</string>
+
+	<string id="companion_hire_dialog_freedom_2">
+		<text>Не, мэн, занят я, извини.</text>
+	</string>
+
+	<string id="companion_hire_dialog_freedom_3">
+		<text>Нафиг-нафиг, Меченый, стремает меня с тобой идти.</text>
+	</string>
+
+	<string id="companion_hire_dialog_freedom_4">
+		<text>Отвали, мэн, с тобой и так уже народу ушло много. Чего-то я их не видел никого с тех пор.</text>
+	</string>
+
+	<string id="companion_hire_dialog_freedom_5">
+		<text>Пардон, не могу. Замордовался уже бродить, надо передохнуть, травки покурить, расслабиться. У тебя травка есть? Нету? Жаль...</text>
+	</string>
+
+	<string id="companion_hire_dialog_freedom_6">
+		<text>Не, мэн, слабоват ты еще. Подрасти сначала.</text>
+	</string>
+
+	<string id="companion_hire_dialog_freedom_7">
+		<text>Не, нахрен, Меченый, стремно мне - ты в такие места лезешь! Я по жизни торчу, как ты оттуда одним куском возвращаешься.</text>
+	</string>
+
+	<string id="companion_hire_dialog_freedom_8">
+		<text>Нет, мэн, с тобой и так уже достаточно народу, один косяк на троих соображать не прет.</text>
+	</string>
+
+	<string id="companion_hire_dialog_freedom_9">
+		<text>Не, мэн, ты уж не обижайся, но пока ты не из наших -  у нас с тобой общих дел быть не может.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_0">
+		<text>Слухай сюда, мэн, надо по тактике перетереть.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_1">
+		<text>Гри, внимаю.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_2">
+		<text>Пошли за мной короче.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_3">
+		<text>А если какая хрень?</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_4">
+		<text>Да все ништяк, но ты будь готов, если вдруг что.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_5">
+		<text>Да путем, но если что - поближе подпусти.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_6">
+		<text>Ты топай себе и стволом не маши.</text>
+	</string>	
+	
+	<string id="companion_management_dialog_freedom_7">
+		<text>Посиди тут, покури, мне отойти надо.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_8">
+		<text>А если какая хрень?</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_9">
+		<text>Да кури покамест, но ты будь готов если что вдруг.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_10">
+		<text>Да ништяк все, кури себе, но если что - поближе подпускай.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_11">
+		<text>Кури себе спокойно, как мирный мэн, на провокации не ведись.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_12">
+		<text>Пошли за мной, только не пались смотри.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_13">
+		<text>А если какая хрень?</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_14">
+		<text>Пошли, просто будь готов если вдруг что.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_15">
+		<text>Нормуль, не пались только и, если что, поближе подпусти.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_16">
+		<text>Слушай, не пались до последнего, понял?</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_17">
+		<text>Сныкайся тут и не пались.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_18">
+		<text>А если какая хрень?</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_19">
+		<text>Да ты ныкайся как следует и просто будь готов, если вдруг что.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_20">
+		<text>Ныкайся основательно и, если что, поближе подпусти.</text>
+	</string>
+
+	<string id="companion_management_dialog_freedom_21">
+		<text>Сныкайся ваще и носа не кажи, будто нету тебя.</text>
+	</string>	
+	
+	<!-- COMPANION BANDIT -->
+	
+	<string id="companion_release_dialog_bandit_0">
+		<text>Ну все, брателла, разбежались. Бывай здоров.</text>
+	</string>	
+	
+	<string id="companion_release_dialog_bandit_1">
+		<text>Тебе тоже не болеть.</text>
+	</string>
+
+	<string id="companion_hire_dialog_bandit_0">
+		<text>Слышь, братан, давай банду устроим?</text>
+	</string>	
+	
+	<string id="companion_hire_dialog_bandit_1">
+		<text>Дело базаришь.</text>
+	</string>
+
+	<string id="companion_hire_dialog_bandit_2">
+		<text>Не, я сам себе банда.</text>
+	</string>
+
+	<string id="companion_hire_dialog_bandit_3">
+		<text>Иди ты, с тобой только лохи ходят.</text>
+	</string>
+
+	<string id="companion_hire_dialog_bandit_4">
+		<text>Не, нахрен тебя, беспредельщика! Ты только и знаешь что пацанов под маслины подставлять, в натуре.</text>
+	</string>
+
+	<string id="companion_hire_dialog_bandit_5">
+		<text>Не, не в жилу, и так запарился уже.</text>
+	</string>
+
+	<string id="companion_hire_dialog_bandit_6">
+		<text>Кишка у тебя тонка, фраерок. Сначала из шестерок выйди, потом побазарим.</text>
+	</string>
+
+	<string id="companion_hire_dialog_bandit_7">
+		<text>Не, ты в законе, на серьезные дела ходишь, мне сцыкотно - самое большее на стреме постоять, и то вряд ли.</text>
+	</string>
+
+	<string id="companion_hire_dialog_bandit_8">
+		<text>Не, браток, у тебя и так уже шестерка есть.</text>
+	</string>
+
+	<string id="companion_hire_dialog_bandit_9">
+		<text>Не, в натуре, ты не из наших -  мне нечего с тобой тереть вообще.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_0">
+		<text>Слышь, брателла, слухай сюда в натуре.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_1">
+		<text>Чего нада, нах?</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_2">
+		<text>Слышь, ты кандехай за мной, понял?</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_3">
+		<text>Не, а что, в натуре, если шухер?</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_4">
+		<text>Не бухти, если шухер - достал волыну и шмаляй, нах.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_5">
+		<text>Кандехай за мной, если что - пусть фраера поближе подвалят.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_6">
+		<text>Кандехай за мной и шухера вообще не подымай. Волыну убрал, бегом нах!</text>
+	</string>	
+	
+	<string id="companion_management_dialog_bandit_7">
+		<text>Стой тут, понял? Вернусь проверю.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_8">
+		<text>Не, а что, в натуре, если шухер?</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_9">
+		<text>Не бухти, если шухер - достал волыну и шмаляй нах, не маленький.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_10">
+		<text>Стой сказал, если что, пусть фраера поближе подвалят.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_11">
+		<text>Не бухти, сказано. Волыну убрал бегом и шухера не подымай, в натуре!</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_12">
+		<text>Кандехай за мной без палева.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_13">
+		<text>Не, а что, в натуре, если шухер?</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_14">
+		<text>Не бухти, если шухер - достал волыну и шмаляй нах.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_15">
+		<text>Без палева сказал, что, не вкурил, в натуре? Если что, пусть фраера поближе подвалят.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_16">
+		<text>Без палева, твою мать, и никакого шухера чтобы! Волыну убрал быренько!</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_17">
+		<text>Сныкайся тут и жди.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_18">
+		<text>Не, а что, в натуре, если шухер?</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_19">
+		<text>Не бухти, если шухер - достал волыну и шмаляй нах.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_20">
+		<text>Ныкайся, сказано тебе, если что, пусть фраера поближе подвалят.</text>
+	</string>
+
+	<string id="companion_management_dialog_bandit_21">
+		<text>Ты не вкурил?! Ваще не высовывайся нах, и волыну убери, мля!</text>
+	</string>	
+	
+	<!-- COMPANION ZOMBIED -->
+	
+	<string id="companion_release_dialog_zombied_0">
+		<text>Ыыыыы... Покаааа... Я туда...</text>
+	</string>	
+	
+	<string id="companion_release_dialog_zombied_1">
+		<text>Идиии-и-и...</text>
+	</string>
+
+	<string id="companion_hire_dialog_zombied_0">
+		<text>Пашлииии... Мачиииить... Крашыыыыть...</text>
+	</string>	
+	
+	<string id="companion_hire_dialog_zombied_1">
+		<text>Пашлииии....</text>
+	</string>
+
+	<string id="companion_hire_dialog_zombied_2">
+		<text>Нееее... Занят-занят... ..Ыыы...</text>
+	</string>
+
+	<string id="companion_hire_dialog_zombied_3">
+		<text>Нееее... Страааааш... нннооо...</text>
+	</string>
+
+	<string id="companion_hire_dialog_zombied_4">
+		<text>Ыыыы... Ухооодииии... Ты смееерть...</text>
+	</string>
+
+	<string id="companion_hire_dialog_zombied_5">
+		<text>Нееее... Спааать... Устааал...</text>
+	</string>
+
+	<string id="companion_hire_dialog_zombied_6">
+		<text>Слабовааат, нееее.</text>
+	</string>
+
+	<string id="companion_hire_dialog_zombied_7">
+		<text>Бооюююсь... Неее...</text>
+	</string>
+
+	<string id="companion_hire_dialog_zombied_8">
+		<text>Многа... Многа... Нееее</text>
+	</string>
+
+	<string id="companion_hire_dialog_zombied_9">
+		<text>Ухооодиии... Ты злооой...</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_0">
+		<text>Ыыыы! Говорю...</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_1">
+		<text>Ааааа?</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_2">
+		<text>Пашлииии...</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_3">
+		<text>Врагииии?</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_4">
+		<text>Ммммаааачииии!!!! Крааашыыыы!!!</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_5">
+		<text>Ближее... Ближе... Ммммааачиии!!!</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_6">
+		<text>Нннеее крааашыыы... Тиииишшеее...</text>
+	</string>	
+	
+	<string id="companion_management_dialog_zombied_7">
+		<text>Стооой.... Ждиии...</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_8">
+		<text>Врагииии?</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_9">
+		<text>Ммммаааачииии!!!! Крааашыыыы!!!</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_10">
+		<text>Ближее... Ближе... Ммммааачиии!!!</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_11">
+		<text>Нннеее крааашыыы... Тиииишшеее...</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_12">
+		<text>Тииихо... Пашлии...</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_13">
+		<text>Врагииии?</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_14">
+		<text>Ммммаааачииии!!!! Крааашыыыы!!!</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_15">
+		<text>Ближее... Ближе... Ммммааачиии!!!</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_16">
+		<text>Нннеее крааашыыы... Тиииишшеее...</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_17">
+		<text>Лежыыы....</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_18">
+		<text>Врагииии?</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_19">
+		<text>Ммммаааачииии!!!! Крааашыыыы!!!</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_20">
+		<text>Ближее... Ближе... Ммммааачиии!!!</text>
+	</string>
+
+	<string id="companion_management_dialog_zombied_21">
+		<text>Нннеее крааашыыы... Тиииишшеее...</text>
+	</string>	
+	
+	<string id="companion_management_dialog_weapon_root">
+		<text>Кстати, насчет оружия...</text>
+	</string>
+	
+	<string id="companion_management_dialog_weapon_what">
+		<text>Да?</text>
+	</string>
+	
+	<string id="companion_management_dialog_weapon_use_anything">
+		<text>Используй все, что есть под рукой.</text>
+	</string>
+
+	<string id="companion_management_dialog_weapon_use_pistol">
+		<text>Используй пистолет.</text>
+	</string>
+
+	<string id="companion_management_dialog_weapon_use_submashinegun">
+		<text>Используй пистолет-пулемет.</text>
+	</string>
+
+	<string id="companion_management_dialog_weapon_use_shotgun">
+		<text>Используй дробовик.</text>
+	</string>
+
+	<string id="companion_management_dialog_weapon_use_assault_shotgun">
+		<text>Используй штурмовой дробовик.</text>
+	</string>
+
+	<string id="companion_management_dialog_weapon_use_carbine">
+		<text>Используй карабин.</text>
+	</string>
+
+	<string id="companion_management_dialog_weapon_use_assault_rifle">
+		<text>Используй штурмовую винтовку.</text>
+	</string>
+
+	<string id="companion_management_dialog_weapon_use_sniper_rifle">
+		<text>Используй снайперскую винтовку.</text>
+	</string>
+
+	<string id="companion_management_dialog_weapon_use_mashinegun">
+		<text>Используй пулемет.</text>
+	</string>
+	
+	<string id="companion_management_dialog_weapon_use_grenade_launcher">
+		<text>Используй гранатомет.</text>
+	</string>
+
+	<string id="companion_management_dialog_weapon_use_flamethrower">
+		<text>Используй огнемет.</text>
+	</string>
+	
+	<string id="companion_management_dialog_weapon_allright">
+		<text>Понял.</text>
+	</string>
+
+	<string id="companion_management_dialog_weapon_its_a_threeheaded_monkey">
+		<text>Эй, у тебя за спиной трехголовая обезьяна!</text>
+	</string>
+	
+	<string id="companion_management_dialog_weapon_omg_its_a_lion">
+		<text>Где? Блин, ну тебя в баню, хорош прикалываться!</text>
+	</string>	
+	
+</string_table>

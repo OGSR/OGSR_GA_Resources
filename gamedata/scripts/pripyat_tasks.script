@@ -1,0 +1,38 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+function proceed()
+    -- nv 071008 don't process if not in pripyat
+    if level.name() ~= "l11_pripyat" then return end
+    local actor = db.actor
+
+	if not has_alife_info("pri_monolith_decoder_got") and
+		actor:object("decoder") ~= nil 
+	then
+		actor:give_info_portion("pri_monolith_decoder_got")
+	end       	
+	if not has_alife_info("pri_decoder_docs_conclusion_info") and
+		actor:object("pri_decoder_documents") ~= nil 
+	then
+		actor:give_info_portion("pri_decoder_docs_conclusion_info")
+	end       	
+end
+
+function process_info_portion(info_id)
+
+	if info_id == "pri_show_zones" then
+		if not has_alife_info("aes_first_sound") then
+			level_tasks.add_location_by_sid(story_ids.pri_bus_station_zone, "crlc_mdl", "pri_bus_station_zone_hint", 1)
+			level_tasks.add_location_by_sid(story_ids.pri_monolith_base_zone, "crlc_mdl", "pri_monolith_base_zone_hint", 1)
+			level_tasks.add_location_by_sid(story_ids.pri_stadium_zone, "crlc_big", "pri_stadium_zone_hint", 1)
+		end
+		return true
+	elseif info_id == "aes_first_sound" then
+		level_tasks.remove_location_by_sid(story_ids.pri_bus_station_zone, "crlc_mdl")
+		level_tasks.remove_location_by_sid(story_ids.pri_monolith_base_zone, "crlc_mdl")
+		level_tasks.remove_location_by_sid(story_ids.pri_stadium_zone, "crlc_big")
+		return true
+	end
+
+	return false
+
+end

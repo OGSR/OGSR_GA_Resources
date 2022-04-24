@@ -1,0 +1,99 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+threshold = threshold@dar_bridge_kulgband_glavar_threshold
+
+[walker@begin]
+path_walk =	dar_bridge_kulgband_glavar_walk1
+path_look =	dar_bridge_kulgband_glavar_look1
+on_timer = 1|walker@1 %=make_invulnerable%
+
+
+; Стоим у тачки:
+[walker@1]
+path_walk =	dar_bridge_kulgband_glavar_walk1
+path_look =	dar_bridge_kulgband_glavar_look1
+combat_ignore_cond = always
+on_info = {+bridge_kulgband_glavar_go} walker@2
+
+[walker@2]
+path_walk =	dar_bridge_kulgband_glavar_walk2
+path_look =	dar_bridge_kulgband_glavar_look2
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = patrol
+def_state_moving2 = patrol
+def_state_moving3 = patrol
+on_signal       = arrived|walker@2_1
+
+[walker@2_1]
+path_walk =	dar_bridge_kulgband_glavar_walk2
+path_look =	dar_bridge_kulgband_glavar_look2
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = patrol
+def_state_moving2 = patrol
+def_state_moving3 = patrol
+on_actor_dist_le_nvis = 5|remark@1 %+bridge_kulgband_glavar_on_place%
+
+
+; Подошли к Ворону и испугались:
+[remark@1]
+anim = ispug
+snd = bridge_kulgband_glavar_talk1
+no_move = true
+target = 7375
+combat_ignore_cond = always
+meet = no_meet
+;on_signal = sound_end|remark@2
+on_timer = 2000|remark@2
+
+[remark@2]
+anim = ispug
+snd = bridge_kulgband_glavar_talk2
+no_move = true
+target = 7375
+combat_ignore_cond = always
+meet = no_meet
+;on_signal = sound_end|remark@3
+on_timer = 2000|remark@3
+
+[remark@3]
+anim = ispug
+snd = bridge_kulgband_glavar_talk3
+no_move = true
+target = 7375
+combat_ignore_cond = always
+meet = no_meet
+;on_signal = sound_end|walker@3 %+bridge_kulgband_glavar_go_away =start_bridge_kulgband_timer%
+on_timer = 2000|walker@3 %+bridge_kulgband_glavar_go_away =start_bridge_kulgband_timer%
+
+
+
+[walker@3]
+path_walk =	dar_bridge_kulgband_glavar_walk3
+path_look =	dar_bridge_kulgband_glavar_look3
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+on_signal       = arrived|%=release%
+on_info = {=dist_to_actor_ge(50) +bridge_kulgband_man_info} %=release%
+
+
+
+
+[threshold@dar_bridge_kulgband_glavar_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+
+
+
+
+
+
+

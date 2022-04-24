@@ -1,0 +1,29 @@
+[logic]
+active = nil
+on_death = mob_death
+on_hit = mob_hit
+
+[mob_hit]
+on_info = %+dik_the_monster_wound%
+
+[mob_remark@1]
+anim = z_jamp_1
+on_timer = 5000 | mob_remark@2
+on_info = {+dik_the_monster_wound} mob_remark@wounded
+
+[mob_remark@2]
+anim = new_torso_attack_0
+on_timer = 5000 | mob_remark@3
+on_info = {+dik_the_monster_wound} mob_remark@wounded
+
+[mob_remark@3]
+anim = _stand_idle_1
+on_timer = 5000 | mob_remark@2
+on_info = {+dik_the_monster_wound} mob_remark@wounded
+
+[mob_remark@wounded]
+anim = critical_hit_torso_1
+on_timer = 5000 | mob_remark@1 %-dik_the_monster_wound%
+
+[mob_death]
+on_info = %+dik_the_monster_dead%

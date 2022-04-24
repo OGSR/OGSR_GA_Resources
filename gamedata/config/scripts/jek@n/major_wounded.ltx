@@ -1,0 +1,70 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = remark@begin
+on_death = death
+combat_ignore = combat_ignore
+threshold = threshold@major_wounded_threshold
+
+[remark@begin]
+path_walk = major_wounded_walk1
+path_look = major_wounded_look1
+danger = danger_condition
+combat_ignore_cond = always
+wounded = wounded
+meet = no_meet
+on_timer = 100 | remark@wounded 
+combat_ignore_keep_when_attacked = true
+
+[remark@wounded]
+anim = psy_pain
+no_move = true
+target = nil
+meet = no_meet
+combat_ignore_cond = always
+reactions  = ignore
+on_info = {+tower_box_off} walker@rise
+combat_ignore_keep_when_attacked = true
+
+[walker@rise]
+path_walk = major_wounded_walk1
+path_look = major_wounded_look1
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+major_go_down} walker@down_4 %=add_out_restrictor(bar_tower_porog)%
+
+[walker@down_1]
+path_walk = major_wounded_walk3
+path_look = major_wounded_look3
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal       = arrived | walker@down_2 %+major_goto_rest%
+
+[walker@down_2]
+path_walk = major_wounded_walk3
+path_look = major_wounded_look3
+danger = danger_condition
+combat_ignore_cond = always
+
+[walker@down_4]
+path_walk = major_wounded_walk4
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal = arrived | walker@down_1 %+major_goto_rest =remove_out_restrictor(bar_tower_porog)%
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@major_wounded_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+major_wounded_dead%

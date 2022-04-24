@@ -1,0 +1,36 @@
+
+
+[logic]
+active = remark
+combat_ignore = combat_ignore
+on_death = death
+on_hit = hit
+
+[death]
+on_info = %+esc_kvest_know_do_mils_near_anomaly_take_item%
+
+[hit]
+on_info = %+esc_kvest_know_do_mils_near_anomaly_take_item%
+
+[smart_terrains]
+none = true
+
+[remark]
+anim = guard
+no_move = true
+target = actor
+meet = meet
+combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item}
+
+[meet]
+meet_state = 5| guard@talk_hello| 3| wait@wait| 2| ward@wait
+meet_state_wpn = 5| guard@talk_hello| 3| threat@threat_weap
+victim = 5| actor
+victim_wpn = 5| actor
+use = true
+use_wpn = false
+
+[combat_ignore]
+combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item}
+
+

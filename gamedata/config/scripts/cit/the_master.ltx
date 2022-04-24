@@ -1,0 +1,18 @@
+[logic]
+active = sr_idle@0
+
+[sr_idle@0]
+on_info = {+master_quest_helmet_ready =actor_in_zone(dead_city_the_master)} %+master_quest_know_your_master% sr_idle@1
+on_info2 = {+master_quest_know_your_master} sr_idle@1
+on_info3 = {+master_quest_soup_ready} sr_idle@nil
+
+[sr_idle@1]
+on_info = {+master_quest_burn_motherfucker =actor_has_item(bidon_bomb) =actor_in_zone(dead_city_the_master)} %=drop_actor_item(bidon_bomb) +master_quest_bomb_planted% sr_idle@2
+on_info2 = {+master_quest_bomb_planted} sr_idle@2
+on_info3 = {+master_quest_soup_ready} sr_idle@nil
+
+[sr_idle@2]
+on_info = {+master_quest_bomb_planted =actor_has_item(bidon_bomb)} %=drop_actor_item(bidon_bomb)%
+on_info2 = {+master_quest_soup_ready} sr_idle@nil
+
+[sr_idle@nil]

@@ -1,0 +1,192 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-----------------------------------------------------------------------
+--- xr_statistic.script
+--- Скрипт зарабатывания опыта
+--- поправки внесены KamikaZze, OGS Evolution Team 2010
+--- NPC теперь тоже зарабатывают опыт, опыт копится с разной скоростью
+--- и зависит от монстра
+-----------------------------------------------------------------------
+
+-- множитель опыта для регулировки скорости его накопления
+local multiplier_actor = 2
+local multiplier_npc = 4
+
+local killCountProps = {
+	neutral_novice = 1, 	neutral_experienced = 2, 	neutral_veteran = 3, 	neutral_master = 4,
+	monolith_novice = 1, 	monolith_experienced = 2, 	monolith_veteran = 3, 	monolith_master = 4,
+	military_novice = 1, 	military_experienced = 2, 	military_veteran = 3, 	military_master = 4,
+	killer_novice = 1, 	    killer_experienced = 2, 	killer_veteran = 3, 	killer_master = 4,
+	ecolog_novice = 1, 	    ecolog_experienced = 2, 	ecolog_veteran = 3, 	ecolog_master = 4,
+	dolg_novice = 1, 		dolg_experienced = 2, 		dolg_veteran = 3, 	    dolg_master = 4,
+	freedom_novice = 1, 	freedom_experienced = 2, 	freedom_veteran = 3, 	freedom_master = 4,
+	bandit_novice = 1, 	    bandit_experienced = 2, 	bandit_veteran = 3, 	bandit_master = 4,
+	zombied_novice = 1, 	zombied_experienced = 2, 	zombied_veteran = 3, 	zombied_master = 4,
+	csky_novice = 1, 		csky_experienced = 2,   	csky_veteran = 3, 		csky_master = 4,
+	kulg_band_novice = 1, 		kulg_band_experienced = 2,   	kulg_band_veteran = 3, 		kulg_band_master = 4,
+	kulg_band_2_novice = 1, 		kulg_band_2_experienced = 2,   	kulg_band_2_veteran = 3, 		kulg_band_2_master = 4,
+	bratstvo_9_novice = 1, 		bratstvo_9_experienced = 2,   	bratstvo_9_veteran = 3, 		bratstvo_9_master = 4,
+	neutral_military_novice = 1, 		neutral_military_experienced = 2,   	neutral_military_veteran = 3, 		neutral_military_master = 4,
+	iskatel_novice = 1, 		iskatel_experienced = 2,   	iskatel_veteran = 3, 		iskatel_master = 4,
+	voron_band_novice = 1, 		voron_band_experienced = 2,   	voron_band_veteran = 3, 		voron_band_master = 4,
+	quest_monolith_novice = 1, 		quest_monolith_experienced = 2,   	quest_monolith_veteran = 3, 		quest_monolith_master = 4,
+	neutral_killer_novice = 1, 		neutral_killer_experienced = 2,   	neutral_killer_veteran = 3, 		neutral_killer_master = 4,
+	trader_novice = 1, 		trader_experienced = 2,   	trader_veteran = 3, 	trader_master = 4,
+	tushkano_weak = 1,		tushkano_normal = 2,		tushkano_strong = 3,
+	flesh_weak = 1, 		flesh_normal = 2, 	        flesh_strong = 3,
+	boar_weak = 2, 		    boar_normal = 4, 		    boar_strong = 6,
+	cat_weak = 1,           cat_normal = 2,           	cat_strong = 3,
+	burer_weak = 2, 		burer_normal = 4,           burer_strong = 6,
+	fracture_weak = 1, 		fracture_normal = 2,		fracture_strong = 3,
+	chimera_weak = 6, 	    chimera_normal = 9,         chimera_strong = 12, 
+	zombie_weak = 1, 		zombie_normal = 2,          zombie_strong = 4,
+	dog_weak = 1, 		    dog_normal = 2, 		    dog_strong = 3,
+	pseudodog_weak = 3, 	pseudodog_normal = 6, 	    pseudodog_strong = 9,
+	psy_dog_weak = 3,		psy_dog_normal = 6,			psy_dog_strong = 9,
+	snork_weak = 4, 		snork_normal = 6, 	        snork_strong = 10,
+	poltergeist_weak = 2,	poltergeist_normal = 4,		poltergeist_strong = 6,
+	pseudo_gigant_weak = 10,pseudo_gigant_normal = 20,	pseudo_gigant_strong = 40,
+	controller_weak = 18,	controller_normal = 20,		controller_strong = 40,
+	rat_weak = 1, 		    rat_normal = 2, 	        rat_strong = 3,
+	phantom_weak = 1, 		phantom_normal = 1, 		phantom_strong = 1,
+	bloodsucker_weak = 12, 	bloodsucker_normal = 18,	bloodsucker_strong = 25
+}
+
+local sect_alias = {
+	tushkano_normal = "tushkano_weak", 
+	tushkano_strong = "tushkano_weak",
+	cat_normal = "cat_weak",
+	cat_strong = "cat_weak",
+	rat_weak = "rat_weak",
+	rat_normal = "rat_normal",
+	rat_strong = "rat_strong",
+    rat_plague = "rat_strong",
+	burer_normal = "burer_weak",
+	bloodsucker_v_strong = "bloodsucker_strong",
+	bloodsucker_v_strong2 = "bloodsucker_strong",
+	fracture_normal = "fracture_weak",
+	fracture_strong = "fracture_weak",
+	zombie_ghost = "zombie_weak",
+	zombie_immortal = "zombie_weak",
+	zombie_old = "zombie_weak",
+	zombie_normal = "zombie_weak",
+	chimera_normal = "chimera_weak",
+	poltergeist_normal = "poltergeist_weak",
+	poltergeist_strong = "poltergeist_weak",
+	pseudo_gigant_normal = "pseudo_gigant_weak",
+	pseudo_gigant_strong = "pseudo_gigant_weak",
+	controller_normal = "controller_weak",
+	controller_strong = "controller_weak",
+	rad_psy_dog = "psy_dog_weak"
+}
+
+monster_classes = {
+			[clsid.tushkano_s    ] = "tushkano",
+			[clsid.flesh_s       ] = "flesh",
+			[clsid.boar_s        ] = "boar",
+			[clsid.cat_s         ] = "cat",
+			[clsid.zombie_s      ] = "zombie",
+			[clsid.burer_s       ] = "burer",
+			[clsid.fracture_s    ] = "fracture",
+			[clsid.chimera_s     ] = "chimera",
+			[clsid.dog_s         ] = "dog",
+			[clsid.pseudodog_s   ] = "pseudodog",
+			[clsid.psy_dog_s     ] = "psy_dog",
+			[clsid.psy_dog_phantom_s] = "NIL",
+			[clsid.snork_s       ] = "snork",
+			[clsid.poltergeist_s ] = "poltergeist",
+			[clsid.gigant_s      ] = "pseudo_gigant",
+			[clsid.controller_s  ] = "controller",
+			[clsid.bloodsucker_s ] = "bloodsucker"
+		}		
+
+
+function addKillCount(killer, npc)
+	if not npc or not killer then return end
+	
+	if not (killer:is_stalker() or killer:is_actor()) then
+		return
+	end
+	
+	local props, sect = getNpcType(npc)
+	if props == nil or sect == nil then
+		return
+	end
+
+	local sect_name
+	
+	if sect_alias[sect] ~= nil then
+		sect_name = sect_alias[sect]
+	else
+		sect_name = sect
+	end
+	
+	if sect_name then
+		if killCountProps[sect_name] == nil then
+			return
+		end
+		if killer:is_actor() then
+			actor_stats.add_points(props, sect_name, 1, killCountProps[sect_name])
+			killer:set_character_rank(killer:character_rank() + (killCountProps[sect_name]*multiplier_actor))
+		else	
+			killer:set_character_rank(killer:character_rank() + (killCountProps[sect_name]*multiplier_npc))
+		end
+	else return end
+end
+
+
+function getNpcType(npc)
+
+	if not npc then return nil,nil end
+
+	if npc:is_stalker() or npc:is_actor() then
+		local community = "neutral"
+		if     npc:character_community() == "monolith" then	community = "monolith"
+		elseif npc:character_community() == "military" then community = "military"
+		elseif npc:character_community() == "killer" then 	community = "killer"
+		elseif npc:character_community() == "ecolog" then 	community = "ecolog"
+		elseif npc:character_community() == "dolg" then 	community = "dolg"
+		elseif npc:character_community() == "freedom" then 	community = "freedom"
+		elseif npc:character_community() == "bandit" then 	community = "bandit"
+		elseif npc:character_community() == "zombied" then 	community = "zombied"
+		elseif npc:character_community() == "csky" then 	community = "csky"
+		elseif npc:character_community() == "kulg_band" then 	community = "kulg_band"
+		elseif npc:character_community() == "kulg_band_2" then 	community = "kulg_band_2"
+		elseif npc:character_community() == "bratstvo_9" then 	community = "bratstvo_9"
+		elseif npc:character_community() == "neutral_military" then 	community = "neutral_military"
+		elseif npc:character_community() == "iskatel" then 	community = "iskatel"
+		elseif npc:character_community() == "neutral_killer" then 	community = "neutral_killer"
+		elseif npc:character_community() == "voron_band" then 	community = "voron_band"
+		elseif npc:character_community() == "quest_monolith" then 	community = "quest_monolith"
+		end
+		local rank = ranks.get_obj_rank_name(npc)
+		if rank then
+			return "stalkerkills", community.."_"..tostring(rank)
+		else	
+			return "stalkerkills", community.."_novice"
+		end
+	else
+		local _clsid = get_clsid(npc) or ""
+		local community = monster_classes[_clsid]
+		if community == nil then
+			return nil,nil
+			-- abort("Statistic ERROR: cannot find monstr class")
+		end
+
+		if community == "NIL" then
+			return nil,nil
+		end
+		
+		if community == "zombie" then
+			return "monsterkills", npc:section()
+		end		
+
+		if community == "psy_dog" then
+			if npc:section()=="psy_dog" then return "monsterkills", "psy_dog_weak" end
+			if npc:section()=="psy_dog_radar" then return "monsterkills", "rad_psy_dog" end
+		end 
+
+		local rank = ranks.get_obj_rank_name(npc)
+		return "monsterkills", community.."_"..rank
+	end	
+end

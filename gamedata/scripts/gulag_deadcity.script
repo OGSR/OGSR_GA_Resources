@@ -1,0 +1,724 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+
+--'--------------------------------------------------------------------------
+--' DEADCITY
+--'--------------------------------------------------------------------------
+
+local t = {}
+
+function load_job( sj, gname, type, squad, groups )
+
+	-------------- Ћагерь сталкеров
+	-- - 1 - охранник в каморке у дверей (строго указанный человек, один)
+	-- - 2 - посетитель за столом, смотрит на двери (рандом)
+	-- - 3 - игрок в нарды (строго указанный человек, один)
+	-- - 4 - бармен (строго указанный человек, один)
+	-- - 5 - охранник около бармена (рандом)
+	-- 6 - отдыхающий на диванчике (рандом)
+	-- - 7 - биль€рдист (строго указанный человек, один)
+	-- 8 - сп€щий в подсобке (рандом)
+	
+	
+	if type == "deadcity_bar" then
+		t = { section = "logic@deadcity_bar_barman",
+			idle = 0, 
+			prior = 8, state = {0},
+			predicate = function(obj_info)
+            	return obj_info.name == "deadcity_bar_barman"
+            end,
+			in_rest = "", out_rest = "deadcity_bar"
+		}
+		table.insert(sj, t)		
+		t = { section = "logic@deadcity_bar_guard1",
+			idle = 0, 
+			prior = 7, state = {0},
+			predicate = function(obj_info)
+            	return obj_info.name == "deadcity_bar_guard1"
+            end,
+			in_rest = "", out_rest = "deadcity_bar"
+		}
+		table.insert(sj, t)
+		t = { section = "logic@deadcity_bar_guard2",
+			idle = 0, 
+			prior = 8, state = {0},
+			predicate = function(obj_info)
+            	return obj_info.name == "deadcity_bar_guard2"
+            end,
+			in_rest = "", out_rest = "deadcity_bar"
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_bar_nardyman",
+			idle = 0, 
+			prior = 8, state = {0},
+			predicate = function(obj_info)
+            	return obj_info.name == "deadcity_bar_nardyman"
+            end,			
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_bar_billiardman",
+			idle = 0, 
+			prior = 8, state = {0},
+			predicate = function(obj_info)
+            	return obj_info.name == "deadcity_bar_billiardman"
+            end,			
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)			
+		t = { section = "logic@deadcity_bar_drinkman",
+			idle = 0, 
+			prior = 6, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)			
+		t = { section = "logic@deadcity_bar_zasranets",
+			idle = 0, 
+			prior = 6, state = {0},
+			in_rest = "", out_rest = ""
+		}		
+		table.insert(sj, t)
+		t = { section = "logic@deadcity_bar_restsofa",
+			idle = 0, 
+			prior = 6, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)
+		t = { section = "logic@deadcity_bar_sleeper",
+			idle = 0, 
+			prior = 6, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)		
+	end
+
+--
+	if not has_alife_info("master_quest_soup_ready") then
+--
+	if type == "deadcity_zombies_1" then
+		t = { section = "logic@deadcity_zombies_1_kamp1",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_1_kamp2",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_1_kamp3",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}		
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_1_kamp6",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}		
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_1_kamp7",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)		
+
+		t = { section = "logic@deadcity_zombies_1_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+
+		t = { section = "logic@deadcity_zombies_1_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)		
+		
+		t = { section = "logic@deadcity_zombies_1_walker2",
+			idle = 0,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+
+		t = { section = "logic@deadcity_zombies_1_walker2",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)		
+
+		t = { section = "logic@deadcity_zombies_1_walker2",
+			idle = 0, 
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)			
+	end
+	if type == "deadcity_zombies_2" then
+		t = { section = "logic@deadcity_zombies_2_kamp1",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_2_kamp2",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		-- t = { section = "logic@deadcity_zombies_2_kamp3",
+			-- idle = 0,
+			-- prior = 9, state = {0},
+			-- in_rest = "", out_rest = ""
+		-- }
+		-- table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_2_kamp3",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}		
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_2_kamp4",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_2_kamp4",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)			
+		-- t = { section = "logic@deadcity_zombies_2_kamp5",
+			-- idle = 0,
+			-- prior = 9, state = {0},
+			-- in_rest = "", out_rest = ""
+		-- }
+		-- table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_2_kamp6",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}		
+		table.insert(sj, t)	
+
+		t = { section = "logic@deadcity_zombies_2_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+
+		t = { section = "logic@deadcity_zombies_2_walker",
+			idle = 0, 
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)
+		
+		t = { section = "logic@deadcity_zombies_2_walker2",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)
+		
+		t = { section = "logic@deadcity_zombies_2_walker2",
+			idle = 0, 
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)		
+	
+	end
+	if type == "deadcity_zombies_3" then
+		t = { section = "logic@deadcity_zombies_3_kamp1",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_3_kamp2",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_3_kamp3",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}		
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_3_kamp4",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_3_kamp4",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)			
+		t = { section = "logic@deadcity_zombies_3_kamp5",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+
+		t = { section = "logic@deadcity_zombies_3_walker",
+			idle = 0, 
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+
+		t = { section = "logic@deadcity_zombies_3_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+
+		t = { section = "logic@deadcity_zombies_3_walker2",
+			idle = 0, 
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)
+
+		t = { section = "logic@deadcity_zombies_3_walker2",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)			
+	
+	end
+	if type == "deadcity_zombies_4" then
+		t = { section = "logic@deadcity_zombies_4_kamp1",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_4_kamp2",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		-- t = { section = "logic@deadcity_zombies_4_kamp3",
+			-- idle = 0,
+			-- prior = 9, state = {0},
+			-- in_rest = "", out_rest = ""
+		-- }
+		-- table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_4_kamp4",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_4_kamp5",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_4_kamp6",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}		
+		table.insert(sj, t)	
+		-- t = { section = "logic@deadcity_zombies_4_kamp7",
+			-- idle = 0,
+			-- prior = 9, state = {0},
+			-- in_rest = "", out_rest = ""
+		-- }
+		-- table.insert(sj, t)		
+		t = { section = "logic@deadcity_zombies_4_kamp8",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		
+		t = { section = "logic@deadcity_zombies_4_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+
+		t = { section = "logic@deadcity_zombies_4_walker",
+			idle = 0,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+
+		t = { section = "logic@deadcity_zombies_4_walker2",
+			idle = 0, 
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+
+		t = { section = "logic@deadcity_zombies_4_walker2",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)			
+	
+	end
+	if type == "deadcity_zombies_5" then
+		t = { section = "logic@deadcity_zombies_5_kamp1",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_5_kamp2",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_5_kamp2",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_5_kamp3",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_5_kamp4",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)			
+		t = { section = "logic@deadcity_zombies_5_kamp5",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_5_kamp6",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}		
+		table.insert(sj, t)	
+
+		t = { section = "logic@deadcity_zombies_5_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_5_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)		
+		t = { section = "logic@deadcity_zombies_5_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)			
+	
+	end
+	if type == "deadcity_zombies_6" then
+		t = { section = "logic@deadcity_zombies_6_kamp1",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_6_kamp2",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_6_kamp3",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)			
+		t = { section = "logic@deadcity_zombies_6_kamp4",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)			
+		t = { section = "logic@deadcity_zombies_6_kamp5",
+			idle = 0,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_6_kamp6",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 9, state = {0},
+			in_rest = "", out_rest = ""
+		}		
+		table.insert(sj, t)	
+	
+		t = { section = "logic@deadcity_zombies_6_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_6_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_6_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)	
+		t = { section = "logic@deadcity_zombies_6_walker",
+			idle = 0, timeout = math.random(10,20)*60*1000,
+			prior = 7, state = {0},
+			in_rest = "", out_rest = ""
+		}	
+		table.insert(sj, t)			
+	end
+--
+	else
+--
+		if type == "deadcity_zombies_3" then --÷ентральное здание ћ√
+			for i = 1, 6 do --6 человек у костра на первом этаже
+				t = {
+					section = "logic@deadcity_zombies_3_kamp1",
+					idle = 0,
+					prior = 7-i, state = {0},
+					in_rest = "",
+					out_rest = ""
+				}
+				table.insert(sj, t)
+			end
+			for i = 1, 3 do --3 человека у первого костра на втором этаже
+				t = {
+					section = "logic@deadcity_zombies_3_kamp4",
+					idle = 0,
+					prior = 7-i, state = {0},
+					in_rest = "",
+					out_rest = ""
+				}
+				table.insert(sj, t)
+			end
+			for i = 1, 3 do --3 человека у второго костра на втором этаже
+				t = {
+					section = "logic@deadcity_zombies_3_kamp5",
+					idle = 0,
+					prior = 7-i, state = {0},
+					in_rest = "",
+					out_rest = ""
+				}
+				table.insert(sj, t)
+			end
+			t = { --первый волкер
+				section = "logic@deadcity_zombies_3_walker",
+				idle = 0, 
+				prior = 8,
+				state = {0},
+				in_rest = "",
+				out_rest = ""
+			}	
+			table.insert(sj, t)	
+		elseif type == "deadcity_zombies_6" then --ƒеревн€ напротив бара, за двум€ п€тиэтажками
+			for i = 1, 6 do --6 человек у костра
+				t = {
+					section = "logic@deadcity_zombies_6_kamp4",
+					idle = 0,
+					prior = 7-i, state = {0},
+					in_rest = "",
+					out_rest = ""
+				}
+				table.insert(sj, t)
+			end
+			t = { --волкер
+				section = "logic@deadcity_zombies_6_walker",
+				idle = 0, 
+				prior = 8,
+				state = {0},
+				in_rest = "",
+				out_rest = ""
+			}	
+			table.insert(sj, t)	
+		elseif type == "deadcity_zombies_4" then -- остер р€дом с 5-этажкой возле забора, перед мостом.
+			for i = 1, 6 do --6 человек у костра
+				t = {
+					section = "logic@deadcity_zombies_4_kamp2",
+					idle = 0,
+					prior = 7-i, state = {0},
+					in_rest = "",
+					out_rest = ""
+				}
+				table.insert(sj, t)
+			end
+			t = { --первый волкер
+				section = "logic@deadcity_zombies_4_walker",
+				idle = 0, 
+				prior = 7,
+				state = {0},
+				in_rest = "",
+				out_rest = ""
+			}	
+			table.insert(sj, t)	
+			t = { --второй волкер
+				section = "logic@deadcity_zombies_4_walker2",
+				idle = 0, 
+				prior = 8,
+				state = {0},
+				in_rest = "",
+				out_rest = ""
+			}
+			table.insert(sj, t)	
+		elseif type == "deadcity_zombies_2" then --пустое здание типа гаража, в левой части ћ√
+			for i = 1, 6 do --6 человек у костра
+				t = {
+					section = "logic@deadcity_zombies_2_kamp3",
+					idle = 0,
+					prior = 7-i, state = {0},
+					in_rest = "",
+					out_rest = ""
+				}
+				table.insert(sj, t)
+			end
+			t = { --первый волкер
+				section = "logic@deadcity_zombies_2_walker",
+				idle = 0, 
+				prior = 7,
+				state = {0},
+				in_rest = "",
+				out_rest = ""
+			}	
+			table.insert(sj, t)	
+			t = { --второй волкер
+				section = "logic@deadcity_zombies_2_walker2",
+				idle = 0, 
+				prior = 8,
+				state = {0},
+				in_rest = "",
+				out_rest = ""
+			}
+			table.insert(sj, t)	
+		elseif type == "deadcity_zombies_1" then --домики в левой нижней части ћ√.
+			for i = 1, 6 do --6 человек у костра
+				t = {
+					section = "logic@deadcity_zombies_1_kamp1",
+					idle = 0,
+					prior = 7-i, state = {0},
+					in_rest = "",
+					out_rest = ""
+				}
+				table.insert(sj, t)
+			end
+			t = { --первый волкер
+				section = "logic@deadcity_zombies_1_walker",
+				idle = 0, 
+				prior = 7,
+				state = {0},
+				in_rest = "",
+				out_rest = ""
+			}	
+			table.insert(sj, t)	
+			t = { --второй волкер
+				section = "logic@deadcity_zombies_1_walker2",
+				idle = 0, 
+				prior = 8,
+				state = {0},
+				in_rest = "",
+				out_rest = ""
+			}
+			table.insert(sj, t)	
+		elseif type == "deadcity_zombies_5" then --первое здание справа при въезде в ћ√ с янтар€
+			for i = 1, 6 do --6 человек у костра
+				t = {
+					section = "logic@deadcity_zombies_5_kamp1",
+					idle = 0,
+					prior = 7-i, state = {0},
+					in_rest = "",
+					out_rest = ""
+				}
+				table.insert(sj, t)
+			end
+		end
+--
+	end
+--
+end
+
+local zombie_gulags = {}
+for i = 1, 6 do
+	zombie_gulags["deadcity_zombies_"..i] = true
+end
+
+function load_states( gname, type ) --TODO: добавить стейты при плохой погоде
+	if type == "deadcity_bar" or zombie_gulags[type] then
+		return function( gulag )
+			return 0
+		end
+	end	
+
+	return nil
+end
+
+--------------------------------------------------------------------------
+-- Dynamic ltx
+--------------------------------------------------------------------------
+function load_ltx(gname, type)
+	return nil
+end
+
+function checkStalker( npc_community, gulag_type )
+	if gulag_type == "deadcity_bar" then
+		return npc_community == "stalker"
+	end
+
+	if zombie_gulags[gulag_type] then
+		if not has_alife_info("master_quest_soup_ready") then
+			return npc_community == "zombied"
+		else
+			return npc_community == "stalker" or npc_community == "dolg"
+		end
+	end
+
+	return false
+end
+
+function checkMonster( npc_community, gulag_type )
+	return false
+end

@@ -1,0 +1,46 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+function attach(sm)
+	sm:subscribe({ signal = "on_update", fun = this.update })
+end
+
+function update()
+
+local hud = get_hud()
+
+local rad_hud = hud:GetCustomStatic("static_radiation")
+local psy_hud = hud:GetCustomStatic("static_psy")
+
+if db.actor:alive() or not level.main_input_receiver() then
+
+	local xml = CScriptXmlInit()
+	xml:ParseFile("ui_custom_msgs.xml")
+	local obj = db.actor:item_in_slot(8)
+
+	if obj and not rad_hud then
+		hud:AddCustomStatic("static_radiation", true)
+		rad_hud = hud:GetCustomStatic("static_radiation")
+		local w = rad_hud:wnd()
+		rad_progress = xml:InitProgressBar("static_radiation:radiation_progress", w)
+	elseif obj and rad_hud then
+		rad_progress:Show(true)
+		rad_progress:SetProgressPos( db.actor.radiation * 100 )
+	else
+        hud:RemoveCustomStatic("static_radiation")
+	end
+
+	if not psy_hud then
+		hud:AddCustomStatic("static_psy", true)
+		psy_hud = hud:GetCustomStatic("static_psy")
+		local w = psy_hud:wnd()
+		psy_progress = xml:InitProgressBar("static_psy:psy_progress", w)
+		psy_progress:Show(true)
+	else
+		psy_progress:SetProgressPos( db.actor.psy_health * 100 )
+	end
+	
+	else
+        hud:RemoveCustomStatic("static_radiation")
+        hud:RemoveCustomStatic("static_psy")
+	end
+end

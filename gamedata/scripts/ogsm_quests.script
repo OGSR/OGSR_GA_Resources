@@ -1,0 +1,546 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+---------------------- Квестовые функции для OGSM 2.x -------------------------
+------------------------- Copyright 2007-2008 DEXXX ---------------------------
+
+function attach(sm)
+	sm:subscribe({ signal = "on_spawn", fun = this.on_spawn })
+	sm:subscribe({ signal = "on_info",  fun = this.on_info })
+end
+
+local sm = ogse_signals.get_mgr()
+local subscribed
+function subscribe()
+	if has_alife_info("actor_set_zombied") and db.actor:alive() then
+		if not subscribed then
+			--log1("--Actor zombied fx subscribed!")
+			subscribed = { signal = "on_update", fun = this.actor_zombied_fx --[[, queued = true]] }
+			sm:subscribe(subscribed)
+		end
+	end
+end
+function unsubscribe()
+	if subscribed then
+		--log1("~~Actor zombied fx UNsubscribed!")
+		sm:unsubscribe(subscribed)
+		subscribed = nil
+	end
+end
+
+function on_spawn()
+	subscribe()
+
+	kruglov_help_chek()
+end
+
+function on_info(npc, info_id)
+	if info_id == "actor_set_zombied" then
+		subscribe()
+	end
+end
+
+
+local vdk_cnt = 0
+local blood = 0
+local bl_sound = sound_object([[heart\2]])
+
+
+-- ГГ получает доступ в арсенал "Свободы"
+function allow_arsenal()
+db.actor:give_info_portion("mil_leader_attach_community2")
+end
+
+-- Функция проверка, жив ли Боров
+function borov_alive(sid)
+	local borov_sobj = alife():story_object(story_ids.val_borov)
+	if borov_sobj and borov_sobj:alive() then
+		 return true 
+	else 
+		return false
+	end
+end 
+
+-- Функция проверка, жив ли Фраер
+function fraer_alive(sid)
+	local fraer_sobj = alife():story_object(story_ids.val_fraer)
+	if fraer_sobj and fraer_sobj:alive() then
+		 return true
+	else 
+		return false
+	end
+end 
+
+-- Функция проверка, мёртв ли Фраер
+function fraer_dead(sid)
+	return not fraer_alive(sid)
+end 
+
+-- Устанавливаем нейтральность для Круглова если актор к нему враждебен
+function kruglov_neutral()
+	if has_alife_info("actor_set_bandit") or has_alife_info("actor_set_zombied") then
+		local npc = level_object_by_sid(story_ids.bar_ecolog_professor)
+		if npc and npc:alive() then
+			ogse.set_npc_relation(npc, db.actor, "neutral")
+		end
+	end
+end
+
+-- Проверка помощи Круглову
+function kruglov_help_chek()
+	if has_alife_info("bar_rescue_research_start") and not has_alife_info("bar_kruglov_follow_actor") and not has_alife_info("bar_rescue_research_fail") then
+		if level.name() ~= "l06_rostok" then
+			db.actor:give_info_portion("bar_rescue_research_fail")
+--------------Убиваем круглова------------
+			local kruglov = alife():story_object(story_ids.bar_ecolog_professor)
+			ogse.kill_offline_npc(kruglov)
+------------------------------------------
+		end
+	end
+end
+
+-- Функция передача экзоскелета от Борова за убийство Фраера
+function kill_fraer_complete(first_speaker, second_speaker) 
+dialogs.relocate_item_section(second_speaker, "bandit_plash_m1", "in")
+end
+
+-- Функция проверка, жив ли долговец Пуля
+function pula_alive(sid)
+	local pulya_sobj = alife():story_object(story_ids.val_escort_nap1)
+	if pulya_sobj and pulya_sobj:alive() then
+		 return true 
+	else 
+		return false
+	end
+end 
+
+-- Функция проверка, мёртв ли долговец Пуля
+function pula_dead(sid)
+	return not pula_alive(sid)
+end 
+
+-- Проверка, нашёл ли СВД Черепа
+function has_cherep_svd()
+if db.actor:object("cherep_svd")  then return true end
+return false
+end
+
+-- Функции квеста с рукой зомби
+function has_zombie_hand()
+if db.actor:object("af_zombie_hand") and not has_alife_info("zombie_hand_sold") then return true end
+return false
+end
+function zombie_hand_sold()
+if has_alife_info("zombie_hand_sold") and not has_alife_info("zombie_hand_research") then return true end
+return false
+end
+function sell_zombie_hand(first_speaker, second_speaker)
+dialogs.relocate_item_section(second_speaker, "af_zombie_hand", "out")
+db.actor:give_info_portion("zombie_hand_sold")
+end
+function zombie_hand_research(first_speaker, second_speaker)
+db.actor:give_info_portion("zombie_hand_research")
+dialogs.relocate_item_section(first_speaker, "wpn_vintorez_tact", "in")
+dialogs.relocate_item_section(first_speaker, "ammo_9x39_pab9", "in")
+dialogs.relocate_item_section(first_speaker, "ammo_9x39_pab9", "in")
+end
+
+-- Проверка, пьян ли актор
+function drunk()
+	return db.actor.alcohol > 0.01
+end
+
+
+-- Наложение постэффекта зомбирования актора
+local zombied_fx_flag = false
+local zombied_fx_strong_flag = false
+local zombied_fx_fatal_flag = false
+local start_fx_factor = 0.4
+local fx_factor = start_fx_factor
+local fx_factor_progress = 0.0005
+local premeter_time = time_global() + 100
+local meter_time = time_global() + 1000
+local meter2_time = time_global() + 100000
+
+local fade_idle
+local fade_time = 0
+local fade_probability = 0.1
+
+local zmb_fx_sound_obj_right, zmb_fx_sound_obj_left = xr_sound.get_sound_object("psy_voices", "random")
+local zmb_fx_sound_obj_heart = xr_sound.get_safe_sound_object("heart\\5")
+local zmb_fx_sound_initialized = false
+
+function actor_zombied_fx()
+
+	local function zmb_fx_remark()
+		local snd = sound_object("characters_voice\\human_01\\zombied\\states\\idle\\idle_"..math.random(1, 12))
+		if snd and not snd:playing() then
+			snd:play_at_pos(db.actor, db.actor:position(), 0, sound_object.s3d)
+			--snd:play_no_feedback(db.actor, sound_object.s3d, 0, db.actor:position(), 1.0)
+		end
+	end
+
+	local function zmb_fx_noise()
+		if not zmb_fx_sound_initialized then
+			zmb_fx_sound_obj_right:play_at_pos (db.actor, vector():set(-1, 0, 1), 0, sound_object.s2d + sound_object.looped) 
+			zmb_fx_sound_obj_left:play_at_pos (db.actor, vector():set(1, 0, 1), 0, sound_object.s2d + sound_object.looped)
+			zmb_fx_sound_obj_heart:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d + sound_object.looped)
+
+			zmb_fx_sound_initialized = true
+		end
+		zmb_fx_sound_obj_right.volume = fx_factor^2
+		zmb_fx_sound_obj_left.volume = fx_factor^2
+		zmb_fx_sound_obj_heart.volume = fx_factor
+	end
+
+	local uptime = time_global()
+	if uptime < premeter_time then return end
+	premeter_time = uptime + 100
+	if has_alife_info("actor_set_zombied") and db.actor:alive() then
+		if not zombied_fx_flag then
+			ogse.save_variable("zmb_fx_kill_time", game.time()+18000000*ogse.game_time_factor)
+			level.add_pp_effector("psy_antenna.ppe", 2100, true)
+			fx_factor = tonumber(ogse.load_variable("zmb_fx_factor", start_fx_factor))
+			level.set_pp_effector_factor(2100, fx_factor)
+			zombied_fx_flag = true
+		else
+			db.actor.power = -(fx_factor*db.actor.power*0.005)
+			if uptime > meter_time then
+				meter_time = uptime + 1000
+				if fx_factor <= 1 then
+					fx_factor = fx_factor + fx_factor_progress
+				end
+				if fx_factor <= 1 then
+					level.set_pp_effector_factor(2100, fx_factor)
+					ogse.del_variable("zmb_fx_factor")
+					ogse.save_variable("zmb_fx_factor", fx_factor)
+				else
+					if uptime > meter2_time then
+						meter2_time = uptime + 100000
+						local zmb_fx_kill_time = tonumber(ogse.load_variable("zmb_fx_kill_time", 0))
+						if game.time() > zmb_fx_kill_time then
+							db.actor:kill(db.actor)
+						else
+							if math.random() < 0.1 then
+								zmb_fx_remark()
+							end
+							if not zombied_fx_strong_flag then
+								if (zmb_fx_kill_time - game.time()) < 3550000*ogse.game_time_factor then
+									level.add_cam_effector("camera_effects\\fatigue.anm", 2101, true, "")
+									zombied_fx_strong_flag = true
+								end
+							end
+							if (zmb_fx_kill_time - game.time()) < 715000*ogse.game_time_factor and not zombied_fx_fatal_flag then
+								level.add_pp_effector("alcohol.ppe", 2102, true)
+								level.set_pp_effector_factor(2102, 0.3)
+								zombied_fx_fatal_flag = true
+							end
+						end
+					end
+				end
+
+				if fade_idle == nil then
+					fade_idle = math.random(30000,50000)
+				end
+				if time_global() - fade_time > fade_idle then
+					fade_time = time_global()
+					fade_idle = math.random(20000,40000)*(1-fx_factor+0.5)
+					if math.random() < fade_probability * fx_factor then
+						level.add_pp_effector ("agr_u_fade.ppe", 2103, false)
+						level.set_pp_effector_factor(2103, math.random(fx_factor-start_fx_factor, 1))
+					end
+				end
+
+				zmb_fx_noise()
+			end
+		end
+	else
+		unsubscribe()
+		if zombied_fx_flag then
+			level.remove_pp_effector(2100)
+			zombied_fx_flag = false
+			if zombied_fx_strong_flag then
+				level.remove_cam_effector(2101)
+				zombied_fx_strong_flag = false
+			end
+			if zombied_fx_fatal_flag then
+				level.remove_pp_effector(2102)
+				zombied_fx_fatal_flag = false
+			end
+			ogse.del_variable("zmb_fx_kill_time")
+			ogse.del_variable("zmb_fx_factor")
+			if zmb_fx_sound_obj_right:playing() then 
+				zmb_fx_sound_obj_right:stop() 
+			end
+			if zmb_fx_sound_obj_left:playing() then 
+				zmb_fx_sound_obj_left:stop() 
+			end
+			if zmb_fx_sound_obj_heart:playing() then 
+				zmb_fx_sound_obj_heart:stop() 
+			end
+			zmb_fx_sound_initialized = false
+		end
+	end
+
+end
+
+
+-- Проверка наличия 10 бутылок для повара
+function has_ten_vodkas()
+if has_alife_info("povar_vodka_asked") then 
+	vdk_cnt = 0
+	db.actor:iterate_inventory(count_vodka, db.actor)
+	if vdk_cnt >= 10 then
+		return true 
+	else
+		return false
+	end
+else 
+	return false 
+end
+end
+
+-- Проверка наличия бутылки для Толика
+function has_five_vodkas(task, objective)
+if db.actor ~= nil then 
+return db.actor:object("vodka") ~= nil
+end
+return false
+end
+
+-- А вдруг Толик погиб, пока мы искали водку?
+function tolik_death()
+if has_alife_info("tutorial_wounded_die") or has_alife_info("tutorial_wounded_death") then return true else return false end
+end
+
+function tolik_give_vodka(first_speaker, second_speaker) 
+	-- НЕ ТРОГАТЬ! Работает!!! 23/06/09 KamikaZze
+	-- Изменена награда с арбалетных болтов на 2 пачки 9х18
+	dialogs.relocate_item_section(second_speaker, "vodka", "out")
+	dialogs.relocate_item_section(second_speaker, "ammo_9x18_fmj", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_9x18_fmj", "in")
+end
+
+function give_vodka_medusa(first_speaker, second_speaker) 
+	dialogs.relocate_item_section(first_speaker, "vodka", "out")
+	dialogs.relocate_item_section(second_speaker, "af_medusa", "in")
+end
+
+function give_vodka_flower(first_speaker, second_speaker) 
+	dialogs.relocate_item_section(first_speaker, "vodka", "out")
+	dialogs.relocate_item_section(second_speaker, "af_cristall_flower", "in")
+end
+
+
+function give_vodka_myaso(first_speaker, second_speaker) 
+	dialogs.relocate_item_section(first_speaker, "vodka", "out")
+	dialogs.relocate_item_section(second_speaker, "af_mincer_meat", "in")
+end
+
+function give_vodka_conserva(first_speaker, second_speaker) 
+	dialogs.relocate_item_section(first_speaker, "vodka", "out")
+	local cons_koll = math.random(1,5)
+	for i=1,cons_koll do
+		dialogs.relocate_item_section(second_speaker, "conserva", "in")
+	end
+end
+
+function give_vodka(first_speaker, second_speaker) 
+	dialogs.relocate_item_section(first_speaker, "vodka", "out")
+end
+
+
+
+-- Подсчет водки
+function count_vodka(npc, item)
+if item == nil or alife():object(item:id()) == nil then return end
+local section = item:section()
+if section == "vodka" then
+	vdk_cnt = vdk_cnt+1
+end
+end
+
+-- Удаление водки
+function del_vodka(npc, item)
+if item == nil or alife():object(item:id()) == nil then return end
+local section = item:section()
+if vdk_cnt > 0 then
+	if section == "vodka" then
+		local s_obj = alife():object(item:id())
+		if s_obj then
+			alife():release(s_obj, true)
+		end
+		vdk_cnt = vdk_cnt-1
+	end
+else
+	return
+end
+end
+
+-- Обмен с поваром
+function transfer_povar_items(first_speaker, second_speaker)
+vdk_cnt = 10
+db.actor:iterate_inventory(del_vodka, db.actor)
+for i=1,3 do
+	dialogs.relocate_item_section(first_speaker, "ammo_8.6x70_lm", "in")
+end
+end
+
+-- Функции квеста с секретным складом монолита
+function spawn_fn2000()
+	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.ogsm_quests.spawn_fn2000_1)
+	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.ogsm_quests.spawn_fn2000_2)
+end
+
+-- Помощь раненому
+function help_wounded(npc)
+local snd
+	if npc:name()~="esc_vagon_wounded" then
+		snd = xr_sound.get_safe_sound_object("characters_voice\\human_01\\newbie\\help\\wounded_thanx\\thanx_"..math.random(1,3))
+		if snd then
+			snd:play_no_feedback(npc, sound_object.s3d, 0, npc:position(), 1.0)
+		end
+	else 
+		db.actor:give_info_portion("tutorial_wounded_heal")
+		db.actor:give_info_portion("tutorial_wounded_help")
+	end
+	if npc:relation(db.actor)==game_object.enemy and math.random() > 0.4 then
+		npc:set_character_community("stalker", 0, 0)
+		npc:set_relation(game_object.friend, db.actor)
+		npc:enable_talk()
+	elseif npc:relation(db.actor)~=game_object.enemy then
+		npc:set_relation(game_object.friend, db.actor)
+	end
+
+end
+
+-- Эффект от критического ранения
+function wounded_pp()
+if not has_alife_info("actor_set_zombied") then 
+wounded_pp_normal()
+else
+wounded_pp_zombied()
+end
+end
+
+function wounded_pp_normal()
+	if db.actor.health<0.2 and blood==0 then
+		level.add_pp_effector("escape.ppe", 1999, true)
+		level.set_pp_effector_factor(1999, 5.0)
+		if bl_sound and not bl_sound:playing() then 
+			bl_sound:play_at_pos(db.actor, db.actor:position(), 1, sound_object.looped)
+		end
+		blood = 1
+	elseif db.actor.health>0.2 then
+		level.remove_pp_effector(1999)
+		if bl_sound:playing() then 
+			bl_sound:stop() 
+		end
+		blood = 0
+	elseif db.actor.health<0.2 and blood==1 and bl_sound:playing() then
+		bl_sound:set_position(db.actor:position())
+	end
+end
+
+function wounded_pp_zombied()
+	if db.actor.health<0.5 and blood==0 then
+		level.add_pp_effector("escape.ppe", 1999, true)
+		level.set_pp_effector_factor(1999, 5.0)
+		if bl_sound and not bl_sound:playing() then 
+			bl_sound:play_at_pos(db.actor, db.actor:position(), 1, sound_object.looped)
+		end
+		blood = 1
+	elseif db.actor.health>0.5 then
+		level.remove_pp_effector(1999)
+		if bl_sound:playing() then 
+			bl_sound:stop() 
+		end
+		blood = 0
+	elseif db.actor.health<0.5 and blood==1 and bl_sound:playing() then
+		bl_sound:set_position(db.actor:position())
+	end
+end
+
+
+-- Функции квестов Темного дилера
+function kill_arny_precondition()
+	if has_alife_info("pri_trader_first_talk") and not has_alife_info("pri_trader_arny_task") and
+	   not has_alife_info("aem_arny_dead") and not has_alife_info("aem_arny_spread_out") then
+		return true
+	else
+		return false
+	end
+end
+function kill_arny_reward_precondition()
+	if (has_alife_info("aem_arny_dead") or has_alife_info("aem_arny_spread_out")) and
+	   has_alife_info("pri_trader_arny_task") and not has_alife_info("pri_trader_arny_task_done") then
+		return true
+	else
+		return false
+	end
+end
+function kill_freedom_precondition()
+	if ( has_alife_info("pri_trader_arny_task_done") or (not has_alife_info("pri_trader_arny_task") and (has_alife_info("aem_arny_dead") or has_alife_info("aem_arny_spread_out"))) ) and
+	   ( not has_alife_info("sar2_death_49") or not has_alife_info("sar2_death_48") ) and
+	   not has_alife_info("pri_trader_freedom_task") then
+		return true
+	else
+		return false
+	end
+end
+function kill_dolg_precondition()
+	if ( has_alife_info("pri_trader_arny_task_done") or (not has_alife_info("pri_trader_arny_task") and (has_alife_info("aem_arny_dead") or has_alife_info("aem_arny_spread_out"))) ) and
+	   ( has_alife_info("pri_trader_freedom_task_done") or (not has_alife_info("pri_trader_freedom_task") and has_alife_info("sar2_death_49") and has_alife_info("sar2_death_48")) ) and
+	   ( not has_alife_info("bar_voronin_dead") or not has_alife_info("sar2_death_42") ) and
+	   not has_alife_info("pri_trader_dolg_task") then
+		return true
+	else
+		return false
+	end
+end
+function kill_arny_reward(first_speaker, second_speaker)
+	dialogs.relocate_money(second_speaker, 10000, "in")
+end
+function kill_freedom_reward(first_speaker, second_speaker)
+	dialogs.relocate_money(second_speaker, 30000, "in")
+end
+function kill_dolg_reward(first_speaker, second_speaker)
+	dialogs.relocate_money(second_speaker, 50000, "in")
+end
+function final_precondition()
+	if ( has_alife_info("pri_trader_arny_task_done") or (not has_alife_info("pri_trader_arny_task") and (has_alife_info("aem_arny_dead") or has_alife_info("aem_arny_spread_out"))) ) and
+	   ( has_alife_info("pri_trader_freedom_task_done") or (not has_alife_info("pri_trader_freedom_task") and has_alife_info("sar2_death_49") and has_alife_info("sar2_death_48")) ) and
+	   ( has_alife_info("pri_trader_dolg_task_done") or (not has_alife_info("pri_trader_dolg_task") and has_alife_info("bar_voronin_dead") and has_alife_info("sar2_death_42")) ) then
+		return true
+	else
+		return false
+	end
+end
+function remove_dealer_spot(fs,ss)
+	level_tasks.remove_location_by_id(fs:id(), "red_location")
+end
+function release_dark_dealer()
+	local pos
+	for k, v in pairs(db.creature) do
+		local obj = level.object_by_id(k)
+		if obj and v == true and string.find(obj:name(), "pri_trader") then
+			pos = obj:position()
+		end
+	end
+	if pos then
+		bind_stalker.hide_weapon()
+		level.disable_input()
+		level.add_cam_effector("camera_effects\\earthquake.anm", 2010, false, "")
+		local s = sound_object("ambient\\earthquake")
+		if s then
+			s:play_no_feedback(db.actor,sound_object.s2d, 0, vector():set(0, 0, 0), 1.0)
+		end
+		ogse.start_timer("vd1", 2, pos)
+	end
+end
+function x18_laugh()
+	local s = sound_object("x18_laugh")
+	if s then
+		s:play_no_feedback(db.actor,sound_object.s2d, 0, vector():set(0, 0, 0), 1.0)
+	end
+end
+

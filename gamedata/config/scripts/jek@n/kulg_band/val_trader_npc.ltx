@@ -1,0 +1,60 @@
+[smart_terrains]
+none = true
+
+
+[logic]
+active = kamp@1
+danger = danger_ignore
+threshold = threshold@val_trader_npc_threshold
+
+
+[kamp@1]
+center_point = dar_farm_assistant_kamp_point
+radius = 3
+def_state_moving = walk
+danger = danger_condition
+combat_ignore_cond = always
+on_timer = 1|kamp@2 %=make_invulnerable%
+
+
+[kamp@2]
+center_point = dar_farm_assistant_kamp_point
+radius = 3
+def_state_moving = walk
+;danger = danger_condition
+combat_ignore_cond = always
+on_info = {+drozd_reputation_1 =dist_to_actor_ge(40)} %=release%
+
+
+
+
+
+[threshold@val_trader_npc_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[danger_ignore]
+ignore_distance = 5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

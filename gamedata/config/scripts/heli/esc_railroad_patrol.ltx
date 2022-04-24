@@ -1,0 +1,31 @@
+[logic]
+active = heli_move@idle
+
+[heli_move@idle]
+path_move = esc_heli_railroad_patrol_wait
+engine_sound = false
+combat_safe_altitude = -50
+combat_ignore = true
+on_game_timer = 3600 | heli_move@railroad_patrol
+
+[heli_move@railroad_patrol]
+path_move = esc_heli_railroad_patrol
+combat_use_mgun = false
+on_signal = fly_end| heli_move@return
+combat_enemy = area(-215,170,55,stalker),area(-117,170,55,stalker),area(50,160,150,monster),area(224,194,55,stalker),area(328,263,55,stalker)
+;combat_ignore = true
+combat_safe_altitude = -50
+
+[heli_move@return]
+path_move = esc_heli_railroad_patrol_return
+on_signal = fly_end| heli_move@wait
+engine_sound = false
+combat_ignore = true
+combat_safe_altitude = -50
+
+[heli_move@wait]
+path_move = esc_heli_railroad_patrol_wait
+engine_sound = false
+combat_safe_altitude = -50
+combat_ignore = true
+on_game_timer = 7200 | heli_move@railroad_patrol

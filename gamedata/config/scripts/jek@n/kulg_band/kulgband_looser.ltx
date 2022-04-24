@@ -1,0 +1,94 @@
+
+[smart_terrains]
+none = true
+
+
+[logic]
+active = walker@begin
+danger = danger_ignore
+on_death = death
+threshold = threshold@kulgband_looser_threshold
+
+
+[walker@begin]
+path_walk =	kulgband_looser_walk1
+path_look =	kulgband_looser_look1
+on_timer = 100 | walker@1 %=make_invulnerable =set_neutral%
+
+
+; Сидим в автобусе:
+[walker@1]
+path_walk =	kulgband_looser_walk1
+path_look =	kulgband_looser_look1
+combat_ignore_cond = always
+meet = no_meet
+on_actor_dist_le_nvis = 25|walker@2 %=send_tip(kulgband_looser_hello_tip:stalker:7354)%
+
+[walker@2]
+path_walk =	kulgband_looser_walk1
+path_look =	kulgband_looser_look1
+combat_ignore_cond = always
+on_info = {+kulgband_looser_alarm} walker@run1
+on_info2 = {+kulgband_looser_deal} walker@rest
+
+
+; Удираем:
+[walker@run1]
+path_walk =	kulgband_looser_walk2
+path_look =	kulgband_looser_look2
+combat_ignore_cond = always
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+meet = no_meet
+on_signal       = arrived|walker@run2 %=unmake_invulnerable%
+
+[walker@run2]
+path_walk =	kulgband_looser_walk3
+path_look =	kulgband_looser_look3
+combat_ignore_cond = always
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+meet = no_meet
+on_signal       = arrived|walker@run3
+
+[walker@run3]
+path_walk =	kulgband_looser_walk4
+path_look =	kulgband_looser_look4
+combat_ignore_cond = always
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+meet = no_meet
+on_signal       = arrived|walker@run1
+
+
+; Отдыхаем:
+[walker@rest]
+path_walk =	kulgband_looser_walk1
+path_look =	kulgband_looser_look1
+combat_ignore_cond = always
+meet = no_meet
+on_info = {+kulgband_looser_deal =dist_to_actor_ge(30)}%=release%
+
+
+
+
+[danger_ignore]
+ignore_distance = 1
+
+
+[threshold@kulgband_looser_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+
+[death]
+on_info = %+kulgband_looser_dead =give_items(kulgband_cup)%
+
+
+
+
+
+

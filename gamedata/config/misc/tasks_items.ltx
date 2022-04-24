@@ -1,0 +1,787 @@
+;----- Базовые секции для всех предметов -----
+[task_item_attch]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency = 
+;$prefetch 			= 32
+class				= II_ATTCH
+cform				= skeleton
+radius				= 1
+quest_item			= true
+cost				= 0
+
+[task_item_antir]:identity_immunities
+GroupControlSection = spawn_group
+discovery_dependency =
+;$prefetch   	= 32
+class		 	= II_ANTIR
+cform           = skeleton
+radius			= 1
+quest_item		= true
+cost    = 0
+
+; eatable item
+eat_health = 0
+eat_satiety = 0
+eat_power = 0
+eat_radiation = 0
+eat_alcohol = 0
+wounds_heal_perc = 0
+eat_portions_num = -1
+
+; food item
+animation_slot  = 4
+
+;hud item
+hud = wpn_vodka_hud
+
+;----- Квестовые предметы -----
+;----- Динамит для Кузнецова -!----
+[guitar_sidr]:task_item_attch
+$spawn 				= "devices\quest_items\dynamite_for_mils"
+;visual				= equipments\item_art_sumka.ogf
+visual          = equipments\item_guitar.ogf
+description			= item_guitar_sidr_desc
+inv_name			= item_guitar_sidr_name
+inv_name_short		= item_guitar_sidr_name
+ quest_item = true
+inv_weight			= 1.5
+inv_grid_width			= 4
+inv_grid_height			= 2
+inv_grid_x				= 10
+inv_grid_y				= 19
+
+[dynamite_for_mils]:task_item_attch
+$spawn 				= "devices\quest_items\dynamite_for_mils"
+visual				= equipments\item_art_sumka.ogf
+;visual          = equipments\item_pda.ogf
+description         = dynamite_for_mils_name
+inv_name			= dynamite_for_mils_name
+inv_name_short		= dynamite_for_mils_name
+inv_weight			= 7.5
+inv_grid_width		= 3
+inv_grid_height		= 2
+inv_grid_x			= 17
+inv_grid_y			= 39
+quest_item			= false
+
+;----- Ящик с оружием -!----
+[yashik_weapon]:task_item_attch
+$spawn 				= "devices\quest_items\yashik_weapon"
+visual				= equipments\item_weapons_box.ogf
+;visual          = equipments\item_pda.ogf
+description			= item_yashik_weapon_desc
+inv_name			= item_yashik_weapon_name
+inv_name_short		= item_yashik_weapon_name
+inv_weight			= 37
+inv_grid_width		= 4
+inv_grid_height		= 3
+inv_grid_x			= 22
+inv_grid_y			= 38
+quest_item			= false
+
+;----- Отчёт военных по переходу -!----
+[bp_mily_otschet]:task_item_antir
+$spawn 				= "devices\quest_items\bp_mily_otschet"
+visual				= equipments\item_otchet.ogf
+radius				= 0.3
+description			= item_bp_mily_otschet_desc
+inv_name			= item_bp_mily_otschet_name
+inv_name_short		= item_bp_mily_otschet_name
+inv_weight			= 0.1
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 12
+inv_grid_y			= 25
+cost				= 2500
+quest_item			= false
+
+
+;----- Неизвестный артефакт -!----
+[af_esc_anomaly]:task_item_attch
+$spawn 				= "devices\quest_items\af_esc_anomaly"
+visual				= equipments\item_art_unknown.ogf
+radius				= 0.3
+description			= item_af_esc_anomaly_desc
+inv_name			= item_af_esc_anomaly_name
+inv_name_short		= item_af_esc_anomaly_name
+inv_weight			= 1
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 4
+cost				= 10000
+
+;----- Микрофон направленного действия -!----
+[antena]:task_item_antir
+$spawn    		= "food and drugs\antena"
+visual          = equipments\item_audiovizor.ogf
+description  	= item_antena_desc
+inv_name   		= item_antena_name
+inv_name_short  = item_antena_name
+inv_weight   	= 0.5
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 14
+inv_grid_y			= 24
+
+;----- КПК Швида -----
+[pda_friend_barman]:task_item_attch
+$spawn    		= "food and drugs\pda_friend_barman"
+visual          = equipments\item_pda.ogf
+radius				= 0.3
+description  	= item_pda_friend_barman_desc
+inv_name   		= item_pda_friend_barman_name
+inv_name_short  = item_pda_friend_barman_name
+inv_weight   	= 0.2
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+
+;----- Квестовые предметы -----
+[detonator_of_shvid]:task_item_attch
+$spawn 				= "devices\quest_items\detonator_of_shvid"
+visual				= equipments\item_document_2.ogf
+radius				= 0.3
+description			= detonator_of_shvid_desc
+inv_name			= detonator_of_shvid_desc
+inv_name_short		= detonator_of_shvid_desc
+inv_weight			= 0.3
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 13
+inv_grid_y			= 27
+
+;----- "Черная Душа" -!----
+[af_for_night_stalker]:task_item_attch
+$spawn 				= "devices\quest_items\af_for_night_stalker"
+visual				= equipments\item_art_black_soul.ogf
+radius				= 0.3
+description			= item_af_for_night_stalker_desc
+inv_name			= item_af_for_night_stalker_name
+inv_name_short		= item_af_for_night_stalker_name
+inv_weight			= 1.5
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 20
+inv_grid_y			= 39
+
+;----- Кукла дочери старика -!----
+[af_of_doch_starik]:task_item_attch
+$spawn 				= "devices\quest_items\af_of_doch_starik"
+visual				= equipments\item_kukla.ogf
+radius				= 0.3
+description			= item_af_of_doch_starik_desc
+inv_name			= item_af_of_doch_starik_name
+inv_name_short		= item_af_of_doch_starik_name
+inv_weight			= 0.2
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 14
+inv_grid_y			= 25
+
+;----- Детские записи -!----
+[kid_zapisi]:task_item_attch
+$spawn 				= "devices\quest_items\af_of_doch_starik"
+visual				= equipments\item_document_2.ogf
+radius				= 0.3
+description			= item_kid_zapisi_desc
+inv_name			= item_kid_zapisi_name
+inv_name_short		= item_kid_zapisi_name
+inv_weight			= 0.2
+inv_grid_width     = 2
+inv_grid_height    = 1
+inv_grid_x         = 45
+inv_grid_y         = 37
+
+
+
+
+
+
+;----- Чебурашка -!----
+[cheburashka]:task_item_attch
+$spawn 				= "devices\quest_items\af_of_doch_starik"
+visual				= equipments\item_document_2.ogf
+radius				= 0.3
+description			= item_cheburashka_desc
+inv_name			= item_cheburashka_name
+inv_name_short		= item_cheburashka_name
+inv_weight			= 0.2
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 14
+inv_grid_y			= 25
+
+;----- Сломаная снайперская винтовка Zastava M76 ----
+[wpn_of_qest_on_elevator]:task_item_attch
+$spawn 				= "devices\quest_items\wpn_of_qest_on_elevator"
+visual				= weapons\svd\m76.ogf
+description			= item_wpn_of_qest_on_elevator_desc
+inv_name			= item_wpn_of_qest_on_elevator_name
+inv_name_short		= item_wpn_of_qest_on_elevator_name
+inv_weight			= 4.8
+inv_grid_width		= 6
+inv_grid_height		= 2
+inv_grid_x		= 20
+inv_grid_y		= 26
+
+;----- Пустая колба -----
+[kolba_dummy]:task_item_antir
+$spawn    		= "food and drugs\kolba_dummy"
+visual          = dynamics\equipments\medical\drug_kolba
+description  	= item_kolba_dummy_desc
+inv_name   		= item_kolba_dummy_name
+inv_name_short  = item_kolba_dummy_name
+inv_weight   	= 0.1
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 42
+inv_grid_y         = 35
+
+;----- Колба с водой -----
+[kolba]:task_item_attch
+$spawn 				= "devices\quest_items\kolba"
+visual				= dynamics\equipments\medical\drug_kolba
+description			= item_kolba_desc
+inv_name			= item_kolba_name
+inv_name_short		= item_kolba_name
+inv_weight			= 0.5
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 42
+inv_grid_y         = 35
+
+;----- Сыворотка -----
+[kolba_zombie]:task_item_antir
+$spawn    		= "food and drugs\kolba_zombie"
+visual          = dynamics\equipments\medical\drug_kolba
+description  	= item_kolba_zombie_desc
+inv_name   		= item_kolba_zombie_name
+inv_name_short  = item_kolba_zombie_name
+inv_weight   	= 0.2
+inv_grid_width     = 1
+inv_grid_height    = 1
+inv_grid_x         = 42
+inv_grid_y         = 35
+
+use_sound_anm = items\anabiotic\anabiotic
+use_sound = inv_sounds\inv_vodka
+
+;----- Записка из тайника Фиги -----
+[zapis_treasure_of_figa]:task_item_attch
+$spawn 				= "devices\quest_items\zapis_treasure_of_figa"
+visual				= equipments\item_document_01.ogf
+description			= item_zapis_treasure_of_figa_desc
+inv_name			= item_zapis_treasure_of_figa_name
+inv_name_short		= item_zapis_treasure_of_figa_name
+inv_weight			= 0.1
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 37
+
+;----- Дневник профессора Томпсона -----
+[dnevnik_tomsona]:task_item_attch
+$spawn 				= "devices\quest_items\dnevnik_tomsona"
+visual				= equipments\item_document_01.ogf
+description			= item_dnevnik_tomsona_desc
+inv_name			= item_dnevnik_tomsona_name
+inv_name_short		= item_dnevnik_tomsona_name
+inv_weight			= 0.1
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 37
+
+;----- Большая стопка бумаг -----
+[unknow_zapisi_tomsona]:task_item_attch
+$spawn 				= "devices\quest_items\unknow_zapisi_tomsona"
+visual				= equipments\item_document_01.ogf
+description			= item_unknow_zapisi_tomsona_desc
+inv_name			= item_unknow_zapisi_tomsona_name
+inv_name_short		= item_unknow_zapisi_tomsona_name
+inv_weight			= 0.1
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 37
+
+;----- Образование О-21 -----
+[af_serdce_yantar]:task_item_antir
+$spawn    		= "food and devices\quest_items\af_serdce_yantar"
+visual          = artefacts\artefact_serdce_yantar.ogf
+description  	= item_af_serdce_yantar_desc
+inv_name   		= item_af_serdce_yantar_name
+inv_name_short  = item_af_serdce_yantar_name
+inv_weight   	= 0.5
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 7
+inv_grid_y			= 3
+
+;----- Прочный кейс с неизвестным содержимым -----
+[case_use_rub]:task_item_antir
+$spawn 				= "devices\quest_items\case_use_rub"
+visual				= equipments\item_merger.ogf
+description  	= item_case_use_rub_desc
+inv_name   		= item_case_use_rub_name
+inv_name_short  = item_case_use_rub_name
+inv_weight   	= 3.5
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 14
+inv_grid_y			= 27
+
+;----- Записка -----
+[zapis_a_case]:task_item_attch
+$spawn 				= "devices\quest_items\zapis_a_case"
+visual				= equipments\item_document_01.ogf
+description			= item_zapis_a_case_desc
+inv_name			= item_zapis_a_case_name
+inv_name_short		= item_zapis_a_case_name
+inv_weight			= 0
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 37
+
+;----- Записка -----
+[zapis_2_a_case]:task_item_attch
+$spawn 				= "devices\quest_items\zapis_2_a_case"
+visual				= equipments\item_document_01.ogf
+description			= item_zapis_2_a_case_desc
+inv_name			= item_zapis_a_case_name
+inv_name_short		= item_zapis_a_case_name
+inv_weight			= 0
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 37
+
+[zapis_3_a_case]:task_item_attch
+$spawn 				= "devices\quest_items\zapis_3_a_case"
+visual				= equipments\item_document_01.ogf
+description			= item_zapis_3_a_case_desc
+inv_name			= item_zapis_a_case_name
+inv_name_short		= item_zapis_a_case_name
+inv_weight			= 0
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 37
+
+;----- Часть кода из кейса -----
+[pol_code_of_case]:task_item_attch
+$spawn 				= "devices\quest_items\pol_code_of_case"
+visual				= equipments\item_document_01.ogf
+description			= item_pol_code_of_case_desc
+inv_name			= item_pol_code_of_case_name
+inv_name_short		= item_pol_code_of_case_name
+inv_weight			= 0
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 37
+
+;----- КПК Монолитовца -----
+[pda_monolit]:task_item_attch
+$spawn 				= "devices\quest_items\pda_monolit"
+visual				= equipments\item_document_01.ogf
+description			= item_pda_monolit_desc
+inv_name			= item_pda_monolit_name
+inv_name_short		= item_pda_monolit_name
+inv_weight			= 0.3
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+quest_item			= false
+
+;----- КПК Скорого -----
+[pda_scoryi]:task_item_attch
+$spawn 				= "devices\quest_items\pda_monolit"
+visual				= equipments\item_document_01.ogf
+description			= item_pda_scoryi_desc
+inv_name			= item_pda_scoryi_name
+inv_name_short		= item_pda_scoryi_name
+inv_weight			= 0.3
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+
+;----- Ноутбук наемников -----
+[notebook_mercs]:task_item_attch
+$spawn 				= "devices\quest_items\pda_monolit"
+visual				= equipments\item_notebook.ogf
+description			= item_notebook_mercs_desc
+inv_name			= item_notebook_mercs_name
+inv_name_short		= item_notebook_mercs_name
+inv_weight			= 1.0
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 4
+inv_grid_y			= 15
+
+;----- Мешок денег -----
+[box_moneys]:task_item_attch
+$spawn 				= "devices\quest_items\pda_monolit"
+visual				= equipments\item_notebook.ogf
+description			= item_box_moneys_desc
+inv_name			= item_box_moneys_name
+inv_name_short		= item_box_moneys_name
+inv_weight			= 1.0
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+
+;----- ПДА Преображенского -----
+[pda_preobr]:task_item_attch
+$spawn 				= "devices\quest_items\pda_monolit"
+visual          = equipments\item_pda.ogf
+description			= item_pda_preobr_desc
+inv_name			= item_pda_preobr_name
+inv_name_short		= item_pda_preobr_name
+inv_weight			= 0.2
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+
+;----- Стебель растения Ranunculus insolita -----
+[stebel_ri]:task_item_attch
+$spawn 				= "devices\quest_items\pda_monolit"
+visual          = equipments\item_pda.ogf
+description			= item_stebel_ri_desc
+inv_name			= item_stebel_ri_name
+inv_name_short		= item_stebel_ri_name
+inv_weight			= 0.2
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+
+;----- Рекарство для Сидоровича -----
+[lekar_for_sidor]:task_item_attch
+$spawn 				= "devices\quest_items\pda_monolit"
+visual          = equipments\item_pda.ogf
+description			= item_lekar_for_sidor_desc
+inv_name			= item_lekar_for_sidor_name
+inv_name_short		= item_lekar_for_sidor_name
+inv_weight			= 0.2
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+
+;----- КПК Грибника -----
+[pda_gribnik]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 				= "devices\quest_items\esc_wounded_flash"
+;$prefetch 			= 32
+class				= II_ATTCH
+cform				= skeleton
+visual          = equipments\item_pda.ogf
+radius				= 1
+quest_item			= false
+
+description         = item_pda_gribnik_desc
+
+inv_name			= item_pda_gribnik_name
+inv_name_short		= item_pda_gribnik_name
+inv_weight			= 0
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+cost				= 0
+
+;----- КПК Лешего -----
+[pda_leshyi]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 				= "devices\quest_items\esc_wounded_flash"
+;$prefetch 			= 32
+class				= II_ATTCH
+cform				= skeleton
+visual          = equipments\item_pda.ogf
+radius				= 1
+quest_item			= false
+
+description         = item_pda_leshyi_desc
+
+inv_name			= item_pda_leshyi_name
+inv_name_short		= item_pda_leshyi_name
+inv_weight			= 0
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 13
+cost				= 0
+
+
+;============================================================
+[bomba]:identity_immunities,delayed_action_fuse
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 				= "weapons\explosive\bomba"
+$prefetch			= 16
+class				= II_EXPLO
+cform				= skeleton
+visual		 		= equipments\item_dynamite.ogf
+inv_name			= bomba_string
+inv_name_short		= bomba_string
+description          = bomba_string
+inv_weight			= 10.0
+
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 52
+inv_grid_y			= 35
+
+;вещь невозможно подобрать
+can_take			= true
+
+cost				= 20
+;----------------------------------------------------------
+blast				= 50.00
+blast_r				= 50
+blast_impulse		= 100
+;delete
+blast_impulse_factor = 4
+
+
+frags				= 1200
+frags_r				= 1200
+frag_hit			= 100
+frag_hit_impulse	= 70
+
+hit_type_blast		= explosion; chemical_burn 
+hit_type_frag		= burn
+
+up_throw_factor		= 1.2
+;----------------------------------------------------------
+wm_size                  = 0.1
+
+explode_particles		 = explosions\explosion_dynamite
+
+light_color		         = 1.9,1.3,0.5
+light_range		         = 30.0
+light_time 		         = 1.5
+
+;трассы от осколков
+fragment_speed				= 50
+
+explode_duration		 = 5	;подолжительность взрыва (с)
+
+;звуки
+snd_explode = weapons\f1_explode2
+immunities_sect			= bomba_immunities_sect
+;condition_to_explode        =0.f
+;wallmarks
+wallmark_section		= explosion_marks
+
+
+[bomba_easy]:identity_immunities,delayed_action_fuse
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 				= "weapons\explosive\bomba_easy"
+$prefetch			= 16
+class				= II_EXPLO
+cform				= skeleton
+visual		 		= physics\box\expl_dinamit.ogf
+inv_name			= "бомба"
+inv_name_short		= "бомба"
+description         = "Бомба"
+inv_weight			= 10.0
+
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 4
+inv_grid_y			= 18
+
+;вещь невозможно подобрать
+can_take			= false
+
+cost				= 20
+;----------------------------------------------------------
+blast				= 15.00
+blast_r				= 15
+blast_impulse		= 1000
+;delete
+blast_impulse_factor = 4
+
+
+frags				= 500
+frags_r				= 500
+frag_hit			= 33
+frag_hit_impulse	= 100
+
+hit_type_blast		=  explosion; chemical_burn 
+hit_type_frag		= burn
+
+up_throw_factor		= 1.2
+;----------------------------------------------------------
+wm_size                  = 0.1
+
+explode_particles		 = explosions\explosion_01b
+
+light_color		         = 1.9,1.3,0.5
+light_range		         = 30.0
+light_time 		         = 1.5
+
+;трассы от осколков
+fragment_speed				= 50
+
+explode_duration		 = 3	;подолжительность взрыва (с)
+
+;звуки
+snd_explode = weapons\f1_explode2
+immunities_sect			= bomba_immunities_sect
+;condition_to_explode        =0.f
+;wallmarks
+wallmark_section		= explosion_marks
+
+[bomba_immunities_sect]
+;коэффициенты для попаданий различными типами хитов
+burn_immunity			= 0.0
+strike_immunity			= 0.0
+shock_immunity			= 0.0
+wound_immunity			= 0.0
+radiation_immunity		= 0.0
+telepatic_immunity		= 0.0
+chemical_burn_immunity	= 0.0
+explosion_immunity		= 0.5
+fire_wound_immunity		= 0.8
+
+;============================================================
+
+[bomba_fake]:identity_immunities,delayed_action_fuse
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn 				= "weapons\explosive\bomba_fake"
+$prefetch			= 16
+class				= II_EXPLO
+cform				= skeleton
+visual		 		= dynamics\devices\dev_bolt\dev_bolt.ogf
+inv_name			= "бомба"
+inv_name_short		= "бомба"
+description         = "Бомба"
+inv_weight			= 10.0
+
+inv_grid_width		= 2
+inv_grid_height		= 2
+inv_grid_x			= 4
+inv_grid_y			= 18
+
+;вещь невозможно подобрать
+can_take			= false
+
+cost				= 20
+;----------------------------------------------------------
+blast				= 1.00
+blast_r				= 1
+blast_impulse		= 10
+;delete
+blast_impulse_factor = 1
+
+
+frags				= 1
+frags_r				= 1
+frag_hit			= 1
+frag_hit_impulse	= 1
+
+hit_type_blast		=  explosion; chemical_burn 
+hit_type_frag		= burn
+
+up_throw_factor		= 1.2
+;----------------------------------------------------------
+wm_size                  = 0.1
+
+explode_particles		 = explosions\explosion_dynamite
+
+light_color		         = 1.9,1.3,0.5
+light_range		         = 30.0
+light_time 		         = 1.5
+
+;трассы от осколков
+fragment_speed				= 50
+
+explode_duration		 = 3	;подолжительность взрыва (с)
+
+;звуки
+snd_explode = weapons\f1_explode2
+immunities_sect			= bomba_fake_immunities_sect
+;condition_to_explode        =0.f
+;wallmarks
+wallmark_section		= explosion_marks
+
+[bomba_fake_immunities_sect]
+;коэффициенты для попаданий различными типами хитов
+burn_immunity			= 0.0
+strike_immunity			= 0.0
+shock_immunity			= 0.0
+wound_immunity			= 0.0
+radiation_immunity		= 0.0
+telepatic_immunity		= 0.0
+chemical_burn_immunity	= 0.0
+explosion_immunity		= 0.5
+fire_wound_immunity		= 0.8
+
+[instant_bomb]:bomba_easy,delayed_action_fuse_instant
+[instant_bomb_immunities_sect]
+burn_immunity			= 0.0
+strike_immunity			= 0.0
+shock_immunity			= 0.0
+wound_immunity			= 0.0
+radiation_immunity		= 0.0
+telepatic_immunity		= 0.0
+chemical_burn_immunity	= 0.0
+explosion_immunity		= 0.5
+fire_wound_immunity		= 0.8
+
+;============================================================
+
+; Чемоданчик с "Телекиллом"
+[telekill_case]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn			= "devices\quest_items\quest_case_03"
+class				= II_ATTCH
+cform				= skeleton
+visual				= equipments\item_merger.ogf
+radius				= 1
+inv_weight			= 2.5
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 8
+inv_grid_y			= 18
+cost				= 0
+
+description		= telekill_case_desc
+inv_name		= telekill_case_name
+inv_name_short	= telekill_case_short_name
+[telekill_case_with_art]:telekill_case
+inv_weight			= 3.0
+quest_item			= true
+
+description		= telekill_case_with_art_desc
+inv_name		= telekill_case_with_art_name
+inv_name_short	= telekill_case_with_art_short_name
+
+[psycho_military_note]:task_item_antir
+$spawn 				= "devices\quest_items\psycho_military_note"
+visual				= equipments\item_document_01.ogf
+description			= psycho_military_note_desc
+inv_name			= psycho_military_note_name
+inv_name_short		= psycho_military_note_name
+inv_weight			= 0.1
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x			= 16
+inv_grid_y			= 37

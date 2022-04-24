@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+<cheb_2_3_6>
+
+<body x="220" y="120" width="511" height="520" stretch="1">
+	<texture>ui\cheb\cheb_base_body</texture>
+</body>
+<table x="290" y="450" width="404" height="384" stretch="1">
+	<texture>ui\cheb\cheb_dialog_screen</texture>
+</table>
+<name x="540" y="640" width="370" height="35">
+	<text x="0" y="0" r="225" g="218" b="118" font="letterica18">cheb_name</text>
+</name>
+<cheb_talking0 x="315" y="495" width="360" height="145">
+	<text font="letterica18">..............................................................................................</text>
+</cheb_talking0>
+<cheb_talking1 x="315" y="495" width="360" height="145">
+	<text font="letterica16">cheb_do_some_task_6_string</text>
+</cheb_talking1>
+<cheb_talking2 x="315" y="510" width="360" height="145">
+	<text font="letterica16"></text>
+</cheb_talking2>
+<cheb_talking3 x="315" y="525" width="360" height="145">
+	<text font="letterica16"></text>
+</cheb_talking3>
+<cheb_talking4 x="315" y="540" width="360" height="145">
+	<text font="letterica16"></text>
+</cheb_talking4>
+<cheb_talking5 x="315" y="555" width="360" height="145">
+	<text font="letterica16"></text>
+</cheb_talking5>
+<cheb_talking6 x="315" y="570" width="360" height="145">
+	<text font="letterica16"></text>
+</cheb_talking6>
+<cheb_talking7 x="315" y="585" width="360" height="145">
+	<text font="letterica16"></text>
+</cheb_talking7>
+<cheb_talking8 x="315" y="600" width="360" height="145">
+	<text font="letterica16"></text>
+</cheb_talking8>
+<cheb_talking9 x="315" y="615" width="360" height="145">
+	<text font="letterica16"></text>
+</cheb_talking9>
+
+
+	<btn_1 x="155" y="690" width="400" height="27">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+		<text font="letterica16">understood_string</text>
+	</btn_1>
+
+	<btn_quit x="458" y="635" width="18" height="18">
+		<texture_e>ui\ui_icons_actor_djekman_armor</texture_e>
+	</btn_quit>
+
+</cheb_2_3_6>
+

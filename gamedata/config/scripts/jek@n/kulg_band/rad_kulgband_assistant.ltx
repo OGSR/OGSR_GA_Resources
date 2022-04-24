@@ -1,0 +1,80 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = {+rad_kulgband_assist_forest_end2} walker@4, walker@begin
+danger = danger_ignore
+on_death = death
+;on_combat = combat
+threshold = threshold@rad_kulgband_assistant_threshold
+
+[walker@begin]
+path_walk =	rad_kulgband_assistant_walk1
+path_look =	rad_kulgband_assistant_look1
+on_timer = 1|walker@1
+
+
+; Сидим у тачки:
+[walker@1]
+path_walk =	rad_kulgband_assistant_walk1
+path_look =	rad_kulgband_assistant_look1
+combat_ignore_cond = always
+on_info = {+rad_kulgband_assist_goto_forest} walker@2
+
+; Прёмся в лес:
+[walker@2]
+path_walk =	rad_kulgband_assistant_walk2
+path_look =	rad_kulgband_assistant_look2
+;combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+on_signal       = arrived|walker@3 %+rad_kulgband_assist_place1%
+
+; Припёрлись и ждём гостей:
+[walker@3]
+path_walk =	rad_kulgband_assistant_walk2
+path_look =	rad_kulgband_assistant_look2
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+on_info = {+rad_kulgband_assist_forest_end2} walker@4
+;on_info2 = {=actor_has_item(rad_kulgband_zapis) -rad_kulgband_zapis_info} %+rad_kulgband_zapis_info%
+
+; Теперь обратно к переходу:
+[walker@4]
+path_walk =	rad_kulgband_assistant_walk1
+path_look =	rad_kulgband_assistant_look1
+combat_ignore_cond = always
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+meet = no_meet
+on_info = {=dist_to_actor_ge(40)}%=release%
+
+
+
+[combat]
+combat_type = camper
+
+[danger_ignore]
+ignore_distance = 20
+ignore_distance_sound = 10
+danger_inertion_time_sound = 100
+danger_expiration_time = 300
+
+
+[threshold@rad_kulgband_assistant_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+
+[death]
+on_info = %+rad_kulgband_assistant_dead%
+
+
+
+
+
+

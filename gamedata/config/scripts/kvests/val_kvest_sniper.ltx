@@ -1,0 +1,20 @@
+[logic]
+active = camper
+on_combat = combat
+
+[camper]
+path_walk = val_kvest_sniper_walk
+path_look = val_kvest_sniper_look
+def_state_moving = raid
+def_state_campering = threat
+def_state_campering_fire = threat_sniper_fire
+meet = no_meet
+radius = 10
+sniper = true
+
+[combat]
+combat_type = camper
+
+[smart_terrains]
+none = true
+

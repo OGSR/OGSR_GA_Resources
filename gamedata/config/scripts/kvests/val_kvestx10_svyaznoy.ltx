@@ -1,0 +1,38 @@
+[logic]
+active = remark
+combat_ignore = combat_ignore
+on_death = death
+
+[death]
+on_info = %+rad_kvest_dobrozhelatel_svyaznoy_killed%
+
+[remark]
+anim = sit_ass
+on_info = walker %=add_out_restrictor(deadcity_gorkom_1)%
+on_info2 = {+kpss_freetogo} %=remove_out_restrictor(deadcity_gorkom_1)%
+
+[walker]
+path_walk = val_kvestx10_svyaznoy_walk
+path_look = val_kvestx10_svyaznoy_look
+combat_ignore_cond = {-rad_kvest_dobrozhelatel_help_to_svyaznoy}
+on_info = {+rad_kvest_dobrozhelatel_help_to_svyaznoy} %=remove_out_restrictor(deadcity_gorkom_1)% walker@bar
+danger = danger_condition
+meet = meet
+
+; пусть идет в бар, все равно удалится при попадании в оффлайн
+[walker@bar]
+path_walk = deadcity_bar_restsofa_walk
+path_look = deadcity_bar_drinkman_look
+danger = danger_condition
+meet = meet
+
+[meet]
+meet_state = 5| hello| 3| wait| 2| wait
+meet_state_wpn = 5| hello| 3| wait
+victim = 5| actor
+victim_wpn = 5| actor
+use = true
+use_wpn = false
+
+[danger_condition]
+ignore_distance = 0

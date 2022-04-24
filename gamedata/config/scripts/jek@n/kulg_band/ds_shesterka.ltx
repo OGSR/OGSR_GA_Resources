@@ -1,0 +1,114 @@
+[smart_terrains]
+none = true
+
+
+[logic]
+active = {+kulgband_hutor_house_seif_task} walker@3, walker
+;combat_ignore = combat_ignore
+danger = danger_ignore
+on_death = death
+threshold = threshold@shesterka_threshold
+on_hit = hit
+
+
+[walker]
+path_walk =	shesterka_walk
+path_look =	shesterka_look
+combat_ignore_cond = {-kulg_band_hutor_attacked} always
+meet = meet@drunk
+on_info = {+kulg_band_hutor_attacked} %=killactor%
+on_info2 = {+ds_shesterka_go_out} walker@1
+on_info3 = {+ds_telohr_2_go_out -ds_glavar_blamed} walker@4
+;on_info2 = {+kulg_band_meet_speech_loose} walker@goodbye %=make_invulnerable%
+
+
+; Секция ожидания перед удалением:
+[walker@goodbye]
+path_walk =	shesterka_walk
+path_look =	shesterka_look
+combat_ignore_cond = always
+on_actor_dist_ge_nvis = 30|%=release%
+
+
+; Выходим на разговор:
+[walker@1]
+path_walk =	shesterka_walk1
+path_look =	shesterka_look1
+combat_ignore_cond = always
+meet = no_meet
+on_signal       = arrived|walker@2 %=play_snd_on_me(characters_voice\human_01\bandit\talk\intros\intro_joke_1)%
+
+[walker@2]
+path_walk =	shesterka_walk1
+path_look =	shesterka_look1
+combat_ignore_cond = always
+on_info = {+kulg_band_hutor_attacked} %=killactor%
+on_info2 = {+kulgband_hutor_house_seif_task} walker@3
+
+[walker@3]
+path_walk =	shesterka_walk1
+path_look =	shesterka_look1
+combat_ignore_cond = always
+on_info = {+kulg_band_hutor_attacked} %=killactor%
+on_info2 = {+kulgband_hutor_house_seif_task_fail} walker@away
+
+
+; Сваливаем подальше и удаляемся:
+[walker@away]
+path_walk =	ds_glavar_walk2
+path_look =	ds_glavar_look2
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+on_signal       = arrived|%=release%
+
+
+; У крыльца:
+[walker@4]
+path_walk =	shesterka_walk2
+path_look =	shesterka_look2
+combat_ignore_cond = always
+meet = no_meet
+on_info = {+ds_glavar_blamed} walker
+
+
+
+[meet@drunk]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 3|actor
+victim_wpn = 3|actor
+meet_state = 3|wait@shesterka_hello|1|wait@shesterka_hello
+meet_state_wpn = 3|wait@shesterka_hello|1|wait@shesterka_hello
+
+
+[danger_ignore]
+ignore_distance = 10
+
+
+[combat_ignore]
+combat_ignore_cond = always
+
+
+[threshold@shesterka_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+
+[death]
+on_info = %+ds_shesterka_dead +kulgband_hutor_house_seif_task_fail%
+
+
+[hit]
+on_info = {=hit_by_actor} %+kulg_band_hutor_attacked%
+
+
+
+
+
+
+
+

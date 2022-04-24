@@ -1,0 +1,29 @@
+[logic]
+active = sr_idle@0
+
+[sr_idle@0]
+on_info = {!is_day -master_quest_soup_ready -master_quest_bomb_planted =actor_out_zone(deadcity_bar) =actor_out_zone(dead_city_master_bomb_timer) =actor_in_zone(deadcity_master_territory)} sr_idle@1 %=change_actor_torch_bad(actor)%
+on_info2 = {+master_quest_soup_ready} sr_idle@nil %=change_actor_torch_good(actor)%
+on_info3 = {=is_day -master_quest_soup_ready +no_net_signal -pre_blowout} %+net_signal =change_actor_torch_good(actor)%
+
+[sr_idle@1]
+on_actor_outside = %=run_postprocess(blink) =teleport_actor_randomly_deadcity(actor) =play_snd(soundtrack\x18_laugh)%
+on_info = {+master_quest_soup_ready} sr_idle@nil %=change_actor_torch_good(actor)%
+on_info2 = {=actor_in_zone(deadcity_bar)} sr_idle@0 %=change_actor_torch_good(actor)%, {=actor_in_zone(dead_city_master_bomb_timer)}  sr_idle@0 %=change_actor_torch_good(actor)%
+on_info3 = {=is_day -master_quest_soup_ready} sr_idle@0 %=change_actor_torch_good(actor)%, {+master_quest_bomb_planted} sr_idle@0 %=change_actor_torch_good(actor)%
+on_info4 = {!is_day =actor_in_zone(deadcity_master_territory) -master_quest_soup_ready -pre_blowout} %+no_net_signal =change_actor_torch_bad(actor)%
+on_info5 = {=is_day =actor_in_zone(deadcity_master_territory) -master_quest_soup_ready -pre_blowout} %+net_signal =change_actor_torch_good(actor)%
+on_info6 = {!is_day !actor_in_zone(deadcity_master_territory) -master_quest_soup_ready -pre_blowout} %+net_signal =change_actor_torch_good(actor)%
+on_info7 = {!is_day -master_quest_soup_ready =actor_in_zone(deadcity_master_territory) =is_in_car} sr_idle@2
+
+[sr_idle@2]
+on_info = {+master_quest_soup_ready} sr_idle@nil
+on_info2 = {=actor_in_zone(deadcity_bar)} sr_idle@0
+on_info3 = {=is_day -master_quest_soup_ready} sr_idle@0
+on_info4 = {!is_day =actor_in_zone(deadcity_master_territory) -master_quest_soup_ready -pre_blowout} %+no_net_signal%
+on_info5 = {=is_day =actor_in_zone(deadcity_master_territory) -master_quest_soup_ready -pre_blowout} %+net_signal%
+on_info6 = {!is_day !actor_in_zone(deadcity_master_territory) -master_quest_soup_ready -pre_blowout} %+net_signal%
+on_info7 = {!is_day -master_quest_soup_ready =actor_in_zone(deadcity_master_territory) !is_in_car} sr_idle@1
+
+
+[sr_idle@nil]

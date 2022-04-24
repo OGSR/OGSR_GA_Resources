@@ -1,0 +1,556 @@
+;-------------------------------------------------------------------------------------------------
+;--- Stalkers ------------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------------------------
+[logic@deadcity_bar_barman]
+active = walker@deadcity_bar_barman
+combat_ignore = combat_ignore@deadcity_bar_barman
+trade = misc\trade_billy.ltx  ; заменить на уникального
+inv_max_weight = 10000
+ 
+[walker@deadcity_bar_barman]
+path_walk = barman1_walk
+path_look = barman_look
+def_state_standing = barman_wait_free
+def_state_moving1 = barman_walk_free
+def_state_moving2 = barman_walk_free
+def_state_moving3 = barman_walk_free
+combat_ignore_cond = always
+meet = meet@deadcity_bar_barman
+danger = danger_condition@deadcity_bar_barman
+on_timer = 15000 | walker@deadcity_bar1_barman
+
+[walker@deadcity_bar1_barman]
+path_walk = barman2_walk
+path_look = barman_look
+def_state_standing = barman_wait_free
+def_state_moving1 = barman_walk_free
+def_state_moving2 = barman_walk_free
+def_state_moving3 = barman_walk_free
+combat_ignore_cond = always
+meet = meet@deadcity_bar_barman
+danger = danger_condition@deadcity_bar_barman
+on_timer = 25000 | walker@deadcity_bar2_barman
+
+[walker@deadcity_bar2_barman]
+path_walk = barman3_walk
+path_look = barman_look
+def_state_standing = barman_wait_free
+def_state_moving1 = barman_walk_free
+def_state_moving2 = barman_walk_free
+def_state_moving3 = barman_walk_free
+combat_ignore_cond = always
+meet = meet@deadcity_bar_barman
+danger = danger_condition@deadcity_bar_barman
+on_timer = 20000 | walker@deadcity_bar_barman
+
+[meet@deadcity_bar_barman]
+meet_state = 5|barman_talk_free@bar_bar_barmen_hello
+meet_state_wpn = 5|barman_talk_free@bar_bar_barmen_hello
+victim = 5|actor
+victim_wpn = 5|actor
+use = true
+use_wpn = true
+combat_ignore_cond = always
+; meet_dialog		=  bar_bar_barmen_start -- заменить на уникальный
+
+[danger_condition@deadcity_bar_barman]
+ignore_distance       = 0
+
+[combat_ignore@deadcity_bar_barman]
+combat_ignore_cond = always
+
+
+[logic@deadcity_bar_guard1]
+active = walker@deadcity_bar_guard1
+
+[walker@deadcity_bar_guard1]
+path_walk = guard2_walk
+path_look = guard2_look
+meet = meet@deadcity_bar_guard1
+danger = danger_ignore@deadcity_bar_guard1
+on_timer = 80000 | walker@deadcity_bar2_guard2
+
+[walker@deadcity_bar2_guard2]
+path_walk = guard2_walk2
+path_look = guard2_look2
+meet = meet@deadcity_bar_guard1
+danger = danger_ignore@deadcity_bar_guard1
+on_timer = 80000 | walker@deadcity_bar_guard1
+
+[meet@deadcity_bar_guard1]
+meet_state 		= 2 | wait@talk_hello 
+meet_state_wpn 	= 15 | threat@threat_weap
+victim 			= nil
+victim_wpn 		= 15 | actor
+use			= false
+use_wpn		= false
+abuse       = false
+
+[danger_ignore@deadcity_bar_guard1]
+ignore_distance = 0
+
+[logic@deadcity_bar_guard2]
+active = walker@deadcity_bar_guard2
+
+[walker@deadcity_bar_guard2]
+path_walk = guard1_walk
+path_look = guard1_look
+meet = meet@deadcity_bar_guard2
+danger = danger_ignore@deadcity_bar_guard1
+
+[meet@deadcity_bar_guard2]
+meet_state 		= 5 | guard@bar_guard_prohodi
+meet_state_wpn 	        = 15 | threat@threat_weap
+victim 			= 5 | actor
+victim_wpn 		= 15 | actor
+use					= false
+use_wpn		        = false
+abuse               = false
+
+[danger_ignore@deadcity_bar_guard2]
+ignore_distance = 0
+
+[logic@deadcity_bar_drinkman]
+active = walker@deadcity_bar_drinkman
+
+[walker@deadcity_bar_drinkman]
+path_walk = drinkman_walk
+path_look = drinkman_look
+meet = meet@deadcity_bar_drinkman
+danger = danger_ignore@deadcity_bar_drinkman
+on_timer = 100000 | walker@deadcity_bar_drinkman2
+
+[walker@deadcity_bar_drinkman2]
+path_walk = drinkman_walk
+path_look = drinkman_look2
+meet = no_meet
+danger = danger_ignore@deadcity_bar_drinkman
+on_timer = 50000 | walker@deadcity_bar_drinkman
+
+[danger_ignore@deadcity_bar_drinkman]
+ignore_distance = 0
+
+[meet@deadcity_bar_drinkman]
+use = true
+use_wpn = false
+meet_talk_enabled = true
+meet_state = ward
+
+[logic@deadcity_bar_nardyman]
+active = walker@deadcity_bar_nardyman
+on_death = death@deadcity_bar_nardyman
+
+[walker@deadcity_bar_nardyman]
+path_walk = nardyman_walk
+path_look = nardyman_look
+meet = meet@deadcity_bar_nardyman
+danger = danger_ignore@deadcity_bar_nardyman
+on_timer = 120000 | %=give_item(sigaret)% walker@deadcity_bar_nardyman2
+on_info = {+master_quest_helmet_colonel -master_quest_helmet_given} %=give_item(psy_helmet_a)% walker@deadcity_bar_nardyman3
+
+[walker@deadcity_bar_nardyman2]
+path_walk = nardyman2_walk
+path_look = nardyman2_look
+meet = meet@deadcity_bar_nardyman
+danger = danger_ignore@deadcity_bar_nardyman
+on_timer = 60000 | walker@deadcity_bar_nardyman
+on_info = {+master_quest_helmet_colonel -master_quest_helmet_given} %=give_item(psy_helmet_a)% walker@deadcity_bar_nardyman3
+
+[walker@deadcity_bar_nardyman3]
+path_walk = nardyman_walk_helm 
+path_look = nardyman3_look
+meet = no_meet
+no_move = true
+combat_ignore_cond = always
+;on_info = {+master_quest_helmet_given} %=remove_item(psy_helmet_a)% walker@deadcity_bar_nardyman
+on_info = {+master_quest_helmet_given} %=remove_item_from_npc(psy_helmet_a)% walker@deadcity_bar_nardyman
+
+[death@deadcity_bar_nardyman]
+on_info = %+master_quest_colonel_dead%
+
+[danger_ignore@deadcity_bar_nardyman]
+ignore_distance = 0
+
+[meet@deadcity_bar_nardyman]
+use = true
+use_wpn = false
+
+[logic@deadcity_bar_billiardman]
+active = walker@deadcity_bar_billiardman
+
+[walker@deadcity_bar_billiardman]
+path_walk = billiardman_walk
+path_look = billiardman_look
+meet = meet@deadcity_bar_billiardman
+danger = danger_ignore@deadcity_bar_billiardman
+on_timer = 150000 | walker@deadcity_bar_billiardman2
+
+[walker@deadcity_bar_billiardman2]
+path_walk = billiardman_walk2
+path_look = billiardman_look2
+meet = meet@deadcity_bar_billiardman
+danger = danger_ignore@deadcity_bar_billiardman
+on_timer = 75000 | walker@deadcity_bar_billiardman
+
+[danger_ignore@deadcity_bar_billiardman]
+ignore_distance = 0
+
+[meet@deadcity_bar_billiardman]
+use = true
+use_wpn = false
+
+
+[logic@deadcity_bar_restsofa]
+active = sleeper@deadcity_bar_restsofa
+
+[sleeper@deadcity_bar_restsofa]
+path_main = restsofa_walk
+meet = no_meet
+
+[meet@deadcity_bar_restsofa]
+use = true
+use_wpn = false
+
+[logic@deadcity_bar_sleeper]
+active = sleeper@deadcity_bar_sleeper
+
+[sleeper@deadcity_bar_sleeper]
+path_main = sleeper_walk
+meet = no_meet
+
+[meet@deadcity_bar_sleeper]
+use = true
+use_wpn = false
+
+[logic@deadcity_bar_zasranets]
+active = walker@deadcity_bar_zasranets
+
+[walker@deadcity_bar_zasranets]
+path_walk = zasranets_walk
+path_look = zasranets_look
+meet = meet@deadcity_bar_zasranets
+danger = danger_ignore@deadcity_bar_zasranets
+on_timer = 240000 | walker@deadcity_bar_zasranets2
+
+[walker@deadcity_bar_zasranets2]
+path_walk = zasranets2_walk
+path_look = zasranets2_look
+meet = no_meet
+danger = danger_ignore@deadcity_bar_zasranets
+on_timer = 120000 | walker@deadcity_bar_zasranets
+
+[danger_ignore@deadcity_bar_zasranets]
+ignore_distance = 0
+
+[meet@deadcity_bar_zasranets]
+use = true
+use_wpn = false
+meet_state = ward
+;-------------------------------------------------------------------------------------------------
+;--- Monsters ------------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------------------------
+[logic@deadcity_zombies_1_kamp1]
+active = kamp@deadcity_zombies_1_kamp1
+
+[kamp@deadcity_zombies_1_kamp1]
+center_point = kamp_1
+
+[logic@deadcity_zombies_1_kamp2]
+active = kamp@deadcity_zombies_1_kamp2
+
+[kamp@deadcity_zombies_1_kamp2]
+center_point = kamp_2
+
+[logic@deadcity_zombies_1_kamp3]
+active = kamp@deadcity_zombies_1_kamp3
+
+[kamp@deadcity_zombies_1_kamp3]
+center_point = kamp_3
+
+[logic@deadcity_zombies_1_kamp4]
+active = kamp@deadcity_zombies_1_kamp4
+
+[kamp@deadcity_zombies_1_kamp4]
+center_point = kamp_4
+
+[logic@deadcity_zombies_1_kamp5]
+active = kamp@deadcity_zombies_1_kamp5
+
+[kamp@deadcity_zombies_1_kamp5]
+center_point = kamp_5
+
+[logic@deadcity_zombies_1_kamp6]
+active = kamp@deadcity_zombies_1_kamp6
+
+[kamp@deadcity_zombies_1_kamp6]
+center_point = kamp_6
+
+[logic@deadcity_zombies_1_kamp7]
+active = kamp@deadcity_zombies_1_kamp7
+
+[kamp@deadcity_zombies_1_kamp7]
+center_point = kamp_7
+
+[logic@deadcity_zombies_1_walker]
+active = walker@deadcity_zombies_1_walker
+
+[walker@deadcity_zombies_1_walker]
+path_walk = walker_walk	
+sound_idle = state
+
+[logic@deadcity_zombies_1_walker2]
+active = walker@deadcity_zombies_1_walker2
+
+[walker@deadcity_zombies_1_walker2]
+path_walk = walker_walk2
+sound_idle = state
+
+;----------
+[logic@deadcity_zombies_2_kamp1]
+active = kamp@deadcity_zombies_2_kamp1
+
+[kamp@deadcity_zombies_2_kamp1]
+center_point = kamp_1
+
+[logic@deadcity_zombies_2_kamp2]
+active = kamp@deadcity_zombies_2_kamp2
+
+[kamp@deadcity_zombies_2_kamp2]
+center_point = kamp_2
+
+[logic@deadcity_zombies_2_kamp3]
+active = kamp@deadcity_zombies_2_kamp3
+
+[kamp@deadcity_zombies_2_kamp3]
+center_point = kamp_3
+
+[logic@deadcity_zombies_2_kamp4]
+active = kamp@deadcity_zombies_2_kamp4
+
+[kamp@deadcity_zombies_2_kamp4]
+center_point = kamp_4
+
+[logic@deadcity_zombies_2_kamp5]
+active = kamp@deadcity_zombies_2_kamp5
+
+[kamp@deadcity_zombies_2_kamp5]
+center_point = kamp_5
+
+[logic@deadcity_zombies_2_kamp6]
+active = kamp@deadcity_zombies_2_kamp6
+
+[kamp@deadcity_zombies_2_kamp6]
+center_point = kamp_6
+
+[logic@deadcity_zombies_2_walker]
+active = walker@deadcity_zombies_2_walker
+
+[walker@deadcity_zombies_2_walker]
+path_walk = walker_walk	
+sound_idle = state
+
+[logic@deadcity_zombies_2_walker2]
+active = walker@deadcity_zombies_2_walker2
+
+[walker@deadcity_zombies_2_walker2]
+path_walk = walker_walk2
+sound_idle = state
+
+;----------
+[logic@deadcity_zombies_3_kamp1]
+active = kamp@deadcity_zombies_3_kamp1
+
+[kamp@deadcity_zombies_3_kamp1]
+center_point = kamp_1
+
+[logic@deadcity_zombies_3_kamp2]
+active = kamp@deadcity_zombies_3_kamp2
+
+[kamp@deadcity_zombies_3_kamp2]
+center_point = kamp_2
+
+[logic@deadcity_zombies_3_kamp3]
+active = kamp@deadcity_zombies_3_kamp3
+
+[kamp@deadcity_zombies_3_kamp3]
+center_point = kamp_3
+
+[logic@deadcity_zombies_3_kamp4]
+active = kamp@deadcity_zombies_3_kamp4
+
+[kamp@deadcity_zombies_3_kamp4]
+center_point = kamp_4
+
+[logic@deadcity_zombies_3_kamp5]
+active = kamp@deadcity_zombies_3_kamp5
+
+[kamp@deadcity_zombies_3_kamp5]
+center_point = kamp_5
+
+[logic@deadcity_zombies_3_walker]
+active = walker@deadcity_zombies_3_walker
+
+[walker@deadcity_zombies_3_walker]
+path_walk = walker_walk	
+sound_idle = state
+
+[logic@deadcity_zombies_3_walker2]
+active = walker@deadcity_zombies_3_walker2
+
+[walker@deadcity_zombies_3_walker2]
+path_walk = walker_walk2
+sound_idle = state
+
+;----------
+
+[logic@deadcity_zombies_4_kamp1]
+active = kamp@deadcity_zombies_4_kamp1
+
+[kamp@deadcity_zombies_4_kamp1]
+center_point = kamp_1
+
+[logic@deadcity_zombies_4_kamp2]
+active = kamp@deadcity_zombies_4_kamp2
+
+[kamp@deadcity_zombies_4_kamp2]
+center_point = kamp_2
+
+[logic@deadcity_zombies_4_kamp3]
+active = kamp@deadcity_zombies_4_kamp3
+
+[kamp@deadcity_zombies_4_kamp3]
+center_point = kamp_3
+
+[logic@deadcity_zombies_4_kamp4]
+active = kamp@deadcity_zombies_4_kamp4
+
+[kamp@deadcity_zombies_4_kamp4]
+center_point = kamp_4
+
+[logic@deadcity_zombies_4_kamp5]
+active = kamp@deadcity_zombies_4_kamp5
+
+[kamp@deadcity_zombies_4_kamp5]
+center_point = kamp_5
+
+[logic@deadcity_zombies_4_kamp6]
+active = kamp@deadcity_zombies_4_kamp6
+
+[kamp@deadcity_zombies_4_kamp6]
+center_point = kamp_6
+
+[logic@deadcity_zombies_4_kamp7]
+active = kamp@deadcity_zombies_4_kamp7
+
+[kamp@deadcity_zombies_4_kamp7]
+center_point = kamp_7
+
+[logic@deadcity_zombies_4_kamp8]
+active = kamp@deadcity_zombies_4_kamp8
+
+[kamp@deadcity_zombies_4_kamp8]
+center_point = kamp_8
+
+[logic@deadcity_zombies_4_walker]
+active = walker@deadcity_zombies_4_walker
+
+[walker@deadcity_zombies_4_walker]
+path_walk = walker_walk	
+sound_idle = state
+
+[logic@deadcity_zombies_4_walker2]
+active = walker@deadcity_zombies_4_walker2
+
+[walker@deadcity_zombies_4_walker2]
+path_walk = walker_walk2
+sound_idle = state
+
+;----------
+
+[logic@deadcity_zombies_5_kamp1]
+active = kamp@deadcity_zombies_5_kamp1
+
+[kamp@deadcity_zombies_5_kamp1]
+center_point = kamp_1
+
+[logic@deadcity_zombies_5_kamp2]
+active = kamp@deadcity_zombies_5_kamp2
+
+[kamp@deadcity_zombies_5_kamp2]
+center_point = kamp_2
+
+[logic@deadcity_zombies_5_kamp3]
+active = kamp@deadcity_zombies_5_kamp3
+
+[kamp@deadcity_zombies_5_kamp3]
+center_point = kamp_3
+
+[logic@deadcity_zombies_5_kamp4]
+active = kamp@deadcity_zombies_5_kamp4
+
+[kamp@deadcity_zombies_5_kamp4]
+center_point = kamp_4
+
+[logic@deadcity_zombies_5_kamp5]
+active = kamp@deadcity_zombies_5_kamp5
+
+[kamp@deadcity_zombies_5_kamp5]
+center_point = kamp_5
+
+[logic@deadcity_zombies_5_kamp6]
+active = kamp@deadcity_zombies_5_kamp6
+
+[kamp@deadcity_zombies_5_kamp6]
+center_point = kamp_6
+
+[logic@deadcity_zombies_5_walker]
+active = walker@deadcity_zombies_5_walker
+
+[walker@deadcity_zombies_5_walker]
+path_walk = walker_walk	
+sound_idle = state
+
+;----------
+
+[logic@deadcity_zombies_6_kamp1]
+active = kamp@deadcity_zombies_6_kamp1
+
+[kamp@deadcity_zombies_6_kamp1]
+center_point = kamp_1
+
+[logic@deadcity_zombies_6_kamp2]
+active = kamp@deadcity_zombies_6_kamp2
+
+[kamp@deadcity_zombies_6_kamp2]
+center_point = kamp_2
+
+[logic@deadcity_zombies_6_kamp3]
+active = kamp@deadcity_zombies_6_kamp3
+
+[kamp@deadcity_zombies_6_kamp3]
+center_point = kamp_3
+
+[logic@deadcity_zombies_6_kamp4]
+active = kamp@deadcity_zombies_6_kamp4
+
+[kamp@deadcity_zombies_6_kamp4]
+center_point = kamp_4
+
+[logic@deadcity_zombies_6_kamp5]
+active = kamp@deadcity_zombies_6_kamp5
+
+[kamp@deadcity_zombies_6_kamp5]
+center_point = kamp_5
+
+[logic@deadcity_zombies_6_kamp6]
+active = kamp@deadcity_zombies_6_kamp6
+
+[kamp@deadcity_zombies_6_kamp6]
+center_point = kamp_6
+
+[logic@deadcity_zombies_6_walker]
+active = walker@deadcity_zombies_6_walker
+
+[walker@deadcity_zombies_6_walker]
+path_walk = walker_walk	
+sound_idle = state

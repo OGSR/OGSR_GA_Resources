@@ -1,0 +1,48 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[ammo_9x18_fmj]:ammo_base
+$spawn			= "weapons\ammo\ammo_9x18_fmj" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_9x18_fmj.ogf
+description		= gunsl_ammo_9x18_fmj_descr
+inv_name		= gunsl_ammo_9x18_fmj
+inv_name_short	= gunsl_ammo_9x18_fmj_short
+inv_grid_width	= 1
+inv_grid_height	= 1
+inv_grid_x		= 11
+inv_grid_y		= 12
+
+cost			= 210
+box_size		= 16
+inv_weight		= 0.15		;+(9,2*16=147.2г.), (10,4*16=166.4г.)
+
+k_disp			= 2.0
+k_hit			= 1.53			;1.1
+k_impulse		= 1.6			;1.3
+;impair			= 1.1
+;tracer			= on
+wm_size         = 0.0918
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[ammo_9x18_pmm]:ammo_base
+$spawn			= "weapons\ammo\ammo_9x18_pmm" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_9x18_pmm.ogf
+description		= gunsl_ammo_9x18_pmm_descr
+inv_name		= gunsl_ammo_9x18_pmm
+inv_name_short	= gunsl_ammo_9x18_pmm_short
+inv_grid_width	= 1
+inv_grid_height	= 1
+inv_grid_x		= 12
+inv_grid_y		= 12
+
+cost			= 225
+box_size		= 16
+inv_weight		= 0.17		;+(9,2*16=147.2г.), (10,4*16=166.4г.)
+
+k_dist			= 1.0						;1.5
+k_disp			= 2.0
+k_hit			= 1.55						;1.2
+k_impulse		= 1.65						;2.5
+k_pierce		= 1.1
+impair			= 1.35						;1.5
+wm_size         = 0.0918
+;tracer			= on
+;explosive		= on

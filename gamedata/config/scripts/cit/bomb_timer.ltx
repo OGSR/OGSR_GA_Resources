@@ -1,0 +1,24 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_info = {+master_quest_bomb_planted} sr_idle@tick
+on_info2 = {+master_quest_soup_ready} sr_idle@nil
+
+[sr_idle@tick]
+on_info = {-master_quest_soup_ready +master_quest_bomb_planted} sr_timer1
+on_info2 = {+master_quest_soup_ready} sr_idle@nil
+
+[sr_timer1]
+type = dec
+start_value = 150000
+argb = 255,255,255,255
+on_value = 145000|%=check_actor_need_teleport(actor)%|135000|%=check_actor_need_teleport(actor)%|125000|%=check_actor_need_teleport(actor)%|110000|%=check_actor_need_teleport(actor)%|95000|%=check_actor_need_teleport(actor)%|85000|%=check_actor_need_teleport(actor)%|80000|%=check_actor_need_teleport(actor)%|75000|%=check_actor_need_teleport(actor)%|65000|%=check_actor_need_teleport(actor)%|60000|%=check_actor_need_teleport(actor)%|50000|%=check_actor_need_teleport(actor)%|40000|%=check_actor_need_teleport(actor)%|30000|%=play_snd_from_obj(15782:ambient\blowout\blowout_ambient_rumble_01) =check_actor_need_teleport(actor)%|27000|%=play_snd_from_obj(15782:ambient\blowout\blowout_ambient_rumble_02) =check_actor_need_teleport(actor)%|19000|%=play_snd_from_obj(15782:ambient\blowout\blowout_ambient_rumble_03) =check_actor_need_teleport(actor)%|10000|%=play_snd_from_obj(15782:ambient\blowout\blowout_ambient_rumble_04) =teleport_actor_final_point_lair(actor)%|5000|%=run_cam_effector(earthquake:1001:true)%
+on_info = {+master_quest_soup_ready =actor_in_zone(dead_city_master_bomb_timer)} %=stop_cam_effector(1001)% sr_idle@kill
+on_info2 = {+master_quest_soup_ready !actor_in_zone(dead_city_master_bomb_timer)} %=stop_cam_effector(1001)% sr_idle@nil
+string = deadcity_timer_str
+
+[sr_idle@kill]
+on_info = %=aes_kill_actor% sr_idle@nil
+
+[sr_idle@nil]

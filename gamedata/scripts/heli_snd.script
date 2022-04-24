@@ -1,0 +1,17 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--Звук реакции пилотов вертолёта на разные события
+
+-- http://www.amk-team.ru/forum/topic/13078-prozektorskaia/page-8#entry975673
+--// example of call: heli_snd.play_snd(self.st, "damage", 3)
+local snd_cnt = {see_enemy = 7, hit = 9, damage = 4, death = 6}
+function play_snd(st, snd_set, priority)
+	if not st.mute and (not st.snd_obj or not st.snd_obj:playing() or st.snd_priority < priority) then
+		if st.snd_obj then
+			st.snd_obj:stop()
+		end
+		st.snd_obj = xr_sound.get_safe_sound_object("helicopter\\"..snd_set.."_"..math.random(snd_cnt[snd_set]))
+		st.snd_obj:play(db.actor, 0, sound_object.s2d)
+		st.snd_priority = priority
+	end
+end

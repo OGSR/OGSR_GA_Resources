@@ -1,0 +1,12 @@
+[logic]
+active = sr_idle
+
+[sr_idle]
+on_info = {+final_battle_nuke_particle} sr_particle@1
+
+[sr_particle@1]
+name = ogse\nuke
+path = gen_nuke_strike_particle_way
+mode = 2
+looped = false
+on_actor_inside = %=aes_kill_actor%

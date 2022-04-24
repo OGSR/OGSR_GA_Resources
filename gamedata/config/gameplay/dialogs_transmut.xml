@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<game_dialogs>
+<!-- Dialog s Saharovym o transmutah 1 -->
+    <dialog id="yantar_trader_transmut_1">
+        <precondition>dialogs_yantar_transmut.trader_transmut_precond</precondition>
+		<dont_has_info>transmut</dont_has_info>
+		<dont_has_info>actor_set_zombied</dont_has_info>
+		<phrase_list>
+            <phrase id="0">
+                <text>yantar_trader_transmut_0</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>yantar_trader_transmut_1</text>
+				<give_info>transmut</give_info>
+        <next>11</next>
+		<next>12</next>
+		<next>13</next>
+		<next>14</next>
+		<next>15</next>
+		<next>16</next>
+		<next>17</next>
+		<next>18</next>
+		<next>19</next>
+            </phrase>
+
+            <phrase id="11">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s1</precondition>
+                <text>yantar_trader_trans_1</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s1</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="12">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s2</precondition>
+                <text>yantar_trader_trans_2</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s2</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="13">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s3</precondition>
+                <text>yantar_trader_trans_3</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s3</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="14">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s4</precondition>
+                <text>yantar_trader_trans_4</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s4</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="15">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s5</precondition>
+                <text>yantar_trader_trans_5</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s5</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="16">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s6</precondition>
+                <text>yantar_trader_trans_6</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s6</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="17">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s7</precondition>
+                <text>yantar_trader_trans_7</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s7</action>
+		<next>6</next>
+            </phrase>
+			
+			<phrase id="18">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s8</precondition>
+                <text>yantar_trader_trans_8</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s8</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="19">
+                <text>yantar_trader_transmut_5</text>
+            </phrase>
+
+            <phrase id="6">
+                <text>yantar_trader_transmut_6</text>
+                <next>8</next>
+                <next>10</next>
+            </phrase>
+
+            <phrase id="8"> 
+                <text>yantar_trader_transmut_8</text> 
+            </phrase>
+
+            <phrase id="10">
+                <text>yantar_trader_transmut_10</text> 
+                <next>1</next>
+            </phrase>
+
+			<phrase id="11">
+                <text>yantar_trader_transmut_11</text> 
+            </phrase>
+        </phrase_list>
+    </dialog>
+	
+<!-- Dialog s Saharovym o transmutah 2 -->
+	    <dialog id="yantar_trader_transmut_2">
+        <precondition>dialogs_yantar_transmut.trader_transmut_precond</precondition>
+		<has_info>transmut</has_info>
+		<dont_has_info>actor_set_zombied</dont_has_info>
+		<phrase_list>
+            <phrase id="0">
+                <text>yantar_trader_transmut_01</text>
+                <next>1</next>
+            </phrase>
+            <phrase id="1">
+                <text>yantar_trader_transmut_02</text>
+        <next>11</next>
+		<next>12</next>
+		<next>13</next>
+		<next>14</next>
+		<next>15</next>
+		<next>16</next>
+		<next>17</next>
+		<next>18</next>
+		<next>19</next>
+            </phrase>
+
+            <phrase id="11">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s1</precondition>
+                <text>yantar_trader_trans_1</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s1</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="12">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s2</precondition>
+                <text>yantar_trader_trans_2</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s2</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="13">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s3</precondition>
+                <text>yantar_trader_trans_3</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s3</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="14">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s4</precondition>
+                <text>yantar_trader_trans_4</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s4</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="15">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s5</precondition>
+                <text>yantar_trader_trans_5</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s5</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="16">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s6</precondition>
+                <text>yantar_trader_trans_6</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s6</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="17">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s7</precondition>
+                <text>yantar_trader_trans_7</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s7</action>
+		<next>6</next>
+            </phrase>
+			
+			<phrase id="18">
+                <precondition>dialogs_yantar_transmut.trader_check_cond_s8</precondition>
+                <text>yantar_trader_trans_8</text>
+                <action>dialogs_yantar_transmut.trader_make_airfact_s8</action>
+		<next>6</next>
+            </phrase>
+
+            <phrase id="19">
+                <text>yantar_trader_transmut_5</text>
+            </phrase>
+
+            <phrase id="6">
+                <text>yantar_trader_transmut_6</text>
+                <next>8</next>
+                <next>10</next>
+            </phrase>
+
+            <phrase id="8"> 
+                <text>yantar_trader_transmut_8</text> 
+            </phrase>
+
+            <phrase id="10">
+                <text>yantar_trader_transmut_10</text> 
+                <next>1</next>
+            </phrase>
+
+			<phrase id="11">
+                <text>yantar_trader_transmut_11</text> 
+			</phrase>
+        </phrase_list>
+    </dialog>
+    
+</game_dialogs>

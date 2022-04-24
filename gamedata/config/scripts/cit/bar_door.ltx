@@ -1,0 +1,23 @@
+[logic]
+active = ph_door@closed
+
+[ph_door@locked]
+closed = true
+locked = true
+on_use = %=play_snd(device\door_servomotor)%
+on_info = {=is_day} ph_door@closed %=play_snd_from_obj2(device\door_servomotor)%
+on_info2 = {+master_quest_soup_ready} ph_door@closed %=play_snd_from_obj2(device\door_servomotor)%
+
+[ph_door@closed]
+closed = true
+locked = false
+on_use = ph_door@open
+on_info = {!is_day -master_quest_soup_ready} ph_door@locked %=play_snd_from_obj2(device\door_servomotor)%
+on_info2 = {=is_day =dist_to_friendly_npc_le(deadcity_bar:4.5)} ph_door@open
+
+[ph_door@open]
+closed = false
+locked = false
+on_use = ph_door@closed
+on_info = {!is_day} ph_door@closed %=play_snd_from_obj2(device\door_servomotor)%
+on_timer = 5000 | ph_door@closed

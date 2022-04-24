@@ -1,0 +1,50 @@
+[logic]
+active = heli_move
+
+[heli_move]
+path_move = gen_heli_attack_off_level
+engine_sound = false 
+mute = true
+invulnerable = true
+on_info = {+final_battle_military_help} heli_move@1
+on_info2 = {+final_battle_nuke_surprise} %=heli_die%
+
+[heli_move@1]
+path_move = gen_left_heli
+path_look = gen_left_heli_look
+use_rocket			= true
+use_mgun			= true
+combat_enemy = area(170,-477,100,monolith)
+engine_sound = true 
+invulnerable = true
+on_timer = 75000 | heli_move@death
+on_signal = path_end | heli_move@2
+on_info = {+freeplay} heli_move@death
+on_info2 = {+final_battle_nuke_surprise} %=heli_die%
+
+[heli_move@2]
+path_move = gen_left_heli_attack
+path_look = gen_heli_attack_look
+invulnerable = false
+combat_enemy = area(170,-477,100,monolith)
+use_rocket			= true
+use_mgun			= true
+on_timer = 45000 | heli_move@death
+on_info = {=heli_health_le(0.3)} heli_move@death
+on_info2 = {+freeplay} heli_move@death
+on_info3 = {+final_battle_nuke_surprise} %=heli_die%
+
+[heli_move@death]
+path_move = gen_heli_attack_off_level
+invulnerable = true
+on_timer = 30000 | heli_move@silent
+combat_ignore = true
+on_info = {+final_battle_nuke_surprise} %=heli_die%
+
+[heli_move@silent]
+path_move = gen_heli_attack_off_level
+invulnerable = true
+engine_sound = false 
+mute = true
+combat_ignore = true
+on_info = {+final_battle_nuke_surprise} %=heli_die%

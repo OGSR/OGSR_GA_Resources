@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+
+    <info_portion id="not_guid"></info_portion>
+	<info_portion id="guider_spawn"></info_portion>
+    <info_portion id="start_guid_1"></info_portion>
+    <info_portion id="start_guid_2"></info_portion>
+	<info_portion id="end_guid"></info_portion>
+	<info_portion id="guid_complete"></info_portion>
+	<info_portion id="guider_on_hit">
+	    <action>guiders.message_help_to_guider</action>
+	</info_portion>
+    <info_portion id="guider_death">
+	    <action>guiders.message_death_guider</action>
+		<action>guiders.delete_guider</action>
+	</info_portion>
+	
+</game_information_portions>
+

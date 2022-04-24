@@ -1,0 +1,252 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--[[--------------------------------------------------
+ScriptName : jekan_books.script
+Author idea, textures..     : Jekan
+Author scripts: Gun12
+Version    : 1.0
+Feedback   : Gun12 email - nazgool@ukr.net
+------------------------------------------------------
+Connection  : main
+UsesFiles   : gamedata\config\ui\books\*.xml       -- описание книг
+              gamedata\config\misc\items.ltx       -- секции спавна книг
+              gamedata\config\misc\quest_items.ltx -- секции спавна книг
+UsesLibs    : LuaXml
+UsesClasses : CUIScriptWnd
+              CScriptXmlInit
+------------------------------------------------------
+Description:
+********** Функция on_use_book(obj) **********
+    Ставится в callback use_object
+********** Таблица 'books' **********
+    ['book_name'] = -- имя секции спавна книги
+        {   -- Обязательные поля --
+            file = string    -- имя файла-описания в папке "config/ui/books/"
+            tag  = string    -- имя тега секции в файле, описывающей книгу (если книги будут находиться в одном файле)
+            rect = {x,y,w,h} -- координаты левого верхнего угла, ширина и высота
+            -- Заполняется программно --
+            obj  = userdata  -- объект "book_base"
+        }
+********** gamedata\config\ui\books\*.xml **********
+    Все файлы .xml обязательно должны быть составлены следующим образом :
+    1. Страницы описываются тегом формата "pageX" , где X - это цифра (номер страницы)
+    2. Нумерация страниц 'X' должна начинаться с 1 и далее по порядку (2,3,4, и т.д.) до последней.
+       Единственная страница книги должна описываться тегом "page1"
+    3. Все указанные секции будут отображаться. Поэтому если, например, не нужно "рисовать" секцию с тегом <background>,
+       то её и не нужно указывать в файле.
+    4. Это не распространяется на кнопки "Назад" и "Далее", которые могут указываются везде, и отрисовка котороых выполняется автоматически.
+       Т.е. если в книге одна страница, то ни одна из них отображена не будет.
+       Или же если текущая страница книги является последней, то не будет отображаться кнопка "Далее"
+       То же самое относится и к первой странице книги. Не будет отображаться кнопка "Назад"
+--]]--------------------------------------------------
+local books = {}
+-- Записка Проффесора:
+books.book_1  = {file = 'book_visual_device_1' , tag = 'book_visual_device_1' , rect = { 20,30,852,652}}
+-- "Болотник":
+books.book_2  = {file = 'book_visual_device_2' , tag = 'book_visual_device_2' , rect = {-20,30,852,652}}
+-- "Помеченый Зоной":
+books.book_3  = {file = 'book_visual_device_3' , tag = 'book_visual_device_3' , rect = {-20,30,852,652}}
+-- "Легенда о Черном сталкере":
+books.book_4  = {file = 'book_visual_device_4' , tag = 'book_visual_device_4' , rect = {-20,30,852,652}}
+-- "Яблоко раздора":
+books.book_5  = {file = 'book_visual_device_5' , tag = 'book_visual_device_5' , rect = {-20,30,852,652}}
+-- Планшет Бывалого:
+books.first_neutral_planshet = 
+                {file = 'book_visual_device_6' , tag = 'book_visual_device_6' , rect = {-40,30,852,752}}
+-- "Байки деда Игната":
+books.book_7  = {file = 'book_visual_device_7' , tag = 'book_visual_device_7' , rect = { 30,30,852,752}}
+-- "Блокнот учёного":
+books.book_8  = {file = 'book_visual_device_8' , tag = 'book_visual_device_8' , rect = { 30,30,852,752}}
+
+-- "Записка жителя Мертвого города":
+books.book_9  = {file = 'book_visual_device_9' , tag = 'book_visual_device_9' , rect = { 20,30,852,652}}
+-- "Рапорт майора из Мертвого города":
+books.book_10 = {file = 'book_visual_device_10', tag = 'book_visual_device_10', rect = { 20,30,852,652}}
+-- "Записка сержанта из Мертвого города":
+books.book_11 = {file = 'book_visual_device_11', tag = 'book_visual_device_11', rect = { 20,30,852,652}}
+-- "Записка-пачка солдата из Мертвого города":
+books.book_12 = {file = 'book_visual_device_12', tag = 'book_visual_device_12', rect = { 20,30,852,652}}
+
+------------------------------------------------------------------------------------------------------------------
+
+function attach(sm)
+	sm:subscribe({signal = "on_use", fun = this.on_use_item})
+end
+
+function on_use_item(obj, sobj)
+	--if obj == nil or alife():object(obj:id()) == nil then return end
+    local section = obj:section()
+    local book = books[section] -- таблица 'book' - это пока только заготовка данных книги
+    if book then
+        if not book.obj then book.obj = book_base(book) end -- если такую книгу ещё ни разу не открывали,
+                                                            -- то добавить в таблицу объект книги
+                                                            -- (Добавляется только один раз на протяжении игровой сессии)
+        ogse.spawn_item_in_inv(section) -- сразу и вернуть книгу в инвентарь
+        book.obj:OpenPage() -- В любой открываемой книге (уже ранее использовавшейся или новосозданной)
+                            -- Существует поле 'pageID' с индексом (число) страницы.
+                            -- Если книгу уже ранее открывали, и закрыли на какой-либо странице, то
+                            -- в поле 'pageID' сохраниться число (ID) этой страницы.
+                            -- Поэтому простой вызов ХХХ:OpenPage() откроет страницу с тем ID, которая сохранилась.
+                            -- Для новосозданной это будет первая страница (self.pageID = 1)
+        soundtrack.shelest_open()
+		if obj:section() == "book_1" then
+			db.actor:give_info_portion("infa_about_boltun")
+		end
+		if obj:section() == "book_4" then
+			db.actor:give_info_portion("book_4_info")
+		end
+		return true
+    end
+end
+
+local function getLuaXml(data)
+	local file = xml.xr_load("$game_config$", [[ui\books\]]..data.file..'.xml') -- загрузить .xml файл книги
+	if file then
+		local luaxml = file:find(data.tag) -- найти описание данной книги (на случай, если несколько книг будут описаны в одном файле)
+		if luaxml then return luaxml end
+	end
+    return xml.str{} -- Если нет файла, то иммитирует пустой файл, для предотвращения ошибки в функции IsXmlPage
+end
+--================================================================================================================
+class "book_base" 
+
+function book_base:__init(data)
+    self.data   = data            -- На будущее
+    self.pages  = {}              -- заполняется таблицами страниц данной книги вида {obj = userdara 'book_page'}
+    self.pageID = 1               -- начальный ID страницы вновь созданной книги
+    self.rect   = data.rect       -- координаты и размеры окна показываемой страницы
+    self.luaxml = getLuaXml(data) -- таблица LuaXml с загруженной xml-секцией, описывающей данную книгу
+    self.cxml   = CScriptXmlInit()
+    self.cxml:ParseFile("books\\"..data.file..'.xml')
+end
+------------------------------------------------------------------------------------------------------------------
+function book_base:__finalize() end
+------------------------------------------------------------------------------------------------------------------
+-- Добавление таблицы с данными страницы в базу загруженных страниц
+function book_base:LoadPage(page_id)
+    if not self:IsXmlPage(page_id) then return end
+    local page = {obj = book_page(self)} -- Создаётся только один раз на протяжении игровой сессии
+    self.pages[page_id] = page
+    return page
+end
+------------------------------------------------------------------------------------------------------------------
+-- Проверка - создавалась ли уже эта страница ? Т.е. если таблица с данными в базе загруженных страниц
+function book_base:IsLoadedPage(page_id)
+    return self.pages[page_id] and true or false
+end
+------------------------------------------------------------------------------------------------------------------
+-- Проверка - есть ли в файле .xml текущей книги тег, описывающий искомую страницу ?
+function book_base:IsXmlPage(page_id)
+    if type(tonumber(page_id)) ~= 'number' then return false end -- защита операции конкатенации
+    local xml = self.luaxml:find('page'..page_id) and true or false
+    return xml
+end
+------------------------------------------------------------------------------------------------------------------
+-- На самом деле основная задача - подготовка страницы к открытию
+function book_base:OpenPage()
+    local page_id = self.pageID
+    if not self:IsLoadedPage(page_id) then
+        if not self:LoadPage(page_id) then return end
+    end
+    self:StarStopPage() -- и только потом сам факт открытия
+end
+------------------------------------------------------------------------------------------------------------------
+-- Открыть следующюю страницу
+function book_base:NextPage()
+    self:StarStopPage()           -- закрыть текущюю страницу
+    self.pageID = self.pageID + 1 -- тут понятно
+    soundtrack.shelest_switch()
+    self:OpenPage()               -- открыть следующюю
+end
+------------------------------------------------------------------------------------------------------------------
+-- Открыть предыдущюю страницу
+function book_base:PreviousPage()
+    self:StarStopPage()
+    self.pageID = self.pageID - 1
+    soundtrack.shelest_switch()
+    self:OpenPage()
+end
+------------------------------------------------------------------------------------------------------------------
+-- Открыть или закрыть, если уже была открыта
+function book_base:StarStopPage()
+    local page = self.pages[self.pageID].obj -- получение объекта 'book_page' текущей страницы 
+	if page.infoportion ~= "" then ogse.give_info(page.infoportion) end
+    level.start_stop_menu(page, true)
+end
+------------------------------------------------------------------------------------------------------------------
+-- Закрыть книгу
+function book_base:Exit()
+    soundtrack.shelest_close()
+    self:StarStopPage() -- закрыть последнюю открытую страницу
+end
+--================================================================================================================
+class "book_page" (CUIScriptWnd)
+
+function book_page:__init(book) super()
+    self.book = book     -- ссылка объект "book_base" соответствующей книги
+    self:InitControls()
+    self:InitCallBacks()
+end
+------------------------------------------------------------------------------------------------------------------
+function book_page:__finalize() end
+------------------------------------------------------------------------------------------------------------------
+function book_page:InitControls()
+    local book    = self.book   -- объект книги "book_base"
+    local page_id = book.pageID -- ID текущей страницы
+    local cxml    = book.cxml   -- объект CScriptXmlInit
+    local luaxml  = book.luaxml -- таблица LuaXml
+    local rect    = book.rect   -- координаты окна страницы
+    
+    self:Init(rect[1],rect[2],rect[3],rect[4])
+
+    if luaxml:find('background') then cxml:InitStatic("background", self) end
+    -- Не знаю как нужно отображать кнопки. Варианты для первой и последней страниц :
+    -- 1. не отображать соответствующие кнопки
+    -- 2. деактивировать соответствующие кнопки
+    -- Пока сделал первый вариант
+    
+    -- Кнопка "Назад"
+    if luaxml:find('btn_back') and page_id > 1 then -- если есть такая секция в .xml и страница не является первой (или не единственной)
+        self.btn_back = cxml:Init3tButton("btn_back", self) --...то лепим
+        self:Register(self.btn_back, "btn_back")
+    end
+
+    -- Кнопка "Далее"
+    if luaxml:find('btn_next') and luaxml:find('page'..page_id+1) then  -- если есть такая секция в .xml и страница не является последней
+        self.btn_next = cxml:Init3tButton("btn_next", self)
+        self:Register(self.btn_next, "btn_next")
+    end
+    
+    -- Текст страницы. Отображается в любом случае
+    cxml:InitStatic("page"..page_id, self)
+    -- как и ... Кнопка "Закрыть"
+    self:Register(cxml:Init3tButton("btn_quit", self),"btn_quit")
+	
+	local info_xml = luaxml:find("page"..page_id):find("infoportion")
+	self.infoportion = info_xml and info_xml[1] or ""
+end
+------------------------------------------------------------------------------------------------------------------
+function book_page:InitCallBacks()
+    local book = self.book
+    
+    if self.btn_back then -- если нарисована эта кнопка, то повесить каллбэк
+        self:AddCallback("btn_back", ui_events.BUTTON_CLICKED, book.PreviousPage, book)
+    end
+
+    if self.btn_next then
+        self:AddCallback("btn_next", ui_events.BUTTON_CLICKED, book.NextPage, book)
+    end
+    
+    self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, book.Exit, book)
+end
+------------------------------------------------------------------------------------------------------------------
+function book_page:OnKeyboard(dik, keyboard_action)
+    CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+    local book    = self.book
+    local page_id = book.pageID
+    if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+        if dik == DIK_keys.DIK_A and page_id > 1               then book:PreviousPage() end
+        if dik == DIK_keys.DIK_D and book:IsXmlPage(page_id+1) then book:NextPage()     end
+        if dik == DIK_keys.DIK_ESCAPE                          then book:Exit()         end
+    end
+end

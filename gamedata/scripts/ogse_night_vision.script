@@ -1,0 +1,334 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--[[-------------------------------------------------------------------------
+-|ogse_night_vision.script
+-|Модуль приборов ночного видения
+-|version 2.5 : OGS Evolution Team © 2010
+-|version 3.0 : KRodin, Dsh © 2015 - 2016
+-|Для работы нужен модуль управления худом ogse_hud_control.script
+---------------------------------------------------------------------------]]
+
+--KRodin: Эффект пнв для текстурных прицелов пока оставлен, т.к. 3д прицелы планируются отключаемые, возможно это будет использоваться. Не знаю, оставлять ли возможность отключать пнв прицела по кнопке, делается ли такое в реальности?
+
+function attach(sm)
+	sm:subscribe({ signal = "on_first_update",	fun = this.try_to_restart_nv_fx })
+	sm:subscribe({ signal = "on_key_down",		fun = this.call_pnv })
+	sm:subscribe({ signal = "on_item_to_slot",	fun = this.chek_outfit_double_pnv })
+	sm:subscribe({ signal = "on_sniper_mode",	fun = this.on_sniper_mode })
+	sm:subscribe({ signal = "off_sniper_mode",	fun = this.off_sniper_mode })
+	sm:subscribe({ signal = "on_sit_down_in_btr", fun = this.on_sit_down_in_btr })
+	sm:subscribe({ signal = "on_exit_from_btr",	fun = this.on_exit_from_btr })
+	sm:subscribe({ signal = "on_drop",			fun = this.chek_drop_pnv })
+	sm:subscribe({ signal = "on_item_to_ruck",	fun = this.chek_drop_pnv })
+	sm:subscribe({ signal = "on_save",			fun = this.on_save })
+	sm:subscribe({ signal = "on_info",			fun = this.on_info })
+	sm:subscribe({ signal = "on_update",		fun = this.on_update })
+end
+
+--==========================================================Настройки=================================================================
+local scope_section							-- Секция прицела в строковом виде.
+
+--флаги
+local nv_scope_fx_autoenable = true			-- Автовключение пнв/подсветки в прицеле.
+local night_vision_fx_not_sniper = true		-- Если true - значит НЕ находимся в режиме прицеливания.
+-----------------------------------------
+local night_vision_fx_on = false			-- флаг работающего ПНВ
+local night_vision_btr_fx_on = false		-- флаг работающего ПНВ БТР
+local night_vision_scope_fx_on = false		-- флаг работающего ночного режима в оптическом прицеле или бинокле
+local night_vision_surge_block = false		-- флаг запрета работы ПНВ во время выброса
+-----------------------------------------
+
+--звуки
+local snd_nv_start = xr_sound.get_safe_sound_object("weapons\\nv_start")	-- звук включения ПНВ
+local snd_nv_work = xr_sound.get_safe_sound_object("weapons\\nv_loop")		-- звук работающего ПНВ
+local snd_nv_stop = xr_sound.get_safe_sound_object("weapons\\nv_off")		-- звук выключения ПНВ
+
+--уровень громкости звуков
+local snd_nv_fx_volume = 0.5		-- общий уровень громкости звуков
+local snd_nv_start_subvolume = 1	-- громкость звука включения ПНВ
+local snd_nv_work_subvolume = 0.3	-- громкость звука работающего ПНВ
+local snd_nv_stop_subvolume = 1		-- громкость звука выключения ПНВ
+
+--постэффекты
+local btr_nightvision_section = "effector_nightvision_elite"	-- секция постпроцесса ПНВ БТР
+
+--уровень интенсивности постэффектов
+local nv_ppe_factor = 1.0 --0.8			-- уровень интенсивности постэффекта ПНВ
+local nv_scope_ppe_factor = 1.0 --0.7		-- уровень интенсивности постэффекта ночного режима прицела
+local nv_binocular_ppe_factor = 0.8	-- уровень интенсивности постэффекта ночного режима бинокля
+local nv_btr_ppe_factor = 1.0		-- уровень интенсивности постэффекта ПНВ БТР
+--====================================================================================================================================
+
+function is_nv_working() --Проверка, включен ли ПНВ.
+	return night_vision_fx_on or night_vision_btr_fx_on --НЕ ИЗМЕНЯТЬ!
+end
+
+function turn_pnv_off() --Выключение пнв по квестам. Вызывается из ogse_quests.script, не удалять!
+	if night_vision_fx_on then --если включен обычный ПНВ, выключим его
+		turn_off_nv_fx()
+	elseif night_vision_btr_fx_on then --если включен ПНВ БТР, выключим его
+		turn_off_nv_btr_fx()
+	end
+end
+
+function on_save() --Сохраняем состояние работы пнв
+	ogse.save_var( "pnv", is_nv_working() )
+	ogse.save_var( "pnv_scope", nv_scope_fx_autoenable )
+end
+
+function on_info(npc, info_id) --Выключение ПНВ в выброс
+	if info_id == "no_net_signal" then
+		night_vision_surge_block = true
+		turn_pnv_off()
+	elseif info_id == "net_signal" then
+		night_vision_surge_block = false
+	end
+end
+
+function try_to_restart_nv_fx() --Попытаемся восстановить работу ПНВ после загрузки сейва
+	nv_scope_fx_autoenable = ogse.load_var( "pnv_scope", true ) --ПНВ/Подсветка прицела
+--------------------Выключение ПНВ в выброс-------------------------
+	if db.actor:has_info("no_net_signal") then
+		night_vision_surge_block = true
+	end
+--------------------------------------------------------------------
+	if ogse.load_var( "pnv", false ) and not night_vision_surge_block then
+		if ogse_car_control.in_btr then --если находимся в БТР, то:
+			turn_on_nv_btr_fx() --Включаем ПНВ БТР
+		else --в противном случае
+			nv_fx_on() --включаем обычный ПНВ
+		end
+	end
+end
+
+function on_sit_down_in_btr() --Залезли в БТР.
+	if night_vision_fx_on then --если пнв включен, запомним что он включен и выключим. А ПНВ БТР - включим.
+		turn_off_nv_fx()
+		turn_on_nv_btr_fx()
+	end
+end
+
+function on_exit_from_btr() --Вылезли из БТР.
+	if night_vision_btr_fx_on then --Если ПНВ БТР включен, выключим его, а прибор ПНВ - включим.
+		turn_off_nv_btr_fx()
+		nv_fx_on()
+	end
+end
+
+function on_update()
+	local torch = db.actor:item_in_slot(9)
+	if not torch then return end
+	torch = get_torch_obj(torch)
+
+	local nv_on = torch.nvd_on and not ogse_car_control.in_btr and not night_vision_surge_block
+	if nv_on then
+		nv_fx_on()
+	else
+		turn_off_nv_fx() 
+	end
+end
+
+function call_pnv(key, bind) --Действие при нажатии клавиши ПНВ
+	if bind ~= key_bindings.kNIGHT_VISION
+	or level.main_input_receiver()
+	or not db.actor:alive() then return end
+
+	if ogse_car_control.in_btr and not night_vision_surge_block then --если сидим в БТР'е
+		if not night_vision_btr_fx_on then turn_on_nv_btr_fx() else turn_off_nv_btr_fx() end --вкл/выкл ПНВ БТР
+	elseif night_vision_fx_not_sniper and not night_vision_surge_block and not db.actor:item_in_slot(9) then -- Если не смотрим в прицел
+		if not night_vision_fx_on then nv_fx_on() else turn_off_nv_fx() end --вкл/выкл прибор ПНВ
+	end
+	return true
+end
+
+--==========================================Режим прицеливания через "текстурную" оптику===========================================
+local function get_active_scope_section( wpn ) --Получить секцию прицела
+	if not wpn then wpn = db.actor:active_item() end
+	if not wpn:is_weapon_magazined() then return end
+
+	local scope_status = ogse_wpn_utils.get_scope_flag( wpn )
+	if scope_status then
+		local sect       = wpn:section()
+		local scope_sect = get_string_wq( sect, "scope_name", nil )
+		if scope_sect then return scope_sect end
+	end
+end
+
+local night_vision_fx_store = false --с помощью этого флага будем восстанавливать работу прибора ПНВ после прицеливания.
+function on_sniper_mode() --Вошли в режим прицеливания. Вызывается из ogse_hud_control
+	night_vision_fx_not_sniper = false --С помощью этого флага будем определять, находимся ли в режиме прицеливания.
+	scope_section = get_active_scope_section() --получаем секцию прицела
+	if nv_scope_fx_autoenable then --если задано автовключение пнв в прицеле, то:
+		nv_scope_fx_on()	--включаем пнв в прицеле
+	end
+end
+
+function off_sniper_mode() --Вышли из режима прицеливания. Вызывается из ogse_hud_control
+	if night_vision_scope_fx_on then turn_off_nv_scope_fx()	end -- вырубаем пнв в прицеле
+	scope_section = nil --переводим в nil, на всякий случай
+	night_vision_fx_not_sniper = true --вышли из режима прицеливания.
+	if night_vision_fx_store then --Если запомнили что пнв был включен, значит включаем его.
+		night_vision_fx_store = false
+		if not night_vision_surge_block then
+			nv_fx_on()
+		end
+	end
+end
+--====================================================================================================================
+
+--******************************************************************Девайс ПНВ*************************************************************************
+function chek_drop_pnv(obj) --Проверка выкладывания работающего ПНВ
+	local outfit_slot = db.actor:item_in_slot(6) --предмет в слоте брони
+	local outfit_slot_nv = outfit_slot and sys_ini:line_exist(outfit_slot:section(), "nightvision_sect") --Проверка, есть ли в костюме встроенный ПНВ
+	
+	local pnv_slot =  db.actor:item_in_slot(11) --предмет в слоте ПНВ
+	local pnv_slot_nv = pnv_slot and sys_ini:line_exist(pnv_slot:section(), "nightvision_sect") --проверка, является ли предмет ПНВ
+	
+	if not outfit_slot_nv and not pnv_slot_nv and night_vision_fx_on then --если выбросили/переместили в рюкзак действительно ПНВ, то отключаем пнв:
+		turn_off_nv_fx()
+	end
+end
+
+function chek_outfit_double_pnv(obj) --Проверка "двойного" надевания ПНВ при смене костюма
+	local is_nv_obj = sys_ini:line_exist(obj:section(), "nightvision_sect") --Проверка, есть ли в конфиге объекта строка nightvision_sect
+	local is_outfit_nv = obj:is_outfit() and is_nv_obj --проверка, является ли объект костюмом в котором есть встроенный ПНВ
+
+	local nv_slot = db.actor:item_in_slot(11) --предмет в слоте ПНВ
+
+	local outfit_slot = db.actor:item_in_slot(6) --предмет в слоте брони
+	local outfit_slot_nv = outfit_slot and sys_ini:line_exist(outfit_slot:section(), "nightvision_sect") --Проверка, есть ли в костюме встроенный ПНВ
+
+	if is_outfit_nv and nv_slot then --если надеваем костюм с встроенным ПНВ и при этом в слоте что-то есть
+		db.actor:move_to_ruck(nv_slot) --переместим ПНВ из слота в рюкзак.
+		update_inventory_window()
+		if night_vision_fx_on then --если пнв включен, то отключаем его:
+			turn_off_nv_fx()
+		end
+		return
+	end
+
+	if not is_outfit_nv and is_nv_obj and outfit_slot_nv and not obj:is_weapon() then --если объект НЕ является костюмом либо оружием (или биноклем с ПНВ), значит это прибор пнв. Если в надетом костюме есть встроенный ПНВ, то:
+		db.actor:move_to_ruck(obj) --переместим его в рюкзак.
+		update_inventory_window()
+	end
+end
+
+function nv_fx_on() --Старт/остановка работы прибора ПНВ
+	local nightvision_section = nil
+
+	local nv_in_outfit = db.actor:item_in_slot(6)
+	if nv_in_outfit then
+		local nv_sect = nv_in_outfit:section()
+		nightvision_section = get_string_wq(nv_sect,"nightvision_sect",nil)
+	end
+		
+	if not nightvision_section then
+	    local nv_in_slot = db.actor:item_in_slot(11)
+		if nv_in_slot then
+			local nv_sect = nv_in_slot:section()
+			nightvision_section = get_string_wq(nv_sect,"nightvision_sect",nil)
+		end
+	end
+		
+	if nightvision_section then
+		turn_on_nv_fx(nightvision_section)
+	end
+end
+
+function turn_on_nv_fx(nightvision_section) --Старт ПНВ
+	if night_vision_fx_on then return end
+
+	local nightvision_fx = get_string_wq(nightvision_section,"pp_eff_name",nil)
+	level.add_pp_effector("black_nv.ppe", 5282, false)
+	level.add_pp_effector(nightvision_fx, 2997, true)
+	level.set_pp_effector_factor(2997, nv_ppe_factor)
+
+	night_vision_fx_on = true
+	snd_fx_start()
+end
+
+function turn_off_nv_fx() --Остановка ПНВ
+	if not night_vision_fx_on then return end
+	level.add_pp_effector("black_nv.ppe", 5282, false)
+	level.remove_pp_effector(2997)
+
+	night_vision_fx_on = false
+	snd_fx_stop() --звук выключения.
+end
+
+function snd_fx_start() --Старт звукового сопровождения работы ПНВ
+	if snd_nv_start then
+		snd_nv_start:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d)
+		snd_nv_start.volume = snd_nv_fx_volume*snd_nv_start_subvolume
+	end
+	if snd_nv_work then
+		snd_nv_work:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d + sound_object.looped)
+		snd_nv_work.volume = snd_nv_fx_volume*snd_nv_work_subvolume
+	end
+end
+
+function snd_fx_stop() --Остановка звукового сопровождения работы ПНВ
+	if snd_nv_start:playing() then 
+		snd_nv_start:stop() 
+	end
+	if snd_nv_work:playing() then 
+		snd_nv_work:stop() 
+	end
+	if snd_nv_stop then
+		snd_nv_stop:play_at_pos (db.actor, vector():set(0, 0, 0), 0, sound_object.s2d)
+		snd_nv_stop.volume = snd_nv_fx_volume*snd_nv_stop_subvolume
+	end
+end
+--*****************************************************************************************************************************************************
+
+--*********************************** ПНВ БТР *****************************************
+function turn_on_nv_btr_fx() --Старт ПНВ БТР
+	local nightvision_fx = get_string_wq(btr_nightvision_section,"pp_eff_name",nil)
+	level.add_pp_effector(nightvision_fx, 2996, true)
+	level.set_pp_effector_factor(2996, nv_btr_ppe_factor)
+	night_vision_btr_fx_on = true
+end
+
+function turn_off_nv_btr_fx() --Остановка ПНВ БТР
+	level.remove_pp_effector(2996)
+	night_vision_btr_fx_on = false
+end
+--*************************************************************************************
+
+--*********************************************************ПНВ в прицеле**********************************************************************
+function nv_scope_fx_on() --Старт работы ПНВ в прицеле, в том числе бинокля.
+	if scope_section then --Если получили секцию прицела, то:
+		--В 3Д прицелах шейдерный ПНВ
+		if not db.actor:active_item():get_weapon():UseScopeTexture() then return end
+
+		local nightvision_section = get_string_wq(scope_section, "nightvision_sect",nil) --Читаем параметр nightvision_sect в секции прицела
+		if not nightvision_section then return end --если не прочитали, то ничего не делаем.
+
+		turn_on_nv_scope_fx(nightvision_section) --Включаем пнв в прицела
+	else --если не получили секцию прицела, значит мы смотрим в бинокль:
+		local act_it = db.actor:active_item() --объект в руках актора
+		if act_it:clsid() ~= clsid.wpn_binocular_s then return end --если объект не является биноклем, то ничего не делаем.
+
+		local nightvision_section = get_string_wq(act_it:section(),"nightvision_sect",nil) --читаем значение строки nightvision_sect в секции ствола.
+		if nightvision_section then --если прочитали значение, то:
+			turn_on_nv_scope_fx(nightvision_section, true) --Включаем пнв в бинокле
+		end
+	end
+end
+
+function turn_on_nv_scope_fx(nightvision_section, isbinoc) --Старт ночника в прицеле
+	local nightvision_fx = get_string_wq(nightvision_section,"pp_eff_name",nil)
+	level.add_pp_effector(nightvision_fx, 2998, true)
+	if isbinoc then --Если смотрим в бинокль:
+		level.set_pp_effector_factor(2998, nv_binocular_ppe_factor)
+	else --Если смотрим в прицел оружия:
+		level.set_pp_effector_factor(2998, nv_scope_ppe_factor)
+	end
+	night_vision_scope_fx_on = true
+end
+
+function turn_off_nv_scope_fx() --Остановка ночника в прицеле (не использовать напрямую)
+	level.remove_pp_effector(2998)
+	night_vision_scope_fx_on = false
+end
+--********************************************************************************************************************************************

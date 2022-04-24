@@ -1,0 +1,63 @@
+[interactive_detector_advanced]:interactive_detector_simple
+$spawn 			= "devices\detector_advanced"
+class			= DET_ADVA
+visual			= dynamics\devices\dev_detector_2\dev_detector_2.ogf
+
+inv_name		= id_advanced
+inv_name_short	= id_advanced
+description		= enc_id_advanced
+
+inv_grid_width	= 1
+inv_grid_height	= 1
+inv_grid_x			= 10
+inv_grid_y			= 27
+cost			= 12000
+hud			= detector_advanced_hud
+
+af_radius		= 25
+af_vis_radius		= 4
+
+
+
+[detector_advanced_hud]:detector_base_hud
+
+item_position				= 0,0,0
+item_orientation			= 0,0,0
+
+item_visual                   	= dynamics\devices\dev_detector_2\dev_detector_2_hud
+
+anm_show			= dev_detector_2_draw
+anm_show_fast			= dev_detector_2_draw_quick
+anm_hide			= dev_detector_2_holster
+anm_hide_fast			= dev_detector_2_holster_quick
+anm_idle			= dev_detector_2_idle
+anm_idle_slow                   = dev_detector_2_idle
+anm_idle_crouch                = dev_detector_2_idle
+anm_idle_crouch_slow           = dev_detector_2_idle
+anm_idle_moving			= dev_detector_2_idle_moving
+anm_idle_moving_slow 		= dev_detector_2_slow, dev_detector_2_idle_moving
+anm_idle_moving_crouch 	= dev_detector_2_slow_down, dev_detector_2_idle_moving
+anm_idle_moving_crouch_slow 	= dev_detector_2_slow_super, dev_detector_2_idle_moving
+anm_idle_sprint			= dev_detector_2_idle_sprint
+anm_idle_sprint_start           = dev_detector_2_idle_sprint_start
+anm_idle_sprint_end             = dev_detector_2_idle_sprint_end
+anm_wpn_shoot                   = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_wpn_shoot_jammed            = dev_detector_2_shoot, dev_detector_2_idle_moving
+
+anm_show_16x9			= dev_detector_2_draw
+anm_show_fast_16x9		= dev_detector_2_draw_quick
+anm_hide_16x9			= dev_detector_2_holster
+anm_hide_fast_16x9		= dev_detector_2_holster_quick
+anm_idle_16x9			= dev_detector_2_idle
+anm_idle_slow_16x9              = dev_detector_2_idle
+anm_idle_crouch_16x9           = dev_detector_2_idle
+anm_idle_crouch_slow_16x9      = dev_detector_2_idle
+anm_idle_moving_16x9		= dev_detector_2_idle_moving
+anm_idle_moving_slow_16x9 	= dev_detector_2_slow, dev_detector_2_idle_moving
+anm_idle_moving_crouch_16x9 	= dev_detector_2_slow_down, dev_detector_2_idle_moving
+anm_idle_moving_crouch_slow_16x9 = dev_detector_2_slow_super, dev_detector_2_idle_moving
+anm_idle_sprint_16x9		= dev_detector_2_idle_sprint
+anm_idle_sprint_start_16x9      = dev_detector_2_idle_sprint_start
+anm_idle_sprint_end_16x9        = dev_detector_2_idle_sprint_end
+anm_wpn_shoot_16x9              = dev_detector_2_shoot, dev_detector_2_idle_moving
+anm_wpn_shoot_jammed_16x9       = dev_detector_2_shoot, dev_detector_2_idle_moving

@@ -1,0 +1,105 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+threshold = threshold@city_kulgband_glavar_threshold
+on_death = death
+
+
+[walker@begin]
+path_walk =	city_kulgband_glavar_walk1
+path_look =	city_kulgband_kamp_point
+on_timer = 1|walker@1 %=set_neutral =make_invulnerable%
+
+[walker@1]
+path_walk =	city_kulgband_glavar_walk1
+path_look =	city_kulgband_kamp_point
+combat_ignore_cond = always
+on_info = {+cit_kulgband_goto_klondike} walker@2
+
+
+; Двигаем к месту засады:
+[walker@2]
+path_walk =	city_kulgband_glavar_walk2
+path_look =	city_kulgband_glavar_look2
+combat_ignore_cond = always
+meet = no_meet
+on_signal     = arrived|walker@3 %=spawn_cit_kulgband_ambush =play_snd_on_me(characters_voice\human_01\bandit\fight\enemy\enemy_2)%
+
+[walker@3]
+path_walk =	city_kulgband_glavar_walk2
+path_look =	city_kulgband_glavar_look2
+;combat_ignore_cond = always
+meet = no_meet
+on_timer = 10000|walker@4 %+cit_kulgband_glavar_to_klondike%
+
+
+; Идём к Клондайку:
+[walker@4]
+path_walk =	city_kulgband_glavar_walk3
+path_look =	city_kulgband_glavar_look3
+meet = no_meet
+on_info = {+cit_kulgband_goto_klondike} walker@5
+
+[walker@5]
+path_walk =	city_kulgband_glavar_walk3
+path_look =	city_kulgband_glavar_look3
+combat_ignore_cond = always
+meet = no_meet
+on_signal     = arrived|walker@6
+
+[walker@6]
+path_walk =	city_kulgband_glavar_walk3
+path_look =	city_kulgband_glavar_look3
+combat_ignore_cond = always
+on_info = {+klondike_acess} walker@7 %=make_invulnerable%
+
+[walker@7]
+path_walk =	city_kulgband_glavar_walk3
+path_look =	city_kulgband_glavar_look3
+combat_ignore_cond = always
+meet = no_meet
+on_info = {+klondaik_find} walker@8 %=play_snd_on_me(characters_voice\scenario\kulgband_lider_goodloot)%
+
+[walker@8]
+path_walk =	city_kulgband_glavar_walk3
+path_look =	city_kulgband_glavar_look3
+combat_ignore_cond = always
+meet = no_meet
+on_info = {=actor_has_klondike_arts} walker@9 %=play_snd_on_me(characters_voice\human_01\bandit\fight\searching_enemy\search_18)%
+
+[walker@9]
+path_walk =	city_kulgband_glavar_walk3
+path_look =	city_kulgband_glavar_look3
+combat_ignore_cond = always
+on_info = {+cit_kulgband_glavar_cheat} walker@10 %=play_snd_on_me(characters_voice\human_01\bandit\fight\enemy\enemy_6) =send_kulgband_klondike_cheat_tip%
+on_info2 = {+cit_kulgband_enemy} nil %=killactor%
+
+; Убегаем к тачке:
+[walker@10]
+path_walk =	city_kulgband_glavar_walk4
+path_look =	city_kulgband_glavar_look4
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+on_signal     = arrived|%=release +spawn_cit_kulgband_car +cit_kulgband_car_go%
+
+
+
+
+
+
+[threshold@city_kulgband_glavar_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+[death]
+on_info = %+cit_kulgband_glavar_dead%
+
+
+
+
+

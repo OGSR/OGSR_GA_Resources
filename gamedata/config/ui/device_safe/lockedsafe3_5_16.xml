@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+<lockedsafe_1>
+
+<screen x="100" y="-110" width="832" height="844" stretch="1">
+	<texture x="0" y="0" width="1190" height="980">ui\safebuttons\safedoor_interface_40</texture>
+</screen>
+
+	<btn_1 x="394" y="392" width="25" height="25">
+		<texture_h>ui\safebuttons\safe_button_clicker1</texture_h>
+	</btn_1>
+	<btn_2 x="364" y="343" width="25" height="25">
+		<texture_h>ui\safebuttons\safe_button_clicker1</texture_h>
+	</btn_2>
+	<btn_3 x="365" y="283" width="25" height="25">
+		<texture_h>ui\safebuttons\safe_button_clicker1</texture_h>
+	</btn_3>
+	<btn_4 x="394" y="233" width="25" height="25">
+		<texture_h>ui\safebuttons\safe_button_clicker1</texture_h>
+	</btn_4>
+	<btn_5 x="441" y="216" width="35" height="35">
+		<texture_h>ui\safebuttons\safe_button_clicker1</texture_h>
+	</btn_5>
+	<btn_6 x="489" y="231" width="25" height="25">
+		<texture_h>ui\safebuttons\safe_button_clicker1</texture_h>
+	</btn_6>
+	<btn_7 x="518" y="281" width="25" height="25">
+		<texture_h>ui\safebuttons\safe_button_clicker1</texture_h>
+	</btn_7>
+	<btn_8 x="519" y="340" width="25" height="25">
+		<texture_h>ui\safebuttons\safe_button_clicker1</texture_h>
+	</btn_8>
+	<btn_9 x="489" y="390" width="25" height="25">
+		<texture_h>ui\safebuttons\safe_button_clicker1</texture_h>
+	</btn_9>
+	<btn_10 x="441" y="411" width="25" height="25">
+		<texture_h>ui\safebuttons\safe_button_clicker1</texture_h>
+	</btn_10>
+
+
+	<secret_help_name x="255" y="585" width="390" height="35">
+		<text font="letterica18">cheb_hint_string</text>
+	</secret_help_name>
+	<secret_help_text x="250" y="620" width="390" height="35">
+		<text font="letterica18">cheb_strug_gibberish_2_string</text>
+	</secret_help_text>
+
+	<btn_quit x="530" y="590" width="100" height="100">
+		<texture_e>ui\safebuttons\safe_exitbutton_1</texture_e>
+		<texture_t>ui\safebuttons\safe_exitbutton_2</texture_t>
+		<texture_h>ui\safebuttons\safe_exitbutton_1</texture_h>
+	</btn_quit>
+</lockedsafe_1>
+
+

@@ -1,0 +1,60 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker1
+;combat_ignore = combat_ignore
+on_death = death
+on_combat = combat
+;threshold = threshold@dar_merk_guard_1_threshold
+
+[combat]
+combat_type = camper
+
+[camper]
+path_walk = dar_merk_guard_1_walk1
+path_look = dar_merk_guard_1_look1
+radius = 45
+meet = no_meet
+
+[walker1]
+path_walk = dar_merk_guard_1_walk1
+path_look = dar_merk_guard_1_look1
+meet = meet
+;danger = danger_condition
+;combat_ignore_cond = always
+on_info = {+spawn_dar_uaz} walker2
+
+[walker2]
+path_walk = dar_merk_guard_1_walk2
+path_look = dar_merk_guard_1_look2
+def_state_moving = run
+meet = meet
+danger = danger_condition
+;combat_ignore_cond = always
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 2|actor
+victim_wpn = 2|actor
+meet_state = 2|threat@dar_merc_hello1|1|threat@dar_merc_hello1
+meet_state_wpn = 2|threat@dar_merc_hello2|1|threat@dar_merc_hello2
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@dar_merk_guard_1_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+dar_merk_guard_1_dead%
+

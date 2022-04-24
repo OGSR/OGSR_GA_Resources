@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+<window>
+
+  <main_dialog>
+    <dialog x="0" y="0" width="620" height="750" stretch="1">
+      <texture>ui\ui_ogsr_treasure</texture>
+    </dialog>
+
+    <descr_scroll x="247" y="10" width="355" height="150" always_show_scroll="0" stretch="1"/>
+    <descr_text x="0" y="0" width="355" height="150" complex_mode="1">
+      <font font="letterica16" r="255" g="255" b="255"/>
+    </descr_text>
+
+    <tab x="240" y="170" width="247" height="29" stretch="1">
+      <button x="0" y="0" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18">ui_inv_bag</text>
+      </button>
+      <button x="126" y="0" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18">kb_inventory</text>
+      </button>
+    </tab>
+
+    <label_filter x="10" y="176" width="30" height="29">
+      <text font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_search</text>
+    </label_filter>
+
+    <edit_filter x="60" y="170" width="150" height="29">
+      <texture>ui_linetext_e</texture>
+      <text font="letterica18" r="240" g="217" b="182"/>
+    </edit_filter>
+
+    <edit_amount x="17" y="710" width="25" height="23" numonly="1" max_symb_count="3">
+      <texture>ui_linetext_e</texture>
+      <text font="letterica18" r="240" g="217" b="182"/>
+    </edit_amount>
+
+    <btn_4 x="47" y="710" width="117" height="29">
+      <texture_e>ui_button_ordinary_e</texture_e>
+      <texture_t>ui_button_ordinary_h</texture_t>
+      <texture_h>ui_button_ordinary_h</texture_h>
+      <text>st_move</text>
+    </btn_4>
+
+    <label_weight x="169" y="716" width="55" height="23" complex_mode="0">
+      <text font="letterica18" />
+    </label_weight>
+
+    <btn_move_all x="229" y="710" width="117" height="29" accel="kZ">
+      <texture_e>ui_button_ordinary_e</texture_e>
+      <texture_t>ui_button_ordinary_h</texture_t>
+      <texture_h>ui_button_ordinary_h</texture_h>
+      <text>st_move_all</text>
+    </btn_move_all>
+
+    <btn_quit x="363" y="710" width="117" height="29">
+      <texture_e>ui_button_ordinary_e</texture_e>
+      <texture_t>ui_button_ordinary_h</texture_t>
+      <texture_h>ui_button_ordinary_h</texture_h>
+      <text>ui_inv_exit</text>
+    </btn_quit>
+
+    <label_show x="495" y="176" width="115" height="23" stretch="1">
+      <text align="c" font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_label_show</text>
+    </label_show>
+
+    <radio_show x="495" y="200" width="117" height="275" radio="1" stretch="1">
+      <button x="0" y="0" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_radio_show1</text>
+      </button>
+      <button x="0" y="25" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">kb_grp_weapons</text>
+      </button>
+      <button x="0" y="50" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">treasure_ammo_name</text>
+      </button>
+      <button x="0" y="75" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">ui_inv_granades</text>
+      </button>
+      <button x="0" y="100" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">treasure_addon_name</text>
+      </button>
+      <button x="0" y="125" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">ui_inv_outfits</text>
+      </button>
+      <button x="0" y="150" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">Artifacts</text>
+      </button>
+      <button x="0" y="175" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">treasure_eat_name</text>
+      </button>
+      <button x="0" y="200" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">treasure_medecine_name</text>
+      </button>
+      <button x="0" y="225" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">yan_rand_quest_mut_string</text>
+      </button>
+      <button x="0" y="250" width="117" height="29">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_radio_show11</text>
+      </button>
+    </radio_show>
+
+    <label_sort x="495" y="485" width="115" height="23" stretch="1">
+      <text align="c" font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_label_sort</text>
+    </label_sort>
+
+    <radio_sort x="495" y="509" width="115" height="175" radio="1">
+      <button x="0" y="0" width="230">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_radio_sort1</text>
+      </button>
+      <button x="0" y="25" width="115">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_radio_sort2</text>
+      </button>
+      <button x="0" y="50" width="115">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_radio_sort3</text>
+      </button>
+      <button x="0" y="75" width="115">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_radio_sort4</text>
+      </button>
+      <button x="0" y="100" width="115">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_radio_sort5</text>
+      </button>
+      <button x="0" y="125" width="115">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_h</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_radio_sort6</text>
+      </button>
+      <button x="0" y="150" width="115">
+	  	<texture_e>ui_button_ordinary_e</texture_e>
+	    <texture_t>ui_button_ordinary_t</texture_t>
+	    <texture_h>ui_button_ordinary_h</texture_h>
+        <text font="letterica18" r="240" g="217" b="182">ui_dsh_rukzak_radio_sort7</text>
+      </button>
+    </radio_sort>
+
+  </main_dialog>
+
+  <tab_other>
+    <list x="5" y="10" width="475" height="480" item_height="18">
+      <font font="letterica16" r="216" g="186" b="140" />
+    </list>
+  </tab_other>
+
+  <tab_our>
+    <list x="5" y="10" width="475" height="480" item_height="18">
+      <font font="letterica16" r="216" g="186" b="140" />
+    </list>
+  </tab_our>
+
+  <list_frame x="0" y="0" width="485" height="500">
+<!--    <texture>ui_tablist_textbox</texture> -->
+  </list_frame>
+
+</window>

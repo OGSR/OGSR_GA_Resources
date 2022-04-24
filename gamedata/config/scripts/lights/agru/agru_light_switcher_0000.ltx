@@ -1,0 +1,14 @@
+[logic]
+active = ph_button@on
+
+[ph_button@on]
+anim_blend = false
+anim = lab_primary_switcher_idle
+on_press = ph_button@off %=send_switch_signal(agru_light_switcher_0000:off) =play_snd_from_obj2(device\click10b)%
+tooltip = switcher_on
+
+[ph_button@off]
+anim_blend = false
+anim = lab_primary_switcher_off
+on_press = ph_button@on %=send_switch_signal(agru_light_switcher_0000:on) =play_snd_from_obj2(device\click10b)%
+tooltip = switcher_off

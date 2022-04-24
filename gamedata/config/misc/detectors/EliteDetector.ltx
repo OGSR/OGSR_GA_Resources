@@ -1,0 +1,142 @@
+[interactive_detector_elite]:interactive_detector_advanced
+$spawn 			= "devices\detector_elite"
+class			= DET_ELIT
+visual			= dynamics\devices\dev_detector_3\dev_detector_3.ogf
+inv_name		= id_elite
+inv_name_short	= id_elite
+description		= enc_id_elite
+hud			= detector_elite_hud
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 5
+inv_grid_y			= 14
+cost			= 25000
+
+; elite x="0.00096" y="0.0035"
+ui_p			= -0.049,-0.0665,0.0115
+ui_r			= 0,0,0
+
+af_radius		= 35
+af_vis_radius		= 5
+
+
+
+[detector_elite_hud]:detector_base_hud
+
+item_position				= 0,0,0
+item_orientation			= 0,0,0
+
+item_visual                   	= dynamics\devices\dev_detector_3\dev_detector_3_hud
+
+anm_show			= veles_draw
+anm_show_fast			= veles_draw_fast	;_quick
+anm_hide			= veles_hide
+anm_hide_fast			= veles_hide_fast
+anm_idle			= veles_idle
+anm_idle_slow                   = veles_idle
+anm_idle_crouch                = veles_idle
+anm_idle_crouch_slow           = veles_idle
+anm_idle_moving			= veles_walk
+anm_idle_moving_slow 		= veles_slow, veles_walk
+anm_idle_moving_crouch 	= veles_slow_down, veles_walk
+anm_idle_moving_crouch_slow 	= veles_slow_super, veles_walk
+anm_idle_sprint			= veles_sprint
+anm_idle_sprint_start           = veles_sprint_start
+anm_idle_sprint_end             = veles_sprint_end
+anm_wpn_shoot                   = veles_shoot, veles_walk
+anm_wpn_shoot_jammed            = veles_shoot, veles_walk
+
+anm_show_16x9			= veles_draw
+anm_show_fast_16x9		= veles_draw_fast	;_quick
+anm_hide_16x9			= veles_hide
+anm_hide_fast_16x9		= veles_hide_fast
+anm_idle_16x9			= veles_idle
+anm_idle_slow_16x9              = veles_idle
+anm_idle_crouch_16x9           = veles_idle
+anm_idle_crouch_slow_16x9      = veles_idle
+anm_idle_moving_16x9		= veles_walk
+anm_idle_moving_slow_16x9       = veles_slow, veles_walk
+anm_idle_moving_crouch_16x9 	= veles_slow_down, veles_walk
+anm_idle_moving_crouch_slow_16x9 = veles_slow_super, veles_walk
+anm_idle_sprint_16x9		= veles_sprint
+anm_idle_sprint_start_16x9      = veles_sprint_start
+anm_idle_sprint_end_16x9        = veles_sprint_end
+anm_wpn_shoot_16x9              = veles_shoot, veles_walk
+anm_wpn_shoot_jammed_16x9       = veles_shoot, veles_walk
+
+
+
+
+[interactive_detector_scientific]:interactive_detector_elite
+$spawn 				= "devices\detector_scientific"
+class				= DET_SCIE
+
+visual			= dynamics\devices\dev_detector_4\dev_detector_4.ogf
+
+inv_name		= gunsl_detector_scientific
+inv_name_short	= gunsl_detector_scientific
+description		= gunsl_detector_scientific_descr
+hud			= detector_scientific_hud
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 19
+inv_grid_y		= 21
+cost			= 12500
+
+; elite x="0.00096" y="0.0035"
+ui_p			= -0.049,-0.0665,0.0115
+ui_r			= 0,0,0
+
+af_radius		= 35
+af_vis_radius		= 6
+
+;zone_class_1		= zone_mine_acidic_weak
+;zone_freq_1			= 0.05, 2
+;zone_sound_1_		= detectors\DA-2_beep1
+
+
+
+[detector_scientific_hud]:detector_base_hud
+
+item_position				= 0,0,0
+item_orientation			= 0,0,0
+
+item_visual                   	= dynamics\devices\dev_detector_4\dev_detector_4_hud
+
+anm_show			= veles_draw
+anm_show_fast			= veles_draw_fast	;_quick
+anm_hide			= veles_hide
+anm_hide_fast			= veles_hide_fast
+anm_idle			= veles_idle
+anm_idle_slow                   = veles_idle
+anm_idle_crouch                = veles_idle
+anm_idle_crouch_slow           = veles_idle
+anm_idle_moving			= veles_walk
+anm_idle_moving_slow 		= veles_slow, veles_walk
+anm_idle_moving_crouch 	= veles_slow_down, veles_walk
+anm_idle_moving_crouch_slow 	= veles_slow_super, veles_walk
+anm_idle_sprint			= veles_sprint
+anm_idle_sprint_start           = veles_sprint_start
+anm_idle_sprint_end             = veles_sprint_end
+anm_wpn_shoot                   = veles_shoot, veles_walk
+anm_wpn_shoot_jammed            = veles_shoot, veles_walk
+
+anm_show_16x9			= veles_draw
+anm_show_fast_16x9		= veles_draw_fast	;_quick
+anm_hide_16x9			= veles_hide
+anm_hide_fast_16x9		= veles_hide_fast
+anm_idle_16x9			= veles_idle
+anm_idle_slow_16x9              = veles_idle
+anm_idle_crouch_16x9           = veles_idle
+anm_idle_crouch_slow_16x9      = veles_idle
+anm_idle_moving_16x9		= veles_walk
+anm_idle_moving_slow_16x9 	= veles_slow, veles_walk
+anm_idle_moving_crouch_16x9 	= veles_slow_down, veles_walk
+anm_idle_moving_crouch_slow_16x9 = veles_slow_super, veles_walk
+anm_idle_sprint_16x9		= veles_sprint
+anm_idle_sprint_start_16x9      = veles_sprint_start
+anm_idle_sprint_end_16x9        = veles_sprint_end
+anm_wpn_shoot_16x9              = veles_shoot, veles_walk
+anm_wpn_shoot_jammed_16x9       = veles_shoot, veles_walk

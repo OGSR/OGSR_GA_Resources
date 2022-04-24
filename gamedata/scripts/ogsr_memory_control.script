@@ -1,0 +1,38 @@
+-- KRodin: Этот скрипт анализирует кол-во потребляемой памяти луаджитом и выводит в лог статистику.
+
+local enabled = false --Включен ли скрипт?
+local MEMORY_WARNING_AFTER = 50000 --Пусть будет 50мб.
+local MEMORY_CHECK_INTERVAL = 30000 --Пусть будет раз в 30 секунд
+
+
+class "exec_periodic"
+function exec_periodic:__init(fun, time)
+	self.call_func = fun
+	self.time = time
+	self.call = level.add_call(self, self.condition, function() end)
+end
+function exec_periodic:condition()
+	self.call_func()
+	self.call:set_pause(self.time)
+	return false
+end
+
+
+function attach()
+	if not enabled then return end
+	--
+	this.exec_periodic(
+		function()
+			local memuse = collectgarbage("count")
+			log3("##[%s] LUAJIT MEMORY USAGE: [%d KB]", script_name():upper(), memuse)
+			--[=[if memuse > MEMORY_WARNING_AFTER then --С переходом на LuaJIT 2.1 - не нужно.
+				collectgarbage("collect")
+				memuse = collectgarbage("count")
+				if memuse > MEMORY_WARNING_AFTER then
+					log3("!![%s] MEMORY LEAK FOUND! LUAJIT MEMORY USAGE: [%d KB]", script_name():upper(), memuse)
+				end
+			end]=]
+		end,
+		MEMORY_CHECK_INTERVAL
+	)
+end

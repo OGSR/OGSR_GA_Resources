@@ -1,0 +1,329 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+
+	<info_portion id="loschina_task_start">
+		<task>yan_find_loschina_lab_task</task>
+		<action>ogse_quests.swap_scape_doors</action>
+	</info_portion>
+	<info_portion id="loschina_task_finished"/>
+	<info_portion id="loschina_found"/>
+	<info_portion id="hunter_talked_about_lab"/>
+	<info_portion id="loschina_scientists">
+		<article>loschina_scientists_article</article>
+	</info_portion>
+	<info_portion id="loschina_story">
+		<article>loschina_story_article</article>
+	</info_portion>
+	
+	<info_portion id="give_actor_bioradar"/>
+
+	<info_portion id="horror_time_has_ecolog_story">
+		<!--article>about_horror_time_ecolog</article-->
+	</info_portion>
+
+	<info_portion id="die"/>
+	<info_portion id="enable_talk"/>
+	<info_portion id="meet_tompson"/>
+	<info_portion id="find_gold_fish_start">
+		<task>yan_find_gold_fish_start</task>
+	</info_portion>
+	<info_portion id="saharov_af_gold_fish_have"/>
+	<info_portion id="actor_set_actor"/>
+	<info_portion id="buddte_ostorojney"/>	
+	<info_portion id="yan_kill_brain_task_start"/>
+	<info_portion id="yan_find_scientist_start">
+		<task>yan_find_scientist</task>
+	</info_portion>
+	<info_portion id="yan_find_scientist_semenov_start">
+		<task>yan_find_scientist_semenov</task>
+	</info_portion>
+	<info_portion id="yan_find_scientist_task_start"/>
+	<info_portion id="yan_find_vasilyev_start">
+		<task>yan_find_vasilyev_task</task>
+		<article>journal_before_vasilyev_pda</article>
+	</info_portion>
+	<info_portion id="yan_find_vasilyev_end">
+		<action>yantar_tasks.yantar_vasilyev_spam</action>
+		<article>yan_vasilyev_info</article>
+	</info_portion>
+	<info_portion id="yan_vasilyev_record_played"/>
+	<info_portion id="yan_find_laboratory_end"/>
+	<info_portion id="yantar_vasilyev_info">
+		<task>yan_kill_brain_task</task>
+	</info_portion>
+	<info_portion id="yantar_find_ghost_task_end">
+		<article>journal_after_find_ghost</article>
+		<task>yan_kill_brain_task_2</task>
+	</info_portion>
+	<info_portion id="yantar_find_ghost_task_start">
+		<task>yan_find_ghost_task</task>
+	</info_portion>
+	<info_portion id="yan_scientist_return_task">
+		<task>yan_scientist_return_task</task>
+	</info_portion>
+	<info_portion id="yantar_hello_scientist"/>	
+	<info_portion id="yan_find_vasilyev_done"/>
+	<info_portion id="yan_scientist_start_research"/>
+	<info_portion id="yan_scientist_return_to_bunker"/>
+	<info_portion id="yan_scientist_gulag_state_2"/>
+	<info_portion id="yan_scientist_gulag_state_3"/>
+	<info_portion id="yan_scientist_die">
+		<disable>yan_scientist_door_2_open</disable>
+		<disable>yan_scientist_door_1_open</disable>
+	</info_portion>
+	<info_portion id="yantar_kruglov_talk"/>
+	<info_portion id="yan_scientist_door_2_open"/>
+	<info_portion id="yan_scientist_door_1_open"/>
+	<info_portion id="yantar_scientists_talk"/>
+	<info_portion id="yantar_kruglov_phrase_1"/>
+	<info_portion id="yantar_professor_phrase_2"/>
+	<info_portion id="yantar_kruglov_phrase_2"/>
+	<info_portion id="yantar_scientists_talk_end"/>
+	<info_portion id="yan_scientist_exit"/>
+	<info_portion id="yan_disable_ui"/>
+	<info_portion id="yantar_ghost_talk_2"/>
+	<info_portion id="yantar_klyk_talk"/>
+	<info_portion id="yantar_professor_talk_about_brain"/>
+	<info_portion id="yantar_professor_talk_about_brain_end"/>
+	<info_portion id="yan_kruglov_after_actor"/>
+	<info_portion id="yantar_scientist_talk_good_quest"/>
+	<info_portion id="yantar_scientist_talk_good_quest_1"/>
+	<info_portion id="yantar_scientist_talk_semenov_die_1"/>
+	<info_portion id="yantar_scientist_talk_semenov_die"/>
+
+
+	<info_portion id="yan_zombie_on_actor_wake"/>
+	<info_portion id="yan_bunker_door_1_open"/>
+	<info_portion id="yan_bunker_door_1_open_1"/>
+	<info_portion id="yan_bunker_door_1_close"/>
+	<info_portion id="yan_bunker_door_2_open"/>
+	<info_portion id="yan_bunker_door_2_open_1"/>
+	<info_portion id="yan_actor_must_sleep"/>
+	<info_portion id="labx16_find">
+		<action>x16_spawn.x16_rat1</action>
+		<action>x16_spawn.x16_rat2</action>
+		<action>x16_spawn.x16_rat3</action>
+	</info_portion>
+	<info_portion id="yan_kill_brain_done"/>
+	<info_portion id="yan_kruglov_hello"/>
+	<info_portion id="yan_find_scientist_done"/>
+	<info_portion id="yan_scientist_researching"/>
+	<info_portion id="yan_scientist_point_to_1"/>
+	<info_portion id="yan_psi_zone_find_done"/>
+	<!-- Yantar zombied respawn -->
+	<info_portion id="yan_zombied_respawn_01"/>
+	<info_portion id="yan_zombied_respawn_02"/>
+	<info_portion id="yan_zombied_respawn_03"/>
+	<info_portion id="yan_zombied_respawn_04"/>
+	<info_portion id="yan_zombied_respawn_05"/>
+	<info_portion id="yan_zombied_respawn_06"/>
+	<info_portion id="yan_zombied_respawn_07"/>
+	<info_portion id="yan_zombied_respawn_08"/>
+	<info_portion id="yan_spawn_ghost"/>
+	<info_portion id="yantar_scientist_talk_helmet"/>
+
+
+	<!-- Yantar zombied after braindead -->
+	<info_portion id="yantar_attack_start"/>
+	<info_portion id="set_heli_enemy_actor"/>
+	<info_portion id="yantar_heli_1_die"/>
+	<info_portion id="yantar_heli_2_die"/>
+	<info_portion id="yantar_heli_3_die"/>
+	<info_portion id="yan_spawn_zombies_1"/>
+	<info_portion id="yan_spawn_zombies_2"/>
+	<info_portion id="yan_actor_talk_ucheniy"/>
+	<info_portion id="yan_ecolog_outfit_given"/>
+
+	<!-- Yantar Tunnel start -->
+	<info_portion id="yantar_tunnel_start">
+		<action>soundtrack.pseudogigant</action>
+	</info_portion>
+	<info_portion id="yantar_tunnel_finish">
+		<article>journal_after_kill_brain</article>
+	</info_portion>
+
+	<!-- Lab X16 switchers -->
+	<info_portion id="yan_labx16_switcher_1_off"/>
+	<info_portion id="yan_labx16_switcher_2_off"/>
+	<info_portion id="yan_labx16_switcher_3_off"/>
+	<info_portion id="yan_labx16_switcher_primary_off"/>
+
+	<info_portion id="yan_labx16_switcher_1_end"/>
+	<info_portion id="yan_labx16_switcher_2_end"/>
+	<info_portion id="yan_labx16_switcher_3_end">
+		<action>soundtrack.underground</action>
+	</info_portion>
+	<info_portion id="yan_labx16_switcher_primary_try"/>
+	<!-- Spawn Provodnik -->
+	<info_portion id="yan_provodnik_spawn">
+		<task>yan_provodnik_task</task>
+	</info_portion>
+	<info_portion id="yan_has_ghost_pda"/>
+	<info_portion id="yan_test_info"/>
+
+
+	<info_portion id="yan_controller_respawn_01">
+		<action>x16_spawn.x16_sceleton</action>
+	</info_portion>
+	<info_portion id="brain_snork_respawn_01"/>
+
+	<info_portion id="yan_giant_spawner_01"/>
+
+	<info_portion id="x16_zasada_2"/>
+	<info_portion id="x16_zasada_3"/>
+	<info_portion id="x16_zasada_4"/>
+
+	<info_portion id="yan_tonnel_snork_spawn_1"/>
+	<info_portion id="yan_tonnel_snork_spawn_2"/>
+	<info_portion id="yan_tonnel_snork_spawn_3"/>
+	<info_portion id="yan_tonnel_snork_spawn_4"/>
+	<info_portion id="yan_tonnel_snork_spawn_5"/>
+
+	<info_portion id="scientist_job">
+		<task>yan_scientist_job</task>
+	</info_portion>
+	<info_portion id="yantar_ecolog_give_reward"/>
+
+	<info_portion id="transmut">
+		<article>zone_af_transmut_1</article>
+		<article>zone_af_transmut_2</article>
+		<article>zone_af_transmut_3</article>
+		<article>zone_af_transmut_4</article>
+		<article>zone_af_transmut_5</article>
+		<article>zone_af_transmut_6</article>
+		<article>zone_af_transmut_7</article>
+		<article>zone_af_transmut_8</article>
+	</info_portion>
+
+	<!-- yan_random_quest -->
+	<info_portion id="yan_rq_permission"/>
+
+
+
+	<!-- From Jek@n -->
+	<info_portion id="yan_soldier_dead">
+		<!--action>jekan_work.yan_sold_cleanup</action-->
+	</info_portion>
+	<info_portion id="yan_sold_opendoor"/>
+	<info_portion id="yan_sign_off"/>
+	<info_portion id="yan_sold_in_lager"/>
+	<info_portion id="yan_sold_goto_post">
+		<action>jekan_work.yan_sign_zone_spawn</action>
+		<action>jekan_work.yan_sign_zone2_spawn</action>
+		<action>jekan_work.yan_sign_zone3_spawn</action>
+		<action>jekan_work.yan_sign_zone4_spawn</action>
+	</info_portion>
+	<info_portion id="lager_search"/>
+	<info_portion id="yan_sold_nahodka">
+		<action>jekan_work.yan_sold_nahodka_tip</action>
+	</info_portion>
+	<info_portion id="yan_sold_reading"/>
+	<info_portion id="yan_sold_read_info">
+		<action>jekan_work.yan_diplomat_zone_spawn</action>
+		<action>jekan_work.spawn_yan_kommander_diplomat</action>
+		<action>jekan_work.spawn_yan_kommander_box</action>
+	</info_portion>
+	<info_portion id="yan_find_diplomat">
+		<task>yan_find_diplomat</task>
+	</info_portion>
+	<info_portion id="yan_sold_anomaly_info">
+		<action>jekan_work.yan_sold_anomaly_info_tip</action>
+	</info_portion>
+	<info_portion id="kommander_key_finded"/>
+	<info_portion id="kommander_box_open">
+		<action>jekan_work.kommander_box_open_tip</action>
+	</info_portion>
+	<info_portion id="kommander_map_finded"/>
+	
+	<info_portion id="yan_sold_anomaly_info_talked"/>
+
+	<info_portion id="check_yan_sign_place">
+		<task>check_yan_sign_place</task>
+	</info_portion>
+	<info_portion id="yan_attak"/>
+	<info_portion id="spawn_yan_zombsoldier">
+		<action>jekan_work.spawn_yan_zombsoldier</action>
+	</info_portion>
+	<info_portion id="kill_yan_zombsold"/>
+	<info_portion id="yan_zombsold_dead"/>
+	<info_portion id="yan_zombsold_wound"/>
+	<info_portion id="get_afscanner">
+		<task>get_afscanner</task>
+	</info_portion>
+	<info_portion id="yan_sold_demask"/>
+	<info_portion id="yan_sold_stop_run"/>
+	<info_portion id="yan_sold_say_true">
+		<task>yan_sold_final_task</task>
+		<action>jekan_work.spawn_afscanner</action>
+	</info_portion>
+	<info_portion id="ecolog_outfit_finded"/>
+	<info_portion id="yan_sold_goto_rostok">
+		<action>jekan_work.spawn_ros_soldier_restrictor</action>
+	</info_portion>
+	<info_portion id="rostok_soldier_spawn">
+		<action>jekan_work.spawn_ros_soldier</action>
+		<action>jekan_work.release_yan_soldier</action>
+	</info_portion>
+	<info_portion id="have_psy_helmet"/>
+	<info_portion id="ros_sold_afscanner_found"/>
+	
+<!--	<info_portion id="ros_soldier_start_search"/>
+	<info_portion id="ros_soldier_go_deal_with_killers"/>
+	<info_portion id="ros_sold_no_killers"/>
+	<info_portion id="ros_soldier_constructions_empty"/>
+	<info_portion id="ros_soldier_constructions_killers"/>
+	<info_portion id="ros_soldier_constructions_killers_killed"/>
+	<info_portion id="ros_sold_first_spot"/>
+	<info_portion id="ros_sold_first_spot_go_search"/>
+	<info_portion id="ros_sold_first_spot_nothing_found"/>
+	<info_portion id="ros_sold_first_spot_searched">
+		<action>jekan_work.spawn_afscanner</action>
+	</info_portion>
+	<info_portion id="ros_sold_second_spot"/>
+	<info_portion id="ros_sold_second_spot_go_search"/>
+	<info_portion id="ros_sold_second_spot_found"/>
+	<info_portion id="ros_sold_second_spot_searched">
+		<action>jekan_work.remove_ros_soldier</action>
+	</info_portion>
+	<info_portion id="ros_soldier_dead"/> -->
+	<info_portion id="yan_sold_strange_zones_searched">
+	<!--	<action>jekan_work.set_generator_prepare_dialog</action>-->
+	</info_portion>
+	<info_portion id="yan_sold_generator_prepare">
+		<action>jekan_work.spawn_second_generator</action>
+	</info_portion>
+	<info_portion id="yan_sold_generator_ready">
+		<!--action>jekan_work.yan_sold_cleanup</action-->
+	</info_portion>
+	<info_portion id="yan_sold_yan_anomaly_discharged"/>
+	<info_portion id="yan_sold_go_to_dark_zone">
+	<!--	<action>jekan_work.set_go_to_dz_dialog</action>-->
+	</info_portion>
+	<info_portion id="yan_sold_in_lager_final"/>
+	<info_portion id="yan_sold_actor_paralyzed">
+		<action>xr_effects.spawn_third_klondaik_flash_to_soldier</action>
+	</info_portion>
+	<info_portion id="yan_sold_actor_wait_too_long">
+		<action>jekan_work.blow_generator</action>
+	</info_portion>
+	<info_portion id="yan_sold_anomaly_is_gone">
+	<!--	<action>jekan_work.set_soldier_final_dialog</action>-->
+	</info_portion>
+	<info_portion id="yan_sold_explained_to_actor"/>
+	<info_portion id="yan_strange_zone_ready_to_delete">
+		<action>jekan_work.remove_darkzone</action>
+	</info_portion>
+	<info_portion id="yan_sold_generator_enabled">
+		<action>jekan_work.blow_generator</action>
+	</info_portion>
+	<info_portion id="yan_sold_hitted">
+		<action>jekan_work.restore_inventory_with_sound</action>
+	</info_portion>
+	<info_portion id="yan_sold_hitted_by_major"/>
+	<info_portion id="yan_sold_soldiers_spawned"/>
+	<info_portion id="yan_sold_talked_with_perepelkin"/>
+	<info_portion id="yan_sold_talked_with_captain"/>
+	<info_portion id="yan_sold_party_set_to_delete"/>
+	<info_portion id="dik_the_drifter_proval"/>
+</game_information_portions>

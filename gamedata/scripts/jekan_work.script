@@ -1,0 +1,5721 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-- Здесь будут находиться вспомогательные функции для квестов --------------------------------------
+-- 03.02.2012 --------------------------------------------------------------------------------------
+
+function attach(sm)
+	sm:subscribe({signal = "on_drop", fun = this.check_generator})
+	sm:subscribe({signal = "on_take", fun = function(obj)
+		if obj:section() == "cit_tow_box_keys" then
+			level.map_remove_object_spot( obj:id(), "crlc_mdl" )
+		end
+	end})
+	--
+	sm:subscribe({signal = "on_first_update", fun = this.check_subscribe_bind_avail_six_anom_house_items})
+	sm:subscribe({signal = "on_info", fun = this.info_check_subscribe_bind_avail_six_anom_house_items})
+	-- KRodin: ниже костыль от очень редкого бага с квестом, пусть будет.
+	if not has_alife_info("klondaik_flashes_collected") then
+		sm:subscribe({signal = "on_update", fun = function() this.check_klondaik_flashes(); sm:reschedule(math.random(3000, 5000)) end, queued = true})
+	end
+end
+
+local spawn_db = ogse_spawn_db.script_spawn_registry.jekan_quests
+
+-- То, что должно быть заспавнено в начале игры ----------------------------------------------------
+function spawn_on_start() --Вызывается из конфигов
+	set_ds_hunter_invulnerable()
+	set_bratstvo_orujeinik_invulnerable()
+	set_bratstvo_vrach_invulnerable()
+	set_ds_bloha_invulnerable()
+	spawn_af_light_shron()
+	spawn_hohol()
+	spawn_turrets()
+	set_zona_bro1_invulnerable()
+	set_zona_bro2_invulnerable()
+	--spawn_swamp_doctor() спавнится по инфо agr_doc_wakeup
+	--spawn_catgirl()
+	--spawn_human_pervert()
+	--spawn_kosar_place()
+	spawn_city_house_items()
+	spawn_anomal_bolts()
+	alife():create("ufo_part", vector():set (-66.23, 0.48, -254.22), 315430, 3044)
+end
+----------------------------------------------------------------------------------------------------
+
+
+function set_zona_bro1_invulnerable()
+end
+
+function set_zona_bro2_invulnerable()
+end
+
+function companion_goodbye()  --  посылаем напарника в вольное плавание
+	if xr_companion.is_companion(obj:id()) then
+		dialogs.companion_stop_following(npc, actor)
+	end
+end
+
+function have_some_sigarets(stalker, player)
+    return db.actor:object("sigaret_quest") ~= nil or db.actor:object("sigaret") ~= nil
+end
+
+function sigarets_out(first_speaker, second_speaker)
+	if db.actor:object("sigaret_quest") ~= nil then
+		dialogs.relocate_item_section(second_speaker, "sigaret_quest", "out")
+	elseif db.actor:object("sigaret") ~= nil then	
+		dialogs.relocate_item_section(second_speaker, "sigaret", "out")
+	end
+end
+
+function spawn_second_neutral()
+	local sobj = ogse.spawn_object(spawn_db.second_neutral)
+	ogse.kill_offline_npc(sobj)
+end
+
+-- Спавним деревенского Музыканта ------------------------------------------------------------------
+
+function spawn_hohol()
+	ogse.spawn_object(spawn_db.hohol)
+end
+
+-- Спавним Искателей и бандитов в Лощине -----------------------------------------------------------
+
+function spawn_iskatel_shaman()
+	ogse.spawn_object(spawn_db.iskatel_shaman)
+end
+
+function spawn_iskatel_dusty()
+	ogse.spawn_object(spawn_db.iskatel_dusty)
+end
+
+function spawn_iskatel_yuriy()
+	ogse.spawn_object(spawn_db.iskatel_yuriy)
+end
+
+function spawn_iskatel_ahmet()
+	ogse.spawn_object(spawn_db.iskatel_ahmet)
+end
+
+function spawn_iskatel_bacha()
+	ogse.spawn_object(spawn_db.iskatel_bacha)
+end
+
+function spawn_ds_nalet_band_1()
+	ogse.spawn_object(spawn_db.ds_nalet_band_1)
+end
+
+function spawn_ds_nalet_band_2()
+	ogse.spawn_object(spawn_db.ds_nalet_band_2)
+end
+
+function spawn_ds_nalet_band_3()
+	ogse.spawn_object(spawn_db.ds_nalet_band_3)
+end
+
+function spawn_ds_nalet_band_4()
+	ogse.spawn_object(spawn_db.ds_nalet_band_4)
+end
+
+function spawn_ds_nalet_band_5()
+	ogse.spawn_object(spawn_db.ds_nalet_band_5)
+end
+
+function spawn_ds_nalet_band_6()
+	ogse.spawn_object(spawn_db.ds_nalet_band_6)
+end
+
+function spawn_ds_nalet_band_7()
+	ogse.spawn_object(spawn_db.ds_nalet_band_7)
+end
+
+function spawn_ds_nalet_band_8()
+	ogse.spawn_object(spawn_db.ds_nalet_band_8)
+end
+
+function set_ds_bloha_invulnerable()
+end
+
+-- Спавним бандитов на хуторке ---------------------------------------------------------------------
+
+function spawn_ds_glavar()
+	ogse.spawn_object(spawn_db.ds_glavar)
+end
+
+function spawn_ds_telohr_1()
+	ogse.spawn_object(spawn_db.ds_telohr_1)
+end
+
+function spawn_ds_telohr_2()
+	ogse.spawn_object(spawn_db.ds_telohr_2)
+end
+
+function spawn_ds_shesterka()
+	ogse.spawn_object(spawn_db.ds_shesterka)
+end
+
+function spawn_ds_patruln()
+	ogse.spawn_object(spawn_db.ds_patruln)
+end
+
+-- Спавним лесника Захарыча ------------------------------------------------------------------------
+
+function spawn_ds_hunter()
+	ogse.spawn_object(spawn_db.ds_hunter)
+end
+
+function set_ds_hunter_invulnerable()
+end
+
+-- Спавним тайное братство -------------------------------------------------------------------------
+
+function spawn_bratstvo_lider()
+	ogse.spawn_object(spawn_db.bratstvo_lider)
+end
+
+function set_bratstvo_lider_invulnerable()
+end
+
+function spawn_bratstvo_orujeinik()
+	ogse.spawn_object(spawn_db.bratstvo_orujeinik)
+end
+
+function set_bratstvo_orujeinik_invulnerable()
+end
+
+function spawn_bratstvo_vrach()
+	ogse.spawn_object(spawn_db.bratstvo_vrach)
+end
+
+function set_bratstvo_vrach_invulnerable()
+end
+
+function spawn_bratstvo_cleaner()
+	ogse.spawn_object(spawn_db.bratstvo_cleaner)
+end
+
+function set_bratstvo_cleaner_invulnerable()
+end
+
+-- Лекарь и Бывалый в подвальчике ------------------------------------------------------------------
+
+function spawn_lekar_af_mincer_meat()
+	ogse.spawn_object(spawn_db.af_mincer_meat)
+end
+
+function have_af_mincer_meat(stalker, player)
+    return db.actor:object("af_mincer_meat") ~= nil
+end
+
+function lekar_af_mincer_meat_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "af_mincer_meat", "out")
+end
+
+function kill_first()
+	local npc = level_object_by_sid (story_ids.first_neutral)
+	if npc ~= nil and npc:alive() == true then
+		npc:kill(npc)
+	end
+end
+
+function spawn_first_shron()
+	ogse.spawn_object(spawn_db.shron_first_neutral)
+	news_manager.send_tip(db.actor, "shron_first", nil)
+end
+
+function first_planshet_in()
+	if db.actor:object("first_neutral_planshet") ~= nil then
+		db.actor:give_info_portion ("first_planshet_in")
+	end
+end
+
+function have_lekar_flover()
+	if db.actor:object("af_cristall_flower") ~= nil then
+		db.actor:give_info_portion ("flover_in")
+	end
+end
+
+function have_af_flover(stalker, player)
+    return db.actor:object("af_cristall_flower") ~= nil
+end
+
+function spawn_planshet(actor, npc)
+	dialogs.relocate_item_section(npc, "af_cristall_flower", "out")
+	ogse.spawn_object(spawn_db.first_neutral_planshet)
+end
+
+function teleport_lekar()
+	local lekar = alife():story_object(story_ids.esc_lekar)
+	if lekar then
+		ogse.teleport_npc(lekar.id, vector():set(-20.84,2.47,61.02))
+	end
+end
+
+-- Спавним Эскейповского Диггера-барыгу ------------------------------------------------------------
+
+function spawn_esc_digger()
+	ogse.spawn_object(spawn_db.esc_digger)
+end
+-------------------------------------------------------------------------------
+
+function spawn_flash_5()
+	if not db.actor:has_info("lukash_mikluha_reward") then return end
+	local filin = alife():story_object(story_ids.filin)
+	if not filin then return end
+	alife():create("klondaik_flash_5", filin.position, filin.m_level_vertex_id, filin.m_game_vertex_id, filin.id)
+end
+
+--Охотник задает загадки и выдает тайники-----------------------------------------------------------
+
+function give_zagadka_portion()
+	local rnd = math.random(1, 20)
+	if rnd ~= nil then
+		db.actor:give_info_portion ("zagadka_"..rnd)
+	end
+end
+
+function have_zagadka_portions()
+	for i = 1,20 do
+		if has_alife_info("zagadka_"..i) then
+			return true
+		end
+	end
+	return false
+end
+
+function have_vse_otgadki()
+	for i = 1,20 do
+		if has_alife_info("otgadka_"..i) then
+			return false
+		end
+	end
+	return true
+end
+
+function disable_zagadka_portions()
+	db.actor:disable_info_portion("hunter_new_zagadka")
+	for k = 1,20 do
+		db.actor:disable_info_portion("zagadka_"..k)
+	end
+end
+
+function start_new_zagadka_timer()
+	ogse.start_timer("zag",400)
+end
+
+for i = 1, 20 do
+	this["spawn_hunter_shron_"..i] = function()
+		local data = spawn_db["hunter_shron_"..i]
+		dsh_rukzak.create_rukzak_by_section(data.sec, vector():set(unpack(data.pos)), data.lvid, data.gvid, "crlc_mdl", "Тайник Захарыча")
+	end
+end
+----------------------------------------------------------------------------------------------------
+
+function set_mark_smert_zone()
+	level_tasks.add_location_by_sid(story_ids.fourth_neutral, "crlc_big", "smert_zone_place")
+end
+
+function mark_smert_zone()
+	ogse_st_mgr.start_timer("smert_zone_spot", 5, script_name()..".set_mark_smert_zone")
+end
+
+function unmark_smert_zone()
+	level_tasks.remove_location_by_sid(story_ids.fourth_neutral, "crlc_big")
+end
+
+function smert_zona_effect()
+	if db.actor.health > 0.05 then
+		db.actor.health = - 0.05
+	end
+end
+
+--Бандиты и искатели на Лесопилке-------------------------------------------------------------------
+
+function kill_lesop_bandits()
+	return has_alife_info("ds_nalet_band_1_dead") and
+		has_alife_info("ds_nalet_band_2_dead") and
+		has_alife_info("ds_nalet_band_3_dead") and
+		has_alife_info("ds_nalet_band_4_dead") and
+		has_alife_info("ds_nalet_band_5_dead") and
+		has_alife_info("ds_nalet_band_6_dead") and
+		has_alife_info("ds_nalet_band_7_dead")
+end
+
+function dont_kill_lesop_bandits()
+	return db.actor:dont_has_info("ds_nalet_band_1_dead") and
+		db.actor:dont_has_info("ds_nalet_band_2_dead") and
+		db.actor:dont_has_info("ds_nalet_band_3_dead") and
+		db.actor:dont_has_info("ds_nalet_band_4_dead") and
+		db.actor:dont_has_info("ds_nalet_band_5_dead") and
+		db.actor:dont_has_info("ds_nalet_band_6_dead") and
+		db.actor:dont_has_info("ds_nalet_band_7_dead")
+end
+
+function some_iskatel_dead()
+	return has_alife_info("ahmet_dead") or
+		has_alife_info("bacha_dead") or
+		has_alife_info("dusty_dead") or
+		has_alife_info("shaman_dead")
+end
+
+function yuriy_reward_bad(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "af_cristall_flower", "in")
+end
+
+function yuriy_reward_good(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "af_rusty_thorn", "in")
+    dialogs.relocate_item_section(second_speaker, "af_ameba_slug", "in")
+end
+
+function lesop_bandits_signal()
+	if db.actor:dont_has_info("ds_nalet_band_1_dead") then
+		news_manager.send_tip(db.actor, "lesop_bandits_signal", nil)
+		soundtrack.lesop_bandits_signal()
+	end
+end
+
+function lesop_iskatel_signal_1()
+	if db.actor:dont_has_info("yuriy_dead") then
+		news_manager.send_tip(db.actor, "lesop_iskatel_signal_1", nil)
+		soundtrack.lesop_iskatel_signal_1()
+	end
+end
+
+function lesop_iskatel_signal_2()
+	if db.actor:dont_has_info("yuriy_dead") then
+		news_manager.send_tip(db.actor, "lesop_iskatel_signal_2", nil)
+		soundtrack.lesop_iskatel_signal_2()
+	end
+end
+
+function kill_iskateli()
+	return has_alife_info("yuriy_dead") and
+		has_alife_info("shaman_dead") and
+		has_alife_info("dusty_dead") and
+		has_alife_info("bacha_dead") and
+		has_alife_info("ahmet_dead")
+end
+
+function iskateli_not_dead()
+	return db.actor:dont_has_info("yuriy_dead") or
+		db.actor:dont_has_info("shaman_dead") or
+		db.actor:dont_has_info("dusty_dead") or
+		db.actor:dont_has_info("bacha_dead") or
+		db.actor:dont_has_info("ahmet_dead")
+end
+
+function lesop_band_iskatel_fight(actor, npc)
+	local yuriy = level_object_by_sid(story_ids.iskatel_yuriy)
+	if not yuriy or not yuriy:alive() then
+		return
+	end
+	local bacha = level_object_by_sid(story_ids.iskatel_bacha)
+	if not bacha or not bacha:alive() then
+		return
+	end
+	local shaman = level_object_by_sid(story_ids.iskatel_shaman)
+	if not shaman or not shaman:alive() then
+		return
+	end
+	local ahmet = level_object_by_sid(story_ids.iskatel_ahmet)
+	if not ahmet or not ahmet:alive() then
+		return
+	end
+	local dusty = level_object_by_sid(story_ids.iskatel_dusty)
+	if not dusty or not dusty:alive() then
+		return
+	end
+
+	local set_enemy = function(sid)
+		local npc = level_object_by_sid(sid)
+		if npc == nil then
+			return
+		end
+		yuriy:set_relation(game_object.enemy, npc)
+		npc:set_relation(game_object.enemy, yuriy)
+		bacha:set_relation(game_object.enemy, npc)
+		npc:set_relation(game_object.enemy, bacha)
+		shaman:set_relation(game_object.enemy, npc)
+		npc:set_relation(game_object.enemy, shaman)
+		ahmet:set_relation(game_object.enemy, npc)
+		npc:set_relation(game_object.enemy, ahmet)
+		dusty:set_relation(game_object.enemy, npc)
+		npc:set_relation(game_object.enemy, dusty)
+	end
+
+	set_enemy(story_ids.ds_nalet_band_1)
+	set_enemy(story_ids.ds_nalet_band_2)
+	set_enemy(story_ids.ds_nalet_band_3)
+	set_enemy(story_ids.ds_nalet_band_4)
+	set_enemy(story_ids.ds_nalet_band_5)
+	set_enemy(story_ids.ds_nalet_band_6)
+	set_enemy(story_ids.ds_nalet_band_7)
+end
+
+function if_band8_dead()
+	if db.actor:dont_has_info("kulg_band_surrend") then
+		lesop_band_iskatel_fight_reznya()
+	end
+end
+
+function lesop_band_iskatel_fight_reznya(actor, npc)
+	local yuriy = level_object_by_sid(story_ids.iskatel_yuriy)
+	if not yuriy or not yuriy:alive() then
+		return
+	end
+	local bacha = level_object_by_sid(story_ids.iskatel_bacha)
+	if not bacha or not bacha:alive() then
+		return
+	end
+	local shaman = level_object_by_sid(story_ids.iskatel_shaman)
+	if not shaman or not shaman:alive() then
+		return
+	end
+	local ahmet = level_object_by_sid(story_ids.iskatel_ahmet)
+	if not ahmet or not ahmet:alive() then
+		return
+	end
+	local dusty = level_object_by_sid(story_ids.iskatel_dusty)
+	if not dusty or not dusty:alive() then
+		return
+	end
+
+	local set_enemy = function(sid)
+		local npc = level_object_by_sid(sid)
+		if npc == nil then
+			return
+		end
+		npc:set_relation(game_object.enemy, yuriy)
+		npc:set_relation(game_object.enemy, bacha)
+		npc:set_relation(game_object.enemy, shaman)
+		npc:set_relation(game_object.enemy, ahmet)
+		npc:set_relation(game_object.enemy, dusty)
+		npc:set_goodwill(-5000, yuriy)
+		npc:set_goodwill(-5000, bacha)
+		npc:set_goodwill(-5000, shaman)
+		npc:set_goodwill(-5000, ahmet)
+		npc:set_goodwill(-5000, dusty)
+	end
+
+	set_enemy(story_ids.ds_nalet_band_2)
+	set_enemy(story_ids.ds_nalet_band_3)
+	set_enemy(story_ids.ds_nalet_band_4)
+	set_enemy(story_ids.ds_nalet_band_5)
+	set_enemy(story_ids.ds_nalet_band_6)
+	set_enemy(story_ids.ds_nalet_band_7)
+end
+
+function set_kulg_band_enemy(player, stalker)
+	relation_registry.set_community_goodwill ("kulg_band", db.actor:id (), -5000)
+end
+--[[
+function prof_zapiska_find()
+	if db.actor:object("book_1") ~= nil then
+		db.actor:give_info_portion ("prof_zapiska_find")
+	end
+end
+]]
+function spawn_bloha_shron()
+	local data = spawn_db.bloha_shron
+	dsh_rukzak.create_rukzak_by_section( data.sec, vector():set(unpack(data.pos)), data.lvid, data.gvid, "crlc_mdl", game.translate_string("cheb_2_5_btn_7") )
+end
+
+function have_prof_zapiska(stalker, player)
+    return db.actor:object("book_1") ~= nil
+end
+
+function yuriy_band_surrend_reward1(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 10000, "in")
+end
+
+function yuriy_band_surrend_reward2(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "af_mincer_meat", "in")
+    dialogs.relocate_item_section(second_speaker, "af_gold_fish", "in")
+    dialogs.relocate_item_section(second_speaker, "af_electra_sparkler", "in")
+end
+
+function band_kill_iskateli_reward(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "bandit_plash_m1", "in")
+    dialogs.relocate_item_section(second_speaker, "wpn_sig552", "in")
+    dialogs.relocate_item_section(second_speaker, "ammo_5.56x45_ap", "in")
+    dialogs.relocate_item_section(second_speaker, "wpn_toz34_full", "in")
+    dialogs.relocate_item_section(second_speaker, "ammo_12x70_kart", "in")
+end
+
+function bloha_arts_have()
+	return db.actor:object("af_ameba_mica") ~= nil and
+		db.actor:object("af_soul") ~= nil and
+		db.actor:object("af_electra_flash") ~= nil
+end
+
+function plenniy_arts_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "af_ameba_mica", "out")
+    dialogs.relocate_item_section(second_speaker, "af_soul", "out")
+    dialogs.relocate_item_section(second_speaker, "af_electra_flash", "out")
+end
+
+function spawn_plenniy_shron_fleshka()
+	local data = spawn_db.bloha_shron2
+	dsh_rukzak.create_rukzak_by_section( data.sec, vector():set(unpack(data.pos)), data.lvid, data.gvid )
+end
+
+----------------------------------------------------------------------------------------------------
+
+function fleshka_1_failure()
+	return db.actor:has_info("digger_dead") or db.actor:has_info("arthunter_dead") or db.actor:has_info("kulg_band_meet_speech_loose")
+end
+
+function fleshka_1_find()
+	if db.actor:object("klondaik_flash_1") ~= nil then
+		db.actor:give_info_portion ("fleshka_1_find")
+		return true
+	end
+	return false
+end
+
+function fleshka_2_find()
+	if db.actor:object("klondaik_flash_2") ~= nil then
+		db.actor:give_info_portion ("fleshka_2_find")
+		return true
+	end
+	return false
+end
+
+function fleshka_3_find()
+	if db.actor:object("klondaik_flash_3") ~= nil then
+		db.actor:give_info_portion ("fleshka_3_find")
+		return true
+	end
+	return false
+end
+
+function fleshka_4_find()
+	if db.actor:object("klondaik_flash_4") ~= nil then
+		db.actor:give_info_portion ("fleshka_4_find")
+		--удаляем порталы
+--[[		bind_mteleport.delete_teleports_with_section("smert_zone_port_1")
+		bind_mteleport.delete_teleports_with_section("smert_zone_port_2")
+		bind_mteleport.delete_teleports_with_section("smert_zone_port_3")
+		bind_mteleport.delete_teleports_with_section("smert_zone_port_4")
+		bind_mteleport.delete_teleports_with_section("smert_zone_port_5")
+		bind_mteleport.delete_teleports_with_section("smert_zone_port_6")]]
+		bind_mteleport.delete_teleports_with_section("smert_zone_port")
+		return true
+	end
+	return false
+end
+
+function fleshka_5_find()
+	if db.actor:object("klondaik_flash_5") ~= nil then
+		db.actor:give_info_portion ("fleshka_5_find")
+		return true
+	end
+	return false
+end
+
+function second_neutal_zapiska_find()
+	if db.actor:object("second_neutral_zapiska") ~= nil then
+		db.actor:give_info_portion ("second_neutal_zapiska_find")
+	end
+end
+
+-- Агент банды в Баре ------------------------------------------------------------------------------
+
+function kulg_agent_release()
+	local obj = alife():object( "bar_kulg_agent" )
+	if obj then
+		alife():release(obj , true)
+	end
+end
+
+function kulg_band_agent_tip()
+	news_manager.send_tip(db.actor, "kulg_band_agent_tip", nil)
+end
+
+--Тайна старого дома--------------------------------------------------------------------------------
+
+function hawe_muzikant_items(first_speaker, second_speaker)
+    return db.actor:object("vodka") ~= nil
+end
+
+function muzikant_items_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "vodka", "out")
+end
+
+
+function hohol_play_guitar()
+	local npc = level_object_by_sid(story_ids.hohol)
+	if npc and npc:alive() then
+		state_mgr.set_state( script_name(), npc, "guitar")
+	end
+end
+
+function have_all_bones()
+	if db.actor:object("villager_bone_1") ~= nil and db.actor:object("villager_bone_2") ~= nil and db.actor:object("villager_bone_3") ~= nil
+		and db.actor:object("villager_bone_4") ~= nil then
+			db.actor:give_info_portion ("all_bones_collected")
+	end
+end
+
+function bones_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "villager_bone_1", "out")
+    dialogs.relocate_item_section(second_speaker, "villager_bone_2", "out")
+    dialogs.relocate_item_section(second_speaker, "villager_bone_3", "out")
+    dialogs.relocate_item_section(second_speaker, "villager_bone_4", "out")
+end
+
+
+function have_all_bones2(first_speaker, second_speaker)
+  	return first_speaker:object("villager_bone_1") ~= nil and
+		first_speaker:object("villager_bone_2") ~= nil and
+		first_speaker:object("villager_bone_3") ~= nil and
+		first_speaker:object("villager_bone_4") ~= nil
+end
+
+function have_bone_1(first_speaker, second_speaker)
+    return db.actor:object("villager_bone_1") ~= nil
+end
+
+function have_bone_2(first_speaker, second_speaker)
+    return db.actor:object("villager_bone_2") ~= nil
+end
+
+function have_bone_3(first_speaker, second_speaker)
+    return db.actor:object("villager_bone_3") ~= nil
+end
+
+function have_bone_4(first_speaker, second_speaker)
+    return db.actor:object("villager_bone_4") ~= nil
+end
+
+function spawn_items_in_treasure_box(story_id, item_table)
+	if story_id and type(story_id) == "number" and item_table then
+		local obj = alife():story_object(story_id)
+		if obj then
+			local pos, lvid, gvid, pid = obj.position, obj.m_level_vertex_id, obj.m_game_vertex_id, obj.id
+			if level.object_by_id(pid) then
+				rx_utils.switch_offline(pid)
+			end
+			for k,v in pairs(item_table) do
+				if sys_ini:section_exist(k) and type(v) == "number" then
+					for i=1, v do
+						alife():create(k, pos, lvid, gvid, pid)
+					end
+				end
+			end
+			go_offline_set_online(pid):start()
+		end
+	end
+end
+
+class "go_offline_set_online" (ogse_qt.quick_timer)
+function go_offline_set_online:__init(treasure_id) super()
+   self.treasure_id = treasure_id -- запоминаем в таймере id непися
+end
+
+function go_offline_set_online:condition()
+	return level.object_by_id(self.treasure_id) == nil
+end
+
+function go_offline_set_online:action()
+	rx_utils.switch_online(self.treasure_id)
+end
+
+function spawn_villager_bone_1()
+	local my_table = {["villager_bone_1"] = 1}
+	spawn_items_in_treasure_box(story_ids.secret_villager_place_1, my_table)
+end
+
+function spawn_villager_bone_2()
+	local my_table = {["villager_bone_2"] = 1}
+	spawn_items_in_treasure_box(story_ids.secret_villager_place_2, my_table)
+end
+
+function spawn_villager_bone_3()
+	local my_table = {["villager_bone_3"] = 1}
+	spawn_items_in_treasure_box(story_ids.secret_villager_place_3, my_table)
+end
+
+function spawn_villager_bone_4()
+local my_table = {["villager_bone_4"] = 1}
+spawn_items_in_treasure_box(story_ids.secret_villager_place_4, my_table)
+end
+
+-- Шпилим в кости со сталкерами --------------------------------------------------------------------
+
+function igra_na_200(first_speaker, second_speaker)
+
+	local dice_actor_1 = math.random(1, 6)
+	local dice_npc_1 = math.random(1, 6)
+	local dice_actor_2 = math.random(1, 6)
+	local dice_npc_2 = math.random(1, 6)
+	
+	local sum_npc = dice_npc_1 + dice_npc_2
+	local sum_actor = dice_actor_1 + dice_actor_2
+
+	if sum_actor > sum_npc then
+		dialogs.relocate_money(second_speaker, 200, "in")
+		news_manager.send_tip(db.actor, "viigral", nil)
+		soundtrack.viigrish()
+	else --	if rnd == 2 or rnd == 4 or rnd == 6 then
+		dialogs.relocate_money(second_speaker, 200, "out")
+		news_manager.send_tip(db.actor, "proigral", nil)
+		soundtrack.proigrish()
+	end
+end
+
+function igra_na_500(first_speaker, second_speaker)
+
+	local dice_actor_1 = math.random(1, 6)
+	local dice_npc_1 = math.random(1, 6)
+	local dice_actor_2 = math.random(1, 6)
+	local dice_npc_2 = math.random(1, 6)
+	
+	local sum_npc = dice_npc_1 + dice_npc_2
+	local sum_actor = dice_actor_1 + dice_actor_2
+
+	if sum_actor > sum_npc then
+		dialogs.relocate_money(second_speaker, 500, "in")
+		news_manager.send_tip(db.actor, "viigral", nil)
+		soundtrack.viigrish()
+	else --	if rnd == 2 or rnd == 3 or rnd == 5 then
+		dialogs.relocate_money(second_speaker, 500, "out")
+		news_manager.send_tip(db.actor, "proigral", nil)
+		soundtrack.proigrish()
+	end
+end
+
+function igra_na_1000(first_speaker, second_speaker)
+
+	local dice_actor_1 = math.random(1, 6)
+	local dice_npc_1 = math.random(1, 6)
+	local dice_actor_2 = math.random(1, 6)
+	local dice_npc_2 = math.random(1, 6)
+	
+	local sum_npc = dice_npc_1 + dice_npc_2
+	local sum_actor = dice_actor_1 + dice_actor_2
+	
+	if sum_actor > sum_npc then
+		dialogs.relocate_money(second_speaker, 1000, "in")
+		news_manager.send_tip(db.actor, "viigral", nil)
+		soundtrack.viigrish()
+	else --if rnd == 2 or rnd == 3 or rnd == 4 or rnd == 6 or rnd == 8 then
+		dialogs.relocate_money(second_speaker, 1000, "out")
+		news_manager.send_tip(db.actor, "proigral", nil)
+		soundtrack.proigrish()
+	end
+end
+
+function igra_na_vodku(first_speaker, second_speaker)
+
+	local dice_actor_1 = math.random(1, 6)
+	local dice_npc_1 = math.random(1, 6)
+	local dice_actor_2 = math.random(1, 6)
+	local dice_npc_2 = math.random(1, 6)
+	
+	local sum_npc = dice_npc_1 + dice_npc_2
+	local sum_actor = dice_actor_1 + dice_actor_2
+	
+	if sum_actor > sum_npc then
+		dialogs.relocate_item_section(second_speaker, "vodka", "in")
+		news_manager.send_tip(db.actor, "viigral", nil)
+		soundtrack.viigrish()
+	else --if rnd == 2 or rnd == 4 or rnd == 6 or rnd == 8 or rnd == 10 then
+		dialogs.relocate_item_section(second_speaker, "vodka", "out")
+		news_manager.send_tip(db.actor, "proigral", nil)
+		soundtrack.proigrish()
+	end
+end
+
+function have_some_artefacts(first_speaker, second_speaker)
+  	return first_speaker:object("af_ameba_slime") ~= nil or
+		first_speaker:object("af_ameba_slug") ~= nil or
+		first_speaker:object("af_ameba_mica") ~= nil or
+		first_speaker:object("af_medusa") ~= nil or
+		first_speaker:object("af_cristall_flower") ~= nil or
+		first_speaker:object("af_night_star") ~= nil or
+		first_speaker:object("af_electra_sparkler") ~= nil or
+		first_speaker:object("af_electra_flash") ~= nil or
+		first_speaker:object("af_electra_moonlight") ~= nil or
+		first_speaker:object("af_vyvert") ~= nil or
+		first_speaker:object("af_gravi") ~= nil or
+		first_speaker:object("af_gold_fish") ~= nil or
+		first_speaker:object("af_rusty_thorn") ~= nil or
+		first_speaker:object("af_rusty_sea-urchin") ~= nil or
+		first_speaker:object("af_rusty_kristall") ~= nil or
+		first_speaker:object("af_blood") ~= nil or
+		first_speaker:object("af_mincer_meat") ~= nil or
+		first_speaker:object("af_soul") ~= nil or
+		first_speaker:object("af_drops") ~= nil or
+		first_speaker:object("af_fireball") ~= nil or
+		first_speaker:object("af_cristall") ~= nil
+end
+
+function igra_na_art(art, npc)
+	
+	local dice_actor_1 = math.random(1, 6)
+	local dice_npc_1 = math.random(1, 6)
+	local dice_actor_2 = math.random(1, 6)
+	local dice_npc_2 = math.random(1, 6)
+	local dice_actor_3 = math.random(1, 6)
+	local dice_npc_3 = math.random(1, 6)	
+	
+	local sum_npc = dice_npc_1 + dice_npc_2 + dice_npc_3
+	local sum_actor = dice_actor_1 + dice_actor_2 + dice_actor_3
+	
+	if sum_actor > sum_npc then
+		dialogs.relocate_item_section(npc, art, "in")
+		news_manager.send_tip(db.actor, "viigral", nil)
+		soundtrack.viigrish()
+		db.actor:give_info_portion ("game_kosti_loose")
+	else
+		dialogs.relocate_item_section(npc, art, "out")
+		news_manager.send_tip(db.actor, "proigral", nil)
+		soundtrack.proigrish()
+		db.actor:give_info_portion ("game_kosti_loose")
+	end
+end
+
+function igra_loose_timer()
+	ogse.g_start_timer("game_loose",2,0,0)
+end
+
+function igra_na_blood(first_speaker, second_speaker)
+	igra_na_art("af_blood", second_speaker)
+end
+
+function igra_na_kusok(first_speaker, second_speaker)
+	igra_na_art("af_mincer_meat", second_speaker)
+end
+
+function igra_na_soul(first_speaker, second_speaker)
+	igra_na_art("af_soul", second_speaker)
+end
+
+function igra_na_slug(first_speaker, second_speaker)
+	igra_na_art("af_ameba_slug", second_speaker)
+end
+
+function igra_na_slime(first_speaker, second_speaker)
+	igra_na_art("af_ameba_slime", second_speaker)
+end
+
+function igra_na_sludu(first_speaker, second_speaker)
+	igra_na_art("af_ameba_mica", second_speaker)
+end
+
+function igra_na_meduzu(first_speaker, second_speaker)
+	igra_na_art("af_medusa", second_speaker)
+end
+
+function igra_na_kristalflower(first_speaker, second_speaker)
+	igra_na_art("af_cristall_flower", second_speaker)
+end
+
+function igra_na_nightstar(first_speaker, second_speaker)
+	igra_na_art("af_night_star", second_speaker)
+end
+
+function igra_na_sparkler(first_speaker, second_speaker)
+	igra_na_art("af_electra_sparkler", second_speaker)
+end
+
+function igra_na_flash(first_speaker, second_speaker)
+	igra_na_art("af_electra_flash", second_speaker)
+end
+
+function igra_na_moonlight(first_speaker, second_speaker)
+	igra_na_art("af_electra_moonlight", second_speaker)
+end
+
+function igra_na_vivert(first_speaker, second_speaker)
+	igra_na_art("af_vyvert", second_speaker)
+end
+
+function igra_na_gravi(first_speaker, second_speaker)
+	igra_na_art("af_gravi", second_speaker)
+end
+
+function igra_na_fish(first_speaker, second_speaker)
+	igra_na_art("af_gold_fish", second_speaker)
+end
+
+function igra_na_thorn(first_speaker, second_speaker)
+	igra_na_art("af_rusty_thorn", second_speaker)
+end
+
+function igra_na_kristallthorn(first_speaker, second_speaker)
+	igra_na_art("af_rusty_kristall", second_speaker)
+end
+
+function igra_na_urshin(first_speaker, second_speaker)
+	igra_na_art("af_rusty_sea-urchin", second_speaker)
+end
+
+function igra_na_drops(first_speaker, second_speaker)
+	igra_na_art("af_drops", second_speaker)
+end
+
+function igra_na_fireball(first_speaker, second_speaker)
+	igra_na_art("af_fireball", second_speaker)
+end
+
+function igra_na_kristall(first_speaker, second_speaker)
+	igra_na_art("af_cristall", second_speaker)
+end
+
+function have_some_vodka(stalker, player)
+    return stalker:object("vodka") ~= nil
+end
+
+function have_af_ameba_slime(stalker, player)
+    return stalker:object("af_ameba_slime") ~= nil
+end
+
+function have_af_ameba_slug(stalker, player)
+    return stalker:object("af_ameba_slug") ~= nil
+end
+
+function have_af_ameba_mica(stalker, player)
+    return stalker:object("af_ameba_mica") ~= nil
+end
+
+function have_af_medusa(stalker, player)
+    return stalker:object("af_medusa") ~= nil
+end
+
+function have_af_cristall_flower(stalker, player)
+    return stalker:object("af_cristall_flower") ~= nil
+end
+
+function have_af_night_star(stalker, player)
+    return stalker:object("af_night_star") ~= nil
+end
+
+function have_af_electra_sparkler(stalker, player)
+    return stalker:object("af_electra_sparkler") ~= nil
+end
+
+function have_af_electra_flash(stalker, player)
+    return stalker:object("af_electra_flash") ~= nil
+end
+
+function have_af_electra_moonlight(stalker, player)
+    return stalker:object("af_electra_moonlight") ~= nil
+end
+
+function have_af_vyvert(stalker, player)
+    return stalker:object("af_vyvert") ~= nil
+end
+
+function have_af_gravi(stalker, player)
+    return stalker:object("af_gravi") ~= nil
+end
+
+function have_af_gold_fish(stalker, player)
+    return stalker:object("af_gold_fish") ~= nil
+end
+
+function have_af_rusty_thorn(stalker, player)
+    return stalker:object("af_rusty_thorn") ~= nil
+end
+
+function have_af_rusty_sea_urchin(stalker, player)
+    return stalker:object("af_rusty_sea-urchin") ~= nil
+end
+
+function have_af_rusty_kristall(stalker, player)
+    return stalker:object("af_rusty_kristall") ~= nil
+end
+
+function have_af_blood(stalker, player)
+    return stalker:object("af_blood") ~= nil
+end
+
+-- function have_af_mincer_meat(stalker, player)
+    -- stalker:object("af_mincer_meat") ~= nil
+-- end
+
+function have_af_soul(stalker, player)
+    return stalker:object("af_soul") ~= nil
+end
+
+function have_af_drops(stalker, player)
+    return stalker:object("af_drops") ~= nil
+end
+
+function have_af_fireball(stalker, player)
+    return stalker:object("af_fireball") ~= nil
+end
+
+function have_af_cristall(stalker, player)
+    return stalker:object("af_cristall") ~= nil
+end
+
+function has_200(actor, npc)
+    return actor:money() >= 200
+end
+
+function has_500(actor, npc)
+    return actor:money() >= 500
+end
+
+function has_1000(actor, npc)
+    return actor:money() >= 1000
+end
+
+--Артефакт Пузырь и новичок------------------------------------------------------------------------
+
+function spawn_newbie_arthunter()
+	ogse.spawn_object(spawn_db.newbie_arthunter)
+end
+
+function spawn_af_puzir()
+	ogse.spawn_object(spawn_db.af_puzir)
+end
+
+function have_af_puzir(stalker, player)
+    return db.actor:object("af_puzir") ~= nil
+end
+
+function spawn_fake_ports()
+	ogse.spawn_objects(spawn_db.fake_ports)
+end
+
+function arthunter_info_action()
+	if db.actor:has_info("arthunter_info") and db.actor:dont_has_info("arthunter_task") then
+		db.actor:give_info_portion("arthunter_task")
+		news_manager.send_tip(db.actor, "arthunter_info", nil)
+	end
+end
+
+function arthunter_obmen(npc, actor)
+	dialogs.relocate_item_section(npc, "klondaik_flash_1", "in")
+	dialogs.relocate_item_section(npc, "af_puzir", "out")
+	bind_mteleport.delete_teleports_with_section("garb_fake_port_1")
+end
+
+--Компания следопытов на Радаре--------------------------------------------------------------------
+
+function zomb_company_tip()
+	news_manager.send_tip(db.actor, "zomb_company_tip", nil)
+	soundtrack.rad_company_signal()
+ end
+
+function set_zomb_company_neutral(actor, npc)
+	local set_neutral = function(sid)
+		local npc = level_object_by_sid(sid)
+		if npc ~= nil and npc:alive() then
+			npc:set_relation(game_object.neutral, db.actor)
+			npc:set_goodwill(2000, db.actor)
+		end
+	end
+	set_neutral(story_ids.rad_company_mikluha)
+	set_neutral(story_ids.rad_company_che)
+	set_neutral(story_ids.rad_company_fidel)
+	set_neutral(story_ids.rad_company_markiz)
+	set_neutral(story_ids.rad_company_graf)
+	set_neutral(story_ids.rad_company_zahar)
+end
+
+function kill_radar_wave_1()
+	return has_alife_info("rad_attack_boar_1wave_1_dead") and
+		has_alife_info("rad_attack_boar_glavar_dead") and
+		has_alife_info("rad_attack_boar_1wave_3_dead") and
+		has_alife_info("rad_attack_boar_1wave_2_dead")
+end
+
+function kill_radar_wave_2()
+	return has_alife_info("rad_attack_snork_1_dead") and
+		has_alife_info("rad_attack_snork_2_dead") and
+		has_alife_info("rad_attack_snork_3_dead") and
+		has_alife_info("rad_attack_snork_4_dead") and
+		has_alife_info("rad_attack_snork_5_dead")
+end
+
+function kill_radar_wave_3()
+	return has_alife_info("rad_attack_pseudogig_1_dead") and
+		has_alife_info("rad_attack_pseudogig_2_dead") and
+		has_alife_info("rad_attack_pseudogig_dead")
+end
+
+function mikluha_give_mines()
+	ogse.spawn_object(spawn_db.rad_kung_box)
+end
+
+function superkontroler_call()
+	game.start_tutorial("supercontroler_call")
+end
+
+function rad_company_set_zombies_timer()
+	ogse.start_timer("rad_zomb",70)
+end
+
+function rad_company_gipnoz()
+	if db.actor:dont_has_info("rad_attack_superkontroler_dead") then
+		jekan_work.rad_company_set_zombies(actor, npc)
+		db.actor:give_info_portion ("rad_kompany_set_zombies")
+	end
+end
+
+function rad_company_set_zombies(actor, npc)
+	local set_zombied = function(sid)
+		local npc = level_object_by_sid(sid)
+		if npc ~= nil and npc:alive() then
+			npc:set_character_community("zombied", 0, 0)
+		end
+	end
+	set_zombied(story_ids.rad_company_mikluha)
+	set_zombied(story_ids.rad_company_che)
+	set_zombied(story_ids.rad_company_fidel)
+	set_zombied(story_ids.rad_company_markiz)
+	set_zombied(story_ids.rad_company_graf)
+	set_zombied(story_ids.rad_company_zahar)
+end
+
+function superkontroler_tip()
+	news_manager.send_tip(db.actor, "superkontroler_tip", nil)
+end
+
+function mikluha_thanks_tip()
+	if db.actor:dont_has_info("zomb_mikluha_dead") and db.actor:dont_has_info("rad_kompany_set_zombies") then
+		news_manager.send_tip(db.actor, "mikluha_thanks_tip", nil)
+		soundtrack.mikluha_thanks_tip()
+		level.remove_pp_effector(2007)
+		level.remove_cam_effector(100)		
+	end
+end
+
+function mikluha_reward(first_speaker, second_speaker)
+    dialogs.relocate_money(first_speaker, 10000, "in")
+end
+
+function lukash_for_mikluha_reward(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "sigaret", "in")
+    dialogs.relocate_item_section(second_speaker, "svoboda_heavy_outfit", "in")
+    dialogs.relocate_item_section(second_speaker, "vodka", "in")
+    dialogs.relocate_item_section(second_speaker, "antirad", "in")
+    dialogs.relocate_item_section(second_speaker, "antirad", "in")
+    dialogs.relocate_item_section(second_speaker, "dix", "in")
+    dialogs.relocate_item_section(second_speaker, "yod", "in")
+    dialogs.relocate_item_section(second_speaker, "bipsizon", "in")
+    dialogs.relocate_item_section(second_speaker, "medkit_army", "in")
+    dialogs.relocate_money(second_speaker, 8000, "in")
+end
+
+function lukash_scalp_reward(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_skull", "out")
+    dialogs.relocate_money(second_speaker, 16000, "in")
+end
+
+function actor_has_scalp(first_speaker, second_speaker)
+	return db.actor:object("af_skull") ~= nil
+end
+
+-- Грабим нашего несчастного Меченого --------------------------------------------------------------
+function set_barman_box_online()
+    rx_utils.switch_online(alife():story_object(story_ids.barman_seif))
+end
+
+function enum_barman_box_items(box)
+   local res = {}
+   for i=0,box:inv_box_count()-1 do
+      table.insert(res, box:object_from_inv_box(i))
+   end
+   return res
+end
+
+function get_items_from_barman_box(box)
+	local box = level_object_by_sid(story_ids.barman_seif)
+	for _, obj in pairs(enum_barman_box_items(box)) do
+		box:transfer_item(obj, db.actor)
+	end
+end
+
+function spawn_knyaz_shron()
+	ogse.spawn_object(spawn_db.knyaz_shron)
+end
+
+function dolg_pred_message_1()
+	news_manager.send_tip(db.actor, "dolg_pred_message_1", nil)
+	soundtrack.dolg_pred_message_1()
+end
+
+function actor_dolg_zahvat()
+	news_manager.send_tip(db.actor, "dolg_pred_message_2", nil)
+	soundtrack.dolg_pred_message_2()
+	jekan_work.actor_reshetka_perenos()
+end
+
+local items_no_transfer = {
+	["device_pda"] = true,
+	["device_torch"] = true,
+	["bolt"] = true,
+}
+
+function actor_reshetka_perenos()
+	db.actor:set_actor_position(vector():set(124.95, -2.97, 10.30))
+	ogse_quests.turn_pnv_off()
+	level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+	level.add_cam_effector("camera_effects\\prison_1.anm", 100, false, "")
+	soundtrack.actors_hit()
+	ogse.transfer_items_to_box(story_ids.barman_seif, false, items_no_transfer, nil)
+	spawn_dolg_sergant()
+	actor_disable_inventory()
+end
+
+function spawn_dolg_sergant()
+	ogse.spawn_object(spawn_db.dolg_sergant)
+end
+
+function dolg_sergant_vmordu1()
+    local snd_obj = xr_sound.get_safe_sound_object([[affects\hit_fist]])
+    snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+    level.add_cam_effector("camera_effects\\fusker.anm", 999, false, "")
+end
+
+function rasstrel_timer_start()
+	level.add_pp_effector("peace_unfade.ppe", 1971, false)
+	jekan_work.actor_rasstrel_travel()
+end
+
+function actor_rasstrel_travel()
+	db.actor:stop_talk()
+	bind_stalker.hide_weapon()
+	jekan_work.teleport_sergant()
+	jekan_work.spawn_dolg_palach1()
+	jekan_work.spawn_dolg_palach2()	
+	db.actor:set_actor_position(vector():set(233.63,-0.01,34.52))
+	db.actor:set_actor_direction(-0.4,0.0,0.0)
+	level.disable_input()
+end
+
+function actor_disable_inventory()
+	local wnd = level.get_inventory_wnd()
+	if wnd then
+		level.start_stop_menu(wnd, true)
+	end
+end
+
+inventory_close_by_malandrinus = this.actor_disable_inventory
+
+function actor_rasstrel_shans()
+	bind_stalker.restore_weapon()
+	level.enable_input()
+end
+
+function spawn_dolg_palach1()
+	ogse.spawn_object(spawn_db.dolg_palach1)
+end
+
+function spawn_dolg_palach2()
+	ogse.spawn_object(spawn_db.dolg_palach2)
+end
+
+function teleport_sergant()
+	local sergant = alife():story_object(story_ids.bar_sergant_jivoderov)
+	if sergant then
+		ogse.teleport_npc(sergant.id,vector():set(229.00,-0.01,36.17))
+	end
+end
+
+function rasstrel_start1()
+	if db.actor:alive() and has_alife_info("rasstrel_start") then
+		local npc = level_object_by_sid(story_ids.dolg_palach1)
+		local bw = rx_utils.get_weapon(npc)
+		npc:set_sight(look.fire_point, db.actor:position())
+		npc:set_item(object.fire1, bw, 1, 5000)
+		fx_particle = particles_object("weapons\\generic_weapon01")
+		local pos = bw:position()
+		local dir = bw:direction()
+		pos:add(dir)
+		fx_particle:play_at_pos(pos)
+		db.actor:kill(db.actor)
+	end
+end
+
+function rasstrel_start2()
+	if db.actor:alive() and has_alife_info("rasstrel_start") then
+		local npc = level_object_by_sid(story_ids.dolg_palach2)
+		local bw = rx_utils.get_weapon(npc)
+		npc:set_sight(look.fire_point, db.actor:position())
+		npc:set_item(object.fire1, bw, 1, 5000)
+		fx_particle = particles_object("weapons\\generic_weapon01")
+		local pos = bw:position()
+		local dir = bw:direction()
+		pos:add(dir)
+		fx_particle:play_at_pos(pos)
+--		db.actor:kill(db.actor)
+	end
+end
+
+function release_fake_flash2()
+	if db.actor:object("klondaik_flash_2_fake") ~= nil then
+		ogse.remove_item_from_inventory(db.actor:object("klondaik_flash_2_fake"),actor)
+	end
+end
+
+function flash_2_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "klondaik_flash_2", "out")
+end
+
+function actor_afterstraf_travel()
+	db.actor:set_actor_position(vector():set(224.13, -0.01, 31.10))
+	ogse_quests.turn_pnv_off()
+	level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+	db.actor:give_info_portion ("return_our_items")
+	ogse.start_timer("release_major_jivoderov", 10)
+--	jekan_work.release_major()
+end
+
+function release_major()
+	local obj = alife():story_object(story_ids.bar_sergant_jivoderov)
+	if obj then
+		alife():release(obj, true)
+	end
+end
+
+function kulg_band_ambush()
+	if db.actor:dont_has_info("kulg_band_ambush") then
+		db.actor:give_info_portion ("kulg_band_ambush")
+	end
+end
+
+function make_enemy_to_actor(obj_id, obj)
+	obj:set_relation(game_object.enemy, db.actor)
+	obj:set_goodwill(-5000, db.actor)
+end
+
+function kulg_band_ambush1()
+	if db.actor:dont_has_info("knyaz_pda_info") then
+		soundtrack.kulg_band_bar_ambush()
+		jekan_work.kulg_agent_release()
+		local att_1 = ogse.spawn_object(spawn_db.kulg_band_bar_attackers[1])
+		if att_1 then
+			level.client_spawn_manager():add(att_1.id, -1, make_enemy_to_actor)
+		end
+		local att_2 = ogse.spawn_object(spawn_db.kulg_band_bar_attackers[2])
+		if att_2 then
+			level.client_spawn_manager():add(att_2.id, -1, make_enemy_to_actor)
+		end
+		local att_3 = ogse.spawn_object(spawn_db.kulg_band_bar_attackers[3])
+		if att_3 then
+			level.client_spawn_manager():add(att_3.id, -1, make_enemy_to_actor)
+		end
+	end
+end
+
+-- Доктор и больные на задворках Бара, а также наемники и прочая нечисть ---------------------------
+
+function bar_doctor_signal()
+	news_manager.send_tip(db.actor, "bar_doctor_signal", nil)
+	level_tasks.add_location_by_sid(story_ids.izgoy_lider,"green_location","jekan_work_izgoy_tip_text")
+end
+
+function dark_merc_company_signal()
+	news_manager.send_tip(db.actor, "dark_merc_company_signal", nil)
+end
+
+function spawn_dar_merk_lider()
+	ogse.spawn_object(spawn_db.dar_merk_lider)
+end
+
+function spawn_dar_merk_bomber()
+	ogse.spawn_object(spawn_db.dar_merk_bomber)
+end
+
+function spawn_dar_merk_guard_1()
+	ogse.spawn_object(spawn_db.dar_merk_guard_1)
+    -- relation_registry.set_personal_goodwill(sobj.id, db.actor:id(), 3000)
+end
+
+function spawn_dar_merk_guard_2()
+	ogse.spawn_object(spawn_db.dar_merk_guard_2)
+    -- relation_registry.set_personal_goodwill(sobj.id, db.actor:id(), 3000)
+end
+
+function set_merc_company_neutral(actor, npc)
+  local sobj1 = alife():story_object(story_ids.dar_merk_lider)
+  relation_registry.set_personal_goodwill(sobj1.id, db.actor:id(), 300)
+  local sobj2 = alife():story_object(story_ids.dar_merk_bomber)
+  relation_registry.set_personal_goodwill(sobj2.id, db.actor:id(), 300)
+  local sobj3 = alife():story_object(story_ids.dar_merk_guard_1)
+  relation_registry.set_personal_goodwill(sobj3.id, db.actor:id(), 300)
+  local sobj4 = alife():story_object(story_ids.dar_merk_guard_2)
+  relation_registry.set_personal_goodwill(sobj4.id, db.actor:id(), 300)
+end
+
+function set_merc_company_enemy(actor, npc)
+  local sobj1 = alife():story_object(story_ids.dar_merk_lider)
+  relation_registry.set_personal_goodwill(sobj1.id, db.actor:id(), -3000)
+  local sobj2 = alife():story_object(story_ids.dar_merk_bomber)
+  relation_registry.set_personal_goodwill(sobj2.id, db.actor:id(), -3000)
+  local sobj3 = alife():story_object(story_ids.dar_merk_guard_1)
+  relation_registry.set_personal_goodwill(sobj3.id, db.actor:id(), -3000)
+  local sobj4 = alife():story_object(story_ids.dar_merk_guard_2)
+  relation_registry.set_personal_goodwill(sobj4.id, db.actor:id(), -3000)
+end
+
+function spawn_dar_officer()
+	local uaz = level_object_by_sid(story_ids.dar_dez_uaz)
+	local pos = uaz:position()
+	local sim = alife()
+	local sobj = sim:create("dar_officer", vector():set(pos.x+2, pos.y, pos.z+2), uaz:level_vertex_id(), uaz:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.dar_officer)
+end
+
+
+function set_dar_officer_neutral(actor, npc)
+	local officer = level_object_by_sid(story_ids.dar_officer)
+	if not officer or not officer:alive() then
+		officer:set_relation(game_object.neutral, db.actor)
+		officer:set_goodwill(1000, db.actor)
+	end
+end
+
+function give_dar_road_deton()
+	ogse.spawn_item_in_inv("dar_road_detonator", db.actor)
+end
+
+local DarRoadBomb = nil
+function dar_road_bomb_expl()
+	local road_bomb = ogse.spawn_object(spawn_db.bomba_fake)
+	DarRoadBomb = road_bomb.id
+	ogse.start_timer("road_bomb",1)
+end
+
+function make_soldier_enemy_to_mercs(obj_id, obj)
+	local merc_1 = level_object_by_sid(story_ids.dar_merk_lider)
+	if merc_1 then
+		obj:set_relation(game_object.enemy, merc_1)
+		obj:set_goodwill(-5000, merc_1)
+		merc_1:set_relation(game_object.enemy, obj)
+		merc_1:set_goodwill(-5000, obj)
+	end
+	
+	local merc_2 = level_object_by_sid(story_ids.dar_merk_bomber)
+	if merc_2 then
+		obj:set_relation(game_object.enemy, merc_2)
+		obj:set_goodwill(-5000, merc_2)
+		merc_2:set_relation(game_object.enemy, obj)
+		merc_2:set_goodwill(-5000, obj)
+	end
+	
+	local merc_3 = level_object_by_sid(story_ids.dar_merk_guard_1)
+	if merc_3 then
+		obj:set_relation(game_object.enemy, merc_3)
+		obj:set_goodwill(-5000, merc_3)
+		merc_3:set_relation(game_object.enemy, obj)
+		merc_3:set_goodwill(-5000, obj)
+	end
+	
+	local merc_4 = level_object_by_sid(story_ids.dar_merk_guard_2)
+	if merc_4 then
+		obj:set_relation(game_object.enemy, merc_4)
+		obj:set_goodwill(-5000, merc_4)
+		merc_4:set_relation(game_object.enemy, obj)
+		merc_4:set_goodwill(-5000, obj)
+	end
+end
+
+function uaz_spawn_desant()
+	local uaz = level_object_by_sid(story_ids.dar_dez_uaz)
+	local pos = uaz:position()
+	local sold1 = alife():create("dar_soldier_uaz1", vector():set(pos.x+1, pos.y, pos.z+1), uaz:level_vertex_id(), uaz:game_vertex_id())
+	local sold2 = alife():create("dar_soldier_uaz2", vector():set(pos.x+1, pos.y, pos.z+1), uaz:level_vertex_id(), uaz:game_vertex_id())
+	local sold3 = alife():create("dar_soldier_uaz3", vector():set(pos.x+1, pos.y, pos.z+1), uaz:level_vertex_id(), uaz:game_vertex_id())
+	level.client_spawn_manager():add(sold1.id, -1, make_soldier_enemy_to_mercs)
+	level.client_spawn_manager():add(sold2.id, -1, make_soldier_enemy_to_mercs)
+	level.client_spawn_manager():add(sold3.id, -1, make_soldier_enemy_to_mercs)
+end
+
+function btr_spawn_desant()
+	local btr = level_object_by_sid(story_ids.dar_dez_btr)
+	local pos = btr:position()
+	local sold1 = alife():create("dar_soldier_btr1", vector():set(pos.x+3, pos.y, pos.z+3), btr:level_vertex_id(), btr:game_vertex_id())
+	local sold2 = alife():create("dar_soldier_btr2", vector():set(pos.x+3, pos.y, pos.z+3), btr:level_vertex_id(), btr:game_vertex_id())
+	local sold3 = alife():create("dar_soldier_btr1", vector():set(pos.x-3, pos.y, pos.z-3), btr:level_vertex_id(), btr:game_vertex_id())
+	local sold4 = alife():create("dar_soldier_btr2", vector():set(pos.x-3, pos.y, pos.z-3), btr:level_vertex_id(), btr:game_vertex_id())
+	level.client_spawn_manager():add(sold1.id, -1, make_soldier_enemy_to_mercs)
+	level.client_spawn_manager():add(sold2.id, -1, make_soldier_enemy_to_mercs)
+	level.client_spawn_manager():add(sold3.id, -1, make_soldier_enemy_to_mercs)
+	level.client_spawn_manager():add(sold4.id, -1, make_soldier_enemy_to_mercs)
+end
+
+function road_bomb_hit()
+	hit_obj_by_id_simple(DarRoadBomb, 1000, 0)
+end
+
+function merc_signal_detonate()
+	news_manager.send_tip(db.actor, "merc_signal_detonate", nil)
+	soundtrack.mercs_press_button()
+end
+
+function dar_merc_fail_tip()
+	news_manager.send_tip(db.actor, "dar_merc_fail_tip", nil)
+end
+
+function merc_signal_btr()
+	news_manager.send_tip(db.actor, "merc_signal_btr", nil)
+end
+
+function merc_desant_tip()
+	news_manager.send_tip(db.actor, "merc_desant_tip", nil)
+end
+
+function start_dar_officer_timer()
+	if db.actor:dont_has_info("dar_dez_uaz_dead") then
+		ogse.start_timer("dar_officer",3)
+	end
+end
+
+function btr_signal_to_stop()
+	if db.actor:dont_has_info("uaz_prepare_to_go") then
+		db.actor:give_info_portion ("road_bomb_expl")
+	end
+end
+
+function btr_hit() -- отключено, результата нет. Проклятая консервная банка продолжает тупить.
+	local blow = hit()
+	blow.direction = vector():set(0,0,0)
+	blow.impulse = 0.001
+    blow.draftsman = db.actor
+	blow.power = 0
+	blow.type = hit.explosion
+    for k,v in pairs(db.cars) do
+        local car = level_object_by_sid(story_ids.dar_dez_btr)
+		if car then
+			car:hit(blow)
+		end
+	end
+end
+
+function all_btr_soldiers_dead()
+	if has_alife_info("dar_soldier_1_dead") and
+		has_alife_info("dar_soldier_2_dead") and
+		has_alife_info("dar_soldier_3_dead")
+	then
+		jekan_work.start_dar_officer_timer()
+		return true
+	else
+		return false
+	end
+end
+
+function merc_signal_uaz()
+	news_manager.send_tip(db.actor, "merc_signal_uaz", nil)
+end
+
+function mercs_kill_btr_tip()
+	news_manager.send_tip(db.actor, "mercs_kill_btr_tip", nil)
+end
+
+function start_uaz_timer()
+	ogse.start_timer("uaz", 30)
+end
+
+function radio_request2()
+	ogse.start_timer("request", 4)
+end
+
+function btr_signal_to_start()
+	if db.actor:dont_has_info("uaz_spawn_desant") then
+		db.actor:give_info_portion ("dar_dez_btr_spawn")
+	end
+end
+
+function dar_merc_reward_1(first_speaker, second_speaker)
+	dialogs.relocate_item_section(first_speaker, "af_soul", "in")
+	dialogs.relocate_item_section(first_speaker, "af_electra_flash", "in")
+	dialogs.relocate_item_section(first_speaker, "af_ameba_mica", "in")
+end
+
+function spawn_rpg()
+	if db.actor:has_info("dar_dez_btr_spawn") then
+		jekan_work.spawn_rpg1()
+	end
+end
+
+function spawn_rpg1()
+	local rpg_sobj = alife():create("wpn_rpg7", vector():set(-105.93, -2.5, -491.782), 274706, 3077)
+	dsh.clear_useful_for_ai( rpg_sobj ) --Чтобы наёмники гранатомёт не подобрали
+	alife():create("ammo_og-7b", vector():set(-105.93, -2.5, -491.782), 274706, 3077)
+end
+
+
+function release_uaz()
+	local obj = alife():object( "dar_dez_uaz" )
+	if obj then
+		alife():release(obj , true)
+	end
+end
+
+function kill_izgoy1()
+	local npc = level_object_by_sid (story_ids.izgoy_first_patient)
+	if npc ~= nil and npc:alive() == true then
+		npc:kill(npc)
+	end
+end
+
+function kill_izgoy2()
+	local npc = level_object_by_sid (story_ids.izgoy_second_patient)
+	if npc ~= nil and npc:alive() == true then
+		npc:kill(npc)
+	end
+end
+
+function on_izgoy_timer()
+	kill_izgoy1()
+	kill_izgoy2()
+	db.actor:give_info_portion("help_bar_scientist_proval")
+end
+
+function start_izgoy_timer()
+	ogse_st_mgr.start_timer("izgoy", 2 * 24 * 3600, script_name()..".on_izgoy_timer")
+end
+
+function spawn_gorbovsky_dead()
+	local sobj = ogse.spawn_object(spawn_db.bar_dr_gorbovsky)
+	--local obj = alife():story_object(story_ids.bar_dr_gorbovsky)
+	--local obj_id = obj.id
+	ogse.kill_offline_npc(sobj)
+end
+
+function spawn_gorbovsky()
+	ogse.spawn_object(spawn_db.bar_dr_gorbovsky)
+	local obj = alife():story_object(story_ids.bar_dr_gorbovsky)
+	local obj_id = obj.id
+end
+
+function spawn_merc_planshet()
+	if db.actor:dont_has_info("dar_merc_reward_1") or db.actor:dont_has_info("dar_merc_reward_2") then
+		jekan_work.spawn_merc_planshet1()
+	end
+end
+
+function spawn_merc_planshet1()
+	local merclid = level_object_by_sid(story_ids.dar_merk_lider)
+	ogse.spawn_item_in_inv("dar_merc_planshet", merclid)
+end
+
+function goto_camp()
+	db.actor:set_actor_position(vector():set(32.88, -0.00, 193.22))
+	jekan_work.teleport_gorbovsky()
+end
+
+function goto_izgoy_camp()
+	db.actor:stop_talk()
+--	ogse_quests.turn_pnv_off()
+--	level.add_pp_effector("agr_u_fade.ppe", 2007, false)
+--	ogse.start_timer("goto_izgoy_camp",5)
+end
+
+function teleport_gorbovsky()
+	local gorbovsky = alife():story_object(story_ids.bar_dr_gorbovsky)
+	if gorbovsky then
+		ogse.teleport_npc(gorbovsky.id,vector():set(32.11,-0.00,189.19))
+	end
+end
+
+function izgioy_lider_reward(first_speaker, second_speaker)
+    dialogs.relocate_item_section(db.actor, "af_ameba_slug", "in")
+    dialogs.relocate_item_section(db.actor, "af_soul", "in")
+    dialogs.relocate_item_section(db.actor, "af_fireball", "in")
+    dialogs.relocate_item_section(db.actor, "af_fireball", "in")
+    dialogs.relocate_item_section(db.actor, "af_rusty_kristall", "in")
+    dialogs.relocate_item_section(db.actor, "af_gold_fish", "in")
+end
+
+function release_merc_company1()
+	local obj = alife():story_object(story_ids.dar_merk_lider)
+	if obj then
+		alife():release(obj , true)
+	end
+end
+
+function release_merc_company2()
+	local obj = alife():story_object(story_ids.dar_merk_bomber)
+	if obj then
+		alife():release(obj , true)
+	end
+end
+
+function release_merc_company3()
+	local obj = alife():story_object(story_ids.dar_merk_guard_1)
+	if obj then
+		alife():release(obj , true)
+	end
+end
+
+function release_merc_company4()
+	local obj = alife():story_object(story_ids.dar_merk_guard_2)
+	if obj then
+		alife():release(obj , true)
+	end
+end
+
+function release_merc_company5()
+	local obj = alife():story_object(story_ids.dar_officer)
+	if obj then
+		alife():release(obj , true)
+	end
+end
+
+function bar_doctor_proval()
+	db.actor:give_info_portion ("help_bar_scientist_proval")
+end
+
+function izgioy_give_combez(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "ecolog_outfit", "in")
+end
+
+function izgioy_give_container(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "af_container_empt", "in")
+end
+
+function izgioy_hang_art(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_container_full", "out")
+end
+
+function izgioy_vaccine()
+	level.add_pp_effector("blink.ppe", 99, false)
+	local hearthbeat = xr_sound.get_safe_sound_object([[affects\heartbeat]])
+	hearthbeat:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+	local breath_cold = xr_sound.get_safe_sound_object([[actor\breath_cold]])
+	breath_cold:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+end
+
+function izgioy_final_scene()
+--	db.actor:stop_talk()
+	ogse_quests.turn_pnv_off()
+	level.add_pp_effector("agr_u_fade.ppe", 2007, false)
+	ogse.start_timer("izgoy_fin",5)
+end
+
+function izgoy_fin()
+	local obj = alife():story_object(story_ids.izgoy_first_patient)
+	if obj then
+		alife():release(obj , true)
+	end
+	local obj = alife():story_object(story_ids.izgoy_second_patient)
+	if obj then
+		alife():release(obj , true)
+	end
+	local obj = alife():story_object(story_ids.izgoy_lider)
+	if obj then
+		alife():release(obj , true)
+	end
+	local obj = alife():story_object(story_ids.bar_dr_gorbovsky)
+	if obj then
+		alife():release(obj , true)
+	end	
+	local obj = alife():story_object(story_ids.izgoy_pomoshnik)
+	if obj then
+		alife():release(obj , true)
+	end		
+
+	ogse.spawn_object(spawn_db.izgoy_second_healthy)
+	ogse.spawn_object(spawn_db.izgoy_first_healthy)
+
+end
+
+
+function af_uley_finded()
+	if db.actor:object("af_container_full") ~= nil then
+		db.actor:give_info_portion ("af_uley_finded")
+		return true
+	end
+	return false
+end
+
+function af_uley_zaraza()
+	news_manager.send_tip(db.actor, "af_uley_zaraza", nil)
+end
+
+function uley_zaraza_message()
+	news_manager.send_tip(db.actor, "uley_zaraza_message", nil)
+end
+
+function robber_pda_message()
+	news_manager.send_tip(db.actor, "robber_pda_message", nil)
+end
+
+function spawn_uley_robber()
+	local sobj = ogse.spawn_object(spawn_db.uley_robber)
+	ogse.kill_offline_npc(sobj)
+end
+
+-- Воскрешение Бродяги Дика ------------------------------------------------------------------------
+
+function set_drifter_invulnerable()
+end
+
+function respawn_drifter()
+	jekan_work.spawn_drifter()
+	jekan_work.set_drifter_invulnerable()
+	jekan_work.monster_body_release()
+	db.actor:disable_info_portion("dik_the_monster_dead")
+	db.actor:disable_info_portion("dik_the_drifter_dead")
+	db.actor:disable_info_portion("drifter_dog_dead")
+	db.actor:disable_info_portion("dik_goto_pos1")
+	db.actor:disable_info_portion("dog_meets_danger")
+	db.actor:disable_info_portion("dog_meets_danger_end")
+	db.actor:disable_info_portion("dog_on_pos_3")
+	-- db.actor:disable_info_portion("kulg_zasada_1_boets_1_dead")
+	-- db.actor:disable_info_portion("kulg_zasada_1_boets_2_dead")
+	-- db.actor:disable_info_portion("kulg_zasada_1_boets_3_dead")
+	-- db.actor:disable_info_portion("kulg_zasada_2_boets_1_dead")
+	-- db.actor:disable_info_portion("kulg_zasada_2_boets_2_dead")
+	-- db.actor:disable_info_portion("kulg_zasada_3_boets_1_dead")
+	-- db.actor:disable_info_portion("kulg_zasada_3_boets_2_dead")
+	db.actor:give_info_portion ("darkstalk_spawn")
+end
+
+function spawn_drifter()
+	ogse.spawn_object(spawn_db.dik_the_drifter)
+end
+
+function drifter_rebirth()
+	ogse.start_timer("drifter1",0.3)
+end
+
+function drifter_respawn_timer()
+	--ogse.start_timer("drifter2",5)
+end
+
+function drifter_body_release()
+	jekan_work.drifter_body_release_1()
+	-- ogse_st_mgr.start_timer("drifter2", 50, "jekan_work.respawn_drifter", nil, true)
+end
+
+function drifter_body_release_1()
+    local sobj = alife():story_object(story_ids.dik_the_drifter)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function monster_body_release()
+    local sobj = alife():story_object(story_ids.dik_the_monster)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function drifter_release_effect()
+	-- local fx_particle = "anomaly\\storm_01"
+	-- local fx_particle = "nature\\fog_stormy"
+	local fx_particle_1 = "anomaly2\\plasma_generator_death"
+	-- local fx_particle_2 = "damage_fx\\burn_creatures00"
+	local telo = level_object_by_sid(story_ids.dik_the_drifter)
+	local pos = telo:position()
+	fx_particle_1 = particles_object(fx_particle_1)
+	fx_particle_1:play_at_pos(pos)
+	local snd_obj = xr_sound.get_safe_sound_object([[ambient\random\rnd_fallscream]])
+	snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+end
+
+function dog_release_effect()
+	-- local fx_particle = "anomaly\\storm_01"
+	-- local fx_particle = "nature\\fog_stormy"
+	local fx_particle_1 = "anomaly2\\plasma_generator_death"
+	-- local fx_particle_2 = "damage_fx\\burn_creatures00"
+	local telo = level_object_by_sid(story_ids.drifter_dog)
+	local pos = telo:position()
+	fx_particle_1 = particles_object(fx_particle_1)
+	fx_particle_1:play_at_pos(pos)
+	local snd_obj = xr_sound.get_safe_sound_object([[ambient\random\rnd_fallscream]])
+	snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)
+end
+
+function spawn_dik_the_monster()
+	local npc = level_object_by_sid(story_ids.dik_the_drifter)
+	local pos = npc:position()
+   	local sim = alife()
+    local sobj = sim:create("brodyaga_dik", vector():set(pos.x, pos.y, pos.z), npc:level_vertex_id(), npc:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.dik_the_monster)
+	db.actor:give_info_portion("dik_the_drifter_proval")
+end
+
+
+-- Пес-поводырь -----------------------------------------------------------------------------------
+
+function spawn_drifter_dog()
+	ogse.spawn_object(spawn_db.dog_friend)
+end
+
+function dog_body_release()
+    local sobj = alife():story_object(story_ids.drifter_dog)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function spawn_restrictor(ltx, radius, data)
+	local id_table = {}
+	local obj
+	if data ~= nil then
+		obj = ogse.spawn_object(data)
+	else
+		obj = alife():create("space_restrictor", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id())
+	end
+	id_table.sr = obj.id
+	local packet = get_netpk(obj, 1)
+	ASSERT( packet:isOk(), "can't read netpacket of %s", obj:name() )
+	local my_table = packet:get()
+	my_table.shapes:addSphere(radius)
+	my_table.restrictor_type = 3
+	my_table.custom_data:set("[logic]\ncfg = "..ltx)
+	packet:set(my_table)
+
+	return obj
+end
+
+function spawn_dik_release_restrictor()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\dik_release_restrictor.ltx", 30)
+end
+
+function dik_and_dog_release_tip()
+	news_manager.send_tip(db.actor, "dik_and_dog_release_tip", nil, "drifter", 8000, nil)
+end
+
+-- Аномальный очаг --------------------------------------------------------------------------------
+
+function mark_af_light()
+	level_tasks.add_location_by_sid(story_ids.af_light_place,"crlc_small","anomaly_ochyag")
+end
+
+function release_af_light_tip()
+	news_manager.send_tip(db.actor, "release_af_light_tip", nil)
+end
+
+function kulg_zasada_1()
+	ogse.spawn_objects(spawn_db.kulg_zasada_1)
+end
+
+function kulg_zasada_2()
+	rnd = math.random(1, 2)
+	if rnd == 1 then
+		ogse.spawn_objects(spawn_db.kulg_zasada_2_1)
+	elseif rnd == 2 then
+		ogse.spawn_objects(spawn_db.kulg_zasada_2_2)
+	end
+end
+
+function kulg_zasada_3_1()
+	ogse.spawn_objects(spawn_db.kulg_zasada_3_1)
+end
+
+function kulg_zasada_3()
+	ogse.spawn_objects(spawn_db.kulg_zasada_3)
+end
+
+function kulg_band_2_peace(player, stalker)
+	relation_registry.set_community_goodwill ("kulg_band_2", db.actor:id (), 500)
+end
+
+function kulg_band_2_war(player, stalker)
+	relation_registry.set_community_goodwill ("kulg_band_2", db.actor:id (), -5000)
+end
+
+function af_light_birth()
+	db.actor:give_info_portion ("af_light_birth")
+end
+
+function spawn_af_light_shron()
+	ogse.spawn_object(spawn_db.af_light_shron)
+end
+
+function give_af_light_task()
+	if db.actor:dont_has_info("af_light_task") then
+		db.actor:give_info_portion ("af_light_task")
+	end
+end
+
+function all_dik_bandits_dead()
+	return has_alife_info("kulg_zasada_1_boets_1_dead") and
+		has_alife_info("kulg_zasada_1_boets_2_dead") and
+		has_alife_info("kulg_zasada_1_boets_3_dead") and
+		has_alife_info("kulg_zasada_2_boets_1_dead") and
+		has_alife_info("kulg_zasada_2_boets_2_dead") and
+		has_alife_info("kulg_zasada_3_boets_1_dead") and
+		has_alife_info("kulg_zasada_3_boets_2_dead") and
+		has_alife_info("kulg_zasada_3_1_boets_1_dead") and
+		has_alife_info("kulg_zasada_3_1_boets_2_dead")
+end
+
+function hawe_af_light(stalker, player)
+    return db.actor:object("af_light") ~= nil
+end
+
+function give_darkstalk_book(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "book_4", "in")
+end
+
+function give_book_4_info()
+	if db.actor:dont_has_info("book_4_info") then
+		db.actor:give_info_portion ("book_4_info")
+	end
+end
+
+function give_af_light(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "af_light", "in")
+end
+
+function spawn_smert_zone_port_1()
+	ogse.spawn_objects(spawn_db.smert_zone_ports)
+end
+
+function cheb_help_with_af_dark()
+	if db.actor:object("cheb") ~= nil then
+		news_manager.send_tip(db.actor, "cheb_help_with_af_dark", nil, "chebur1", 10000, nil)
+		soundtrack.cheb_talking()
+	end
+end
+
+function dog_dead_tip()
+    news_manager.send_tip(db.actor, "dog_dead_tip", nil)
+end
+
+function dog_dead_portion()
+	if db.actor:dont_has_info("dog_dead_portion") then
+		db.actor:give_info_portion ("dog_dead_portion")
+	end
+end
+
+function have_book_2(stalker, player)
+    return db.actor:object("book_2") ~= nil
+end
+
+----------------------------------------------------------------------------------------------------
+
+function kill_petrenko_arts()
+	if db.actor:object("af_ameba_mica") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_ameba_mica"),actor)
+	end
+	if db.actor:object("af_ameba_slug") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_ameba_slug"),actor)
+	end
+	if db.actor:object("af_ameba_slime") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_ameba_slime"),actor)
+	end
+	if db.actor:object("af_medusa") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_medusa"),actor)
+	end
+	if db.actor:object("af_cristall_flower") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_cristall_flower"),actor)
+	end
+	if db.actor:object("af_night_star") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_night_star"),actor)
+	end
+	if db.actor:object("af_electra_sparkler") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_electra_sparkler"),actor)
+	end
+	if db.actor:object("af_electra_flash") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_electra_flash"),actor)
+	end
+	if db.actor:object("af_electra_moonlight") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_electra_moonlight"),actor)
+	end
+	if db.actor:object("af_vyvert") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_vyvert"),actor)
+	end
+	if db.actor:object("af_gravi") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_gravi"),actor)
+	end
+	if db.actor:object("af_gold_fish") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_gold_fish"),actor)
+	end
+	if db.actor:object("af_rusty_thorn") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_rusty_thorn"),actor)
+	end
+	if db.actor:object("af_rusty_sea-urchin") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_rusty_sea-urchin"),actor)
+	end
+	if db.actor:object("af_rusty_kristall") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_rusty_kristall"),actor)
+	end
+	if db.actor:object("af_blood") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_blood"),actor)
+	end
+	if db.actor:object("af_mincer_meat") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_mincer_meat"),actor)
+	end
+	if db.actor:object("af_soul") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_soul"),actor)
+	end
+	if db.actor:object("af_drops") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_drops"),actor)
+	end
+	if db.actor:object("af_fireball") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_fireball"),actor)
+	end
+	if db.actor:object("af_cristall") ~= nil  then
+		ogse.remove_item_from_inventory(db.actor:object("af_cristall"),actor)
+	end
+end
+
+function spawn_petrenko_case()
+	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.bar_spawn.petrenko_case)
+end
+
+function has_petrenko_case()
+	return (db.actor:object("quest_petrenko_case") ~= nil)
+end
+
+function petrenko_seif_reward1(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 2000, "in")
+end
+
+function petrenko_seif_reward2(first_speaker, second_speaker)
+    dialogs.relocate_money(first_speaker, 5000, "in")
+	if db.actor:object("detector_simple") ~= nil  then
+		dialogs.relocate_item_section(first_speaker, "detector_simple", "out")
+	end
+	if db.actor:object("harmonica_f") ~= nil  then
+		dialogs.relocate_item_section(first_speaker, "harmonica_f", "out")
+	end
+	if db.actor:object("device_torch") ~= nil  then
+		dialogs.relocate_item_section(first_speaker, "device_torch", "out")
+	end
+end
+
+function petrenko_case_reward1(first_speaker, second_speaker)
+	dialogs.relocate_item_section(first_speaker, "quest_petrenko_case", "out")
+    dialogs.relocate_money(first_speaker, 5000, "in")
+end
+
+function petrenko_case_reward2(first_speaker, second_speaker)
+	dialogs.relocate_item_section(first_speaker, "quest_petrenko_case", "out")
+	for i = 0,9 do
+		dialogs.relocate_item_section(first_speaker, "ammo_vog-25p", "in")
+	end
+end
+-- Выходим на след тайного братства ----------------------------------------------------------------
+
+function give_zapravka_port_task()
+	if db.actor:dont_has_info("zapravka_port_task") then
+		db.actor:give_info_portion ("zapravka_port_task")
+	end
+end
+
+function ds_zapravka_signal1()
+	news_manager.send_tip(db.actor, "ds_zapravka_help1", nil)
+	soundtrack.ds_zapravka_port_signal1()
+	ogse.start_timer("zapr",10)
+	if db.actor:object("cheb") ~= nil then
+		news_manager.send_tip(db.actor, "ds_cheb_zapravka", nil, "chebur1", 8000, nil)
+	end
+end
+
+function ds_zapravka_signal2()
+	news_manager.send_tip(db.actor, "ds_zapravka_help2", nil)
+	soundtrack.ds_zapravka_port_signal2()
+end
+
+function ds_zapravka_tip()
+	news_manager.send_tip(db.actor, "ds_zapravka_tip", nil)
+end
+
+function have_some_voda(stalker, player)
+    return db.actor:object("voda") ~= nil
+end
+
+function voda_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "voda", "out")
+end
+
+function vrach_tokarev_door_travel(actor, npc)
+	db.actor:stop_talk()
+	ogse_quests.turn_pnv_off()
+	level.add_pp_effector("agr_u_fade.ppe", 2007, false)
+	ogse.start_timer("brat_1",5)
+end
+
+function teleport_brat()
+	jekan_work.vrach_door_teleport()
+	jekan_work.orujeinik_door_teleport()
+--	db.actor:set_actor_position(vector():set(54.48,-0.00,-97.99))
+	db.actor:set_actor_position(vector():set(400.695,-2.38,-300.0))
+end
+
+function vrach_door_teleport()
+	local vrach = alife():story_object(story_ids.bratstvo_vrach)
+	if vrach ~= nil and vrach:alive() == true then
+--		ogse.teleport_npc(vrach.id,vector():set(51.42,-0.00,-96.88))
+		ogse.teleport_npc(vrach.id,vector():set(397.695,-2.38,-301.0))
+	end
+end
+
+function orujeinik_door_teleport()
+	local orujeinik = alife():story_object(story_ids.bratstvo_orujeinik)
+	if orujeinik ~= nil and orujeinik:alive() == true then
+--		ogse.teleport_npc(orujeinik.id,vector():set(53.35,-0.13,-102.50))
+		ogse.teleport_npc(orujeinik.id,vector():set(399.695,-2.38,-298.0))
+	end
+end
+
+function dar_dolg_gaz66_desant()
+	ogse.spawn_objects(spawn_db.dar_dolg_gaz66_desant)
+end
+
+function mayatnik_prt1_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "mayatnik_p2", "out")
+end
+
+function vrach_jeka_orujeinik_away(actor, npc)
+	jekan_work.vrach_bunker_teleport()
+	jekan_work.orujeinik_bunker_teleport()
+	jekan_work.jeka_bunker_teleport()
+end
+
+function vrach_orujeinik_away(actor, npc)
+	jekan_work.vrach_bunker_teleport()
+	jekan_work.orujeinik_bunker_teleport()
+	db.actor:set_actor_position(vector():set(23.41,-12.01,-53.78))
+	soundtrack.af_mayatnik_travel()
+	ogse_quests.turn_pnv_off()
+	level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+end
+
+function vrach_jeka_away(actor, npc)
+	jekan_work.vrach_bunker_teleport()
+	jekan_work.jeka_bunker_teleport()
+	db.actor:set_actor_position(vector():set(23.41,-12.01,-53.78))
+	soundtrack.af_mayatnik_travel()
+	ogse_quests.turn_pnv_off()
+	level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+end
+
+function actor_bunker_teleport()
+	db.actor:set_actor_position(vector():set(23.41,-12.01,-53.78))
+	soundtrack.af_mayatnik_travel()
+	ogse_quests.turn_pnv_off()
+	level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+end
+
+function vrach_bunker_teleport()
+	local vrach = alife():story_object(story_ids.bratstvo_vrach)
+	if vrach ~= nil and vrach:alive() == true then
+		ogse.teleport_npc(vrach.id,vector():set(22.68,-12.01,-55.11))
+	end
+end
+
+function teleport_chuk()
+	local chuk = alife():story_object(story_ids.yan_chuk_really_zombied)
+	if chuk then
+		ogse.teleport_npc(chuk.id,vector():set(105.301, 1.0, -39.03))
+	end
+end
+
+function orujeinik_bunker_teleport()
+	local orujeinik = alife():story_object(story_ids.bratstvo_orujeinik)
+	if orujeinik ~= nil and orujeinik:alive() == true then
+		ogse.teleport_npc(orujeinik.id,vector():set(30.89,-12.01,-56.28))
+	end
+end
+
+function jeka_bunker_teleport()
+	local orujeinik = alife():story_object(story_ids.bratstvo_agent_1)
+	if orujeinik ~= nil and orujeinik:alive() == true then
+		ogse.teleport_npc(orujeinik.id,vector():set(22.68,-12.01,-53.11))
+	end
+end
+
+function release_zapravka_port()
+	local sobj = alife():object( "ds_zapravka_port" )
+	if sobj then
+		alife():release(sobj, true)
+	end
+end
+
+function three_parts_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "mayatnik_p1", "out")
+    dialogs.relocate_item_section(second_speaker, "mayatnik_p3", "out")
+    dialogs.relocate_item_section(second_speaker, "mayatnik_p4", "out")
+end
+
+function two_parts_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "mayatnik_p1", "out")
+    dialogs.relocate_item_section(second_speaker, "mayatnik_p3", "out")
+end
+
+function dar_dolg_gaz66_desant_tip()
+	news_manager.send_tip(db.actor, "dar_dolg_gaz66_desant_tip", nil)
+end
+
+function dar_zapravka_reinforcement_madness()
+	local set_enemy = function(sid)
+		local npc = level_object_by_sid(sid)
+		if npc ~= nil and npc:alive() then
+			npc:set_relation(game_object.enemy, db.actor)
+			npc:set_goodwill(-5000, db.actor)
+		end
+	end
+	set_enemy(story_ids.dar_gaz_dolg_tank1)
+	set_enemy(story_ids.dar_gaz_dolg_tank2)
+	set_enemy(story_ids.dar_gaz_dolg_tank3)
+end
+
+function dar_dolg_gaz66_zachistka()
+	ogse.spawn_objects(spawn_db.dar_dolg_gaz66_zachistka)
+	ogse.start_timer("make_reinforcements_mad", 1)
+end
+
+function bratstvo_lider_reward1(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "wpn_svu", "in")
+    dialogs.relocate_item_section(second_speaker, "ammo_7.62x54_7h14", "in")
+    dialogs.relocate_item_section(second_speaker, "ammo_7.62x54_7h14", "in")
+end
+
+function bratstvo_lider_reward2(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 18000, "in")
+end
+
+function bratstvo_lider_reward3(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "wpn_ak74_tact", "in")
+    dialogs.relocate_item_section(second_speaker, "ammo_5.45x39_fmj", "in")
+    dialogs.relocate_item_section(second_speaker, "ammo_5.45x39_fmj", "in")
+    dialogs.relocate_item_section(second_speaker, "ammo_5.45x39_fmj", "in")
+    dialogs.relocate_item_section(second_speaker, "ammo_5.45x39_fmj", "in")
+    dialogs.relocate_money(second_speaker, 8000, "in")
+end
+
+function dar_zapravka_dlog_madness(actor, npc)
+	local set_enemy = function(sid)
+		local npc = level_object_by_sid(sid)
+		if npc ~= nil and npc:alive() then
+			npc:set_relation(game_object.enemy, db.actor)
+			npc:set_goodwill(-5000, db.actor)
+		end
+	end
+	set_enemy(story_ids.dar_gaz_dolg_lider)
+	set_enemy(story_ids.dar_gaz_dolg1)
+	set_enemy(story_ids.dar_gaz_dolg2)
+	set_enemy(story_ids.dar_gaz_dolg3)
+end
+
+
+function kill_bratstvo_agent()
+	local sobj = alife():story_object(story_ids.bratstvo_agent_1)
+	if sobj then
+		alife():release(sobj)
+		-- db.actor:give_info_portion ("bratstvo_agent_1_dead")
+	end
+end
+
+function kill_bratstvo_orujeinik()
+    local sobj = alife():story_object(story_ids.bratstvo_orujeinik)
+    if sobj then
+		alife():release(sobj)
+		-- db.actor:give_info_portion ("bratstvo_orujeinik_dead")
+    end
+end
+
+function release_zapr_dolglider()
+    local sobj = alife():story_object(story_ids.dar_gaz_dolg_lider)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function release_zapr_dolg1()
+    local sobj = alife():story_object(story_ids.dar_gaz_dolg1)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function release_zapr_dolg2()
+    local sobj = alife():story_object(story_ids.dar_gaz_dolg2)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function release_zapr_dolg3()
+    local sobj = alife():story_object(story_ids.dar_gaz_dolg3)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+----------------------------------------------------------------------------------------------------
+
+function test_crows_spawn()
+	for i = 1, 10 do
+		alife():create("m_crow", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id())
+	end
+end
+
+----------------------------------------------------------------------------------------------------
+
+function put_items_to_arena_box()
+	ogse.transfer_items_to_box(story_ids.bar_arena_inventory_box, false, items_no_transfer, nil)
+end
+
+function set_arena_box_online()
+    rx_utils.switch_online(alife():story_object(story_ids.bar_arena_inventory_box))
+end
+
+function enum_arena_box_items(box)
+	local res = {}
+	for i=0,box:inv_box_count()-1 do
+		table.insert(res, box:object_from_inv_box(i))
+	end
+	return res
+end
+
+function get_items_from_arena_box(box)
+	local box = level_object_by_sid(story_ids.bar_arena_inventory_box)
+	for _, obj in pairs(enum_arena_box_items(box)) do
+		box:transfer_item(obj, db.actor)
+	end
+end
+
+function spawn_kaligula()
+	ogse.spawn_object(spawn_db.bar_arena_kaligula)
+end
+
+function kaligula_fight_pistol()
+	db.actor:set_actor_position(vector():set(151.92,-21.05,78.33))
+	-- level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+	-- soundtrack.arena_fight()
+	put_items_to_arena_box()
+	kaligula_arena_travel()
+	kaligula_enemy()
+	kaligula_armed_pistol()
+	local items = {["wpn_pm"] = 1, ["ammo_9x18_fmj"] = 7,}
+	for sec, count in pairs(items) do
+		for i = 1, count do
+			ogse.spawn_item_in_inv(sec, db.actor)
+		end
+	end
+end
+
+function kaligula_arena_travel()
+	local npc = alife():story_object(story_ids.bar_arena_kaligula)
+	if npc then
+		ogse.teleport_npc(npc.id, vector():set(152.51,-21.04,129.11))
+	end
+end
+
+function kaligula_enemy()
+	local hit = hit()
+	hit.direction = vector():set(0, 0, 0)
+	hit.impulse = 0
+	hit.draftsman = db.actor
+	hit.power = 0.1
+	hit.type = hit.explosion
+	local npc = level_object_by_sid(story_ids.bar_arena_kaligula)
+	if npc ~= nil and npc:alive() then
+		npc:set_relation(game_object.enemy, db.actor)
+		npc:set_goodwill(-5000, db.actor)
+		npc:hit(hit)
+	end
+end
+
+function kaligula_armed_pistol()
+	local npc = level_object_by_sid(story_ids.bar_arena_kaligula)
+	ogse.spawn_item_in_inv("wpn_pm", npc)
+end
+
+function kaligula_fight_knife()
+	db.actor:set_actor_position(vector():set(151.92,-21.05,78.33))
+	-- level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+	-- soundtrack.arena_fight()
+	put_items_to_arena_box()
+	kaligula_arena_travel()
+	kaligula_enemy()
+	ogse.spawn_item_in_inv("wpn_knife_arena", db.actor)
+end
+
+function kaligula_fight_obrez()
+	db.actor:set_actor_position(vector():set(151.92,-21.05,78.33))
+	-- level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+	-- soundtrack.arena_fight()
+	put_items_to_arena_box()
+	kaligula_arena_travel()
+	kaligula_enemy()
+	kaligula_armed_obrez()
+	local items = {["wpn_bm16"] = 1, ["ammo_12x70_kart"] = 5,}
+	for sec, count in pairs(items) do
+		for i = 1, count do
+			ogse.spawn_item_in_inv(sec, db.actor)
+		end
+	end
+end
+
+function kaligula_armed_obrez()
+	local npc = level_object_by_sid(story_ids.bar_arena_kaligula)
+	ogse.spawn_item_in_inv("wpn_bm16", npc)
+end
+
+function spawn_af_ray()
+	local npc = level_object_by_sid(story_ids.bar_arena_kaligula)
+	local pos = npc:position()
+	alife():create("af_ray", vector():set(pos.x, pos.y, pos.z), npc:level_vertex_id(), npc:game_vertex_id())
+end
+
+function voronin_after_arena_tip()
+	 news_manager.send_tip(db.actor, "voronin_after_arena_tip", 10, "voronin", 8000, nil)
+end
+
+function check_kaligula()
+	--[[if db.actor:has_info("kaligula_dead") then
+		return true
+	else	
+		local npc = alife():story_object(story_ids.bar_arena_kaligula)
+		if npc then
+			local g_npc = level.object_by_id(npc.id)
+			if g_npc and db.storage[npc.id] then
+				local sect = db.storage[npc.id].active_section
+				if db.actor:has_info("kaligula_goto_arena") and sect then
+					if not string.find(sect, "arena") then
+						db.storage[npc.id].active_section = "walker@arena1"
+					end			
+				end
+			end
+		end
+		
+	end
+	return false]]
+
+	return db.actor:has_info("kaligula_dead")
+end
+
+-- Мужик-излом -------------------------------------------------------------------------------------
+
+function spawn_human_pervert()
+	ogse.spawn_object(spawn_db.human_pervert)
+end
+
+function respawn_human_pervert()
+	local izlom = level_object_by_sid(story_ids.izlom_pervert)
+	local pos = izlom:position()
+	local fx_particle1 = "explosions\\group_items\\expl_09_trail_01a"
+	local fx_particle2 = "explosions\\group_items\\expl_10_aftersmoke_01b"
+	-- local fx_particle3 = "explosions\\group_items\\expl_10_sparks_03"
+	local fx_particle3 = "explosions\\old\\expl_08_flame"
+	local sim = alife()
+	local sobj = sim:create("human_pervert", vector():set(pos.x, pos.y, pos.z), izlom:level_vertex_id(), izlom:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.human_pervert)
+	fx_particle1 = particles_object(fx_particle1)
+	fx_particle2 = particles_object(fx_particle2)
+	fx_particle3 = particles_object(fx_particle3)
+	fx_particle1:play_at_pos(pos)
+	fx_particle2:play_at_pos(pos)
+	fx_particle3:play_at_pos(pos)
+	local snd_obj = xr_sound.get_safe_sound_object([[ambient\random\rnd_respawn]])
+	snd_obj:play_at_pos(izlom, izlom:position(), 0, sound_object.s3d)
+end
+
+function respawn_izlom_pervert()
+	local human = level_object_by_sid(story_ids.human_pervert)
+	local pos = human:position()
+	local fx_particle1 = "explosions\\group_items\\expl_05_stones"
+	local fx_particle2 = "explosions\\group_items\\expl_07_flash"
+	-- local fx_particle3 = "explosions\\group_items\\expl_10_sparks"
+	local fx_particle3 = "explosions\\old\\expl_08_flame"
+	local sim = alife()
+	local sobj = sim:create("izlom_pervert", vector():set(pos.x, pos.y, pos.z), human:level_vertex_id(), human:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.izlom_pervert)
+	for i = 1, 7 do
+		alife():create("m_crow", vector():set(pos.x, pos.y, pos.z), human:level_vertex_id(), human:game_vertex_id())
+	end
+	fx_particle1 = particles_object(fx_particle1)
+	fx_particle2 = particles_object(fx_particle2)
+	fx_particle3 = particles_object(fx_particle3)
+	fx_particle1:play_at_pos(pos)
+	fx_particle2:play_at_pos(pos)
+	fx_particle3:play_at_pos(pos)
+	local snd_obj = xr_sound.get_safe_sound_object([[ambient\random\rnd_moan]])
+	snd_obj:play_at_pos(human, human:position(), 0, sound_object.s3d)
+end
+
+
+function release_human_pervert()
+	rx_utils.switch_offline(id_by_sid(story_ids.human_pervert))
+	jekan_work.delete_human_pervert()
+end
+
+function release_izlom_pervert()
+	rx_utils.switch_offline(id_by_sid(story_ids.izlom_pervert))
+	jekan_work.delete_izlom_pervert()
+end
+
+function delete_human_pervert()
+	local sobj = alife():story_object(story_ids.human_pervert)
+	-- if sobj then
+	alife():release(sobj)
+	-- end
+end
+
+function delete_izlom_pervert()
+	local sobj = alife():story_object(story_ids.izlom_pervert)
+	-- if sobj then
+	alife():release(sobj)
+	-- end
+end
+
+-- Женщина-кошка(чёрт побери, попахивает Голливудом! Надо с этим закругляться) ---------------------
+
+function spawn_catgirl()
+	-- ogse.spawn_object(spawn_db.girl_pervert)
+end
+
+function respawn_girl_pervert()
+	local cat = level_object_by_sid(story_ids.cat_queen)
+	local pos = cat:position()
+	local fx_particle1 = "vehiclefx\\generic_impact_01"
+	local fx_particle2 = "anomaly2\\artefact_bold_blast_start"
+	local fx_particle3 = "anomaly2\\bold_sarkofag_blast"
+	local sim = alife()
+	local sobj = sim:create("girl_pervert", vector():set(pos.x, pos.y, pos.z), cat:level_vertex_id(), cat:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.girl_pervert)
+	fx_particle1 = particles_object(fx_particle1)
+	fx_particle2 = particles_object(fx_particle2)
+	fx_particle3 = particles_object(fx_particle3)
+	fx_particle1:play_at_pos(pos)
+	fx_particle2:play_at_pos(pos)
+	fx_particle3:play_at_pos(pos)
+	local snd_obj = xr_sound.get_safe_sound_object([[characters_voice\woman\fight\hit\hit_7]])
+	snd_obj:play_at_pos(cat, cat:position(), 0, sound_object.s3d)
+end
+
+function respawn_cat_queen()
+	local girl = level_object_by_sid(story_ids.girl_pervert)
+	local pos = girl:position()
+	local fx_particle1 = "vehiclefx\\generic_impact_01"
+	local fx_particle2 = "anomaly2\\artefact_bold_blast_start"
+	local fx_particle3 = "anomaly2\\bold_sarkofag_blast"
+	local sim = alife()
+	local sobj = sim:create("cat_queen", vector():set(pos.x, pos.y, pos.z), girl:level_vertex_id(), girl:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.cat_queen)
+	fx_particle1 = particles_object(fx_particle1)
+	fx_particle2 = particles_object(fx_particle2)
+	fx_particle3 = particles_object(fx_particle3)
+	fx_particle1:play_at_pos(pos)
+	fx_particle2:play_at_pos(pos)
+	fx_particle3:play_at_pos(pos)
+	local snd_obj = xr_sound.get_safe_sound_object([[monsters\cat\cat_die_in_anomaly]])
+	snd_obj:play_at_pos(girl, girl:position(), 0, sound_object.s3d)
+end
+
+
+function release_girl_pervert()
+	rx_utils.switch_offline(id_by_sid(story_ids.girl_pervert))
+	jekan_work.delete_girl_pervert()
+end
+
+function release_cat_queen()
+	rx_utils.switch_offline(id_by_sid(story_ids.cat_queen))
+	jekan_work.delete_cat_queen()
+end
+
+function delete_girl_pervert()
+    local sobj = alife():story_object(story_ids.girl_pervert)
+    -- if sobj then
+    alife():release(sobj)
+    -- end
+end
+
+function delete_cat_queen()
+    local sobj = alife():story_object(story_ids.cat_queen)
+    -- if sobj then
+    alife():release(sobj)
+    -- end
+end
+
+-- Спавним управляемые турели в некоторых местах ---------------------------------------------------
+
+function spawn_turrets()
+	-- bind_statpkm.create_stat_pkm("l01_escape", vector():set (-263.58,-17.87,-164.02))
+	bind_statpkm.create_stat_pkm("l02_garbage", vector():set (67.092,0.682,232.655))
+	bind_statpkm.create_stat_pkm("l05_bar", vector():set (216.34,4.46,-7.37))
+	bind_statpkm.create_stat_pkm("l07_military", vector():set (47.88,-16.97,354.58))
+	-- bind_statpkm.create_stat_pkm("l08_yantar", vector():set (34.84,-5.94,-272.17))
+end
+
+-- Квест в башне -----------------------------------------------------------------------------------
+
+function spawn_major_wounded()
+	ogse.spawn_object(spawn_db.major_wounded)
+end
+
+function spawn_major_pomoshnik1_body()
+	local sobj = ogse.spawn_object(spawn_db.major_pomoshnik1)
+	ogse.kill_offline_npc(sobj)
+end
+
+function spawn_major_pomoshnik2()
+	ogse.spawn_object(spawn_db.major_pomoshnik2)
+end
+
+function spawn_tower_box()
+	ogse.spawn_object(spawn_db.tower_box)
+end
+
+function spawn_tikar()
+	ogse.spawn_object(spawn_db.stalker_tikar)
+end
+
+function tower_zona_effect()
+	-- if db.actor.health > 0.05 then
+	db.actor.health = - 0.001
+	-- end
+end
+
+function tower_zona_effect_death()
+	-- if db.actor.health > 0.05 then
+	db.actor.health = - 0.02
+	-- end
+end
+
+function kordon_samogon_in(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "kordon_samogon", "in")
+end
+
+function release_prison_major()
+	local sobj = alife():story_object(story_ids.bar_sergant_jivoderov)
+	if sobj then
+		alife():release(sobj)
+	end
+end
+
+function tower_box_smoke()
+	local box = level_object_by_sid(story_ids.tower_box)
+	local pos = box:position()
+	local fx_particle = "explosions\\group_items\\expl_car_smoke01"
+	fx_particle = particles_object(fx_particle)
+	fx_particle:play_at_pos(pos)
+	tasks_functor.delete_when_offline(box:id()):start()
+end
+
+function tower_box_try()
+	if db.actor:dont_has_info("towbox_try") then
+		db.actor:give_info_portion ("towbox_try")
+	end
+	db.actor:disable_info_portion("towbox_1")
+	db.actor:disable_info_portion("towbox_2")
+	db.actor:disable_info_portion("towbox_3")
+	db.actor:disable_info_portion("towbox_4")
+	db.actor:disable_info_portion("towbox_5")
+end
+
+
+function release_tower_porog_restr()
+	local sobj = alife():story_object(story_ids.tower_porog)
+	if sobj then
+		alife():release(sobj, true)
+	end
+end
+
+function release_tower_barier_restr()
+	local sobj = alife():story_object(story_ids.tower_barier)
+	if sobj then
+		alife():release(sobj, true)
+	end
+end
+
+
+function voronin_tower_reward1(first_speaker, second_speaker)
+ --   dialogs.relocate_item_section(second_speaker, "af_ray", "out")
+    dialogs.relocate_item_section(second_speaker, "af_ameba_mica", "in")
+    dialogs.relocate_item_section(second_speaker, "af_rusty_sea-urchin", "in")
+    dialogs.relocate_item_section(second_speaker, "medkit_army", "in")
+    dialogs.relocate_item_section(second_speaker, "medkit_army", "in")
+    dialogs.relocate_item_section(second_speaker, "outfit_dolg_m1", "in")
+    dialogs.relocate_money(second_speaker, 8000, "in")
+end
+
+function voronin_tower_reward2(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "af_ray", "out")
+    dialogs.relocate_money(second_speaker, 100000, "in")
+end
+
+function voronin_tower_reward3(first_speaker, second_speaker)
+	voronin_tower_reward2(second_speaker, first_speaker)
+    dialogs.relocate_item_section(first_speaker, "wpn_val", "in")
+    dialogs.relocate_item_section(first_speaker, "outfit_dolg_m1", "in")
+	for i = 1, 10 do
+		dialogs.relocate_item_section(first_speaker, "ammo_7.62x54_ap", "in")
+	end
+end
+
+function has_af_ray(stalker, player)
+    return db.actor:object("af_ray") ~= nil
+end
+
+function release_tower_company()
+	local sobj = alife():story_object(story_ids.major_wounded)
+	if sobj then
+		tasks_functor.delete_when_offline(sobj.id):start()
+	end
+	sobj = alife():story_object(story_ids.major_pomoshnik1)
+	if sobj then
+		tasks_functor.delete_when_offline(sobj.id):start()
+	end
+	sobj = alife():story_object(story_ids.major_pomoshnik2)
+	if sobj then
+		tasks_functor.delete_when_offline(sobj.id):start()
+	end
+--	jekan_work.release_wounded_major()
+--	jekan_work.release_major_pomoshnik1()
+--	jekan_work.release_major_pomoshnik2()
+end
+--[[
+function release_wounded_major()
+    local sobj = alife():story_object(story_ids.major_wounded)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function release_major_pomoshnik1()
+    local sobj = alife():story_object(story_ids.major_pomoshnik1)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function release_major_pomoshnik2()
+    local sobj = alife():story_object(story_ids.major_pomoshnik2)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+]]
+function get_klond_flash2(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "klondaik_flash_2", "in")
+end
+
+function af_candle_in(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "af_candle", "in")
+end
+
+-- Братья-новички и холодильник --------------------------------------------------------------------
+
+function spawn_freezer()
+	ogse.spawn_object(spawn_db.esc_freezer)
+end
+
+function spawn_freezer_bandos()
+	ogse.spawn_object(spawn_db.freezer_bandos)
+end
+
+function zona_brother1_blow()
+	local npc = level_object_by_sid(story_ids.zona_brother1)
+	local pos = npc:position()
+	local fx_particle1 = "explosions\\explosion_01"
+	local fx_particle2 = "explosions\\group_items\\expl_10_aftersmoke_01b"
+	fx_particle1 = particles_object(fx_particle1)
+	fx_particle2 = particles_object(fx_particle2)
+	fx_particle1:play_at_pos(pos)
+	fx_particle2:play_at_pos(pos)
+	local snd_obj = xr_sound.get_safe_sound_object([[weapons\grenade\grenade_explosion6]])
+	snd_obj:play_at_pos(npc, npc:position(), 0, sound_object.s3d)
+	npc:kill(npc)
+end
+
+function release_bro1()
+    local obj = alife():story_object(story_ids.zona_brother1)
+    if obj then
+		alife():release(obj)
+    end
+end
+
+function is_near_freezer()
+	local sobj = alife():story_object(story_ids.esc_freezer)
+	if sobj == nil then return false end
+	return db.actor:position():distance_to(sobj.position) < 3
+end
+
+-- Чебурашка ---------------------------------------------------------------------------------------
+
+function on_timer_cheb4(params_string)
+	db.actor:give_info_portion("brother2_reward")
+end
+
+function spawn_cheb_timer()
+	ogse_st_mgr.start_timer("cheb4", 1, script_name()..".on_timer_cheb4")
+end
+
+function cheb_birthplace_spawn()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\cheb_birth_restrictor.ltx", 5, spawn_db.cheb_birthplace)
+end
+
+function spawn_chebur()
+	local cheb = id_by_sid(story_ids.cheburashka)
+	if not cheb then
+		ogse.spawn_object(spawn_db.cheb)
+		log1("~~DEBUG! Cheb spawned")
+	end
+end
+
+function send_cheb_hello_tip1()
+	news_manager.send_tip(db.actor, "cheb_hello_tip2", nil, "chebur1", 5000, nil)
+end
+
+function send_cheb_hello_tip2()
+	news_manager.send_tip(db.actor, "cheb_hello_tip1", nil, "chebur1", 5000, nil)
+end
+
+function give_chebur_hello_portion()
+	ogse.give_info("cheb_hello")
+end
+
+function release_cheb_birthplace()
+    local sobj = alife():story_object(story_ids.cheb_birth_restrictor)
+    if sobj then
+		alife():release(sobj, true)
+    end
+end
+
+function cheb_helptip()
+	if db.actor:object("cheb") ~= nil then
+		news_manager.send_tip(db.actor, "cheb_helptip", nil, "chebur1", 10000, nil)
+		soundtrack.cheb_talking()
+	end
+end
+
+function on_timer_cheb_guidance(params_string)
+	db.actor:disable_info_portion("cheb_busy_guidance")
+	jekan_work.send_cheb_talk_tip()
+end
+
+function on_timer_cheb_story(params_string)
+	db.actor:disable_info_portion("cheb_busy_story")
+	jekan_work.send_cheb_talk_tip()
+end
+
+function cheb_guidance()
+	jekan_devices2.cheb_guidance(math.random(1, 5))
+	ogse_st_mgr.start_timer("cheb_guidance", 300, script_name()..".on_timer_cheb_guidance")
+	db.actor:give_info_portion ("cheb_busy_guidance")
+end
+
+function send_cheb_talk_tip()
+	local rnd = math.random(1, 7)
+	if db.actor:object("cheb") ~= nil and db.actor:dont_has_info("cheb_sleep") then
+		news_manager.send_tip(db.actor, "cheb_talk_tip"..rnd, nil, "chebur1", 5000, nil)
+		soundtrack.cheb_talking()
+	end
+end
+
+function cheb_guidance_story()
+	jekan_devices2.cheb_story(math.random(1, 6))
+	ogse_st_mgr.start_timer("cheb_story", 300, script_name()..".on_timer_cheb_story")
+	db.actor:give_info_portion ("cheb_busy_story")
+end
+
+function cheb_level_help()
+	local helps = {
+		["l01_escape"] = cheb_esc_help,
+	}
+	local func = helps[level.name()]
+	if func ~= nil then
+		func()
+	end
+end
+
+function cheb_esc_help()
+	local rnd = math.random(1, 3)
+	if rnd == 1 then
+		jekan_work.cheb_esc_art_spawn()
+		jekan_devices2.cheb_help1()
+		news_manager.send_tip(db.actor, "cheb_art_spawn", nil, "chebur1", 6000, nil)
+		db.actor:give_info_portion ("cheb_levelhelp")
+		db.actor:give_info_portion ("cheb_busy_guidance")
+	elseif rnd == 2 then
+		jekan_devices2.cheb_help2()
+		db.actor:give_info_portion ("cheb_levelhelp")
+		db.actor:give_info_portion ("cheb_busy_guidance")
+	elseif rnd == 3 then
+		jekan_devices2.cheb_help2()
+		db.actor:give_info_portion ("cheb_levelhelp")
+		db.actor:give_info_portion ("cheb_busy_guidance")
+	end
+end
+
+function cheb_esc_art_spawn()
+	ogse.spawn_object_rand(spawn_db.cheb_fakearts)
+	level_tasks.add_location_by_sid(story_ids.cheb_fakeart, "crlc_big", "jekan_work_cheb_tip_text")
+end
+
+function delete_cheb_fakeart()
+    local sobj = alife():story_object(story_ids.cheb_fakeart)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function give_cheb_realart()
+	local choices = {
+		{sec = "af_gold_fish", tip = "cheb_art_fish"},
+		{sec = "af_drops", tip = "cheb_art_drops"},
+		{sec = "af_cristall", tip = "cheb_art_cristall"},
+		{sec = "af_ameba_slug", tip = "cheb_art_slug"},
+		{sec = "af_electra_flash", tip = "cheb_art_flash"},
+		{sec = "af_rusty_sea-urchin", tip = "cheb_art_urshin"},
+		{sec = "af_fireball", tip = "cheb_art_fireball"},
+		{sec = "af_night_star", tip = "cheb_art_star"},
+	}
+	local rnd = math.random(1, 8)
+	local choice = choices[rnd]
+	ogse.spawn_item_in_inv(choice.sec, db.actor)
+	news_manager.send_tip(db.actor, choice.tip, nil, "anomal", 6000, nil)
+end
+
+function spawn_hvost()
+	ogse.spawn_object(spawn_db.stalker_hvost)
+end
+
+function give_cheb_deadcity_msg()
+	news_manager.send_tip(db.actor, "cheb_tip_about_kolya", nil, "chebur1", 10000, nil)
+	soundtrack.cheb_talking()
+--	local kolya = ogse.spawn_object(spawn_db.stalker_kolya)
+--	ogse.kill_offline_npc(kolya)
+	local sKolya = alife():story_object(story_ids.stalker_kolya)
+	level_tasks.add_location_by_sid(story_ids.stalker_kolya, "crlc_big", "find_kolya")
+	ogse.spawn_item_in_inv("af_kolya", sKolya)
+end
+
+function cheb_ready_msg()
+	if db.actor:object("cheb") ~= nil then
+		news_manager.send_tip(db.actor, "cheb_ready_to_live", nil, "chebur1", 10000, nil)
+		soundtrack.cheb_talking()
+	end
+end
+
+function give_hvost_reward(first_speaker, second_speaker)
+	dialogs.relocate_money(second_speaker, 5000, "in")
+end
+
+function actor_has_cheb()
+	return db.actor:object("cheb") ~= nil
+end
+
+function actor_has_no_cheb()
+	return not actor_has_cheb()
+end
+
+-- Земляничные поля навсегда -----------------------------------------------------------------------
+
+snd = xr_sound.get_safe_sound_object([[anomaly\bfuzz_blowout]])
+
+function spawn_afscanner()
+	local data = spawn_db.radist_shron[math.random(#spawn_db.radist_shron)]
+	dsh_rukzak.create_rukzak_by_section( data.sec, vector():set(unpack(data.pos)), data.lvid, data.gvid )
+	--
+	local rest = spawn_db.radist_shron_rest
+	for i = 1,#rest do
+		log1("i = "..tostring(i))
+		local restr = ogse.spawn_object(rest[i])
+		level_tasks.add_location_by_id(restr.id, "crlc_big", game.translate_string("radist_stash_location_string"))
+		ogse.save_var("radist_shron_rest_"..tostring(i), restr.id, "u16")
+	end
+end
+
+function afscanner_found()
+	if db.actor:object("afscanner") ~= nil then
+		db.actor:give_info_portion ("ros_sold_afscanner_found")
+		local rest = spawn_db.radist_shron_rest
+		for i = 1,#rest do
+			if ogse.var_exists("radist_shron_rest_"..i) then
+				level_tasks.remove_location_by_id(ogse.load_var("radist_shron_rest_"..i), "crlc_big")
+				ogse.delete_var("radist_shron_rest_"..i)
+			end
+		end
+	end
+end
+
+function spawn_second_generator()
+	local obj = alife():story_object(story_ids.yan_sold_generator)
+	if obj then
+		alife():release(obj, true)
+	end
+	ogse.spawn_object(spawn_db.yan_sold_generator)
+end
+
+function give_radist_flash_to_actor(npc, actor)
+	npc:transfer_item(npc:object("klondaik_flash_3"), db.actor)
+	news_manager.relocate_item(db.actor, "in", "klondaik_flash_3")
+end
+
+function make_yan_soldier_enemy()
+	local npc = level_object_by_sid(story_ids.yan_soldier)
+	if npc == nil then
+		return
+	end
+	npc:set_relation(game_object.enemy, db.actor)
+end
+
+function check_generator(obj, sobj)
+	--if not obj then 
+	--	return 
+	--end
+	--local id = obj:id()
+	--local sobj = alife():object(id)
+	--if not sobj then
+	--	return
+	--end	
+	if sobj:section_name() == "yan_sold_generator" and db.actor:has_info("yan_sold_go_to_dark_zone") and db.actor:dont_has_info("yan_sold_actor_paralyzed") then
+		bind_stalker.hide_weapon()
+		actor_disable_inventory()
+		ogse_quests.turn_pnv_off()
+		level.disable_input()
+		level.remove_pp_effector(1501)
+		level.add_pp_effector("agr_u_fade.ppe", 2007, false)
+		level.add_cam_effector("camera_effects\\head_shot.anm", 2007, false, "")
+		soundtrack.pain1()
+		ogse.start_timer("yan_sold_move_actor",4)
+		ogse.start_timer("yan_sold_give_tip",7)
+		return true
+	end
+end
+
+function yan_sold_paralyze_actor()
+	local gen = level_object_by_sid(story_ids.yan_sold_generator)
+	local sold = level_object_by_sid(story_ids.yan_soldier)
+	if gen and sold then
+		local pos = sold:position()
+		pos.z = pos.z + 1
+		pos.x = pos.x + 1
+		alife():teleport_object(gen:id(), pos, sold:level_vertex_id(), sold:game_vertex_id())
+	end
+	db.actor:give_info_portion("yan_sold_actor_paralyzed")
+	local s_pos = sold:position()
+	local new_pos = vector():set(70.313,1.056,-135.953)
+	local dir = s_pos:sub(new_pos)
+	db.actor:set_actor_direction(-dir:getH())
+	db.actor:set_actor_position(new_pos)
+	ogse.start_timer("yan_sold_actor_failed",10)
+
+	bind_stalker.restore_weapon()
+	db.actor:activate_slot(0)
+	for i = 0,4 do
+		local wpn = db.actor:item_in_slot(i)
+		if wpn then db.actor:move_to_ruck(wpn) end
+	end
+	--
+	local _sobj = alife():create("wpn_montirovka_weak", vector():set(72.144,2.139,-134.179), 90691, 1492)
+	local sobj = alife():object(_sobj.id)
+	dsh.clear_useful_for_ai( sobj ) --На всякий случай
+	alife():use_ai_locations( sobj, false ) --Может поможет от проваливания
+end
+
+function blow_generator()
+	local s_gen = alife():story_object(story_ids.yan_sold_generator)
+	local gen = level_object_by_sid(story_ids.yan_sold_generator)
+	if gen and not db.actor:object(gen:section()) then
+		local ps = particles_object("explosions\\explosion_01")
+		ps:play_at_pos(gen:position())
+		alife():release(s_gen, true)
+	end
+end
+
+function restore_inventory_with_sound()
+	soundtrack.play_strike()
+	ogse.start_timer("yan_actor_hit_soldier", 5)
+end
+
+function give_yan_captain_reward(npc, actor)
+	dialogs.relocate_item_section(npc, "klondaik_flash_3", "in")	
+	for i = 0, 4 do
+		dialogs.relocate_item_section(npc, "ammo_vog-25", "in")
+	end	
+end
+
+function give_yan_captain_reward_no_flash(npc, actor)
+	for i = 0, 4 do
+		dialogs.relocate_item_section(npc, "ammo_vog-25", "in")
+	end	
+end
+
+function actor_already_has_flash_3()
+	return db.actor:object("klondaik_flash_3") ~= nil or db.actor:has_info("fleshka_3_find")
+end
+
+function actor_has_no_flash_3()
+	return not actor_already_has_flash_3()
+end
+
+function set_up_yan_party()
+	ogse.spawn_object(spawn_db.yan_dz_perepelkin)
+	ogse.spawn_object(spawn_db.yan_dz_captain)
+	local sold1 = ogse.spawn_object(spawn_db.yan_dz_sold1)
+	local sold2 = ogse.spawn_object(spawn_db.yan_dz_sold2)
+	db.actor:give_info_portion("yan_sold_yan_anomaly_discharged")
+	db.actor:give_info_portion("strangezone5_off")
+end
+
+function delete_yan_party()
+	if db.actor:dont_has_info("yan_sold_party_set_to_delete") then
+		local radist = alife():story_object(story_ids.yan_soldier)
+		local perep = alife():story_object(story_ids.yan_dz_perepelkin)
+		local capt = alife():story_object(story_ids.yan_dz_captain)
+		local sold1 = alife():story_object(story_ids.yan_dz_sold1)
+		local sold2 = alife():story_object(story_ids.yan_dz_sold2)
+		if radist then
+			tasks_functor.delete_when_offline(radist.id):start()
+		end
+		if perep then
+			tasks_functor.delete_when_offline(perep.id):start()
+		end
+		if capt then
+			tasks_functor.delete_when_offline(capt.id):start()
+		end
+		if sold1 then
+			tasks_functor.delete_when_offline(sold1.id):start()
+		end
+		if sold2 then
+			tasks_functor.delete_when_offline(sold2.id):start()
+		end
+		--
+		local yantar_strange_zone = alife():object("strange_zone5") --KRodin: Удаляем странную аномалию с Янтаря
+		if yantar_strange_zone then
+			tasks_functor.delete_when_offline(yantar_strange_zone.id):start()
+		end
+		--
+		db.actor:give_info_portion("yan_sold_party_set_to_delete")
+	end
+end
+
+function remove_darkzone()
+	-- если актор успел
+	if (db.actor:has_info("yan_sold_hitted") and db.actor:dont_has_info("yan_sold_actor_wait_too_long")) or db.actor:has_info("yan_soldier_dead") then
+		set_up_yan_party()
+	else
+		db.actor:give_info_portion("yan_sold_anomaly_is_gone")
+	end
+end
+
+function remove_ros_soldier()
+-- удаляем радиста на ДТ
+	local sold = alife():story_object(story_ids.ros_soldier)
+	if sold then
+		tasks_functor.delete_when_offline(sold.id):start()
+	end
+--спавним нового радиста на Янтаре
+	ogse.spawn_object(spawn_db.yan_soldier_new)
+end
+
+function strange_zones_searched()
+	if db.actor:object("af_polter") ~= nil and db.actor:object("af_sparks") ~= nil and db.actor:object("af_resine") ~= nil then
+		db.actor:give_info_portion ("yan_sold_strange_zones_searched")
+	end
+end
+
+function strange_zone_set_rebuild()
+	db.actor:give_info_portion ("strangezone1_rebuild")
+	db.actor:give_info_portion ("strangezone2_rebuild")
+	db.actor:give_info_portion ("strangezone3_rebuild")
+	db.actor:give_info_portion ("strangezone4_rebuild")
+	db.actor:give_info_portion ("strangezone5_rebuild")
+	db.actor:give_info_portion ("strangezone6_rebuild")
+	db.actor:give_info_portion ("strangezone7_rebuild")
+end
+
+function give_arts_to_soldier(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker,"af_polter", "out")
+	dialogs.relocate_item_section(second_speaker,"af_sparks", "out")
+	dialogs.relocate_item_section(second_speaker,"af_resine", "out")
+	if db.actor:object("afscanner") ~= nil then
+		dialogs.relocate_item_section(second_speaker,"afscanner", "out")
+	end
+	if db.actor:object("afscanner") ~= nil then
+		dialogs.relocate_item_section(second_speaker,"radist_note", "out")
+	end
+end
+
+function yan_sold_cleanup()
+	local npc = level_object_by_sid(story_ids.yan_soldier)
+	if npc then
+		local art1 = npc:object("af_polter")
+		if art1 then
+			npc:mark_item_dropped(art1)
+			--alife():release(art1, true)
+		end
+		local art2 = npc:object("af_resine")
+		if art2 then
+			npc:mark_item_dropped(art2)
+			--alife():release(art2, true)
+		end
+		local art3 = npc:object("af_sparks")
+		if art3 then
+			npc:mark_item_dropped(art3)
+			--alife():release(art3, true)
+		end
+	end
+end
+
+function strange_zone1particle_spawn()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\strange_zone_1_particle.ltx", 5, spawn_db.strange_zone1particle)
+end
+
+function strange_zone1particle_delete()
+    local sobj = alife():story_object(story_ids.strange_zone_1_particle)
+    if sobj then
+		alife():release(sobj, true)
+    end
+end
+
+function strange_zone1_charged_tip()
+	-- if db.actor:dont_has_info("strangezone1_off") then
+	if db.actor:object("afscanner") ~= nil then
+		news_manager.send_tip(db.actor, "strange_zone1_charged_tip", nil, "anomal", 5000, nil)
+		soundtrack.new_art_birth()
+	end
+end
+
+function strange_zone2_charged_tip()
+	-- if db.actor:dont_has_info("strangezone2_off") then
+	if db.actor:object("afscanner") ~= nil then
+		news_manager.send_tip(db.actor, "strange_zone2_charged_tip", nil, "anomal", 5000, nil)
+		soundtrack.new_art_birth()
+	end
+end
+
+function strange_zone3_charged_tip()
+	-- if db.actor:dont_has_info("strangezone3_off") then
+	if db.actor:object("afscanner") ~= nil then
+		news_manager.send_tip(db.actor, "strange_zone3_charged_tip", nil, "anomal", 5000, nil)
+		soundtrack.new_art_birth()
+	end
+end
+
+function strange_zone4_charged_tip()
+	-- if db.actor:dont_has_info("strangezone4_off") then
+	if db.actor:object("afscanner") ~= nil then
+		news_manager.send_tip(db.actor, "strange_zone4_charged_tip", nil, "anomal", 5000, nil)
+		soundtrack.new_art_birth()
+	end
+end
+
+function strange_zone5_charged_tip()
+	-- if db.actor:dont_has_info("strangezone5_off") then
+	if db.actor:object("afscanner") ~= nil then
+		news_manager.send_tip(db.actor, "strange_zone5_charged_tip", nil, "anomal", 5000, nil)
+		soundtrack.new_art_birth()
+	end
+end
+
+function strange_zone6_charged_tip()
+	-- if db.actor:dont_has_info("strangezone6_off") then
+	if db.actor:object("afscanner") ~= nil then
+		news_manager.send_tip(db.actor, "strange_zone6_charged_tip", nil, "anomal", 5000, nil)
+		soundtrack.new_art_birth()
+	end
+end
+
+function strange_zone7_charged_tip()
+	-- if db.actor:dont_has_info("strangezone7_off") then
+	if db.actor:object("afscanner") ~= nil then
+		news_manager.send_tip(db.actor, "strange_zone7_charged_tip", nil, "anomal", 5000, nil)
+		soundtrack.new_art_birth()
+	end
+end
+
+function spawn_fake_art1()
+	local sim = alife()
+	local pos = db.actor:position()
+	local n = math.random(-3,3)
+	local sobj = sim:create("fake_art1", vector():set(pos.x+n, pos.y+3, pos.z-n), db.actor:level_vertex_id(), db.actor:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.fake_art1)
+	ogse.start_timer("art1",5)
+	ogse.start_timer("art1a",0,5)
+	-- mark_fakeart1()
+end
+
+function fake_art1effect()
+	local sobj = alife():story_object(story_ids.fake_art1)
+	snd:play_no_feedback(db.actor, sound_object.s3d, 0, sobj.position, 1.0)
+end
+
+function spawn_fake_art2()
+	local sim = alife()
+	local pos = db.actor:position()
+	local n = math.random(-3,3)
+	local sobj = sim:create("fake_art2", vector():set(pos.x+n, pos.y+3, pos.z-n), db.actor:level_vertex_id(), db.actor:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.fake_art2)
+	ogse.start_timer("art2",5)
+	ogse.start_timer("art2a",0,5)
+	-- mark_fakeart2()
+end
+
+function fake_art2effect()
+	local sobj = alife():story_object(story_ids.fake_art2)
+	snd:play_no_feedback(db.actor, sound_object.s3d, 0, sobj.position, 1.0)
+end
+
+function spawn_fake_art3()
+	local sim = alife()
+	local pos = db.actor:position()
+	local n = math.random(-3,3)
+	local sobj = sim:create("fake_art3", vector():set(pos.x+n, pos.y+3, pos.z-n), db.actor:level_vertex_id(), db.actor:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.fake_art3)
+	ogse.start_timer("art3",5)
+	ogse.start_timer("art3a",0,5)
+	-- mark_fakeart3()
+end
+
+function fake_art3effect()
+	local sobj = alife():story_object(story_ids.fake_art3)
+	snd:play_no_feedback(db.actor, sound_object.s3d, 0, sobj.position, 1.0)
+end
+
+function mark_fakeart1()
+	level_tasks.add_location_by_sid(story_ids.fake_art1,"alife_presentation_monolith","tutorial_artefact")
+end
+
+function mark_fakeart2()
+	level_tasks.add_location_by_sid(story_ids.fake_art2,"alife_presentation_monolith","tutorial_artefact")
+end
+
+function mark_fakeart3()
+	level_tasks.add_location_by_sid(story_ids.fake_art3,"alife_presentation_monolith","tutorial_artefact")
+end
+
+function delete_art1()
+	local sobj = alife():story_object(story_ids.fake_art1)
+	if sobj then
+		alife():release(sobj, true)
+		news_manager.send_tip(db.actor, "delete_art_strangezone", nil, "anomal", 5000, nil)
+		db.actor:give_info_portion("fakeart_deleted")
+	end
+end
+
+function delete_art2()
+	local sobj = alife():story_object(story_ids.fake_art2)
+	if sobj then
+		alife():release(sobj, true)
+		news_manager.send_tip(db.actor, "delete_art_strangezone", nil, "anomal", 5000, nil)
+		db.actor:give_info_portion("fakeart_deleted")
+	end
+end
+
+function delete_art3()
+	local sobj = alife():story_object(story_ids.fake_art3)
+	if sobj then
+		alife():release(sobj, true)
+		news_manager.send_tip(db.actor, "delete_art_strangezone", nil, "anomal", 5000, nil)
+		db.actor:give_info_portion("fakeart_deleted")
+	end
+end
+
+function test_afscanner(zone, check_info, add_info)
+	if xr_conditions.actor_in_zone(nil,nil,{zone}) and ogse.has_info("strangezones_on") then
+		if has_alife_info(check_info) then
+			news_manager.send_tip(db.actor, "strangezone_empty", nil, "anomal", 5000, nil)
+			soundtrack.afscanner_click2()
+		else
+			ogse.give_info(add_info)
+			soundtrack.afscanner_click3()
+		end
+	end
+end
+
+function afscanner_impulse1()
+	test_afscanner("strange_zone1", "strangezone1_off", "af_invis1_1_birth")
+end
+
+function afscanner_impulse2()
+	test_afscanner("strange_zone2", "strangezone2_off", "af_invis2_1_birth")
+end
+
+function afscanner_impulse3()
+	test_afscanner("strange_zone3", "strangezone3_off", "af_invis3_1_birth")
+end
+
+function afscanner_impulse4()
+	test_afscanner("strange_zone4", "strangezone4_off", "af_invis4_1_birth")
+end
+
+function afscanner_impulse5()
+	test_afscanner("strange_zone5", "strangezone5_off", "af_invis5_1_birth")
+end
+
+function afscanner_impulse6()
+	test_afscanner("strange_zone6", "strangezone6_off", "af_invis6_1_birth")
+end
+
+function afscanner_impulse7()
+	test_afscanner("strange_zone7", "strangezone7_off", "af_invis7_1_birth")
+end
+
+
+-- Радист на Янтаре --------------------------------------------------------------------------------
+
+function spawn_yan_soldier()    -- отключено, перенесено в алл.спавн
+	ogse.spawn_object(spawn_db.yan_soldier)
+end
+
+function spawn_sciense_item1()
+	ogse.spawn_object(spawn_db.vetrogenerator)
+end
+
+function spawn_sciense_item2()
+	ogse.spawn_object(spawn_db.kristall)
+end
+
+function spawn_sciense_item3()
+	ogse.spawn_object(spawn_db.box_lab)
+end
+
+function spawn_sciense_item4()
+	ogse.spawn_object(spawn_db.kontainer_lab)
+end
+
+function spawn_sciense_item5()
+	ogse.spawn_object(spawn_db.radio_station)
+end
+
+function yan_sold_nahodka_tip()
+	news_manager.send_tip(db.actor, "yan_sold_nahodka_tip", nil, "soldier", 5000, nil)
+end
+
+function yan_sold_anomaly_info_tip()
+	news_manager.send_tip(db.actor, "yan_sold_anomaly_info_tip", nil, "soldier", 5000, nil)
+	yan_lager_zone_spawn1()
+	yan_lager_zone_spawn2()
+end
+
+function yan_sold_sniper_cover()
+	if db.actor:alive() and has_alife_info("spawn_yan_zombsoldier") then
+		local npc = level_object_by_sid(story_ids.yan_soldier)
+		local enemy = level_object_by_sid(story_ids.yan_zombsoldier)
+		npc:set_sight(look.fire_point, enemy:bone_position("bip01_spine2"))
+		npc:set_item(object.fire1, rx_utils.get_weapon(npc), 1, 3000)
+	end
+end
+
+function sold_beforetravel_port1()
+	local sold = alife():story_object(story_ids.yan_soldier)
+	if sold ~= nil and sold:alive() == true then
+		local p = spawn_db.sold_beforetravel_port1
+		alife():teleport_object(sold.id, vector():set(unpack(p.pos)), p.lvid, p.gvid)
+		db.actor:set_actor_position(vector():set(43.79,-11.87,-271.30))
+	end
+end
+
+function spawn_yan_kommander_box()
+	ogse.spawn_object(spawn_db.yan_kommander_box)
+end
+
+function spawn_yan_kommander_diplomat()
+	ogse.spawn_object(spawn_db.yan_kommander_diplomat)
+end
+
+function yan_diplomat_zone_spawn()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\yan_diplomat_zone.ltx", 5, spawn_db.yan_diplomat_zone)
+end
+
+function have_kommander_key()
+	if db.actor:object("kommander_key") ~= nil then
+		db.actor:give_info_portion ("kommander_key_finded")
+	end
+end
+
+function have_kommander_map()
+	if db.actor:object("kommander_map") ~= nil then
+		db.actor:give_info_portion ("kommander_map_finded")
+	end
+end
+
+function kommander_box_open()
+	news_manager.send_tip(db.actor, "kommander_box_open_tip", nil, "default", 5000, nil)
+	soundtrack.kommander_box_open()
+	ogse.remove_item_from_inventory(db.actor:object("kommander_key"),actor)
+	release_kommander_box()
+	ogse.spawn_object(spawn_db.kommander_box2)
+	db.actor:give_info_portion ("kommander_box_open")
+end
+
+function release_kommander_box()
+    local sobj = alife():story_object(story_ids.yan_kommander_box)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function yan_diplom_use()
+	ogse.spawn_item_in_inv("kommander_diplomat", db.actor)
+	release_yan_diplom()
+end
+
+function release_yan_diplom()
+    local sobj = alife():story_object(story_ids.yan_diplomat)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function yan_lager_zone_spawn1()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\yan_lager_zone1.ltx", 5, spawn_db.yan_lager_zone)
+end
+
+function yan_lager_zone_spawn2()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\yan_lager_zone2.ltx", 6, spawn_db.yan_lager_zone2)
+end
+
+function have_kommander_map(stalker, player)
+    return db.actor:object("kommander_map") ~= nil
+end
+
+function kommander_map_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "kommander_map", "out")
+end
+
+function yan_sign_zone_spawn()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\yan_sign_zone.ltx", 5, spawn_db.yan_sign_zone)
+end
+
+function yan_sign_zone2_spawn()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\yan_sign_zone2.ltx", 10, spawn_db.yan_sign_zone2)
+end
+
+function yan_sign_zone3_spawn()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\yan_sign_zone3.ltx", 5, spawn_db.yan_sign_zone3)
+end
+
+function yan_sign_zone4_spawn()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\yan_sign_zone4.ltx", 25, spawn_db.yan_sign_zone4)
+end
+
+function spawn_yan_zombsoldier()
+	ogse.spawn_object(spawn_db.yan_zombsoldier)
+end
+
+function yan_zombsold_death()
+	local npc = level_object_by_sid (story_ids.yan_zombsoldier)
+	if npc ~= nil and npc:alive() == true then
+		npc:kill(npc)
+	end
+end
+
+function yan_zombsold_death_tip()
+	news_manager.send_tip(db.actor, "yan_zombsold_death_tip", nil, "soldier", 6000, nil)
+end
+
+function have_scient_suite()
+	if db.actor:object("ecolog_outfit") ~= nil then
+		db.actor:give_info_portion ("ecolog_outfit_finded")
+	end
+end
+
+function have_ecolog_outfit(stalker, player)
+    return db.actor:object("ecolog_outfit") ~= nil
+end
+
+function ecolog_suit_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "ecolog_outfit", "out")
+end
+
+function spawn_ros_soldier()
+	ogse.spawn_object(spawn_db.ros_soldier)
+end
+
+function spawn_ros_soldier_restrictor()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\ros_soldier_restrictor.ltx", 25, spawn_db.ros_soldier_restrictor)
+end
+
+function release_yan_soldier()
+    local obj = alife():story_object(story_ids.yan_soldier)
+    if obj then
+		alife():release(obj)
+    end
+end
+
+----------------------------------------------------------------------------------------------------
+
+function init_dialod()                                              -- пашет!
+	local npc = level_object_by_sid(story_ids.zona_brother1)
+	db.actor:run_talk_dialog(npc)
+end
+
+-- Спасение рядового Шустрилы ----------------------------------------------------------------------
+
+function can_talk_with_atp_leader()
+	return xr_conditions.actor_in_zone(nil,nil,{"esc_fabrika_bandit_space_restrictor"}) and db.actor:object("petruha_zapis") ~= nil
+end
+
+function spawn_atp_helper()
+	-- ogse.spawn_object(spawn_db.atp_helper)
+end
+
+function spawn_atp_lider()
+	ogse.spawn_object(spawn_db.atp_lider)
+end
+
+function cam_flight_atp()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\cam_flight_atp.ltx", 4)
+end
+
+function petruha_items_in(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "bandit_plash", "in")
+    dialogs.relocate_item_section(second_speaker, "petruha_zapis", "in")
+end
+
+function malyava_out(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "petruha_zapis", "out")
+end
+
+function krivoy_enemy()
+	local npc = level_object_by_sid(story_ids.atp_lider)
+	if npc and npc:alive() then
+		npc:set_relation(game_object.enemy, db.actor)
+		npc:set_goodwill(-5000, db.actor)
+	end
+end
+
+function krivoy_neutral()
+	local npc = level_object_by_sid(story_ids.atp_lider)
+	if npc and npc:alive() then
+		npc:set_relation(game_object.neutral, db.actor)
+		npc:set_goodwill(1000, db.actor)
+	end
+end
+
+
+function atp_proval()
+	ogse.start_timer("atpbox1",0.5)
+	ogse.start_timer("atpbox2",1)
+	ogse.remove_item_from_inventory(db.actor:object("bolt"),actor)
+	-- put_items_to_atp_box()
+	-- vikin_vasyu_na_moroz()
+	soundtrack.actors_hit()
+	kill_petruha()
+	kill_shustriy()
+	ogse_quests.turn_pnv_off()
+	level.add_cam_effector("camera_effects\\prison_1.anm", 100, false, "")
+	level.add_pp_effector("agr_u_fade.ppe", 2007, false)
+end
+
+function put_items_to_atp_box()
+	ogse.transfer_items_to_box(story_ids.esc_secret_0003, false, items_no_transfer, nil)
+end
+
+function set_atp_box_online()
+    rx_utils.switch_online(alife():story_object(story_ids.esc_secret_0003))
+end
+
+function enum_atp_box_items(box)
+   local res = {}
+   for i=0,box:inv_box_count()-1 do
+      table.insert(res, box:object_from_inv_box(i))
+   end
+   return res
+end
+
+function vikin_vasyu_na_moroz()
+	db.actor:set_actor_position(vector():set(261.97,5.54,65.61))
+	level.enable_input()
+	atp_afterfail_place_spawn()
+	actor_atp_health_off()
+end
+
+function atp_afterfail_place_spawn()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\atp_afterfail_place.ltx", 50, spawn_db.atp_afterfail_place)
+end
+
+function actor_atp_health_off()
+	if db.actor.health > 0.9 then
+		db.actor.health = -0.9
+	end
+	if db.actor.health < 0.5 and db.actor.health > 0.4 then
+		db.actor.health = -0.3
+	end
+	if db.actor.health < 0.5 and db.actor.health > 0.2 then
+		db.actor.health = -0.1
+	end
+end
+
+function kill_petruha()
+	local npc = level_object_by_sid (story_ids.Escape_bridge_stalkers)
+	if npc:alive() == true then
+		npc:kill(npc)
+	end
+end
+
+function kill_shustriy()
+	local npc = level_object_by_sid (story_ids.esc_wounded_flash)
+	if npc:alive() == true then
+		npc:kill(npc)
+	end
+end
+
+function volk_atp_cheat_reward()
+	db.actor:give_money(4000)
+	news_manager.send_tip(db.actor, "volk_atp_money_in", nil, "money", 6000, nil)
+end
+
+----------------------------------------------------------------------------------------------------
+
+function test_stalker_spawn()
+	ogse.spawn_object(spawn_db.test_stalker)
+end
+
+-- Магнит ------------------------------------------------------------------------------------------
+
+function teleport_to_magnit()
+	local sobj = alife():story_object(story_ids.magnit_part)
+	local pos = sobj.position
+	local sobjlvl = alife():level_name(game_graph():vertex(sobj.m_game_vertex_id):level_id())
+	local actorlvl = level.name()
+-- Сработало
+	if actorlvl == sobjlvl and not ogse_car_control.current_car then
+		news_manager.send_tip(db.actor, "af_magnit_is_full", nil, "anomal", 4000, nil)
+		ogse.spawn_item_in_inv("magnit_full", db.actor)
+		ogse.remove_item_from_inventory(db.actor:object("af_magnit_part1"),actor)
+		level.add_pp_effector("teleport.ppe", 2007, false)
+		soundtrack.magnit_portal()
+		delete_magnit_part()
+		db.actor:set_actor_position(pos)
+		return true
+	end
+-- Не сработало
+	if actorlvl ~= sobjlvl then
+		ogse.remove_item(db.actor:object("af_magnit_part1"))
+		ogse.spawn_item_in_inv("af_magnit_part1")
+		news_manager.send_tip(db.actor, "magnit_part_too_far", nil, "anomal", 6000, nil)
+		actor_disable_inventory()
+		return false
+	end
+-- Мы в танке
+	if ogse_car_control.current_car then
+		ogse.remove_item(db.actor:object("af_magnit_part1"))
+		ogse.spawn_item_in_inv("af_magnit_part1")
+		news_manager.send_tip(db.actor, "magnit_part_car_fail", nil, "anomal", 6000, nil)
+		actor_disable_inventory()
+		return false
+	end
+	return false
+end
+
+function spawn_magnit_part()
+	local sim = alife()
+	local sobj = sim:create("af_magnit_part2", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.magnit_part)
+end
+
+function delete_magnit_part()
+    local sobj = alife():story_object(story_ids.magnit_part)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function mark_magnit_part()
+	level_tasks.add_location_by_sid(story_ids.magnit_part,"alife_presentation_monstr","jekan_work_magnet_part_text")
+end
+
+----------------------------------------------------------------------------------------------------
+
+function spawn_swamp_doctor() -- Болотный доктор
+	ogse.spawn_object(spawn_db.swamp_doctor)
+end
+
+-- Тащим кровососа к Доктору Айболиту --------------------------------------------------------------
+
+function spawn_krovosos_unic()
+	ogse.spawn_object(spawn_db.bloodsucker_unic)
+end
+
+function krovos_scientists_place_spawn()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\krovos_scientists_place.ltx", 4, spawn_db.krovos_scientists_place)
+end
+
+function give_speccrossbow(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "wpn_usp_doctor", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_sleeping", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_sleeping", "in")
+end
+
+-- ["unicsos"] = function(params_string)
+--		db.actor:give_info_portion("unic_krovosos_quest")
+-- end,
+function give_krovosos_quest_info()
+	--ogse.start_timer("unicsos", 0, 5)
+	ogse.give_info("unic_krovosos_quest")
+end
+
+function spawn_krovos_unic_body()
+	local sim = alife()
+	local obj = level_object_by_sid(story_ids.bloodsucker_unic)
+	local pos = obj:position()
+	local sobj = sim:create("bloodsucker_unic", vector():set(pos.x, pos.y, pos.z), obj:level_vertex_id(), obj:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.bloodsucker_unic_body)
+	ogse.kill_offline_npc(sobj)
+    local s_sobj = alife():story_object(story_ids.bloodsucker_unic)
+    if s_sobj then
+		log1("!!SOSYCH_FOUND")
+		s_sobj:can_switch_online(false)
+		s_sobj:can_switch_offline(true)	
+		alife():release(s_sobj)
+    end		
+	db.actor:give_info_portion ("unic_krovosos_sleeping")
+	mark_krovos_body()
+end
+
+function krovos_unic_scream()
+	local obj = level_object_by_sid(story_ids.bloodsucker_unic)
+	if obj and obj ~= nil and obj:alive() then
+		local snd_obj = xr_sound.get_safe_sound_object([[monsters\bloodsucker\die_0]])
+		local pos = obj:position()
+		snd_obj:play_at_pos(obj, obj:position(), 0, sound_object.s3d)
+	end
+end
+
+function mark_krovos_body()
+	level_tasks.add_location_by_sid(story_ids.bloodsucker_unic_body,"green_location","jekan_work_para_blood_text")
+end
+
+function unmark_krovos_body()
+	level_tasks.remove_location_by_sid(story_ids.bloodsucker_unic_body,"green_location")
+end
+
+function spawn_krovos_unic_bad()
+	local obj = level_object_by_sid(story_ids.bloodsucker_unic)
+	if obj then
+		local pos = obj:position()
+		local sim = alife()
+		local sobj = sim:create("bloodsucker_unic2", vector():set(pos.x, pos.y, pos.z), obj:level_vertex_id(), obj:game_vertex_id())
+	end
+end
+
+function spawn_krovos_unic_bad2()
+	local obj = level_object_by_sid(story_ids.bloodsucker_unic_body)
+	if obj then
+		local pos = obj:position()
+		local sim = alife()
+		local sobj = sim:create("bloodsucker_unic2", vector():set(pos.x, pos.y, pos.z), obj:level_vertex_id(), obj:game_vertex_id())
+	end
+end
+
+function release_krovos_unic_body()
+    local sobj = alife():story_object(story_ids.bloodsucker_unic_body)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function start_bad_krovos_timer()
+	ogse.start_timer("unicsos2",130)
+end
+
+function krovos_unic_frighten_tip()
+	if db.actor:dont_has_info("unic_krovosos_sleeping") then
+		news_manager.send_tip(db.actor, "krovos_unic_frighten", nil, "swampdoc", 6000, nil)
+	end
+end
+
+function swamp_doc_reward1(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "af_medusa", "in")
+    dialogs.relocate_item_section(second_speaker, "af_ameba_mica", "in")
+    dialogs.relocate_item_section(second_speaker, "af_gravi", "in")
+    dialogs.relocate_item_section(second_speaker, "af_rusty_kristall", "in")
+    dialogs.relocate_item_section(second_speaker, "af_cristall", "in")
+end
+
+function krovos_friend_spawn()
+	ogse.spawn_object(spawn_db.bloodsucker_friend)
+end
+
+function krovos_friend_talk()
+	local obj = level_object_by_sid(story_ids.bloodsucker_friend)
+	if obj and obj:alive() then
+		local snd_obj = xr_sound.get_safe_sound_object([[monsters\flesh\flesh_attack_10]])
+		snd_obj:play_at_pos(obj, obj:position(), 0, sound_object.s3d)
+	end
+end
+
+----------------------------------------------------------------------------------------------------
+
+function spawn_pseudodog_unic()
+	ogse.spawn_object(spawn_db.pseudodog_unic)
+end
+
+function spawn_pseudodog_unic_body()
+	local sim = alife()
+	local obj = level_object_by_sid(story_ids.pseudodog_unic)
+	local pos = obj:position()
+	local sobj = sim:create("pseudodog_unic", vector():set(pos.x, pos.y, pos.z), obj:level_vertex_id(), obj:game_vertex_id())
+	sim:assign_story_id(sobj.id, story_ids.pseudodog_unic_body)
+	ogse.kill_offline_npc(sobj)
+    local s_sobj = alife():story_object(story_ids.pseudodog_unic)
+    if s_sobj then
+		log1("!!PSEUDO_FOUND")
+		s_sobj:can_switch_online(false)
+		s_sobj:can_switch_offline(true)	
+		alife():release(s_sobj)
+    end		
+	db.actor:give_info_portion ("unic_pseudodog_sleeping")
+	level_tasks.add_location_by_sid(story_ids.pseudodog_unic_body,"green_location","jekan_work_para_dog_text")
+end
+
+function pseudodog_unic_scream()
+	local obj = level_object_by_sid(story_ids.pseudodog_unic)
+	if obj and obj:alive() then
+		local snd_obj = xr_sound.get_safe_sound_object([[monsters\pseudodog\idle_1]])
+		snd_obj:play_at_pos(obj, obj:position(), 0, sound_object.s3d)
+	end
+end
+
+function unmark_pseudodog_body()
+	level_tasks.remove_location_by_sid(story_ids.pseudodog_unic_body,"green_location")
+end
+
+function spawn_pseudodog_unic_bad()
+	local obj = level_object_by_sid(story_ids.pseudodog_unic)
+	if obj then
+		local pos = obj:position()
+		local sim = alife()
+		local sobj = sim:create("pseudodog_unic2", vector():set(pos.x, pos.y, pos.z), obj:level_vertex_id(), obj:game_vertex_id())
+	end
+end
+
+function spawn_pseudodog_unic_bad2()
+	local obj = level_object_by_sid(story_ids.pseudodog_unic_body)
+	if obj then
+		local pos = obj:position()
+		local sim = alife()
+		local sobj = sim:create("pseudodog_unic2", vector():set(pos.x, pos.y, pos.z), obj:level_vertex_id(), obj:game_vertex_id())
+	end
+end
+
+function release_pseudodog_unic_body()
+    local sobj = alife():story_object(story_ids.pseudodog_unic_body)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function give_pseudodog_quest_info()
+	ogse.start_timer("psdog",0,5)
+end
+
+function start_bad_pseudodog_timer()
+	ogse.start_timer("psdog2",230)
+end
+
+function give_speccrossbow_ammo(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "ammo_sleeping", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_sleeping", "in")
+end
+
+function pseudodog_friend_spawn()
+	ogse.spawn_object(spawn_db.pseudodog_friend)
+end
+
+function pseudodog_unic_frighten_tip()
+	if db.actor:dont_has_info("unic_pseudodog_sleeping") then
+		news_manager.send_tip(db.actor, "pseudodog_unic_frighten", nil, "swampdoc", 7000, nil)
+	end
+end
+
+function pseudodog_friend_talk()
+	local obj = level_object_by_sid(story_ids.pseudodog_friend)
+	if obj and obj:alive() then
+		local snd_obj = xr_sound.get_safe_sound_object([[characters_voice\scenario\dramatic_garbage\dramatic_bandits_back_off_1_1]])
+		snd_obj:play_at_pos(obj, obj:position(), 0, sound_object.s3d)
+	end
+end
+
+function swamp_doc_reward2(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "af_soul", "in")
+    dialogs.relocate_item_section(second_speaker, "af_fireball", "in")
+    dialogs.relocate_item_section(second_speaker, "af_gold_fish", "in")
+    dialogs.relocate_item_section(second_speaker, "af_electra_flash", "in")
+    dialogs.relocate_item_section(second_speaker, "af_ameba_slug", "in")
+end
+
+function swamp_doc_give_raditems(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "ecolog_outfit", "in")
+    dialogs.relocate_item_section(second_speaker, "antirad", "in")
+    dialogs.relocate_item_section(second_speaker, "antirad", "in")
+    dialogs.relocate_item_section(second_speaker, "antirad", "in")
+    dialogs.relocate_item_section(second_speaker, "antirad", "in")
+end
+
+-- Скриптовые камеры -------------------------------------------------------------------------------
+
+function cam_flight_to_deadzone() -- летим от Лесника к Смерть зоне
+	spawn_restrictor("scripts\\jek@n\\restrictions\\cam_flight_deadzone.ltx", 4)
+end
+
+function cam_flight_to_dark_mercs() -- подлет к наемникам
+	spawn_restrictor("scripts\\jek@n\\restrictions\\cam_flight_to_dark_mercs.ltx", 4)
+end
+
+-- Диггер, Синяк и другое --------------------------------------------------------------------------
+
+function spawn_bar_sinyak()
+	ogse.spawn_object(spawn_db.bar_sinyak)
+end
+
+function spawn_sinyak_flare_place() -- рестриктор в каморке, включающий фонарик
+	spawn_restrictor("scripts\\jek@n\\restrictions\\bar_sinyak_flare_on.ltx", 2, spawn_db.bar_sinyak_flare_on)
+end
+
+function digger_weapon_in(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "diggers_weapon", "in")
+end
+
+function digger_weapon_out(first_speaker, second_speaker)
+    ogse.remove_item_from_inventory_by_name("diggers_weapon", db.actor)
+end
+
+function has_diggers_weapon(stalker, player)
+    return db.actor:object("diggers_weapon") ~= nil
+end
+
+function digger_real_weapon_in(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "wpn_l85_tact", "in")
+end
+
+function spawn_pkm_in_sinyak()
+	local npc = level_object_by_sid(story_ids.bar_sinyak) --??? нужен для указания parent`а?
+	ogse.spawn_object(spawn_db.digger_pkm)
+end
+
+function release_digger_pkm()
+    local sobj = alife():story_object(story_ids.digger_pkm)
+    if sobj then
+		alife():release(sobj)
+    end
+end
+
+function sinyak_complaint()
+	local obj = level_object_by_sid(story_ids.bar_sinyak)
+	local snd_obj = xr_sound.get_safe_sound_object([[characters_voice\scenario\sinyak_complaint]])
+	local pos = obj:position()
+	if obj and obj ~= nil and obj:alive() then
+		snd_obj:play_at_pos(obj, obj:position(), 0, sound_object.s3d)
+	end
+end
+
+function sinyak_complaint2()
+	local obj = level_object_by_sid(story_ids.bar_sinyak)
+	local snd_obj = xr_sound.get_safe_sound_object([[characters_voice\scenario\sinyak_accept]])
+	local pos = obj:position()
+	if obj and obj ~= nil and obj:alive() then
+		snd_obj:play_at_pos(obj, obj:position(), 0, sound_object.s3d)
+	end
+end
+
+function kill_esc_digger()
+    local sobj = alife():story_object(story_ids.esc_digger)
+    if sobj then
+		ogse.kill_offline_npc(sobj)
+    end
+end
+
+function spawn_digger_dead()
+--
+end
+
+function spawn_diggers_killer()
+	ogse.spawn_object(spawn_db.esc_digg_killer)
+end
+
+function digger_weapon_quest_fail()
+	if db.actor:dont_has_info("digger_weapon_quest_fail") then
+		db.actor:give_info_portion ("digger_weapon_quest_fail")
+	end
+end
+
+function check_digger_weapon_quest_fail()
+	if db.actor:has_info("digger_weapon_quest_fail") or db.actor:has_info("digger_offence") then
+		digger_weapon_change()
+		return true
+	end
+	return false
+end
+
+function digger_weapon_change(stalker, player)
+	if db.actor:object("diggers_weapon") ~= nil then
+		ogse.remove_item_from_inventory_by_name("diggers_weapon",db.actor)
+		ogse.spawn_item_in_inv("wpn_l85_tact", db.actor)
+	end
+end
+
+function spawn_engine_restrictor()
+	local sobj = spawn_restrictor("scripts\\jek@n\\restrictions\\agr_under_engine_sound.ltx", 3, spawn_db.agr_under_engine_sound)
+	level_tasks.add_location_by_id(sobj.id,"green_location","anomal_engine_name")
+	ogse.save_var("engine_id", sobj.id, "u16")
+end
+
+-- Торговый караван --------------------------------------------------------------------------------
+
+function spawn_caravan_loader()
+	ogse.spawn_object(spawn_db.caravan_loader)
+	set_caravan_loader_invulnerable() --??? так не работает же - в онлайн выходит через какое-то время
+end
+
+function set_caravan_loader_invulnerable()
+end
+
+
+function spawn_caravan_guard()
+	ogse.start_timer("guard", 1)
+end
+
+function spawn_caravan_guard1()
+	ogse.spawn_object(spawn_db.caravan_guard1)
+end
+
+function spawn_caravan_guard2()
+	ogse.spawn_object(spawn_db.caravan_guard2)
+end
+
+function spawn_loader_cargo()
+	ogse.start_timer("cargo",1)
+end
+
+function spawn_loader_cargo1()
+	local npc = level_object_by_sid(story_ids.caravan_loader)
+	ogse.spawn_item_in_inv("loader_box", npc)
+	ogse.spawn_item_in_inv("exo1", npc)
+end
+
+function barman_offense_tip()
+	news_manager.send_tip(db.actor, "barman_offense_tip", nil, "barman", 8000, nil)
+end
+
+function start_atp_lider_work_timer()
+	ogse.start_timer("atplider",180)
+end
+
+function spawn_atp_lider_work_restrictor()
+	spawn_restrictor("scripts\\jek@n\\restrictions\\atp_lider_work_restrictor.ltx", 30, spawn_db.atp_lider_work_restrictor)
+end
+
+function have_loader_box(stalker, player)
+    return db.actor:object("loader_box") ~= nil
+end
+
+-- Платим Сталину за вход в бункер -----------------------------------------------------------------
+
+function has_300(actor, npc)
+    return actor:money() >= 300
+end
+
+function stalin_propusk(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 300, "out")
+	db.actor:disable_info_portion("stalin_close_door")
+end
+
+function actor_rank_stalker()
+	local actor = db.actor
+	if actor:character_rank() > 300 then
+		return true
+	end
+end
+
+-- Собираем части НЛО и самогонный аппарат ---------------------------------------------------------
+
+function have_ufo_part(stalker, player)
+    return db.actor:object("ufo_part") ~= nil
+end
+
+function random_spawn_zapiska1()
+	rnd = math.random(1, 3)
+	if rnd == 1 then
+		alife():create("cit_zapiska1_static", vector():set (-97.11,18.34,437.60), 333108, 3355)
+	end
+	if rnd == 2 then
+		alife():create("cit_zapiska1_static", vector():set (-105.78,16.08,433.00), 321912, 3353)
+	end
+	if rnd == 3 then
+		alife():create("cit_zapiska1_static", vector():set (-97.68,16.08,435.23), 333104, 3354)
+	end
+end
+
+function give_city_samogon_info1()
+	if db.actor:dont_has_info("city_samogon_info1") then
+		db.actor:give_info_portion ("city_samogon_info1")
+	end
+end
+
+function spawn_city_major_raport()
+	rnd = math.random(1, 3)
+	if rnd == 1 then
+		alife():create("cit_zapiska2_mob", vector():set (-122.55,11.27,411.44), 294997, 3866)
+		alife():create("cit_zapiska2_static", vector():set (-84.26,12.96,547.85), 359218, 3269)
+	end
+	if rnd == 2 then
+		alife():create("cit_zapiska2_mob", vector():set (-122.55,11.27,411.44), 294997, 3866)
+		alife():create("cit_zapiska2_static", vector():set (-71.17,12.75,553.32), 376764, 3268)
+	end
+	if rnd == 3 then
+		alife():create("cit_zapiska2_mob", vector():set (-122.55,11.27,411.44), 294997, 3866)
+		alife():create("cit_zapiska2_static", vector():set (-77.20,12.77,531.64), 368672, 3271)
+	end
+end
+
+function give_city_samogon_info2()
+	if db.actor:dont_has_info("city_samogon_info2") then
+		db.actor:give_info_portion ("city_samogon_info2")
+	end
+end
+
+function spawn_city_sergant_zapis()
+	--ogse.spawn_object(spawn_db.book_11)
+	rnd = math.random(1, 3)
+	if rnd == 1 then
+		alife():create("cit_zapiska3_static", vector():set (-18.02,12.13,548.30), 466785, 3246)
+		alife():create("cit_zapiska3_mob", vector():set (-28.28,11.24,497.29), 451609, 3256)
+	end
+	if rnd == 2 then
+		alife():create("cit_zapiska3_static", vector():set (-42.98,11.65,513.90), 426354, 3247)
+		alife():create("cit_zapiska3_mob", vector():set (-28.28,11.24,497.29), 451609, 3256)
+	end
+	if rnd == 3 then
+		alife():create("cit_zapiska3_static", vector():set (-48.93,11.23,524.18), 415365, 3255)
+		alife():create("cit_zapiska3_mob", vector():set (-28.28,11.24,497.29), 451609, 3256)
+	end
+end
+
+function give_city_samogon_info3()
+	if db.actor:dont_has_info("city_samogon_info3") then
+		db.actor:give_info_portion ("city_samogon_info3")
+	end
+end
+
+function give_city_samogon_info4()
+	if db.actor:dont_has_info("city_samogon_info4") then
+		db.actor:give_info_portion ("city_samogon_info4")
+	end
+end
+
+function spawn_city_tower_box()
+	--ogse.spawn_object(spawn_db.city_tower_box)
+	rnd = math.random(1, 3)
+	if rnd == 1 then
+		db.actor:give_info_portion("cit_tow_key3")
+		spawn_cit_tow_box_keys1()
+	end
+	if rnd == 2 then
+		db.actor:give_info_portion("cit_tow_key3")
+		spawn_cit_tow_box_keys2()
+	end
+	if rnd == 3 then
+		db.actor:give_info_portion("cit_tow_key3")
+		spawn_cit_tow_box_keys3()
+	end
+end
+
+function spawn_cit_tow_box_keys1()
+	local sobj = alife():create("cit_tow_box_keys", vector():set (-83.34,11.81,512.33), 358018, 3265)
+	local sobj_id = sobj.id
+	text = "Потерянный ключ"
+	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
+end
+
+function spawn_cit_tow_box_keys2()
+	local sobj = alife():create("cit_tow_box_keys", vector():set (-92.76,11.60,504.86), 342361, 3266)
+	local sobj_id = sobj.id
+	text = "Потерянный ключ"
+	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
+end
+
+function spawn_cit_tow_box_keys3()
+	local sobj = alife():create("cit_tow_box_keys", vector():set (-100.57,11.92,511.71), 328649, 3265)
+	local sobj_id = sobj.id
+	text = "Потерянный ключ"
+	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
+end
+
+
+function use_cit_tow_box_keys()
+	if has_alife_info("cit_tow_key1") and db.actor:dont_has_info("cit_tow_key2") and db.actor:dont_has_info("cit_tow_key3") and
+			db.actor:dont_has_info("cit_tow_key4") and db.actor:dont_has_info("cit_tow_key5") and db.actor:dont_has_info("cit_tow_key6") then
+		db.actor:give_info_portion("cit_tow_key2")
+		db.actor:disable_info_portion("cit_tow_key1")
+		db.actor:disable_info_portion("cit_tow_key3")
+		db.actor:disable_info_portion("cit_tow_key4")
+		db.actor:disable_info_portion("cit_tow_key5")
+		db.actor:disable_info_portion("cit_tow_key6")
+		news_manager.send_tip(db.actor, "key2_selected", nil)
+	elseif has_alife_info("cit_tow_key2") and db.actor:dont_has_info("cit_tow_key1") and db.actor:dont_has_info("cit_tow_key3") and
+			db.actor:dont_has_info("cit_tow_key4") and db.actor:dont_has_info("cit_tow_key5") and db.actor:dont_has_info("cit_tow_key6") then
+		db.actor:give_info_portion("cit_tow_key3")
+		db.actor:disable_info_portion("cit_tow_key1")
+		db.actor:disable_info_portion("cit_tow_key2")
+		db.actor:disable_info_portion("cit_tow_key4")
+		db.actor:disable_info_portion("cit_tow_key5")
+		db.actor:disable_info_portion("cit_tow_key6")
+		news_manager.send_tip(db.actor, "key3_selected", nil)
+	elseif has_alife_info("cit_tow_key3") and db.actor:dont_has_info("cit_tow_key1") and db.actor:dont_has_info("cit_tow_key2") and
+			db.actor:dont_has_info("cit_tow_key4") and db.actor:dont_has_info("cit_tow_key5") and db.actor:dont_has_info("cit_tow_key6") then
+		db.actor:give_info_portion("cit_tow_key4")
+		db.actor:disable_info_portion("cit_tow_key1")
+		db.actor:disable_info_portion("cit_tow_key2")
+		db.actor:disable_info_portion("cit_tow_key3")
+		db.actor:disable_info_portion("cit_tow_key5")
+		db.actor:disable_info_portion("cit_tow_key6")
+		news_manager.send_tip(db.actor, "key4_selected", nil)
+	elseif has_alife_info("cit_tow_key4") and db.actor:dont_has_info("cit_tow_key1") and db.actor:dont_has_info("cit_tow_key2") and
+			db.actor:dont_has_info("cit_tow_key3") and db.actor:dont_has_info("cit_tow_key5") and db.actor:dont_has_info("cit_tow_key6") then
+		db.actor:give_info_portion("cit_tow_key5")
+		db.actor:disable_info_portion("cit_tow_key1")
+		db.actor:disable_info_portion("cit_tow_key2")
+		db.actor:disable_info_portion("cit_tow_key3")
+		db.actor:disable_info_portion("cit_tow_key4")
+		db.actor:disable_info_portion("cit_tow_key6")
+		news_manager.send_tip(db.actor, "key5_selected", nil)
+	elseif has_alife_info("cit_tow_key5") and db.actor:dont_has_info("cit_tow_key1") and db.actor:dont_has_info("cit_tow_key2") and
+			db.actor:dont_has_info("cit_tow_key3") and db.actor:dont_has_info("cit_tow_key4") and db.actor:dont_has_info("cit_tow_key6") then
+		db.actor:give_info_portion("cit_tow_key6")
+		db.actor:disable_info_portion("cit_tow_key1")
+		db.actor:disable_info_portion("cit_tow_key2")
+		db.actor:disable_info_portion("cit_tow_key3")
+		db.actor:disable_info_portion("cit_tow_key4")
+		db.actor:disable_info_portion("cit_tow_key5")
+		news_manager.send_tip(db.actor, "key6_selected", nil)
+	elseif has_alife_info("cit_tow_key6") and db.actor:dont_has_info("cit_tow_key1") and db.actor:dont_has_info("cit_tow_key2") and
+			db.actor:dont_has_info("cit_tow_key3") and db.actor:dont_has_info("cit_tow_key4") and db.actor:dont_has_info("cit_tow_key5") then
+		db.actor:give_info_portion("cit_tow_key1")
+		db.actor:disable_info_portion("cit_tow_key2")
+		db.actor:disable_info_portion("cit_tow_key3")
+		db.actor:disable_info_portion("cit_tow_key4")
+		db.actor:disable_info_portion("cit_tow_key5")
+		db.actor:disable_info_portion("cit_tow_key6")
+		news_manager.send_tip(db.actor, "key1_selected", nil)
+	end
+end
+
+function cit_tow_box_open()
+	if has_alife_info("cit_tow_key1") then
+		db.actor:give_info_portion ("cit_tower_box_open")
+		soundtrack.cit_tow_box_open()
+	elseif has_alife_info("cit_tow_key2") then
+		soundtrack.cit_tow_box_dont_open()
+		news_manager.send_tip(db.actor, "cit_tow_box_dont_open", nil)
+	elseif has_alife_info("cit_tow_key3") then
+		soundtrack.cit_tow_box_dont_open()
+		news_manager.send_tip(db.actor, "cit_tow_box_dont_open", nil)
+	elseif has_alife_info("cit_tow_key4") then
+		soundtrack.cit_tow_box_dont_open()
+		news_manager.send_tip(db.actor, "cit_tow_box_dont_open", nil)
+	elseif has_alife_info("cit_tow_key5") then
+		soundtrack.cit_tow_box_dont_open()
+		news_manager.send_tip(db.actor, "cit_tow_box_dont_open", nil)
+	elseif has_alife_info("cit_tow_key6") then
+		soundtrack.cit_tow_box_dont_open()
+		news_manager.send_tip(db.actor, "cit_tow_box_dont_open", nil)
+	end
+end
+
+function cit_tower_box_montirovka_open()
+	--if db.actor:object("wpn_montirovka") ~= nil then
+		ogse.remove_item_from_inventory(db.actor:object("wpn_montirovka"), db.actor)
+		news_manager.send_tip(db.actor, "break_crowbar", nil)
+		soundtrack.break_crowbar()
+		db.actor:give_info_portion ("cit_tower_box_open")
+	--elseif db.actor:object("wpn_montirovka") == nil then
+	--	news_manager.send_tip(db.actor, "no_crowbar", nil)
+	--end
+end
+
+function cit_tower_box_keys_open()
+	if db.actor:object("cit_tow_box_keys") ~= nil then
+		jekan_work.cit_tow_box_open()
+	elseif db.actor:object("cit_tow_box_keys") == nil then
+		news_manager.send_tip(db.actor, "no_cit_tow_box_key", nil)
+	end
+end
+
+function release_cit_tower_box()
+	--local obj = alife():story_object(story_ids.city_tower_box)
+	--alife():release(obj, true)
+end
+
+--function spawn_cit_tow_shron()
+--	ogse.spawn_object(spawn_db.cit_tow_shron)
+--end
+
+function spawn_apparat()
+	--ogse.spawn_object(spawn_db.apparat)
+	--alife():create("apparat", vector():set (-100.57,11.92,511.71), 328649, 3265)
+end
+
+function samogon_apparat_finded(stalker, player)
+    return db.actor:object("apparat") ~= nil
+end
+
+function spawn_apparat_on_table()
+	ogse.spawn_object(spawn_db.moonshine_apparat)
+end
+
+function spawn_glassful_on_table()
+	ogse.spawn_object(spawn_db.glassful)
+end
+
+
+function samogon_quest_items_release()
+	ogse.remove_item_from_inventory(db.actor:object("cit_tow_box_keys"), db.actor)
+	ogse.remove_item_from_inventory(db.actor:object("book_9"), db.actor)
+	ogse.remove_item_from_inventory(db.actor:object("book_10"), db.actor)
+	ogse.remove_item_from_inventory(db.actor:object("book_11"), db.actor)
+	ogse.remove_item_from_inventory(db.actor:object("book_12"), db.actor)
+end
+
+
+
+
+-- А это просто пасхалка ---------------------------------------------------------------------------
+
+function spawn_kosar_place()
+	ogse.spawn_object(spawn_db.kosar_place)
+end
+
+function kosar_place_use()
+	local p = spawn_db.kosar_place
+	db.actor:set_actor_position(vector():set(unpack(p.pos)))
+	-- spawn_potsik()
+	level.disable_input()
+	ogse.start_timer("kosar", 21)
+end
+
+function spawn_potsik()
+	ogse.spawn_object(spawn_db.potsik)
+end
+
+function release_potsik()
+	rx_utils.switch_offline(id_by_sid(story_ids.potsik))
+end
+
+-- Аномальные болты --------------------------------------------------------------------------------
+
+function spawn_anomal_bolts()
+	ogse.spawn_objects(spawn_db.anomal_bolts)
+end
+
+-- 11.07.2014 stb
+function money_give_anom_bolts(first_speaker, second_speaker) 
+	dialogs.relocate_money(first_speaker, 1500 * check_anom_bolts(), "in")
+	dialogs.relocate_item_section(first_speaker, "wpn_glock_unic", "in")
+	re_anom_bolts()
+	db.actor:give_info_portion("bar_anom_bolt_20")
+end
+
+function money_give_anom_bolt(first_speaker, second_speaker) 
+	dialogs.relocate_money(first_speaker, 1000 * check_anom_bolts(), "in") 
+	re_anom_bolts()
+	db.actor:disable_info_portion("bar_anom_bolt_over")
+end
+
+function check_20_anom_bolts()
+	return check_anom_bolts() > 19
+end
+
+function check_avail_anom_bolts()
+	return check_anom_bolts() > 0
+end
+
+function check_anom_bolts()
+	local n = 0
+	if db.actor:object("af_bolt") then
+		db.actor:iterate_inventory(function(dummy, item) 
+			if item:section() == "af_bolt" then
+				n = n + 1
+			end
+		end)
+	end
+	return n
+end
+
+function re_anom_bolts()
+	if db.actor:object("af_bolt") then
+		db.actor:iterate_inventory(function(dummy, item) 
+			if item:section() == "af_bolt" then
+				ogse.remove_item(item)
+			end
+		end)
+	end
+end
+
+-- Аномальные вещи в МГ ----------------------------------------------------------------------------
+
+function spawn_city_house_items()
+	ogse.spawn_objects(spawn_db.city_house_items)
+end
+
+-- 18.07.2014 stb
+local house_items ={["af_doll"] = true, ["af_steam"] = true, ["af_spoon"] = true, ["af_plate"] = true, ["af_bottle"] = true, ["af_jar"] = true}
+
+function money_give_anom_house_items(first_speaker, second_speaker) 
+	dialogs.relocate_money(first_speaker, 30000, "in") 
+	re_anom_house_items()
+	db.actor:give_info_portion("yan_anom_house_items_complete")
+end
+
+local house_items_subscribed
+
+function house_items_subscribe()
+	if not house_items_subscribed then
+		house_items_subscribed = {signal = "on_update", fun = this.check_bind_avail_six_anom_house_items, queued = true}
+		ogse_signals.get_mgr():subscribe( house_items_subscribed )
+		--log3("--[%s] house_items subscribed!", script_name())
+	end
+end
+
+function house_items_unsubscribe()
+	if house_items_subscribed then
+		ogse_signals.get_mgr():unsubscribe( house_items_subscribed )
+		house_items_subscribed = nil
+		--log3("~~[%s] house_items UNsubscribed!", script_name())
+	end
+end
+
+function check_subscribe_bind_avail_six_anom_house_items()
+	if has_alife_info("yan_anom_house_items_find") and not has_alife_info("yan_anom_house_items_continue") then
+		house_items_subscribe()
+	end
+end
+
+function info_check_subscribe_bind_avail_six_anom_house_items(npc, info_id)
+	if info_id == "yan_anom_house_items_find" then
+		house_items_subscribe()
+	end
+end
+
+function check_bind_avail_six_anom_house_items()
+	ogse_signals.get_mgr():reschedule(math.random(1500, 2000))
+	if db.actor:dont_has_info("yan_anom_house_items_continue") and check_avail_six_anom_house_items() == true then
+		db.actor:give_info_portion("yan_anom_house_items_continue")
+		house_items_unsubscribe()
+	end
+end
+
+function check_avail_anom_house_items()
+	return check_anom_house_items() > 0
+end
+
+function check_avail_1to6_anom_house_items()
+	local n = check_anom_house_items()
+	return n > 1 and n < 6
+end
+
+function check_avail_six_anom_house_items()
+	return check_anom_house_items() == 6
+end
+
+function check_anom_house_items()
+	if db.actor:dont_has_info("deadcity_first_enter") then return 0 end --до первого входа в МГ проверка не имеет смысла
+
+	local n = 0
+	db.actor:iterate_inventory(function(dummy, item) 
+		if house_items[item:section()] then
+			n = n + 1
+		end
+	end)
+	return n
+end
+
+function re_anom_house_items()
+	db.actor:iterate_inventory(function(dummy, item) 
+		if house_items[item:section()] then
+			ogse.remove_item(item)
+		end
+	end)
+end
+
+-- 31.07.2014 stb
+local ammo_boxes = {
+	["box_amm_1"] = "agr_help_krot_ammo_box_find_1",
+	["box_amm_2"] = "agr_help_krot_ammo_box_find_2",
+	["box_amm_3"] = "agr_help_krot_ammo_box_find_3",
+	["box_amm_4"] = "agr_help_krot_ammo_box_find_4"
+}
+
+function krot_ammo_box_st()
+local sobj = alife():story_object(story_ids.agr_krot)
+	if ogse.check_offline_npc(sobj) == true then
+		if db.actor:dont_has_info("agr_help_krot_ammo_box_start") then
+			ogse.send_tip(game.translate_string("krot_ammo_box_tip"), nil, 20, 20, "krot", "pda_task")
+			db.actor:give_info_portion("agr_help_krot_ammo_box_start")
+		end
+	end
+end
+
+function spawn_ammo_box()
+	local box = ogse.spawn_object(ogse_spawn_db.script_spawn_registry.ammo_box.box_amm_1)
+	box = ogse.spawn_object(ogse_spawn_db.script_spawn_registry.ammo_box.box_amm_2)
+	box = ogse.spawn_object_rand(ogse_spawn_db.script_spawn_registry.ammo_box.box_amm_3)
+	box = ogse.spawn_object_rand(ogse_spawn_db.script_spawn_registry.ammo_box.box_amm_4)
+end
+
+function check_ammo_box()
+	local n = 0
+	db.actor:iterate_inventory(function(dummy, item) 
+		if ammo_boxes[item:section()] then
+			n = n + 1
+		end
+	end)
+	return n
+end
+
+function check_avail_ammo_box()
+	return check_ammo_box() > 0
+end
+
+function check_remove_ammo_box()
+	db.actor:iterate_inventory(function(dummy, item) 
+		if ammo_boxes[item:section()] then
+			ogse.remove_item(item)
+			db.actor:give_info_portion(ammo_boxes[item:section()]) 
+			if
+				db.actor:has_info("agr_help_krot_ammo_box_find_1")
+				and db.actor:has_info("agr_help_krot_ammo_box_find_2")
+				and db.actor:has_info("agr_help_krot_ammo_box_find_3")
+				and db.actor:has_info("agr_help_krot_ammo_box_find_4")
+			then
+				db.actor:give_info_portion("agr_help_krot_ammo_box_complete")
+			end
+		end
+	end)
+end
+
+function ammo_give_76254(first_speaker, second_speaker)
+	ogse.spawn_ammo_in_inv("ammo_7.62x54_ap", 200, db.actor)
+	db.actor:give_info_portion("agr_help_krot_ammo_box_give")
+end
+
+function ammo_give_54539(first_speaker, second_speaker)
+	ogse.spawn_ammo_in_inv("ammo_5.45x39_ap", 210, db.actor)
+	db.actor:give_info_portion("agr_help_krot_ammo_box_give")
+end
+
+function ammo_give_55645(first_speaker, second_speaker)
+	ogse.spawn_ammo_in_inv("ammo_5.56x45_ap", 210, db.actor)
+	db.actor:give_info_portion("agr_help_krot_ammo_box_give")
+end
+
+function ammo_give_1270(first_speaker, second_speaker)
+	ogse.spawn_ammo_in_inv("ammo_12x70_kart", 200, db.actor)
+	db.actor:give_info_portion("agr_help_krot_ammo_box_give")
+end
+
+function give_filin_flash(first_speaker, second_speaker)
+	dialogs.relocate_item_section(db.actor, "klondaik_flash_5", "in") 
+end
+
+function check_klondaik_flashes()
+	if has_alife_info("klondaik_flashes_collected") then return end
+
+	if db.actor then 
+		local flash_1 = db.actor:object("klondaik_flash_1")
+		local flash_2 = db.actor:object("klondaik_flash_2")
+		local flash_3 = db.actor:object("klondaik_flash_3")
+		local flash_4 = db.actor:object("klondaik_flash_4")
+		local flash_5 = db.actor:object("klondaik_flash_5")
+
+		if flash_1 and flash_2 and flash_3 and flash_4 and flash_5 then
+			db.actor:give_info_portion("klondaik_flashes_collected")
+			ogse.remove_item_from_inventory(flash_1,db.actor)
+			ogse.remove_item_from_inventory(flash_2,db.actor)
+			ogse.remove_item_from_inventory(flash_3,db.actor)
+			ogse.remove_item_from_inventory(flash_4,db.actor)
+			ogse.remove_item_from_inventory(flash_5,db.actor)
+			local my_table = {["klondaik_key"] = 1}
+			spawn_items_in_treasure_box(story_ids.filin_flash_hideout, my_table)
+		end
+	end
+end
+
+function klondaik_key_find()
+	if db.actor:object("klondaik_key") then
+		db.actor:give_info_portion("klondaik_key_find")
+		return true
+	end
+	return false
+end
+
+function give_muzikant_reward(first_speaker, second_speaker)
+	dialogs.relocate_money(first_speaker, 2500, "in") 
+end
+
+function delete_bloha()
+	local bloha = alife():story_object(story_ids.ds_nalet_band_8)
+	if bloha then
+		tasks_functor.delete_when_offline(bloha.id):start()
+	end
+	ogse.remove_item_from_inventory(db.actor:object("book_1"), db.actor)
+end
+
+
+
+
+-- Квесты за банду Кульгавого: ----------------------------------------------------------------------------
+
+function have_some_klondike_flashes()
+	return db.actor:object("klondaik_flash_1") ~= nil
+	or db.actor:object("klondaik_flash_2") ~= nil
+	or db.actor:object("klondaik_flash_3") ~= nil
+	or db.actor:object("klondaik_flash_4") ~= nil
+	or db.actor:object("klondaik_flash_5") ~= nil
+	or db.actor:has_info("first_planshet_in")
+end
+
+function spawn_kulg_band_hutor_vater()
+	--alife():create("kulg_band_vater", vector():set (-155.14,0.08,550.58), 225490, 2945)
+	local sim = alife()
+	local sobj = sim:create("kulg_band_vater", vector():set (-155.14,0.08,550.58), 225490, 2945)
+	sim:assign_story_id(sobj.id, story_ids.kulg_band_vater)
+end
+
+function hawe_kulg_band_hutor_vater()
+	if db.actor:object("kulg_band_vater") then
+		return true
+	end
+	return false
+end
+
+function ds_glavar_flash_off()
+	-- Удаляем флешки из инвентаря:
+	ogse.remove_item_from_inventory(db.actor:object("klondaik_flash_1"),actor)
+	ogse.remove_item_from_inventory(db.actor:object("klondaik_flash_2"),actor)
+	ogse.remove_item_from_inventory(db.actor:object("klondaik_flash_3"),actor)
+	ogse.remove_item_from_inventory(db.actor:object("klondaik_flash_4"),actor)
+	ogse.remove_item_from_inventory(db.actor:object("klondaik_flash_5"),actor)
+	ogse.remove_item_from_inventory(db.actor:object("klondaik_key"),actor)
+	ogse.remove_item_from_inventory(db.actor:object("first_neutral_planshet"),actor)
+	
+	-- Удаляем мёртвых и живых:
+	release_ros_soldier()
+	release_fourth_neutral()
+	release_yan_soldier()
+	release_first_neutral()
+	release_esc_lekar()
+	release_bridge_lekar()
+	
+	
+	-- Проваливаем квесты:
+	db.actor:give_info_portion ("bridge_lekar_dead")
+	db.actor:give_info_portion ("bar_kulg_agent_flash_lost")
+	
+	-- Удаляем схрон Филина:
+	release_filin_flash_hideout()
+	
+end
+
+
+function release_filin_flash_hideout()
+local obj = alife():story_object(1803)
+	if obj and obj ~= nil then
+		alife():release(obj , true)
+	end
+end
+
+function release_ros_soldier()
+	local obj = alife():story_object(story_ids.ros_soldier)
+	if obj then
+		alife():release(obj, true)
+	end
+end
+
+function release_fourth_neutral()
+	local obj = alife():story_object(story_ids.fourth_neutral)
+	if obj then
+		alife():release(obj, true)
+	end
+end
+
+function release_yan_soldier()
+	local obj = alife():story_object(story_ids.yan_soldier)
+	if obj then
+		alife():release(obj, true)
+	end
+end
+
+function release_first_neutral()
+	local obj = alife():story_object(story_ids.first_neutral)
+	if obj then
+		alife():release(obj, true)
+	end
+end
+
+function release_esc_lekar()
+	local obj = alife():story_object(story_ids.esc_lekar)
+	if obj then
+		alife():release(obj, true)
+	end
+end
+
+function release_bridge_lekar()
+	local obj = alife():story_object(story_ids.bridge_lekar)
+	if obj then
+		alife():release(obj, true)
+	end
+end
+
+
+
+function ds_glavar_flash_reward1(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 500000, "in")
+end
+
+function ds_glavar_flash_reward2(first_speaker, second_speaker)
+    dialogs.relocate_item_section(second_speaker, "wpn_mp5_tact", "in")
+	dialogs.relocate_item_section(second_speaker, "wpn_svd", "in")
+	dialogs.relocate_item_section(second_speaker, "wpn_l85", "in")
+end
+
+
+function spawn_kulgband_looser()
+	local sim = alife()
+	local sobj = sim:create("kulgband_looser", vector():set (-598.38,-1.70,-403.79), 1375, 3241)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_looser)
+end
+
+function spawn_kulgband_car1()
+	local sim = alife()
+	local sobj = sim:create("kulgband_looser", vector():set (-598.38,-1.70,-403.79), 1375, 3241)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_looser)
+	
+	alife():create("kulgband_car", vector():set (-475.61,-1.99,-479.43), 29517, 3196)
+	alife():create("kulgband_driver", vector():set (-473.02,-1.90,-475.42), 29979, 3196)
+	
+	db.actor:set_actor_position(vector():set(-472.50, -2.00, -476.70))
+	level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+	--level.add_cam_effector("camera_effects\\prison_1.anm", 100, false, "")
+	--actor_disable_inventory()
+end
+
+function spawn_kulgband_car1nopass_zone(ltx, radius, data)
+	local id_table = {}
+	local obj
+	if data ~= nil then
+		obj = ogse.spawn_object(data)
+	else
+		obj = alife():create("space_restrictor", vector():set (-475.61,-1.99,-479.43), 29517, 3196)
+	end
+	radius = 4
+	id_table.sr = obj.id
+	local packet = get_netpk(obj, 1)
+	ASSERT( packet:isOk(), "can't read netpacket of %s", obj:name() )
+	local my_table = packet:get()
+	my_table.shapes:addSphere(radius)
+	my_table.restrictor_type = 2
+	my_table.custom_data:set("[logic]\ncfg = scripts\\jek@n\\restrictions\\kulgband_car1nopass_zone.ltx")
+	packet:set(my_table)
+
+	return obj
+end
+
+
+function kulgband_cup_in(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "kulgband_cup_bad", "in")
+end
+
+
+function have_kulg_band_cups()
+	return db.actor:object("kulgband_cup") ~= nil
+	or db.actor:object("kulgband_cup_bad") ~= nil
+end
+
+
+function spawn_kulgband_looser_habar()
+local sobj = alife():create("kulgband_looser_habar", vector():set (481.13,9.98,-327.49), 1027338, 3230)
+	local sobj_id = sobj.id
+	text = "Хабар Чухана"
+	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
+	news_manager.send_tip(db.actor, "kulgband_looser_habar_tip", nil, "default", 9000, nil)
+end
+
+function have_kulg_band_cup1()
+	return db.actor:object("kulgband_cup") ~= nil
+end
+
+function have_kulg_band_cup2()
+	return db.actor:object("kulgband_cup_bad") ~= nil
+end
+
+function kulgband_cup1out(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "kulgband_cup", "out")
+	dialogs.relocate_item_section(second_speaker, "af_dummy_dummy", "in")
+end
+
+function kulgband_cup2out(first_speaker, second_speaker)
+	--dialogs.relocate_item_section(second_speaker, "kulgband_cup_bad", "out")
+	ogse.remove_item_from_inventory(db.actor:object("kulgband_cup_bad"), db.actor)
+end
+
+
+
+
+function spawn_kulgband_trader_company1()
+	local sim = alife()
+	local sobj = sim:create("kulgband_trader", vector():set (106.13,3.01,594.79), 521012, 2971)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_trader)
+	
+	alife():create("kulgband_trader_guard1", vector():set (106.13,3.01,594.79), 521012, 2971)
+	alife():create("kulgband_trader_guard2", vector():set (106.13,3.01,594.79), 521012, 2971)
+	
+	alife():create("kulgband_car", vector():set (22.69,-2.49,555.25), 419339, 2970)
+	alife():create("kulgband_driver", vector():set (22.04,-2.64,551.44), 418522, 2970)
+	
+	db.actor:set_actor_position(vector():set(19.61, -2.91, 551.76))
+	level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+	--level.add_cam_effector("camera_effects\\prison_1.anm", 100, false, "")
+	--actor_disable_inventory()
+end
+
+function spawn_kulgband_trader_company2()
+	local sim = alife()
+	local sobj = sim:create("kulgband_trader", vector():set (106.13,3.01,594.79), 521012, 2971)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_trader)
+	
+	alife():create("kulgband_trader_guard1", vector():set (106.13,3.01,594.79), 521012, 2971)
+	alife():create("kulgband_trader_guard2", vector():set (106.13,3.01,594.79), 521012, 2971)
+end
+
+
+
+function have100000money(actor, npc)
+    return actor:money() >= 100000
+end
+
+function actor100000money_out(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 100000, "out")
+end
+
+function actor35000money_in(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 35000, "in")
+end
+
+
+function delete_kulgband_trader_car()
+	local obj = alife():story_object(story_ids.kulgband_trader_car2)
+	if obj then
+		alife():release(obj, true)
+	end
+end
+
+function kulgband_trader_car_reward1(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_mincer_meat", "in")
+	dialogs.relocate_item_section(second_speaker, "kulg_band_trader_car_key", "out")
+end
+
+function kulgband_trader_car_reward2(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "wpn_glock", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_9x19_pbp", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_9x19_pbp", "in")
+	--dialogs.relocate_item_section(second_speaker, "kulg_band_trader_car_key", "out")
+	ogse.remove_item_from_inventory(db.actor:object("kulg_band_trader_car_key"), db.actor)
+end
+
+function actor45000out(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 45000, "out")
+end
+
+function has_less_then45000(actor, npc)
+    return actor:money() < 450000
+end
+
+function has_more_then45000(actor, npc)
+    return actor:money() > 450000
+end
+
+function active_suit_delete()
+local outfit = db.actor:item_in_slot(6)
+if outfit ~= nil and db.actor:alive() then
+	ogse.remove_item(outfit)
+end
+
+release_all_outfits_around_actor()	-- для гарантии;
+end
+
+function actor100000out(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 100000, "out")
+end
+
+function has_less_then100000(actor, npc)
+    return actor:money() < 1000000
+end
+
+
+
+function spawn_dar_assistant_friend()
+	local sim = alife()
+	local sobj = sim:create("dar_assistant_friend", vector():set (132.80, -0.83, 42.64), 330947, 924)
+	sim:assign_story_id(sobj.id, story_ids.dar_assistant_friend)
+	sobj:on_death()
+	
+	alife():create("dar_assistant_friend_mob", vector():set (132.80, -0.83, 42.64), 330947, 924)
+	alife():create("dar_assistant_friend_mob", vector():set (132.80, -0.83, 42.64), 330947, 924)
+	alife():create("dar_assistant_friend_mob", vector():set (132.80, -0.83, 42.64), 330947, 924)
+end
+
+
+function have_af_medusa_special()
+	return db.actor:object("af_medusa_special") ~= nil
+end
+
+
+function actor_teleport_to_military1()
+	ogse_lc_mngr.create_actor_teleporter({pos = {-345.71,-24.50,24.69}, ["lvid"] = 9131, ["gvid"] = 1610})
+end
+
+
+function spawn_kulgband_car2()
+	local sim = alife()
+	local sobj = sim:create("kulgband_scout", vector():set (-143.33,-20.68,129.60), 176959, 1739)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_scout)
+	
+	local sobj2 = sim:create("kulgband_bool", vector():set (-159.11, -18.60, 128.20), 162372, 1755)
+	sim:assign_story_id(sobj2.id, story_ids.kulgband_bool)
+	sobj2:on_death()
+	
+	alife():create("kulgband_car", vector():set (-347.97,-24.44,26.09), 8309, 1610)
+	alife():create("kulgband_driver", vector():set (-345.64,-24.26,22.22), 9533, 1610)
+	
+	ogse_st_mgr.start_timer("a01", 2, script_name()..".actor_teleport_to_military1")
+	--xr_effects.disable_ui()
+end
+
+function spawn_mil_kulgband_scout()
+local sim = alife()
+	local sobj = sim:create("kulgband_scout", vector():set (-143.33,-20.68,129.60), 176959, 1739)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_scout)
+end
+
+
+function spawn_mil_monolith_squad()
+local sim = alife()
+	local sobj1 = sim:create("mil_monolith_man1", vector():set (-33.88,-1.30,427.63), 276026, 1886)
+	sim:assign_story_id(sobj1.id, story_ids.mil_monolith_man1)
+	
+	local sobj2 = sim:create("mil_monolith_man2", vector():set (-33.88,-1.30,427.63), 276026, 1886)
+	sim:assign_story_id(sobj2.id, story_ids.mil_monolith_man2)
+	
+	local sobj3 = sim:create("mil_monolith_man3", vector():set (-33.88,-1.30,427.63), 276026, 1886)
+	sim:assign_story_id(sobj3.id, story_ids.mil_monolith_man3)
+end
+
+
+function kulgband_dar_filin_shron_reward(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 10000, "in")
+	dialogs.relocate_item_section(second_speaker, "wpn_saiga12_unic", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_12x70_kart", "in")
+	dialogs.relocate_item_section(second_speaker, "medkit", "in")
+	dialogs.relocate_item_section(second_speaker, "vodka", "in")
+	
+	dialogs.relocate_item_section(second_speaker, "val_filin_diary", "out")
+end
+
+
+
+function dar_drozd_company_respawn()
+	local sim = alife()
+	local sobj = sim:create("kulgband_trader2", vector():set (254.55,0.01,-195.28), 699647, 3027)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_trader2)
+	local sobj_id = sobj.id
+	text = "Торговец Дрозд"
+	level.map_add_object_spot_ser(sobj_id,"blue_location",text)
+	
+	alife():create("kulgband_trader_guard1", vector():set (253.61, -0.52, -189.02), 697860, 3027)
+	alife():create("kulgband_trader_guard2", vector():set (253.61, -0.52, -189.02), 697860, 3027)
+	
+	ogse_st_mgr.start_timer("a02", 12, script_name()..".dar_drozd_company_pda_tip")
+end
+
+function dar_drozd_company_pda_tip()
+	news_manager.send_tip(db.actor, "dar_drozd_company_velkome_tip", nil)
+end
+
+
+function spawn_val_trader_npc()
+	local sim = alife()
+	local sobj = sim:create("val_trader_npc", vector():set (-102.28,0.97,-518.89), 56305, 844)
+	sim:assign_story_id(sobj.id, story_ids.val_trader_npc)
+end
+
+function has_medusa()
+	return db.actor:object("af_medusa") ~= nil
+end
+
+function has_gravy()
+	return db.actor:object("af_gravi") ~= nil
+end
+
+function has_vyvert()
+	return db.actor:object("af_vyvert") ~= nil
+end
+
+
+function medusa_out(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_medusa", "out")
+end
+
+function gravy_out(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_gravi", "out")
+end
+
+function vyvert_out(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_vyvert", "out")
+end
+
+
+function kulgband_trader_reward(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "wpn_vintorez", "in")
+	dialogs.relocate_money(second_speaker, 40000, "in")
+end
+
+
+function spawn_rad_kulgband_assistant()
+	local sim = alife()
+	local sobj = sim:create("rad_kulgband_assistant", vector():set (574.18,-53.22,-400.67), 202916, 1935)
+	sim:assign_story_id(sobj.id, story_ids.rad_kulgband_assistant)
+end
+
+
+function rad_kulgband_shron_spawn_in()
+local box = level_object_by_sid(story_ids.rad_secret_0002)
+	ogse.spawn_item_in_inv("rad_kulgband_zapis", box, 1)
+	ogse.spawn_item_in_inv("medkit_army", box, 3)
+	ogse.spawn_item_in_inv("dix", box, 2)
+	ogse.spawn_item_in_inv("conserva", box, 2)
+	ogse.spawn_item_in_inv("antirad", box, 1)
+	ogse.spawn_item_in_inv("ammo_9x19_pbp", box, 3)
+	ogse.spawn_item_in_inv("monolit_outfit", box, 1)
+	
+	alife():create("rad_kulgband_shron_guard1", vector():set (466.63, -50.33, -304.56), 153244, 2130)
+	alife():create("rad_kulgband_shron_guard1", vector():set (466.63, -50.33, -304.56), 153244, 2130)
+	alife():create("rad_kulgband_shron_guard2", vector():set (466.63, -50.33, -304.56), 153244, 2130)
+	alife():create("rad_kulgband_shron_guard2", vector():set (466.63, -50.33, -304.56), 153244, 2130)
+	
+	alife():create("rad_kulgband_shron_guard3", vector():set (556.75, -55.75, -243.42), 193815, 1940)
+	alife():create("rad_kulgband_shron_guard3", vector():set (556.75, -55.75, -243.42), 193815, 1940)
+end
+
+
+function rad_kulgband_zapis_out(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "rad_kulgband_zapis", "out")
+	dialogs.relocate_item_section(second_speaker, "wpn_abakan", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_5.45x39_fmj", "in")
+	dialogs.relocate_item_section(second_speaker, "ammo_5.45x39_fmj", "in")
+	dialogs.relocate_money(second_speaker, 10000, "in")
+end
+
+
+function give_actor_knife()
+	if db.actor:object("wpn_knife") == nil then
+		alife():create("wpn_knife", db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id())
+	end
+end
+
+function esc_zona_brothers_hello_tip()
+	if db.actor:dont_has_info("brother_trap_task") then
+		ogse_st_mgr.start_timer("cheb6", 5, script_name()..".esc_zona_brothers_hello_tip2")
+	end
+end
+
+function esc_zona_brothers_hello_tip2()
+	news_manager.send_tip(db.actor, "esc_zona_brothers_hello_tip", nil)
+end
+
+
+function spawn_dar_deadband_company1()
+	db.actor:set_actor_position(vector():set(182.46, -1.28, 579.63))
+	level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+	
+	alife():create("kulgband_car", vector():set (179.12,-1.15,580.53), 607130, 2972)
+	alife():create("kulgband_driver", vector():set (181.03,-1.20,581.94), 609554, 2972)
+	
+	local sim = alife()
+	local sobj1 = sim:create("dar_bridge_kulgband_assist1", vector():set (185.43,-1.35,582.94), 614469, 2972)
+	sim:assign_story_id(sobj1.id, story_ids.dar_bridge_kulgband_assist1)
+	
+	local sobj2 = sim:create("dar_bridge_kulgband_assist2", vector():set (184.09,-1.37,577.01), 612802, 2973)
+	sim:assign_story_id(sobj2.id, story_ids.dar_bridge_kulgband_assist2)
+end
+
+function have_kulgband_hutor_house_seif_key()
+	return db.actor:object("kulgband_hutor_house_seif_key") ~= nil
+end
+
+function kulgband_seif_reward1(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 15000, "in")
+	dialogs.relocate_item_section(second_speaker, "af_mobkiller", "out")
+end
+
+function delete_kulgband_shesterka()
+	local obj = alife():story_object(story_ids.ds_shesterka)
+	if obj then
+		alife():release(obj, true)
+	end
+end
+
+function hawe_af_mobkiller()
+	return db.actor:object("af_mobkiller") ~= nil
+end
+
+function kulgband_seif_reward2(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "af_mobkiller", "out")
+	dialogs.relocate_item_section(second_speaker, "af_cristall_flower", "in")
+	dialogs.relocate_item_section(second_speaker, "af_gold_fish", "in")
+	dialogs.relocate_item_section(second_speaker, "af_fireball", "in")
+end
+
+function kulgband_bridge_scout_pda_out(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "kulgband_bridge_scout_pda", "out")
+	dialogs.relocate_money(second_speaker, 5000, "in")
+end
+
+
+function spawn_dar_deadband_company2()
+	db.actor:set_actor_position(vector():set(182.46, -1.28, 579.63))
+	level.add_pp_effector("deadcity_wake_old.ppe", 2007, false)
+	
+	alife():create("kulgband_car", vector():set (179.12,-1.15,580.53), 607130, 2972)
+	alife():create("kulgband_driver", vector():set (181.03,-1.20,581.94), 609554, 2972)
+	
+	local sim = alife()
+	local sobj = sim:create("dar_bridge_kulgband_glavar", vector():set (185.32,-1.39,579.56), 614464, 2973)
+	sim:assign_story_id(sobj.id, story_ids.dar_bridge_kulgband_glavar)
+	
+	alife():create("dar_bridge_kulgband_assist3", vector():set (185.43,-1.35,582.94), 614469, 2972)
+	alife():create("dar_bridge_kulgband_assist4", vector():set (184.09,-1.37,577.01), 612802, 2973)
+	alife():create("dar_bridge_kulgband_assist5", vector():set (177.24,-1.13,576.54), 604687, 2972)
+	alife():create("dar_bridge_kulgband_assist6", vector():set (180.59,-1.15,584.84), 608752, 2972)
+	
+	local sim = alife()
+	local sobj1 = sim:create("dar_bridge_kulgband_man1", vector():set (257.45,0.56,565.12), 703501, 2980)
+	sim:assign_story_id(sobj1.id, story_ids.dar_bridge_kulgband_man1)
+	--alife():create("dar_bridge_kulgband_man2", vector():set (258.06,0.49,561.97), 704411, 2980)
+	--alife():create("dar_bridge_kulgband_man3", vector():set (259.81,0.54,568.31), 706212, 2980)
+end
+
+function spawn_kulgband_hutor_deadman()
+	local sim = alife()
+	local sobj = sim:create("kulgband_hutor_deadman", vector():set (-236.45,0.69,557.36), 144505, 2931)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_hutor_deadman)
+end
+
+
+
+function spawn_kulgband_informer()
+	local sim = alife()
+	local sobj = sim:create("kulgband_informer", vector():set (109.97,4.22,-11.69), 306753, 998)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_informer)
+end
+
+
+function spawn_kulgband_informer_ambush()
+	alife():create("kulgband_informer_assist1", vector():set (87.31, -0.02, 3.64), 282041, 919)
+	alife():create("kulgband_informer_assist1", vector():set (87.31, -0.02, 3.64), 282041, 919)
+	alife():create("kulgband_informer_assist1", vector():set (87.31, -0.02, 3.64), 282041, 919)
+	alife():create("kulgband_informer_assist2", vector():set (87.31, -0.02, 3.64), 282041, 919)
+	alife():create("kulgband_informer_assist2", vector():set (87.31, -0.02, 3.64), 282041, 919)
+	alife():create("kulgband_informer_assist2", vector():set (87.31, -0.02, 3.64), 282041, 919)
+	alife():create("kulgband_informer_assist3", vector():set (87.31, -0.02, 3.64), 282041, 919)
+end
+
+function spawn_dar_deadband_company3()
+	alife():create("kulgband_car", vector():set (55.03,0.04,-224.84), 243877, 867)
+	alife():create("kulgband_driver", vector():set (57.20,0.04,-226.53), 246311, 867)
+	
+	local sim = alife()
+	local sobj = sim:create("kulgband_informer", vector():set (109.97,4.22,-11.69), 306753, 998)
+	sim:assign_story_id(sobj.id, story_ids.kulgband_informer)
+	
+	ogse_st_mgr.start_timer("a05", 2, script_name()..".actor_teleport_to_darkval1")
+end
+
+function actor_teleport_to_darkval1()
+	ogse_lc_mngr.create_actor_teleporter({pos = {55.34,0.04,-226.48}, ["lvid"] = 243874, ["gvid"] = 867})
+end
+
+
+function kulgband_informer_weapons_out()
+	ogse.transfer_weapons_to_box(story_ids.kulgband_informer_seif, false, nil, nil)
+end
+
+function release_all_weapons_around_actor()
+	for i = 1, 65534 do
+		local obj = level.object_by_id(i)
+		if obj then
+			local sobj = alife():object(i)
+			if sobj and ( obj:is_weapon() or obj:is_knife() ) and obj:position():distance_to(db.actor:position()) < 50 then
+				if not obj:parent() or obj:parent():is_actor() then
+					alife():release(sobj)
+				end
+			end
+		end
+	end
+end
+
+function release_all_outfits_around_actor()
+	for i = 1, 65534 do
+		local obj = level.object_by_id(i)
+		if obj then
+			local sobj = alife():object(i)
+			if sobj and obj:is_outfit() and obj:position():distance_to(db.actor:position()) < 50 then
+				if not obj:parent() or obj:parent():is_actor() then
+					alife():release(sobj)
+				end
+			end
+		end
+	end
+end
+
+function spawn_cit_kulgband_car_body1()
+if db.actor:dont_has_info("cit_kulgband_task_fail") then
+--if has_alife_info("cit_kulgband_car_go") then
+	db.actor:give_info_portion ("cit_kulgband_car_dead")
+end
+end
+
+function spawn_cit_kulgband_car_body2()
+local sim = alife()
+	local sobj = sim:create("city_kulgband_glavar3", vector():set (-18.66, 1.67, -177.25), 464746, 3589)
+	sobj:on_death()
+end
+	
+
+function release_all_klondike_arts()
+if db.actor:object("af_klondike_1") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_1"), db.actor)
+	db.actor:give_info_portion ("af_klondike_1_on")
+end
+if db.actor:object("af_klondike_2") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_2"), db.actor)
+	db.actor:give_info_portion ("af_klondike_2_on")
+end
+if db.actor:object("af_klondike_3") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_3"), db.actor)
+	db.actor:give_info_portion ("af_klondike_3_on")
+end
+if db.actor:object("af_klondike_4") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_4"), db.actor)
+	db.actor:give_info_portion ("af_klondike_4_on")
+end
+if db.actor:object("af_klondike_5") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_5"), db.actor)
+	db.actor:give_info_portion ("af_klondike_5_on")
+end
+if db.actor:object("af_klondike_6") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_6"), db.actor)
+	db.actor:give_info_portion ("af_klondike_6_on")
+end
+if db.actor:object("af_klondike_7") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_7"), db.actor)
+	db.actor:give_info_portion ("af_klondike_7_on")
+end
+if db.actor:object("af_klondike_8") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_8"), db.actor)
+	db.actor:give_info_portion ("af_klondike_8_on")
+end
+if db.actor:object("af_klondike_9") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_9"), db.actor)
+	db.actor:give_info_portion ("af_klondike_9_on")
+end
+if db.actor:object("af_klondike_10") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_10"), db.actor)
+	db.actor:give_info_portion ("af_klondike_10_on")
+end
+if db.actor:object("af_klondike_11") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_11"), db.actor)
+	db.actor:give_info_portion ("af_klondike_11_on")
+end
+if db.actor:object("af_klondike_12") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_12"), db.actor)
+	db.actor:give_info_portion ("af_klondike_12_on")
+end
+if db.actor:object("af_klondike_13") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_13"), db.actor)
+	db.actor:give_info_portion ("af_klondike_13_on")
+end
+if db.actor:object("af_klondike_14") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_14"), db.actor)
+	db.actor:give_info_portion ("af_klondike_14_on")
+end
+if db.actor:object("af_klondike_15") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_15"), db.actor)
+	db.actor:give_info_portion ("af_klondike_15_on")
+end
+if db.actor:object("af_klondike_16") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_16"), db.actor)
+	db.actor:give_info_portion ("af_klondike_16_on")
+end
+if db.actor:object("af_klondike_17") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_17"), db.actor)
+	db.actor:give_info_portion ("af_klondike_17_on")
+end
+if db.actor:object("af_klondike_18") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_18"), db.actor)
+	db.actor:give_info_portion ("af_klondike_18_on")
+end
+if db.actor:object("af_klondike_19") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_19"), db.actor)
+	db.actor:give_info_portion ("af_klondike_19_on")
+end
+if db.actor:object("af_klondike_20") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_20"), db.actor)
+	db.actor:give_info_portion ("af_klondike_20_on")
+end
+if db.actor:object("af_klondike_21") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_21"), db.actor)
+	db.actor:give_info_portion ("af_klondike_21_on")
+end
+if db.actor:object("af_klondike_22") ~= nil then
+	ogse.remove_item_from_inventory(db.actor:object("af_klondike_22"), db.actor)
+	db.actor:give_info_portion ("af_klondike_22_on")
+end
+end
+
+
+function cit_kulgband_sniper_spawn()
+local sim = alife()
+if db.actor:dont_has_info("kulgband_informer_dead") then
+	local sobj = sim:create("cit_kulgband_sniper1", vector():set (15.60, 1.25, 99.09), 515218, 3619)
+	sim:assign_story_id(sobj.id, story_ids.cit_kulgband_sniper)
+elseif has_alife_info("kulgband_informer_dead") then
+	local sobj = sim:create("cit_kulgband_sniper2", vector():set (15.60, 1.25, 99.09), 515218, 3619)
+	sim:assign_story_id(sobj.id, story_ids.cit_kulgband_sniper)
+end
+end
+
+
+function has_ds_glavar_bag()
+	return db.actor:object("ds_glavar_bag") ~= nil
+end
+
+
+
+function give_darskape_farm_boltun_quest()
+if db.actor:dont_has_info("kulg_band_meet_speech_loose") then
+	--db.actor:give_info_portion ("infa_about_boltun")
+	local new_task = CGameTask()
+	new_task:load("talk_with_hunter")
+	db.actor:give_task(new_task, nil, false)
+elseif has_alife_info("kulg_band_meet_speech_loose") then
+end
+end
+
+function kulgband_trader_car_task_end()
+	if ( has_alife_info("kulg_band_trader_car_end1") or has_alife_info("kulgband_trader_task_end") ) then
+	return true
+	end
+end
+
+function meet_kulg_band_task_failure()
+	return db.actor:has_info("kulg_band_hutor_attacked") or db.actor:has_info("kulg_band_meet_speech_fail")
+end
+
+
+function ufo_part_out(first_speaker, second_speaker)
+   -- dialogs.relocate_money(second_speaker, 50, "in")
+	dialogs.relocate_item_section(second_speaker, "ufo_part", "out")
+end
+
+function samogon_aparat_out(first_speaker, second_speaker)
+    dialogs.relocate_money(second_speaker, 5000, "in")
+	dialogs.relocate_item_section(second_speaker, "apparat", "out")
+end
+
+function dar_samogon_think1()
+	local st = get_hud():GetCustomStatic("dar_samogon_think1") or get_hud():AddCustomStatic("dar_samogon_think1",true)
+	st.m_endTime = time_global()/1000 + 10
+end
+
+function samogon_quest_reward(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "book_7", "in")
+	dialogs.relocate_item_section(second_speaker, "af_soul", "in")
+end
+
+function kulgband_klondike_task_failure()
+	return db.actor:has_info("cit_kulgband_task_fail") or db.actor:has_info("cit_kulgband_car_dead")
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Проверка на наличие НПС в игре и на то, жив ли он: ------------------------------------------------------
+
+function is_npc_aaa_alive()
+local sobj = alife():story_object(story_ids.aaaaaaa)
+if sobj and sobj:alive() then
+	return true
+end
+end
+------------------------------------------------------------------------------------------------------------
+function kill_mutants_around()
+for k, v in pairs (db.storage) do
+    local mob = level.object_by_id(k)
+	if ( mob and IsMonster(mob) and mob:alive() and mob:id() ~= db.actor:id() and mob:section() ~= "personal_dog" and mob:position():distance_to(db.actor:position()) < 80 )	then
+			local hit = hit()
+			hit.direction = vector():set(0, 1, 0)
+			hit.impulse = 0
+			hit.draftsman = db.actor
+			hit.power = 50.0
+			hit.type = hit.wound
+			mob:hit(hit)
+	end
+end
+end
+-------------------------------------------------------------------------------------------------------------
+
+function hit_mobs_around_actor()	-- для эффекта от артефакта "Лапа браконьера";
+    for k, v in pairs (db.storage) do
+    local mob = level.object_by_id(k)
+	if mob and IsMonster(mob) and mob:alive() and mob:position():distance_to(db.actor:position()) < 20 then
+			if  ( mob:section() == "^esc_atp_controler" and mob:alive()
+			or mob:section() == "^m_controller_act" and mob:alive() ) then
+			return false 
+			end
+		local hit = hit()
+		hit.direction = vector():set(0, 1, 0)
+		hit.impulse = 200
+		--hit.draftsman = db.actor
+		hit.draftsman = mob
+		hit.power = 0.6
+		hit.type = hit.fire_wound
+		mob:hit(hit)
+	end
+end
+end
+
+-- Функция переноса всего оружия, ножа, монтировки и гранат в указанный ящик по SID:
+
+function transfer_weapons_to_box(npc, box_sid)
+    local box = level_object_by_sid(box_sid)
+    if not box then return end
+
+    local cnt = npc:object_count()
+    for i=0, cnt-1 do
+        local obj = npc:object(i)
+        if obj and ( obj:is_weapon() or obj:is_grenade() ) then
+            npc:transfer_item(obj, box)
+        end
+    end
+end
+
+
+
+
+
+
+
+
+
+

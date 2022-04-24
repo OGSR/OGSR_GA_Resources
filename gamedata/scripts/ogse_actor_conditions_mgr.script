@@ -1,0 +1,204 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-- минимальная и максимальная амплитуда раскачки ходьбы
+local BOBBING_MIN = 1.5
+local BOBBING_MAX = 6
+
+
+function attach( sm )
+  sm:subscribe({ signal = "on_spawn", fun = this.on_spawn })
+  sm:subscribe({ signal = "update_artefacts_on_belt", fun = this.update_artefacts_on_belt })
+end
+
+local inert_enabled = get_u32("options", "bleed_enable") == 1
+
+-- читаем глобальные параметры эффектов здоровья
+local satiety_v = get_float( "actor_condition", "satiety_v" )
+local light_hunger_limit = get_float( "actor_condition", "satiety_light_limit" )
+local satiety_health_v    = get_float( "actor_condition", "satiety_health_v" )
+local satiety_power_v     = get_float( "actor_condition", "satiety_power_v"  )
+local wound_incarnation_v = get_float( "actor_condition", "wound_incarnation_v" )
+local sprint_koef = get_float( "actor", "sprint_koef" )
+local walk_accel = get_float( "actor", "walk_accel" )
+local min_walk_accel = 6
+local def_jump_power = get_float( "actor_condition", "jump_power" )
+local jump_speed = get_float( "actor", "jump_speed" )
+local run_coef = get_float("actor", "run_coef")
+local run_back_coef = get_float("actor", "run_back_coef")
+
+local limp_amp = get_float( "bobbing_effector", "limp_amplitude" )
+local run_amp  = get_float( "bobbing_effector", "run_amplitude"  )
+local walk_amp = get_float( "bobbing_effector", "walk_amplitude" )
+
+local cam_inert, cur_cam_inert
+function on_spawn()
+  cam_inert = get_con_float( "cam_inert" )
+  cur_cam_inert = cam_inert
+end
+
+local cached_item_cond_effects = {}
+local function get_item_cond_effect( item )
+  local section = item:section()
+  local ef = cached_item_cond_effects[ section ]
+  if not ef then
+    ef = {}
+	local exo_section = get_string(section, "exo_section")
+	ef.jump_speed_dif		= get_float( exo_section, "jump_speed_dif", 0 )
+	ef.sprint_factor_dif	= get_float( exo_section, "sprint_koef_dif", 0 )
+	ef.run_factor_dif		= get_float( exo_section, "run_coef_dif", 0 )
+	ef.run_back_factor_dif	= get_float( exo_section, "run_back_coef_dif", 0 )
+	--
+    cached_item_cond_effects[ section ] = ef
+  end
+  return ef
+end
+
+local ext = {
+	[ "sprint_factor" ]		= 0,
+	[ "jump_speed" ]		= 0,
+	[ "walk_accel" ]		= 0,
+	[ "run_factor" ]		= 0,
+	[ "run_back_factor" ]	= 0,
+}
+
+function update_artefacts_on_belt( dt )
+  local act = db.actor
+  local aobj = get_actor_obj()
+
+  for k, _ in pairs( ext ) do
+    ext[ k ] = 0
+  end
+
+  ogse_signals.get_mgr():call( "on_before_actor_conditions_update", ext )
+
+  -- учитываем здесь естественное оголодание, а также
+  -- движковое(обнулять его нельзя, на нем основан показ свойств
+  -- артефактов)
+  local cur_satiety_v = satiety_v * ( 1 - math.min( act.health, act.power ) )
+  if aobj:is_actor_sprinting() or aobj:is_actor_climbing() then
+    cur_satiety_v = cur_satiety_v + satiety_v
+  end
+  if act.health < 1 then
+    local belt_health_restore_speed = inventory.on_belt_restore_speed(
+      "health_restore_speed"
+    )
+    if belt_health_restore_speed > 0 then
+      cur_satiety_v = cur_satiety_v
+        + satiety_v * ( belt_health_restore_speed / satiety_health_v )
+    end
+  end
+  if act:get_bleeding() > 0 then
+    local belt_bleeding_restore_speed = inventory.on_belt_restore_speed( "bleeding_restore_speed" )
+    if belt_bleeding_restore_speed > 0 then
+      cur_satiety_v = cur_satiety_v + satiety_v * ( belt_bleeding_restore_speed / wound_incarnation_v )
+    end
+  end
+  local cur_power_restore_speed = inventory.on_belt_restore_speed( "power_restore_speed" )
+  if cur_power_restore_speed > 0 then
+    cur_satiety_v = cur_satiety_v + satiety_v * ( cur_power_restore_speed / satiety_power_v / 100 )
+  end
+
+  local summary_jump_speed		= jump_speed + ext.jump_speed
+  local summary_sprint_factor	= sprint_koef + ext.sprint_factor
+  local summary_run_factor		= run_coef + ext.run_factor
+  local summary_run_back_factor	= run_back_coef + ext.run_back_factor
+  local cur_jump_power			= def_jump_power
+  local cur_walk_accel			= (walk_accel - min_walk_accel) + ext.walk_accel
+  local new_cam_inert			= 0
+
+  -- эффекты от брони
+  local armor = act:get_current_outfit()
+  if armor and sys_ini:line_exist(armor:section(), "exo_section") then
+    local ef = get_item_cond_effect( armor )
+    if ef then
+	  summary_jump_speed		= summary_jump_speed + ef.jump_speed_dif
+	  summary_sprint_factor		= summary_sprint_factor + ef.sprint_factor_dif
+	  summary_run_factor		= summary_run_factor + ef.run_factor_dif
+	  summary_run_back_factor	= summary_run_back_factor + ef.run_back_factor_dif
+    end
+  end
+
+  --TODO: учесть потерю сил и здоровья от недосыпа
+  act.satiety = -cur_satiety_v * dt
+
+  aobj.sprint_koef = summary_sprint_factor
+
+  aobj.run_coef = summary_run_factor
+
+  aobj.run_back_coef = summary_run_back_factor
+
+  if act.satiety < light_hunger_limit then
+    cur_walk_accel = cur_walk_accel * ( act.satiety / light_hunger_limit )
+  end
+  if act.health < 0.9 then
+    cur_walk_accel = cur_walk_accel * ( act.health / 0.9 )
+  end
+  if act.power < 0.7 then
+    cur_walk_accel = cur_walk_accel * ( act.power / 0.7 )
+    local power_inert = 1 - act.power / 0.7
+    if power_inert > new_cam_inert then new_cam_inert = power_inert end
+  end
+  db.actor.walk_accel = min_walk_accel + cur_walk_accel
+  if cur_walk_accel < 1 then
+    db.actor.jump_speed = 0
+  else
+    db.actor.jump_speed = summary_jump_speed
+  end
+
+  if act.satiety < light_hunger_limit then
+    cur_jump_power = cur_jump_power + (
+      ( 0.2 - cur_jump_power ) * ( 1 - ( act.satiety / light_hunger_limit ) )
+    )
+  end
+  if act.health < 0.9 then
+    cur_jump_power = cur_jump_power + (
+      ( 0.2 - cur_jump_power ) * ( 1 - ( act.health / 0.9 ) )
+    )
+    if act.health < 0.8 then
+      local health_inert = 0.8 - act.health
+      if health_inert > new_cam_inert then new_cam_inert = health_inert end
+    end
+  end
+  aobj.jump_power = cur_jump_power
+
+
+  if new_cam_inert == cur_cam_inert then
+    return
+  end
+
+--[=[
+  local bobbing_eff = level.get_effector_bobbing()
+  if bobbing_eff and inert_enabled then
+    if new_cam_inert > 0 then
+      local k = BOBBING_MIN + new_cam_inert * ( BOBBING_MAX - BOBBING_MIN )
+      bobbing_eff.limp_amplitude = limp_amp * k
+      bobbing_eff.run_amplitude  = run_amp  * k
+      bobbing_eff.walk_amplitude = walk_amp * k
+    else
+      bobbing_eff.limp_amplitude = limp_amp
+      bobbing_eff.run_amplitude  = run_amp
+      bobbing_eff.walk_amplitude = walk_amp
+    end
+  end
+--]=]
+
+  if new_cam_inert > 0 then
+	local min_cam_inert = math.max( 0.3, cam_inert + 0.1 )
+	if min_cam_inert < 0.8 then
+	  new_cam_inert = min_cam_inert + ( math.round( ( 0.8 - min_cam_inert ) * new_cam_inert * 100 ) / 100 )
+	  if new_cam_inert ~= cur_cam_inert then
+		--log3("--Change cam_inert = [%s]", new_cam_inert )
+		if inert_enabled then
+			level.set_cam_inert( new_cam_inert )
+		end
+		cur_cam_inert = new_cam_inert
+	  end
+	end
+  elseif cur_cam_inert ~= cam_inert then
+	--log3("--Change cam_inert = [%s]", cam_inert )
+	if inert_enabled then
+		level.set_cam_inert( cam_inert )
+	end
+	cur_cam_inert = cam_inert
+  end
+end

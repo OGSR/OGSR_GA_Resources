@@ -1,0 +1,61 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+
+function attach(sm)
+	sm:subscribe({signal = "on_take", fun = this.on_item_take})
+	sm:subscribe({signal = "on_first_update", fun = this.check_first_enter})
+end
+
+function main()
+	quest_escape3.main()
+	
+	db.actor:give_info_portion("cit_level_fake_start")
+end
+
+function check_first_enter()
+	if db.actor:dont_has_info("deadcity_first_enter")
+	and level.name() == "l09_deadcity_ogse"
+	and db.actor:object("cheb") then
+		db.actor:give_info_portion("deadcity_first_enter")
+	end
+	
+	if db.actor:dont_has_info("master_quest_notify") 
+	and level.name() == "l09_deadcity_ogse" then
+		db.actor:give_info_portion("master_quest_notify")
+	end	
+end
+
+function on_item_take(obj)
+	--if not obj then return end
+	if db.actor and level.name() == "l09_deadcity_ogse" then
+		-- магия чебурана
+		if obj:section() == "af_kolya" then
+			if db.actor:object("cheb") then
+				db.actor:give_info_portion("cheb_found_kolya")	-- ЗАТЫЧКА!!! С новой игры удалить
+				level_tasks.remove_location_by_sid(story_ids.stalker_kolya, "crlc_big")
+				cheb_talk_timer(obj:id()):start()
+			end
+			return true
+		elseif jekan_work.check_avail_anom_house_items() == true and db.actor:dont_has_info("yan_anom_house_items_find") then
+			db.actor:give_info_portion("yan_anom_house_items_find")
+			return true
+		end
+	end
+end
+
+class "cheb_talk_timer" (ogse_qt.quick_timer)
+ps_snow = particles_object([[amk\snow]])
+function cheb_talk_timer:__init(_id) super()
+	self.id = _id
+end
+function cheb_talk_timer:condition()
+	return db.actor:has_info("ui_car_body_hide")
+end
+function cheb_talk_timer:action()
+	news_manager.send_tip(db.actor, "cheb_perform_some_magic", nil, "chebur1", 10000, nil)
+	soundtrack.cheb_talking()		
+	ogse.remove_item_from_inventory(db.actor:object("af_kolya"), db.actor)
+	local kolya = level_object_by_sid(story_ids.stalker_kolya)
+	ps_snow:play_at_pos(kolya:position())
+	ogse.start_timer("cheb_magic", 10)
+end

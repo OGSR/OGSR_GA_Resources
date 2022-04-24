@@ -1,0 +1,764 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+	<info_portion id="esc_volk_fuel_done"/>
+
+
+	<info_portion id="esc_kuzn_killed">
+		<action>esc_spawn.flesh_bridge</action>
+	</info_portion>
+	<info_portion id="tolik_is_ok"/>
+	<info_portion id="phatnom_controller"/>
+	<info_portion id="block_begin_dialog"/>
+	<info_portion id="hit_from_arts_story">
+		<article>about_hit_from_arts</article>
+	</info_portion>
+
+	<info_portion id="esc_stalin_dead"/>
+
+	<!-- Nayti Toliku vodku -->
+	<info_portion id="look_tolik_vodka">
+		<task>tolik_vodka</task>
+	</info_portion>
+	<info_portion id="vodka_tolik_have"/>
+	<info_portion id="find_tolik_vodka">
+		<disable>look_tolik_vodka</disable>
+		<disable>vodka_tolik_have</disable>
+	</info_portion>
+	<!-- Nayti Toliku vodku -->
+	<info_portion id="find_tolik_sekret_start">
+		<task>tolik_secret</task>
+	</info_portion>
+	<info_portion id="find_tolik_sekret"/>
+	<!-- MOD: Antirad auto-injection system -->
+	<info_portion id="auto_injection_system_startup"/>
+	<!-- MOD: Antirad auto-injection system - end -->
+	<!-- Tutorial artefact -->
+	<info_portion id="tutorial_artefact_start">
+		<article>zone_anomalies_meat</article>
+		<article>zone_artifact_af-blood</article>
+	</info_portion>
+
+	<info_portion id="esc_kill_gunslinger">
+		<task>storyline_eliminate_gunslinger</task>
+		<article>about_enciclopedia</article>
+		<article>sl_beginning</article>
+		<!-- Скриптовый спавн для квестов Жекана -->
+		<action>jekan_work.spawn_on_start</action>
+	</info_portion>
+	
+		<!-- Transport -->
+	<info_portion id="vehicles_zaporozh_gorb_article">
+		<article>vehicles_zaporozh_gorb</article>
+	</info_portion>
+	<info_portion id="vehicles_zaporozh_ush_article">
+		<article>vehicles_zaporozh_ush</article>
+	</info_portion>
+	<info_portion id="vehicles_kamaz_article">
+		<article>vehicles_kamaz</article>
+	</info_portion>
+	<info_portion id="vehicles_btr-70_article">
+		<article>vehicles_btr-70</article>
+	</info_portion>
+	<info_portion id="vehicles_niva_article">
+		<article>vehicles_niva</article>
+	</info_portion>
+	<info_portion id="vehicles_traktor_article">
+		<article>vehicles_traktor</article>
+	</info_portion>
+	<info_portion id="vehicles_uaz_article">
+		<article>vehicles_uaz</article>
+	</info_portion>
+	<info_portion id="vehicles_uaz_buh_article">
+		<article>vehicles_uaz_buh</article>
+	</info_portion>
+	<info_portion id="vehicles_moskvich_article">
+		<article>vehicles_moskvich</article>
+	</info_portion>
+	<info_portion id="vehicles_baggi_article">
+		<article>vehicles_baggi</article>
+	</info_portion>
+	<info_portion id="vehicles_zil_mmz_article">
+		<article>vehicles_zil_mmz</article>
+	</info_portion>
+	<info_portion id="vehicles_gaz66_article">
+		<article>vehicles_gaz66</article>
+	</info_portion>
+	<info_portion id="vehicles_gaz53_article">
+		<article>vehicles_gaz53</article>
+	</info_portion>
+
+
+	<!-- Tutorial wounded -->
+	<info_portion id="tutorial_wounded_start">
+	</info_portion>
+	<info_portion id="esc_first_novice_dead"/>
+	<info_portion id="esc_second_novice_dead"/>
+	<info_portion id="esc_hit_bandits"/>
+	<info_portion id="esc_heli_attack"/>
+	<info_portion id="esc_heli_fire"/>
+	<info_portion id="esc_heli_direct">
+		<action>PMA_escape.esc_heli_combat</action>
+	</info_portion>
+	<info_portion id="tutorial_wounded_must_spawn"/>
+	<info_portion id="tutorial_wounded_give_info">
+		<article>sl_first_opinions</article>
+		<article>stalker_story_92</article>   
+		<article>storyline_fox_flash_info</article>
+	</info_portion>
+	<info_portion id="tutorial_wounded_help">
+		<action>PMA_escape.esc_tolike_help</action>
+	</info_portion>
+	<info_portion id="tutorial_wounded_fail"/>
+	<info_portion id="tutorial_wounded_end"/>
+	<info_portion id="tutorial_wounded_heal"/>
+	<info_portion id="esc_petruha_report"/>
+	<info_portion id="esc_petruha_friend_die"/>
+	<info_portion id="esc_petruha_report2"/>
+	<info_portion id="esc_report_send"/>
+	<info_portion id="esc_lager_friendship"/>
+	<info_portion id="tutorial_end"/>
+	<info_portion id="tutorial_wounded_volk_greet"/>
+	<info_portion id="esc_wolf_say"/>
+	<info_portion id="esc_serious_talk"/>
+	<info_portion id="esc_wounded_arrive"/>
+	<info_portion id="esc_tutorial_secret"/>
+	<info_portion id="esc_tutorial_secret_find"/>
+	<info_portion id="esc_shustryi_secret"/>
+	<info_portion id="esc_shustryi_secret_find">
+		<action>soundtrack.occusion</action>
+	</info_portion>
+	<info_portion id="revarded_tolik"/>
+
+	<!-- Fox -->
+	<info_portion id="escape_stalker_help">
+		<disable>tutorial_wounded_help</disable>
+	</info_portion>
+	<info_portion id="escape_fox_heal"/>
+	<info_portion id="escape_stalker_spawn"/>
+	<info_portion id="escape_stalker_dog_spawn"/>	
+	<info_portion id="escape_stalker_dog_die"/>	
+	<info_portion id="escape_stalker_meet">
+		<task>esc_help_wounded_from_raid</task>
+		<article>sl_usefull_info</article>
+	</info_portion>
+	<info_portion id="escape_stalker_give">	
+		<article>storyline_seryi_info</article>
+	</info_portion>	
+	<info_portion id="escape_stalker_done"/>
+	<info_portion id="esc_dogs_return"/>
+	<info_portion id="esc_fox_thanks"/>
+
+
+	<!-- Blokpost_case -->
+	<info_portion id="escape_blockpost_case">
+		<disable>tutorial_artefact_done</disable>
+		<task>esc_blockpost_case_to_trader</task>
+		<article>esc_blokpost_case</article>
+		<action>esc_spawn.blockpost_case_go_online</action>
+	</info_portion>
+	<info_portion id="escape_blockpost_case_have"/>
+	<info_portion id="escape_blockpost_case_done">
+		<action>esc_spawn.bloodsucker</action>
+		<action>garbage_spawn.garbage_controller</action>
+	</info_portion>
+	<info_portion id="esc_matugalnik_off"/>
+
+	<!-- Dinamyte -->
+	<info_portion id="escape_dynamite_start">
+		<!--		<task>esc_dinamit_to_volk</task>
+		<article>esc_volk_dynamite</article> -->
+	</info_portion>
+	<info_portion id="escape_dynamite_meet"/>
+	<info_portion id="esc_petruha_great"/>
+	<info_portion id="esc_petruha_normal"/>
+	<info_portion id="escape_factory_assault_say_hello"/>
+	<info_portion id="escape_dynamite_gain">
+		<action>esc_spawn.newbie1</action>
+		<action>esc_spawn.bloodsucker</action>
+	</info_portion>
+	<info_portion id="escape_dynamite_have">
+		<action>esc_spawn.vojak</action>
+	</info_portion>
+	<info_portion id="escape_dynamite_done"/>
+	<info_portion id="esc_petruha_die"/>
+	<info_portion id="esc_volk_reward"/>
+
+	<!-- Newbie_lager_help -->
+	<info_portion id="escape_lager_help">
+		<task>esc_defend_lager</task>
+		<article>defend_novice</article>
+	</info_portion>
+	<info_portion id="escape_lager_spawn_killers">
+		<action>esc_spawn.bloodsucker</action>
+	</info_portion>
+	<info_portion id="esc_killers_raid"/>
+	<info_portion id="escape_lager_killers_die">
+		<!--disable>escape_lager_spawn_killers</disable-->
+	</info_portion>
+	<info_portion id="escape_lager_complete"/>
+	<info_portion id="esc_fanat_spawn">
+		<action>esc_spawn.bloodsucker</action>
+		<action>garbage_spawn.random_garbage1</action>
+	</info_portion>
+	<info_portion id="esc_open_killer_fire"/>
+	<info_portion id="esc_open_lager_fire"/>
+	<info_portion id="esc_fanat_die">
+		<action>soundtrack.occusion</action>
+	</info_portion>
+	<info_portion id="esc_path_to_lager"/>
+	<info_portion id="esc_lager_destroyed"/>
+	<info_portion id="esc_wolf_dead"/>
+	<info_portion id="esc_assault_to_lager"/>
+
+	<!-- Poryadok fraz torgovca -->
+	<info_portion id="esc_trader_talked_about_zone"/>
+	<info_portion id="esc_trader_talked_about_me"/>
+	<info_portion id="esc_trader_talked_about_army"/>
+	<info_portion id="esc_trader_return"/>
+
+	<!-- Ispol'zuetsya dlya otladki skripta -->
+	<info_portion id="esc_trader_monolog_1"/>
+	<info_portion id="esc_trader_monolog_1_played"/>
+	<info_portion id="esc_trader_tutorial_choice"/>
+	<info_portion id="esc_trader_tutorial_choice_played"/>
+	<info_portion id="esc_trader_experienced"/>
+	<info_portion id="esc_trader_map_quest_1_played"/>
+	<info_portion id="esc_trader_newbie"/>
+	<info_portion id="esc_trader_newbie_course_done"/>
+	<info_portion id="esc_trader_tutorial_chosen"/>
+	<info_portion id="esc_trader_can_leave">
+		<disable>esc_trader_monolog_1</disable>
+		<disable>esc_trader_monolog_1_played</disable>
+		<disable>esc_trader_tutorial_choice</disable>
+		<disable>esc_trader_tutorial_choice_played</disable>
+		<disable>esc_trader_experienced</disable>
+		<disable>esc_trader_map_quest_1_played</disable>
+		<disable>esc_trader_newbie</disable>
+		<disable>esc_trader_newbie_course_done</disable>
+		<disable>esc_trader_tutorial_chosen</disable>
+		<disable>esc_trader_talked_about_zone</disable>
+		<disable>esc_trader_talked_about_me</disable>
+		<disable>esc_trader_talked_about_army</disable>
+		<disable>esc_trader_return</disable>
+		<!-- <action>teleport_spawn.teleport</action> -->
+		<action>teleport_spawn.teleport1</action>
+		<action>esc_spawn.vojak</action>
+		<action>esc_spawn.flesh_bridge</action>
+	</info_portion>
+	<info_portion id="esc_trader_direct"/>
+
+	<!-- vspomogatel'nye v lagere -->
+	<info_portion id="esc_return"/>
+	<info_portion id="esc_darklab_documents_read">
+		<action>esc_spawn.newbie1</action>
+		<action>esc_spawn.soldier4</action>
+	</info_portion>
+	<info_portion id="esc_wolf_thanks_complete"/>
+	<info_portion id="esc_trader_speak"/>
+
+	<!-- Privetstviya torgovca -->
+	<info_portion id="esc_trader_hello_played"/>
+	<info_portion id="esc_trader_bye_played"/>
+
+	<info_portion id="tutorial_volk_acquainted"/>
+
+	<info_portion id="tutorial_heli_attack"/>
+	<info_portion id="esc_close_door"/>
+
+	<!-- infoportions for factory on escape -->
+	<info_portion id="escape_factory_quest"/>
+	<info_portion id="esc_bandits_assault"/>
+	<info_portion id="esc_bandits_start"/>
+	<info_portion id="escape_assault_finished"/>
+	<info_portion id="esc_kolyan_lost">
+		<article>esc_kolyan_lost</article>
+	</info_portion>
+	<info_portion id="esc_kolyan_found"/>
+	<info_portion id="esc_prison"/>
+
+	<!-- infoportions for raid -->
+	<info_portion id="esc_raid1_start"/>
+
+	<!-- infoportions for blockpost -->
+	<info_portion id="esc_blockpost_alarm">
+		<disable>esc_blockpost_normal</disable>
+	</info_portion>
+	<info_portion id="esc_blockpost_normal">
+		<disable>esc_blockpost_alarm</disable>
+	</info_portion>
+	<info_portion id="esc_commander_die">
+		<action>esc_spawn.bloodsucker</action>
+	</info_portion>
+
+	<!-- infoportions for bridge soldiers -->
+	<info_portion id="esc_bridge_pass_on">
+		<disable>esc_bridge_pass_off</disable>
+	</info_portion>
+	<info_portion id="esc_bridge_pass_off">
+		<disable>esc_bridge_pass_on</disable>
+	</info_portion>
+	<info_portion id="esc_bridge_pass_fire">
+<!--		<action>tasks_functor.make_esc_bridge_enemy</action>-->
+	</info_portion>
+
+	<!-- infoportions for restrictor -->
+	<info_portion id="esc_flesh_in_anomaly"/>
+	<info_portion id="esc_boar_dogs_restrictor"/>
+
+	<!-- test infoportions -->
+	<info_portion id="test_info_1"/>
+	<info_portion id="test_info_2"/>
+	<info_portion id="test_info_3"/>
+	<info_portion id="test_info_4"/>
+	<info_portion id="test_info_5"/>
+
+
+	<!-- trader bandits on factory -->
+	<info_portion id="esc_kill_bandits_quest_have">
+		<!--	<task>esc_dinamit_to_volk</task>
+		<article>kill_factory_bandits</article> -->
+	</info_portion>
+	<info_portion id="esc_kill_bandits_quest_kill">
+		<action>soundtrack.s_stop</action>
+	</info_portion>
+	<info_portion id="esc_kill_bandits_noquest_kill"/>
+	<info_portion id="esc_kill_bandits_quest_done"/>
+	<info_portion id="esc_assault_start"/>
+	<info_portion id="esc_assault_charge"/>
+	<info_portion id="esc_heli_go"/>
+
+
+	<!-- interesnye mesta -->
+	<info_portion id="esc_tutorial_secret_place">
+		<article>tutorial_secret_place</article>
+	</info_portion>
+	<info_portion id="esc_tutorial_secret_place_found"/>
+
+	<!-- trup u anomalii -->
+	<info_portion id="esc_tutorial_dead_novice">
+		<article>tutorial_moving_anomaly</article>
+	</info_portion>
+
+
+	<info_portion id="esc_zombie_rise2"/>
+
+	<!-- provodnik -->
+	<info_portion id="esc_find_doctor_start">
+		<task>doctor_meet</task>
+		<article>esc_provodnik_pda</article>
+		<article>sl_provodnik</article>
+	</info_portion>
+	<info_portion id="esc_find_doctor_done">
+		<action>dsh.my_name_is_strelok</action>
+	</info_portion>
+
+	<!-- Korrumpirovanyy post na mostu -->
+	<info_portion id="esc_bridge_soldiers"/>
+
+	<info_portion id="esc_dog_spawn"/>
+
+	<info_portion id="esc_find_railroad_passage_start">
+		<task>find_railroad_passage</task>
+	</info_portion>
+	<info_portion id="esc_find_railroad_passage_find_stalker"/>
+	<info_portion id="esc_find_railroad_passage_done">
+		<action>soundtrack.occusion</action>
+	</info_portion>
+
+	<info_portion id="esc_tutorial_start"/>
+
+	<info_portion id="trader_job">
+		<task>esc_trader_job</task>
+	</info_portion>
+	<info_portion id="esc_fanat_dead"/>
+
+	<!-- DotPack -->
+
+	<info_portion id="escape_trader_artnabor_start">
+		<task>escape_trader_artnabor</task>
+	</info_portion>
+
+	<info_portion id="escape_trader_artnabor_done">
+		<action>esc_spawn.bloodsucker</action>
+	</info_portion>
+	<!-- DotPack -->
+	<!-- Podklyuchaem  kvest Chemodan Lisa -->
+	<info_portion id="m_esc_main_fox_box">
+		<task>esc_main_fox_box</task>
+	</info_portion>
+	<info_portion id="escape_main_case_to_trader"/>
+	<info_portion id="escape_main_find_box">
+		<disable>esc_main_fox_box</disable>
+		<disable>escape_main_case_to_trader</disable>
+	</info_portion>
+	<info_portion id="actor_set_zombied">
+		<action>ogse_quests.tutor_zombied</action>
+	</info_portion>
+	<info_portion id="sleep_camp"/>
+
+
+	<info_portion id="artifact_started">
+		<task>escape_trader_artifact_task</task>
+	</info_portion>
+	<info_portion id="artefact_gain">
+		<!--action>ogse_quests.art_found</action-->
+	</info_portion>
+	<info_portion id="artefact_done"/>
+	<info_portion id="artefact_otdan"/>
+
+	<!-- Tutorial artefact -->
+	<info_portion id="tutorial_artefact_gain"/>
+	<info_portion id="tutorial_artefact_done"/>
+	<info_portion id="tutorial_flesh_start">
+		<action>PMA_escape.esc_heli_scene</action>
+	</info_portion>
+	<info_portion id="tutorial_flesh_die_processed"/>
+	<info_portion id="tutorial_flesh_die"/>
+	<info_portion id="tutorial_alarm_start"/>
+	<info_portion id="tutorial_wounded_die">
+		<action>PMA_escape.esc_tolike_kiled_by_actor</action>
+		<action>PMA_escape.down_rep</action>
+	</info_portion>
+	<info_portion id="tutorial_wounded_death">
+		<action>PMA_escape.esc_tolike_kiled</action>
+		<action>PMA_escape.down_rep</action>
+	</info_portion>
+	<info_portion id="wolf_start_dialogs"/>
+	<info_portion id="tolik_help">
+		<task>tutorial_help_wounded_ogse</task>
+	</info_portion>
+
+	<info_portion id="no_kill_actor">
+		<action>PMA_escape.tolike_in_lager</action>
+		<action>soundtrack.wolf_to_dialog</action>
+	</info_portion>		
+
+	<info_portion id="shustriy_start">
+		<article>tutorial_artefact</article>
+		<task>esc_flash_task</task>
+	</info_portion>
+	<!--dinamyt_for_wolf-->
+	<info_portion id="esc_dinamit_pma_start">
+		<task>esc_rma_dinamit_to_volk</task>
+	</info_portion>
+	<info_portion id="esc_dinamit_pma_gain"/>
+	<info_portion id="esc_dinamit_pma_done"/>
+	<info_portion id="esc_dinamit_pma_reward"/>
+
+
+
+
+
+	<!-- Jek@n's portions -->
+	<!-- Раненый и Лекарь -->
+	<info_portion id="lekar_af_mincer_meat_out"/>
+	<info_portion id="lekar_goto_af_mincer_meat">
+		<task>lekar_goto_af_mincer_meat</task>
+	</info_portion>
+	<info_portion id="volk_about_first"/>
+	<info_portion id="lekar_dead"/>
+	<info_portion id="first_neutral_standup"/>
+	<info_portion id="lekar_af_mincer_meat_out_1"/>
+	<info_portion id="first_neutral_dead"/>
+	<info_portion id="bridge_lekar_dead"/>
+	<info_portion id="lekar_end_info"/>
+	<info_portion id="first_planshet_in"/>
+	<info_portion id="first_neural_death">
+		<action>jekan_work.kill_first</action>
+	</info_portion>
+	<info_portion id="first_planshet_info">
+		<task>find_flash_1</task>
+		<task>find_flash_2</task>
+		<task>find_flash_3</task>
+		<task>find_flash_4</task>
+		<task>find_flash_5</task>
+		<action>jekan_work.spawn_esc_digger</action>
+	</info_portion>
+	<info_portion id="talked_with_lukash_about_flash">
+		<action>jekan_work.spawn_flash_5</action>
+	</info_portion>
+	<info_portion id="first_quest_info">
+		<task>find_first_shron</task>
+	</info_portion>
+	<info_portion id="spawn_bridge_lekar">
+		<action>jekan_work.teleport_lekar</action>
+	</info_portion>
+	<info_portion id="digger_dead"/>
+	<info_portion id="lekar_find_flover">
+		<task>lekar_find_flover</task>
+	</info_portion>
+	<info_portion id="flover_in"/>
+	<info_portion id="bridge_lekar_reward"/>
+	<info_portion id="lekar_give_info"/>
+	<info_portion id="digger_seif_task">
+		<task>digger_seif_task</task>
+		<action>jekan_work.cheb_helptip</action>
+	</info_portion>
+	<info_portion id="digger_give_info">
+		<action>jekan_work.spawn_newbie_arthunter</action>
+		<action>jekan_work.spawn_af_puzir</action>
+		<task>meet_arthunter</task>
+	</info_portion>
+
+	<!-- Музыкант -->
+	<info_portion id="muzik_play_1"/>
+	<info_portion id="muzik_play_2"/>
+	<info_portion id="muzik_play_3"/>
+	<info_portion id="muzik_play_4"/>
+	<info_portion id="muzik_play_5"/>
+	<info_portion id="muzik_play_6"/>
+	<info_portion id="muzik_play_7"/>
+	<info_portion id="muzik_play_8"/>
+	<info_portion id="muzikant_start_talk"/>
+	<info_portion id="muzikant_dead"/>
+
+	<info_portion id="fleshka_1_find">
+		<action>jekan_work.check_klondaik_flashes</action>
+	</info_portion>
+	<info_portion id="fleshka_2_find">
+		<action>jekan_work.check_klondaik_flashes</action>
+	</info_portion>
+	<info_portion id="fleshka_3_find">
+		<action>jekan_work.check_klondaik_flashes</action>
+	</info_portion>
+	<info_portion id="fleshka_4_find">
+		<action>jekan_work.check_klondaik_flashes</action>
+	</info_portion>
+	<info_portion id="fleshka_5_find">
+		<action>jekan_work.check_klondaik_flashes</action>
+	</info_portion>
+	<info_portion id="klondaik_flashes_collected">
+		<task>klondaik_ending_task</task>
+		<article>go_to_klondaik</article>
+	</info_portion>
+	<info_portion id="klondaik_find"/>
+	<info_portion id="klondaik_key_find"/>
+	<info_portion id="klondike_activated"/>
+	<info_portion id="klondike_arts_spawned"/>
+
+	<!-- Привидение -->
+	<info_portion id="secret_villager_task">
+		<task>secret_villager_task</task>
+		<action>jekan_work.cheb_helptip</action>
+	</info_portion>
+	<info_portion id="secret_villager_birth"/>
+	<info_portion id="secret_villager_dead">
+		<disable>secret_villager_birth</disable>
+	</info_portion>	
+	<info_portion id="secret_villager_ston_1">
+		<action>soundtrack.secret_villager_ston_1</action>
+	</info_portion>
+	<info_portion id="secret_villager_ston_2">
+		<action>soundtrack.secret_villager_ston_2</action>
+	</info_portion>
+	<info_portion id="all_bones_collected"/>
+	<info_portion id="muzikant_quest_1_reward"/>
+	<info_portion id="secret_villager_ston">
+		<action>soundtrack.secret_villager_ston_1</action>
+	</info_portion>
+
+	<!-- Братья -->
+	<info_portion id="zona_brother1_dead"/>
+	<info_portion id="zona_brother2_dead"/>
+	<info_portion id="bro2_finish"/>
+	<info_portion id="zona_bro1_getout"/>
+	<info_portion id="brother_trap_task">
+		<task>brother_trap_task</task>
+		<action>jekan_work.spawn_freezer</action>
+	</info_portion>
+	<info_portion id="brother_freezer_use"/>
+	<info_portion id="zona_brother1_blow">
+		<action>jekan_work.zona_brother1_blow</action>
+		<action>jekan_work.spawn_freezer_bandos</action>
+	</info_portion>
+	<info_portion id="freez_bandos_kulgband_info"/>
+	<info_portion id="brother2_goto_rest">
+		<task>defend_bro2</task>
+	</info_portion>
+	<info_portion id="bro2_on_place"/>
+	<info_portion id="freez_band_terror_start"/>
+	<info_portion id="freezer_bandos_dead"/>
+	<info_portion id="brother2_talked">
+		<action>jekan_work.cheb_birthplace_spawn</action>
+		<action>jekan_work.spawn_chebur</action>
+		<action>jekan_work.spawn_cheb_timer</action>		
+	</info_portion>
+	<info_portion id="brother2_reward">
+		<task>esc_tunnel_task</task>
+		<action>jekan_work.release_bro1</action>
+	</info_portion>
+
+
+	<!-- Спасение рядового Шустрого мирным путем -->
+	<info_portion id="atp_band_hitted"/>
+	<info_portion id="atp_lider_dead"/>
+	<info_portion id="atp_band_access">
+		<task>atp_band_cheat</task>
+		<action>jekan_work.spawn_atp_lider</action>
+	</info_portion>
+	<info_portion id="atp_band_access_ranger_talk"/>
+	<info_portion id="shustriy_dead"/>
+	<info_portion id="atp_prisoner_freedom">
+		<disable>esc_prison</disable>
+		<action>jekan_work.start_atp_lider_work_timer</action>
+	</info_portion>
+	<info_portion id="shustriy_in_lager"/>
+	<info_portion id="atp_fail"/>
+	<!-- Это когда нас выкидывают на мороз -->
+	<info_portion id="atp_fail1"/>
+	<!-- А это - когда грубим или когда раним бандита -->
+	<info_portion id="atp_na_moroz"/>
+	<info_portion id="rangers_go_home"/>
+	<info_portion id="atp_volk_fail"/>
+	<info_portion id="atp_volk_fail1"/>
+	<info_portion id="atp_lider_work1_request"/>
+	<info_portion id="atp_lider_work1">
+<!--		<task>atp_lider_work1</task> -->
+	</info_portion>
+
+	<info_portion id="test_place1_info"/>
+
+
+	<!-- Болотный Доктор -->
+	<info_portion id="swamp_doc_start_talk"/>
+	<info_portion id="unic_krovosos_quest">
+		<task>unic_krovosos_quest</task>
+	</info_portion>
+	<info_portion id="unic_krovosos_sleeping">
+		<action>jekan_work.start_bad_krovos_timer</action>
+	</info_portion>
+	<info_portion id="sleep_bloodsucker_on_place"/>
+	<info_portion id="krovos_unic_dead"/>
+	<info_portion id="krovos_unic_frighten">
+		<action>jekan_work.krovos_unic_frighten_tip</action>
+	</info_portion>
+	<info_portion id="unic_krovosos_quest_complete"/>
+	<info_portion id="unic_krovosos_quest_fail"/>
+
+	<info_portion id="unic_pseudodog_quest_talk">
+		<action>jekan_work.release_krovos_unic_body</action>
+		<action>jekan_work.krovos_friend_spawn</action>
+	</info_portion>
+	<info_portion id="unic_pseudodog_quest">
+		<task>unic_pseudodog_quest</task>
+	</info_portion>
+	<info_portion id="unic_pseudodog_sleeping">
+		<action>jekan_work.start_bad_pseudodog_timer</action>
+	</info_portion>
+	<info_portion id="sleep_pseudodog_on_place"/>
+	<info_portion id="pseudodog_unic_dead"/>
+	<info_portion id="pseudodog_unic_frighten">
+		<action>jekan_work.pseudodog_unic_frighten_tip</action>
+	</info_portion>
+	<info_portion id="unic_pseudodog_quest_complete"/>
+	<info_portion id="unic_pseudodog_quest_fail"/>
+
+	<info_portion id="karlito_quest_talk">
+		<action>jekan_work.release_pseudodog_unic_body</action>
+		<action>jekan_work.pseudodog_friend_spawn</action>
+	</info_portion>
+
+	<info_portion id="swamp_doc_respect1"/>
+	<info_portion id="swamp_doc_respect2"/>
+	<info_portion id="swamp_doc_respect3"/>
+
+	<info_portion id="doc_karlito_quest_otkaz"/>
+	<info_portion id="swamp_doc_karlito_quest"/>
+	<info_portion id="swamp_doc_propeller_quest"/>
+
+
+	<!-- Диггер и Синяк -->
+	<info_portion id="digger_weapon_quest1">
+		<task>digger_weapon_quest1</task>
+	</info_portion>
+	<info_portion id="sinyak_dead"/>
+	<info_portion id="sinyak_votrube"/>
+	<info_portion id="sinyak_go_to_sleep"/>
+	<info_portion id="sinyak_awaked"/>
+	<info_portion id="DEBUG_bar_sinyak_respawned"/>
+	<info_portion id="DEBUG_gorbovsky_respawned"/>
+	<info_portion id="DEBUG_relations_cleared"/>
+	<info_portion id="DEBUG_mutant_parts_processed"/>
+	<info_portion id="sinyak_work"/>
+	<info_portion id="sinyak_start">
+	</info_portion>
+	<info_portion id="sinyak_finish">
+		<action>jekan_work.release_digger_pkm</action>
+	</info_portion>
+	<info_portion id="sinyak_goodbye"/>
+	<info_portion id="sinyak_goodbye2"/>
+	<info_portion id="digger_offence">
+		<action>jekan_work.digger_weapon_change</action>
+	</info_portion>
+	<info_portion id="digger_laugh"/>
+	<info_portion id="digger_weapon_quest_fail">
+		<disable>sinyak_work</disable>
+		<disable>sinyak_finish</disable>
+		<disable>sinyak_goodbye</disable>
+	</info_portion>
+	<info_portion id="digger_weapon_quest2">
+		<task>digger_weapon_quest2</task>
+		<disable>sinyak_work</disable>
+		<disable>sinyak_finish</disable>
+		<disable>sinyak_goodbye</disable>
+	</info_portion>
+	<info_portion id="digger_weapon_quest5">
+		<task>digger_weapon_quest5</task>
+		<disable>sinyak_work</disable>
+		<disable>sinyak_finish</disable>
+		<disable>sinyak_goodbye</disable>
+	</info_portion>
+	<info_portion id="diggers_pda_info">
+		<article>diggers_pda_info</article>
+		<action>jekan_work.digger_weapon_quest_fail</action>
+		<action>jekan_work.spawn_engine_restrictor</action>
+	</info_portion>
+	<info_portion id="diggers_motor"/>
+
+	<!-- k01jan управление приёмником Сидоровича -->
+	<info_portion id="sidor_receiver_off"></info_portion>
+	<info_portion id="sidor_receiver_broke"></info_portion>
+
+	<info_portion id="gunsrepair_mafon_off"></info_portion>
+	<info_portion id="gunsrepair_mafon_broke"></info_portion>
+
+	<info_portion id="actor_set_milstalker"/>
+	
+	<info_portion id="dar_samogon_bonus"/>
+	<info_portion id="dar_apparat_recharge"/>
+	
+	
+	<info_portion id="fov_play_start">
+		<disable>fov_play_end</disable>
+	</info_portion>
+	
+	<info_portion id="fov_play_end">
+		<disable>fov_play_start</disable>
+	</info_portion>
+	
+	<info_portion id="kid_zapisi_read">
+		<article>tanya_diary_article_1</article>
+		<article>tanya_diary_article_2</article>
+	</info_portion>
+	
+	<info_portion id="odin_raz_i_hvatit"></info_portion>
+	
+	<!-- Мирное получение Форта-15 у майора Кузнецова по заданию Сидоровича -->
+	<info_portion id="find_fort_m1"></info_portion>
+	
+	<info_portion id="find_af_and_vodka_for_kuzya">
+		<task>find_af_and_vodka</task>
+	</info_portion>
+	<info_portion id="esc_actor_has_vodka"></info_portion>
+	<info_portion id="esc_actor_has_af"></info_portion>
+	<info_portion id="actor_fond_vodka">
+		<action>escape_dialog.send_message_vodka</action>
+	</info_portion>
+	<info_portion id="actor_fond_af">
+		<action>escape_dialog.send_message_af_mincer_meat</action>
+	</info_portion>
+	<info_portion id="find_af_and_vodka_for_kuzya_done"></info_portion>
+	<info_portion id="esc_bridge_pass_first"></info_portion>
+	<!-- Мирное получение Форта-15 у майора Кузнецова по заданию Сидоровича -->
+</game_information_portions>

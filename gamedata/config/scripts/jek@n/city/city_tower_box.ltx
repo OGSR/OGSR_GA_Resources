@@ -1,0 +1,22 @@
+[collide]
+ignore_static
+
+[logic]
+active = ph_idle@1
+
+[ph_idle@1]
+tips = city_tower_box_use
+on_use = {+city_samogon_info3} %=city_tower_box_use%
+on_info = {+cit_tower_box_open} ph_idle@2
+
+[ph_idle@2]
+nonscript_usable = true
+tips = city_tower_box_use
+
+
+
+
+
+
+
+

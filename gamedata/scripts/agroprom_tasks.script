@@ -1,0 +1,121 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-- AGROPROM
+
+function proceed()
+end
+
+function process_info_portion(info_id)
+	if info_id == "agr_krot_secret_info" then
+		if not has_alife_info("agr_find_gunslinger_cache_start") then
+			db.actor:give_info_portion("agr_find_gunslinger_cache_start")
+			db.actor:give_info_portion("agr_krot_task_complete")
+			-- nv 090901 should we spawn these guys anyway?
+			db.actor:give_info_portion("agr_factory_spawn_spetsnaz")
+		end
+		return true
+	end
+
+	if info_id == "agr_sold_about_ratcatcher" then
+		if not has_alife_info("agroprom_military_case_have") then
+			level_tasks.add_location_by_sid(story_ids.agr_ratcatcher, "crlc_mdl", "agr_swamp_hint", 1)
+		end
+		return true
+
+-- collector entrance
+	elseif info_id == "agr_collector_entrance_info" then
+		level_tasks.remove_location_by_sid(story_ids.agr_ratcatcher, "crlc_mdl")
+		if not has_alife_info("agroprom_military_case_have") then
+			level_tasks.add_location_by_sid(story_ids.agr_collector_entrance1, "crlc_small", "to_agroprom_underground", 1)
+			level_tasks.add_location_by_sid(story_ids.agr_collector_entrance2, "crlc_small", "to_agroprom_underground", 1)
+			level_tasks.add_location_by_sid(story_ids.agr_collector_entrance3, "crlc_small", "to_agroprom_underground", 1)
+			level_tasks.add_location_by_sid(story_ids.agr_collector_entrance4, "crlc_small", "to_agroprom_underground", 1)
+			level_tasks.add_location_by_sid(story_ids.agr_collector_entrance5, "crlc_small", "to_agroprom_underground", 1)
+			level_tasks.add_location_by_sid(story_ids.agr_collector_entrance6, "crlc_small", "to_agroprom_underground", 1)
+		end
+		return true
+
+-- captains chamber
+	elseif info_id == "agr_captains_chamber_info" then
+		if not has_alife_info("agroprom_military_case_have") then
+			level_tasks.add_location_by_sid(story_ids.agr_captains_chamber, "crlc_small", "agr_captains_chamber_hint", 1)
+		end
+		return true
+
+-- agroprom factory location
+	elseif info_id == "agr_factory_location" then
+		if not has_alife_info("agr_help_krot_done") then
+			level_tasks.add_location_by_sid(story_ids.agr_factory_location, "crlc_big", "agr_factory_hint", 1)
+		end
+		return true
+	elseif info_id == "agr_help_krot_done" then
+		level_tasks.remove_location_by_sid(story_ids.agr_factory_location, "crlc_big")
+		return true
+
+-- agroprom nii location
+	elseif info_id == "agr_nii_location" then
+		if not has_alife_info("agroprom_military_case_have") then
+			level_tasks.add_location_by_sid(story_ids.agr_nii_location, "crlc_big", "agr_nii_hint", 1)
+		end
+		return true
+
+	elseif info_id == "agroprom_military_case_have" then
+		level_tasks.remove_location_by_sid(story_ids.agr_collector_entrance1, "crlc_small")
+		level_tasks.remove_location_by_sid(story_ids.agr_collector_entrance2, "crlc_small")
+		level_tasks.remove_location_by_sid(story_ids.agr_collector_entrance3, "crlc_small")
+		level_tasks.remove_location_by_sid(story_ids.agr_collector_entrance4, "crlc_small")
+		level_tasks.remove_location_by_sid(story_ids.agr_collector_entrance5, "crlc_small")
+		level_tasks.remove_location_by_sid(story_ids.agr_collector_entrance6, "crlc_small")
+		level_tasks.remove_location_by_sid(story_ids.agr_ratcatcher, "crlc_mdl")
+		level_tasks.remove_location_by_sid(story_ids.agr_captains_chamber, "crlc_small")
+		level_tasks.remove_location_by_sid(story_ids.agr_nii_location, "crlc_big")
+		return true
+	end
+
+	return false
+end
+
+----------------------------------------------------------------------------------------------
+
+function have_quest_case_02(task, objective)
+	return db.actor:object("quest_case_02") ~= nil
+end
+
+function have_krots_flash(task, objective)
+    if db.actor:object("krot_flash") ~= nil then
+       db.actor:give_info_portion ("agr_krot_task_complete")
+       return true
+    end   
+	return false
+end
+
+function agr_trader_documents()
+	if level.name() == "l03_agroprom" then
+		news_manager.send_tip( db.actor, "tips_agr_trader_documents", nil, "trader" )
+		jekan_work.krot_ammo_box_st()
+	end
+end
+
+function have_gunslingers_flash(task, objective)
+	if db.actor:object("gunslinger_flash") ~= nil then
+		db.actor:give_info_portion( "agr_find_gunslinger_cache_final" )
+		db.actor:give_info_portion( "agr_find_ghost_start" )
+       return true
+    end
+    return false   
+end
+
+function ghost_tips ()
+	news_manager.send_tip( db.actor, "ghost_tips", nil, "prizrak", nil )
+	db.actor:give_info_portion ("agr_gunslinger_flash_have")
+end
+
+function agr_actor_enemy ()
+    if level_object_by_sid (302) ~= nil then
+		local actor = db.actor
+		local npc = level_object_by_sid (302)
+		local t = db.storage[npc:id()].death
+		return npc:relation(actor) == game_object.enemy or (t ~= nil and t.killer == actor:id())
+	end
+    return false
+end

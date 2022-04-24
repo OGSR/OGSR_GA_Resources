@@ -1,0 +1,409 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+----------------------------------------------------------------------------------------------------
+-- Файл ogse_autodoc.script
+-- Девайс "Автодоктор" (ИДЛК)
+-- OGS Evolution Team
+-- Merc13
+-- 09.2012
+-- Зависит от: ui_autodoc.script
+----------------------------------------------------------------------------------------------------
+
+charges = {["h"] = 0, ["s"] = 0, ["r"] = 0}
+switch_on = {["ad"]	= false, ["h"] = false, ["s"] = false, ["r"] = false}
+ad_on_belt = false
+
+
+function attach(sm) -- для менеджера сигналов
+	sm:subscribe({signal = "on_use",  fun = this.on_use})
+	sm:subscribe({signal = "on_item_to_belt", fun = this.on_to_belt})
+	sm:subscribe({signal = "on_item_to_ruck", fun = this.on_to_ruck})
+	sm:subscribe({signal = "on_drop", fun = this.on_to_ruck})
+	sm:subscribe({signal = "on_spawn", fun = this.get_autodoc_states})
+	sm:subscribe({signal = "on_save", fun = this.save_autodoc_states})
+end
+
+local sm = ogse_signals.get_mgr()
+local subscribed
+
+function subscribe()
+	if not subscribed then
+		subscribed = {signal = "on_update", fun = this.check_autodoctor}
+		sm:subscribe( subscribed )
+		--log3("--[%s] subscribed!", script_name())
+	end
+end
+
+function unsubscribe()
+	if subscribed then
+		sm:unsubscribe( subscribed )
+		subscribed = nil
+		--log3("~~[%s] UNsubscribed!", script_name())
+	end
+end
+
+
+function on_to_belt(obj, sobj)
+	if obj:section() == "autodoctor" then
+		ad_on_belt = true
+		subscribe()
+		start_up()
+		return true --дальше тут нечего делать
+	end
+end
+
+function on_to_ruck(obj, sobj)
+	if obj:section() == "autodoctor" then
+		ad_on_belt = false
+		unsubscribe()
+		return true --сомневаюсь что он ещё где-то нужен
+	end
+end
+
+function check_autodoctor()
+	if switch_on.ad then
+		autohealing()
+	end
+end
+
+
+-- Global healing params of autodoctor / Параметры ИДЛК
+local full_charges 		= sys_ini:r_s32("autodoctor", "ad_full_charges")	-- Макс. кол-во зарядов в подсистемах ИДЛК
+local health_dlt		= sys_ini:r_float("autodoctor", "ad_health_dlt")	-- Шаг лечения
+local stamina_dlt		= sys_ini:r_float("autodoctor", "ad_stamina_dlt")	-- Шаг восстановления энергии
+local radiation_dlt		= sys_ini:r_float("autodoctor", "ad_radiation_dlt")-- Шаг уменьшения радиации
+local threshold_h		= sys_ini:r_float("autodoctor", "ad_threshold_h")	-- Порог включения процедуры лечения
+local threshold_s		= sys_ini:r_float("autodoctor", "ad_threshold_s")	-- Порог включения процедуры энергонакачки
+local threshold_r		= sys_ini:r_float("autodoctor", "ad_threshold_r")	-- Порог срабатывания процедуры ввода антирада
+-- Макс. время воздействия радиации, превышающей значение threshold_r_min
+local max_rad_seconds 	= sys_ini:r_s32("autodoctor", "ad_max_rad_seconds")
+-- Мин. доза радиации, при воздействии которой дольше времени max_radiated_seconds, ИДЛК введёт антирад
+local threshold_r_min 	= sys_ini:r_float("autodoctor", "ad_threshold_r_min")
+
+---------------- Get and save charges count ---------------
+local started_up = false
+local long_time_exposure = false
+local medication_delay = false
+
+-- Загружаем количество зарядов в подсистемах автодока и их состояние
+function get_autodoc_states()
+
+	charges["r"] = ogse.load_var("charge_ad_r", 0)
+	charges["h"] = ogse.load_var("charge_ad_h", 0)
+	charges["s"] = ogse.load_var("charge_ad_s", 0)
+	
+	switch_on["ad"] = ogse.load_var("is_autodoc_on", false, "bool")
+	switch_on["h"] = ogse.load_var("is_autodoc_h_on", false, "bool")
+	switch_on["s"] = ogse.load_var("is_autodoc_s_on", false, "bool")
+	switch_on["r"] = ogse.load_var("is_autodoc_r_on", false, "bool")
+	
+	if started_up == false then
+		started_up = true
+	end
+	
+end
+
+-- Сохраняем количество зарядов в подсистемах автодока и их состояние
+function save_autodoc_states()
+	ogse.save_var("charge_ad_h", charges["h"])
+	ogse.save_var("charge_ad_s", charges["s"])
+	ogse.save_var("charge_ad_r", charges["r"])
+	ogse.save_var("is_autodoc_on", switch_on["ad"], "bool")
+	ogse.save_var("is_autodoc_h_on", switch_on["h"], "bool")
+	ogse.save_var("is_autodoc_s_on", switch_on["s"], "bool")
+	ogse.save_var("is_autodoc_r_on", switch_on["r"], "bool")
+
+end
+--------------------------------------------------------------------------
+local exposure_count = 0
+local rad_time = math.floor(max_rad_seconds/3)
+local bleeding_on_begin = 0
+local is_bleeding = false
+
+--messages
+local message_head = "%c[255,160,160,160]"..game.translate_string("ogse_autodoc_message_head_text").."\\n"
+local start_check = message_head.."%c[default] "..game.translate_string("ogse_autodoc_start_check_text")
+local ad_healing_msg = message_head.."%c[default] %c[255,0,230,0]"..game.translate_string("ogse_autodoc_ad_healing_msg_text")
+local ad_stimulator_msg = message_head.."%c[default] %c[255,0,230,0]"..game.translate_string("ogse_autodoc_ad_stimulator_msg_text")
+local cartriges_sections = {
+	["cartridge_a"] = "a",
+	["cartridge_h"] = "h",
+	["cartridge_s"] = "s",
+	["cartridge_r"] = "r",
+}
+
+function on_use(obj, sobj)
+	local section = obj:section()
+	if section == "autodoctor" then
+		if not ad_on_belt then
+			snd_obj = xr_sound.get_safe_sound_object([[device\pda\pda_news]])
+			msg_txt = game.translate_string("ogse_autodoc_is_not_on_belt_text")
+			if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+			db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+		else	
+			ui_autodoc.open_autodoc_ui()
+		end
+		return true
+	end
+	local par = cartriges_sections[section]
+	if par then
+		local restore_item = true
+		if ad_on_belt then
+			restore_item = ad_recharge(par)
+		end
+		if restore_item then ogse.spawn_item_in_inv(section) end
+		return true
+	end
+end
+
+-- Действия при помещении автодока на пояс
+function start_up()
+
+	local msg_txt = ""
+	
+	if started_up == false then
+		get_autodoc_states()
+	end	
+
+	if( not switch_on["ad"] )
+	then
+		snd_obj = xr_sound.get_safe_sound_object([[device\pda\pda_news]])
+		msg_txt = game.translate_string("ogse_autodoc_is_disabled_text")
+		if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+		db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+	else
+		msg_txt = message_head
+--		if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+		db.actor:give_game_news(start_check, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 3000)
+		snd_obj = xr_sound.get_safe_sound_object( [[HEV\automedic-on]])
+		if(charges["h"]==0)
+		then
+			msg_txt = string.format("%s %%c[255,225,0,0]"..game.translate_string("ogse_autodoc_no_healing_charges_text").."\\n", msg_txt)
+			snd_obj = xr_sound.get_safe_sound_object( [[HEV\automedic-on-no-anti-rad]])
+			switch_on["h"] = false
+		else
+			if( switch_on["h"] )
+			then
+				msg_txt = string.format("%s %%c[default]"..game.translate_string("ogse_autodoc_healing_on_charges_text").."%d.\\n", msg_txt, charges["h"])
+			else
+				msg_txt = string.format("%s %%c[255,200,50,0]"..game.translate_string("ogse_autodoc_healing_off_text").."%d.\\n", msg_txt, charges["h"])
+			end
+--				switch_on["h"] = true
+		end
+		if(charges["s"]==0)
+		then
+			msg_txt = string.format("%s %%c[255,255,0,0]"..game.translate_string("ogse_autodoc_no_stimpack_charges_text").."\\n", msg_txt)
+			snd_obj = xr_sound.get_safe_sound_object( [[HEV\automedic-on-no-anti-rad]])
+			switch_on["s"] = false
+		else
+			if( switch_on["s"] )
+			then
+				msg_txt = string.format("%s %%c[default]"..game.translate_string("ogse_autodoc_stimpack_on_charges_text").."%d.\\n", msg_txt, charges["s"])
+			else
+				msg_txt = string.format("%s %%c[255,200,50,0]"..game.translate_string("ogse_autodoc_stimpack_off_text").."%d.\\n", msg_txt, charges["s"])
+			end
+--				switch_on["s"] = true
+		end
+		if(charges["r"]==0)
+		then
+			msg_txt = string.format("%s %%c[255,255,0,0]"..game.translate_string("ogse_autodoc_no_antirad_charges_text").."\\n", msg_txt)
+			snd_obj = xr_sound.get_safe_sound_object( [[HEV\automedic-on-no-anti-rad]])
+			switch_on["r"] = false
+		else
+			if( switch_on["r"] )
+			then
+				msg_txt = string.format("%s %%c[default]"..game.translate_string("ogse_autodoc_antirad_on_charges_text").."%d.\\n", msg_txt, charges["r"])
+			else
+				msg_txt = string.format("%s %%c[255,200,50,0]"..game.translate_string("ogse_autodoc_antirad_off_text").."%d.\\n", msg_txt, charges["r"])
+			end
+--				switch_on["r"] = true
+		end
+		if(not switch_on["h"] and not switch_on["s"] and not switch_on["r"]) then snd_obj = xr_sound.get_safe_sound_object([[device\pda\pda_news]]) end
+		if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+		db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+	end
+	
+	
+	
+end
+
+-- Контроль автодоком состояния пользователя
+function autohealing()
+
+	local snd_obj = nil
+	local msg_txt = ""
+	local cah = db.actor.health	-- current actor health
+	local cas = db.actor.power		-- current actor stamina
+	local car = db.actor.radiation	-- current actor radiation
+	local cab = db.actor:get_bleeding()	-- current actor bleeding
+ 	if switch_on["h"] and cah < threshold_h and charges["h"] > 0 then 
+		snd_obj = xr_sound.get_safe_sound_object( [[HEV\administering-anti-rad]] )
+		if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+		db.actor:give_game_news(ad_healing_msg, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 3000)
+		db.actor.health = health_dlt
+		if cab > 0 then -- есть кровотечение
+			if bleeding_on_begin < cab then bleeding_on_begin = cab end
+			db.actor:heal_wounds(bleeding_on_begin / 10)
+			if not is_bleeding then
+				dsh.timeout(300, heal_wounds_per_turn)
+				is_bleeding = true
+			end
+		else
+			bleeding_on_begin = 0
+		end
+		charges["h"] = charges["h"] - 1
+		save_autodoc_states()
+		if(charges["h"]<=5 and charges["h"] > 0)
+		then
+			snd_obj = xr_sound.get_safe_sound_object([[device\pda\pda_news]])
+			msg_txt = string.format("%s "..game.translate_string("ogse_autodoc_health_charges_remaining_text").."%d!", message_head, charges["h"])
+			db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+			if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)	end
+		elseif(charges["h"] == 0)
+		then
+			snd_obj = xr_sound.get_safe_sound_object( [[HEV\no-anti-rad]])
+			msg_txt = string.format("%s %%c[255,230,0,0]"..game.translate_string("ogse_autodoc_health_empty_text"), message_head)
+			db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+			if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)	end
+			switch_on["h"] = false
+		end
+	end
+	if( switch_on["s"] and cas <= threshold_s and charges["s"] > 0 )
+	then
+		snd_obj = xr_sound.get_safe_sound_object( [[HEV\administering-anti-rad]] )
+		if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+		db.actor:give_game_news(ad_stimulator_msg, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+		db.actor.power = stamina_dlt
+		charges["s"] = charges["s"] - 1
+		save_autodoc_states()
+		if(charges["s"]<=5 and charges["s"] > 0)
+		then
+			snd_obj = xr_sound.get_safe_sound_object([[device\pda\pda_news]])
+			msg_txt = string.format("%s "..game.translate_string("ogse_autodoc_stim_charges_remaining_text").."%d!", message_head, charges["s"])
+			db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+			if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)	end
+		elseif(charges["s"] == 0)
+		then
+			snd_obj = xr_sound.get_safe_sound_object( [[HEV\no-anti-rad]])
+			msg_txt = string.format("%s %%c[255,230,0,0]"..game.translate_string("ogse_autodoc_stim_empty_text"), message_head)
+			db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+			if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)	end
+			switch_on["s"] = false
+		end
+	end
+	if( switch_on["r"] and (car >= threshold_r or long_time_exposure) )
+	then
+		if( charges["r"]>0 )
+		then
+			db.actor.radiation = -radiation_dlt
+			if long_time_exposure
+			then
+				msg_txt = message_head.."%c[default]"..game.translate_string("ogse_autodoc_rad_long_exposure_1_text").." %c[255,0,230,0]"..game.translate_string("ogse_autodoc_rad_long_exposure_2_text")
+			else
+				msg_txt = message_head.."%c[default]"..game.translate_string("ogse_autodoc_rad_long_exposure_3_text").." %c[255,0,230,0]"..game.translate_string("ogse_autodoc_rad_long_exposure_4_text")
+			end
+			db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+			snd_obj = xr_sound.get_safe_sound_object( [[HEV\administering-anti-rad]] ) -- [[device\pda\pda_tip]]
+			if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+			charges["r"] = charges["r"] - 1
+			save_autodoc_states()
+			if(charges["r"]<=5 and charges["r"] > 0)
+			then
+				snd_obj = xr_sound.get_safe_sound_object([[device\pda\pda_news]])
+				msg_txt = string.format("%s "..game.translate_string("ogse_autodoc_antirad_charges_remaining_text").."%d!", message_head, charges["r"])
+				db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+				if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)	end
+			elseif(charges["r"] == 0)
+			then
+				snd_obj = xr_sound.get_safe_sound_object( [[HEV\no-anti-rad]])
+				msg_txt = string.format("%s %%c[255,230,0,0]"..game.translate_string("ogse_autodoc_antirad_empty_text"), message_head)
+				db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+				if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)	end
+				switch_on["r"] = false
+			end
+		else
+			if long_time_exposure
+			then
+				msg_txt = message_head.."%c[255,230,0,0]"..game.translate_string("ogse_autodoc_rad_warning_1_text")
+			else
+				msg_txt = message_head.."%c[255,230,0,0]"..game.translate_string("ogse_autodoc_rad_warning_2_text")
+			end
+			db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+			snd_obj = xr_sound.get_safe_sound_object( [[HEV\hi-rad-no-anti-rad]] ) --[[device\pda\pda_tip]]
+			if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0)	end
+			switch_on["r"] = false
+		end
+		exposure_count = 0
+		long_time_exposure = false
+		medication_delay = time_global() + 3000
+	elseif( switch_on["r"] and (not medication_delay or medication_delay < time_global()) )
+	then
+		if db.actor.radiation >= threshold_r_min
+		then
+			exposure_count = exposure_count + 1
+			if exposure_count > rad_time
+			then
+				long_time_exposure = true
+			else
+				medication_delay = time_global() + 3000
+			end
+		else
+			exposure_count = 0
+			long_time_exposure = false
+			medication_delay = time_global() + 3000
+		end
+	end
+end
+
+function heal_wounds_per_turn()
+	db.actor:heal_wounds( bleeding_on_begin / 10 )
+	if db.actor:get_bleeding() > 0 then
+		dsh.timeout(300, heal_wounds_per_turn)
+	else
+		bleeding_on_begin = 0
+		is_bleeding = false
+	end
+end
+
+-- Перезарядка подсистем автодока с помощью картриджей
+function ad_recharge(subsys)
+
+	subsys = subsys or "a"
+
+	local ad_cc = charges["h"] + charges["s"] + charges["r"]
+	local snd_obj = nil
+	local msg_name = ""
+	local msg_txt = ""
+
+	msg_name = ((subsys=="h") and game.translate_string("ogse_autodoc_health_sys_name_text")) or ((subsys=="s") and game.translate_string("ogse_autodoc_stim_sys_name_text")) or ((subsys=="r") and game.translate_string("ogse_autodoc_antirad_sys_name_text"))
+	if(subsys=="a")
+	then
+		if ad_cc == (full_charges * 3) then --Если все подсистемы полностью заряжены
+			return true
+		end
+		charges["h"] = full_charges
+		charges["s"] = full_charges
+		charges["r"] = full_charges
+		msg_txt = string.format(game.translate_string("ogse_autodoc_pattern_1_text"), message_head, full_charges)
+-- [=[ --KRodin: Странный комент. Он же не работает. А должен?
+		switch_on["h"] = true
+		switch_on["s"] = true
+		switch_on["r"] = true
+		save_autodoc_states()
+--]=]
+	else
+		if(charges[subsys] == full_charges)	-- Если подсистема полностью заряжена
+		then
+			return true
+		end
+		charges[subsys] = full_charges
+		msg_txt = string.format(game.translate_string("ogse_autodoc_pattern_2_text"), message_head, msg_name, full_charges)
+		
+		switch_on[subsys] = true
+		save_autodoc_states()
+	end
+	snd_obj = xr_sound.get_safe_sound_object( [[HEV\automedic-on]])
+	if snd_obj then snd_obj:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) end
+	db.actor:give_game_news(msg_txt, "ui\\ui_iconsTotal", Frect():set(0,188,83,47), 0, 5000)
+	return false
+end

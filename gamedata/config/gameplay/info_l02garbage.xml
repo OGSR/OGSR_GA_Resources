@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+
+	<!-- ataka banditov na Serogo -->
+	<info_portion id="garbage_meetstalker_start">
+		<task>garbage_meet_stalker</task>
+		<article>sl_fox_meet</article>
+	</info_portion>
+	<info_portion id="garbage_meetstalker_done"/>
+	<info_portion id="garbage_meetstalker_die"/>
+	<info_portion id="garbage_meetstalker_end">
+		<article>sl_seryi_meet</article>
+	</info_portion>
+	<info_portion id="gar_seryi_drug_die"/>
+	<info_portion id="gar_seryi_drug2_die"/>
+
+	<info_portion id="gar_seryi_actor_enter">
+	</info_portion>
+	<info_portion id="gar_distance_shooting"/>
+	<info_portion id="gar_seryi_ceitnot"/>
+	<info_portion id="gar_seryi_open_fire"/>
+	<info_portion id="gar_seryi_counter_fire"/>
+	<info_portion id="gar_begin_assault"/>
+	<info_portion id="gar_seryi_silence"/>
+	<info_portion id="gar_seryi_change_st"/>
+	<info_portion id="gar_seryi_meet"/>
+
+	<!-- ataka stalkerov i banditov -->
+	<info_portion id="gar_bandit_leader_dead"/>
+	<info_portion id="gar_alarm">
+	</info_portion>
+	<info_portion id="gar_bandits_raid"/>
+	<info_portion id="gar_bandits_damaged"/>
+	<info_portion id="gar_hellcar_help">
+		<task>gar_help_dymon</task>
+	</info_portion>
+	<info_portion id="gar_hellcar_reject"/>
+	<info_portion id="gar_open_fire"/>
+	<info_portion id="gar_counter_fire"/>
+	<info_portion id="gar_direction"/>
+	<info_portion id="gar_start_graveyard"/>
+	<info_portion id="gar_start_quest">
+		<task>gar_car_graveyard_quest</task>
+	</info_portion>
+	<info_portion id="gar_no_mapspot"/>
+	<info_portion id="gar_animation_radio"/>
+	<info_portion id="gar_bandits_killed"/>
+	<info_portion id="gar_after_battle"/>
+	<info_portion id="gar_hellcar_dialog_end"/>
+	<info_portion id="gar_hellcar_death"/>
+	<info_portion id="gar_hellcar_death_2"/>
+	<info_portion id="gar_hellcar_thanks"/>
+	<info_portion id="gar_hellcar_alarm"/>
+
+
+	<!-- Zastava Dolga -->
+	<info_portion id="gar_kill_boars_quest">
+		<task>gar_kill_boars</task>
+		<action>bar_spawn.cat1</action>
+	</info_portion>	
+	<info_portion id="gar_kill_boars_done"/>
+	<info_portion id="gar_kill_boars_request"/>	
+	<info_portion id="gar_free_pass">
+		<!-- <disable>garbage_meetstalker_done</disable> -->
+		<disable>garbage_meetstalker_die</disable>
+		<disable>garbage_meetstalker_end</disable>
+		<disable>gar_seryi_drug_die</disable>
+		<disable>gar_seryi_drug2_die</disable>
+		<action>bar_spawn.cat2</action>
+		<action>bar_spawn.stalker1</action>
+		<action>bar_spawn.stalker2</action>
+		<action>bar_spawn.stalker3</action>
+	</info_portion>
+
+	<!-- Testovye infoposheny -->
+	<info_portion id="gar_test_info1"/>
+	<!-- Dolg rulit fleshey -->
+	<info_portion id="gar_test_info2"/>
+	<!-- kabany rulyat Dolg -->
+
+	<!-- Psevdoranenyy -->
+	<info_portion id="gar_wounded_help"/>
+	<info_portion id="gar_wounded_fight"/>
+
+	<!-- Novichok v tunnele -->
+	<info_portion id="gar_help_newbie">
+		<task>gar_help_tunnel_newbie</task>
+	</info_portion>
+	<info_portion id="gar_help_newbie_done"/>
+	<info_portion id="gar_help_newbie_die"/>
+	<info_portion id="gar_help_newbie_reward"/>
+	<info_portion id="gar_help_newbie_exit"/>
+
+	<!-- Dram-moment -->
+	<info_portion id="gar_dm_novice_asked_for_help"/>
+	<info_portion id="gar_dm_bandit_warned_plr"/>
+	<info_portion id="gar_dm_bandit1_dead"/>
+	<info_portion id="gar_dm_bandit2_dead"/>
+	<info_portion id="gar_dm_bandit3_dead"/>
+	<info_portion id="gar_dm_novice_dead"/>
+	<info_portion id="gar_dm_bandit2_warn_plr"/>
+	<info_portion id="gar_dm_bandit2_warned_plr"/>
+	<info_portion id="gar_dm_bandit1_demand"/>
+	<info_portion id="gar_dm_bandit2_demand"/>
+	<info_portion id="gar_dm_bandit3_demand"/>
+	<info_portion id="gar_dm_newbie_no_money"/>
+	<info_portion id="gar_dm_end">
+		<disable>gar_dm_novice_asked_for_help</disable>
+		<disable>gar_dm_bandit_warned_plr</disable>
+		<disable>gar_dm_bandit1_dead</disable>
+		<disable>gar_dm_bandit2_dead</disable>
+		<disable>gar_dm_bandit3_dead</disable>
+		<disable>gar_dm_bandit2_warn_plr</disable>
+		<disable>gar_dm_bandit2_warned_plr</disable>
+		<disable>gar_dm_bandit1_demand</disable>
+		<disable>gar_dm_bandit2_demand</disable>
+		<disable>gar_dm_bandit3_demand</disable>
+		<disable>gar_dm_newbie_no_money</disable>
+	</info_portion>
+	<info_portion id="gar_dm_novice_change_st"/>
+	<info_portion id="gar_dm_bandits_change_st"/>
+
+	<!-- Fake spots objects-->
+	<info_portion id="gar_add_fake_spot1"/>
+	<info_portion id="gar_remove_fake_spot1"/>
+	<info_portion id="gar_add_fake_spot2"/>
+	<info_portion id="gar_remove_fake_spot2"/>
+	<info_portion id="gar_add_fake_spot3"/>
+	<info_portion id="gar_remove_fake_spot3"/>
+	<info_portion id="gar_add_fake_spot4"/>
+	<info_portion id="gar_remove_fake_spot4"/>
+	<info_portion id="gar_add_fake_spot5"/>
+	<info_portion id="gar_remove_fake_spot5"/>
+	<info_portion id="gar_add_fake_spot6"/>
+	<info_portion id="gar_remove_fake_spot6"/>
+	<info_portion id="gar_add_fake_spot7"/>
+	<info_portion id="gar_remove_fake_spot7"/>
+	<info_portion id="gar_add_fake_spot8"/>
+	<info_portion id="gar_remove_fake_spot8"/>
+	<info_portion id="gar_add_fake_spot9"/>
+	<info_portion id="gar_remove_fake_spot9"/>
+	<info_portion id="gar_add_fake_spot10"/>
+	<info_portion id="gar_remove_fake_spot10"/>
+	<info_portion id="gar_add_fake_spot11"/>
+	<info_portion id="gar_remove_fake_spot11"/>
+	<info_portion id="gar_hellcar_tips_end"/>
+
+
+
+	<!-- Странная аномалия -->
+
+	<info_portion id="have_af_puzir"/>
+	<info_portion id="spawn_af_puzir"/>
+	<info_portion id="arthunter_task">
+		<task>arthunter_task</task>
+		<action>jekan_work.spawn_fake_ports</action>
+	</info_portion>
+	<info_portion id="strange_anomaly_portal_touched">
+		<action>jekan_work.cheb_helptip</action>
+	</info_portion>
+	<info_portion id="visit_teleport_base"/>
+	<info_portion id="visit_secret_portal_1_plita"/>
+	<info_portion id="visit_secret_portal_2_constructions"/>
+	<info_portion id="visit_secret_portal_3_kust"/>
+	<info_portion id="arthunter_dead"/>
+	<info_portion id="af_puzir_destroyed"/>
+	<info_portion id="arthunter_quest_proval"/>
+	<info_portion id="arthunter_reward"/>
+	<info_portion id="arthunter_info">
+		<action>jekan_work.arthunter_info_action</action>
+	</info_portion>
+	<info_portion id="arthunter_quest_reward"/>
+
+</game_information_portions>

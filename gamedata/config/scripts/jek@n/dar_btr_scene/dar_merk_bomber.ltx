@@ -1,0 +1,57 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker
+;combat_ignore = combat_ignore
+on_death = death
+;threshold = threshold@dar_merk_bomber_threshold
+
+[walker]
+path_walk = dar_merk_bomber_walk
+path_look = dar_merk_bomber_look
+meet = meet
+danger = danger_condition
+;combat_ignore_cond = always
+on_info = {+spawn_dar_uaz_signal} walker@bomb_position
+
+[walker@bomb_position]
+path_walk = dar_merk_bomber_walk_bomb
+path_look = dar_merk_bomber_look_bomb
+;danger = danger_condition
+def_state_moving = run
+;combat_ignore_cond = always
+meet = no_meet
+on_info = {+dar_dez_uaz_spawn_desant} camper@in_position
+
+[camper@in_position]
+path_walk = dar_merk_bomber_walk_bomb
+path_look = dar_merk_bomber_look_bomb
+radius = 10
+meet = no_meet
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 2|actor
+victim_wpn = 2|actor
+meet_state = 2|threat@dar_merc_hello1|1|threat@dar_merc_hello1
+meet_state_wpn = 2|threat@dar_merc_hello2|1|threat@dar_merc_hello2
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@dar_merk_bomber_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+dar_merk_bomber_dead%
+

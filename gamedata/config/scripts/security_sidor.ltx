@@ -1,0 +1,41 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@begin
+on_death = death
+inv_max_weight = 10000
+
+[walker@begin]
+path_walk = esc_sidor_bodyguard_walk1
+path_look = esc_sidor_bodyguard_look1
+on_timer = 10 | walker@1 
+on_info = {+stalin_is_watching_you} %+stalin_close_door%
+
+[walker@1]
+path_walk = esc_sidor_bodyguard_walk1
+path_look = esc_sidor_bodyguard_look1
+on_actor_dist_le_nvis = 3 | walker@2 %=stalin_init_dialod%
+meet = meet
+on_info = {+stalin_first_talk} walker@2
+
+[walker@2]
+path_walk = esc_sidor_bodyguard_walk1
+path_look = esc_sidor_bodyguard_look1
+meet = meet
+
+
+[meet]
+use = true
+use_wpn = false
+meet_talk_enabled = true
+victim = 5|actor
+victim_wpn = 5|actor
+meet_state = 5|salut_free@stalin_meet|3|salut_free@stalin_meet
+meet_state_wpn = 5|salut_free@stalin_meet|3|salut_free@stalin_meet
+
+[death]
+on_info = %+esc_stalin_dead -stalin_close_door%
+

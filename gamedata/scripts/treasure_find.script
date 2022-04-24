@@ -1,0 +1,85 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+local treasure_abundant_artefact =
+{
+	["af_medusa"] = true,
+	["af_vyvert"] = true,
+	["af_drops"] = true,
+	["af_blood"] = true,
+	["af_electra_sparkler"] = true,
+	["af_ameba_slime"] = true, 
+	["af_rusty_thorn"] = true	
+}
+
+local treasure_scarce_artefact =
+{
+	["af_cristall_flower"] = true,
+	["af_gravi"] = true,
+	["af_fireball"] = true,
+	["af_mincer_meat"] = true,
+	["af_electra_flash"] = true,
+	["af_ameba_slug"] = true,
+	["af_rusty_kristall"] = true
+}
+
+local treasure_rarity_artefact =
+{
+	["af_night_star"] = true,
+	["af_gold_fish"] = true,
+	["af_cristall"] = true,
+	["af_soul"] = true,
+	["af_electra_moonlight"] = true,
+	["af_ameba_mica"] = true,
+	["af-rusty-sea-urchin"] = true,
+	["af_dummy_spring"] = true,
+	["af_dummy_dummy"] = true,
+	["af_dummy_battery"] = true,
+	["af_dummy_pellicle"] = true,
+	["af_dummy_glassbeads"] = true,
+	["af_fuzz_kolobok"] = true,
+	["af_kaktus"] = true
+}
+
+local treasure_food = 
+{	 
+	["bread"] = true,
+	["kolbasa"] = true,
+	["conserva"] = true,
+}
+
+local treasure_medecine =
+{
+	["antirad"] = true,
+	["bandage"] = true,
+	["dix"] = true,
+	["bipsizon"] = true,
+	["yod"] = true
+}
+
+local treasure_weapon_grenade =
+{
+	["ammo-vog-25"] = true,
+	["ammo-vog-25p"] = true,
+	["ammo-m209"] = true,
+	["ammo_atom"] = true
+}
+
+function get_treasure_name(section) 
+	
+	local str = game.translate_string(news_manager.get_inv_name(section))
+	
+	if treasure_abundant_artefact[section] then return game.translate_string("treasure_abundant_artefact_name") end
+	if treasure_scarce_artefact[section] then return game.translate_string("treasure_scarce_artefact_name") end
+	if treasure_rarity_artefact[section] then return game.translate_string("treasure_rarity_artefact_name") end
+	if treasure_food[section] then return game.translate_string("treasure_eat_name") end
+	if string.find(section, "detector_") then return game.translate_string("treasure_detector_name") end
+    if string.find(section, "medkit") or treasure_medecine[section] then return game.translate_string("treasure_medecine_name") end
+	if string.find(section, "grenade_rgd5") or string.find(section, "grenade_f1") or string.find(section, "explosive_tank") then return game.translate_string("treasure_grenade_name") end
+	if treasure_weapon_grenade[section] then return game.translate_string("treasure_wpngrenade_name") end
+	if string.find(section,"vodka") then return game.translate_string("treasure_drink_name") end
+    if string.find(section,"ammo") then return game.translate_string("treasure_ammo_name") end
+    if string.find(section,"mutant") then return game.translate_string("treasure_mutant_name") end
+    if string.find(section,"wpn_addon") then return game.translate_string("treasure_addon_name") end
+	
+	return str
+end

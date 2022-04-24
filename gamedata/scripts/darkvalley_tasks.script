@@ -1,0 +1,126 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+----------------------------------------------------------------------------------------------------
+-- Proceed
+----------------------------------------------------------------------------------------------------
+function proceed()
+	-- nv 071008 checked if in lab x18
+	if level.name() ~= "l04u_labx18" then return end
+    local actor = db.actor	
+    
+    if not has_alife_info("dar_document1") and
+ 		actor:object("dar_document1") then
+ 		actor:give_info_portion("dar_document1") 
+	end
+ 	
+	if not has_alife_info("dar_document2") and
+ 		actor:object("dar_document2") then
+ 		actor:give_info_portion("dar_document2") 
+	end
+ 
+	if not has_alife_info("dar_document3") and
+ 		actor:object("dar_document3") then
+ 		actor:give_info_portion("dar_document3")
+	end
+ 	
+	if not has_alife_info("dar_document4") and
+ 		actor:object("dar_document4") then
+ 		actor:give_info_portion("dar_document4") 
+	end		
+	
+	if not has_alife_info("dar_document5") and
+ 		actor:object("dar_document5") then
+ 		actor:give_info_portion("dar_document5") 
+	end	
+	
+	if has_alife_info("dar_ring_spawn2_1") and
+		has_alife_info("dar_ring_spawn2_2") and
+		not has_alife_info("dar_ring_spawn2")
+	then
+		actor:give_info_portion("dar_ring_spawn2")
+	end
+	
+	if has_alife_info("dar_password_info1") and
+		not has_alife_info("dar_password_info1_know") 
+	then
+		actor:give_info_portion("dar_password_info1_know")
+		news_manager.send_tip(db.actor, "pass_to_1st_door")
+	end
+	
+	if has_alife_info("dar_password_info2") and
+		not has_alife_info("dar_password_info2_know") 
+	then
+		actor:give_info_portion("dar_password_info2_know")
+		news_manager.send_tip(db.actor, "pass_to_2nd_door")
+	end
+	
+end
+
+----------------------------------------------------------------------------------------------------
+-- Process info portions
+----------------------------------------------------------------------------------------------------
+function process_info_portion(info_id)
+    if info_id == "val_sos_start_task" then
+		level_tasks.add_location_by_sid(story_ids.val_sos_stalker, "green_location", "val_sos_help_main_hint", 1)
+
+	elseif info_id == "val_sos_actor_near_wounded" then
+		level_tasks.remove_location_by_sid(story_ids.val_sos_stalker, "green_location")
+
+	elseif info_id == "val_show_zones" then
+		if not has_alife_info("val_actor_on_bandits_base") then
+			level_tasks.add_location_by_sid(story_ids.val_zone_bandits, "crlc_big", "val_zone_bandits_hint", 1)
+		end
+		if not has_alife_info("val_come_to_trader_task") then
+			level_tasks.add_location_by_sid(story_ids.val_zone_south_gate, "crlc_mdl", "val_zone_south_gate_hint", 1)
+		end
+	elseif info_id == "val_actor_on_bandits_base" then
+		level_tasks.remove_location_by_sid(story_ids.val_zone_bandits, "crlc_big")
+
+	elseif info_id == "val_come_to_trader_task" then
+		level_tasks.remove_location_by_sid(story_ids.val_zone_south_gate, "crlc_mdl")
+
+	elseif info_id == "val_show_farm_zone" then
+		if not has_alife_info("val_rob_actor_enter") then
+			level_tasks.add_location_by_sid(story_ids.val_zone_farm, "crlc_big", "val_zone_farm_hint", 1)
+		end
+	elseif info_id == "val_rob_actor_enter" then
+		level_tasks.remove_location_by_sid(story_ids.val_zone_farm, "crlc_big")
+	else
+        return false
+	end
+
+	return true
+end
+
+----------------------------------------------------------------------------------------------------
+-- Common functions
+----------------------------------------------------------------------------------------------------
+function has_darklab_key(task, objective)
+	return db.actor:object("borov_flash") ~= nil
+end
+
+-- DotPack
+
+function has_darklab_documents(task, objective)
+	return db.actor:object("dar_document1") ~= nil and
+		db.actor:object("dar_document2") ~= nil and
+		db.actor:object("dar_document3") ~= nil and
+		db.actor:object("dar_document4") ~= nil and
+		db.actor:object("dar_document5") ~= nil
+end
+
+-- DotPack
+
+function escort_task_done(task, objective)
+       return not has_alife_info("val_escort_captive_dead") and
+           has_alife_info("val_escort_guard1_dead") and
+           has_alife_info("val_escort_guard2_dead") and
+           has_alife_info("val_escort_actor_helped")
+end
+
+function escort_task_fail(task, objective)
+    return has_alife_info("val_escort_captive_dead") or
+           has_alife_info("val_escort_guard1_dead") and
+           has_alife_info("val_escort_guard2_dead") and
+           not has_alife_info("val_escort_actor_helped")
+end

@@ -1,0 +1,36 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-------------------------------------------------------------------------
+--	purpose:	dialog support for Dark Valley
+--  070930 - minor change to prevent duplicate loss of money
+--           until bug fixed in all.spawn file
+-------------------------------------------------------------------------
+
+function val_rob_actor_has_money(actor, npc)
+	if has_alife_info("val_rob_buying") then
+		return false
+	end
+	return actor:money() >= 2800
+end
+
+function val_rob_actor_reloc_money(actor, npc)
+	dialogs.relocate_money(npc, 2800, "out")
+end
+
+function val_escort_reward(npc, actor)
+    dialogs.relocate_money(npc, 8000, "in")
+    dialogs.relocate_item_section(npc, "wpn_addon_scope_pso2", "in")
+end
+
+
+--Украсть документы бармена для Борова
+function barman_document_have(task, objective)
+if db.actor ~= nil then 
+return db.actor:object("borov_document") ~= nil
+end
+return false
+end
+
+function borov_give_document(first_speaker, second_speaker) 
+dialogs.relocate_item_section(first_speaker, "borov_document", "out")
+end

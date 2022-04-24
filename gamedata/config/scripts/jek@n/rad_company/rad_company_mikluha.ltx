@@ -1,0 +1,59 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@begin
+;combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@zomb_mikluha_threshold
+
+[walker@begin]
+path_walk = zomb_mikluha_walk
+path_look = zomb_mikluha_look
+on_timer = 100 | walker %=make_invulnerable%
+
+[walker]
+path_walk = zomb_mikluha_walk
+path_look = zomb_mikluha_look
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+rad_zomb_company_superkontroler_atack} remark@psy
+
+[remark@psy]
+anim = psy_pain
+;snd = garb_arthunter_phrase_1
+;snd_anim_sync = true
+no_move = true
+target = nil
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+threshold = threshold@mikluha_threshold
+on_info = {+rad_attack_superkontroler_dead} kamp, {+rad_kompany_set_zombies} kamp %=unmake_invulnerable%
+
+[kamp]
+center_point = zomb_koster
+radius = 5
+def_state_moving = run
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_grenade = 0
+ignore_distance_corpse = 0
+ignore_distance_hit = 0
+ignore_distance_sound = 0
+
+
+[threshold@zomb_mikluha_threshold]
+max_ignore_distance = 1
+ignore_monster = 1
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+zomb_mikluha_dead%
+
+

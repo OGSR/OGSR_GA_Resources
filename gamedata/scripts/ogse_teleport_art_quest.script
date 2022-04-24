@@ -1,0 +1,538 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-----------------------------------------------------------------------
+--- ogse_teleport_art_quest.script                                       
+--- Функции, отвечающие за работу квеста "Неизвестный артефакт"                     
+--- Mixser, Phoenix (c) OGS Evolution Team                                      
+--- version 1.1 (15/03/2012)                                             
+-----------------------------------------------------------------------
+
+function attach(sm)
+	sm:subscribe({ signal = "on_first_update", fun = this.check_actor_leave_zone })
+end
+
+local spawn_db = ogse_spawn_db.script_spawn_registry.ogse_teleport_art_quest
+
+
+--SPAWN_V1
+--local teleport_art_restrictor_position = vector():set(14.11, -1.97, -151.47) -- стартовая точка
+--local teleport_art_restrictor_lvid = 412332
+--local teleport_art_restrictor_gvid = 2916
+
+--SPAWN_V2
+local teleport_art_restrictor_position = vector():set(unpack(spawn_db.teleport_art.pos))
+local teleport_art_restrictor_lvid = spawn_db.teleport_art.lvid
+local teleport_art_restrictor_gvid = spawn_db.teleport_art.gvid
+
+local teleport_position = 
+{
+	{["position"] = vector():set(-78.76, 0.22, -261.621)},
+	{["position"] = vector():set(309.33, -0.14, -465.43)},
+	{["position"] = vector():set(87.49, 2.56, -77.53)},
+	{["position"] = vector():set(100.75, 27.01, -422.26)},
+	{["position"] = vector():set(-109.37, 4.89, -488.51)},
+	{["position"] = vector():set(-95.21, 4.74, -294.85)},
+	{["position"] = vector():set(-231.33, 3.52, -334.41)},
+	{["position"] = vector():set(414.83, -2.07, -340.08)},
+	{["position"] = vector():set(198.33, 0.18, -188.55)}
+}
+				
+
+-- Спаун рестриктора + артефакта
+function init_teleport_art_and_zone()
+	local id_table = {}
+	-- Рестриктор
+	local obj = alife():create("space_restrictor", teleport_art_restrictor_position, teleport_art_restrictor_lvid, teleport_art_restrictor_gvid)
+	id_table.sr = obj.id
+	local packet = get_netpk(obj, 1)
+	ASSERT( packet:isOk(), "can't read netpacket of %s", obj:name() )
+	local my_table = packet:get()
+	my_table.shapes:addSphere(10)
+	my_table.restrictor_type = 3
+	my_table.custom_data:set("[logic] \nactive = sr_idle \n[sr_idle] \non_actor_inside = %+ogse_teleport_art_actor_inside -ogse_teleport_art_actor_outside% \non_actor_outside = {+ogse_teleport_art_actor_inside} %+ogse_teleport_art_actor_outside -ogse_teleport_art_actor_inside%")
+	packet:set(my_table)
+
+	-- Артефакт
+	local obj = alife():create("af_teleport_trap", teleport_art_restrictor_position, teleport_art_restrictor_lvid, teleport_art_restrictor_gvid)
+	id_table.art = obj.id
+	ogse.save_var("ogse_teleport_art_id", id_table, "table")
+end
+
+-- Телепортация актора
+function teleport_actor(my_vector)
+	level.add_pp_effector ("teleport.ppe", 2006, false)
+	db.actor:set_actor_position(my_vector)
+end
+
+-- Спаун ГГ с артефактом обратно или выпускание его обратно и спаун артефакта внутрь зоны
+function teleport_actor_in_zone()
+	if db.actor:has_info("ogse_teleport_art_actor_inside") then -- чтобы не срабатывало до того, как мы зашли в рестриктор
+		if db.actor:object("af_teleport_trap") and not db.actor:has_info("ogse_teleport_trap_research_art_actor_journey") then -- с артом выйти нельзя, когда мы уже долетали!
+			teleport_actor(teleport_art_restrictor_position)
+			if db.actor:has_info("ogse_teleport_trap_find_art_get_trouble") then
+				local teleport_count = ogse.var_exists("teleport_count") and ogse.load_var("teleport_count") or false
+				if not teleport_count then
+					ogse.save_var("teleport_count", 1, "u8")
+				else
+					if teleport_count == 5 then
+						ogse.send_tip(game.translate_string("ogse_tp_art_1_text"))
+					elseif teleport_count == 10 then
+						ogse.send_tip(game.translate_string("ogse_tp_art_2_text"))
+					elseif teleport_count == 15 then
+						ogse.send_tip(game.translate_string("ogse_tp_art_3_text"))
+					end
+					ogse.save_var("teleport_count", teleport_count + 1, "u8")
+				end
+			end
+			if not db.actor:has_info("ogse_teleport_art_actor_teleported") then db.actor:give_info_portion("ogse_teleport_art_actor_teleported") end
+		else
+			if not db.actor:has_info("ogse_teleport_trap_find_art_get_trouble") and (db.actor:has_info("ogse_teleport_art_actor_teleported") or db.actor:has_info("ogse_teleport_trap_research_art_saharov_tell_about_complete"))  then
+				db.actor:give_info_portion("ogse_teleport_trap_find_art_get_trouble") -- тут начинаем веселье с попрыгушками
+			end
+		end
+	end
+end
+
+-- Получение id ящика из "Изолята Пруденко"
+
+local telekill_case_id
+
+function get_telekill_case()
+	telekill_case_id = ogse.var_exists("telekill_case_id") and ogse.load_var("telekill_case_id") or false
+	if not telekill_case_id then
+		local obj = db.actor:object("telekill_case")
+		if obj then
+			telekill_case_id = obj:id()
+			ogse.save_var("telekill_case_id", telekill_case_id, "u16")
+		end
+	end
+end
+
+-- Биндер артефакта-ловушки
+
+function af_teleport_trap_init(obj)
+    local new_binder = af_teleport_trap_binder(obj)
+    obj:bind_object(new_binder)
+end
+
+class "af_teleport_trap_binder" (object_binder)
+
+function af_teleport_trap_binder:__init(obj) super(obj)
+	local id_table = ogse.var_exists("ogse_teleport_art_id") and ogse.load_var("ogse_teleport_art_id") or false
+	if id_table then
+		id_table.art = self.object:id() -- переопределяем id артефакта
+		ogse.save_var("ogse_teleport_art_id", id_table, "table")
+	end
+	self.id_table = id_table
+end 
+
+function af_teleport_trap_binder:reinit()
+	telekill_case_id = ogse.var_exists("telekill_case_id") and ogse.load_var("telekill_case_id") or false
+
+	if has_alife_info("ogse_teleport_trap_research_art_actor_finish_dead_zone") then
+		set_item_untakeable(self.object)
+	end
+
+	object_binder.reinit(self)
+end
+
+function af_teleport_trap_binder:update(delta)
+	local restrictor  
+	if self.id_table then restrictor = level.object_by_id(self.id_table.sr) end
+	
+	if restrictor then
+		if not restrictor:inside(self.object:position()) and not db.actor:object(self.object:section()) then
+			--KRodin: фиксанул позицию, а то он стал проваливаться, хз почему.
+			alife():teleport_object(self.id_table.art, vector():set(14.139, -1.356, -151.566), teleport_art_restrictor_lvid, teleport_art_restrictor_gvid)
+		end
+	end
+	
+	if not db.actor:object(self.object:section()) then
+		local actor_pos = db.actor:position()
+		local obj_pos = self.object:position()
+		local dist = actor_pos:distance_to(obj_pos)
+		local actor_direction = db.actor:direction()
+		if dist < 5.5 then
+			local art_hit = hit()
+			art_hit.direction = actor_direction
+			art_hit.impulse = 15 --20
+			art_hit.draftsman = self.object
+			art_hit.power = 10 --10
+			art_hit.type = hit.strike
+			self.object:hit(art_hit)
+		end
+		
+		local telekill_case = nil
+		if telekill_case_id then
+			telekill_case = level.object_by_id(telekill_case_id)
+		end
+		
+		if telekill_case then
+			local telekill_case_position = telekill_case:position()
+			local case_dist = obj_pos:distance_to(telekill_case_position)
+			if case_dist < 0.5 then 
+				if db.actor:dont_has_info("ogse_teleport_trap_catch_art_get_art") then
+					db.actor:give_info_portion("ogse_teleport_trap_catch_art_get_art") 
+				end
+			end
+		end
+		
+	else
+		
+		if db.actor:has_info("ogse_teleport_trap_research_art_start") 
+		and not db.actor:has_info("ogse_teleport_trap_research_art_actor_journey_finish") 
+		and db.actor:object("art_analyzer") then 
+			if not db.actor:has_info("ogse_teleport_trap_research_art_saharov_tell_about_complete_timer") then
+				db.actor:give_info_portion("ogse_teleport_trap_research_art_saharov_tell_about_complete_timer") 
+			end
+		end
+	end
+    object_binder.update(self, delta)
+end
+
+
+-- Спавним смертельные зоны
+function spawn_dead_zone()
+
+
+	-- Вызовим типс с Сахоровым.
+	saharov_end_research()
+
+	local dead_zone_id = {}
+
+	-- Внешнее ограждение, убивающее мгновенно
+--SPAWN_V1
+	--[[local out_zone = 
+	{
+		{["position"] = vector():set(-2.99, -1.5, -160.3), ["lvid"] = 392187, ["gvid"] = 2916, ["radius"] = 10, ["power"] = 5.0},
+		{["position"] = vector():set(14.16, -1.91, -174.055), ["lvid"] = 412299, ["gvid"] = 2916, ["radius"] = 13, ["power"] = 5.0},
+		{["position"] = vector():set(28.28, -2.48, -165.59), ["lvid"] = 428181, ["gvid"] = 2916, ["radius"] = 12, ["power"] = 5.0},
+		{["position"] = vector():set(-4.46, -0.57, -135.79), ["lvid"] = 390572, ["gvid"] = 2916, ["radius"] = 15, ["power"] = 5.0},
+		{["position"] = vector():set(14.03, -0.92, -128.79), ["lvid"] = 414036, ["gvid"] = 2916, ["radius"] = 9, ["power"] = 5.0},
+		{["position"] = vector():set(31.81, -0.90, -120.46), ["lvid"] = 437944, ["gvid"] = 2931, ["radius"] = 11, ["power"] = 5.0},
+		{["position"] = vector():set(54.23, -0.48, -110.1), ["lvid"] = 459684, ["gvid"] = 2931, ["radius"] = 15, ["power"] = 5.0},
+		{["position"] = vector():set(86.83, -0.6, -113.68), ["lvid"] = 501477, ["gvid"] = 2946, ["radius"] = 18, ["power"] = 5.0},
+		{["position"] = vector():set(102.46, -2.1, -135.94), ["lvid"] = 520202, ["gvid"] = 2946, ["radius"] = 10, ["power"] = 5.0},
+		{["position"] = vector():set(102.89, -1.45, -182.81), ["lvid"] = 521009, ["gvid"] = 2954, ["radius"] = 14, ["power"] = 5.0},
+		{["position"] = vector():set(76.37, -1.84, -186.14), ["lvid"] = 488106, ["gvid"] = 2939, ["radius"] = 14, ["power"] = 5.0},
+		{["position"] = vector():set(49.36, -2.30, -179.26), ["lvid"] = 454644, ["gvid"] = 2939, ["radius"] = 14, ["power"] = 5.0}
+	}]]
+	
+	--for k,v in ipairs(out_zone) do
+--SPAWN_V2
+	for _,spawn_item in ipairs(spawn_db.out_zone) do
+		local anomaly_type = {"noartf_nodetect_mincer_average", "noartf_nodetect_gravi_zone_average"}
+		--local obj = alife():create(anomaly_type[math.random(#anomaly_type)], v.position, v.lvid, v.gvid)
+		local obj = ogse.quest_spawn_ex(anomaly_type[math.random(#anomaly_type)], 1, spawn_item)
+		table.insert(dead_zone_id, obj.id)
+		local packet = get_netpk(obj, 1)
+		ASSERT( packet:isOk(), "can't read netpacket of %s", obj:name() )
+		local my_table = packet:get()
+		my_table.shapes:addSphere(spawn_item.radius, vector():set(0,0,0)) 
+		my_table.max_power = spawn_item.power
+		packet:set(my_table)
+	end
+
+	-- Сам лабиринт 
+	local anom_type = {"noartf_nodetect_mosquito_bald", "noartf_nodetect_witches_galantine"}
+	local power_type = {"_average", "_strong"}
+	local anom_radius = 
+	{	
+		["noartf_nodetect_mosquito_bald"] = 4,
+		["noartf_nodetect_witches_galantine"] = 4,
+	}
+	--max_start_power
+--SPAWN_V1
+	--[[local anom_positions =
+	{
+		{["position"] = vector():set(27.16, -2.06, -142.73), ["lvid"] = 428211, ["gvid"] = 2916},
+		{["position"] = vector():set(27.02, -1.70, -135.98), ["lvid"] = 428211, ["gvid"] = 2916},
+		{["position"] = vector():set(33.10, -2.59, -152.13), ["lvid"] = 434552, ["gvid"] = 2916},
+		{["position"] = vector():set(39.87, -2.49, -146.72), ["lvid"] = 428211, ["gvid"] = 2916},
+		{["position"] = vector():set(27.16, -2.06, -142.73), ["lvid"] = 443223, ["gvid"] = 2931},
+		{["position"] = vector():set(43.42, -2.11, -138.14), ["lvid"] = 447489, ["gvid"] = 2931},
+		{["position"] = vector():set(45.93, -1.62, -129.90), ["lvid"] = 450729, ["gvid"] = 2931},
+		{["position"] = vector():set(50.47, -2.41, -143.00), ["lvid"] = 455475, ["gvid"] = 2931},
+		{["position"] = vector():set(40.50, -2.73, -152.19), ["lvid"] = 444079, ["gvid"] = 2916},
+		{["position"] = vector():set(45.08, -2.85, -158.98), ["lvid"] = 449085, ["gvid"] = 2916},
+		{["position"] = vector():set(55.13, -2.90, -156.83), ["lvid"] = 461402, ["gvid"] = 2931},
+		{["position"] = vector():set(60.15, -2.78, -150.74), ["lvid"] = 467649, ["gvid"] = 2931},
+		{["position"] = vector():set(61.97, -2.37, -142.20), ["lvid"] = 470390, ["gvid"] = 2931},
+		{["position"] = vector():set(60.72, -1.65, -130.14), ["lvid"] = 468583, ["gvid"] = 2931},
+		{["position"] = vector():set(70.69, -1.53, -128.56), ["lvid"] = 480997, ["gvid"] = 2946},
+		{["position"] = vector():set(71.20, -2.05, -137.12), ["lvid"] = 481892, ["gvid"] = 2946},
+		{["position"] = vector():set(66.35, -2.54, -146.83), ["lvid"] = 475669, ["gvid"] = 2946},
+		{["position"] = vector():set(65.86, -2.82, -154.74), ["lvid"] = 474085, ["gvid"] = 2946},
+		{["position"] = vector():set(69.67, -2.83, -165.57), ["lvid"] = 480036, ["gvid"] = 2946},
+		{["position"] = vector():set(81.60, -2.55, -167.79), ["lvid"] = 495253, ["gvid"] = 2946},
+		{["position"] = vector():set(88.10, -2.53, -153.21), ["lvid"] = 503165, ["gvid"] = 2946},
+		{["position"] = vector():set(90.47, -2.32, -144.94), ["lvid"] = 505713, ["gvid"] = 2946},
+		{["position"] = vector():set(76.50, -2.47, -147.56), ["lvid"] = 488144, ["gvid"] = 2946},
+		{["position"] = vector():set(55.17, -2.07, -136.79), ["lvid"] = 465862, ["gvid"] = 2931},
+		{["position"] = vector():set(46.63, -2.74, -150.54), ["lvid"] = 450700, ["gvid"] = 2931},
+		{["position"] = vector():set(80.60, -2.64, -157.99), ["lvid"] = 493523, ["gvid"] = 2946},
+		{["position"] = vector():set(92.19, -2.42, -162.19), ["lvid"] = 508223, ["gvid"] = 2946},
+		{["position"] = vector():set(85.32, -1.88, -134.78), ["lvid"] = 499673, ["gvid"] = 2946},
+		{["position"] = vector():set(95.73, -2.43, -155.37), ["lvid"] = 512520, ["gvid"] = 2946},
+		{["position"] = vector():set(80.62, -2.27, -142.09), ["lvid"] = 493540, ["gvid"] = 2946},
+		{["position"] = vector():set(75.00, -1.66, -130.85), ["lvid"] = 486374, ["gvid"] = 2946},
+		{["position"] = vector():set(58.15, -2.94, -165.14), ["lvid"] = 464928, ["gvid"] = 2931},
+		{["position"] = vector():set(51.00, -2.94, -163.55), ["lvid"] = 457078, ["gvid"] = 2916},
+		{["position"] = vector():set(96.84, -2.31, -164.56), ["lvid"] = 513366, ["gvid"] = 2946},
+		{["position"] = vector():set(88.80, -2.49, -162.78), ["lvid"] = 504003, ["gvid"] = 2946},
+		{["position"] = vector():set(62.91, -1.35, -125.41), ["lvid"] = 471327, ["gvid"] = 2931},
+		{["position"] = vector():set(36.34, -1.69, -132.52), ["lvid"] = 438806, ["gvid"] = 2931},
+		{["position"] = vector():set(77.42, -2.69, -158.43), ["lvid"] = 489925, ["gvid"] = 2946},
+		{["position"] = vector():set(78.15, -2.62, -167.60), ["lvid"] = 490813, ["gvid"] = 2946},
+		{["position"] = vector():set(79.65,  0.99, -136.28), ["lvid"] = 488160, ["gvid"] = 2946},
+		{["position"] = vector():set(48.76, -2.00, -135.74), ["lvid"] = 453891, ["gvid"] = 2931},
+		{["position"] = vector():set(53.14, -1.70, -130.92), ["lvid"] = 458786, ["gvid"] = 2931},
+		{["position"] = vector():set(68.52, -1.18, -122.92), ["lvid"] = 478306, ["gvid"] = 2931},
+		{["position"] = vector():set(82.87, -2.62, -161.96), ["lvid"] = 496132, ["gvid"] = 2946},
+		{["position"] = vector():set(84.53, -2.31, -173.59), ["lvid"] = 498747, ["gvid"] = 2946},
+		{["position"] = vector():set(71.53, -2.68, -169.65), ["lvid"] = 481846, ["gvid"] = 2939},
+		{["position"] = vector():set(70.80, -2.81, -158.17), ["lvid"] = 480955, ["gvid"] = 2946},
+		{["position"] = vector():set(40.46, -1.54, -129.48), ["lvid"] = 444111, ["gvid"] = 2931},
+		{["position"] = vector():set(51.44, -1.58, -129.10), ["lvid"] = 456301, ["gvid"] = 2931},
+		{["position"] = vector():set(61.96, -2.92, -159.92), ["lvid"] = 470365, ["gvid"] = 2931},
+		{["position"] = vector():set(64.12, -2.74, -170.30), ["lvid"] = 473049, ["gvid"] = 2939},
+		{["position"] = vector():set(91.56, -2.06, -137.80), ["lvid"] = 507402, ["gvid"] = 2946}
+	}]]
+	
+	--for k,v in pairs(anom_positions) do
+--SPAWN_V2
+	for _,spawn_item in pairs(spawn_db.anom_positions) do
+		local anom_name = anom_type[math.random(#anom_type)]
+		local anom_rad = anom_radius[anom_name]
+		local anom_section = anom_name..power_type[math.random(#power_type)]
+		--local obj = alife():create(anom_section, spawn_item.position, spawn_item.lvid, spawn_item.gvid)
+		local obj = ogse.quest_spawn_ex(anom_section, 1, spawn_item)
+		table.insert(dead_zone_id, obj.id)
+		
+		local packet = get_netpk(obj, 1) 
+		ASSERT( packet:isOk(), "can't read netpacket of %s", obj:name() )
+		local my_table = packet:get()
+
+		local coef_effective_radius = 1
+		if sys_ini:line_exist(anom_section, "effective_radius") then coef_effective_radius = sys_ini:r_float(anom_section, "effective_radius") end
+			
+
+		my_table.shapes:addSphere(anom_rad*coef_effective_radius, vector():set(0,0,0))
+		my_table.max_power = sys_ini:r_float(anom_section, "max_start_power")
+		packet:set(my_table)
+	end
+	-- Рестриктор выхода
+	
+--SPAWN_V1
+	--[[local p = {}
+	p.position = vector():set(101.89, -2.39, -157.06)
+	p.lvid = 520173
+	p.gvid = 2946
+	local obj = alife():create("space_restrictor", p.position, p.lvid, p.gvid)]]
+--SPAWN_V2
+	local obj = ogse.spawn_object(spawn_db.dead_zone)
+	
+	table.insert(dead_zone_id, obj.id)
+	
+	local packet = get_netpk(obj, 1)
+	ASSERT( packet:isOk(), "can't read netpacket of %s", obj:name() )
+	local my_table = packet:get()
+	my_table.shapes:addBox(
+		vector():set(10, 0, 0), 
+		vector():set(0, 10, 0), 
+		vector():set(0, 0, 20), 
+		vector():set(0, 0, 0)
+	)
+	my_table.restrictor_type = 3
+	my_table.custom_data:set("[logic] \nactive = sr_idle \n[sr_idle] \non_actor_inside = %+ogse_teleport_trap_research_art_actor_finish_dead_zone%")
+	packet:set(my_table)
+
+	ogse.save_var("dead_zone_id", dead_zone_id, "array", "u16")
+end
+
+function journey_step()
+	if teleport_position then
+		if #teleport_position >= 6 then
+			local step = {}
+			local index = math.random(#teleport_position)
+			
+			step = teleport_position[index]
+			table.remove(teleport_position, index)
+
+			ogse_st_mgr.delayed_fun_start("ogse_teleport_trap_journey"):set_delay(5):init(script_name()..".journey_step"):start(true)
+
+			teleport_actor(step.position)
+		else
+			db.actor:give_info_portion("ogse_teleport_trap_research_art_actor_journey_finish")
+			db.actor:disable_info_portion("ogse_teleport_trap_research_art_actor_journey")
+			teleport_actor(teleport_art_restrictor_position)
+		end
+	end	
+end
+
+function journey_timer_begin() -- отложим начало веселья
+	ogse.start_timer("art_trap", 5, script_name() .. ".journey_begin")
+end
+
+function journey_begin()
+	db.actor:give_info_portion("ogse_teleport_trap_research_art_actor_journey") -- начинаем телепортацию
+end
+
+function check_actor_leave_zone()
+	if db.actor:has_info("ogse_teleport_trap_research_art_actor_journey_finish") and db.actor:has_info("ogse_teleport_trap_research_art_actor_finish_dead_zone") then
+		return
+	end
+	if db.actor:has_info("ogse_teleport_trap_research_art_actor_journey_finish") and not db.actor:has_info("ogse_teleport_trap_research_art_actor_finish_dead_zone") then
+		local lname = level.name()
+		if lname ~= "k01_darkscape_ogse" then
+			--- хитрый засранец выбрался иначе
+			db.actor:give_info_portion("ogse_teleport_trap_research_art_actor_finish_dead_zone")
+		end
+	end
+end
+
+function saharov_tell_about_complete_timer()
+	local text = game.translate_string("ogse_tp_art_4_text")
+	db.actor:give_info_portion("ogse_teleport_trap_find_art_get_trouble")
+	ogse.send_tip(text, game.translate_string("yan_saharov_name")..":", 0, 15, "saharov", "task")
+	ogse_st_mgr.start_visual_timer(nil, 15, script_name() .. ".saharov_tell_about_complete")
+end
+
+function ogse_teleport_trap_art_destiny_taction()
+	db.actor:give_info_portion("ogse_teleport_trap_art_destiny")
+end
+
+-- Удаляем аномалии + тот рестриктор
+function delete_dead_zone()
+	level.add_pp_effector ("teleport.ppe", 2006, false)
+
+	local dead_zone_id = ogse.var_exists("dead_zone_id") and ogse.load_var("dead_zone_id") or false
+	if dead_zone_id then
+		for _, id in pairs(dead_zone_id) do
+			local sobj = alife():object(id)
+			if sobj then
+				if IsAnomaly(sobj) and not ogse_anomaly.is_not_anomaly(sobj) then --С аномалиями разберется менеджер аномалий.
+					ogse_anomaly.set_anomaly_mode(id, "anom_off")
+				else
+					alife():release(sobj, true)
+				end
+			end
+		end
+	end
+	ogse.delete_var("dead_zone_id")
+
+	--Делаем артефакт неподбираемым, а то один особо умный после удаления аномалий вернулся, забрал арт, сел в машину и уехал. Телепортация-то не действует, если актор в машине...
+	for _, id in pairs( ogse.load_var("ogse_teleport_art_id") ) do
+		local obj = level.object_by_id(id)
+		if obj and obj:is_artefact() then
+			set_item_untakeable(obj)
+		end
+	end
+end
+
+-- Tips
+function saharov_tell_about_complete()
+	if db.actor:object("af_teleport_trap") then
+		local text = game.translate_string("ogse_tp_art_5_text")
+		ogse.send_tip(text, game.translate_string("yan_saharov_name")..":", 0, 20, "saharov", "task")
+		db.actor:give_info_portion("ogse_teleport_trap_research_art_saharov_tell_about_complete")
+	else
+		local text = game.translate_string("ogse_tp_art_6_text")
+		ogse.send_tip(text, game.translate_string("yan_saharov_name")..":", 0, 20, "saharov", "task")
+		db.actor:disable_info_portion("ogse_teleport_trap_research_art_saharov_tell_about_complete_timer")
+	end
+end
+
+function saharov_end_research()
+	local text = game.translate_string("ogse_tp_art_7_text")
+	ogse.send_tip(text, game.translate_string("yan_saharov_name")..":", 3, 20, "saharov", "task")
+end
+
+-- relocate
+function give_aac_to_actor(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "art_analyzer", "in")
+end
+
+function give_telekill_box_to_actor(first_speaker, second_speaker)
+	dialogs.relocate_item_section(second_speaker, "telekill_case", "in")
+end
+
+function pick_up_aac_from_actor(first_speaker, second_speaker)
+	dialogs.relocate_item_section(first_speaker, "art_analyzer", "out")
+end
+
+function have_actor_telekill_case_with_art(first_speaker, second_speaker)
+	return first_speaker:object("telekill_case_with_art")
+end
+
+function give_reward_and_pick_up_items(first_speaker, second_speaker)
+	dialogs.relocate_money(second_speaker, 20000, "in")
+	dialogs.relocate_item_section(second_speaker, "af_transmut_7", "in")
+	dialogs.relocate_item_section(first_speaker, "telekill_case_with_art", "out")
+
+	ogse_st_mgr.delayed_fun_start("ogse_teleport_trap_art_destiny")
+	:set_gdelayDHMS(math.random(2,3), 0, 0, 0)
+	:init(script_name()..".ogse_teleport_trap_art_destiny_taction")
+	:start()
+end
+
+function spawn_case_with_art()
+	level.add_pp_effector ("teleport.ppe", 2006, false)
+	-- Удаляем арт, зону, кейс, спавним кейс с артефактом
+	local table_id = ogse.var_exists("ogse_teleport_art_id") and ogse.load_var("ogse_teleport_art_id") or false
+	if table_id then
+		for _, id in pairs(table_id) do
+			local sobj = alife():object(id)
+			if sobj then
+				if IsAnomaly(sobj) and not ogse_anomaly.is_not_anomaly(sobj) then --С аномалиями разберется менеджер аномалий.
+					ogse_anomaly.set_anomaly_mode(id, "anom_off")
+				else
+					alife():release(sobj, true)
+				end
+			end
+		end
+	end
+	ogse.delete_var("ogse_teleport_art_id")
+	if telekill_case_id then
+		local case = level.object_by_id(telekill_case_id)
+		local p = {}
+		if case then
+			p.pos = case:position()
+			p.lvid = case:level_vertex_id()
+			p.gvid = case:game_vertex_id()
+			alife():release(alife():object(telekill_case_id), true)
+		end
+		alife():create("telekill_case_with_art", p.pos, p.lvid, p.gvid)
+		ogse.delete_var("telekill_case_id")
+	end
+	
+	-- Спавним монстров
+--SPAWN_V1
+	--[[local p =
+	{
+		{["position"] = vector():set(13.47, -2.08, -161.85), ["lvid"] = 411485, ["gvid"] = 2916},
+		{["position"] = vector():set(8.36, -1.44, -143.36), ["lvid"] = 405624, ["gvid"] = 2916},
+		{["position"] = vector():set(23.66, -2.18, -148.37), ["lvid"] = 424038, ["gvid"] = 2916},
+		{["position"] = vector():set(4.60, -1.67, -154.60), ["lvid"] = 401443, ["gvid"] = 2916}
+	}
+	
+	while #p > 2 do
+		local step = {}
+		local index = math.random(#p)
+		
+		step = p[index]
+		table.remove(p, index)
+		alife():create("chimera_strong", step.position, step.lvid, step.gvid)
+	end]]
+	local spawn_table = table.clone_simple(spawn_db.monster_spawn)
+	while #spawn_table > 2 do
+		local step = {}
+		local index = math.random(#spawn_table)
+		ogse.spawn_object(spawn_table[index])
+		table.remove(spawn_table, index)
+	end
+end
+
+function disable_info_destiny()
+	db.actor:disable_info_portion("ogse_teleport_trap_art_destiny")
+end

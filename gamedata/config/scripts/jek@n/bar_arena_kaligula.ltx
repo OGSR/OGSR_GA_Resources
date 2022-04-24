@@ -1,0 +1,103 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@begin
+on_death = death
+on_hit = hit
+threshold = threshold@kaligula_threshold
+danger = danger_condition
+
+[hit]
+on_info = %=kaligula_wound_effect%
+
+[walker@begin]
+path_walk = kaligula_bar_walk
+path_look = kaligula_bar_look1
+on_info = {+kaligula_goto_arena} walker@arena1 %=unmake_invulnerable%
+on_timer = 10 | walker@bar1 %=make_invulnerable%
+
+[walker@bar1]
+path_walk = kaligula_bar_walk
+path_look = kaligula_bar_look1
+combat_ignore_cond = always
+danger = danger_condition
+on_timer = 10000 | walker@bar2
+on_info = {+kaligula_goto_arena} walker@arena1 %=unmake_invulnerable%
+
+[walker@bar2]
+path_walk = kaligula_bar_walk
+path_look = kaligula_bar_look2
+combat_ignore_cond = always
+danger = danger_condition
+on_timer = 10000 | walker@bar3
+on_info = {+kaligula_goto_arena} walker@arena1 %=unmake_invulnerable%
+
+[walker@bar3]
+path_walk = kaligula_bar_walk
+path_look = kaligula_bar_look3
+combat_ignore_cond = always
+danger = danger_condition
+on_timer = 10000 | walker@bar1
+on_info = {+kaligula_goto_arena} walker@arena1 %=unmake_invulnerable%
+
+
+
+[walker@arena1]
+path_walk = kaligula_arena_walk1
+path_look = kaligula_arena_look
+def_state_moving = sprint
+;radius = 10
+;on_timer = 5000 | walker@arena2
+
+[walker@arena2]
+path_walk = kaligula_arena_walk2
+path_look = kaligula_arena_look
+danger = danger_condition
+def_state_moving = sprint
+;radius = 20
+on_timer = 10000 | walker@arena3
+
+[walker@arena3]
+path_walk = kaligula_arena_walk3
+path_look = kaligula_arena_look
+danger = danger_condition
+def_state_moving = sprint
+;radius = 20
+on_timer = 10000 | walker@arena4
+
+[walker@arena4]
+path_walk = kaligula_arena_walk4
+path_look = kaligula_arena_look
+danger = danger_condition
+def_state_moving = sprint
+;radius = 20
+on_timer = 10000 | walker@arena5
+
+[walker@arena5]
+path_walk = kaligula_arena_walk5
+path_look = kaligula_arena_look
+danger = danger_condition
+def_state_moving = sprint
+;radius = 20
+on_timer = 10000 | walker@arena1
+
+
+
+[danger_condition]
+ignore_distance = 10
+ignore_distance_grenade = 10
+ignore_distance_corpse = 10
+ignore_distance_hit = 10
+ignore_distance_sound = 10
+danger_inertion_time = 1
+
+[threshold@kaligula_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[death]
+on_info = %+kaligula_dead%
+

@@ -1,0 +1,78 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+threshold = threshold@bratstvo_agent_1_threshold
+on_death = death
+
+[walker@begin]
+path_walk = bratstvo_agent_1_walk
+path_look = bratstvo_agent_1_look
+meet = meet@wound
+on_timer = 100 | walker 
+combat_ignore_keep_when_attacked = true
+
+[walker]
+path_walk = bratstvo_agent_1_walk
+path_look = bratstvo_agent_1_look
+; soundgroup = bratstvo_agent_1
+meet = meet@wound
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+bratstvo_agent_1_sleep} walker@waiting1
+combat_ignore_keep_when_attacked = true
+
+[walker@waiting1]
+path_walk = bratstvo_agent_1_walk
+path_look = bratstvo_agent_1_look1
+; soundgroup = agent_ston
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_timer = 8000 | walker@waiting2
+on_info = { +bratstvo_saving_1} walker@bunker, { +bratstvo_saving_3} walker@bunker
+combat_ignore_keep_when_attacked = true
+
+[walker@waiting2]
+path_walk = bratstvo_agent_1_walk
+path_look = bratstvo_agent_1_look2
+; soundgroup = agent_ston
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_timer = 8000 | walker@waiting1
+on_info = { +bratstvo_saving_1} walker@bunker, { +bratstvo_saving_3} walker@bunker
+combat_ignore_keep_when_attacked = true
+
+[walker@bunker]
+path_walk = bratstvo_agent_1_walk_bunker
+path_look = bratstvo_agent_1_look_bunker
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+
+[meet@wound]
+meet_state = 8| wounded_heavy_2
+meet_state_wpn = 8| wounded_heavy_2
+victim = 8| nil
+victim_wpn = 8| nil
+use = true
+use_wpn = true
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@bratstvo_agent_1_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+bratstvo_agent_1_dead%
+
+

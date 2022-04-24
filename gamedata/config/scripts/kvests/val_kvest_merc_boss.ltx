@@ -1,0 +1,37 @@
+[logic]
+active = walker
+on_death = death
+on_hit = hit
+
+[hit]
+on_info = {=hit_by_actor -val_killers_kvest_on_combat} %+val_killers_kvest_on_combat%
+
+[death]
+on_info = {=killed_by_actor -val_killers_kvest_on_combat} %+val_killers_kvest_on_combat%
+
+[walker]
+path_walk = val_merc_9_last_request_boss_walk
+path_look = val_merc_9_last_request_boss_look2
+meet = no_meet
+;on_info = {!is_obj_disable(actor)} %=disable_object(actor)%
+;on_info2 = {!actor_in_outfit(bandit_plash)} %=enable_object(actor)%
+;on_info3 = {+val_killers_kvest_on_combat} %=enable_object(actor)%
+on_info = {+val_orlov_go_to_merc_boss} remark
+danger_condition = danger_condition
+
+[remark]
+anim = choose
+target = val_merc_9_last_request_boss_look1,0
+danger_condition = danger_condition
+on_signal = anim_end | remark2
+
+[remark2]
+anim = wait
+target = 9001
+danger_condition = danger_condition
+
+[danger_condition]
+ignore_distance = 20
+
+[smart_terrains]
+none = true

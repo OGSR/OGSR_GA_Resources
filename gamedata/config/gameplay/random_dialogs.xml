@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<game_dialogs>
+	<!--Voprosy o zone-->
+	<dialog id="talk_about_monsters">
+		<precondition>dialogs.is_not_wounded1</precondition>
+		<phrase_list>
+			<phrase id="100">
+				<text>voprosy_o_zone_1</text>
+				<next>101</next>
+			</phrase>
+			<phrase id="101">
+				<text>voprosy_o_zone_2</text>
+				<next>102</next>
+			</phrase>
+			<phrase id="102">
+				<text>voprosy_o_zone_3</text>
+				<next>103</next>
+			</phrase>
+			<phrase id="103">
+				<text>talk_about_psy_emission</text>
+				<next>104</next>
+			</phrase>
+			<phrase id="104">
+				<text>voprosy_o_zone_4</text>
+				<next>105</next>
+			</phrase>
+			<phrase id="105">
+				<text>voprosy_o_zone_5</text>
+				<next>106</next>
+			</phrase>
+			<phrase id="106">
+				<text>voprosy_o_zone_6</text>
+				<next>107</next>
+			</phrase>
+			<phrase id="107">
+				<text>talk_about_zombied_stalker_1</text>
+				<next>108</next>
+			</phrase>
+			<phrase id="108">
+				<text>voprosy_o_zone_7</text>
+				<next>109</next>
+			</phrase>
+			<phrase id="109">
+				<text>voprosy_o_zone_8</text>
+				<next>110</next>
+			</phrase>
+			<phrase id="110">
+				<text>voprosy_o_zone_9</text>
+				<next>111</next>
+			</phrase>
+			<phrase id="111">
+				<text>voprosy_o_zone_10</text>
+				<next>112</next>
+			</phrase>
+			<phrase id="112">
+				<text>voprosy_o_zone_11</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="201">
+				<text>voprosy_o_zone_12</text>
+				<next>202</next>
+			</phrase>
+			<phrase id="202">
+				<text>voprosy_o_zone_13</text>
+				<next>203</next>
+			</phrase>
+			<phrase id="203">
+				<text>talk_about_snork_1</text>
+				<next>204</next>
+			</phrase>
+			<phrase id="204">
+				<text>voprosy_o_zone_14</text>
+				<next>205</next>
+			</phrase>
+			<phrase id="205">
+				<text>talk_about_snork_2</text>
+				<next>206</next>
+			</phrase>
+			<phrase id="206">
+				<text>voprosy_o_zone_15</text>
+				<next>207</next>
+			</phrase>
+			<phrase id="207">
+				<text>voprosy_o_zone_16</text>
+				<next>208</next>
+			</phrase>
+			<phrase id="208">
+				<text>voprosy_o_zone_17</text>
+				<next>209</next>
+			</phrase>
+			<phrase id="209">
+				<text>talk_about_snork_3</text>
+				<next>210</next>
+			</phrase>
+			<phrase id="210">
+				<text>voprosy_o_zone_18</text>
+				<next>211</next>
+			</phrase>
+			<phrase id="211">
+				<text>talk_about_snork_4</text>
+				<next>212</next>
+			</phrase>
+			<phrase id="212">
+				<text>voprosy_o_zone_19</text>
+				<next>213</next>
+			</phrase>
+			<phrase id="213">
+				<text>talk_about_snork_5</text>
+				<next>214</next>
+			</phrase>
+			<phrase id="214">
+				<text>voprosy_o_zone_20</text>
+				<next>215</next>
+			</phrase>
+			<phrase id="215">
+				<text>talk_about_snork_6</text>
+				<next>216</next>
+			</phrase>
+			<phrase id="216">
+				<text>voprosy_o_zone_21</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="200">
+				<text>voprosy_o_zone_22</text>
+				<next>201</next>
+			</phrase>
+			<!--Himera-->
+			<phrase id="301">
+				<text>talk_about_chimera_1</text>
+				<next>302</next>
+			</phrase>
+			<phrase id="302">
+				<text>voprosy_o_zone_23</text>
+				<next>303</next>
+			</phrase>
+			<phrase id="303">
+				<text>talk_about_chimera_2</text>
+				<next>304</next>
+			</phrase>
+			<phrase id="304">
+				<text>voprosy_o_zone_24</text>
+				<next>305</next>
+			</phrase>
+			<phrase id="305">
+				<text>talk_about_chimera_3</text>
+				<next>306</next>
+			</phrase>
+			<phrase id="306">
+				<text>voprosy_o_zone_25</text>
+				<next>307</next>
+			</phrase>
+			<phrase id="307">
+				<text>talk_about_chimera_4</text>
+				<next>308</next>
+			</phrase>
+			<phrase id="308">
+				<text>voprosy_o_zone_26</text>
+				<next>309</next>
+			</phrase>
+			<phrase id="309">
+				<text>talk_about_chimera_5</text>
+				<next>310</next>
+			</phrase>
+			<phrase id="310">
+				<text>voprosy_o_zone_27</text>
+				<next>311</next>
+			</phrase>
+			<phrase id="311">
+				<text>talk_about_chimera_6</text>
+				<next>312</next>
+			</phrase>
+			<phrase id="312">
+				<text>voprosy_o_zone_28</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="300">
+				<text>voprosy_o_zone_29</text>
+				<next>301</next>
+			</phrase>
+			<phrase id="301">
+				<text>talk_about_chimera_1</text>
+				<next>302</next>
+			</phrase>
+			<phrase id="400">
+				<text>voprosy_o_zone_30</text>
+				<next>401</next>
+			</phrase>
+			<phrase id="401">
+				<text>talk_about_krovosos_1</text>
+				<next>402</next>
+			</phrase>
+			<phrase id="402">
+				<text>voprosy_o_zone_31</text>
+				<next>403</next>
+			</phrase>
+			<phrase id="403">
+				<text>talk_about_krovosos_2</text>
+				<next>404</next>
+			</phrase>
+			<phrase id="404">
+				<text>voprosy_o_zone_32</text>
+				<next>405</next>
+			</phrase>
+			<phrase id="405">
+				<text>talk_about_krovosos_3</text>
+				<next>406</next>
+			</phrase>
+			<phrase id="406">
+				<text>voprosy_o_zone_33</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="500">
+				<text>voprosy_o_zone_34</text>
+				<next>501</next>
+			</phrase>
+			<phrase id="501">
+				<text>talk_about_plaque_rat_1</text>
+				<next>502</next>
+			</phrase>
+			<phrase id="502">
+				<text>voprosy_o_zone_35</text>
+				<next>503</next>
+			</phrase>
+			<phrase id="503">
+				<text>talk_about_plaque_rat_2</text>
+				<next>406</next>
+			</phrase>
+			<phrase id="0">
+				<text>voprosy_o_zone_36</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>voprosy_o_zone_37</text>
+				<next>100</next>
+				<next>200</next>
+				<next>300</next>
+				<next>400</next>
+				<next>500</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--********************************-->
+	<!--****Диалоги с одиночками на Свалке*******-->
+	<dialog id="stalker_garbage_about_life">
+		<dont_has_info>block_begin_dialog</dont_has_info>
+		<dont_has_info>horror_time</dont_has_info>
+		<precondition>dialogs.is_not_wounded1</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>stalker_garbage_about_life_1</text>
+				<action>joke_and_history.joke_precondition2</action>
+				<next>1</next>
+				<next>2</next>
+			</phrase>
+			<phrase id="1">
+				<precondition>joke_and_history.pc1</precondition>
+				<text>stalker_garbage_1</text>
+				<next>14</next>
+			</phrase>
+			<phrase id="2">
+				<precondition>joke_and_history.pc2</precondition>
+				<text>stalker_garbage_2</text>
+				<next>15</next>
+			</phrase>
+			<phrase id="14">
+				<text>stalker_garbage_about_life_2</text>
+				<give_info>horror_time_has_story</give_info>
+				<action>joke_and_history.block_begin_dialog1</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="15">
+				<text>stalker_garbage_about_life_3</text>
+				<next>16</next>
+			</phrase>
+			<phrase id="16">
+				<text>stalker_garbage_3</text>
+				<next>17</next>
+			</phrase>
+			<phrase id="17">
+				<text>stalker_garbage_about_life_4</text>
+				<next>18</next>
+			</phrase>
+			<phrase id="18">
+				<text>stalker_garbage_4</text>
+				<next>14</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--****Диалоги с Кругловым и Семёновым о Зоне******-->
+	<dialog id="talk_about_zone">
+		<precondition>dialogs.is_not_wounded1</precondition>
+		<phrase_list>
+			<phrase id="1_2_6">
+				<text>talk_about_zone_1_2_6</text>
+			</phrase>
+			<phrase id="1_2_5">
+				<next>1_2_6</next>
+				<text>talk_about_zone_1_2_5</text>
+			</phrase>
+			<phrase id="1_2_4">
+				<next>1_2_5</next>
+				<text>talk_about_zone_1_2_4</text>
+			</phrase>
+			<phrase id="1_2_3">
+				<next>1_2_4</next>
+				<text>talk_about_zone_1_2_3</text>
+			</phrase>
+			<phrase id="1_2_2">
+				<next>1_2_3</next>
+				<text>talk_about_zone_1_2_2</text>
+			</phrase>
+			<phrase id="1_2_1">
+				<next>1_2_2</next>
+				<text>talk_about_zone_1_2_1</text>
+			</phrase>
+			<phrase id="1_2">
+				<next>1_2_1</next>
+				<text>talk_about_zone_1_2</text>
+			</phrase>
+			<phrase id="1_1_17">
+				<text>talk_about_zone_1_1_17</text>
+			</phrase>
+			<phrase id="1_1_16">
+				<next>1_1_17</next>
+				<text>talk_about_zone_1_1_16</text>
+			</phrase>
+			<phrase id="1_1_15">
+				<next>1_1_16</next>
+				<text>talk_about_zone_1_1_15</text>
+			</phrase>
+			<phrase id="1_1_14">
+				<next>1_1_15</next>
+				<text>talk_about_zone_1_1_14</text>
+			</phrase>
+			<phrase id="1_1_13">
+				<next>1_1_14</next>
+				<text>talk_about_zone_1_1_13</text>
+			</phrase>
+			<phrase id="1_1_12">
+				<next>1_1_13</next>
+				<text>talk_about_zone_1_1_12</text>
+			</phrase>
+			<phrase id="1_1_11">
+				<next>1_1_12</next>
+				<text>talk_about_zone_1_1_11</text>
+			</phrase>
+			<phrase id="1_1_10">
+				<next>1_1_11</next>
+				<text>talk_about_zone_1_1_10</text>
+			</phrase>
+			<phrase id="1_1_9">
+				<next>1_1_10</next>
+				<text>talk_about_zone_1_1_9</text>
+			</phrase>
+			<phrase id="1_1_8">
+				<next>1_1_9</next>
+				<text>talk_about_zone_1_1_8</text>
+			</phrase>
+			<phrase id="1_1_7">
+				<next>1_1_8</next>
+				<text>talk_about_zone_1_1_7</text>
+			</phrase>
+			<phrase id="1_1_6">
+				<next>1_1_7</next>
+				<text>talk_about_zone_1_1_6</text>
+			</phrase>
+			<phrase id="1_1_5">
+				<next>1_1_6</next>
+				<text>talk_about_zone_1_2_7</text>
+			</phrase>
+			<phrase id="1_1_4">
+				<next>1_1_5</next>
+				<text>talk_about_zone_1_1_5</text>
+			</phrase>
+			<phrase id="1_1_3">
+				<next>1_1_4</next>
+				<text>talk_about_zone_1_2_8</text>
+			</phrase>
+			<phrase id="1_1_2">
+				<next>1_1_3</next>
+				<text>talk_about_zone_1_1_4</text>
+			</phrase>
+			<phrase id="1_1_1_1">
+				<next>1_1_2</next>
+				<text>talk_about_zone_1_1_3</text>
+			</phrase>
+			<phrase id="1_1_1">
+				<next>1_1_1_1</next>
+				<text>talk_about_zone_1_1_1</text>
+			</phrase>
+			<phrase id="1_1">
+				<next>1_1_1</next>
+				<text>talk_about_zone_1_1</text>
+			</phrase>
+			<phrase id="0">
+				<text>voprosy_o_zone_40</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<next>1_2</next>
+				<next>1_1</next>
+				<text>voprosy_o_zone_41</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>voprosy_o_zone_42</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>talk_about_horrortime_1</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>voprosy_o_zone_43</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>talk_about_horrortime_2</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>voprosy_o_zone_44</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>talk_about_horrortime_3</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>voprosy_o_zone_45</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="why_on_escape">
+		<precondition>dialogs.is_not_wounded1</precondition>
+		<phrase_list>
+			<phrase id="1_1">
+				<text>why_on_escape_1_1</text>
+			</phrase>
+			<phrase id="1">
+				<next>1_1</next>
+				<text>why_on_escape_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>1</next>
+				<text>why_on_escape_0</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+</game_dialogs>
+

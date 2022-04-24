@@ -1,0 +1,41 @@
+[logic]
+active = camper2
+on_death = on_death
+combat_ignore = combat_ignore
+
+[on_death]
+on_info = %+mil_crazy_dead +sar2_death_24%
+
+[camper1]
+path_walk = mil_zomb_stalker_walk1
+path_look = mil_zomb_stalker_look1
+on_actor_in_zone = crazy_zone | camper2
+radius = 0
+
+[camper2]
+path_walk = mil_zomb_stalker_walk2
+path_look = mil_zomb_stalker_look2
+;radius = 10
+;no_retreat = true
+on_info = {+military_psycho_ask_denied} walker
+
+[walker]
+path_walk = yan_psycho_walk_point
+path_look = yan_psycho_look_point
+danger = danger_condition
+combat_ignore_cond = always
+on_info = {+military_psycho_suicide} remark@die
+
+[remark@die]
+no_move = true
+no_rotate = true
+anim = suicide
+target = actor
+snd_anim_sync = true
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_signal = anim_end | %+military_psycho_delete_body =kill%
+
+[danger_condition]
+ignore_distance = 0

@@ -1,0 +1,121 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--/ ogse_metka.script /--
+--/ GPS beacon module /--
+--/ OGS Evolution Team 2015 /--
+--/ version 1.0 (28/12/2015)/--
+
+--/ Модуль GPS маячка (основан на наработках АМК) /--
+
+function attach(sm)
+	sm:subscribe({signal = "on_take", fun = this.on_item_take})
+	sm:subscribe({signal = "on_drop", fun = this.on_item_drop})
+end
+
+
+dropped_to_box = 0
+
+function on_item_drop(obj)
+	if obj:section() == "amk_metka" then
+		if dropped_to_box > 0 then 
+			dropped_to_box = dropped_to_box - 1 
+			return true
+		end
+		--
+		dsh.wait_condition(
+			function()
+				return not obj:parent() or not obj:parent():is_actor()
+			end,
+			function()
+				if not level.main_input_receiver() then
+					level.start_stop_menu(setup_gps_beacon(obj:id()), true) -- ставим метку
+				end
+			end
+		)
+		return true
+	end
+end
+
+function on_item_take(obj)
+	if obj:section() == "amk_metka" then
+		-- подбираем с земли
+		if level.map_has_object_spot(obj:id(), "red_location") == 1 then
+			level.map_remove_object_spot( obj:id(), "red_location" )
+		end
+		return true
+	end
+end
+
+-- инициализация
+class "setup_gps_beacon" (CUIScriptWnd)
+
+function setup_gps_beacon:__init(gps_obj_id) super()
+	self.gps_obj_id = gps_obj_id
+	self:InitControls()
+	self:InitCallBacks()
+	self:SetWindowName("gps_metka")
+	
+	--log1("--setup_gps_beacon:__init")
+end
+
+function setup_gps_beacon:__finalize()
+	--log1("--setup_gps_beacon:__finalize")
+end
+
+function setup_gps_beacon:InitControls()
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("ui_dots_wnd.xml")
+	xml:InitWindow("main", 0, self)
+
+	-- видео на заднем плане
+	xml:InitStatic("back_video", self)
+
+	-- рамка
+	xml:InitStatic("background", self)
+
+	-- кнопки
+	self:Register(xml:Init3tButton("caption", self),"caption")
+	self.btn_set_gps = xml:Init3tButton("btn_set_gps", self)
+	self:Register(self.btn_set_gps,"btn_set_gps")
+	self.btn_set_gps:Enable(false)
+	-- кнопка выхода
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+	self.edit_box = xml:InitEditBox("edit_box", self)
+	self:Register(self.edit_box, "edit_box")
+
+end
+
+function setup_gps_beacon:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback( "btn_set_gps", ui_events.BUTTON_CLICKED, self.set_gps, self )
+	self:AddCallback( "btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self )
+end
+function setup_gps_beacon:Update()
+	CUIScriptWnd.Update(self)
+	self.btn_set_gps:Enable(self.edit_box:GetText() ~= "")
+end
+function setup_gps_beacon:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		if dik == DIK_keys.DIK_ESCAPE then
+			self:set_gps()
+		end
+		if dik == DIK_keys.DIK_RETURN then
+			if self.edit_box:GetText() ~= "" then
+				self:on_quit()
+			end
+		end
+	end
+	return true
+end
+
+function setup_gps_beacon:set_gps()
+	level.map_add_object_spot_ser( self.gps_obj_id, "red_location", "%c[red]"..self.edit_box:GetText() )
+	self:on_quit()
+end
+
+function setup_gps_beacon:on_quit()
+	self:GetHolder():start_stop_menu(self, true)
+	self:ClearCallbacks()
+end

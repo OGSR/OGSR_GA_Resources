@@ -1,0 +1,22 @@
+
+[logic]
+active = remark
+combat_ignore = combat_ignore
+
+[smart_terrains]
+none = true
+
+[remark]
+no_move = true
+on_info = {+bar_kvest_sdelka_dolg_and_killers_meet_with_dolg_otryad} walker
+combat_ignore_cond = {-bar_kvest_sdelka_dolg_and_killers_kill_dolg}
+
+[walker]
+path_walk = gar_dolg_sdelka_1_walk
+path_look = gar_dolg_sdelka_1_look
+combat_ignore_cond = {-bar_kvest_sdelka_dolg_and_killers_kill_dolg}
+
+[combat_ignore]
+combat_ignore_cond = {-bar_kvest_sdelka_dolg_and_killers_kill_dolg}
+
+

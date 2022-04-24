@@ -1,0 +1,48 @@
+[logic]
+active = heli_move@idle
+on_death = death
+
+[heli_move@idle]
+path_move = captive_on_agr_mill_base_helicopter_out_level
+engine_sound = false
+combat_ignore = true
+on_info = {+captive_on_agr_mill_base_spawn_heli +captive_on_agr_mill_base_spawn_specnaz} heli_move@idle_speznaz_nii_start
+on_info2 = {+captive_on_agr_mill_base_spawn_heli -captive_on_agr_mill_base_spawn_specnaz} heli_move@idle_captive_nii_start
+
+; 1 вариант - летим за пленником, ждём конвоя, забираем и улетаем
+
+[heli_move@idle_captive_nii_start]
+path_move = captive_on_agr_mill_base_helicopter_go_to_nii
+combat_ignore = true
+on_signal = path_end | heli_move@captive_on_agr_mill_base_helicopter_nii_rooftop_standing %+captive_on_agr_mill_base_heli_is_waiting% 
+
+[heli_move@captive_on_agr_mill_base_helicopter_nii_rooftop_standing]
+path_move = captive_on_agr_mill_base_helicopter_nii_rooftop
+combat_ignore = true
+on_info = {+captive_on_agr_mill_base_captive_on_rooftop} heli_move@captive_on_agr_mill_base_helicopter_nii_flying_away %+captive_on_agr_mill_base_final_chance%
+on_info2 = {+captive_on_agr_mill_base_start_rescue_point} heli_move@captive_on_agr_mill_base_helicopter_nii_spawn_descent_on_nii
+on_info3 = {+captive_on_agr_mill_base_killed} heli_move@captive_on_agr_mill_base_helicopter_nii_flying_away
+
+[heli_move@captive_on_agr_mill_base_helicopter_nii_flying_away]
+path_move = captive_on_agr_mill_base_helicopter_end_point
+combat_ignore = true
+on_signal = path_end | {+captive_on_agr_mill_base_final_chance} %+captive_on_agr_mill_base_fail +captive_on_agr_mill_base_delete_heli%, %+captive_on_agr_mill_base_delete_heli%
+
+; 2 вариант - просто летим и спауним десант
+[heli_move@idle_speznaz_nii_start]
+path_move = captive_on_agr_mill_base_helicopter_spawn_descent_on_nii
+combat_ignore = true
+on_signal = path_end | heli_move@captive_on_agr_mill_base_helicopter_spawn_descent_on_factory %+captive_on_agr_mill_base_spawn_specnaz_on_nii%
+
+[heli_move@captive_on_agr_mill_base_helicopter_nii_spawn_descent_on_nii]
+path_move = captive_on_agr_mill_base_helicopter_nii_spawn_descent_on_nii
+combat_ignore = true
+on_signal = path_end | heli_move@captive_on_agr_mill_base_helicopter_spawn_descent_on_factory %+captive_on_agr_mill_base_spawn_specnaz_on_nii%
+
+[heli_move@captive_on_agr_mill_base_helicopter_spawn_descent_on_factory]
+path_move = captive_on_agr_mill_base_helicopter_spawn_descent_on_factory
+combat_ignore = true
+on_signal = path_end | heli_move@captive_on_agr_mill_base_helicopter_nii_flying_away %+captive_on_agr_mill_base_spawn_specnaz_on_rescue_point%
+
+[death]
+on_info = {+captive_on_agr_mill_base_final_chance} %+captive_on_agr_mill_base_killed%

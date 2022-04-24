@@ -1,0 +1,297 @@
+; -*- mode: conf-windows; coding: windows-1251-dos -*-
+
+; Игнорировать цели из этого списка или принадлежащих смартам из этого
+; списка. В качестве ключей можно использовать community или "monster".
+[dsh.enemy.ignore]
+; Военные и Деревня Новичков
+military = esc_lager, esc_lekar, zona_brother2, zona_brother1, freezer_bandos, esc_starik_searcing_doch, esc_buharik, sidr_guard
+; военные под мостом и сталкеры в домике Лиса и на ферме
+esc_bridge = esc2_st_fox_place, esc_farm_lager, esc_stalker_camp, esc_stone_lager, esc_lekar
+;Шустрый и бандиты на АТП (чтоб не воевали после освобождения Шустрого в мирном варианте) Да, это костыли но пусть так будет.
+esc_shustryi = atp_band_lider, esc_fabrika_bandit
+esc_lager = atp_band_lider, esc_fabrika_bandit
+; наемникам на ДТ нужен живой Круглов
+bar_freedom_attack = bar_ecolog_professor
+; Cвобода и Долг на Генераторах
+gen_freedom = gen_dolg
+
+[dsh.enemy.ignore.l04_darkvalley]
+; Бандиты и долговцы в ТД. Того, которого расстреливают, убрал отсюда. А то спокойно уходит с базы, как-то это не очень.
+bandit = val_prisoner_captive, val_escort_captive, val_escort_nap1, val_sos_wounded
+
+
+; Разрешить/запретить постоянные нападения одних гулагов на другие.
+[dsh.gulag.raid]
+gar_smart_graveyard = false ;Сталкеры на кладбище техники не атакуют обитателей лагеря gar_smart_stalkers_1
+gar_smart_stalkers_1 = false ;Обитатели лагеря за кладбищем техники не нападают на бандитов у перехода на агропром
+val_smart_monster_lair_6 = false ;Монстры не атакуют лагерь сталкеров, это сталкеры должны на них охотиться
+
+; Замена логики уже заспауненых объектов
+[dsh.xr_logic.get_customdata_or_ini_file]
+; Вечные вертолеты на Янтаре
+yan_helicopter_1    = dsh\logic\yan_helicopter_1.ltx
+yan_helicopter_2    = dsh\logic\yan_helicopter_2.ltx
+; Вертолеты на ЧАЭС-1
+aes_helicopter      = dsh\logic\aes_helicopter.ltx
+aes_helicopter_0000 = dsh\logic\aes_helicopter_0000.ltx
+aes_helicopter_0001 = dsh\logic\aes_helicopter_0001.ltx
+aes_helicopter_0002 = dsh\logic\aes_helicopter_0002.ltx
+aes_helicopter_0003 = dsh\logic\aes_helicopter_0003.ltx
+aes_helicopter_0004 = dsh\logic\aes_helicopter_0004.ltx
+aes_helicopter_0007 = dsh\logic\aes_helicopter_0007.ltx
+aes_helicopter_0008 = dsh\logic\aes_helicopter_0008.ltx
+; за переходом из Припяти
+aes_helicopter_0009 = dsh\logic\aes_helicopter_0009.ltx
+aes_helicopter_0010 = dsh\logic\aes_helicopter_0010.ltx
+;
+esc_shustryi = dsh\logic\esc_shustryi.ltx ;Теперь до освобождения Шустрый будет под этой логикой.
+;
+; Рестрикторы шума вентиляторов в X-10
+bun_space_restrictor_sound1 = dsh\logic\l10u_bunker\bun_space_restrictor_sound1.ltx
+bun_space_restrictor_sound1_0000 = dsh\logic\l10u_bunker\bun_space_restrictor_sound1.ltx
+bun_space_restrictor_sound1_0001 = dsh\logic\l10u_bunker\bun_space_restrictor_sound1.ltx
+bun_space_restrictor_sound1_0002 = dsh\logic\l10u_bunker\bun_space_restrictor_sound1.ltx
+bun_space_restrictor_sound1_0003 = dsh\logic\l10u_bunker\bun_space_restrictor_sound1.ltx
+bun_space_restrictor_sound1_0004 = dsh\logic\l10u_bunker\bun_space_restrictor_sound1.ltx
+;
+agr_defector_stalker1 = dsh\logic\agr_defector_stalker1.ltx ;Фикс кривой логики.
+;
+;*************************************[Кордон]*************************************
+;================================================================
+[dsh.se_stalker.esc_shustryi.smart_terrains]
+esc_lager = {+tutorial_wounded_give_info} ;После освобождения Шустрый пойдёт в ДН
+;================================================================
+; ДН
+[dsh.gulag.override.esc_lager]
+dsh_walking = true
+;================================================================
+[dsh.gulag.override.esc2_st_fabric]
+communities = bandit, stalker, dolg, ecolog
+capacity = 10
+switch_0 = {=is_day}, {=gulag_empty(esc2_most)}, {!gulag_community_pop(esc2_st_fabric:bandit:6)}
+switch_1 = {=gulag_community_pop(esc2_st_fabric:bandit:6) !gulag_empty(esc2_most) !is_day}
+dsh_walking = true
+[dsh.xr_kamp.esc2_st_fabric_kamp_2] ;Сталкеров на АТП пересадил на второй этаж
+level_vertex_id = 405548
+;================================================================
+[dsh.gulag.override.esc2_most]
+capacity = 5
+switch_0 = {!is_day}, {!gulag_population_comed_ge(esc2_most:5)}, {!gulag_community_pop(esc2_st_fabric:bandit:1)}
+switch_1 = {=is_day =gulag_population_comed_ge(esc2_most:5) =gulag_community_pop(esc2_st_fabric:bandit:1)}
+dsh_walking = true
+;================================================================
+[dsh.gulag.override.esc_assault]
+cond = {-esc_kill_bandits_quest_done} ;Смарт Петрухи с компанией закроется после их ухода
+;================================================================
+[dsh.gulag.override.esc_dogs_to_fox]
+cond = {-escape_stalker_dog_die} ;Смарт собак, атакующих Лиса, закроется после их уничтожения
+;================================================================
+[dsh.gulag.override.esc_millitary_near_anomaly]
+cond = {-esc_kvest_know_do_mils_near_anomaly_2_complete} ;Смарт военных у аномалии закроется после выполнения квеста
+;================================================================
+; Наемники, атакующие ДН по заданию Фаната
+[dsh.gulag.override.esc_killers]
+cond = {-escape_lager_killers_die}
+;================================================================
+;**********************************************************************************
+;
+;*************************************[Свалка]*************************************
+;================================================================
+[dsh.gulag.override.gar_dram] ;бандиты и Юрик на Свалке
+cond = {-gar_dm_novice_change_st}
+;
+;================================================================
+[dsh.gulag.override.gar_smart_graveyard] ;Сталкеры на кладбище техники, в т.ч. Бес.
+capacity = 10 ;7
+communities = stalker
+cond = {+gar_hellcar_dialog_end}, {+gar_hellcar_death} ;Не будем этот смарт закрывать.
+dsh_walking = true
+;================================================================
+[dsh.se_stalker.gar_hellcar.smart_terrains] ;Бес теперь может уходить в любой свободный смарт
+gar_hellcar_group = {-gar_hellcar_dialog_end -gar_hellcar_death}
+any = {+gar_hellcar_dialog_end}
+;================================================================
+[dsh.se_stalker.gar_hellcar_group_1.smart_terrains] ;Команда Беса теперь может уходить в любой свободный смарт
+gar_hellcar_group = {-gar_hellcar_dialog_end -gar_hellcar_death}
+any = {+gar_hellcar_dialog_end}, {+gar_hellcar_death}
+;================================================================
+[dsh.se_stalker.gar_hellcar_group_2.smart_terrains] ;Команда Беса теперь может уходить в любой свободный смарт
+gar_hellcar_group = {-gar_hellcar_dialog_end -gar_hellcar_death}
+any = {+gar_hellcar_dialog_end}, {+gar_hellcar_death}
+;================================================================
+;
+[dsh.gulag.override.gar_smart_garage] ;Сталкеры в ангаре. На них периодически нападают бандиты.
+capacity = 12; 6
+communities = stalker, dolg, ecolog
+dsh_walking = true
+;================================================================
+[dsh.se_stalker.gar_seryi.smart_terrains] ;Серый теперь может уходить в любой свободный смарт
+gar_angar = {-garbage_meetstalker_done -garbage_meetstalker_die}
+any = {+garbage_meetstalker_done}
+;================================================================
+[dsh.se_stalker.gar_seryi_drug2.smart_terrains] ;Команда Серого теперь может уходить в любой свободный смарт
+gar_angar = {-garbage_meetstalker_done -garbage_meetstalker_die}
+any = {+garbage_meetstalker_done}, {+garbage_meetstalker_die}
+;================================================================
+[dsh.se_stalker.gar_seryi_drug3.smart_terrains] ;Команда Серого теперь может уходить в любой свободный смарт
+gar_angar = {-garbage_meetstalker_done -garbage_meetstalker_die}
+any = {+garbage_meetstalker_done}, {+garbage_meetstalker_die}
+;================================================================
+;
+[dsh.gulag.override.gar_smart_stalkers_1] ;Лагерь за кладбищем техники
+communities = killer, bandit, stalker
+dsh_walking = true
+;================================================================
+[dsh.gulag.override.gar_smart_bandit_large_lager] ;бандиты, периодически нападающие на ангар
+capacity = 11; 8
+dsh_walking = true
+;================================================================
+; костер на посту Долга
+[dsh.xr_kamp.gar_dolg_blokpost_kamp_point]
+allow_sector = 30, 270
+;================================================================
+;**********************************************************************************
+;
+;*************************************[Бар]*************************************
+;================================================================
+; костер в первом ангаре (от бара)
+[dsh.xr_kamp.bar_visitors_kamp_1]
+allow_sector = 10, 190
+;================================================================
+;**********************************************************************************
+;
+;**[Экологи из сцены с Кругловым на ДТ теперь не исчезают в оффлайне, а остаются]**
+;================================================================
+[dsh.gulag.override.bar_ecolog_crush] ;Гулаг 4 ученых + Круглов
+on_cleanup = dsh.cleanup_bar_ecologs
+
+[dsh.gulag.override.ros_smart_stalker_killers1] ;Гулаг наемников на стройке на ДТ
+cond = {=gulag_empty(ros_smart_stalker_bandits1) +bar_rescue_research_done}, {=gulag_empty(ros_smart_stalker_bandits1) +bar_rescue_research_fail}
+
+[dsh.gulag.override.ros_smart_stalker_bandits1] ;Гулаг сталкеров на ДТ перед стройкой если идти со стороны янтаря
+capacity = 10
+communities = stalker, dolg, ecolog
+cond = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+dsh_walking = true
+; Их костёр, чтоб сидели именно вокруг костра, и не мешали патрульному.
+[dsh.xr_kamp.ros_smart_stalker_bandits1_kamp_1]
+level_vertex_id = 5900
+preferred_seats = 6447, 6259, 6082, 5724
+
+; Экологи из команды Круглова
+[dsh.se_stalker.bar_ecolog_crush_1.spawner]
+cond = {+bar_heli_scene_stay_online}, {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+[dsh.se_stalker.bar_ecolog_crush_1.smart_terrains]
+bar_ecolog_crush = {-bar_rescue_research_chasing_start -bar_rescue_research_fail}
+ros_smart_stalker_bandits1 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+
+[dsh.se_stalker.bar_ecolog_crush_2.spawner]
+cond = {+bar_heli_scene_stay_online}, {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+[dsh.se_stalker.bar_ecolog_crush_2.smart_terrains]
+bar_ecolog_crush = {-bar_rescue_research_chasing_start -bar_rescue_research_fail}
+ros_smart_stalker_bandits1 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+
+[dsh.se_stalker.bar_ecolog_crush_3.spawner]
+cond = {+bar_heli_scene_stay_online}, {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+[dsh.se_stalker.bar_ecolog_crush_3.smart_terrains]
+bar_ecolog_crush = {-bar_rescue_research_chasing_start -bar_rescue_research_fail}
+ros_smart_stalker_bandits1 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+
+[dsh.se_stalker.bar_ecolog_crush_4.spawner]
+cond = {+bar_heli_scene_stay_online}, {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+[dsh.se_stalker.bar_ecolog_crush_4.smart_terrains]
+bar_ecolog_crush = {-bar_rescue_research_chasing_start -bar_rescue_research_fail}
+ros_smart_stalker_bandits1 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+;================================================================
+;**********************************************************************************
+;
+;*************************************[ТД]*************************************
+;================================================================
+; костер долговцев
+[dsh.xr_kamp.val_smart_bandit_3_kamp_1]
+level_vertex_id = 10815
+;================================================================
+; Раненый сталкер возле базы бандитов. В смарт кидал ему зачем идти, пусть в любой свободный идёт.
+[dsh.se_stalker.val_sos_wounded.smart_terrains]
+val_sos = {-val_sos_scene_end}
+any     = {+val_sos_scene_end}
+;================================================================
+; Кидалы в ТД, на ферме
+[dsh.gulag.override.val_rob]
+cond       = {-val_rob_disable} ;Закроем после того, как они стали враждебными
+on_cleanup = ogse_fixes.cleanup_val_rob_restrictors ;При закрытии смарта, удалим ненужные сюжетные рестрикторы для сценки с кидалами
+;================================================================
+; Сталкеры в ТД, на ферме, смарт откроется после того как кидалы стали врагами.
+[dsh.gulag.override.val_smart_bandit_1]
+communities = stalker, dolg, ecolog
+capacity    = 13
+cond        = {+val_rob_disable}
+switch_0    = {!is_day}, {=is_weather_rain}, {=gulag_empty(val_smart_monster_lair_6)}
+switch_1    = {=is_day !is_weather_rain =gulag_population_ge(val_smart_bandit_1:8) !gulag_empty(val_smart_monster_lair_6)}
+dsh_walking = true
+;================================================================
+; Мутанты, на которых охотятся сталкеры из лагеря выше.
+[dsh.gulag.override.val_smart_monster_lair_6]
+capacity = 10 ;5
+;================================================================
+; Мутанты возле моста
+[dsh.gulag.override.val_smart_monster_lair_1]
+communities = boar,flesh
+capacity = 10 ;2
+;================================================================
+; Собаки недалеко от фермы
+[dsh.gulag.override.val_smart_monster_lair_2]
+capacity = 6 ;2
+;================================================================
+;**********************************************************************************
+;
+;****************************************[АС]****************************************
+;================================================================
+; Фиксим бредовое условие нахождения Кэпа в онлайне
+[dsh.se_stalker.mil_blockpost_freedomstalker001.spawner]
+cond = true
+;================================================================
+;************************************************************************************
+;
+;****************************************[МГ]****************************************
+;================================================================
+[dsh.gulag.override.deadcity_contr_2] ;Контроллёры в первом здании справа при въезде в МГ с Янтаря
+cond = {-master_quest_soup_ready} ;После уничтожения Хозяина, смарт закрываем
+;================================================================
+[dsh.gulag.override.cit_kanaliz1] ;Снорки в левой части МГ
+cond = {-master_quest_soup_ready} ;После уничтожения Хозяина, смарт закрываем
+;================================================================
+[dsh.gulag.override.deadcity_zombies_3] ;Центральное здание МГ
+capacity = 13; 10
+[dsh.xr_kamp.deadcity_zombies_3_kamp_1] ;Костёр на первом этаже
+lv_switch_cond = {+master_quest_soup_ready}
+level_vertex_id = 426915
+[dsh.xr_kamp.deadcity_zombies_3_kamp_4] ;Первый костёр на втором этаже
+lv_switch_cond = {+master_quest_soup_ready}
+level_vertex_id = 412178
+[dsh.xr_kamp.deadcity_zombies_3_kamp_5] ;Второй костёр на втором этаже
+lv_switch_cond = {+master_quest_soup_ready}
+level_vertex_id = 424418
+;================================================================
+[dsh.xr_kamp.deadcity_zombies_5_kamp_1] ;Костёр за первым зданием справа в МГ.
+lv_switch_cond = {+master_quest_soup_ready}
+level_vertex_id = 555291
+;================================================================
+[dsh.xr_kamp.deadcity_zombies_1_kamp_1] ;Костёр за домиком, в левой части МГ
+lv_switch_cond = {+master_quest_soup_ready}
+level_vertex_id = 227212
+;================================================================
+[dsh.xr_kamp.deadcity_zombies_2_kamp_3] ;Костёр в пустом помещении типа гаража, в левой части МГ
+lv_switch_cond = {+master_quest_soup_ready}
+level_vertex_id = 253243
+;================================================================
+[dsh.xr_kamp.deadcity_zombies_4_kamp_2] ;Костёр рядом с 5-этажкой возле забора, перед мостом
+lv_switch_cond = {+master_quest_soup_ready}
+level_vertex_id = 532074
+;================================================================
+[dsh.xr_kamp.deadcity_zombies_6_kamp_4] ;Костёр в деревне напротив бара
+lv_switch_cond = {+master_quest_soup_ready}
+level_vertex_id = 138961
+;================================================================
+;************************************************************************************
+;

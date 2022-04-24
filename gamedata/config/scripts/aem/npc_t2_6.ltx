@@ -1,0 +1,44 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = remark1
+on_death = death
+combat_ignore = combat_ignore
+
+[combat_ignore]
+
+[remark1]
+anim = guard
+no_move = true
+no_rotate = true
+on_info = {+bar_arena_fight_begin} walker@1
+
+[walker@1]
+path_walk = bar_arena_walk_3_2
+def_state_moving1 = raid
+def_state_moving2 = raid
+def_state_moving3 = raid
+wounded = wounded@ignore
+on_info = {+bar_arena_fight_begin +aem_fight_done} remark2
+
+[remark2]
+anim = hello_wpn
+target = actor
+on_signal = action_end | walker3
+
+[walker3]
+path_walk = bar_arena_walk_3_2
+wounded = wounded@ignore
+
+[wounded@ignore]
+hp_state        = 0|wounded_heavy@help_heavy
+hp_state_see    = 0|wounded_heavy@help_heavy
+hp_victim       = 0|nil
+hp_fight        = 0|false
+hp_cover        = 0|false
+
+[death]
+on_info = {+bar_arena_fight} %=aem_death(team2)%

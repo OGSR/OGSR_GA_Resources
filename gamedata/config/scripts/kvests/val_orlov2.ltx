@@ -1,0 +1,25 @@
+[logic]
+active = walker
+combat_ignore = combat_ignore
+on_death = death
+
+[death]
+on_info = %+esc_kvest_help_to_scoryi_orlov_killed%
+
+[walker]
+path_walk =	val_orlov_press_btn_walk
+path_look =	val_orlov_press_btn_look
+def_state_moving1 = walk
+def_state_moving2 = walk
+def_state_moving3 = walk
+danger = danger_condition
+combat_ignore_cond = {=fighting_actor}
+
+[danger_condition]
+ignore_distance = 0
+
+[combat_ignore]
+combat_ignore_cond = {=fighting_actor}
+
+[smart_terrains]
+none = true

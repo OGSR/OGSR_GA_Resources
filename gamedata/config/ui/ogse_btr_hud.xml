@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding="UTF-8"?>
+
+<window>
+	<main x="0" y="0" width="1024" height="768" stretch="1">
+		<frame_static x="0" y="0" width="1024" height="768"  stretch="1">
+			<texture>hud\periscope_frame</texture>
+		</frame_static>
+		<grid_static x="39" y="145" width="952.32" height="460.8"  stretch="1">
+			<texture>hud\periscope_grid</texture>
+		</grid_static>
+		<off_bkgnd x="39" y="145" width="952.32" height="460.8"  stretch="1">
+			<texture>hud\periscope_off_bkgnd</texture>
+		</off_bkgnd>
+		<noise_static x="0" y="0" width="1024" height="768"  stretch="1">
+			<texture>ui\ui_noise</texture>
+		</noise_static>
+		
+		<hud_target x="0" y="0" width="64" height="64" stretch="1">
+			<texture>ui\target_mark</texture>
+			<text x="3" y="-5" width="200" font="arial_14" r="255" g="0" b="255" a="117" align="r" complex_mode="1"/>
+		</hud_target>
+
+		<target x="360" y="280" width="300" height="100" light_anim="ui_slow_blinking_alpha" stretch="1" la_cyclic="0" la_texture="0" la_text="1" la_alpha="1">
+			<text x="0" y="0" font="letterica18" r="0" g="255" b="117" a="200" align="c"/>
+		</target>
+		
+		<zoom x="134" y="200" width="50" height="100" light_anim="ui_slow_blinking_alpha" stretch="1" la_cyclic="0" la_texture="0" la_text="1" la_alpha="1">
+			<text x="0" y="0" font="letterica16" r="0" g="255" b="117" a="200" align="l"/>
+		</zoom>	
+
+		<armor x="600" y="200" width="300" height="100" light_anim="ui_slow_blinking_alpha" stretch="1" la_cyclic="0" la_texture="0" la_text="1" la_alpha="1">
+			<text x="0" y="0" font="letterica16" r="0" g="255" b="117" a="200" align="r"/>
+		</armor>	
+		
+		<critical x="360" y="230" width="300" height="100" light_anim="ui_slow_blinking_alpha" stretch="1" la_cyclic="1" la_texture="0" la_text="1" la_alpha="1">
+			<text x="0" y="0" font="letterica25" r="255" g="0" b="0" a="200" align="c"/>
+		</critical>	
+		
+		<recognition_mode x="600" y="220" width="300" height="100" light_anim="ui_slow_blinking_alpha" stretch="1" la_cyclic="0" la_texture="0" la_text="1" la_alpha="1">
+			<text x="0" y="0" font="letterica16" r="0" g="255" b="117" a="200" align="r"/>
+		</recognition_mode>
+		
+		<firing_mode x="600" y="240" width="300" height="100" light_anim="ui_slow_blinking_alpha" stretch="1" la_cyclic="0" la_texture="0" la_text="1" la_alpha="1">
+			<text x="0" y="0" font="letterica16" r="0" g="255" b="117" a="200" align="r"/>
+		</firing_mode>
+		
+		<target_select x="360" y="260" width="300" height="100" light_anim="ui_slow_blinking_alpha" stretch="1" la_cyclic="1" la_texture="0" la_text="1" la_alpha="1">
+			<text x="0" y="0" font="letterica18" r="0" g="255" b="117" a="200" align="c"/>
+		</target_select>
+		
+		<target_obstacle x="360" y="300" width="300" height="100" light_anim="ui_slow_blinking_alpha" stretch="1" la_cyclic="0" la_texture="0" la_text="1" la_alpha="1">
+			<text x="0" y="0" font="letterica18" r="0" g="255" b="117" a="200" align="c">btr_obstacle_string</text>
+		</target_obstacle>
+	</main>
+</window>
+

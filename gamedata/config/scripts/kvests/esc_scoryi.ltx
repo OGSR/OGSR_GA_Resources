@@ -1,0 +1,22 @@
+[logic]
+active = remark
+
+[remark]
+no_move = true
+reactions = ignore
+danger = danger_condition
+wounded = wounded@esc_scoryi
+combat_ignore_cond = true
+
+[wounded@esc_scoryi]
+hp_state          = 150|wounded_heavy@help
+hp_state_see      = 150|wounded_heavy@help_see
+hp_cover          = 150|false
+hp_fight          = 150|false
+syndata           = wounded_heavy@help
+
+[danger_condition]
+ignore_distance = 0
+
+[smart_terrains]
+none = true

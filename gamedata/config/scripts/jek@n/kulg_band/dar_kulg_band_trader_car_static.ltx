@@ -1,0 +1,24 @@
+[collide]
+ignore_static
+
+[logic]
+active = ph_idle@1
+
+[ph_idle@1]
+on_info = {+kulgband_trader_car_info} ph_idle@2
+
+[ph_idle@2]
+on_actor_dist_le_nvis = 15|ph_idle@3 %+kulg_band_trader_car_finded =spawn_kulgband_trader_car_body%
+
+[ph_idle@3]
+tips = dar_kulg_band_trader_car_static_use
+on_use = {=actor_has_item(kulg_band_trader_car_key)} ph_idle@4 %=disable_ui =play_snd(car\test_car_start) =run_postprocess(deadcity_wake_old:677:false) +kulg_band_trader_car_run%
+
+[ph_idle@4]
+on_timer = 400|%=dar_kulg_band_trader_car_respawn =enable_ui =release%
+
+
+
+
+
+

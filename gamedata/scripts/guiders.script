@@ -1,0 +1,163 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--[[ ---------------------------------------------------------------------------------------------------
+ File        : guiders.script
+ Description : Проводники
+ Version     : 2.0 Final
+ Copyright   : 2010 © Stalk15
+ Author      : Stalk15
+ Last update : 7.11.2010 
+--]]----------------------------------------------------------------------------------------------------
+
+local locations_db = ogse_spawn_db.script_spawn_registry.guiders
+
+--------------- Можно менять ---------------
+local sale = 1.25         --/Чем больше значение, тем дешевле будет стоить услуга проводника.Значение <= 1 не ставить
+local SaleFriend = 1.15   --/Чем больше значение, тем дешевле будет стоить услуга проводника друга
+
+function guidance_price(guider, destination)
+	local cost_on_guid
+	if level.name() ~= level_system_name_by_gvid(destination.to.gvid) then
+		local pos1 = game_graph():vertex(db.actor:game_vertex_id()):game_point()  
+		local pos2 = game_graph():vertex(destination.to.gvid):game_point()  
+		local dist = pos1:distance_to(pos2)   
+		cost_on_guid = dist/sale
+	else
+		local dist_2 = db.actor:position():distance_to(vector():set(unpack(destination.to.pos)))
+		cost_on_guid = dist_2/(sale + 3.3)
+	end	
+--------------------  Основная корректировка цены  ----------------------------
+	cost_on_guid = cost_on_guid * destination.price
+-------------------- Корректировка цены по рангу проводника и ГГ --------------------
+	cost_on_guid = cost_on_guid * (1 + 1.27 * guider:rank() / 900.0)
+	 ---------------- Скидка, если проводник Друг ----------------
+	if guider:relation(db.actor) == game_object.friend then
+		cost_on_guid = cost_on_guid/SaleFriend
+	end 
+	return math.floor(cost_on_guid)
+end
+function guidance_price_(guder, destination)
+	return 123
+end
+
+local current_guider
+local destination
+local price
+
+function setup_guider(actor, guider, dialog_id, phrase_id)
+	current_guider = guider.id
+end
+
+function start_teleport()
+	local dest = locations_db[destination].to
+	if level_system_name_by_gvid(dest.gvid) ~= level.name() then
+		ogse_lc_mngr.create_actor_teleporter(dest)
+	else
+		db.actor:set_actor_position(vector():set(unpack(dest.pos)))
+	end				
+end
+
+function show_awailable_locations(guider, actor, dialog_id, phrase_id)
+	log3("guider = %s, actor = %s, dialog_id = %s, phrase_id = %s", guider:name(), actor:name(), dialog_id, phrase_id)
+	local frase = {}
+	for loc_id,loc_data in pairs(locations_db) do
+		loc_data.cl = loc_data.cl or xr_logic.parse_condlist(db.actor, "sec", "sec", loc_data.condlist or "true")
+		if xr_logic.pick_section_from_condlist(db.actor, db.actor, loc_data.cl) and level_system_name_by_gvid(loc_data.to.gvid) ~= level.name() then
+			local price = guidance_price(guider, loc_data)
+			table.insert(frase,string.format(game.translate_string("guiders_patterns_text"), game.translate_string(loc_data.desc), price))
+		end
+	end
+	table.sort(frase) -- сортируем
+	db.actor:give_talk_message(table.concat(frase,"\\n"), "ui\\icon_guider", Frect():set(0,0,1,1), "other_iconed_answer_item")
+end
+function destination_available(actor, guider, dialog_id, prev_phrase_id, loc_id)
+	local dest = locations_db[loc_id]
+	local price = guidance_price(guider, dest)
+	ASSERT(dest, "[destination_available] wrong dest")
+	dest.cl = dest.cl or xr_logic.parse_condlist(db.actor, "sec", "sec", dest.condlist or "true")
+	return (xr_logic.pick_section_from_condlist(db.actor, db.actor, dest.cl) and level_system_name_by_gvid(dest.to.gvid) ~= level.name() and db.actor:money() > price)
+end
+function set_destination_and_price(actor, guider, dialog_id, loc_id)
+	destination = loc_id
+	local dest = locations_db[loc_id]
+	local curr_price = guidance_price(guider, dest)
+	price = curr_price
+end
+function pay_money(first_speaker, second_speaker)
+	dialogs.relocate_money(second_speaker, price, "out")
+end
+function guider_is_ready()
+	return true
+end
+function guider_is_not_ready()
+	return not guider_is_ready()
+end
+function init_guiders_dialog(dlg)
+	local script = script_name().."."
+
+	phr0 = dlg:AddPhrase("guider_dialog_phr_0", "0", "", -10000)                 -- "Куда ты можешь меня отвести?"
+		phr0:GetPhraseScript():AddAction(script.."setup_guider") -- инициализация предусловий
+
+	phr1 = dlg:AddPhrase("guider_dialog_phr_1", "1", "0", -10000)	               -- -- "Пока никуда."
+		phr1:GetPhraseScript():AddPrecondition(script.."guider_is_not_ready")	
+	phr2 = dlg:AddPhrase("guider_dialog_phr_2", "2", "0", -10000)                -- -- "Во многие места.
+		phr1:GetPhraseScript():AddPrecondition(script.."guider_is_ready")	
+		phr2:GetPhraseScript():AddAction(script.."show_awailable_locations")
+
+	phr10 = dlg:AddPhrase("guider_dialog_phr_31", "10", "2", -10000)             -- -- -- "Я передумал."
+		phr10:GetPhraseScript():AddAction("dialogs.break_dialog")
+	-- добавляем все возможные варианты выбора с предусловиями. Видимость будет зависеть от доступности перехода у проводника.
+	local _locations_db = {}
+	for loc_id,loc_data in pairs(locations_db) do
+		_locations_db[#_locations_db+1] = {loc_id = loc_id, text = string.format(game.translate_string("guiders_patterns_2_text"), game.translate_string(loc_data.desc))}
+	end
+	table.sort(_locations_db,function(a,b) return a.text < b.text end) -- сортируем
+	for _,data in ipairs(_locations_db) do
+		phr3 = dlg:AddPhrase(data.text, data.loc_id, "2", -10000)	           -- -- -- "Проведи меня в..."
+			phr3:GetPhraseScript():AddPrecondition(script.."destination_available")
+			phr3:GetPhraseScript():AddAction(script.."set_destination_and_price")
+		phr7 = dlg:AddPhrase("guider_dialog_phr_29", "3", data.loc_id, -10000)               -- -- -- -- -- -- "Ну что, готов выдвигаться?"
+	end
+
+	phr5 = dlg:AddPhrase("guider_dialog_phr_27", "5", "3", -10000)               -- -- -- -- -- "Да. Держи деньги и пошли."
+		phr5:GetPhraseScript():AddAction(script.."pay_money")
+		phr5:GetPhraseScript():AddAction(script.."start_teleport")
+		phr5:GetPhraseScript():AddAction("dialogs.break_dialog")
+	phr9 = dlg:AddPhrase("guider_dialog_phr_31", "6", "3", -10000)               -- -- -- -- -- -- -- "Я передумал."
+		phr9:GetPhraseScript():AddAction("dialogs.break_dialog")
+end
+
+function init_guiders_dialog_pilot(dlg)
+	local script = script_name().."."
+
+	phr0 = dlg:AddPhrase("guider_dialog_phr_pilot_0", "0", "", -10000)                 -- "Куда ты можешь меня отвести?"
+		phr0:GetPhraseScript():AddAction(script.."setup_guider") -- инициализация предусловий
+
+	phr1 = dlg:AddPhrase("guider_dialog_phr_1", "1", "0", -10000)	               -- -- "Пока никуда."
+		phr1:GetPhraseScript():AddPrecondition(script.."guider_is_not_ready")	
+	phr2 = dlg:AddPhrase("guider_dialog_phr_pilot_2", "2", "0", -10000)                -- -- "Во многие места.
+		phr1:GetPhraseScript():AddPrecondition(script.."guider_is_ready")	
+		phr2:GetPhraseScript():AddAction(script.."show_awailable_locations")
+
+	phr10 = dlg:AddPhrase("guider_dialog_phr_31", "10", "2", -10000)             -- -- -- "Я передумал."
+		phr10:GetPhraseScript():AddAction("dialogs.break_dialog")
+	-- добавляем все возможные варианты выбора с предусловиями. Видимость будет зависеть от доступности перехода у проводника.
+	local _locations_db = {}
+	for loc_id,loc_data in pairs(locations_db) do
+		_locations_db[#_locations_db+1] = {loc_id = loc_id, text = string.format(game.translate_string("guiders_patterns_2_pilot_text"), game.translate_string(loc_data.desc))}
+	end
+	table.sort(_locations_db,function(a,b) return a.text < b.text end) -- сортируем
+	for _,data in ipairs(_locations_db) do
+		phr3 = dlg:AddPhrase(data.text, data.loc_id, "2", -10000)	           -- -- -- "Проведи меня в..."
+		phr3:GetPhraseScript():AddPrecondition(script.."destination_available")
+		phr3:GetPhraseScript():AddAction(script.."set_destination_and_price")
+		phr7 = dlg:AddPhrase("guider_dialog_phr_pilot_29", "3", data.loc_id, -10000)               -- -- -- -- -- -- "Ну что, готов выдвигаться?"
+	end
+
+	phr5 = dlg:AddPhrase("guider_dialog_phr_27", "5", "3", -10000)               -- -- -- -- -- "Да. Держи деньги и пошли."
+		phr5:GetPhraseScript():AddAction(script.."pay_money")
+		phr5:GetPhraseScript():AddAction(script.."start_teleport")
+		phr5:GetPhraseScript():AddAction("dialogs.break_dialog")
+	phr9 = dlg:AddPhrase("guider_dialog_phr_31", "6", "3", -10000)               -- -- -- -- -- -- -- "Я передумал."
+		phr9:GetPhraseScript():AddAction("dialogs.break_dialog")
+end

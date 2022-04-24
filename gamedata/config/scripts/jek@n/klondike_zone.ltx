@@ -1,0 +1,11 @@
+[logic]
+active = sr_idle@idle_zone
+
+[sr_idle@idle_zone]
+on_info = {+klondike_activated} sr_idle@spawn_arts
+
+[sr_idle@spawn_arts] 
+on_game_timer = 46 | {-klondike_arts_spawned} %+klondike_arts_spawned =launch_klondike_ending%
+on_info = {+klondike_arts_spawned} sr_idle@end 
+
+[sr_idle@end]

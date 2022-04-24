@@ -1,0 +1,131 @@
+[logic]
+active = camper
+combat_ignore = combat_ignore
+on_death = death
+on_use = use
+on_combat = combat
+
+[use]
+on_info = %=on_orlov_use% 
+
+[death]
+on_info = %+esc_kvest_help_to_scoryi_orlov_killed%
+
+[camper]
+path_walk = val_orlov_wait_walk
+path_look = val_orlov_wait_look
+meet = no_meet
+on_actor_dist_le_nvis = 25 | {-esc_kvest_help_to_scoryi_actor_near_shpion_stalker} %+esc_kvest_help_to_scoryi_actor_near_shpion_stalker =val_last_request_start_timer%
+on_info = {!see_actor +val_orlov_wait_end} walker@go_to_fab %=make_invulnerable%
+
+[walker@go_to_fab]
+path_walk = val_orlov1_go_to_fab_walk
+path_look = val_orlov1_go_to_fab_look
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+meet = no_meet
+on_signal = killactor | {-val_orlov_last_request_set_orlov_bandit} %+val_orlov_last_request_set_orlov_bandit =set_community(bandit)%
+on_actor_dist_ge_nvis = 80 | %=we_are_very_far_from_orlov%
+on_info = {+val_orlov_last_request_teleport_to_the_prison} remark@wait_actor		;на всякий пожарный
+on_signal2 = path_end | %+orlov_meet_unknown_quest_last_request% remark
+on_signal3 = give_task | {-val_orlov_hear_what_orlov_will_say} %+val_orlov_hear_what_orlov_will_say%
+
+[remark]
+anim = wait
+target = 9002
+meet = no_meet
+on_info = {+val_orlov_last_request_teleport_to_the_prison} remark@wait_actor
+on_info2 = {+esc_kvest_help_to_scoryi_search_sitnik_fail} nil
+
+[remark@wait_actor]
+anim = wait
+meet = no_meet
+on_timer = 10000 | walker
+
+[walker]
+path_walk = val_orlov_press_btn_walk
+path_look = val_orlov_press_btn_look
+def_state_moving1 = walk
+def_state_moving2 = walk
+def_state_moving3 = walk
+danger = danger_condition
+combat_ignore_cond = true
+on_signal = pressed | {-val_orlov_last_request_button_clicked} %+val_orlov_last_request_button_clicked%
+on_info = {+esc_kvest_help_to_scoryi_talk_with_orlov_complete} walker2
+
+[walker2]
+path_walk = val_orlov_go_to_death_bandit
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+danger = danger_condition
+meet = no_meet
+combat_ignore_cond = true
+on_signal = path_end | remark2
+on_info = {=actor_in_outfit(bandit_plash)}  walker@go_to_the_actors_things
+
+[remark2]
+anim = wait
+target = actor
+danger = danger_condition
+combat_ignore_cond = true
+on_info = {=actor_in_outfit(bandit_plash)}  walker@go_to_the_actors_things
+
+[walker@go_to_the_actors_things]
+path_walk = val_orlov_go_to_actors_things_walk
+path_look = val_orlov_go_to_actors_things_look
+danger = danger_condition
+combat_ignore_cond = true
+on_info = {=is_box_empty(2026)} %+val_orlov_actor_take_things% remark3
+meet = no_meet
+
+[remark3]
+anim = wait
+target = actor
+danger = danger_condition
+combat_ignore_cond = true
+on_info = {+val_orlov_he_talked_with_actor} walker3
+
+[walker3]
+path_walk = val_orlov3_go_to_fab_walk
+path_look = val_orlov3_go_to_fab_look
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = true
+on_signal = path_end | remark4
+
+[remark4]
+anim = wait
+target = val_merc_8_last_request_security_walk, 0
+danger = danger_condition
+combat_ignore_cond = true
+on_info = {-val_orlov_go_to_merc_boss} %+val_orlov_go_to_merc_boss =going_to_orlov%
+on_timer = 7000 | %+val_orlov_go_to_merc_boss_actor_can_go% walker@go_to_boss
+
+[walker@go_to_boss]
+path_walk = val_orlov3_go_to_boss_walk
+on_signal = path_end | remark@talk
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = true
+
+[remark@talk]
+anim = wait
+target = val_merc_9_last_request_boss_walk, 0
+danger = danger_condition
+combat_ignore_cond = true
+on_info = {+val_killers_kvest_on_combat} walker@go_back_to_ferm
+
+[walker@go_back_to_ferm]
+path_walk = val_orlov_wait_walk
+path_look = val_orlov_wait_look
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+
+[danger_condition]
+ignore_distance = 0
+
+[combat]
+on_info = {=fighting_actor -val_killers_kvest_on_combat} %+esc_kvest_help_to_scoryi_search_sitnik_fail =unmake_invulnerable%

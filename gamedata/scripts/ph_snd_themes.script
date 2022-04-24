@@ -1,0 +1,635 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+radio_music_ds_hunter = {
+	[[characters_voice\scenario\darkscape\hunter_radio_1]],
+	[[characters_voice\scenario\darkscape\hunter_radio_2]],
+	[[characters_voice\scenario\darkscape\hunter_radio_3]],
+}
+muzikant_play_1 = {[[characters_voice\scenario\muzikant_play_1]]}
+muzikant_play_2 = {[[characters_voice\scenario\muzikant_play_2]]}
+muzikant_play_3 = {[[characters_voice\scenario\muzikant_play_3]]}
+muzikant_play_4 = {[[characters_voice\scenario\muzikant_play_4]]}
+muzikant_play_5 = {[[characters_voice\scenario\muzikant_play_5]]}
+muzikant_play_6 = {[[characters_voice\scenario\muzikant_play_6]]}
+muzikant_play_7 = {[[characters_voice\scenario\muzikant_play_7]]}
+muzikant_play_8 = {[[characters_voice\scenario\muzikant_play_8]]}
+nese_galya_vodu = {[[characters_voice\scenario\muzikant_meet]]}
+first_neutral_bred_2 = {[[characters_voice\dialogs\first_neutral_first_dialog_phrase_3]]}
+kulg_agent_meet = {[[characters_voice\scenario\bar_kulg_agent_dialog_1_phrase_1]]}
+kulg_agent_goodbye = {[[characters_voice\scenario\bar_kulg_agent_dialog_1_phrase_2]]}
+hohol_drink_replik = {[[characters_voice\scenario\hohol_drink_replik]]}
+secret_villager_birth = {[[characters_voice\scenario\secret_villager_birth]]}
+hohol_scary_replik = {[[characters_voice\scenario\hohol_scary_replik]]}
+garb_arthunter_phrase_1 = {[[characters_voice\scenario\garb_arthunter_phrase_1]]}
+garb_arthunter_phrase_2 = {[[characters_voice\scenario\garb_arthunter_phrase_2]]}
+garb_arthunter_phrase_3 = {[[characters_voice\scenario\garb_arthunter_phrase_3]]}
+garb_arthunter_phrase_4 = {[[characters_voice\scenario\garb_arthunter_phrase_4]]}
+garb_arthunter_phrase_5 = {[[characters_voice\scenario\garb_arthunter_phrase_5]]}
+garb_arthunter_phrase_6 = {[[characters_voice\scenario\garb_arthunter_phrase_6]]}
+garb_arthunter_phrase_7 = {[[characters_voice\scenario\garb_arthunter_phrase_7]]}
+dolg_sergant_speech = {[[characters_voice\scenario\dolg_sergant_speech]]}
+i_am_surrend1 = {[[characters_voice\scenario\dar_officer_surrend_1]]}
+i_am_surrend2 = {[[characters_voice\scenario\dar_officer_surrend_2]]}
+dar_merc_hello1 = {[[characters_voice\scenario\dar_merc_hello_1]]}
+dar_merc_hello2 = {[[characters_voice\scenario\dar_merc_hello_2]]}
+izgoy_pomoshnik_meet = {[[characters_voice\scenario\izgoy_pomoshnik_meet]]}
+dar_officer_naezd = {[[characters_voice\scenario\dar_officer_naezd]]}
+izgoy_patient_ston = {
+	[[characters_voice\scenario\izgoy_patient_ston_1]],
+	[[characters_voice\scenario\izgoy_patient_ston_2]],
+	[[characters_voice\scenario\izgoy_patient_ston_3]],
+}
+izgoy_lider_speech = {[[characters_voice\scenario\izgoy_lider_speech]]}
+gorbovsky_talking = {
+	[[characters_voice\scenario\yantar\professor_idle_1]],
+	[[characters_voice\scenario\yantar\professor_idle_2]],
+	[[characters_voice\scenario\yantar\professor_idle_3]],
+	[[characters_voice\scenario\yantar\professor_idle_4]],
+}
+somewater = {
+	[[characters_voice\scenario\somewater_1]],
+	[[characters_voice\scenario\somewater_2]],
+}
+getout = {
+	[[characters_voice\scenario\getout_1]],
+	[[characters_voice\scenario\getout_2]],
+}
+drifter_dog_howling = {[[characters_voice\scenario\drifter_dog_howling]]}
+drifter_scream = {[[characters_voice\scenario\drifter_resurrect_scream]]}
+drifter_to_dog = {[[characters_voice\scenario\drifter_to_dog]]}
+drifter_helpme = {[[characters_voice\scenario\drifter_helpme]]}
+hunter_hello = {[[characters_voice\scenario\hunter_hello]]}
+cleaner_hello = {[[characters_voice\scenario\cleaner_hello]]}
+vrach_hello = {
+	[[characters_voice\scenario\vrach_hello_1]],
+	[[characters_voice\scenario\vrach_hello_2]],
+}
+bratstvo_lider_hello = {
+	[[characters_voice\scenario\bratstvo_lider_hello_1]],
+	[[characters_voice\scenario\bratstvo_lider_hello_2]],
+}
+orujeinik_hello = {
+	[[characters_voice\scenario\orujeinik_hello_1]],
+	[[characters_voice\scenario\orujeinik_hello_2]],
+	[[characters_voice\scenario\orujeinik_hello_3]],
+}
+drifter_yes = {[[characters_voice\scenario\drifter_yes]]}
+kolbasa_i_batony = {[[characters_voice\human_01\stalker\states\idle\idle_6_]]}
+shesterka_hello = {
+	[[characters_voice\scenario\shesterka_hello_1]],
+	[[characters_voice\scenario\shesterka_hello_2]],
+}
+ds_telohr1_hello = {
+	[[characters_voice\scenario\ds_telohr1_hello_1]],
+	[[characters_voice\scenario\ds_telohr1_hello_2]],
+}
+agent_ston = {
+	[[characters_voice\scenario\agent_help_1]],
+	[[characters_voice\scenario\agent_help_2]],
+	[[characters_voice\scenario\agent_help_3]],
+	[[characters_voice\scenario\agent_help_4]],
+	[[characters_voice\scenario\agent_help_5]],
+	[[characters_voice\scenario\agent_help_6]],
+}
+vrach_port_goodbye = {[[characters_voice\scenario\vrach_port_goodbye]]}
+gaz_dolg_lider_talk = {
+	[[characters_voice\scenario\gaz_dolg_lider_talk_1]],
+	[[characters_voice\scenario\gaz_dolg_lider_talk_2]],
+	[[characters_voice\scenario\gaz_dolg_lider_talk_3]],
+	[[characters_voice\scenario\gaz_dolg_lider_talk_4]],
+}
+pervert_song = {[[characters_voice\scenario\pervert_song]]}
+pervert_smeh = {
+	[[characters_voice\scenario\pervert_smeh_1]],
+	[[characters_voice\scenario\pervert_smeh_2]],
+}
+pervert_metamorph = {[[characters_voice\scenario\pervert_metamorph]]}
+girl_smeh = {
+	[[characters_voice\scenario\girl_smeh_1]],
+	[[characters_voice\scenario\girl_smeh_2]],
+}
+girl_metamorph = {[[characters_voice\scenario\girl_metamorph]]}
+girl_talking = {[[characters_voice\scenario\girl_talking]]}
+tikar_common = {
+	[[characters_voice\scenario\tikar_common_1]],
+	[[characters_voice\scenario\tikar_common_2]],
+}
+brother_cry = {[[characters_voice\scenario\brother_cry]]}
+freezer_smeh = {
+	[[characters_voice\scenario\freezer_smeh_1]],
+	[[characters_voice\scenario\freezer_smeh_2]],
+}
+freezer_terror = {
+	[[characters_voice\scenario\freezer_terror_1]],
+	[[characters_voice\scenario\freezer_terror_2]],
+	[[characters_voice\scenario\freezer_terror_3]],
+}
+bro2_scare = {
+	[[characters_voice\scenario\bro2_scare_1]],
+	[[characters_voice\scenario\bro2_scare_2]],
+	[[characters_voice\scenario\bro2_scare_3]],
+	[[characters_voice\scenario\bro2_scare_4]],
+	[[characters_voice\scenario\bro2_scare_5]],
+}
+yan_soldier_sad = {
+	[[characters_voice\scenario\yan_soldier_sad_1]],
+	[[characters_voice\scenario\yan_soldier_sad_2]],
+	[[characters_voice\scenario\yan_soldier_sad_3]],
+}
+yan_sold_see = {[[characters_voice\scenario\yan_sold_see]]}
+yan_sold_scary = {[[characters_voice\scenario\yan_sold_scary]]}
+stalin_meet = {
+	[[characters_voice\scenario\stalin_meet_1]],
+	[[characters_voice\scenario\stalin_meet_2]],
+	[[characters_voice\scenario\stalin_meet_3]],
+	[[characters_voice\scenario\stalin_meet_4]],
+}
+atp_lider_punch = {[[characters_voice\scenario\atp_lider_punch]]}
+swamp_doc_hello = {[[characters_voice\scenario\cit\cit_doctor_hello_dialog_11]]}
+trabantnoise = {[[car\trabantnoise]]}
+sinyak_hello = {
+	[[characters_voice\scenario\sinyak_hello_1]],
+	[[characters_voice\scenario\sinyak_hello_2]],
+	[[characters_voice\scenario\sinyak_hello_3]],
+	[[characters_voice\scenario\sinyak_hello_4]],
+}
+sinyak_drink = {[[characters_voice\scenario\sinyak_drink_1]]}
+digger_hello = {[[characters_voice\scenario\digger_meet]]}
+digger_laugh = {[[characters_voice\scenario\digger_laugh]]}
+gop_stop = {
+	[[characters_voice\scenario\gop_stop_1]],
+	[[characters_voice\scenario\gop_stop_2]],
+	[[characters_voice\scenario\gop_stop_3]],
+}
+potsik_talk = {[[characters_voice\scenario\potsik_talk]]}
+
+freedom_speech_normal = {
+	[[characters_voice\scenario\military\freedom_megafon\freedom_megafon_music_1]],
+	[[characters_voice\scenario\bar\radio_music\radio_music_1]],
+	[[characters_voice\scenario\military\freedom_megafon\freedom_megafon_music_3]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_13]],
+	[[characters_voice\scenario\military\freedom_megafon\freedom_megafon_music_5]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_8]],
+	[[characters_voice\scenario\military\freedom_megafon\freedom_megafon_music_7]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_10]],
+	[[characters_voice\scenario\military\freedom_megafon\freedom_megafon_music_10]],
+	[[characters_voice\scenario\military\freedom_megafon\freedom_megafon_music_11]],
+}
+radio_music_bandit = {
+	[[characters_voice\scenario\darkscape\bandit_radio_1]],
+	[[characters_voice\scenario\darkscape\bandit_radio_2]],
+	[[characters_voice\scenario\darkscape\bandit_radio_3]],
+}
+music = {
+	[[characters_voice\scenario\megafon\megafon_music_1]],
+	[[characters_voice\scenario\megafon\megafon_music_2]],
+	[[characters_voice\scenario\megafon\megafon_music_3]],
+}
+koleso_pripyat_linhost = {
+	[[ogse\deathsound_1]],
+	[[ogse\deathsound_2]],
+	[[ogse\deathsound_3]],
+	[[ogse\deathsound_4]],
+	[[ogse\deathsound_5]],
+	[[ogse\deathsound_6]],
+	[[ogse\deathsound_7]],
+	[[ogse\deathsound_8]],
+}
+esc_music_horror_time = {
+	[[characters_voice\scenario\esc\esc_music_horror_1]],
+	[[characters_voice\scenario\esc\esc_music_horror_2]],
+	[[characters_voice\scenario\esc\esc_music_horror_3]],
+	[[characters_voice\scenario\esc\esc_music_blowout_1]],
+	[[characters_voice\scenario\esc\esc_music_horror_4]],
+}
+esc_music_day = {
+	[[characters_voice\scenario\esc\esc_music_1]],
+	[[characters_voice\scenario\esc\esc_music_3]],
+	[[characters_voice\scenario\esc\esc_music_4]],
+	[[characters_voice\scenario\esc\esc_music_5]],
+	[[characters_voice\scenario\esc\esc_music_6]],
+	[[characters_voice\scenario\esc\esc_music_2]],
+}
+sidor_music_day = {
+	[[characters_voice\scenario\esc\sidor_music_1]],
+	[[characters_voice\scenario\esc\sidor_music_3]],
+	[[characters_voice\scenario\esc\sidor_music_5]],
+	[[characters_voice\scenario\esc\sidor_music_6]],
+	[[characters_voice\scenario\esc\sidor_music_7]],
+	[[characters_voice\scenario\esc\sidor_music_8]],
+	[[characters_voice\scenario\esc\sidor_music_9]],
+	[[characters_voice\scenario\esc\sidor_music_10]],
+	[[characters_voice\scenario\esc\sidor_music_11]],
+	[[characters_voice\scenario\esc\sidor_music_12]],
+	[[characters_voice\scenario\esc\sidor_music_13]],
+	[[characters_voice\scenario\esc\sidor_music_14]],
+	[[characters_voice\scenario\esc\sidor_music_15]],
+}
+humor = {
+	[[characters_voice\scenario\escape\comandir_megafon_1]],
+	[[characters_voice\scenario\escape\comandir_megafon_2]],
+	[[characters_voice\scenario\escape\comandir_megafon_3]],
+	[[characters_voice\scenario\escape\comandir_megafon_4]],
+	[[characters_voice\scenario\escape\comandir_megafon_5]],
+	[[characters_voice\scenario\escape\comandir_megafon_6]],
+	[[characters_voice\scenario\escape\comandir_megafon_7]],
+	[[characters_voice\scenario\escape\comandir_megafon_8]],
+	[[characters_voice\scenario\escape\comandir_megafon_9]],
+	[[characters_voice\scenario\escape\comandir_megafon_10]],
+	[[characters_voice\scenario\escape\comandir_megafon_11]],
+	[[characters_voice\scenario\escape\comandir_megafon_12]],
+	[[characters_voice\scenario\escape\comandir_megafon_13]],
+	[[characters_voice\scenario\escape\comandir_megafon_14]],
+	[[characters_voice\scenario\escape\comandir_megafon_15]],
+	[[characters_voice\scenario\escape\comandir_megafon_16]],
+	[[characters_voice\scenario\escape\comandir_megafon_17]],
+}
+epic = {
+	[[characters_voice\scenario\escape\megafon_1]],
+	[[characters_voice\scenario\escape\megafon_2]],
+	[[characters_voice\scenario\escape\megafon_3]],
+	[[characters_voice\scenario\escape\megafon_4]],
+	[[characters_voice\scenario\escape\megafon_5]],
+	[[characters_voice\scenario\escape\megafon_6]],
+	[[characters_voice\scenario\escape\megafon_7]],
+	[[characters_voice\scenario\escape\megafon_8]],
+	[[characters_voice\scenario\escape\megafon_9]],
+	[[characters_voice\scenario\escape\megafon_10]],
+	[[characters_voice\scenario\escape\megafon_11]],
+	[[characters_voice\scenario\escape\megafon_12]],
+	[[characters_voice\scenario\escape\megafon_13]],
+	[[characters_voice\scenario\escape\megafon_14]],
+	[[characters_voice\scenario\escape\megafon_15]],
+	[[characters_voice\scenario\escape\megafon_16]],
+}
+alarm1 = {
+	[[characters_voice\scenario\megafon\megafon_alarm_1]],
+	[[characters_voice\scenario\megafon\megafon_alarm_10]],
+	[[characters_voice\scenario\megafon\megafon_alarm_11]],
+	[[characters_voice\scenario\megafon\megafon_alarm_12]],
+	[[characters_voice\scenario\megafon\megafon_alarm_13]],
+}
+alarm2 = {
+	[[characters_voice\scenario\megafon\megafon_alarm_2]],
+	[[characters_voice\scenario\megafon\megafon_alarm_3]],
+	[[characters_voice\scenario\megafon\megafon_alarm_4]],
+	[[characters_voice\scenario\megafon\megafon_alarm_5]],
+	[[characters_voice\scenario\megafon\megafon_alarm_6]],
+}
+siren = {[[ambient\siren2]]}
+nuke_blow = {[[ambient\nuke_blast]]}
+mg_night = {[[ambient\mg_siren]]}
+bomb = {[[detectors\bomb_timer]]}
+detector = {[[detectors\da-2_beep1]]}
+radio_music = {
+	[[characters_voice\scenario\bar\radio_music\bar_music_1]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_2]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_3]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_4]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_5]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_6]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_7]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_8]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_9]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_10]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_11]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_12]],
+	[[characters_voice\scenario\bar\radio_music\bar_music_13]],
+}
+dolg_speech = {
+	[[characters_voice\scenario\bar\barman_megafon\megaphone_barman_1]],
+	[[characters_voice\scenario\bar\barman_megafon\megaphone_barman_2]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_1]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_2]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_3]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_4]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_5]],
+	[[characters_voice\scenario\megafon\megafon_music_1]],
+	[[characters_voice\scenario\megafon\megafon_music_2]],
+	[[characters_voice\scenario\megafon\megafon_music_3]],
+}
+---------------------------------------------------------------ARENA_EXTENSION_MOD------------------------------------------------------------------
+arena_fight_10_sec = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_10_sec]]}
+arena_fight_20_sec = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_20_sec]]}
+arena_fight_30_sec = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_30_sec]]}
+arena_fight_40_sec = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_40_sec]]}
+arena_fight_50_sec = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_50_sec]]}
+aem_beast = {[[aem_snd\aem_beast]]}
+aem_bloodsucker = {[[aem_snd\aem_bloodsucker]]}
+aem_burer = {[[aem_snd\aem_burer]]}
+aem_fight_begin = {[[aem_snd\aem_fight_begin]]}
+aem_foul = {[[aem_snd\aem_foul]]}
+aem_no_chance = {[[aem_snd\aem_no_chance]]}
+aem_out_of_time = {[[aem_snd\aem_out_of_time]]}
+aem_pseudodog = {[[aem_snd\aem_pseudodog]]}
+aem_snork = {[[aem_snd\aem_snork]]}
+aem_special = {[[aem_snd\aem_special]]}
+aem_victory = {[[aem_snd\aem_victory]]}
+dolg_matugalnik = {
+	[[characters_voice\scenario\bar\barman_megafon\megaphone_barman_1]],
+	[[characters_voice\scenario\bar\arena_megafon\mega_arena_new_fight]],
+	[[characters_voice\scenario\bar\barman_megafon\megaphone_barman_2]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_1]],
+	[[characters_voice\scenario\bar\arena_megafon\mega_arena_new_fight]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_2]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_3]],
+	[[characters_voice\scenario\bar\arena_megafon\mega_arena_new_fight]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_4]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_5]],
+	[[characters_voice\scenario\bar\arena_megafon\mega_arena_new_fight]],
+}
+---------------------------------------------------------------ARENA_EXTENSION_MOD------------------------------------------------------------------
+
+dolg_alarm = {[[characters_voice\scenario\bar\dolg_megafon\megaphone_duty_alarm]]}
+dolg_megafon_1_hit = {[[characters_voice\scenario\bar\dolg_megafon\duty_gunfire_mega_1]]}
+dolg_megafon_2_hit = {[[characters_voice\scenario\bar\dolg_megafon\duty_gunfire_mega_2]]}
+dolg_megafon_kill = {[[characters_voice\scenario\bar\dolg_megafon\duty_gunfire_mega_3]]}
+arena_introduce_pseudodog = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_pseudodog]]}
+arena_introduce_snork = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_snork]]}
+arena_introduce_bloodsucker = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_bloodsucker]]}
+arena_introduce_burer = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_burer]]}
+arena_introduce_savage = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_zver]]}
+arena_actor_afraid = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_coward]]}
+arena_fight_begin = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_start]]}
+arena_fight_victory = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_win_1]]}
+arena_fight_victory_notime = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_win_2]]}
+arena_fight_lose = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_out_of_time_win]]}
+arena_fight_death = {[[characters_voice\scenario\bar\arena_megafon\mega_arena_dead]]}
+bar_start_megafon = {
+	[[characters_voice\scenario\bar\barman_megafon\megaphone_barman_1]],
+	[[characters_voice\scenario\bar\barman_megafon\megaphone_barman_2]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_1]],
+	[[characters_voice\scenario\bar\dolg_megafon\mega_duty_propaganda_2]],
+}
+mon_monolith_damaged = {[[characters_voice\scenario\sarcofag\monolith_damaged]]}
+mon_monolith_heavy_damaged = {[[characters_voice\scenario\sarcofag\monolith_heavy_damaged]]}
+mon_monolith_alarm = {[[characters_voice\scenario\sarcofag\monolith_alarm]]}
+mon_monolith_recharged = {[[characters_voice\scenario\sarcofag\monolith_recharged]]}
+sar_monolith_call = {
+	[[characters_voice\scenario\sarcofag\monolith_call_1]],
+	[[characters_voice\scenario\sarcofag\monolith_call_2]],
+	[[characters_voice\scenario\sarcofag\monolith_call_3]],
+	[[characters_voice\scenario\sarcofag\monolith_call_4]],
+	[[characters_voice\scenario\sarcofag\monolith_call_5]],
+	[[characters_voice\scenario\sarcofag\monolith_call_6]],
+	[[characters_voice\scenario\sarcofag\monolith_call_7]],
+}
+gar_seryi_shooting = {[[characters_voice\scenario\garbage\distance_shooting]]}
+gar_seryi_shooting_2 = {[[characters_voice\scenario\bandits\bandit_replic_2]]}
+-- aes_battle1 = {[[ambient\battle_1]]}
+-- aes_battle2 = {[[ambient\battle_2]]}
+aes_battle1 = {[[ambient\silence]]}
+aes_battle2 = {[[ambient\rt_ambient2]]}
+gar_bandits_seryi = {
+	[[characters_voice\scenario\garbage\grey_bandit_1]],
+	[[characters_voice\scenario\garbage\grey_bandit_2]],
+	[[characters_voice\scenario\garbage\grey_bandit_3]],
+	[[characters_voice\scenario\garbage\grey_bandit_4]],
+	[[characters_voice\scenario\garbage\grey_bandit_5]],
+}
+radar_drone = {[[ambient\radar_1]]}
+radar_thunder = {[[ambient\radar_2]]}
+radar_sparks = {[[ambient\radarsparks_1]]}
+aes_teleport = {[[anomaly\teleport_incoming]]}
+yan_antenna = {{[[characters_voice\scenario\yantar\psy_voices_1]]}} -- Стерео
+radar_meh_on = {[[ambient\cooling_run]]}
+radar_meh_off = {[[ambient\cooling_stop]]}
+system_message_1 = {[[characters_voice\scenario\yantar\system_message_1]]}
+system_message_2 = {[[characters_voice\scenario\yantar\system_message_2]]}
+system_message_3 = {[[characters_voice\scenario\yantar\system_message_3]]}
+system_message_4 = {[[characters_voice\scenario\yantar\system_message_4]]}
+system_message_5 = {[[characters_voice\scenario\yantar\system_message_5]]}
+agro_test = {[[weapons\grenade\grenade_explosion6]]}
+bar_arena_public = {
+	[[characters_voice\scenario\bar\arena_public\new_arena_public_1]],
+	[[characters_voice\scenario\bar\arena_public\new_arena_public_1]],
+	[[characters_voice\scenario\bar\arena_public\new_arena_public_2]],
+	[[characters_voice\scenario\bar\arena_public\new_arena_public_3]],
+	[[characters_voice\scenario\bar\arena_public\new_arena_public_4]],
+	[[characters_voice\scenario\bar\arena_public\new_arena_public_5]],
+	[[characters_voice\scenario\bar\arena_public\new_arena_public_6]],
+	[[characters_voice\scenario\bar\arena_public\new_arena_public_7]],
+	[[characters_voice\scenario\bar\arena_public\new_arena_public_8]],
+	[[characters_voice\scenario\bar\arena_public\new_arena_public_9]],
+}
+bar_arena_public_death = {
+	[[ambient\arena\crowd_wave_1]],
+	[[ambient\arena\crowd_wave_2]],
+	[[ambient\arena\crowd_wave_3]],
+}
+bar_arena_fight_1 = {[[characters_voice\scenario\bar\arena_sound\bar_fight_1_ready]]}
+bar_arena_fight_1_end = {[[characters_voice\scenario\bar\arena_sound\bar_fight_1_finish]]}
+bar_arena_fight_2 = {[[characters_voice\scenario\bar\arena_sound\bar_fight_2_ready]]}
+bar_arena_fight_2_end = {[[characters_voice\scenario\bar\arena_sound\bar_fight_2_finish]]}
+bar_arena_fight_3 = {[[characters_voice\scenario\bar\arena_sound\bar_fight_3_ready]]}
+bar_arena_fight_3_end = {[[characters_voice\scenario\bar\arena_sound\bar_fight_3_finish]]}
+bar_arena_fight_4 = {[[characters_voice\scenario\bar\arena_sound\bar_fight_4_ready]]}
+bar_arena_fight_4_end = {[[characters_voice\scenario\bar\arena_sound\bar_fight_4_finish]]}
+bar_arena_fight_5 = {[[characters_voice\scenario\bar\arena_sound\bar_fight_5_ready]]}
+bar_arena_fight_5_end = {[[characters_voice\scenario\bar\arena_sound\bar_fight_5_finish]]}
+bar_arena_fight_6 = {[[characters_voice\scenario\bar\arena_sound\bar_fight_6_ready]]}
+bar_arena_fight_6_end = {[[characters_voice\scenario\bar\arena_sound\bar_fight_6_finish]]}
+bar_arena_fight_7 = {[[characters_voice\scenario\bar\arena_sound\bar_fight_7_ready]]}
+bar_arena_fight_7_end = {[[characters_voice\scenario\bar\arena_sound\bar_fight_7_finish]]}
+bar_arena_fight_8 = {[[characters_voice\scenario\bar\arena_sound\bar_fight_8_ready]]}
+bar_arena_fight_8_end = {[[characters_voice\scenario\bar\arena_sound\bar_fight_8_finish]]}
+x18_sound_1 = {[[ambient\x18\x18_hit_8]]}
+x18_sound_2 = {[[ambient\x18\x18_metal_2]]}
+x18_sound_3 = {[[ambient\x18\x18_metal_3]]}
+x18_sound_4 = {[[ambient\x18\x18_metal_4]]}
+x18_sound_5 = {[[ambient\x18\x18_metal_5]]}
+x18_sound_6 = {[[ambient\x18\x18_creak_2]]}
+x18_sound_7 = {[[ambient\x18\x18_creak_1]]}
+x18_sound_8 = {[[ambient\x18\x18_hit_7]]}
+x18_sound_9 = {[[ambient\x18\x18_footsteps_2]]}
+x18_sound_10 = {[[ambient\x18\x18_move_4]]}
+x18_sound_11 = {[[ambient\x18\x18_footsteps]]}
+x18_sound_12 = {[[ambient\x18\x18_move_3]]}
+x16_engine1_run = {[[ambient\x16\x16_engine1_run]]}
+x16_engine1_stop = {[[ambient\x16\x16_engine1_stop]]}
+x16_engine2_run = {[[ambient\x16\x16_engine2_run]]}
+x16_engine2_stop = {[[ambient\x16\x16_engine2_stop]]}
+x16_hum_2 = {[[ambient\x16\x16_hum_2]]}
+x16_switch_1 = {[[ambient\x16\switch_1]]}
+x16_switch_2 = {[[ambient\x16\switch_2]]}
+x18_firedoor = {[[anomaly\fireball_idle]]}
+mon_poltergeist = {[[anomaly\anomaly_gravy_hit1]]}
+psy_voices = {{[[characters_voice\scenario\yantar\psy_voices_1]]}} -- Стерео
+heli_explosion = {[[weapons\heli_explosion]]}
+trader_door_open_start = {[[device\door_start]]}
+trader_door_close_start = {[[device\door_closing]]}
+trader_door_close_stop = {[[device\door_stop]]}
+trader_door_locked = {[[device\door_locked]]}
+trader_door_unlock = {[[device\door_servomotor]]}
+wood_small_open = {[[device\wood_small_open]]}
+wood_small_close_start = {[[device\wood_small_close_start]]}
+wood_small_close_stop = {[[device\wood_small_close_stop]]}
+wood_large_open = {[[device\wood_large_open]]}
+wood_large_close_start = {[[device\wood_large_close_start]]}
+wood_large_close_stop = {[[device\wood_large_close_stop]]}
+metal_small_open = {[[device\metal_small_open]]}
+metal_small_close_start = {[[device\metal_small_close_start]]}
+metal_small_close_stop = {[[device\metal_small_close_stop]]}
+-- Other
+little_giant_hello = {[[monsters\giant\giant_idle_0]]}
+-- Расстрел шарманки Сидора
+sidor_music_broke = {
+	[[characters_voice\scenario\trader\trader_script1b_3]],
+	[[characters_voice\scenario\trader\trader_tutorial_rejection_4]],
+	[[characters_voice\scenario\trader\trader_tutorial_rejection_5]],
+	[[characters_voice\scenario\trader\trader_script1c_15]],
+}
+-- Оружейник
+gunsrepair_music = {
+	[[characters_voice\scenario\escape\radio\utesov1]],
+	[[characters_voice\scenario\escape\radio\utesov2]],
+	[[characters_voice\scenario\escape\radio\utesov3]],
+	[[characters_voice\scenario\escape\radio\utesov4]],
+	[[characters_voice\scenario\escape\radio\utesov5]],
+	[[characters_voice\scenario\esc\sidor_music_2]],
+	[[characters_voice\scenario\esc\sidor_music_4]],
+}
+-- Расстрел шарманки Оружейника
+gunsrepair_music_broke = {
+	[[characters_voice\scenario\bar\bar_visitor\bar_visitor_1]],
+	[[characters_voice\scenario\bar\bar_visitor\bar_visitor_2]],
+	[[characters_voice\scenario\bar\bar_visitor\bar_visitor_3]],
+	[[characters_voice\scenario\bar\bar_visitor\bar_visitor_8]],
+}
+no_music = {
+	[[characters_voice\scenario\escape\radio\no_sound]],
+	[[characters_voice\scenario\escape\radio\no_sound]],
+	[[characters_voice\scenario\escape\radio\no_sound]],
+}
+
+patrol_bored = {
+	[[characters_voice\scenario\patrol_bored\bandit_idle_1]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_2]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_3]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_4]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_5]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_6]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_7]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_8]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_9]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_10]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_11]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_12]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_13]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_14]],
+	[[characters_voice\scenario\patrol_bored\bandit_idle_15]],
+}
+
+
+
+car_engine_work = {[[car\niva]]}
+
+kulgband_trader_car_snd = {[[characters_voice\scenario\kulgband_trader_car_snd]]}
+bridge_kulgband_shoot = {[[characters_voice\human_01\killer\fight\enemy\enemy_7]]}
+bridge_kulgband_glavar_talk1 = {[[characters_voice\human_01\stalker\reactions\story\final_tragic_2]]}
+bridge_kulgband_glavar_talk2 = {[[characters_voice\human_01\stalker\reactions\story\fear_1]]}
+bridge_kulgband_glavar_talk3 = {[[characters_voice\human_01\stalker\reactions\story\wonder_5]]}
+bridge_kulgband_speech = {[[characters_voice\human_01\killer\fight\attack\attack_4]]}
+kulgband_hutor_deadman_hello = {[[characters_voice\scenario\kulgband_hutor_deadman_hello]]}
+
+kulgband_hutor_radio_snd = {
+	[[characters_voice\scenario\kulgband_hutor_radio_snd_1]],
+	[[characters_voice\scenario\kulgband_hutor_radio_snd_2]],
+	[[characters_voice\scenario\kulgband_hutor_radio_snd_3]],
+}
+
+drunk = {
+	[[characters_voice\scenario\bar\bar_veteran\bar_veteran_1]],
+	[[characters_voice\scenario\bar\bar_veteran\bar_veteran_2]],
+	[[characters_voice\scenario\bar\bar_veteran\bar_veteran_3]],
+	[[characters_voice\scenario\bar\bar_veteran\bar_veteran_4]],
+}
+
+kulgband_scout_hush = {[[characters_voice\scenario\kulgband_scout_hush]]}
+kulgband_informer_deal1 = {[[characters_voice\scenario\kulgband_informer_deal1]]}
+kulgband_informer_deal2 = {[[characters_voice\scenario\kulgband_informer_deal2]]}
+
+bandit_fight = {
+	[[characters_voice\human_01\bandit\fight\enemy\enemy_1]],
+	[[characters_voice\human_01\bandit\fight\enemy\enemy_2]],
+	[[characters_voice\human_01\bandit\fight\enemy\enemy_3]],
+	[[characters_voice\human_01\bandit\fight\enemy\enemy_4]],
+	[[characters_voice\human_01\bandit\fight\enemy\enemy_5]],
+	[[characters_voice\human_01\bandit\fight\enemy\enemy_6]],
+	[[characters_voice\human_01\bandit\fight\enemy\enemy_7]],
+	[[characters_voice\human_01\bandit\fight\enemy\enemy_8]],
+	[[characters_voice\human_01\bandit\fight\enemy\enemy_9]],
+	[[characters_voice\human_01\bandit\fight\enemy\enemy_10]],
+	[[characters_voice\human_01\bandit\fight\enemy\enemy_11]],
+}
+
+bandit_idle = {
+	[[characters_voice\human_01\bandit\states\idle\idle_1]],
+	[[characters_voice\human_01\bandit\states\idle\idle_2]],
+	[[characters_voice\human_01\bandit\states\idle\idle_3]],
+	[[characters_voice\human_01\bandit\states\idle\idle_4]],
+	[[characters_voice\human_01\bandit\states\idle\idle_5]],
+	[[characters_voice\human_01\bandit\states\idle\idle_6]],
+	[[characters_voice\human_01\bandit\states\idle\idle_7]],
+	[[characters_voice\human_01\bandit\states\idle\idle_8]],
+	[[characters_voice\human_01\bandit\states\idle\idle_9]],
+	[[characters_voice\human_01\bandit\states\idle\idle_10]],
+	[[characters_voice\human_01\bandit\states\idle\idle_11]],
+	[[characters_voice\human_01\bandit\states\idle\idle_12]],
+	[[characters_voice\human_01\bandit\states\idle\idle_13]],
+	[[characters_voice\human_01\bandit\states\idle\idle_14]],
+	[[characters_voice\human_01\bandit\states\idle\idle_15]],
+	[[characters_voice\human_01\bandit\states\idle\idle_16]],
+	[[characters_voice\human_01\bandit\states\idle\idle_17]],
+	[[characters_voice\human_01\bandit\states\idle\idle_18]],
+	[[characters_voice\human_01\bandit\states\idle\idle_19]],
+	[[characters_voice\human_01\bandit\states\idle\idle_20]],
+	[[characters_voice\human_01\bandit\states\idle\idle_21]],
+	[[characters_voice\human_01\bandit\states\idle\idle_22]],
+	[[characters_voice\human_01\bandit\states\idle\idle_23]],
+	[[characters_voice\human_01\bandit\states\idle\idle_24]],
+	[[characters_voice\human_01\bandit\states\idle\idle_25]],
+	[[characters_voice\human_01\bandit\states\idle\idle_26]],
+	[[characters_voice\human_01\bandit\states\idle\idle_27]],
+	[[characters_voice\human_01\bandit\states\idle\idle_28]],
+	[[characters_voice\human_01\bandit\states\idle\idle_29]],
+	[[characters_voice\human_01\bandit\states\idle\idle_30]],
+	[[characters_voice\human_01\bandit\states\idle\idle_31]],
+	[[characters_voice\human_01\bandit\states\idle\idle_32]],
+}
+
+cit_kulgband_glavar_klondike_action = {[[characters_voice\human_01\bandit\states\idle\idle_18]]}
+cit_kulgband_glavar_klondike_action2 = {[[characters_voice\characters_voice\scenario\kulgband_lider_goodloot]]}
+
+
+
+
+
+gar_dm_bandit_backoff1 = {[[characters_voice\scenario\dramatic_garbage\dramatic_bandits_back_off_1_1]]}
+gar_dm_bandit_backoff2 = {[[characters_voice\scenario\dramatic_garbage\dramatic_bandits_back_off_2_1]]}
+gar_dm_bandit_demand = {
+	[[characters_voice\scenario\dramatic_garbage\dramatic_bandits_demand_1]],
+	[[characters_voice\scenario\dramatic_garbage\dramatic_bandits_demand_3]],
+	[[characters_voice\scenario\dramatic_garbage\dramatic_bandits_demand_4]],
+}
+gar_dm_newbie_no_money = {
+	[[characters_voice\scenario\dramatic_garbage\dramatic_newbie_no_money_1]],
+	[[characters_voice\scenario\dramatic_garbage\dramatic_newbie_no_money_3]],
+	[[characters_voice\scenario\dramatic_garbage\dramatic_newbie_no_money_3]],
+}
+gar_dm_newbie_help_me = {[[characters_voice\scenario\dramatic_garbage\dramatic_newbie_help_me_1]]}
+gar_dm_newbie_thank_you = {[[characters_voice\scenario\dramatic_garbage\dramatic_newbie_thank_you_1]]}
+
+
+dar_samogon_trance = {
+	[[characters_voice\scenario\dar_samogon_trance_snd_1]],
+	[[characters_voice\scenario\dar_samogon_trance_snd_2]],
+}
+
+
+
+
+
+
+
+

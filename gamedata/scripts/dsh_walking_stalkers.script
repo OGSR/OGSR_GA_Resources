@@ -1,0 +1,280 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-- как долго можно оставаться в лагере сталкеру
+local FRIENDS_MAX_STAY = 2 * 24 * 3600 -- 2 дня
+
+local DEBUG = false --Вкл подробный отладочный вывод + метки на карте, кто откуда куда ушел.
+local DEBUG_WALK_ALL_SMARTS = false --Разрешает уходить из всех смартов, не только из тех, у которых в конфигах разрешено. Использовать для тестов.
+
+function attach( sm )
+  sm:subscribe({ signal = "on_first_update", fun = function()
+    local name = script_name()..".periodic_job"
+    if not ogse_st_mgr.timer_exists(name) then
+      dsh.start_gtimerDHMS( name, 0, 1, math.random( 0, 59 ), 0, name )
+    end
+  end })
+end
+
+
+local function check_too_slow_npc( strn ) --Если НПС слишком долго идёт в лагерь - телепортируем его туда
+  local max_time = 2 * 24 * 3600 -- 2 дня
+  for id, v in pairs( strn.npc_info ) do
+    local npc_sobj = alife():object( id )
+    if
+      npc_sobj
+      and object_level_name( npc_sobj ) ~= object_level_name( strn )
+    then
+      local begin_job = strn.gulag.Object_didnt_begin_job[ npc_sobj.id ] == false
+      local diff_sec  = game.get_game_time():diffSec( v.stay_end )
+      if diff_sec > max_time and not begin_job then
+        log3(
+          "~~[%s.check_too_slow_npc] [%s](%s) is too slow going to smart_terrain [%s](%s): [%s] seconds till registration",
+          script_name(),
+          npc_sobj:name(),object_level_name( npc_sobj ),
+          strn:name(), object_level_name( strn ),
+          diff_sec
+        )
+        alife():teleport_object(
+          id, strn.position, strn.m_level_vertex_id, strn.m_game_vertex_id
+        )
+      end
+    end
+  end
+end
+
+local function get_smart_ini_section( strn )
+  local name     = strn:name()
+  local dsh_sect = "dsh.gulag.override." .. name
+  local profile  = strn.dsh_active_profile --KRodin: этого тут нет, но не помешает. Мб добавится когда-то.
+  local sect
+  if profile then
+    sect = dsh_sect .. "." .. profile
+  else
+    sect = dsh_sect
+  end
+  return sect
+end
+
+local function is_walking_smart( strn )
+  local name = strn:name()
+  local res  = dsh.is_free_logic_gulag( name )
+  local sect = get_smart_ini_section( strn )
+  if
+    sys_ini:section_exist( sect )
+    and sys_ini:line_exist( sect, "dsh_walking" )
+  then
+    local cond = get_string( sect, "dsh_walking" )
+    if cond then
+      local pc = xr_logic.parse_condlist( nil, sect, "dsh_walking", cond )
+      res = xr_logic.pick_section_from_condlist( db.actor, db.actor, pc ) ~= nil
+    end
+  end
+  return res
+end
+
+
+
+local function check_npc_job( sect, id, gulag )
+  if not sys_ini:section_exist( sect ) then return true end
+  local sect_re = get_string(
+    sect, "dsh_walking_stalkers.job_section"
+  )
+  if not sect_re then return true end
+  local job = gulag:getJob( id )
+  if not job then return true end
+  if string.find( job.section, sect_re ) then
+    return true
+  end
+  return false
+end
+
+local function is_too_bad_weather( npc )
+  if IsMonster( npc ) then return false end
+
+  return level.rain_factor() > 0.5 and math.random() < 0.9 --KRodin: попробуем просто проверять на сильный дождь.
+end
+
+local function is_too_late( npc )
+  if IsMonster( npc ) then return false end
+  local htime = level.get_time_hours()
+  if htime < 5 or htime > 21 then
+    return math.random() < 0.8
+  end
+  return false
+end
+
+local function get_walk_npc( strn )
+  local gulag = strn.gulag
+  local sect  = get_smart_ini_section( strn )
+  local keep_min = 0
+  if sys_ini:section_exist( sect ) then
+    keep_min = get_u32( sect, "dsh_walking_keep_min", keep_min )
+  end
+  local comed  = gulag:get_population_comed()
+  local gogogo = {}
+  if comed < keep_min + 1 then return gogogo end
+  local comed_npc = {}
+  for id, v in pairs( strn.npc_info ) do
+    local npc_sobj = alife():object( id )
+    if
+      npc_sobj and npc_sobj:alive() and ( not v.exclusive )
+      and ( not gulag.Object_didnt_begin_job[ id ] )
+      and check_npc_job( sect, id, gulag )
+    then
+      table.insert(
+        comed_npc,
+        {
+          [ "diff_sec" ] = game.get_game_time():diffSec( v.stay_end ),
+          [ "npc_info" ] = v,
+          [ "sobj"     ] = npc_sobj,
+        }
+      )
+    end
+  end
+  if table.getn( comed_npc ) > 0 then
+    table.sort( comed_npc, function( a, b )
+      return a.diff_sec > b.diff_sec
+    end )
+    local ready_to_go     = {}
+    local not_ready_to_go = {}
+    for _, v in ipairs( comed_npc ) do
+      local sobj = v.sobj
+      --if DEBUG then
+      --  log3("~~[%s] game.get_game_time():diffSec( v.stay_end ) of [%s] is [%s]", script_name(), sobj:name(), v.diff_sec)
+      --end
+      if v.diff_sec < 0 then
+        table.insert( not_ready_to_go, v )
+      elseif is_too_bad_weather( sobj ) then -- плохая погода
+        table.insert( not_ready_to_go, v )
+      elseif is_too_late( sobj ) then -- ночь
+        table.insert( not_ready_to_go, v )
+      elseif math.random() < ( v.diff_sec / FRIENDS_MAX_STAY ) then
+      --elseif v.diff_sec > FRIENDS_MAX_STAY then
+        table.insert( ready_to_go, v )
+      else --KRodin: добавил, мне кажется этого не хватало.
+        table.insert( not_ready_to_go, v )
+      end
+    end
+    local allowed_to_go = comed - keep_min
+    local walkable      = math.min(
+      allowed_to_go, table.getn( ready_to_go )
+    )
+    local num_to_go     = math.random( 0, walkable )
+    if
+      keep_min == 0         -- могут уйти все
+      and num_to_go > 0
+      and num_to_go == table.getn( ready_to_go ) -- идут все, кто собрался
+      and table.getn( not_ready_to_go ) == 1     -- остается один
+      --and math.random() < 0.6 --KRodin: не уверен что это тут надо.
+    then
+      -- да ну нафиг, я тоже тогда пойду с мужиками.
+      num_to_go = num_to_go + 1
+      table.insert( ready_to_go, table.remove( not_ready_to_go ) )
+    end
+    while num_to_go > 0 do
+      local npc_sobj = ready_to_go[ num_to_go ].sobj
+      table.insert( gogogo, npc_sobj )
+      num_to_go = num_to_go - 1
+    end
+  end
+  return gogogo
+end
+
+
+
+local function teleport_walking( sobj, strn )
+  local sect = get_smart_ini_section( strn )
+  if not sys_ini:section_exist( sect ) then return end
+  local teleport_pp = get_string(
+    sect, "dsh_walking_stalkers.teleport_pp"
+  )
+  if not teleport_pp then return end
+  local path, pn = unpack( parse_names( teleport_pp ) )
+  if pn then
+    pn = tonumber( pn )
+  else
+    pn = 0
+  end
+  ASSERT(
+    level.patrol_path_exists( path ),
+    "[%s]: patrol_path %s not found", script_name(), path
+  )
+  local pp = patrol( path )
+  log3( "~~[%s.teleport_walking]: teleport [%s] to [%s](%s)", script_name(), sobj:name(), path, pn )
+  alife():teleport_object(
+    sobj.id,
+    pp:point( pn ), pp:level_vertex_id( pn ), pp:game_vertex_id( pn )
+  )
+end
+
+
+local function cleanup_custom_data( sobj )
+  local ini = sobj:spawn_ini()
+  local remove_sects = {}
+  for _, k in ipairs({ "logic", "smart_terrain", "smart_terrains" }) do
+    if ini:section_exist( k ) then
+      table.insert( remove_sects, k )
+    end
+  end
+  if table.getn( remove_sects ) > 0 then
+    log3( "~~[%s.cleanup_custom_data]: [%s] custom_data detected: %s", script_name(), sobj:name(), sobj.custom_data )
+    ini.readonly = false
+    for _, k in ipairs( remove_sects ) do
+      ini:remove_section( k )
+    end
+    sobj:save_spawn_ini()
+    dsh.clear_smart_terrain_conditions( sobj )
+  end
+end
+
+
+function periodic_job()
+  local gogogo = {}
+  smart_terrain.iterate_smart_terrains( function( strn )
+    strn:initialize_if_needed()
+    local gulag = strn.gulag
+    check_too_slow_npc( strn )
+    if not DEBUG_WALK_ALL_SMARTS then
+      if not is_walking_smart( strn ) then return end
+    end
+    if gulag then
+      for _, sobj in ipairs( get_walk_npc( strn ) ) do
+        table.insert( gogogo, {
+          [ "sobj" ] = sobj,
+          [ "strn" ] = strn,
+        })
+      end
+    end
+  end )
+  local rnd_go = {}
+  while table.getn( gogogo ) > 0 do
+    table.insert(
+      rnd_go,
+      table.remove( gogogo, math.random( table.getn( gogogo ) ) )
+    )
+  end
+  for _, t in ipairs( rnd_go ) do
+    local sobj = t.sobj
+    local strn = t.strn
+    sobj:brain():can_choose_alife_tasks( true )
+    smart_terrain.unregister_npc( sobj )
+    cleanup_custom_data( sobj )
+    teleport_walking( sobj, t.strn )
+    sobj:brain():update()
+    if DEBUG then
+      if sobj:smart_terrain_id() == 65535 then
+        log3("!![%s] mob [%s] unregistered from smart [%s](%s), can't find new smart!", script_name(), sobj:name(), strn:name(), strn.level_name)
+		level.map_add_object_spot_ser(sobj.id, "red_location", string.format("!![%s] mob [%s] unregistered from smart [%s](%s), can't find new smart!", script_name(), sobj:name(), strn:name(), strn.level_name))
+      else
+        log3("--[%s] mob [%s] unregistered from smart [%s](%s), new smart: [%s](%s)", script_name(), sobj:name(), strn:name(), strn.level_name, alife():object(sobj:smart_terrain_id()):name(), alife():object(sobj:smart_terrain_id()).level_name)
+		level.map_add_object_spot_ser(sobj.id, "red_location", string.format("--[%s] mob [%s] unregistered from smart [%s](%s), new smart: [%s](%s)", script_name(), sobj:name(), strn:name(), strn.level_name, alife():object(sobj:smart_terrain_id()):name(), alife():object(sobj:smart_terrain_id()).level_name))
+      end
+    end
+  end
+  local next_m = math.random( 0, 59 )
+  dsh.start_gtimerDHMS(
+    "dsh_walking_stalkers.periodic_job",
+    0, 3, next_m, 0,
+    "dsh_walking_stalkers.periodic_job"
+  )
+end

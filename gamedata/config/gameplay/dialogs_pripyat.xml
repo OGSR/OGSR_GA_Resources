@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<game_dialogs>
+	<dialog id="pri_followers_start_dlg">
+		<phrase_list>
+			<phrase id="21">
+				<text>pri_followers_start_dlg_21</text>
+				<next>211</next>
+			</phrase>
+			<phrase id="211">
+				<text>pri_followers_start_dlg_211</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+				<next>2</next>
+				<next>3</next>
+				<next>4</next>
+			</phrase>
+			<phrase id="1">
+				<text/>
+				<precondition>dialogs.is_wounded</precondition>
+			</phrase>
+			<phrase id="2">
+				<text/>
+				<precondition>dialogs.is_not_wounded</precondition>
+				<dont_has_info>pri_wave7_end</dont_has_info>
+				<has_info>pri_followers_start</has_info>
+				<next>21</next>
+			</phrase>
+			<phrase id="4">
+				<text/>
+				<precondition>dialogs.is_not_wounded</precondition>
+				<has_info>pri_followers_leader_give_info</has_info>
+				<next>41</next>
+			</phrase>
+			<phrase id="41">
+				<text>pri_followers_start_dlg_41</text>
+				<next>411</next>
+			</phrase>
+			<phrase id="411">
+				<text>pri_followers_start_dlg_411</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="311">
+				<text>pri_followers_start_dlg_311</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="31">
+				<text>pri_followers_start_dlg_31</text>
+				<give_info>pri_show_zones</give_info>
+				<give_info>pri_followers_leader_give_info</give_info>
+				<next>311</next>
+			</phrase>
+			<phrase id="3">
+				<text/>
+				<precondition>dialogs.is_not_wounded</precondition>
+				<dont_has_info>pri_followers_leader_give_info</dont_has_info>
+				<has_info>pri_wave7_end</has_info>
+				<has_info>pri_followers_start</has_info>
+				<next>31</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="pri_trader_dialog">
+		<phrase_list>
+			<phrase id="5_1">
+				<has_info>revenge_of_gunslinger</has_info>
+				<has_info>pri_talk_about_real_ending</has_info>
+				<has_info>pri_what_the_fuck</has_info>
+				<has_info>pri_trader_first_talk</has_info>
+				<text>hello_dialog_2</text>
+			</phrase>
+			<phrase id="4_9_29">
+				<give_info>revenge_of_gunslinger</give_info>
+				<action>dialogs.break_dialog</action>
+				<text>pri_trader_dialog_4_9_29</text>
+			</phrase>
+			<phrase id="4_9_28">
+				<next>4_9_29</next>
+				<text>pri_trader_dialog_4_9_28</text>
+			</phrase>
+			<phrase id="4_9_27">
+				<next>4_9_28</next>
+				<text>pri_trader_dialog_4_9_27</text>
+			</phrase>
+			<phrase id="4_9_26">
+				<next>4_9_27</next>
+				<text>pri_trader_dialog_4_9_26</text>
+			</phrase>
+			<phrase id="4_9_25">
+				<next>4_9_26</next>
+				<text>pri_trader_dialog_4_9_25</text>
+			</phrase>
+			<phrase id="4_9_24">
+				<next>4_9_25</next>
+				<text>pri_trader_dialog_4_9_24</text>
+			</phrase>
+			<phrase id="4_9_23">
+				<next>4_9_24</next>
+				<text>pri_trader_dialog_4_9_23</text>
+			</phrase>
+			<phrase id="4_9_22">
+				<next>4_9_23</next>
+				<text>pri_trader_dialog_4_9_22</text>
+			</phrase>
+			<phrase id="4_9_21">
+				<next>4_9_22</next>
+				<text>pri_trader_dialog_4_9_21</text>
+			</phrase>
+			<phrase id="4_9_20">
+				<next>4_9_21</next>
+				<text>pri_trader_dialog_4_9_20</text>
+			</phrase>
+			<phrase id="4_9_19">
+				<next>4_9_20</next>
+				<text>pri_trader_dialog_4_9_19</text>
+			</phrase>
+			<phrase id="4_9_18">
+				<next>4_9_19</next>
+				<text>pri_trader_dialog_4_9_18</text>
+			</phrase>
+			<phrase id="4_9_17">
+				<next>4_9_18</next>
+				<text>pri_trader_dialog_4_9_17</text>
+			</phrase>
+			<phrase id="4_9_16">
+				<next>4_9_17</next>
+				<text>pri_trader_dialog_4_9_16</text>
+			</phrase>
+			<phrase id="4_9_15">
+				<next>4_9_16</next>
+				<text>pri_trader_dialog_4_9_15</text>
+			</phrase>
+			<phrase id="4_9_14">
+				<next>4_9_15</next>
+				<text>pri_trader_dialog_4_9_14</text>
+			</phrase>
+			<phrase id="4_9_13">
+				<next>4_9_14</next>
+				<text>pri_trader_dialog_4_9_13</text>
+			</phrase>
+			<phrase id="4_9_12">
+				<next>4_9_13</next>
+				<text>pri_trader_dialog_4_9_12</text>
+			</phrase>
+			<phrase id="4_9_11">
+				<next>4_9_12</next>
+				<text>pri_trader_dialog_4_9_11</text>
+			</phrase>
+			<phrase id="4_9_10">
+				<next>4_9_11</next>
+				<text>pri_trader_dialog_4_9_10</text>
+			</phrase>
+			<phrase id="4_9_9">
+				<next>4_9_10</next>
+				<text>pri_trader_dialog_4_9_9</text>
+			</phrase>
+			<phrase id="4_9_8">
+				<next>4_9_9</next>
+				<text>pri_trader_dialog_4_9_8</text>
+			</phrase>
+			<phrase id="4_9_7">
+				<next>4_9_8</next>
+				<text>pri_trader_dialog_4_9_7</text>
+			</phrase>
+			<phrase id="4_9_6">
+				<next>4_9_7</next>
+				<text>pri_trader_dialog_4_9_6</text>
+			</phrase>
+			<phrase id="4_9_5">
+				<next>4_9_6</next>
+				<text>pri_trader_dialog_4_9_5</text>
+			</phrase>
+			<phrase id="4_9_4">
+				<next>4_9_5</next>
+				<text>pri_trader_dialog_4_9_4</text>
+			</phrase>
+			<phrase id="4_9_3">
+				<next>4_9_4</next>
+				<text>pri_trader_dialog_4_9_3</text>
+			</phrase>
+			<phrase id="4_9_2">
+				<next>4_9_3</next>
+				<text>pri_trader_dialog_4_9_2</text>
+			</phrase>
+			<phrase id="4_9_1">
+				<dont_has_info>revenge_of_gunslinger</dont_has_info>
+				<next>4_9_2</next>
+				<has_info>pri_i_am_gunslinger</has_info>
+				<text>pri_trader_dialog_4_9_1</text>
+			</phrase>
+			<phrase id="4_9">
+				<give_info>pri_talk_about_real_ending</give_info>
+				<action>dialogs.break_dialog</action>
+				<text>pri_trader_dialog_4_9</text>
+			</phrase>
+			<phrase id="4_8">
+				<next>4_9</next>
+				<text>pri_trader_dialog_4_8</text>
+			</phrase>
+			<phrase id="4_7">
+				<next>4_8</next>
+				<text>pri_trader_dialog_4_7</text>
+			</phrase>
+			<phrase id="4_6">
+				<next>4_7</next>
+				<action>ogse_quests.effects_talk</action>
+				<text>pri_trader_dialog_4_6</text>
+			</phrase>
+			<phrase id="4_5">
+				<next>4_6</next>
+				<text>pri_trader_dialog_4_5</text>
+			</phrase>
+			<phrase id="4_4">
+				<next>4_5</next>
+				<text>pri_trader_dialog_4_4</text>
+			</phrase>
+			<phrase id="4_3">
+				<next>4_4</next>
+				<text>pri_trader_dialog_4_3</text>
+			</phrase>
+			<phrase id="4_2">
+				<next>4_3</next>
+				<text>pri_trader_dialog_4_2</text>
+			</phrase>
+			<phrase id="4_1">
+				<next>4_2</next>
+				<has_info>pri_trader_first_talk</has_info>
+				<dont_has_info>pri_talk_about_real_ending</dont_has_info>
+				<has_info>pri_what_the_fuck</has_info>
+				<text>pri_trader_dialog_4_1</text>
+			</phrase>
+			<phrase id="0">
+				<next>5_1</next>
+				<text>zdorovo_strelok</text>
+				<next>1</next>
+				<next>4_1</next>
+				<next>4_9_1</next>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<dont_has_info>pri_what_the_fuck</dont_has_info>
+				<has_info>pri_trader_first_talk</has_info>
+				<text>hello_dialog_2</text>
+			</phrase>
+			<phrase id="1">
+				<dont_has_info>pri_trader_first_talk</dont_has_info>
+				<text>otkuda_znaesh</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>my_zhe_sosedi</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>strannyi_tip</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>da_ne_boisya</text>
+				<give_info>pri_trader_first_talk</give_info>
+				<action>ogsm_quests.remove_dealer_spot</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="tm_pri_dialog_arny">
+		<precondition>ogsm_quests.kill_arny_precondition</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>tm_seek_new_job</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>pri_1_est_delicatnoe_delo</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>pri_1_znayu</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>pri_1_bereshsya</text>
+				<next>4</next>
+				<next>5</next>
+			</phrase>
+			<phrase id="4">
+				<text>tm_seek_job_yes</text>
+				<give_info>pri_trader_arny_task</give_info>
+			</phrase>
+			<phrase id="5">
+				<text>tm_seek_job_no</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="tm_pri_reward_arny">
+		<precondition>ogsm_quests.kill_arny_reward_precondition</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>tm_reward_job</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>pri_1_nu_4to</text>
+				<give_info>pri_trader_arny_task_done</give_info>
+				<action>ogsm_quests.kill_arny_reward</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="tm_pri_dialog_freedom">
+		<precondition>ogsm_quests.kill_freedom_precondition</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>tm_seek_new_job</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>pri_2_est_delicatnoe_delo</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>pri_2_znayu</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>pri_2_bereshsya</text>
+				<next>4</next>
+				<next>5</next>
+			</phrase>
+			<phrase id="4">
+				<text>tm_seek_job_yes</text>
+				<give_info>pri_trader_freedom_task</give_info>
+			</phrase>
+			<phrase id="5">
+				<text>tm_seek_job_no</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="tm_pri_reward_freedom">
+		<has_info>sar2_death_49</has_info>
+		<has_info>sar2_death_48</has_info>
+		<has_info>pri_trader_freedom_task</has_info>
+		<dont_has_info>pri_trader_freedom_task_done</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>tm_reward_job</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>pri_2_nu_4to</text>
+				<give_info>pri_trader_freedom_task_done</give_info>
+				<action>ogsm_quests.kill_freedom_reward</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="tm_pri_dialog_dolg">
+		<precondition>ogsm_quests.kill_dolg_precondition</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>tm_seek_new_job</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>pri_3_est_delicatnoe_delo</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>pri_3_znayu</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>pri_3_bereshsya</text>
+				<next>4</next>
+				<next>5</next>
+			</phrase>
+			<phrase id="4">
+				<text>tm_seek_job_yes</text>
+				<give_info>pri_trader_dolg_task</give_info>
+			</phrase>
+			<phrase id="5">
+				<text>tm_seek_job_no</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="tm_pri_reward_dolg">
+		<has_info>bar_voronin_dead</has_info>
+		<has_info>sar2_death_42</has_info>
+		<has_info>pri_trader_dolg_task</has_info>
+		<dont_has_info>pri_trader_dolg_task_done</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>tm_reward_job</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>pri_3_nu_4to</text>
+				<give_info>pri_trader_dolg_task_done</give_info>
+				<action>ogsm_quests.kill_dolg_reward</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="pri_trader_final">
+		<precondition>ogsm_quests.final_precondition</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>pri_4_k_4emu_eto_vse</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>pri_4_a_ty_ne_ponyal</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>pri_4_raz_tak</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>pri_4_proshai</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>pri_4_ne_ponyal</text>
+				<action>dialogs.break_dialog</action>
+				<action>ogsm_quests.release_dark_dealer</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+</game_dialogs>
+

@@ -1,0 +1,4033 @@
+[3105]
+
+; cse_abstract properties
+section_name = respawn
+name = mar_bloodsucker_1_respawn
+position = 39.9411430358887, 2.83846998214722, -242.234741210938
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11491
+
+; cse_alife_object properties
+game_vertex_id = 4291
+distance = 4.9000001
+level_vertex_id = 49222
+object_flags = 0xffffff3e
+custom_data = <<END
+[respawn]
+respawn_section = bloodsucker_strong
+max_spawn = 1
+idle_spawn = seldom
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 1
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_respawn properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3106]
+
+; cse_abstract properties
+section_name = smart_terrain
+name = mar_bloodsucker_1
+position = 39.9411430358887, 2.83846998214722, -242.234741210938
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11492
+
+; cse_alife_object properties
+game_vertex_id = 4291
+distance = 4.9000001
+level_vertex_id = 49222
+object_flags = 0xffffff3e
+custom_data = <<END
+[smart_terrain]
+type = general_lair
+capacity = 2
+communities = bloodsucker
+stay = long
+
+;quick/medium
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 15
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_smart_terrain properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3107]
+
+; cse_abstract properties
+section_name = bloodsucker_strong
+name = mar_bloodsucker_strong
+position = 39.9411430358887, 2.83846998214722, -242.234741210938
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11493
+
+; cse_alife_object properties
+game_vertex_id = 4291
+distance = 2.0999999
+level_vertex_id = 49222
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_bloodsucker_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\krovosos\krovosos_strong
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = 39.9411430358887, 2.83846998214722, -242.234741210938
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3108]
+
+; cse_abstract properties
+section_name = smart_terrain
+name = mar_boars_1
+position = -49.9349250793457, 0.180034637451172, 58.6154937744141
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11494
+
+; cse_alife_object properties
+game_vertex_id = 4216
+distance = 4.9000001
+level_vertex_id = 23389
+object_flags = 0xffffff3e
+custom_data = <<END
+[smart_terrain]
+type = general_lair
+capacity = 8
+communities = boar,flesh
+stay = long
+
+;quick/medium
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 15
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_smart_terrain properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3109]
+
+; cse_abstract properties
+section_name = respawn
+name = mar_boars_1_respawn
+position = -49.9349250793457, 0.180034637451172, 58.6154937744141
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11495
+
+; cse_alife_object properties
+game_vertex_id = 4216
+distance = 4.9000001
+level_vertex_id = 23389
+object_flags = 0xffffff3e
+custom_data = <<END
+[respawn]
+respawn_section = boar_normal,19, boar_strong,14
+max_spawn = 3
+idle_spawn = seldom
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 1
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_respawn properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3110]
+
+; cse_abstract properties
+section_name = boar_normal
+name = mar_boar_normal
+position = -49.9349250793457, 0.180034637451172, 58.6154937744141
+direction = 0, 3.14159274101257, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11496
+
+; cse_alife_object properties
+game_vertex_id = 4216
+distance = 11.9
+level_vertex_id = 23389
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_boars_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\mutant_boar\mutant_boar
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -49.9349250793457, 0.180034637451172, 58.6154937744141
+upd:o_torso = 3.14159274101257, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3111]
+
+; cse_abstract properties
+section_name = boar_normal
+name = mar_boar_normal_0000
+position = -62.2079772949219, 0.157373428344727, 62.3118896484375
+direction = 0, 3.14159274101257, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11497
+
+; cse_alife_object properties
+game_vertex_id = 4215
+distance = 15.4
+level_vertex_id = 19447
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_boars_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\mutant_boar\mutant_boar
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -62.2079772949219, 0.157373428344727, 62.3118896484375
+upd:o_torso = 3.14159274101257, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3112]
+
+; cse_abstract properties
+section_name = boar_normal
+name = mar_boar_normal_0001
+position = -166.691772460938, 0.582904815673828, -48.2066078186035
+direction = 0, 2.03579998016357, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11498
+
+; cse_alife_object properties
+game_vertex_id = 4387
+distance = 9.0999994
+level_vertex_id = 384
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_boars_2 = true
+END
+
+; cse_visual properties
+visual_name = monsters\mutant_boar\mutant_boar
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -166.691772460938, 0.582904815673828, -48.2066078186035
+upd:o_torso = 2.03579998016357, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3113]
+
+; cse_abstract properties
+section_name = smart_terrain
+name = mar_boars_2
+position = -165.090637207031, 0.528453826904297, -45.4863014221191
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11499
+
+; cse_alife_object properties
+game_vertex_id = 4387
+distance = 4.9000001
+level_vertex_id = 466
+object_flags = 0xffffff3e
+custom_data = <<END
+[smart_terrain]
+type = general_lair
+capacity = 6
+communities = boar,flesh
+stay = long
+
+;quick/medium
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 15
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_smart_terrain properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3114]
+
+; cse_abstract properties
+section_name = respawn
+name = mar_boars_2_respawn
+position = -165.090637207031, 0.528453826904297, -45.4863014221191
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11500
+
+; cse_alife_object properties
+game_vertex_id = 4387
+distance = 4.9000001
+level_vertex_id = 466
+object_flags = 0xffffff3e
+custom_data = <<END
+[respawn]
+respawn_section = boar_normal,19, boar_strong,14
+max_spawn = 3
+idle_spawn = seldom
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 1
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_respawn properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3115]
+
+; cse_abstract properties
+section_name = boar_normal
+name = mar_boar_normal_0002
+position = -165.090637207031, 0.528453826904297, -45.4863014221191
+direction = 0, -1.90260028839111, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11501
+
+; cse_alife_object properties
+game_vertex_id = 4387
+distance = 7.6999998
+level_vertex_id = 466
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_boars_2 = true
+END
+
+; cse_visual properties
+visual_name = monsters\mutant_boar\mutant_boar
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -165.090637207031, 0.528453826904297, -45.4863014221191
+upd:o_torso = -1.90260028839111, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3116]
+
+; cse_abstract properties
+section_name = boar_normal
+name = mar_boar_normal_0003
+position = -167.910095214844, 0.615753173828125, -52.2785415649414
+direction = 0, 2.66759967803955, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11502
+
+; cse_alife_object properties
+game_vertex_id = 4385
+distance = 14.7
+level_vertex_id = 297
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_boars_2 = true
+END
+
+; cse_visual properties
+visual_name = monsters\mutant_boar\mutant_boar
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -167.910095214844, 0.615753173828125, -52.2785415649414
+upd:o_torso = 2.66759967803955, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3117]
+
+; cse_abstract properties
+section_name = boar_weak
+name = mar_boar_weak
+position = -164.181777954102, 0.492265701293945, -50.7424354553223
+direction = 0, -2.16478538513184, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11503
+
+; cse_alife_object properties
+game_vertex_id = 4387
+distance = 9.0999994
+level_vertex_id = 494
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_boars_2 = true
+END
+
+; cse_visual properties
+visual_name = monsters\mutant_boar\mutant_boar
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -164.181777954102, 0.492265701293945, -50.7424354553223
+upd:o_torso = -2.16478538513184, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3118]
+
+; cse_abstract properties
+section_name = boar_weak
+name = mar_boar_weak_0000
+position = -64.4195251464844, 0.148921966552734, 63.6674041748047
+direction = 0, 3.14159274101257, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11504
+
+; cse_alife_object properties
+game_vertex_id = 4215
+distance = 16.1
+level_vertex_id = 18733
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_boars_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\mutant_boar\mutant_boar
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -64.4195251464844, 0.148921966552734, 63.6674041748047
+upd:o_torso = 3.14159274101257, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3119]
+
+; cse_abstract properties
+section_name = boar_weak
+name = mar_boar_weak_0001
+position = -58.8061027526855, -0.0344944000244141, 60.8814086914063
+direction = 0, 3.14159274101257, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11505
+
+; cse_alife_object properties
+game_vertex_id = 4215
+distance = 17.5
+level_vertex_id = 20514
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_boars_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\mutant_boar\mutant_boar
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -58.8061027526855, -0.0344944000244141, 60.8814086914063
+upd:o_torso = 3.14159274101257, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3120]
+
+; cse_abstract properties
+section_name = boar_weak
+name = mar_boar_weak_0002
+position = -51.8276405334473, 0.0797080993652344, 57.5326843261719
+direction = 0, 3.14159274101257, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11506
+
+; cse_alife_object properties
+game_vertex_id = 4216
+distance = 15.4
+level_vertex_id = 22750
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_boars_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\mutant_boar\mutant_boar
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -51.8276405334473, 0.0797080993652344, 57.5326843261719
+upd:o_torso = 3.14159274101257, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3121]
+
+; cse_abstract properties
+section_name = boar_weak
+name = mar_boar_weak_0003
+position = -169.308776855469, 0.375020980834961, -45.8424110412598
+direction = 0, 3.03300046920776, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11507
+
+; cse_alife_object properties
+game_vertex_id = 4387
+distance = 11.9
+level_vertex_id = 229
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_boars_2 = true
+END
+
+; cse_visual properties
+visual_name = monsters\mutant_boar\mutant_boar
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -169.308776855469, 0.375020980834961, -45.8424110412598
+upd:o_torso = 3.03300046920776, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3122]
+
+; cse_abstract properties
+section_name = boar_weak
+name = mar_boar_weak_0004
+position = -50.3880729675293, 0.117588043212891, 55.5424041748047
+direction = 0, 3.14159274101257, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11508
+
+; cse_alife_object properties
+game_vertex_id = 4216
+distance = 16.1
+level_vertex_id = 23177
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_boars_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\mutant_boar\mutant_boar
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -50.3880729675293, 0.117588043212891, 55.5424041748047
+upd:o_torso = 3.14159274101257, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3123]
+
+; cse_abstract properties
+section_name = breakable_object
+name = meshes\brkbl#0.ogf
+position = 48.3876113891602, 4.79406404495239, -240.385040283203
+direction = 0.00217610411345959, -0.769782602787018, 1.57219469547272
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11509
+
+; cse_alife_object properties
+game_vertex_id = 4290
+distance = 8.3999996
+level_vertex_id = 51498
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = meshes\brkbl#0
+
+; cse_alife_object_breakable properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3124]
+
+; cse_abstract properties
+section_name = breakable_object
+name = meshes\brkbl#1.ogf
+position = 35.391845703125, 4.79406404495239, -241.944488525391
+direction = 0.00346472160890698, -0.635381877422333, 1.57110273838043
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11510
+
+; cse_alife_object properties
+game_vertex_id = 4289
+distance = 14.7
+level_vertex_id = 47993
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = meshes\brkbl#1
+
+; cse_alife_object_breakable properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3125]
+
+; cse_abstract properties
+section_name = breakable_object
+name = meshes\brkbl#2.ogf
+position = 38.3018569946289, 4.79406452178955, -238.966827392578
+direction = 0.000809045159257948, -0.635380268096924, 1.57056057453156
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11511
+
+; cse_alife_object properties
+game_vertex_id = 4289
+distance = 8.3999996
+level_vertex_id = 48850
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = meshes\brkbl#2
+
+; cse_alife_object_breakable properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3126]
+
+; cse_abstract properties
+section_name = breakable_object
+name = meshes\brkbl#3.ogf
+position = 40.3382034301758, 4.79406404495239, -236.883148193359
+direction = -0.00465417979285121, -0.764252424240112, 1.56912302970886
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11512
+
+; cse_alife_object properties
+game_vertex_id = 4289
+distance = 4.1999998
+level_vertex_id = 49422
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = meshes\brkbl#3
+
+; cse_alife_object_breakable properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3127]
+
+; cse_abstract properties
+section_name = breakable_object
+name = meshes\brkbl#4.ogf
+position = 41.2595901489258, 4.79406452178955, -247.678863525391
+direction = -0.00125491328071803, -0.697766304016113, 1.5700249671936
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11513
+
+; cse_alife_object properties
+game_vertex_id = 4291
+distance = 5.5999999
+level_vertex_id = 49611
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = meshes\brkbl#4
+
+; cse_alife_object_breakable properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3128]
+
+; cse_abstract properties
+section_name = breakable_object
+name = meshes\brkbl#5.ogf
+position = 44.1695556640625, 4.79406356811523, -244.701232910156
+direction = 0.00440764287486672, -0.698184669017792, 1.57175672054291
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11514
+
+; cse_alife_object properties
+game_vertex_id = 4291
+distance = 7.6999998
+level_vertex_id = 50387
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = meshes\brkbl#5
+
+; cse_alife_object_breakable properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3129]
+
+; cse_abstract properties
+section_name = breakable_object
+name = meshes\brkbl#6.ogf
+position = 35.3216781616211, 4.79406404495239, -245.40185546875
+direction = -0.00400517042726278, 0.775870203971863, 1.5716255903244
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11515
+
+; cse_alife_object properties
+game_vertex_id = 4289
+distance = 16.1
+level_vertex_id = 47767
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = meshes\brkbl#6
+
+; cse_alife_object_breakable properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3130]
+
+; cse_abstract properties
+section_name = breakable_object
+name = meshes\brkbl#7.ogf
+position = 46.4206161499023, 4.79406356811523, -234.044830322266
+direction = -0.00283882464282215, -0.662896156311035, 1.56296277046204
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11516
+
+; cse_alife_object properties
+game_vertex_id = 4289
+distance = 10.5
+level_vertex_id = 50946
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = meshes\brkbl#7
+
+; cse_alife_object_breakable properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3131]
+
+; cse_abstract properties
+section_name = climable_object
+name = clmbl#0
+position = -3.68330931663513, 2.3318293094635, 22.5343112945557
+direction = 2.55053655564552e-005, 0, 1.57079637050629
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11517
+
+; cse_alife_object properties
+game_vertex_id = 4369
+distance = 3.5
+level_vertex_id = 35172
+object_flags = 0xffffffbf
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 0.92521607875824,0,0
+shape_0:axis_y = 0,2.62260437011719e-006,0
+shape_0:axis_z = 0,0,0.32235050201416
+shape_0:offset = 0,0,0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3132]
+
+; cse_abstract properties
+section_name = climable_object
+name = clmbl#1
+position = 2.19685316085815, 2.33495187759399, 20.0786552429199
+direction = 0, 3.14159274101257, 1.57079768180847
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11518
+
+; cse_alife_object properties
+game_vertex_id = 4370
+distance = 2.8
+level_vertex_id = 36967
+object_flags = 0xffffffbf
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 0.922084391117096,0,0
+shape_0:axis_y = 0,1.31130218505859e-006,0
+shape_0:axis_z = 0,0,0.328254699707031
+shape_0:offset = 0,0,0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3133]
+
+; cse_abstract properties
+section_name = climable_object
+name = clmbl#2
+position = 33.8847427368164, 4.47985410690308, -218.628173828125
+direction = 0.0178240351378918, -2.34290766716003, 1.15640604496002
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11519
+
+; cse_alife_object properties
+game_vertex_id = 4293
+distance = 2.0999999
+level_vertex_id = 47315
+object_flags = 0xffffffbf
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 1.94191741943359,0,0
+shape_0:axis_y = 0,0.00112533569335938,0
+shape_0:axis_z = 0,0,0.506515502929688
+shape_0:offset = 0,0,0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3134]
+
+; cse_abstract properties
+section_name = smart_terrain
+name = mar_flesh_1
+position = -51.9300003051758, 0.860000014305115, -151.410003662109
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11520
+
+; cse_alife_object properties
+game_vertex_id = 4233
+distance = 4.9000001
+level_vertex_id = 22668
+object_flags = 0xffffff3e
+custom_data = <<END
+[smart_terrain]
+type = general_lair
+capacity = 8
+communities = boar,flesh
+stay = long
+
+;quick/medium
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 15
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_smart_terrain properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3135]
+
+; cse_abstract properties
+section_name = respawn
+name = mar_flesh_1_respawn
+position = -51.9300003051758, 0.860000014305115, -151.410003662109
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11521
+
+; cse_alife_object properties
+game_vertex_id = 4233
+distance = 4.9000001
+level_vertex_id = 22668
+object_flags = 0xffffff3e
+custom_data = <<END
+[respawn]
+respawn_section = flesh_normal,19, flesh_strong,14
+max_spawn = 3
+idle_spawn = seldom
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 1
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_respawn properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3136]
+
+; cse_abstract properties
+section_name = flesh_normal
+name = mar_flesh_normal
+position = -51.9300003051758, 0.860000014305115, -151.410003662109
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11522
+
+; cse_alife_object properties
+game_vertex_id = 4233
+distance = 16.1
+level_vertex_id = 22668
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -51.9300003051758, 0.860000014305115, -151.410003662109
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3137]
+
+; cse_abstract properties
+section_name = flesh_normal
+name = mar_flesh_normal_0000
+position = -50.7799987792969, 0.75, -158.100006103516
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11523
+
+; cse_alife_object properties
+game_vertex_id = 4233
+distance = 9.8000002
+level_vertex_id = 22878
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -50.7799987792969, 0.75, -158.100006103516
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3138]
+
+; cse_abstract properties
+section_name = smart_terrain
+name = mar_flesh_2
+position = 153.989364624023, 1.21434307098389, -54.6673202514648
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11524
+
+; cse_alife_object properties
+game_vertex_id = 4342
+distance = 4.9000001
+level_vertex_id = 77666
+object_flags = 0xffffff3e
+custom_data = <<END
+[smart_terrain]
+type = general_lair
+capacity = 8
+communities = boar,flesh
+stay = long
+
+;quick/medium
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 15
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_smart_terrain properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3139]
+
+; cse_abstract properties
+section_name = respawn
+name = mar_flesh_2_respawn
+position = 153.989364624023, 1.21434307098389, -54.6673202514648
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11525
+
+; cse_alife_object properties
+game_vertex_id = 4342
+distance = 4.9000001
+level_vertex_id = 77666
+object_flags = 0xffffff3e
+custom_data = <<END
+[respawn]
+respawn_section = flesh_normal,19, flesh_strong,14
+max_spawn = 3
+idle_spawn = seldom
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 1
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_respawn properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3140]
+
+; cse_abstract properties
+section_name = flesh_normal
+name = mar_flesh_normal_0001
+position = 153.989364624023, 1.21434307098389, -54.6673202514648
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11526
+
+; cse_alife_object properties
+game_vertex_id = 4342
+distance = 17.5
+level_vertex_id = 77666
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_2 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = 153.989364624023, 1.21434307098389, -54.6673202514648
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3141]
+
+; cse_abstract properties
+section_name = flesh_strong
+name = mar_flesh_strong
+position = -53.5400009155273, 0.720000028610229, -157.630004882813
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11527
+
+; cse_alife_object properties
+game_vertex_id = 4233
+distance = 8.3999996
+level_vertex_id = 22228
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh_strong
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -53.5400009155273, 0.720000028610229, -157.630004882813
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3142]
+
+; cse_abstract properties
+section_name = flesh_strong
+name = mar_flesh_strong_0000
+position = -54.5699996948242, 0.670000016689301, -153.880004882813
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11528
+
+; cse_alife_object properties
+game_vertex_id = 4233
+distance = 10.5
+level_vertex_id = 21800
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh_strong
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -54.5699996948242, 0.670000016689301, -153.880004882813
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3143]
+
+; cse_abstract properties
+section_name = flesh_strong
+name = mar_flesh_strong_0001
+position = -69.1594696044922, 1.6606559753418, -303.807952880859
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11529
+
+; cse_alife_object properties
+game_vertex_id = 4246
+distance = 9.8000002
+level_vertex_id = 16750
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_3 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh_strong
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -69.1594696044922, 1.6606559753418, -303.807952880859
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3144]
+
+; cse_abstract properties
+section_name = flesh_strong
+name = mar_flesh_strong_0002
+position = 151.149703979492, 0.935209274291992, -50.4601097106934
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11530
+
+; cse_alife_object properties
+game_vertex_id = 4342
+distance = 10.5
+level_vertex_id = 77019
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_2 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh_strong
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = 151.149703979492, 0.935209274291992, -50.4601097106934
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3145]
+
+; cse_abstract properties
+section_name = flesh_strong
+name = mar_flesh_strong_0003
+position = 147.702697753906, 0.516970634460449, -52.4934310913086
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11531
+
+; cse_alife_object properties
+game_vertex_id = 4342
+distance = 10.5
+level_vertex_id = 76144
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_2 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh_strong
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = 147.702697753906, 0.516970634460449, -52.4934310913086
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3146]
+
+; cse_abstract properties
+section_name = flesh_weak
+name = mar_flesh_weak
+position = -50.1199989318848, 0.899999976158142, -154.490005493164
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11532
+
+; cse_alife_object properties
+game_vertex_id = 4233
+distance = 14
+level_vertex_id = 23098
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_1 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -50.1199989318848, 0.899999976158142, -154.490005493164
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3147]
+
+; cse_abstract properties
+section_name = smart_terrain
+name = mar_flesh_3
+position = -72.7372055053711, 1.92015647888184, -305.995941162109
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11533
+
+; cse_alife_object properties
+game_vertex_id = 4246
+distance = 4.9000001
+level_vertex_id = 15564
+object_flags = 0xffffff3e
+custom_data = <<END
+[smart_terrain]
+type = general_lair
+capacity = 6
+communities = boar,flesh
+stay = long
+
+;quick/medium
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 15
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_smart_terrain properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3148]
+
+; cse_abstract properties
+section_name = respawn
+name = mar_flesh_3_respawn
+position = -72.7372055053711, 1.92015647888184, -305.995941162109
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11534
+
+; cse_alife_object properties
+game_vertex_id = 4246
+distance = 4.9000001
+level_vertex_id = 15564
+object_flags = 0xffffff3e
+custom_data = <<END
+[respawn]
+respawn_section = flesh_normal,19, flesh_strong,14
+max_spawn = 3
+idle_spawn = seldom
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 1
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; se_respawn properties
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3149]
+
+; cse_abstract properties
+section_name = flesh_weak
+name = mar_flesh_weak_0000
+position = -72.7372055053711, 1.92015647888184, -305.995941162109
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11535
+
+; cse_alife_object properties
+game_vertex_id = 4246
+distance = 7
+level_vertex_id = 15564
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_3 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -72.7372055053711, 1.92015647888184, -305.995941162109
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3150]
+
+; cse_abstract properties
+section_name = flesh_weak
+name = mar_flesh_weak_0001
+position = -68.7241439819336, 1.16546630859375, -308.62744140625
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11536
+
+; cse_alife_object properties
+game_vertex_id = 4246
+distance = 5.5999999
+level_vertex_id = 16981
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_3 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -68.7241439819336, 1.16546630859375, -308.62744140625
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3151]
+
+; cse_abstract properties
+section_name = flesh_weak
+name = mar_flesh_weak_0002
+position = -65.7910614013672, 1.22380256652832, -304.477569580078
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11537
+
+; cse_alife_object properties
+game_vertex_id = 4246
+distance = 12.599999
+level_vertex_id = 17961
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_3 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -65.7910614013672, 1.22380256652832, -304.477569580078
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3152]
+
+; cse_abstract properties
+section_name = flesh_weak
+name = mar_flesh_weak_0003
+position = -71.3533630371094, 2.52672386169434, -299.653228759766
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11538
+
+; cse_alife_object properties
+game_vertex_id = 4246
+distance = 11.9
+level_vertex_id = 16041
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_3 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -71.3533630371094, 2.52672386169434, -299.653228759766
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3153]
+
+; cse_abstract properties
+section_name = flesh_weak
+name = mar_flesh_weak_0004
+position = 150.475540161133, 0.775105476379395, -52.5227127075195
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11539
+
+; cse_alife_object properties
+game_vertex_id = 4342
+distance = 11.9
+level_vertex_id = 76840
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_2 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = 150.475540161133, 0.775105476379395, -52.5227127075195
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3154]
+
+; cse_abstract properties
+section_name = flesh_weak
+name = mar_flesh_weak_0005
+position = 151.877822875977, 0.777461051940918, -55.3311347961426
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11540
+
+; cse_alife_object properties
+game_vertex_id = 4342
+distance = 16.1
+level_vertex_id = 77178
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_2 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = 151.877822875977, 0.777461051940918, -55.3311347961426
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3155]
+
+; cse_abstract properties
+section_name = flesh_weak
+name = mar_flesh_weak_0006
+position = 153.284271240234, 1.13682079315186, -51.8202896118164
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11541
+
+; cse_alife_object properties
+game_vertex_id = 4342
+distance = 14
+level_vertex_id = 77520
+object_flags = 0xffffffbf
+custom_data = <<END
+[smart_terrains]
+mar_flesh_2 = true
+END
+
+; cse_visual properties
+visual_name = monsters\flesh\flesh
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = 153.284271240234, 1.13682079315186, -51.8202896118164
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3156]
+
+; cse_abstract properties
+section_name = level_changer
+name = l22_marsh_level_changer_to_agroprom
+position = 216.310577392578, 0.10211181640625, 28.7239875793457
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11542
+
+; cse_alife_object properties
+game_vertex_id = 4183
+distance = 21.699999
+level_vertex_id = 88249
+object_flags = 0xffffff3e
+custom_data = <<END
+[pt_move_if_reject]
+path = marsh_way_if_reject_to_agroprom
+END
+story_id = 1701
+spawn_story_id = 1701
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 3
+
+; cse_alife_space_restrictor properties
+restrictor_type = 3
+
+; cse_alife_level_changer properties
+dest_game_vertex_id = 700
+dest_level_vertex_id = 396076
+dest_position = 176.726272583008, 0.847518920898438, -238.831848144531
+dest_direction = 0.082957349717617, 1.48344624042511, -0.064824253320694
+dest_level_name = l03_agroprom
+dest_graph_point = start_actor_01
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3157]
+
+; cse_abstract properties
+section_name = level_changer
+name = l22_marsh_level_changer_to_escape
+position = 238.947341918945, 4.52806901931763, -105.166793823242
+direction = 0, -1.22400033473969, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11543
+
+; cse_alife_object properties
+game_vertex_id = 4318
+distance = 7
+level_vertex_id = 90426
+object_flags = 0xffffff3e
+custom_data = <<END
+[pt_move_if_reject]
+path = marsh_way_if_reject_to_escape
+END
+story_id = 1700
+spawn_story_id = 1700
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 60,0,0
+shape_0:axis_y = 0,10,0
+shape_0:axis_z = 0,0,5
+shape_0:offset = 0,0,0
+
+; cse_alife_space_restrictor properties
+restrictor_type = 3
+
+; cse_alife_level_changer properties
+dest_game_vertex_id = 250
+dest_level_vertex_id = 136737
+dest_position = -116.899826049805, 27.6318740844727, 175.013412475586
+dest_level_name = l01_escape
+dest_graph_point = start_actor_03
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3158]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = light_alarm_white_glass
+position = -0.626499235630035, 6.27802562713623, 11.3518400192261
+direction = -6.61526019030134e-006, 2.20424442587408e-010, -3.1415593624115
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11544
+
+; cse_alife_object properties
+game_vertex_id = 4366
+distance = 2.0999999
+level_vertex_id = 36021
+object_flags = 0xffffffba
+custom_data = <<END
+[collide]
+ignore_static
+[fade_params]
+speed = 0.2
+amount = 1.0
+smap_jitter = 15.0
+END
+
+; cse_visual properties
+visual_name = physics\light\new_light\light_alarm_white_glass
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfff7ece1
+main_brightness = 0.60000002
+main_color_animator = svet_02
+main_range = 5
+light_flags = 0xab
+lamp_fixed_bones = link
+health = 100
+main_virtual_size = 0.1
+ambient_radius = 7
+ambient_power = 0.2
+main_bone = bone_lamp
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+ambient_bone = bone_omni
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3159]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = light_gas_r2_0000
+position = -7.02888011932373, 4.61776447296143, 12.5114145278931
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11545
+
+; cse_alife_object properties
+game_vertex_id = 4363
+distance = 2.8
+level_vertex_id = 34057
+object_flags = 0xffffffba
+
+; cse_visual properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfffab807
+main_brightness = 0.40000001
+main_color_animator = koster
+main_range = 3
+light_flags = 0x2a
+health = 100
+main_virtual_size = 0.1
+ambient_radius = 1
+ambient_power = 0.1
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3160]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = lights_camp_fire_omni_r1_r2_0001
+position = 234.770629882813, 1.55401349067688, -163.014068603516
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11546
+
+; cse_alife_object properties
+game_vertex_id = 4318
+distance = 9.0999994
+level_vertex_id = 89855
+object_flags = 0xffffffba
+
+; cse_visual properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfffab807
+main_brightness = 0.40000001
+main_color_animator = koster
+main_range = 6
+light_flags = 0x2a
+health = 100
+main_virtual_size = 0.1
+ambient_radius = 2
+ambient_power = 0.40000001
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3161]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = lights_camp_fire_omni_r1_r2_0002
+position = 122.697891235352, 1.97283697128296, -147.577514648438
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11547
+
+; cse_alife_object properties
+game_vertex_id = 4331
+distance = 2.8
+level_vertex_id = 67965
+object_flags = 0xffffffba
+
+; cse_visual properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfffab807
+main_brightness = 0.40000001
+main_color_animator = koster
+main_range = 6
+light_flags = 0x2a
+health = 100
+main_virtual_size = 0.1
+ambient_radius = 2
+ambient_power = 0.40000001
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3162]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = lights_camp_fire_omni_r1_r2_0003
+position = 34.0310554504395, 3.94390344619751, -230.816864013672
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11548
+
+; cse_alife_object properties
+game_vertex_id = 4289
+distance = 7
+level_vertex_id = 47542
+object_flags = 0xffffffba
+
+; cse_visual properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfffab807
+main_brightness = 0.40000001
+main_color_animator = koster
+main_range = 6
+light_flags = 0x2a
+health = 100
+main_virtual_size = 0.1
+ambient_radius = 2
+ambient_power = 0.40000001
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3163]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = lights_camp_fire_omni_r1_r2_0004
+position = 132.287612915039, 1.79371905326843, 41.3713760375977
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11549
+
+; cse_alife_object properties
+game_vertex_id = 4190
+distance = 11.2
+level_vertex_id = 71921
+object_flags = 0xffffffba
+
+; cse_visual properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfffab807
+main_brightness = 0.40000001
+main_color_animator = koster
+main_range = 6
+light_flags = 0x2a
+health = 100
+main_virtual_size = 0.1
+ambient_radius = 2
+ambient_power = 0.40000001
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3164]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = lights_camp_fire_omni_r1_r2_0005
+position = 28.1121273040771, 3.92060017585754, -213.488433837891
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11550
+
+; cse_alife_object properties
+game_vertex_id = 4378
+distance = 2.0999999
+level_vertex_id = 45299
+object_flags = 0xffffffba
+
+; cse_visual properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfffab807
+main_brightness = 0.40000001
+main_color_animator = koster
+main_range = 6
+light_flags = 0x2a
+health = 100
+main_virtual_size = 0.1
+ambient_radius = 2
+ambient_power = 0.40000001
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3165]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = lights_camp_fire_omni_r1_r2_0006
+position = 36.3690872192383, 2.32732009887695, -114.016067504883
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11551
+
+; cse_alife_object properties
+game_vertex_id = 4265
+distance = 5.5999999
+level_vertex_id = 48331
+object_flags = 0xffffffba
+
+; cse_visual properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfffab807
+main_brightness = 0.40000001
+main_color_animator = koster
+main_range = 6
+light_flags = 0x2a
+health = 100
+main_virtual_size = 0.1
+ambient_radius = 2
+ambient_power = 0.40000001
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3166]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow
+position = -20.1100006103516, 10.75, -109.98999786377
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11552
+
+; cse_alife_object properties
+game_vertex_id = 4256
+distance = 12.599999
+level_vertex_id = 30871
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x7321
+upd:creature_flags = 0x22
+upd:position = -20.1100006103516, 10.75, -109.98999786377
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3167]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0000
+position = -1.79999995231628, 10.8299999237061, -119.559997558594
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11553
+
+; cse_alife_object properties
+game_vertex_id = 4256
+distance = 18.199999
+level_vertex_id = 35549
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x7470
+upd:creature_flags = 0x71
+upd:position = -1.79999995231628, 10.8299999237061, -119.559997558594
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3168]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0001
+position = -5.3600001335144, 10.8800001144409, -125.809997558594
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11554
+
+; cse_alife_object properties
+game_vertex_id = 4256
+distance = 18.199999
+level_vertex_id = 34436
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x74c4
+upd:creature_flags = 0xc5
+upd:position = -5.3600001335144, 10.8800001144409, -125.809997558594
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3169]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0002
+position = -27.8600006103516, 10.9300003051758, -136.869995117188
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11555
+
+; cse_alife_object properties
+game_vertex_id = 4255
+distance = 5.5999999
+level_vertex_id = 28559
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x761b
+upd:creature_flags = 0x1c
+upd:position = -27.8600006103516, 10.9300003051758, -136.869995117188
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3170]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0003
+position = -25.9799995422363, 10.9899997711182, -136.550003051758
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11556
+
+; cse_alife_object properties
+game_vertex_id = 4255
+distance = 2.8
+level_vertex_id = 29170
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x775e
+upd:creature_flags = 0x5f
+upd:position = -25.9799995422363, 10.9899997711182, -136.550003051758
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3171]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0004
+position = -23.9899997711182, 11.0799999237061, -136.399993896484
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11557
+
+; cse_alife_object properties
+game_vertex_id = 4255
+distance = 2.0999999
+level_vertex_id = 29806
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x789e
+upd:creature_flags = 0x9f
+upd:position = -23.9899997711182, 11.0799999237061, -136.399993896484
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3172]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0005
+position = -19.8799991607666, 11.1599998474121, -112.360000610352
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11558
+
+; cse_alife_object properties
+game_vertex_id = 4256
+distance = 9.0999994
+level_vertex_id = 31050
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x79de
+upd:creature_flags = 0xdf
+upd:position = -19.8799991607666, 11.1599998474121, -112.360000610352
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3173]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0006
+position = -18.5100002288818, 11, -112.050003051758
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11559
+
+; cse_alife_object properties
+game_vertex_id = 4256
+distance = 8.3999996
+level_vertex_id = 31384
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x7a32
+upd:creature_flags = 0x33
+upd:position = -18.5100002288818, 11, -112.050003051758
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3174]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0007
+position = -0.0799999982118607, 11.1199998855591, -124.879997253418
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11560
+
+; cse_alife_object properties
+game_vertex_id = 4382
+distance = 15.4
+level_vertex_id = 36169
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x7b75
+upd:creature_flags = 0x76
+upd:position = -0.0799999982118607, 11.1199998855591, -124.879997253418
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3175]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0008
+position = 5.17999982833862, 10.1699981689453, -121.980003356934
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11561
+
+; cse_alife_object properties
+game_vertex_id = 4264
+distance = 15.4
+level_vertex_id = 37696
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x7cb9
+upd:creature_flags = 0xba
+upd:position = 5.17999982833862, 10.1699981689453, -121.980003356934
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3176]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0009
+position = -2.4300000667572, 10.9899997711182, -134.210006713867
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11562
+
+; cse_alife_object properties
+game_vertex_id = 4382
+distance = 6.3000002
+level_vertex_id = 35528
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x7dfb
+upd:creature_flags = 0xfc
+upd:position = -2.4300000667572, 10.9899997711182, -134.210006713867
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3177]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0010
+position = -5.63000011444092, 10.710000038147, -129.839996337891
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11563
+
+; cse_alife_object properties
+game_vertex_id = 4382
+distance = 14.7
+level_vertex_id = 34431
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x7f3b
+upd:creature_flags = 0x3c
+upd:position = -5.63000011444092, 10.710000038147, -129.839996337891
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3178]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0011
+position = -13.1199998855591, 10.5100002288818, -119.690002441406
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11564
+
+; cse_alife_object properties
+game_vertex_id = 4256
+distance = 4.1999998
+level_vertex_id = 32482
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x8075
+upd:creature_flags = 0x76
+upd:position = -13.1199998855591, 10.5100002288818, -119.690002441406
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3179]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0012
+position = -8.11999988555908, 10.6899995803833, -123.610000610352
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11565
+
+; cse_alife_object properties
+game_vertex_id = 4256
+distance = 13.3
+level_vertex_id = 33617
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x80c9
+upd:creature_flags = 0xca
+upd:position = -8.11999988555908, 10.6899995803833, -123.610000610352
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3180]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0013
+position = -2.71000003814697, 10.8999996185303, -128.580001831055
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11566
+
+; cse_alife_object properties
+game_vertex_id = 4382
+distance = 12.599999
+level_vertex_id = 35314
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x8200
+upd:creature_flags = 0x1
+upd:position = -2.71000003814697, 10.8999996185303, -128.580001831055
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3181]
+
+; cse_abstract properties
+section_name = m_crow
+name = mar_m_crow_0014
+position = 0.150000005960464, 11.1099996566772, -135.259994506836
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11567
+
+; cse_alife_object properties
+game_vertex_id = 4382
+distance = 3.5
+level_vertex_id = 36155
+object_flags = 0xffffffba
+
+; cse_visual properties
+visual_name = monsters\crow\crow
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+upd:health = 1
+upd:timestamp = 0x8348
+upd:creature_flags = 0x49
+upd:position = 0.150000005960464, 11.1099996566772, -135.259994506836
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3182]
+
+; cse_abstract properties
+section_name = pseudodog_strong
+name = mar_pseudodog_strong
+position = -2.08992862701416, 2.16279220581055, -5.60337066650391
+direction = 0, -1.59660005569458, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11568
+
+; cse_alife_object properties
+game_vertex_id = 4198
+distance = 6.3000002
+level_vertex_id = 35579
+object_flags = 0xffffffbf
+
+; cse_visual properties
+visual_name = monsters\pseudodog\pseudodog_grey
+
+; cse_alife_creature_abstract properties
+g_team = 0
+g_squad = 0
+g_group = 0
+
+; cse_alife_monster_abstract properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_monster_base properties
+
+; se_monster properties
+squad_id = 
+upd:health = 1
+upd:timestamp = 0xffffffff
+upd:position = -2.08992862701416, 2.16279220581055, -5.60337066650391
+upd:o_torso = -1.59660005569458, 0, 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3183]
+
+; cse_abstract properties
+section_name = space_restrictor
+name = mar_bloodsuker_fish_house_lair
+position = 46.206184387207, 2.83846998214722, -235.913146972656
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11569
+
+; cse_alife_object properties
+game_vertex_id = 4290
+distance = 3.5
+level_vertex_id = 50944
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 45
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3184]
+
+; cse_abstract properties
+section_name = space_restrictor
+name = mar_boar_lair_1
+position = -59.2460746765137, -0.0361976623535156, 60.0272636413574
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11570
+
+; cse_alife_object properties
+game_vertex_id = 4215
+distance = 17.5
+level_vertex_id = 20307
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 40
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3185]
+
+; cse_abstract properties
+section_name = space_restrictor
+name = mar_boar_lair_2
+position = -141.499633789063, 0.437171936035156, -73.8039627075195
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11571
+
+; cse_alife_object properties
+game_vertex_id = 4228
+distance = 7.6999998
+level_vertex_id = 2143
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 45
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3186]
+
+; cse_abstract properties
+section_name = space_restrictor
+name = mar_doctor_house_dog_guard
+position = 5.9305214881897, 7.84673070907593, -14.997371673584
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11572
+
+; cse_alife_object properties
+game_vertex_id = 4361
+distance = 2.8
+level_vertex_id = 37949
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 90,0,0
+shape_0:axis_y = 0,20,0
+shape_0:axis_z = 0,0,90
+shape_0:offset = 0,0,0
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3187]
+
+; cse_abstract properties
+section_name = space_restrictor
+name = mar_flesh_lair_1
+position = -48.9895133972168, 0.832912445068359, -159.455688476563
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11573
+
+; cse_alife_object properties
+game_vertex_id = 4233
+distance = 10.5
+level_vertex_id = 23507
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 50
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3188]
+
+; cse_abstract properties
+section_name = space_restrictor
+name = mar_flesh_lair_2
+position = 140.175811767578, 5.26373291015625, -64.9546508789063
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11574
+
+; cse_alife_object properties
+game_vertex_id = 4341
+distance = 6.3000002
+level_vertex_id = 74247
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 50
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3189]
+
+; cse_abstract properties
+section_name = zone_flame_small
+name = zone_flame_small_0001
+position = 234.724868774414, 0.883134126663208, -163.011138916016
+direction = -9.31322574615479e-010, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11575
+
+; cse_alife_object properties
+game_vertex_id = 4318
+distance = 9.0999994
+level_vertex_id = 89855
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 0.64168655872345
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 15
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 3
+artefact_spawn_count = 32
+artefact_position_offset = 0xbb85
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3190]
+
+; cse_abstract properties
+section_name = zone_flame_small
+name = zone_flame_small_0002
+position = 122.652130126953, 1.30195760726929, -147.574584960938
+direction = -9.31322574615479e-010, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11576
+
+; cse_alife_object properties
+game_vertex_id = 4331
+distance = 2.8
+level_vertex_id = 67965
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 0.64168655872345
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 15
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 3
+artefact_spawn_count = 32
+artefact_position_offset = 0xbba5
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3191]
+
+; cse_abstract properties
+section_name = zone_flame_small
+name = zone_flame_small_0003
+position = 33.985294342041, 3.27302408218384, -230.813934326172
+direction = -9.31322574615479e-010, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11577
+
+; cse_alife_object properties
+game_vertex_id = 4289
+distance = 7
+level_vertex_id = 47542
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 0.64168655872345
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 15
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 3
+artefact_spawn_count = 32
+artefact_position_offset = 0xbbc5
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3192]
+
+; cse_abstract properties
+section_name = zone_flame_small
+name = zone_flame_small_0004
+position = 132.241851806641, 1.12283968925476, 41.3743057250977
+direction = -9.31322574615479e-010, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11578
+
+; cse_alife_object properties
+game_vertex_id = 4190
+distance = 11.2
+level_vertex_id = 71921
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 0.64168655872345
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 15
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 3
+artefact_spawn_count = 32
+artefact_position_offset = 0xbbe5
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3193]
+
+; cse_abstract properties
+section_name = zone_flame_small
+name = zone_flame_small_0005
+position = 28.0663661956787, 3.24972081184387, -213.485504150391
+direction = -9.31322574615479e-010, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11579
+
+; cse_alife_object properties
+game_vertex_id = 4378
+distance = 2.0999999
+level_vertex_id = 45299
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 0.64168655872345
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 15
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 3
+artefact_spawn_count = 32
+artefact_position_offset = 0xbc05
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3194]
+
+; cse_abstract properties
+section_name = zone_flame_small
+name = zone_flame_small_0006
+position = 36.3233261108398, 1.65644073486328, -114.013137817383
+direction = -9.31322574615479e-010, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11580
+
+; cse_alife_object properties
+game_vertex_id = 4265
+distance = 5.5999999
+level_vertex_id = 48331
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 0.64168655872345
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 15
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 3
+artefact_spawn_count = 32
+artefact_position_offset = 0xbc25
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3195]
+
+; cse_abstract properties
+section_name = zone_radioactive_average
+name = mar_zone_radioactive_average_0000
+position = 178.100570678711, 1.65829300880432, -145.457702636719
+direction = 0, 1.79100024700165, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11581
+
+; cse_alife_object properties
+game_vertex_id = 4316
+distance = 11.9
+level_vertex_id = 82352
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 2.5,0,0
+shape_0:axis_y = 0,2.5,0
+shape_0:axis_z = 0,0,6
+shape_0:offset = 0,0,0
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 0.029999999
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 30
+artefact_spawn_count = 32
+artefact_position_offset = 0xbce5
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3196]
+
+; cse_abstract properties
+section_name = zone_radioactive_strong
+name = mar_zone_radioactive_strong
+position = 155.268173217773, 3.9333701133728, -202.818664550781
+direction = 0, 0.192600041627884, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11582
+
+; cse_alife_object properties
+game_vertex_id = 4305
+distance = 2.8
+level_vertex_id = 77824
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 3.5,0,0
+shape_0:axis_y = 0,3.5,0
+shape_0:axis_z = 0,0,6.5
+shape_0:offset = 0,0,0
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 0.059999999
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 30
+artefact_spawn_count = 32
+artefact_position_offset = 0xbc45
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3197]
+
+; cse_abstract properties
+section_name = zone_radioactive_strong
+name = mar_zone_radioactive_strong_0000
+position = 155.81282043457, 1.79333996772766, -179.696731567383
+direction = 0, -0.163800060749054, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11583
+
+; cse_alife_object properties
+game_vertex_id = 4313
+distance = 11.9
+level_vertex_id = 77957
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 3.5,0,0
+shape_0:axis_y = 0,3.5,0
+shape_0:axis_z = 0,0,8.5
+shape_0:offset = 0,0,0
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 0.059999999
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 30
+artefact_spawn_count = 32
+artefact_position_offset = 0xbc65
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3198]
+
+; cse_abstract properties
+section_name = zone_radioactive_strong
+name = mar_zone_radioactive_strong_0001
+position = 159.763961791992, 0.697324514389038, -163.192932128906
+direction = 0, -0.241200059652328, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11584
+
+; cse_alife_object properties
+game_vertex_id = 4310
+distance = 17.5
+level_vertex_id = 78614
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 4.5,0,0
+shape_0:axis_y = 0,4.5,0
+shape_0:axis_z = 0,0,9
+shape_0:offset = 0,0,0
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 0.059999999
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 30
+artefact_spawn_count = 32
+artefact_position_offset = 0xbca5
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3199]
+
+; cse_abstract properties
+section_name = zone_radioactive_strong
+name = mar_zone_radioactive_strong_0002
+position = 167.35009765625, 1.4002491235733, -150.547119140625
+direction = 0, -0.889200210571289, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11585
+
+; cse_alife_object properties
+game_vertex_id = 4330
+distance = 11.9
+level_vertex_id = 80117
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 4.5,0,0
+shape_0:axis_y = 0,4.5,0
+shape_0:axis_z = 0,0,9
+shape_0:offset = 0,0,0
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 0.059999999
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 30
+artefact_spawn_count = 32
+artefact_position_offset = 0xbcc5
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3200]
+
+; cse_abstract properties
+section_name = zone_radioactive_weak
+name = mar_zone_radioactive_weak
+position = 154.655975341797, 3.04386353492737, -191.592147827148
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11586
+
+; cse_alife_object properties
+game_vertex_id = 4307
+distance = 9.0999994
+level_vertex_id = 77694
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 3.5,0,0
+shape_0:axis_y = 0,3.5,0
+shape_0:axis_z = 0,0,8.5
+shape_0:offset = 0,0,0
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 0.0099999998
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 30
+artefact_spawn_count = 32
+artefact_position_offset = 0xbc85
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3201]
+
+; cse_abstract properties
+section_name = zone_radioactive_weak
+name = mar_zone_radioactive_weak_0000
+position = 4.47511959075928, 0.457008361816406, -261.373138427734
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11587
+
+; cse_alife_object properties
+game_vertex_id = 4288
+distance = 18.199999
+level_vertex_id = 37431
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 2
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 0.0099999998
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 30
+artefact_spawn_count = 32
+artefact_position_offset = 0xbd05
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3202]
+
+; cse_abstract properties
+section_name = zone_radioactive_weak
+name = mar_zone_radioactive_weak_0001
+position = -14.5574522018433, 0.0359606109559536, -110.047454833984
+direction = 0, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11588
+
+; cse_alife_object properties
+game_vertex_id = 4200
+distance = 16.1
+level_vertex_id = 32186
+object_flags = 0xffffff3e
+
+; cse_shape properties
+shapes = 1
+shape_0:type = sphere
+shape_0:offset = 0,0,0
+shape_0:radius = 2
+
+; cse_alife_space_restrictor properties
+restrictor_type = 0
+
+; cse_alife_custom_zone properties
+max_power = 0.0099999998
+
+; cse_alife_anomalous_zone properties
+offline_interactive_radius = 30
+artefact_spawn_count = 32
+artefact_position_offset = 0xbd25
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3203]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = light_alarm_glass_0000
+position = -4.26889801025391, 6.27802562713623, 12.2572364807129
+direction = 3.72529029846191e-008, 6.28318500518799, 9.42477798461914
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11589
+
+; cse_alife_object properties
+game_vertex_id = 4290
+level_vertex_id = 51498
+object_flags = 0xffffffba
+custom_data = <<END
+[collide]
+ignore_static
+[fade_params]
+speed = 0.2
+amount = 1.0
+smap_jitter = 15.0
+END
+
+; cse_visual properties
+visual_name = physics\light\new_light\light_alarm_white_glass
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfff7ece1
+main_brightness = 0.60000002
+main_color_animator = svet_02
+main_range = 5
+light_flags = 0xab
+lamp_fixed_bones = link
+health = 100
+main_virtual_size = 0.1
+ambient_radius = 7
+ambient_power = 0.2
+main_bone = bone_lamp
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+ambient_bone = bone_omni
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3204]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = light_alarm_glass_0001
+position = 32.560001373291, 5.47200107574463, 31.6000003814697
+direction = 3.14159274101257, 0, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11590
+
+; cse_alife_object properties
+game_vertex_id = 4290
+level_vertex_id = 51498
+object_flags = 0xffffffba
+custom_data = <<END
+[collide]
+ignore_static
+
+[light_config]
+cfg = scripts\lights\general\street_light.ltx
+[fade_params]
+speed = 0.2
+amount = 1.0
+smap_jitter = 15.0
+END
+
+; cse_visual properties
+visual_name = physics\light\new_light\light_alarm_glass
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfffe8812
+main_brightness = 0.89999998
+main_color_animator = svet_01
+main_range = 5
+light_flags = 0xab
+lamp_fixed_bones = link
+health = 100
+main_virtual_size = 0.1
+ambient_radius = 7
+ambient_power = 0.30000001
+main_bone = bone_lamp
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+ambient_bone = bone_omni
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3205]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = light_alarm_glass_0002
+position = -3.95000004768372, 4.92999982833862, 2.90000009536743
+direction = -0.0663225129246712, 3.11715841293335, -3.04559969902039
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11591
+
+; cse_alife_object properties
+game_vertex_id = 4290
+level_vertex_id = 51498
+object_flags = 0xffffffba
+custom_data = <<END
+[collide]
+ignore_static
+
+[light_config]
+cfg = scripts\lights\general\street_light.ltx
+[fade_params]
+speed = 0.2
+amount = 1.0
+smap_jitter = 15.0
+END
+
+; cse_visual properties
+visual_name = physics\light\new_light\light_alarm_glass
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfffe8812
+main_brightness = 0.89999998
+main_color_animator = svet_01
+main_range = 5
+light_flags = 0xab
+lamp_fixed_bones = link
+health = 100
+main_virtual_size = 0.1
+ambient_radius = 7
+ambient_power = 0.30000001
+main_bone = bone_lamp
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+ambient_bone = bone_omni
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3206]
+
+; cse_abstract properties
+section_name = space_restrictor
+name = ogse_marsh_hide_restrictor_1
+position = -4.92000007629395, 4.69999980926514, 11.1000003814697
+direction = 0, 0, 0
+version = 118
+script_version = 6
+spawn_id = 11592
+
+; cse_alife_object properties
+game_vertex_id = 4290
+level_vertex_id = 51498
+object_flags = 0xffffffbe
+custom_data = <<END
+[parameters]
+name = marsh_hide_1
+community = stalker_bandit
+radius = 5
+[logic]
+active = sr_mapspot 
+
+[sr_mapspot] 
+hint = ogsm_common_hide
+location = ogsm_hide_spot_mdl
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 5,0,0
+shape_0:axis_y = 0,3,0
+shape_0:axis_z = 0,0,6
+shape_0:offset = 0,0,0
+
+; cse_alife_space_restrictor properties
+restrictor_type = 3
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3207]
+
+; cse_abstract properties
+section_name = space_restrictor
+name = ogse_marsh_hide_restrictor_2
+position = 39.7999992370605, 4.32000017166138, -243.300003051758
+direction = 0, -0.785399973392487, 0
+version = 118
+script_version = 6
+spawn_id = 11593
+
+; cse_alife_object properties
+game_vertex_id = 4290
+level_vertex_id = 51498
+object_flags = 0xffffffbe
+custom_data = <<END
+[parameters]
+name = marsh_hide_2
+community = stalker_bandit
+radius = 5
+[logic]
+active = sr_mapspot 
+
+[sr_mapspot] 
+hint = ogsm_common_hide
+location = ogsm_hide_spot_mdl
+END
+
+; cse_shape properties
+shapes = 1
+shape_0:type = box
+shape_0:axis_x = 7.90000009536743,0,0
+shape_0:axis_y = 0,3,0
+shape_0:axis_z = 0,0,9
+shape_0:offset = 0,0,0
+
+; cse_alife_space_restrictor properties
+restrictor_type = 3
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3208]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = light_korabl_0000
+position = -314.308929443359, 9.69997787475586, 126.305198669434
+direction = 0, 0, 3.14159274101257
+version = 118
+script_version = 6
+spawn_id = 11594
+
+; cse_alife_object properties
+game_vertex_id = 4289
+level_vertex_id = 49422
+object_flags = 0xffffffba
+
+; cse_visual properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfffe8812
+main_brightness = 1
+main_color_animator = svet_01
+main_range = 19
+light_flags = 0xa
+lamp_fixed_bones = link
+health = 100
+main_virtual_size = 0.050000001
+ambient_radius = 23
+ambient_power = 0.30000001
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+ambient_bone = bone_omni
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3209]
+
+; cse_abstract properties
+section_name = lights_hanging_lamp
+name = light_korabl_0001
+position = -316.881988525391, 12.183967590332, 117.635162353516
+direction = 0, 0, 3.14159274101257
+version = 118
+script_version = 6
+spawn_id = 11595
+
+; cse_alife_object properties
+game_vertex_id = 4289
+level_vertex_id = 49422
+object_flags = 0xffffffba
+
+; cse_visual properties
+
+; cse_ph_skeleton properties
+
+; cse_alife_object_hanging_lamp properties
+main_color = 0xfffe8812
+main_brightness = 1
+main_color_animator = svet_01
+main_range = 19
+light_flags = 0xa
+lamp_fixed_bones = link
+health = 100
+main_virtual_size = 0.050000001
+ambient_radius = 23
+ambient_power = 0.30000001
+main_cone_angle = 2.0943952
+glow_radius = 0.69999999
+ambient_bone = bone_omni
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3210]
+
+; cse_abstract properties
+section_name = search_light
+name = l22_marsh_light_doc_base_01
+position = -3.1964213848114, 12.4849948883057, 21.7407569885254
+direction = 0, -1.32479906082153, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11596
+
+; cse_alife_object properties
+game_vertex_id = 4372
+level_vertex_id = 35170
+object_flags = 0xffffffba
+custom_data = <<END
+[light_config]
+cfg = scripts\lights\marsh\doc_base_spotlight_1.ltx
+[collide]
+ignore_static
+END
+
+; cse_visual properties
+visual_name = equipments\projector
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3211]
+
+; cse_abstract properties
+section_name = search_light
+name = l22_marsh_light_doc_base_02
+position = -7.28999996185303, 12.5299997329712, 22.8700008392334
+direction = 0, 0.0799999982118607, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11597
+
+; cse_alife_object properties
+game_vertex_id = 4373
+level_vertex_id = 34067
+object_flags = 0xffffffba
+custom_data = <<END
+[light_config]
+cfg = scripts\lights\marsh\doc_base_spotlight_2.ltx
+[collide]
+ignore_static
+END
+
+; cse_visual properties
+visual_name = equipments\projector
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[3212]
+
+; cse_abstract properties
+section_name = search_light
+name = l22_marsh_light_doc_base_03
+position = -7.42999982833862, 12.5799999237061, 18.1700000762939
+direction = 0, 3.10999989509583, 0
+id = 65535
+version = 118
+script_version = 7
+spawn_id = 11598
+
+; cse_alife_object properties
+game_vertex_id = 4373
+level_vertex_id = 34062
+object_flags = 0xffffffba
+custom_data = <<END
+[light_config]
+cfg = scripts\lights\marsh\doc_base_spotlight_3.ltx
+[collide]
+ignore_static
+END
+
+; cse_visual properties
+visual_name = equipments\projector
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+

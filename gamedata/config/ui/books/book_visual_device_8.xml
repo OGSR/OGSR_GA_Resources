@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+
+<book_visual_device_8>	
+	
+	<btn_back x="230" y="660" width="117" height="29">
+	<texture_e>ui\ui_btn_01_e</texture_e>
+	<texture_t>ui\ui_btn_01_t</texture_t>
+	<texture_h>ui\ui_btn_01_h</texture_h>
+		<text>book_back_string</text>
+	</btn_back>
+
+	<btn_next x="360" y="660" width="117" height="29">
+	<texture_e>ui\ui_btn_01_e</texture_e>
+	<texture_t>ui\ui_btn_01_t</texture_t>
+	<texture_h>ui\ui_btn_01_h</texture_h>
+		<text>book_next_string</text>
+	</btn_next>
+
+	<page1 x="230" y="10" width="370" height="600" stretch="1">
+		<texture x="0" y="0" width="1025" height="1025">ui\bookpages\book_8_text_1</texture>
+	</page1>
+	<page2 x="230" y="10" width="370" height="600" stretch="1">
+		<texture x="0" y="0" width="1025" height="1025">ui\bookpages\book_8_text_2</texture>
+	</page2>
+	<page3 x="230" y="10" width="370" height="600" stretch="1">
+		<texture x="0" y="0" width="1025" height="1025">ui\bookpages\book_8_text_3</texture>
+	</page3>
+	<page4 x="230" y="10" width="370" height="600" stretch="1">
+		<texture x="0" y="0" width="1025" height="1025">ui\bookpages\book_8_text_4</texture>
+	</page4>
+	<page5 x="230" y="10" width="370" height="600" stretch="1">
+		<texture x="0" y="0" width="1025" height="1025">ui\bookpages\book_8_text_5</texture>
+	</page5>
+	<page6 x="230" y="10" width="370" height="600" stretch="1">
+		<texture x="0" y="0" width="1025" height="1025">ui\bookpages\book_8_text_6</texture>
+	</page6>
+	<page7 x="230" y="10" width="370" height="600" stretch="1">
+		<texture x="0" y="0" width="1025" height="1025">ui\bookpages\book_8_text_7</texture>
+	</page7>
+
+
+	<btn_quit x="530" y="660" width="117" height="29">
+		<texture_e>ui_button_ordinary_e</texture_e>
+		<texture_t>ui_button_ordinary_t</texture_t>
+		<texture_h>ui_button_ordinary_h</texture_h>
+		<text>close_this_string</text>
+	</btn_quit>
+</book_visual_device_8>
+
+

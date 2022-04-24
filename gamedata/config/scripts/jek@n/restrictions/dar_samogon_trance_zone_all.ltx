@@ -1,0 +1,14 @@
+[logic]
+active = {+dar_samogon_trance_end} nil, sr_idle@1
+
+[sr_idle@1]
+on_info = {+dar_samogon_trance_start} sr_sound_act@1 %=teleport_actor_to_samogon_transe_zone1% 
+
+[sr_sound_act@1]
+theme = dar_samogon_trance
+delay = 0
+delay_max = 100
+stereo = false
+on_actor_in_zone = dar_samogon_trance_zone_all|nil %=run_postprocess(deadcity_wake_old) =teleport_actor_to_samogon_transe_zone2 =enable_ui -dar_samogon_trance +dar_samogon_trance_end%
+on_info = {!actor_in_samogon_trance_zones} %=teleport_actor_to_samogon_transe_zone1%
+on_info2 = {-222} %=run_samogon_postprocess =disable_ui2%

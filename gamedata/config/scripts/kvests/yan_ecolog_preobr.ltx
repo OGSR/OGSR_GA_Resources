@@ -1,0 +1,32 @@
+
+
+[logic]
+active = remark
+combat_ignore = combat_ignore
+on_death = death
+
+[death]
+on_info = %+esc_kvest_iscelenie_dead_preobr%
+
+[remark]
+no_move = true
+danger = danger_condition
+wounded = wounded@pr
+combat_ignore_cond = {-blablalba}
+
+[wounded@pr]
+hp_state = 35|wounded_heavy@help_heavy
+;hp_state_see = 35|wounded_heavy@esc_tolik_help
+hp_victim = 35|nil
+hp_cover = 35|false
+hp_fight = 35|false
+help_dialog = tutorial_wounded_give_medkit
+
+[danger_condition]
+ignore_distance = 0
+
+[combat_ignore]
+combat_ignore_cond = {-blablalba}
+
+[smart_terrains]
+none = true

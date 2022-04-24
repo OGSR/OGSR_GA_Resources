@@ -1,0 +1,46 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@begin
+combat_ignore = combat_ignore
+on_death = death
+threshold = threshold@izgoy_pomoshnik_threshold
+
+[walker@begin]
+path_walk = izgoy_pomoshnik_walk
+path_look = izgoy_pomoshnik_look
+on_timer = 100 | walker 
+
+[walker]
+path_walk = izgoy_pomoshnik_walk
+path_look = izgoy_pomoshnik_look
+meet = meet
+danger = danger_condition
+combat_ignore_cond = always
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 9|actor
+victim_wpn = 9|actor
+meet_state = 9|claim@izgoy_pomoshnik_meet|5|claim@izgoy_pomoshnik_meet
+meet_state_wpn = 9|claim@izgoy_pomoshnik_meet|5|claim@izgoy_pomoshnik_meet
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[threshold@izgoy_pomoshnik_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[combat_ignore]
+combat_ignore = always
+
+[death]
+on_info = %+izgoy_pomoshnik_dead%
+

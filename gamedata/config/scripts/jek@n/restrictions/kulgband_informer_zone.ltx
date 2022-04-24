@@ -1,0 +1,14 @@
+[logic]
+active = sr_idle@1
+ 
+[sr_idle@1] 
+on_info = {=actor_has_item(kulgband_informer_assist_pda) +kulgband_informer_fight} sr_idle@2 %=remove_item(kulgband_informer_assist_pda) =spawn_kulgband_informer_shron1%
+on_info2 = {=actor_has_item(kulgband_informer_assist_pda) +kulgband_informer_deal} sr_idle@2 %=remove_item(kulgband_informer_assist_pda) =spawn_kulgband_informer_shron2%
+on_info3 = {=actor_has_item(kulgband_informer_bag)} nil %=remove_item(kulgband_informer_bag) =dar_kulgband_informer_weapons_back%
+
+[sr_idle@2] 
+on_info = {=actor_has_item(kulgband_informer_map)} sr_idle@3 %=remove_item(kulgband_informer_map) +kulgband_informer_map_info%
+on_info2 = {=actor_has_item(kulgband_informer_bag)} nil %=remove_item(kulgband_informer_bag) =dar_kulgband_informer_weapons_back%
+
+[sr_idle@3]
+on_info = {=actor_has_item(kulgband_informer_bag)} nil %=remove_item(kulgband_informer_bag) =dar_kulgband_informer_weapons_back%

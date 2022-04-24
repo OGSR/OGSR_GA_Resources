@@ -1,0 +1,69 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = remark@start
+combat_ignore = combat_ignore
+on_death = death
+on_hit = hit
+
+[hit]
+on_info = %+yan_zombsold_wound%
+
+[remark@start]
+anim = wounded_knee
+;snd = yan_sold_see
+no_move = true
+target = actor
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_timer = 10 | remark@idle 
+combat_ignore_keep_when_attacked = true
+
+[remark@idle]
+anim = wounded_knee
+;snd = yan_sold_see
+no_move = true
+target = actor
+;meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+;on_timer = 7000 | walker
+combat_ignore_keep_when_attacked = true
+
+[walker]
+path_walk = yan_attack_point1
+path_look = yan_attack_point3
+danger = danger_condition
+meet = meet
+on_info = {+yan_zombsold_wound} wounded
+
+[wounded]
+hp_state = 0|wounded_heavy@help_heavy
+hp_victim = 0|nil
+hp_cover = 0|false
+hp_fight = 0|false
+help_dialog = yan_zombsold_dialog
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 30|actor
+victim_wpn = 30|actor
+meet_state = 30|wounded_knee@yan_soldier_sad
+meet_state_wpn = 30|wounded_knee@yan_soldier_sad
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[combat_ignore]
+combat_ignore_cond = always
+
+[death]
+on_info = %+yan_zombsold_dead%
+

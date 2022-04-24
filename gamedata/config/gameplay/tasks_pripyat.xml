@@ -1,0 +1,71 @@
+	<game_task id="pri_kill_arny">
+		<title>pri_kill_arny</title>
+		<objective>
+			<text>pri_kill_arny_0</text>
+			<icon>ui_iconsTotal_kill_stalker</icon>			
+			<infoportion_complete>pri_trader_arny_task_done</infoportion_complete>
+			<infoportion_fail>pri_trader_dead</infoportion_fail>
+		</objective>
+		<objective>
+			<text>pri_kill_arny_0</text>
+			<map_location_type hint="pri_kill_arny_0">kill_stalker_location</map_location_type>
+			<object_story_id>bar_arena_inventory_box</object_story_id>
+			<function_complete>ogsm_quests.kill_arny_reward_precondition</function_complete>
+		</objective>
+		<objective>
+			<text>return_for_reward</text>
+			<infoportion_complete>pri_trader_arny_task_done</infoportion_complete>
+		</objective>
+	</game_task>
+
+	<game_task id="pri_kill_freedom">
+		<title>pri_kill_freedom</title>
+		<objective>
+			<text>pri_kill_freedom_0</text>
+			<icon>ui_iconsTotal_mil_kill_lukash</icon>			
+			<infoportion_complete>pri_trader_freedom_task_done</infoportion_complete>
+			<infoportion_fail>pri_trader_dead</infoportion_fail>
+		</objective>
+		<objective>
+			<text>pri_kill_freedom_1</text>
+			<map_location_type hint="pri_kill_freedom_1">kill_stalker_location</map_location_type>
+			<object_story_id>Mil_Lukash</object_story_id>
+			<infoportion_complete>sar2_death_49</infoportion_complete>
+		</objective>
+		<objective>
+			<text>pri_kill_freedom_2</text>
+			<map_location_type hint="pri_kill_freedom_2">kill_stalker_location</map_location_type>
+			<object_story_id>Mil_Miser</object_story_id>
+			<infoportion_complete>sar2_death_48</infoportion_complete>
+		</objective>
+		<objective>
+			<text>return_for_reward</text>
+			<infoportion_complete>pri_trader_freedom_task_done</infoportion_complete>
+		</objective>
+	</game_task>
+
+	<game_task id="pri_kill_dolg">
+		<title>pri_kill_dolg</title>
+		<objective>
+			<text>pri_kill_dolg_0</text>
+			<icon>ui_iconsTotal_mil_lukash_job</icon>			
+			<infoportion_complete>pri_trader_dolg_task_done</infoportion_complete>
+			<infoportion_fail>pri_trader_dead</infoportion_fail>
+		</objective>
+		<objective>
+			<text>pri_kill_dolg_1</text>
+			<map_location_type hint="pri_kill_dolg_1">kill_stalker_location</map_location_type>
+			<object_story_id>bar_dolg_general_voronin</object_story_id>
+			<infoportion_complete>bar_voronin_dead</infoportion_complete>
+		</objective>
+		<objective>
+			<text>pri_kill_dolg_2</text>
+			<map_location_type hint="pri_kill_dolg_2">kill_stalker_location</map_location_type>
+			<object_story_id>bar_dolg_polkovnik_petrenko</object_story_id>
+			<infoportion_complete>sar2_death_42</infoportion_complete>
+		</objective>
+		<objective>
+			<text>return_for_reward</text>
+			<infoportion_complete>pri_trader_dolg_task_done</infoportion_complete>
+		</objective>
+	</game_task>

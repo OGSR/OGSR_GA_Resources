@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<xml>
+
+<!-- Torgovec Voennih -->
+<specific_character id="military_trader" team_default = "1">
+	<name>military_trader_name</name>
+	<icon>ui_npc_u_stalker_militari_antigas_2</icon>
+	<map_icon x="2" y="2"></map_icon>
+	<bio>military_trader</bio>
+
+	<class>military_trader</class>
+	<community>trader</community>
+	<money min="500000" max="500000" infinitive="1"></money>
+	<terrain_sect>stalker_terrain</terrain_sect>
+
+	<rank>730</rank>
+	<reputation>96</reputation>
+	<visual>actors\unic\military_trader</visual>		
+	<snd_config>characters_voice\human_03\military\</snd_config>
+	<crouch_type>-1</crouch_type>
+
+	<supplies>
+	[spawn] \n
+	wpn_saiga12 \n
+	ammo_12x70_kart \n
+	wpn_ak101_cobra = 1, scope \n
+	ammo_5.56x45_ap \n
+	device_torch \n
+#include "gameplay\character_drugs.xml"
+	</supplies>
+
+	<start_dialog>military_trader</start_dialog>
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+#include "gameplay\character_dialogs_unic.xml"
+</specific_character>
+
+<!-- Torgovec Banditov -->
+<specific_character id="bandit_trader" team_default = "1">
+	<name>bandit_trader_name</name>
+	<icon>ui_npc_u_barman</icon>
+	<map_icon x="3" y="2"></map_icon>
+	<bio>bandit_trader</bio>
+
+	<class>bandit_trader</class>
+	<community>trader</community>
+	<money min="500000" max="500000" infinitive="1"></money>
+	<terrain_sect>stalker_terrain</terrain_sect>
+
+	<rank>730</rank>
+	<reputation>96</reputation>
+	<visual>actors\unic\bandit_trader</visual>
+	<snd_config>characters_voice\human_03\stalker\</snd_config>
+	<crouch_type>-1</crouch_type>
+
+	<supplies>
+	[spawn] \n
+	wpn_toz34_full \n
+	ammo_12x70_kart \n
+	wpn_sig552 \n
+	ammo_5.56x45_ss190 \n
+	device_torch \n
+#include "gameplay\character_drugs.xml"
+	</supplies>
+
+	<actor_dialog>bandit_trader</actor_dialog>
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+#include "gameplay\character_dialogs_unic.xml"
+</specific_character>
+
+<!-- Torgovec Monolita -->
+<specific_character id="monolit_trader" team_default = "1">
+	<name>monolit_trader_name</name>
+	<icon>ui_npc_u_stalker_mo_exo</icon>
+	<map_icon x="3" y="0"></map_icon>
+	<bio>monolit_trader</bio>
+
+	<class>monolit_trader</class>
+	<community>trader</community>
+	<money min="500000" max="500000" infinitive="1"></money>
+	<terrain_sect>stalker_terrain</terrain_sect>
+
+	<rank>730</rank>
+	<reputation>96</reputation>
+	<visual>actors\unic\monolit_trader</visual>
+	<snd_config>characters_voice\human_03\monolith\</snd_config>
+	<crouch_type>-1</crouch_type>
+
+	<supplies>
+	[spawn] \n
+	wpn_saiga12 \n
+	ammo_12x70_kart \n
+	wpn_sig552 \n
+	ammo_5.56x45_ss190 \n
+	device_torch \n
+#include "gameplay\character_drugs.xml"
+	</supplies>
+
+	<actor_dialog>monolit_trader</actor_dialog>
+	<actor_dialog>monolit_trader_lc_info</actor_dialog>
+	<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
+#include "gameplay\character_dialogs_unic.xml"
+</specific_character>
+
+<!-- Torgovec Naemnikov -->
+<specific_character id="merc_trader" team_default = "1">
+	<name>merc_trader_name</name>
+	<icon>ui_npc_u_stalker_ki_mask</icon>
+	<map_icon x="2" y="0"></map_icon>
+	<bio>merc_trader</bio>
+
+	<class>merc_trader</class>
+	<community>trader</community>
+	<money min="500000" max="500000" infinitive="1"></money>
+	<terrain_sect>stalker_terrain</terrain_sect>
+
+	<rank>730</rank>
+	<reputation>96</reputation>
+	<visual>actors\unic\merc_trader</visual>
+	<snd_config>characters_voice\human_03\killer\</snd_config>
+	<crouch_type>-1</crouch_type>
+
+	<supplies>
+	[spawn] \n
+	wpn_saiga12 \n
+	ammo_12x70_kart \n
+	wpn_p90 \n
+	ammo_5.56x45_ss190 \n
+	device_torch \n
+#include "gameplay\character_drugs.xml"
+	</supplies>
+
+	<actor_dialog>merc_trader</actor_dialog>
+<!--	<actor_dialog>merc_trader_lc_info</actor_dialog> -->
+#include "gameplay\character_dialogs_unic.xml"
+</specific_character>
+
+</xml>

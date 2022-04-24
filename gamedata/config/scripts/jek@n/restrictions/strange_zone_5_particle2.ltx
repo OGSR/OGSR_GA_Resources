@@ -1,0 +1,25 @@
+[logic]
+active = sr_particle@1
+
+[sr_idle]
+on_info = {-strangezone5_off} sr_particle@1
+on_info2 = {+yan_strange_zone_ready_to_delete} nil
+
+[sr_particle@1]
+name = anomaly2\tornado_02
+path = strange_zone_5_point2
+mode = 2
+looped = true
+on_game_timer = 100 | sr_particle@2
+on_info = {+strangezone5_off} sr_idle
+on_info2 = {+yan_strange_zone_ready_to_delete} nil
+
+[sr_particle@2]
+name = anomaly2\tornado_02
+path = strange_zone_5_point2
+mode = 2
+looped = true
+on_game_timer = 100 | sr_particle@1
+on_info = {+strangezone5_off} sr_idle
+on_info2 = {+yan_strange_zone_ready_to_delete} nil
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<book_visual_device_6>	
+	<btn_back x="160" y="690" width="117" height="29">
+		<texture_e>ui\ui_btn_01_e</texture_e>
+		<texture_t>ui\ui_btn_01_t</texture_t>
+		<texture_h>ui\ui_btn_01_h</texture_h>
+		<text>book_back_string</text>
+	</btn_back>
+
+	<btn_next x="280" y="690" width="117" height="29">
+		<texture_e>ui\ui_btn_01_e</texture_e>
+		<texture_t>ui\ui_btn_01_t</texture_t>
+		<texture_h>ui\ui_btn_01_h</texture_h>
+		<text>book_next_string</text>
+	</btn_next>
+
+	<page1 x="30" y="10" width="674" height="990" stretch="1">
+		<texture x="0" y="0" width="1023" height="1550">ui\bookpages\book_6_text_1</texture>
+	</page1>
+	<page2 x="30" y="10" width="674" height="990" stretch="1">
+		<texture x="0" y="0" width="1023" height="1550">ui\bookpages\book_6_text_2</texture>
+	</page2>
+	<page3 x="30" y="10" width="674" height="990" stretch="1">
+		<texture x="0" y="0" width="1023" height="1550">ui\bookpages\book_6_text_3</texture>
+	</page3>
+	<page4 x="30" y="10" width="674" height="990" stretch="1">
+		<texture x="0" y="0" width="1023" height="1550">ui\bookpages\book_6_text_4</texture>
+	</page4>
+	<page5 x="30" y="10" width="674" height="990" stretch="1">
+		<texture x="0" y="0" width="1023" height="1550">ui\bookpages\book_6_text_5</texture>
+	</page5>
+	<page6 x="30" y="10" width="674" height="990" stretch="1">
+		<texture x="0" y="0" width="1023" height="1550">ui\bookpages\book_6_text_6</texture>
+	</page6>
+	<page7 x="30" y="10" width="674" height="990" stretch="1">
+		<texture x="0" y="0" width="1023" height="1550">ui\bookpages\book_6_text_7</texture>
+	</page7>
+	<page8 x="30" y="10" width="674" height="990" stretch="1">
+		<texture x="0" y="0" width="1023" height="1550">ui\bookpages\book_6_text_8</texture>
+	</page8>
+	<page9 x="30" y="10" width="674" height="990" stretch="1">
+		<texture x="0" y="0" width="1023" height="1550">ui\bookpages\book_6_text_9</texture>
+		<infoportion>first_planshet_info</infoportion>
+	</page9>
+
+	<btn_quit x="470" y="690" width="117" height="29">
+		<texture_e>ui_button_ordinary_e</texture_e>
+		<texture_t>ui_button_ordinary_t</texture_t>
+		<texture_h>ui_button_ordinary_h</texture_h>
+		<text>close_this_string</text>
+	</btn_quit>
+</book_visual_device_6>
+
+

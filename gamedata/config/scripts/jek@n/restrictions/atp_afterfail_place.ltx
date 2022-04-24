@@ -1,0 +1,52 @@
+[logic]
+active = sr_idle@start
+ 
+[sr_idle@start]
+on_timer = 3000 | sr_idle@tips
+
+[sr_idle@tips]
+on_actor_inside = sr_tip@1
+ 
+[sr_tip@1]
+name = atp_afterfail_1
+type = tips
+sender = atplider
+showtime = 7000
+single = true
+on_timer = 3000 | sr_tip@2
+
+[sr_tip@2]
+name = atp_afterfail_2
+type = tips
+sender = atpband
+showtime = 7000
+single = true
+on_timer = 3000 | sr_tip@3
+
+[sr_tip@3]
+name = atp_afterfail_3
+type = tips
+sender = atplider
+showtime = 7000
+single = true
+on_timer = 3000 | sr_tip@4
+
+[sr_tip@4]
+name = atp_afterfail_4
+type = tips
+sender = atpband
+showtime = 7000
+single = true
+on_timer = 3000 | sr_tip@5
+
+[sr_tip@5]
+name = atp_afterfail_5
+type = tips
+sender = atplider
+showtime = 7000
+single = true
+on_timer = 2000 | nil
+
+
+
+

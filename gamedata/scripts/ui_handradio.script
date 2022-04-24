@@ -1,0 +1,294 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--/ ui_handradio.script /----
+--/ Hand radio module /--
+--/ OGS Evolution Team 2009-2015 /--
+--/ Модуль использования рации - hand_radio_f /--
+
+-----------------------------------
+-- Кнопки
+-----------------------------------
+-- 1. Слушать общий канал
+-- 2. Подозвать напарника к себе
+-- 3. Приказать напарнику оставаться на месте
+-- 4. Приказать напарнику спрятаться
+-----------------------------------
+
+function attach(sm)
+	sm:subscribe({signal = "on_use",      fun = this.on_item_use})
+	sm:subscribe({signal = "on_key_down", fun = this.on_key_down})
+end
+
+function on_item_use(item)
+	local section = item:section()
+	if section == "hand_radio_f" then -- если это радио
+		open_radio_dialog()
+		return true
+	end
+end
+
+function on_key_down(key, bind)
+	if level.main_input_receiver() then return end
+
+	if bind == key_bindings.kUSE_RADIO then
+		if db.actor:object("hand_radio_f") then
+			open_radio_dialog()
+		end
+		return true
+	end
+end
+
+
+function open_radio_dialog()
+	local spwn = handradio()
+	level.start_stop_menu(spwn, true)
+end
+
+class "handradio" (CUIScriptWnd)
+function handradio:__init() super()
+	self:InitControls()
+	self:InitCallBacks()
+	self:SetWindowName("handradio")
+end
+
+
+function handradio:__finalize() end
+
+
+function handradio:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(50,50,550,450)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("ui_handradio.xml")
+
+	-- видео на заднем плане
+	xml:InitStatic("back_video", self)
+
+	-- рамка
+	xml:InitStatic("background", self)
+
+	-- кнопки
+	self:Register(xml:Init3tButton("window_name", self),"window_name")
+	self:Register(xml:Init3tButton("caption", self),"caption")
+	self.btn_1 = xml:Init3tButton("btn_1", self)
+	self:Register(self.btn_1, "btn_1")
+	self.btn_1:Enable(false)	
+	self.btn_2 = xml:Init3tButton("btn_2", self)
+	self:Register(self.btn_2, "btn_2")
+	self.btn_2:Enable(false)	
+	self.btn_3 = xml:Init3tButton("btn_3", self)
+	self:Register(self.btn_3, "btn_3")
+	self.btn_3:Enable(false)	
+	self.btn_4 = xml:Init3tButton("btn_4", self)
+	self:Register(self.btn_4, "btn_4")
+	self.btn_4:Enable(false)	
+	
+	-- кнопка выхода
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+	
+	-- определяем доступность кнопок
+	self.btn_1:Enable(true)
+
+	for id, _ in pairs(xr_companion.companions) do
+		local obj = level.object_by_id(id)
+		if obj and obj:alive() then
+			self.btn_2:Enable(true)
+			self.btn_3:Enable(true)
+			self.btn_4:Enable(true)
+			break
+		end	
+	end
+end
+
+
+function handradio:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED, self.listen, self)
+	self:AddCallback("btn_2", ui_events.BUTTON_CLICKED, self.call_friend, self)
+	self:AddCallback("btn_3", ui_events.BUTTON_CLICKED, self.stay_friend, self)
+	self:AddCallback("btn_4", ui_events.BUTTON_CLICKED, self.hide_friend, self)
+	
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+end
+
+
+function handradio:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+-- на выход повесим Esc
+		if dik == DIK_keys.DIK_ESCAPE then
+			self:on_quit()
+		end
+		if dik == DIK_keys.DIK_NUMPAD1 then
+			self:listen()
+		end
+		if dik == DIK_keys.DIK_NUMPAD2 then
+			self:call_friend()
+		end
+		if dik == DIK_keys.DIK_NUMPAD3 then
+			self:stay_friend()
+		end
+		if dik == DIK_keys.DIK_NUMPAD4 then
+			self:hide_friend()
+		end			
+	end
+	return true
+end
+
+function on_timer_scr()
+	ogsm_quests.spawn_fn2000()
+	db.actor:give_info_portion("secret_talk")
+end
+
+function spawn_radio_if_used()
+	if not db.actor:object("hand_radio_f") then
+		ogse.spawn_item_in_inv("hand_radio_f")
+	end
+end
+
+function handradio:listen()
+
+	local snd
+	local i
+	local length
+	
+	if isIndoor(level.name()) then
+		snd = sound_object("script_replics\\radio\\message\\radio_noise_2")
+		length = snd:length()
+	elseif level.name() == "l10_radar" and has_alife_info("bun_antenna_off") and not has_alife_info("secret_talk") then
+		snd = sound_object("script_replics\\radio\\message\\radio_voice_secret")
+		length = snd:length()
+		ogse_st_mgr.start_timer("scr", length/1000, script_name()..".on_timer_scr")
+	else
+		if math.random()<0.65 then
+			i = math.random(1,13)
+			snd = sound_object("script_replics\\radio\\message\\radio_voice_"..i)
+			length = snd:length()
+		else
+			i = math.random(1,2)
+			snd = sound_object("script_replics\\radio\\message\\radio_noise_"..i)
+			length = snd:length()
+		end
+	end
+	if snd and not snd:playing() then
+		snd:play_no_feedback(db.actor,sound_object.s2d, 0, vector():set(0, 0, 0), 1.0)
+		--[=[ --Реакция на "Мутень" --KRodin: не используется
+		local muten_id = xs_stor.get("muten_id", nil)
+		if muten_id then
+			local muten_obj = level.object_by_id(muten_id)
+			if muten_obj then
+				local muten_table = 
+				{
+					{["distance"] = 250, ["delay"] = 2000},
+					{["distance"] = 125, ["delay"] = 1000},
+					{["distance"] = 65, ["delay"] = 500},
+					{["distance"] = 30, ["delay"] = 250},
+					{["distance"] = 15,  ["delay"] = 125}
+				}
+				local muten_distance = db.actor:position():distance_to(muten_obj:position())
+				for k,v in pairs(muten_table) do
+					if muten_distance <= v.distance then start_muten_radio_effect(length, v.delay) end
+				end
+			end
+		end
+		--]=]
+	end
+	self:on_quit()
+end
+
+function handradio:call_friend()
+	for id, _ in pairs(xr_companion.companions) do
+		local friend = level.object_by_id(id)
+		if friend then
+			local st = db.storage[friend:id()]
+			if st and st.companion then
+				st.companion.behavior = xr_companion.beh_walk_simple
+				xr_companion.save_var_companion(friend:id(), "companion_behavior", st.companion.behavior)
+				xr_companion.save_var_companion(friend:id(),"w_lvl",nil)
+			end
+		end
+	end
+	self:on_quit()
+end
+
+function handradio:stay_friend()
+	for id, _ in pairs(xr_companion.companions) do
+		local friend = level.object_by_id(id)
+		if friend then
+			local st = db.storage[friend:id()]
+			if st and st.companion then
+				st.companion.behavior = xr_companion.beh_wait_simple
+				xr_companion.save_var_companion(friend:id(), "companion_behavior", st.companion.behavior)
+				xr_companion.save_var_companion(friend:id(),"w_lvl",level.name())
+			end
+		end
+	end
+	self:on_quit()
+end
+
+function handradio:hide_friend()
+	for id, _ in pairs(xr_companion.companions) do
+		local friend = level.object_by_id(id)
+		if friend then
+			local st = db.storage[friend:id()]
+			if st and st.companion then
+				st.companion.behavior = xr_companion.beh_hide_simple
+				xr_companion.save_var_companion(friend:id(), "companion_behavior", st.companion.behavior)
+				xr_companion.save_var_companion(friend:id(),"w_lvl",level.name())
+			end
+		end
+	end
+	self:on_quit()
+end
+
+function handradio:on_quit()
+	spawn_radio_if_used()
+	self:GetHolder():start_stop_menu(self, true)
+	self:ClearCallbacks()
+end
+
+function start_muten_radio_effect(sound_length, delay)
+	if sound_length then
+		local muten_sound = sound_object("detectors\\contact_1")
+		local count = math.ceil(sound_length/(muten_sound:length()+delay))
+		play_cycle_sound(count, delay/1000):start()
+	end
+end
+
+class "play_cycle_sound" (ogse_qt.quick_timer)
+function play_cycle_sound:__init(count, delay) super()
+	self.count = count
+	self.delay = delay
+	self.sound = sound_object("detectors\\contact_1")
+	self.sound:play_no_feedback(db.actor, sound_object.s2d, 0, vector():set(0, 0, 0), 1.0)
+end
+
+function play_cycle_sound:condition()
+	return not self.sound:playing()
+end
+
+function play_cycle_sound:action()
+	if self.count >= 0 then 
+		local timer = sound_cycle_waiting()
+		timer:set_data(self.count - 1, self.delay)
+		timer:set_delay(self.delay)
+		timer:start(true)
+	end
+end
+
+class "sound_cycle_waiting" (ogse_st_mgr.savable_timer)
+function sound_cycle_waiting:__init() super()
+	-- обязательная строка с именем класса таймера
+	self.class = script_name()..".sound_cycle_waiting"
+end
+
+function sound_cycle_waiting:set_data(count, delay)
+	self.count = count
+	self.delay = delay
+end
+
+function sound_cycle_waiting:taction()
+	play_cycle_sound(self.count, self.delay):start()
+end

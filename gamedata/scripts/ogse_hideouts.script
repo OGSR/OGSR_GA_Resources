@@ -1,0 +1,199 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-----------------------------------------------------------------------
+--- ogse_hideouts.script
+--- Модуль хранения и работы с реестром укрытий от выброса
+--- Авторы: KamikaZze
+--- version 1.0 (29/08/2012)
+-----------------------------------------------------------------------
+
+function attach(sm)
+	sm:subscribe({signal = "on_spawn", fun = this.init})
+	sm:subscribe({signal = "on_update", fun = this.update_shelter_icon, queued = true})
+	sm:subscribe({signal = "on_info", fun = this.on_info})
+end
+
+restrictor_list = {} --Массив с id рестрикторов укрытий во ВСЕЙ Зоне. Используется в менеджере аномалий.
+local restr_list_on_curr_level = {} --Массив с id рестрикторов укрытий на текущей локации.
+
+function init() --Получение списка всех укрытий
+	if ogse.var_exists("restrictor_list") then --Если нашли в хранилище - загрузим оттуда.
+		restrictor_list = ogse.load_var("restrictor_list")
+		--log3("LOAD RESTRICTORS HIDEOUTS! TBL: %s", restrictor_list)
+	else --В хранилище нету - значит придётся перебирать 65k объектов.
+		for id, sobj in alife():objects() do
+			if string.find(sobj:name(), "_hide_restrictor") then
+				table.insert(restrictor_list, id) --Добавляем в таблицу
+  			end
+  		end
+		--log3("SCAN RESTRICTORS HIDEOUTS! TBL: %s", restrictor_list)
+	end
+
+	for i = #restrictor_list, 1 , -1 do --Цикл в обратном порядке, чтобы корректно работал table.remove.
+		local id = restrictor_list[i]
+		local sobj = alife():object(id)
+		if sobj then
+			if level.name() == object_level_name(sobj) then --Если укрытие находится на текущей локации, заносим его в таблицу restr_list_on_curr_level
+				table.insert(restr_list_on_curr_level, id)
+			end
+		else --Рестриктора нет - значит удаляем из таблицы.
+			table.remove(restrictor_list, i)
+		end
+	end
+
+	--log3("RESTRICTORS HIDEOUTS ON CURRENT LEVEL! TBL: %s", restr_list_on_curr_level)
+	ogse.save_var("restrictor_list", restrictor_list, "array", "u16") --Сохраняем, чтобы больше никогда не делать тут перебор 65k объектов. Оптимизация!
+end
+
+
+-- Получаем ближайшее к НПС укрытие его группировки
+function get_nearest_hide(npc)
+	local hideout_list = {}
+	for _, id in pairs(restr_list_on_curr_level) do
+		local obj = level.object_by_id(id)
+		local community, radius = get_community_hide(obj)
+		if obj and string.find(community, npc:character_community()) then
+			local npc_pos = npc:position()
+			local hide_pos = obj:position()
+			local distance = npc_pos:distance_to(hide_pos)
+			local hide = {obj = obj, rad = radius, dist = distance}
+			table.insert(hideout_list, hide)
+		end
+	end
+	table.sort(hideout_list, function(a,b) return a.dist < b.dist end)
+	local nearest_hide = hideout_list[1]
+	return nearest_hide
+end
+
+-- Получаем текущее укрытие для непися
+function get_current_hide(npc) --Вызывается из таскс_функтора
+	for _, id in pairs(restr_list_on_curr_level) do
+		local obj = level.object_by_id(id)
+		if obj and obj:inside(npc:position()) then
+			return obj
+		end
+	end
+	return "none"
+end
+
+local hideouts_data = {} --Кэш настроек укрытий, чтобы не дёргать постоянно нет-пакет
+function get_community_hide(obj) --Считываем параметры укрытия
+	if not obj then return "none" end
+
+	local id = obj:name()
+	if hideouts_data[id] then
+		--log3("[%s.get_community_hide] parameters of [%s]: %s, %s", script_name(), obj:name(), hideouts_data[id]())
+		return hideouts_data[id]()
+	end
+
+	local ini = obj:spawn_ini()
+	if not ini or not ini:section_exist( "parameters" ) then
+		hideouts_data[id] = function() return "none" end
+		return "none"
+	end
+	local community = get_string("parameters", "community", nil, ini)
+	local radius = get_float("parameters", "radius", nil, ini)
+	if not community or not radius then
+		hideouts_data[id] = function() return "none" end
+		return "none"
+	end
+
+	hideouts_data[id] = function() return community, radius end
+	return community, radius
+end
+
+
+--Выброс начинается - ставим метки на укрытия. Выброс закончился - снимаем метки.
+function on_info(npc, info)
+	if info == "pre_blowout" or info == "net_signal" then
+		for _, id in pairs(restrictor_list) do
+			local sobj = alife():object(id)
+			local ini = sobj:spawn_ini()
+			if ini and ini:section_exist( "sr_mapspot" ) then
+				local location = get_string("sr_mapspot", "location", nil, ini)
+				if info == "pre_blowout" then
+					--log3("~~[%s] Adding mapspots on hideouts!", script_name())
+					level_tasks.add_location_by_id(id, location, get_string("sr_mapspot", "hint", nil, ini))
+				else
+					--log3("~~[%s] Removing mapspots from hideouts!", script_name())
+					if level.map_has_object_spot(id, location) ~= 0 then
+						level_tasks.remove_location_by_id(id, location)
+					end
+				end
+			end
+		end
+	end
+end
+
+
+local saved_aspect = 0
+local static_name
+function update_shelter_icon()
+	ogse_signals.get_mgr():reschedule(math.random(450, 550))
+	local hud = get_hud()
+	local aspect = device().width / device().height
+	if saved_aspect ~= aspect then
+		--log3("~~Update hideout icon! Aspect: [%s]", aspect)
+		saved_aspect = aspect
+		if static_name then hud:RemoveCustomStatic(static_name) end
+		if aspect < 0.7 then
+			static_name = "shelter_static_16"
+		else
+			static_name = "shelter_static"
+		end
+		hud:AddCustomStatic(static_name, true)
+	end
+	local st = hud:GetCustomStatic(static_name)
+	if not st then return end
+	--
+	local st_wnd = st:wnd()
+	local transparency_level = npc_inside_safe_zone(db.actor) and 200 or 0
+	local color = GetARGB(transparency_level,0,155,255)
+	st_wnd:SetColor(color)
+end
+
+
+-- Нужно ли нам прятаться вообще и нервничать
+function check_not_need_hide(obj)
+	--KRodin: Укрытия в МГ находятся в таких местах, что нпс не могут в них попасть и дохнут.
+	--Поэтому делаю их неуязвимыми для выброса. В МГ теперь им укрытия не нужны вообще.
+	if object_level_name(obj) == "l09_deadcity_ogse" then
+		return true
+	end
+	--
+	if obj and obj:alive() then
+		for _, id in pairs(restr_list_on_curr_level) do
+			local zone = level.object_by_id(id)
+			if zone and zone:inside(obj:position()) then
+				local community, radius = get_community_hide(zone)
+				if string.find(community, "fake") then
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
+
+-- Проверка нахождения непися в безопасной зоне
+function npc_inside_safe_zone(obj)
+	local location = level.name()
+
+	if isIndoor(location) then
+		return true
+	end
+
+	if obj and obj:alive() then	
+		if ogse_car_control.in_btr and obj:is_actor() then
+			return true
+		end
+	
+		for _, id in pairs(restr_list_on_curr_level) do
+			local zone = level.object_by_id(id)
+			if zone and zone:inside(obj:position()) then
+				return true
+			end
+		end
+	end
+	return false
+end

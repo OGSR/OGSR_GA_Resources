@@ -1,0 +1,288 @@
+[helicopter]
+GroupControlSection	= spawn_group
+$spawn			= "vehicles\helicopter"
+$prefetch		= 1
+cform                   = skeleton
+class			= C_HLCP_S
+script_binding          = bind_heli.bind
+visual                          = physics\vehicles\mi24\veh_mi24_u_01.ogf
+engine_h			= 2.7 	; высота двигателя над object:position()
+;wallmark_section	= explosion_marks
+
+path_linear_acc_fw		=  6;8; 3;5; 3.0 ;m/s  ; линейное ускорение при разгоне
+path_linear_acc_bk		=  4;2;4; 0.5; 3;  3.5;3 ;8.0 ;m/s	; линейное ускорение торможения
+
+path_angular_sp_pitch		= 2.5 ;0.35; 0.65; 0.85; 0.45	; скорость изменения высоты пути при скорости "velocity"
+path_angular_sp_pitch_0		= 4.5 ;(4.5	m/sec скороподъемность по ТТХ)	 скорость изменения высоты пути при скорости "0"
+path_angular_sp_heading		= 0.75 ;0.5 ;0.75 ; угловая скорость пути при скорости "velocity"
+path_angular_sp_heading_0	= 1;0.9		    ; угловая скорость пути при скорости "0"m/s
+
+magic_angle			= 0.3
+model_angular_sp_bank		= 0.5 ;0.4 ; скорость поворота модели по оси Z (как быстро модель повернется по курсу движения с учетом угловой скорости)
+model_angular_sp_pitch		= 0.1 ;     ; скорость поворота модели по оси X в зависимости от текущей линейной скорости
+model_pitch_koef		= 0.016;0.016   ; коэф наклона модели по оси X в зависимости от текущей линейной скорости
+model_bank_koef			= 0.018;0.008 ;0.018    ; коэф наклона модели по оси Z в зависимости от текущих линейной и угловой скоростей
+on_point_range_dist		= 10.0
+
+capacity			= 8 ; максимальное количество десантников
+velocity			= 30;30;(75 m/sec кр. скорость по ТТХ)   скорость, с которой патрулировать
+min_altitude		        = 15;30 ;15 20	;20.0		;m		 min altitude in free state
+attack_velocity			= 30;15.0; (90 m/sec макс. скорость по ТТХ)    скорость, с которой атаковать врага
+time_between_rocket_attack	= 1000 ; 1500 ; msec  задержка между ракетами
+;altitude			= 50	;20.0			;m		 высота, на которой патрулировать
+safe_altitude			= 3.0					; level_bound+5.0
+
+use_rocket			= true			; использовать ракеты при атаке
+use_mgun			= true			; использовать пулемет при атаке
+use_aim_bullet			= false
+min_mgun_attack_dist		= 15 ;30 ;15.0	;m   мин расстояние при котором можно исп пулемет
+max_mgun_attack_dist		= 300.0 ;m   макс расстояние при котором можно исп пулемет
+min_rocket_attack_dist		= 100.0	;m   мин расстояние при котором можно исп ракеты
+max_rocket_attack_dist		= 500 ;150.0 ;m   макс расстояние при котором можно исп ракеты
+;time_between_rocket_attack	= 1250 ; 1500 ; msec  задержка между ракетами
+syncronize_rocket		= true ; false        пускать ракеты парами или по очереди (лев-прав-лев-прав)
+fire_trail_length		= 50 ;m
+use_fire_trail			= true
+barrel_dir_tolerance		= 5 ; degrees. допустимый угол, когда считаем, что дуло направлено в цель
+
+death_angular_vel		= 0.1,6.0,0.2  ; при гибели в воздухе дать угловую скорость модели      
+death_lin_vel_koeff		= 1          ; при гибели в воздухе умножить собственную лин скорость на коэфф
+flame_start_health		= 0.3  ; уровень здоровья, ниже которого вертолёт начинает дымить
+
+; ------------------------- параметры для универсальной боевой схемы
+flyby_attack_dist       = 150
+search_attack_dist      = 130
+
+search_velocity		= 5  ; скорость (м/с) облёта врага по кругу в режиме поиска
+round_velocity		= 10 ; скорость (м/с) облёта врага в режиме атаки
+
+vis_time_quant		= 200 ;интервал (в мс) между проверками видимости
+vis_threshold		= 60  ; какой процент видимости нужен, чтоб наблюдаемый объект считался видимым
+vis_inc			= 20  ; на сколько процентов увеличится видимость объекта за 1с
+vis_dec			= 20  ; на сколько процентов уменьшитя  видимость объекта за 1с
+forget_timeout		= 40  ; в течении этого времени (в сек) вертолёт помнит врага, если не видит его
+
+;light_range		= 10.0
+light_brightness	= 5.0
+;light_color		= 0.9,0.9,0.5
+light_color_animmator	= koster_00
+
+smoke_particle		= damage_fx\heli_burn
+explode_particle	= explosions\expl_mushroom_01
+explode_sound		= weapons\heli_explosion
+snd_shoot_rocket	= weapons\heli_rocket_shoot
+
+;-----все для пулемета (ЯкБЮ-12,7 Длина ствола 1005 мм)
+fire_dispersion_base	= 1.0
+fire_dispersion_null	= 0.5
+fire_trace_width	= 1.0
+rpm                     = 1200;600			;Х4ствола = 4800
+hit_power               = 0.93
+hit_impulse		= 9
+fire_distance           = 500
+bullet_speed		= 810
+light_color		= 0.9,0.8,0.4
+light_range		= 5
+light_var_color		= 0.05
+light_var_range		= 0.5
+light_time 		= 0.2
+ammo_class		= ammo_12x76_zhekan_heli
+flame_particles		= weapons\heli_weapon
+;smoke_particles	= weapons\generic_shoot_00
+shell_point		= 0.05, 0.22, 0.06
+;shell_particles	= weapons\generic_shells
+snd_shoot		= weapons\weapon_heli
+broken_snd		= alexmx\helicopter_down
+
+;------------------------------все для ракетницы
+rocket_class		= nar_s-8
+launch_speed		= 60 ;45 ;50 ;60 ;76 ;500
+wallmark_section	= explosion_marks
+immunities_sect		= sect_heli_immunities
+
+[sect_heli_immunities]
+burn_immunity		= 0.1
+strike_immunity		= 1
+shock_immunity		= 0.0
+wound_immunity		= 0.0
+radiation_immunity	= 0.0
+telepatic_immunity	= 0.0
+chemical_burn_immunity	= 0.0
+fire_wound_immunity	= 0.0
+explosion_immunity	= 0.2
+
+[helicopter_missile] ;НАР С-8
+GroupControlSection	= spawn_group
+discovery_dependency	= 
+visual                  = physics\large_trash\prt\prt_none.ogf ;от неубравшихся после взрыва снарядов ;weapons\rpg_7\wpn_rpg_7_grenade.ogf
+cform                   = skeleton
+class                   = G_RPG7
+
+immunities_sect		= sect_hm_immunities
+cost			= 200
+blast			= 5
+blast_r			= 10
+blast_impulse		= 350
+blast_impulse_factor    = 1
+
+frags			= 0
+frags_r			= 15
+frag_hit		= 100
+frag_hit_impulse	= 400
+
+hit_type_blast		= explosion
+hit_type_frag		= fire_wound
+
+up_throw_factor		= 1.5 ;1.3
+wm_size                 = 0.5
+light_color		= 1.9,1.6,0.5
+light_range		= 30.0
+light_time 		= 0.5
+
+ph_mass			= 7
+engine_f		= 530
+engine_u		= 90
+jump_height		= 0
+
+explode_particles	= explosions\explosion_heli_rocket_01; 
+
+fragment_speed			= 100
+fragment_tracer_max_length	= 4
+explode_duration	        = 2
+wallmark_section	= explosion_marks
+snd_explode		= weapons\rpg7_explode
+snd_fly_sound		= weapons\rocket_fly
+
+inv_name		= "VOG-25"
+inv_name_short	        = "VOG-25"
+inv_weight		= .2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 19
+inv_grid_y		= 9
+
+engine_present		= true		;присутствует ли в ракете двигатель
+engine_work_time	= 5000		;время работы двигателя (в милисекундах)
+engine_impulse		= 1000		;
+engine_impulse_up	= 137.34 ;215.58;137.34 = 2*9.81*7 - значение этого параметра (который является некой подъемной силой, вопреки названию),
+									;при котором ракета массой 7кг не опускается под дейсвием 
+									;гравитации. 2*9.8=19.62 - ускорение свободного падения в мире сталкеров
+									;при меньших значениях ракета будет опускаться, при больших подниматься
+
+lights_enabled = true
+trail_light_color = 0.7,0.6,0.3
+trail_light_range = 20.0
+
+engine_particles = weapons\rpg_trail_01
+;fly_particles	 = weapons\rpg_trail_01 ;vehiclefx\skid_asphalt_stop ;
+
+;weapons\generic_rpg_shot ;explosions\group_items\expl_smoke_big ;explosions\group_items\expl_mushroom_wave
+;explosions\group_items\expl_10_smoke00
+force_explode_time	= 10000; msec
+
+
+[sect_hm_immunities]
+burn_immunity		= 1.0
+strike_immunity		= 1.0
+shock_immunity		= 1.0
+wound_immunity		= 1.0
+radiation_immunity	= 1.0
+telepatic_immunity	= 1.0
+chemical_burn_immunity	= 1.0
+explosion_immunity	= 1.0
+fire_wound_immunity	= 0.05
+
+[ammo_12x76_zhekan_heli]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency = 
+$spawn			= "weapons\ammo\ammo_12x76_zhekan" ; option for Level Editor
+class			= AMMO
+cform                   = skeleton
+visual                  = dynamics\weapons\wpn_ammo\ammo_12x76_zhekan.ogf
+description		= enc_weapons1_ammo_ammo-12x76-zhekan
+$prefetch 		= 64
+
+cost			= 216
+box_size		= 12
+
+inv_name		= ammo-12x76-zhekan
+inv_name_short	        = ammo-12x76-zhekan_s
+inv_weight		= .6
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x		= 11
+inv_grid_y		= 10
+
+k_dist			= 1
+k_disp			= 12.7
+k_hit			= 11.9
+k_impulse		= 1
+k_pierce		= 1.5
+impair			= 1.15
+buck_shot		= 4
+tracer			= off
+wm_size         = 0.127
+explosive		= off
+
+[dec_torque]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn 			= "food and drugs\medkit_scientic"
+$prefetch 		= 8
+class			= II_MEDKI
+cform			= skeleton
+visual			= dynamics\devices\dev_aptechka\dev_aptechka_high.ogf
+description		= dec_torque
+inv_name		= dec_torque
+inv_name_short		= dec_torque
+inv_weight		= 0
+
+inv_grid_width		= 2
+inv_grid_height		= 1
+inv_grid_x		= 14
+inv_grid_y		= 20
+cost			= 200
+
+eat_health		= 0
+eat_satiety		= 0
+eat_power		= 0
+eat_radiation		= 0
+wounds_heal_perc	= 0
+eat_portions_num	= 1
+
+animation_slot		= 4
+hud = wpn_vodka_hud
+
+[inc_torque]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency =
+$spawn 			= "food and drugs\bandage"
+$prefetch 		= 8
+class			= II_BANDG
+cform			= skeleton
+visual			= dynamics\devices\dev_bandage\dev_bandage.ogf
+description		= inc_torque
+inv_name		= inc_torque
+inv_name_short		= inc_torque
+inv_weight		= 0.1	;0.2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x		= 3
+inv_grid_y		= 18
+cost			= 20
+
+eat_health		= 0
+eat_satiety		= 0
+eat_power		= 0
+eat_radiation		= 0
+wounds_heal_perc	= 0
+eat_portions_num	= 1
+
+animation_slot		= 4
+hud = wpn_vodka_hud
+
+#include "mi2.ltx"
+#include "mi24.ltx"

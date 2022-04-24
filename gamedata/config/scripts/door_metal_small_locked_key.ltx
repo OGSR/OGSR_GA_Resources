@@ -1,0 +1,30 @@
+[logic]
+active = ph_door@close
+
+[ph_door@close]
+locked = false
+closed = true
+snd_open_start = metal_small_open
+snd_close_start = metal_small_close_start
+snd_close_stop = metal_small_close_stop
+tip_open = tip_car_use
+on_use = ph_door@open
+on_info = {!actor_has_item(arsenal_key)} ph_door@close_no_key
+
+[ph_door@close_no_key]
+locked = true
+closed = true
+snd_open_start = metal_small_open
+snd_close_start = metal_small_close_start
+snd_close_stop = metal_small_close_stop
+tip_open = tip_car_use_no_key
+;on_use = ph_door@open
+on_info = {=actor_has_item(arsenal_key)} ph_door@close
+
+[ph_door@open]
+locked = false
+closed = false
+snd_open_start = metal_small_open
+snd_close_start = metal_small_close_start
+snd_close_stop = metal_small_close_stop
+on_use = ph_door@close

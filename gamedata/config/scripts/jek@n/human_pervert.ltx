@@ -1,0 +1,45 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@1
+on_death = death
+
+[walker@1]
+path_walk = test_place_1
+path_look = test_place_1
+on_actor_dist_le_nvis = 2 | walker@2 %=human_pervert_init_dialod%
+
+[walker@2]
+path_walk = test_place_1
+path_look = test_place_1
+
+[remark@morph0]
+anim = wait_trade
+snd = pervert_song
+;snd_anim_sync = true
+no_move = true
+meet = no_meet
+target = nil
+on_signal = action_end | remark@morph1
+
+[remark@morph1]
+anim = caution
+snd = pervert_smeh
+;snd_anim_sync = true
+no_move = true
+meet = no_meet
+target = nil
+on_signal = action_end | remark@morph2
+
+[remark@morph2]
+anim = otpad
+;snd = pervert_metamorph
+;snd_anim_sync = true
+no_move = true
+meet = no_meet
+target = nil
+on_signal = anim_end | walker %=human_pervert_dead%
+
+[death]
+on_info = %=human_pervert_dead%

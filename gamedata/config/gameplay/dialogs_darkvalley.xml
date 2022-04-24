@@ -1,0 +1,1375 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<game_dialogs>
+	<!--Vosstanovlenie otnosheniy s  banditami-->
+	<dialog id="trader_relation_bandit">
+		<precondition>community_relation.bad_relation_bandit</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>trader_relation_bandit_1</text>
+				<next>1</next>
+				<next>2</next>
+				<next>3</next>
+			</phrase>
+			<phrase id="1">
+				<precondition>community_relation.bad_relation_bandit_10000</precondition>
+				<text>trader_relation_bandit_2</text>
+				<next>4</next>
+				<next>7</next>
+			</phrase>
+			<phrase id="2">
+				<precondition>community_relation.bad_relation_bandit_30000</precondition>
+				<text>trader_relation_bandit_3</text>
+				<next>5</next>
+				<next>7</next>
+			</phrase>
+			<phrase id="3">
+				<precondition>community_relation.bad_relation_bandit_50000</precondition>
+				<text>trader_relation_bandit_4</text>
+				<next>6</next>
+				<next>7</next>
+			</phrase>
+			<phrase id="4">
+				<precondition>community_relation.has_10000</precondition>
+				<text>trader_relation_bandit_7</text>
+				<action>community_relation.relocate_10000</action>
+				<action>community_relation.repair_relation_bandit</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="5">
+				<precondition>community_relation.has_30000</precondition>
+				<text>trader_relation_bandit_7</text>
+				<action>community_relation.relocate_30000</action>
+				<action>community_relation.repair_relation_bandit</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="6">
+				<precondition>community_relation.has_50000</precondition>
+				<text>trader_relation_bandit_5</text>
+				<action>community_relation.relocate_50000</action>
+				<action>community_relation.repair_relation_bandit</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="7">
+				<text>trader_relation_bandit_6</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--Vosstanovlenie otnosheniy s  banditami-->
+	<!--Kvest Borova na ubiystvo Fraera-->
+	<dialog id="kill_fraer">
+		<has_info>actor_set_bandit</has_info>
+		<precondition>ogsm_quests.fraer_alive</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>kill_fraer_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>kill_fraer_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>kill_fraer_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>kill_fraer_3</text>
+				<next>4</next>
+				<next>5</next>
+			</phrase>
+			<phrase id="4">
+				<text>kill_fraer_4</text>
+				<give_info>kill_fraer_start</give_info>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="5">
+				<text>kill_fraer_5</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="kill_fraer_dome">
+		<has_info>kill_fraer_done_0</has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>kill_fraer_dome_0</text>
+				<give_info>kill_fraer_complete</give_info>
+				<action>ogsm_quests.kill_fraer_complete</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--Vstuplenie v bandity s pomosch'yu borova posle  polucheniya klyucha v laboratoriyu-->
+	<dialog id="borov_enter_bandit_3">
+		<has_info>val_actor_has_borov_key</has_info>
+		<dont_has_info>actor_set_bandit</dont_has_info>
+		<dont_has_info>actor_set_zombied</dont_has_info>
+		<precondition>dialogs.is_not_wounded1</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>borov_meet_again_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>borov_meet_again_1</text>
+				<next>2</next>
+				<next>4</next>
+			</phrase>
+			<phrase id="2">
+				<text>borov_meet_again_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>borov_meet_again_3</text>
+				<next>6</next>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>borov_meet_again_5</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="6">
+				<precondition>community_relation.has_10000</precondition>
+				<text>borov_meet_again_6</text>
+				<action>dialogs.actor_set_bandit</action>
+				<action>community_relation.relocate_10000</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="4">
+				<text>borov_meet_again_4</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--Dialog s banditom, kotorogo gnobit Pulya-->
+	<dialog id="chto_namutil">
+		<dont_has_info>actor_set_zombied</dont_has_info>
+		<dont_has_info>kill_pula_start</dont_has_info>
+		<precondition>ogsm_quests.pula_alive</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>chto_namutil_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>chto_namutil_1</text>
+				<next>2</next>
+				<next>3</next>
+			</phrase>
+			<phrase id="2">
+				<text>chto_namutil_2</text>
+				<give_info>kill_pula_start</give_info>
+			</phrase>
+			<phrase id="3">
+				<text>chto_namutil_3</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>chto_namutil_4</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>chto_namutil_5</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--Posle ubiystva Puli bandit daet navodku na SVD Cherepa-->
+	<dialog id="cherep_treasure">
+		<has_info>kill_pula_complete</has_info>
+		<dont_has_info>cherep_treasure_start</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>cherep_treasure_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>cherep_treasure_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>cherep_treasure_2</text>
+				<give_info>cherep_treasure_start</give_info>
+				<action>bar_spawn.spawn_cherep_svd</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--Telohraniteli Borova, poka Borov jiv-->
+	<dialog id="prebandir_guard">
+		<precondition>ogsm_quests.borov_alive</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>prebandit_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>prebandit_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>prebandit_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>prebandit_3</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--Vstuplenie v bandity i poluchenie klyucha cherez Borova-->
+	<dialog id="borov_enter_bandit_2">
+		<dont_has_info>barman_document_done</dont_has_info>
+		<has_info>barman_document_start</has_info>
+		<dont_has_info>actor_set_zombied</dont_has_info>
+		<precondition>dialogs.is_not_wounded1</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>borov_ask_document_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>borov_ask_document_1</text>
+				<next>2</next>
+				<next>3</next>
+			</phrase>
+			<phrase id="2">
+				<text>borov_ask_document_2</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>borov_ask_document_3</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>borov_ask_document_4</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="3">
+				<precondition>dialogs_darkvalley.barman_document_have</precondition>
+				<text>borov_ask_document_5</text>
+				<next>6</next>
+				<next>11</next>
+			</phrase>
+			<phrase id="6">
+				<dont_has_info>actor_set_bandit</dont_has_info>
+				<text>borov_ask_document_6</text>
+				<give_info>val_actor_has_borov_key</give_info>
+				<give_info>barman_document_done</give_info>
+				<action>dialogs_darkvalley.borov_give_document</action>
+				<next>7</next>
+				<next>8</next>
+			</phrase>
+			<phrase id="7">
+				<text>borov_ask_document_7</text>
+				<action>dialogs.actor_set_bandit</action>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="8">
+				<text>borov_ask_document_8</text>
+				<next>9</next>
+			</phrase>
+			<phrase id="9">
+				<text>borov_ask_document_9</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>borov_ask_document_10</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="11">
+				<has_info>actor_set_bandit</has_info>
+				<text>borov_ask_document_11</text>
+				<give_info>val_actor_has_borov_key</give_info>
+				<give_info>barman_document_done</give_info>
+				<action>dialogs_darkvalley.borov_give_document</action>
+				<next>10</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<!--Pervaya vstrecha s Borovym, svyazannaya s polucheniem klyucha ot laboratorii-->
+	<dialog id="borov_enter_bandit_1">
+		<dont_has_info>barman_document_start</dont_has_info>
+		<dont_has_info>val_actor_has_borov_key</dont_has_info>
+		<precondition>dialogs.is_not_wounded1</precondition>
+		<phrase_list>
+			<phrase id="0">
+				<text>borov_enter_bandit_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>borov_enter_bandit_1</text>
+				<next>2</next>
+				<next>14</next>
+			</phrase>
+			<phrase id="2">
+				<has_info>osvedomitel_actor_prebandit</has_info>
+				<text>borov_enter_bandit_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>borov_enter_bandit_3</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>borov_enter_bandit_4</text>
+				<next>5</next>
+			</phrase>
+			<phrase id="5">
+				<text>borov_enter_bandit_5</text>
+				<next>6</next>
+			</phrase>
+			<phrase id="6">
+				<text>borov_enter_bandit_6</text>
+				<next>7</next>
+			</phrase>
+			<phrase id="7">
+				<text>borov_enter_bandit_7</text>
+				<next>8</next>
+			</phrase>
+			<phrase id="8">
+				<text>borov_enter_bandit_8</text>
+				<next>9</next>
+				<next>16</next>
+			</phrase>
+			<phrase id="9">
+				<text>borov_enter_bandit_9</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="10">
+				<text>borov_enter_bandit_10</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>borov_enter_bandit_11</text>
+				<next>12</next>
+				<next>13</next>
+			</phrase>
+			<phrase id="12">
+				<text>borov_enter_bandit_12</text>
+				<action>dialogs_darkvalley.barman_document_have</action>
+				<action>bar_spawn.spawn_barman_document</action>
+				<give_info>barman_document_start</give_info>
+			</phrase>
+			<phrase id="13">
+				<text>borov_enter_bandit_13</text>
+				<action>dialogs.break_dialog</action>
+				<action>dialogs.actor_clear_community</action>
+			</phrase>
+			<phrase id="14">
+				<dont_has_info>osvedomitel_actor_prebandit</dont_has_info>
+				<text>borov_enter_bandit_14</text>
+				<next>15</next>
+				<next>17</next>
+				<next>22</next>
+			</phrase>
+			<phrase id="15">
+				<text>borov_enter_bandit_15</text>
+				<dont_has_info>kill_pula_complete</dont_has_info>
+				<next>4</next>
+			</phrase>
+			<phrase id="16">
+				<text>borov_enter_bandit_16</text>
+				<next>10</next>
+			</phrase>
+			<phrase id="17">
+				<dont_has_info>actor_set_bandit</dont_has_info>
+				<has_info>kill_pula_complete</has_info>
+				<text>borov_enter_bandit_17</text>
+				<next>18</next>
+				<next>19</next>
+			</phrase>
+			<phrase id="18">
+				<text>borov_ask_document_7</text>
+				<action>dialogs.actor_set_bandit</action>
+				<next>20</next>
+			</phrase>
+			<phrase id="20">
+				<text>borov_ask_document_20</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="19">
+				<text>borov_ask_document_8</text>
+				<next>21</next>
+			</phrase>
+			<phrase id="21">
+				<text>borov_ask_document_21</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="22">
+				<has_info>kill_pula_complete</has_info>
+				<has_info>actor_set_bandit</has_info>
+				<text>borov_ask_document_22</text>
+				<next>4</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="dead_stalker_start_dialog_1">
+		<phrase_list>
+			<phrase id="dead_stalker_start_dialog_1_second_start_1_1_2_1">
+				<give_info>yan_kvest_help_to_chuk_end_talk_with_dstalker</give_info>
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_2_5</text>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_start_1_1_2">
+				<give_info>yan_kvest_help_to_chuk_bring_zapisi_start</give_info>
+				<next>dead_stalker_start_dialog_1_second_start_1_1_2_1</next>
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_2_3</text>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_start_1_1_1_1">
+				<give_info>yan_kvest_help_to_chuk_end_talk_with_dstalker</give_info>
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_2_4</text>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_start_1_1_1">
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_2_2</text>
+				<next>dead_stalker_start_dialog_1_second_start_1_1_1_1</next>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_start_1_1">
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_2_1</text>
+				<next>dead_stalker_start_dialog_1_second_start_1_1_2</next>
+				<next>dead_stalker_start_dialog_1_second_start_1_1_1</next>								
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_start_1">
+				<dont_has_info>yan_kvest_help_to_chuk_end_talk_with_dstalker</dont_has_info>
+				<has_info>yan_kvest_help_to_chuk_kill_serdce_yan</has_info>
+				<next>dead_stalker_start_dialog_1_second_start_1_1</next>
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_2_0</text>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_1_2_1_1_1_1_1_1_1_1">
+				<give_info>yan_kvest_help_to_chuk_on_taina_complete</give_info>
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_13</text>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_1_2_1_1_1_1_1_1_1">
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_12</text>
+				<next>dead_stalker_start_dialog_1_second_1_2_1_1_1_1_1_1_1_1</next>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_1_2_1_1_1_1_1_1">
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_11</text>
+				<next>dead_stalker_start_dialog_1_second_1_2_1_1_1_1_1_1_1</next>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_1_2_1_1_1_1_1">
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_10</text>
+				<next>dead_stalker_start_dialog_1_second_1_2_1_1_1_1_1_1</next>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_1_2_1_1_1_1">
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_9</text>
+				<next>dead_stalker_start_dialog_1_second_1_2_1_1_1_1_1</next>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_1_2_1_1_1">
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_8</text>
+				<next>dead_stalker_start_dialog_1_second_1_2_1_1_1_1</next>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_1_2_1_1">
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_7</text>
+				<next>dead_stalker_start_dialog_1_second_1_2_1_1_1</next>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_1_2_1">
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_6</text>
+				<next>dead_stalker_start_dialog_1_second_1_2_1_1</next>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_1_2">
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_5</text>
+				<next>dead_stalker_start_dialog_1_second_1_2_1</next>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_1">
+				<dont_has_info>yan_kvest_help_to_chuk_on_taina_complete</dont_has_info>
+				<has_info>yan_kvest_help_to_chuk_on_taina_2_start</has_info>
+				<next>dead_stalker_start_dialog_1_second_1_2</next>
+				<text>yan_kvest_help_to_chuk_talk_with_dstalker_4</text>
+			</phrase>
+			<phrase id="0">
+				<text/>
+				<next>dead_stalker_start_dialog_1_first</next>
+				<!-- До просьбы -->
+				<next>dead_stalker_start_dialog_1_second</next>
+				<!-- После просьбы -->
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_first">
+				<text/>
+				<dont_has_info>dead_stalker_start_dialog_2</dont_has_info>
+				<next>dead_stalker_start_dialog_1_first_start</next>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_first_start">
+				<text>dead_stalker_start_dialog_1_phrase_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>dead_stalker_start_dialog_1_phrase_1</text>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>dead_stalker_start_dialog_1_phrase_2</text>
+				<next>3</next>
+			</phrase>
+			<phrase id="3">
+				<text>dead_stalker_start_dialog_1_phrase_3</text>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text>dead_stalker_start_dialog_1_phrase_4</text>
+				<next>40</next>
+				<next>41</next>
+			</phrase>
+			<phrase id="40">
+				<text>dead_stalker_start_dialog_1_phrase_40</text>
+				<next>400</next>
+			</phrase>
+			<phrase id="400">
+				<text>dead_stalker_start_dialog_1_phrase_400</text>
+				<next>401</next>
+			</phrase>
+			<phrase id="401">
+				<text>dead_stalker_start_dialog_1_phrase_401</text>
+				<next>402</next>
+			</phrase>
+			<phrase id="402">
+				<text>dead_stalker_start_dialog_1_phrase_402</text>
+				<next>403</next>
+			</phrase>
+			<phrase id="403">
+				<text>dead_stalker_start_dialog_1_phrase_403</text>
+				<next>404</next>
+			</phrase>
+			<phrase id="404">
+				<text>dead_stalker_start_dialog_1_phrase_404</text>
+				<next>405</next>
+			</phrase>
+			<phrase id="405">
+				<text>dead_stalker_start_dialog_1_phrase_405</text>
+				<next>406</next>
+			</phrase>
+			<phrase id="406">
+				<text>dead_stalker_start_dialog_1_phrase_406</text>
+				<next>407</next>
+			</phrase>
+			<phrase id="407">
+				<text>dead_stalker_start_dialog_1_phrase_407</text>
+				<next>408</next>
+			</phrase>
+			<phrase id="408">
+				<text>dead_stalker_start_dialog_1_phrase_408</text>
+				<next>4080</next>
+				<next>4081</next>
+			</phrase>
+			<phrase id="4080">
+				<text>dead_stalker_start_dialog_1_phrase_4080</text>
+				<give_info>dead_stalker_start_dialog_2</give_info>
+				<next>40800</next>
+			</phrase>
+			<phrase id="40800">
+				<text>dead_stalker_start_dialog_1_phrase_40800</text>
+				<next>40801</next>
+				<next>40802</next>
+			</phrase>
+			<phrase id="40801">
+				<text>dead_stalker_start_dialog_1_phrase_40801</text>
+				<next>408010</next>
+			</phrase>
+			<phrase id="408010">
+				<text>dead_stalker_start_dialog_1_phrase_408010</text>
+				<next>408011</next>
+			</phrase>
+			<phrase id="408011">
+				<text>dead_stalker_start_dialog_1_phrase_408011</text>
+				<next>408012</next>
+			</phrase>
+			<phrase id="408012">
+				<text>dead_stalker_start_dialog_1_phrase_408012</text>
+				<next>408013</next>
+			</phrase>
+			<phrase id="408013">
+				<text>dead_stalker_start_dialog_1_phrase_408013</text>
+				<next>408014</next>
+			</phrase>
+			<phrase id="408014">
+				<text>dead_stalker_start_dialog_1_phrase_408014</text>
+				<next>408015</next>
+			</phrase>
+			<phrase id="408015">
+				<text>dead_stalker_start_dialog_1_phrase_408015</text>
+				<next>408016</next>
+			</phrase>
+			<phrase id="408016">
+				<text>dead_stalker_start_dialog_1_phrase_408016</text>
+				<next>408017</next>
+			</phrase>
+			<phrase id="408017">
+				<text>dead_stalker_start_dialog_1_phrase_408017</text>
+				<next>408018</next>
+			</phrase>
+			<phrase id="408018">
+				<text>dead_stalker_start_dialog_1_phrase_408018</text>
+				<give_info>dead_stalker_question_of_immortality_first_part_start</give_info>
+				<next>408019</next>
+			</phrase>
+			<phrase id="408019">
+				<text>dead_stalker_start_dialog_1_phrase_408019</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="40802">
+				<text>dead_stalker_start_dialog_1_phrase_40802</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="4081">
+				<text>dead_stalker_start_dialog_1_phrase_4081</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="41">
+				<text>dead_stalker_start_dialog_1_phrase_41</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second">
+				<text/>
+				<has_info>dead_stalker_start_dialog_2</has_info>
+				<next>dead_stalker_start_dialog_1_second_start</next>
+			</phrase>
+			<phrase id="dead_stalker_start_dialog_1_second_start">
+				<next>dead_stalker_start_dialog_1_second_start_1</next>
+				<next>dead_stalker_start_dialog_1_second_1</next>
+				<text>dead_stalker_start_dialog_2_phrase_0</text>
+				<!-- <next>50</next> -->
+				<!-- Распрашиваем о сущности МС + "Вопрос бессмертия" -->
+				<next>51</next>
+				<!-- Выдача квеста "Вопрос бессмертия", если по какой-то причине отказались от него до этого -->
+				<next>52</next>
+				<!-- Отдаем артефакты -->
+				<next>53</next>
+				<!-- Выдача второй части квеста "Цена бессмертия" -->
+				<next>54</next>
+				<!-- Выдаем ТД МС -->
+				<next>55</next>
+				<!-- Квест на Малютку (val_come_to_trader_task - начало) -->
+				<next>56</next>
+				<!-- Довыдаем квест на Малютку, если игрок отказался от него ранее -->
+				<next>57</next>
+				<!-- Награда за Малютку -->
+				<!-- <next>58</next> -->
+				<!-- Документы О-Сознания (Секрет Янтаря) -->
+				<!-- <next>59</next> -->
+				<!-- Цничтожение "О-21".  (Секрет Янтаря) -->
+				<!-- <ne0t>5h</next> -->
+				<!-- Есть какие-нибудь новости? (Надо будет Виталия попросить подкинуть историй атмосферных) -->
+				<next>5e</next>
+			</phrase>
+			<phrase id="50">
+				<text>dead_stalker_start_dialog_1_phrase_40</text>
+				<next>500</next>
+			</phrase>
+			<phrase id="500">
+				<text>dead_stalker_start_dialog_1_phrase_400</text>
+				<next>501</next>
+			</phrase>
+			<phrase id="501">
+				<text>dead_stalker_start_dialog_1_phrase_401</text>
+				<next>502</next>
+			</phrase>
+			<phrase id="502">
+				<text>dead_stalker_start_dialog_1_phrase_402</text>
+				<next>503</next>
+			</phrase>
+			<phrase id="503">
+				<text>dead_stalker_start_dialog_1_phrase_403</text>
+				<next>504</next>
+			</phrase>
+			<phrase id="504">
+				<text>dead_stalker_start_dialog_1_phrase_404</text>
+				<next>505</next>
+			</phrase>
+			<phrase id="505">
+				<text>dead_stalker_start_dialog_2_phrase_505</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="51">
+				<dont_has_info>dead_stalker_question_of_immortality_first_part_start</dont_has_info>
+				<text>dead_stalker_start_dialog_2_phrase_51</text>
+				<next>510</next>
+			</phrase>
+			<phrase id="510">
+				<give_info>dead_stalker_question_of_immortality_first_part_start</give_info>
+				<text>dead_stalker_start_dialog_2_phrase_510</text>
+				<next>408011</next>
+			</phrase>
+			<phrase id="52">
+				<precondition>tasks_functor.question_of_immortality_get_all_arts</precondition>
+				<text>dead_stalker_start_dialog_2_phrase_52</text>
+				<next>520</next>
+			</phrase>
+			<phrase id="520">
+				<text>dead_stalker_start_dialog_2_phrase_520</text>
+				<action>tasks_functor.question_of_immortality_give_arts</action>
+				<give_info>dead_stalker_question_of_immortality_first_part_complete</give_info>
+				<next>521</next>
+			</phrase>
+			<phrase id="521">
+				<text>dead_stalker_start_dialog_2_phrase_521</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="53">
+				<has_info>dead_stalker_question_of_immortality_first_part_complete</has_info>
+				<dont_has_info>dead_stalker_question_of_immortality_second_part_start</dont_has_info>
+				<text>dead_stalker_start_dialog_2_phrase_53</text>
+				<next>530</next>
+			</phrase>
+			<phrase id="530">
+				<text>dead_stalker_start_dialog_2_phrase_530</text>
+				<give_info>dead_stalker_question_of_immortality_second_part_start</give_info>
+				<action>tasks_functor.question_of_immortality_second_part_return_arts</action>
+				<next>531</next>
+			</phrase>
+			<phrase id="531">
+				<text>dead_stalker_start_dialog_2_phrase_531</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="54">
+				<precondition>tasks_functor.question_of_immortality_second_part_get_black_soul</precondition>
+				<text>dead_stalker_start_dialog_2_phrase_54</text>
+				<next>540</next>
+			</phrase>
+			<phrase id="540">
+				<text>dead_stalker_start_dialog_2_phrase_540</text>
+				<give_info>dead_stalker_question_of_immortality_second_part_complete</give_info>
+				<action>tasks_functor.question_of_immortality_second_part_give_black_soul</action>
+				<next>541</next>
+			</phrase>
+			<phrase id="541">
+				<text>dead_stalker_start_dialog_2_phrase_541</text>
+				<next>542</next>
+			</phrase>
+			<phrase id="542">
+				<text>dead_stalker_start_dialog_2_phrase_542</text>
+				<next>543</next>
+			</phrase>
+			<phrase id="543">
+				<text>dead_stalker_start_dialog_2_phrase_543</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="55">
+				<has_info>dead_stalker_little_pseudogigant_start_dialog</has_info>
+				<dont_has_info>dead_stalker_little_pseudogigant_chance</dont_has_info>
+				<dont_has_info>dead_stalker_little_pseudogigant_start_task</dont_has_info>
+				<text>dead_stalker_start_dialog_2_phrase_55</text>
+				<next>550</next>
+			</phrase>
+			<phrase id="550">
+				<text>dead_stalker_start_dialog_2_phrase_550</text>
+				<next>551</next>
+			</phrase>
+			<phrase id="551">
+				<text>dead_stalker_start_dialog_2_phrase_551</text>
+				<next>552</next>
+			</phrase>
+			<phrase id="552">
+				<text>dead_stalker_start_dialog_2_phrase_552</text>
+				<next>553a</next>
+				<next>553b</next>
+			</phrase>
+			<phrase id="553a">
+				<text>dead_stalker_start_dialog_2_phrase_553a</text>
+				<next>554a</next>
+			</phrase>
+			<phrase id="554a">
+				<text>dead_stalker_start_dialog_2_phrase_554a</text>
+				<next>555</next>
+			</phrase>
+			<phrase id="553b">
+				<text>dead_stalker_start_dialog_2_phrase_553b</text>
+				<next>554b</next>
+			</phrase>
+			<phrase id="554b">
+				<text>dead_stalker_start_dialog_2_phrase_554b</text>
+				<next>555</next>
+			</phrase>
+			<phrase id="555">
+				<text>dead_stalker_start_dialog_2_phrase_555</text>
+				<next>556</next>
+			</phrase>
+			<phrase id="556">
+				<text>dead_stalker_start_dialog_2_phrase_556</text>
+				<give_info>dead_stalker_little_pseudogigant_chance</give_info>
+				<next>557</next>
+				<next>558</next>
+			</phrase>
+			<phrase id="557">
+				<text>dead_stalker_start_dialog_2_phrase_557</text>
+				<next>5570</next>
+			</phrase>
+			<phrase id="5570">
+				<text>dead_stalker_start_dialog_2_phrase_5570</text>
+				<give_info>dead_stalker_little_pseudogigant_start_task</give_info>
+				<next>5571</next>
+			</phrase>
+			<phrase id="5571">
+				<text>dead_stalker_start_dialog_2_phrase_5571</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="558">
+				<text>dead_stalker_start_dialog_2_phrase_558</text>
+				<next>dead_stalker_start_dialog_1_second_start</next>
+			</phrase>
+			<phrase id="5580">
+				<text>dead_stalker_start_dialog_2_phrase_5580</text>
+			</phrase>
+			<phrase id="56">
+				<has_info>dead_stalker_little_pseudogigant_start_dialog</has_info>
+				<has_info>dead_stalker_little_pseudogigant_chance</has_info>
+				<dont_has_info>dead_stalker_little_pseudogigant_start_task</dont_has_info>
+				<text>dead_stalker_start_dialog_2_phrase_56</text>
+				<next>560</next>
+			</phrase>
+			<phrase id="560">
+				<text>dead_stalker_start_dialog_2_phrase_560</text>
+				<next>557</next>
+				<next>558</next>
+			</phrase>
+			<phrase id="57">
+				<has_info>x18_giant_dead</has_info>
+				<dont_has_info>dead_stalker_little_pseudogigant_complete</dont_has_info>
+				<text>dead_stalker_start_dialog_2_phrase_57</text>
+				<next>570</next>
+			</phrase>
+			<phrase id="570">
+				<text>dead_stalker_start_dialog_2_phrase_570</text>
+				<give_info>dead_stalker_little_pseudogigant_complete</give_info>
+				<next>5701</next>
+			</phrase>
+			<phrase id="5701">
+				<text>dead_stalker_start_dialog_2_phrase_5701</text>
+				<next>5702</next>
+			</phrase>
+			<phrase id="5702">
+				<text>dead_stalker_start_dialog_2_phrase_5702</text>
+			</phrase>
+			<phrase id="5e">
+				<text>dead_stalker_start_dialog_2_phrase_5e</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="val_sos_dialog">
+		<phrase_list>
+			<phrase id="1">
+				<text/>
+				<dont_has_info>val_sos_got_medkit</dont_has_info>
+				<next>11</next>
+			</phrase>
+			<phrase id="112">
+				<text>val_sos_dialog_112</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="2">
+				<text/>
+				<has_info>val_sos_got_medkit</has_info>
+				<next>21</next>
+			</phrase>
+			<phrase id="111">
+				<text>val_sos_dialog_111</text>
+				<precondition>dialogs.actor_have_medkit</precondition>
+				<action>dialogs.transfer_medkit</action>
+				<action>dialogs.break_dialog</action>
+				<give_info>val_sos_got_medkit</give_info>
+			</phrase>
+			<phrase id="211">
+				<text>val_sos_dialog_211</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+				<next>2</next>
+			</phrase>
+			<phrase id="11">
+				<text>val_sos_dialog_11</text>
+				<next>111</next>
+				<next>112</next>
+			</phrase>
+			<phrase id="21">
+				<text>val_sos_dialog_21</text>
+				<give_info>val_show_farm_zone</give_info>
+				<give_info>val_sos_give_info</give_info>
+				<next>211</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="val_prisoner_hello">
+		<phrase_list>
+			<phrase id="111">
+				<text>val_prisoner_hello_111</text>
+				<action>dialogs.break_dialog</action>
+				<give_info>val_prisoner_sit</give_info>
+			</phrase>
+			<phrase id="112">
+				<text>val_prisoner_hello_112</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="2111">
+				<text>val_prisoner_hello_2111</text>
+				<next>21111</next>
+			</phrase>
+			<phrase id="21111">
+				<text>val_prisoner_hello_21111</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="3">
+				<text/>
+				<has_info>val_prisoner_give_info</has_info>
+				<next>31</next>
+			</phrase>
+			<phrase id="311">
+				<text>val_prisoner_hello_311</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="1">
+				<text/>
+				<dont_has_info>val_prisoner_free</dont_has_info>
+				<dont_has_info>val_prisoner_door_unlocked</dont_has_info>
+				<dont_has_info>val_prisoner_sit</dont_has_info>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>val_prisoner_hello_11</text>
+				<next>111</next>
+				<next>112</next>
+			</phrase>
+			<phrase id="31">
+				<text>val_prisoner_hello_31</text>
+				<next>311</next>
+			</phrase>
+			<phrase id="2">
+				<text/>
+				<dont_has_info>val_prisoner_give_info</dont_has_info>
+				<has_info>val_prisoner_free</has_info>
+				<next>21</next>
+			</phrase>
+			<phrase id="211">
+				<text>val_prisoner_hello_211</text>
+				<give_info>val_prisoner_give_info</give_info>
+				<next>2111</next>
+			</phrase>
+			<phrase id="21">
+				<text>val_prisoner_hello_21</text>
+				<next>211</next>
+			</phrase>
+			<phrase id="4">
+				<text/>
+				<dont_has_info>val_prisoner_free</dont_has_info>
+				<dont_has_info>val_prisoner_door_unlocked</dont_has_info>
+				<has_info>val_prisoner_sit</has_info>
+				<next>41</next>
+			</phrase>
+			<phrase id="41">
+				<text>val_prisoner_hello_41</text>
+				<next>411</next>
+			</phrase>
+			<phrase id="411">
+				<text>val_prisoner_hello_411</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="0">
+				<text/>
+				<next>1</next>
+				<next>2</next>
+				<next>3</next>
+				<next>4</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="val_rob_dialog">
+		<phrase_list>
+			<phrase id="11">
+				<text>val_rob_dialog_11</text>
+				<next>111</next>
+				<next>113</next>
+			</phrase>
+			<phrase id="21">
+				<text>val_rob_dialog_21</text>
+				<next>111</next>
+				<next>113</next>
+			</phrase>
+			<phrase id="3">
+				<text>val_rob_dialog_3</text>
+				<next>31</next>
+			</phrase>
+			<phrase id="31">
+				<text>val_rob_dialog_31</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="113">
+				<text>val_rob_dialog_113</text>
+				<action>dialogs.break_dialog</action>
+				<give_info>val_rob_no_money</give_info>
+			</phrase>
+			<phrase id="111">
+				<text>val_rob_dialog_111</text>
+				<precondition>dialogs_darkvalley.val_rob_actor_has_money</precondition>
+				<action>dialogs_darkvalley.val_rob_actor_reloc_money</action>
+				<give_info>val_rob_buying</give_info>
+				<next>3</next>
+			</phrase>
+			<phrase id="2">
+				<text/>
+				<has_info>val_rob_no_money</has_info>
+				<next>21</next>
+			</phrase>
+			<phrase id="1">
+				<text/>
+				<dont_has_info>val_rob_no_money</dont_has_info>
+				<next>11</next>
+			</phrase>
+			<phrase id="0">
+				<text/>
+				<precondition>dialogs_darkvalley.val_rob_actor_has_money</precondition>
+				<next>1</next>
+				<next>2</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="val_escort_captive_dialog">
+		<phrase_list>
+			<phrase id="8">
+				<text/>
+				<dont_has_info>val_escort_captive_give_main_info</dont_has_info>
+				<next>1</next>
+				<next>4</next>
+			</phrase>
+			<phrase id="4">
+				<text/>
+				<has_info>val_escort_nap1_dead</has_info>
+				<next>41</next>
+			</phrase>
+			<phrase id="1">
+				<text/>
+				<dont_has_info>val_escort_nap1_dead</dont_has_info>
+				<next>11</next>
+			</phrase>
+			<phrase id="41">
+				<text>val_escort_captive_dialog_41</text>
+				<next>411</next>
+			</phrase>
+			<phrase id="411">
+				<text>val_escort_captive_dialog_411</text>
+				<next>11</next>
+			</phrase>
+			<phrase id="11">
+				<text>val_escort_captive_dialog_11</text>
+				<give_info>val_escort_captive_give_main_info</give_info>
+				<next>7</next>
+			</phrase>
+			<phrase id="2">
+				<text>val_escort_captive_dialog_2</text>
+				<dont_has_info>val_escort_captive_give_info</dont_has_info>
+				<next>21</next>
+			</phrase>
+			<phrase id="21">
+				<text>val_escort_captive_dialog_21</text>
+				<give_info>val_escort_captive_give_info</give_info>
+				<next>211</next>
+			</phrase>
+			<phrase id="211">
+				<text>val_escort_captive_dialog_211</text>
+				<next>71</next>
+			</phrase>
+			<phrase id="3">
+				<text>val_escort_captive_dialog_3</text>
+				<dont_has_info>val_escort_help_prisoner_task</dont_has_info>
+				<give_info>val_escort_help_prisoner_task</give_info>
+				<next>71</next>
+			</phrase>
+			<phrase id="7">
+				<text/>
+				<has_info>val_escort_actor_helped</has_info>
+				<next>8</next>
+				<next>71</next>
+			</phrase>
+			<phrase id="61">
+				<text>val_escort_captive_dialog_61</text>
+				<next>511</next>
+			</phrase>
+			<phrase id="6">
+				<text/>
+				<dont_has_info>val_escort_actor_helped</dont_has_info>
+				<next>61</next>
+			</phrase>
+			<phrase id="5">
+				<text/>
+				<has_info>val_escort_captive_give_info</has_info>
+				<has_info>val_escort_help_prisoner_task</has_info>
+				<next>51</next>
+			</phrase>
+			<phrase id="51">
+				<text>val_escort_captive_dialog_51</text>
+				<next>511</next>
+			</phrase>
+			<phrase id="511">
+				<text>val_escort_captive_dialog_511</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="71">
+				<text/>
+				<has_info>val_escort_captive_give_main_info</has_info>
+				<next>2</next>
+				<next>3</next>
+				<next>5</next>
+			</phrase>
+			<phrase id="0">
+				<text/>
+				<next>7</next>
+				<next>6</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+	<dialog id="val_escort_nap1_dialog">
+		<phrase_list>
+			<phrase id="2111">
+				<text>val_escort_nap1_dialog_2111</text>
+				<next>412</next>
+			</phrase>
+			<phrase id="31">
+				<text>val_escort_nap1_dialog_31</text>
+				<action>dialogs_darkvalley.val_escort_reward</action>
+				<give_info>val_escort_got_reward</give_info>
+				<next>219</next>
+			</phrase>
+			<phrase id="41">
+				<text>val_escort_nap1_dialog_41</text>
+				<next>219</next>
+			</phrase>
+			<phrase id="212191">
+				<text/>
+				<next>21211</next>
+				<next>21212</next>
+				<next>21213</next>
+				<next>21214</next>
+				<next>21215</next>
+			</phrase>
+			<phrase id="212111">
+				<text>val_escort_nap1_dialog_212111</text>
+				<next>21219</next>
+			</phrase>
+			<phrase id="21212">
+				<text>val_escort_nap1_dialog_21212</text>
+				<next>212121</next>
+			</phrase>
+			<phrase id="212121">
+				<text>val_escort_nap1_dialog_212121</text>
+				<next>2121211</next>
+			</phrase>
+			<phrase id="2121211">
+				<text>val_escort_nap1_dialog_2121211</text>
+				<next>21212111</next>
+			</phrase>
+			<phrase id="21212111">
+				<text>val_escort_nap1_dialog_21212111</text>
+				<next>21219</next>
+			</phrase>
+			<phrase id="21213">
+				<text>val_escort_nap1_dialog_21213</text>
+				<next>212131</next>
+			</phrase>
+			<phrase id="212131">
+				<text>val_escort_nap1_dialog_212131</text>
+				<next>21219</next>
+			</phrase>
+			<phrase id="21214">
+				<text>val_escort_nap1_dialog_21214</text>
+				<next>212141</next>
+			</phrase>
+			<phrase id="212141">
+				<text>val_escort_nap1_dialog_212141</text>
+				<next>21219</next>
+			</phrase>
+			<phrase id="21215">
+				<text>val_escort_nap1_dialog_21215</text>
+				<next>212151</next>
+			</phrase>
+			<phrase id="212151">
+				<text>val_escort_nap1_dialog_212151</text>
+				<next>2121511</next>
+			</phrase>
+			<phrase id="2121511">
+				<text/>
+				<next>2191</next>
+			</phrase>
+			<phrase id="21211">
+				<text>val_escort_nap1_dialog_21211</text>
+				<next>212111</next>
+			</phrase>
+			<phrase id="2121">
+				<text>val_escort_nap1_dialog_2121</text>
+				<give_info>val_show_zones</give_info>
+				<next>21219</next>
+			</phrase>
+			<phrase id="21219">
+				<text/>
+				<next>212191</next>
+			</phrase>
+			<phrase id="2131">
+				<text>val_escort_nap1_dialog_2131</text>
+				<next>219</next>
+			</phrase>
+			<phrase id="212">
+				<text>val_escort_nap1_dialog_212</text>
+				<next>2121</next>
+			</phrase>
+			<phrase id="2191">
+				<text/>
+				<next>212</next>
+				<next>213</next>
+				<next>214</next>
+			</phrase>
+			<phrase id="219">
+				<text/>
+				<next>2191</next>
+			</phrase>
+			<phrase id="214">
+				<text>val_escort_nap1_dialog_214</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="213">
+				<text>val_escort_nap1_dialog_213</text>
+				<dont_has_info>val_escort_captive_give_main_info</dont_has_info>
+				<next>2131</next>
+			</phrase>
+			<phrase id="0">
+				<text/>
+				<next>2</next>
+				<next>3</next>
+				<next>4</next>
+				<next>6</next>
+				<next>7</next>
+				<next>8</next>
+				<next>9</next>
+			</phrase>
+			<phrase id="21">
+				<text>val_escort_nap1_dialog_21</text>
+				<action>dialogs_darkvalley.val_escort_reward</action>
+				<give_info>val_escort_got_reward</give_info>
+				<next>219</next>
+			</phrase>
+			<phrase id="61">
+				<text>val_escort_nap1_dialog_61</text>
+				<next>611</next>
+			</phrase>
+			<phrase id="611">
+				<text>val_escort_nap1_dialog_611</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="6">
+				<text/>
+				<dont_has_info>val_escort_actor_helped</dont_has_info>
+				<next>61</next>
+			</phrase>
+			<phrase id="4">
+				<text/>
+				<has_info>val_escort_got_reward</has_info>
+				<has_info>val_escort_actor_helped</has_info>
+				<next>41</next>
+			</phrase>
+			<phrase id="3">
+				<text/>
+				<dont_has_info>val_escort_got_reward</dont_has_info>
+				<has_info>val_escort_captive_dead</has_info>
+				<has_info>val_escort_actor_helped</has_info>
+				<has_info>val_escort_guard1_dead</has_info>
+				<has_info>val_escort_guard2_dead</has_info>
+				<next>31</next>
+			</phrase>
+			<phrase id="2">
+				<text/>
+				<dont_has_info>val_escort_captive_dead</dont_has_info>
+				<dont_has_info>val_escort_got_reward</dont_has_info>
+				<has_info>val_escort_guard1_dead</has_info>
+				<has_info>val_escort_guard2_dead</has_info>
+				<has_info>val_escort_actor_helped</has_info>
+				<next>21</next>
+			</phrase>
+			<phrase id="71">
+				<text>val_escort_nap1_dialog_71</text>
+				<next>711</next>
+			</phrase>
+			<phrase id="711">
+				<text>val_escort_nap1_dialog_611</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="7">
+				<text/>
+				<dont_has_info>val_escort_got_reward</dont_has_info>
+				<has_info>val_escort_actor_helped</has_info>
+				<has_info>val_escort_captive_dead</has_info>
+				<dont_has_info>val_escort_guard1_dead</dont_has_info>
+				<has_info>val_escort_guard2_dead</has_info>
+				<next>71</next>
+			</phrase>
+			<phrase id="81">
+				<text>val_escort_nap1_dialog_71</text>
+				<next>811</next>
+			</phrase>
+			<phrase id="811">
+				<text>val_escort_nap1_dialog_611</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="8">
+				<text/>
+				<dont_has_info>val_escort_got_reward</dont_has_info>
+				<has_info>val_escort_actor_helped</has_info>
+				<has_info>val_escort_captive_dead</has_info>
+				<dont_has_info>val_escort_guard2_dead</dont_has_info>
+				<has_info>val_escort_guard1_dead</has_info>
+				<next>81</next>
+			</phrase>
+			<phrase id="91">
+				<text>val_escort_nap1_dialog_72</text>
+				<next>911</next>
+			</phrase>
+			<phrase id="911">
+				<text>val_escort_nap1_dialog_611</text>
+				<action>dialogs.break_dialog</action>
+			</phrase>
+			<phrase id="9">
+				<text/>
+				<dont_has_info>val_escort_got_reward</dont_has_info>
+				<has_info>val_escort_actor_helped</has_info>
+				<has_info>val_escort_captive_dead</has_info>
+				<dont_has_info>val_escort_guard2_dead</dont_has_info>
+				<dont_has_info>val_escort_guard1_dead</dont_has_info>
+				<next>91</next>
+			</phrase>
+		</phrase_list>
+	</dialog>
+
+    <dialog id="val_escort_nap1_21_dialog">
+        <dont_has_info>val_escort_captive_dead</dont_has_info>
+        <dont_has_info>val_escort_got_reward</dont_has_info>
+        <has_info>val_escort_guard1_dead</has_info>
+        <has_info>val_escort_guard2_dead</has_info>
+        <has_info>val_escort_actor_helped</has_info>
+        <phrase_list>
+            <phrase id="0">
+                <text>Дело сделано, да?</text>
+                <next>21</next>
+            </phrase>
+            <phrase id="21">
+                <text>val_escort_nap1_dialog_21</text>
+                <action>dialogs_darkvalley.val_escort_reward</action>
+                <give_info>val_escort_got_reward</give_info>
+            </phrase>
+        </phrase_list>
+    </dialog>
+
+	<dialog id="bandit_trader">
+		<dont_has_info>bandit_trader_intro</dont_has_info>
+		<phrase_list>
+			<phrase id="0">
+				<text>bandit_trader_0</text>
+				<next>1</next>
+			</phrase>
+			<phrase id="1">
+				<text>bandit_trader_1</text>
+				<give_info>bandit_trader_intro</give_info>
+				<next>2</next>
+			</phrase>
+			<phrase id="2">
+				<text>bandit_trader_2</text>
+			</phrase>
+		</phrase_list>
+	</dialog>
+</game_dialogs>
+

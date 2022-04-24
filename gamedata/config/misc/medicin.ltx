@@ -1,0 +1,263 @@
+;-------------------------------------------------------
+; Аптечки и медпрепараты
+;-------------------------------------------------------
+[medicin]:identity_immunities
+GroupControlSection	= spawn_group
+discovery_dependency =
+cform           = skeleton
+$prefetch 		= 32
+; food item
+animation_slot		= 4
+
+;hud item
+hud                 = wpn_vodka_hud
+
+psy_immunity        = 1.0, 1.0
+rad_immunity        = 1.0, 1.0
+rad_food_immunity   = 1.0, 1.0
+
+[antirad]:medicin
+$spawn 			= "food and drugs\antirad"
+class			= II_ANTIR
+visual          = dynamics\devices\dev_antirad\dev_antirad.ogf
+description		= enc_equipment_medi_antirad1
+
+inv_name			= Antirad
+inv_name_short		= Antirad
+inv_weight			= 0.1
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 18
+inv_grid_y			= 12
+cost				= 250
+
+; eatable item
+eat_health = -0.1
+eat_satiety = 0
+eat_power = 0
+eat_radiation = -0.9
+wounds_heal_perc = 0
+
+eat_portions_num = 1
+
+use_sound_anm = items\antirad\injector
+use_sound = inv_sounds\inv_pills
+
+[dix]:medicin
+$spawn 			= "food and drugs\dix"
+class			= II_BOTTL
+visual			= dynamics\equipments\medical\drug_coagulant.ogf  
+description		= enc_equipment_D-IX
+
+inv_name			= D-IX
+inv_name_short		= D-IX
+inv_weight			= 0.1
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 10
+inv_grid_y			= 28
+cost				= 1800
+
+; eatable item
+eat_health          = -0.3
+eat_satiety			= 0
+eat_power			= 60
+eat_alcohol			= 0
+eat_radiation		= 0
+wounds_heal_perc	= 0
+eat_max_power		= 0
+sleep_suppression_time = 1.5 ; в игровых часах
+
+eat_portions_num	= 1
+
+effect_time         = 300; время действия в секундах реального времени
+psy_immunity        = 2.0, 1.5 ; негативно сказывается на пси-устойчивости вследствие перевозбуждения нервной системы
+
+use_sound_anm = items\drug\drug
+use_sound = inv_sounds\inv_pills
+
+[bipsizon]:medicin
+$spawn 			= "food and drugs\bipsizon"
+class			= II_BOTTL
+visual			= dynamics\equipments\medical\drug_psy_blockade.ogf
+description		= enc_equipment_bipsizon
+
+inv_name			= bipsizon
+inv_name_short		= bipsizon
+inv_weight			= 0.1
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 13
+inv_grid_y			= 28
+cost				= 3500
+
+; eatable item
+eat_health          = -0.3
+eat_satiety			= 0
+eat_power			= 0
+eat_alcohol			= 0
+eat_radiation		= 0
+wounds_heal_perc	= 0
+eat_max_power		= 0
+
+eat_portions_num	= 1
+
+effect_time         = 60; время действия в секундах реального времени
+psy_immunity        = 0.0, 0.0
+
+use_sound_anm = items\drug\drug
+use_sound = inv_sounds\inv_pills
+
+[yod]:medicin
+$spawn 			= "food and drugs\yod"
+class			= II_BOTTL
+visual			= dynamics\equipments\medical\drug_radioprotector.ogf 
+description		= enc_equipment_yod
+
+inv_name			= yod
+inv_name_short		= yod
+inv_weight			= 0.1
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 14
+inv_grid_y			= 28
+cost				= 500
+
+; eatable item
+eat_health          = -0.3
+eat_satiety			= 0
+eat_power			= 0
+eat_alcohol			= 0
+eat_radiation		= 0
+wounds_heal_perc	= 0
+eat_max_power		= 0
+
+eat_portions_num	= 1
+
+effect_time         = 120; время действия в секундах реального времени
+rad_immunity        = 0.1, 0.1
+rad_food_immunity   = 0.5, 0.5
+
+use_sound_anm = items\drug\drug
+use_sound = inv_sounds\inv_pills
+
+[medkit]:medicin
+$spawn 				= "food and drugs\medkit"
+class				= II_MEDKI
+visual				= dynamics\devices\dev_aptechka\dev_aptechka_low.ogf
+description			= enc_equipment_medi_medkit1
+inv_name			= Medkit
+inv_name_short		= Medkit
+inv_weight			= 0.2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 6
+inv_grid_y			= 14
+cost				= 250
+
+; eatable item
+eat_health			= 0.4
+eat_satiety			= 0.0
+eat_power			= -0.1
+eat_radiation		= -0.05
+wounds_heal_perc	= 0.3
+eat_max_power		= 0.0
+
+eat_portions_num	= 1
+
+time_to_heal		= 10 ; время лечения в секундах реального времени
+
+use_sound_anm = items\medkit\medkit
+use_sound = inv_sounds\inv_medkit
+
+[medkit_army]:medicin
+$spawn 				= "food and drugs\medkit_army"
+class				= II_MEDKI
+visual				= dynamics\devices\dev_aptechka\dev_aptechka_mid.ogf
+description			= enc_equipment_medi_medkit2
+inv_name			= Medkit_army
+inv_name_short		= Medkit_army
+inv_weight			= 0.3
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 7
+inv_grid_y			= 14
+cost				= 450
+
+; eatable item
+eat_health			= 0.6
+eat_satiety			= 0
+eat_power			= 0.5
+eat_radiation		= -0.2
+wounds_heal_perc	= 1.0
+eat_max_power		= 0
+
+eat_portions_num	= 1
+
+time_to_heal		= 10 ; время лечения в секундах реального времени 
+
+use_sound_anm = items\medkit\medkit
+use_sound = inv_sounds\inv_medkit
+
+[medkit_scientic]:medicin
+$spawn 				= "food and drugs\medkit_scientic"
+class				= II_MEDKI
+visual				= dynamics\devices\dev_aptechka\dev_aptechka_high.ogf
+description			= enc_equipment_medi_medkit3
+inv_name			= Medkit_scientific
+inv_name_short		= Medkit_scientific
+inv_weight			= 0.4	;0.2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 10
+inv_grid_y			= 13
+cost				= 650
+
+; eatable item
+eat_health			= 0.8
+eat_satiety			= 0
+eat_power			= -0.1
+eat_radiation		= -0.8
+wounds_heal_perc	= 0.3
+eat_max_power		= 0
+
+eat_portions_num	= 1
+
+time_to_heal		= 10 ; время лечения в секундах реального времени 
+
+use_sound_anm = items\medkit\medkit
+use_sound = inv_sounds\inv_medkit
+
+[bandage]:medicin
+$spawn 				= "food and drugs\bandage"
+class				= II_BANDG
+visual				= dynamics\devices\dev_bandage\dev_bandage.ogf
+description			= enc_equipment_medi_bandage1
+
+inv_name			= bandage
+inv_name_short		= bandage
+inv_weight			= 0.1
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 20
+inv_grid_y			= 0
+cost				= 50
+
+; eatable item
+eat_health          = 0.0
+eat_satiety         = 0
+eat_power           = -0.2
+eat_radiation       = 0.0
+wounds_heal_perc    = 0.7
+eat_portions_num    = 1
+
+use_sound_anm = items\bandage\bandage
+use_sound = inv_sounds\inv_bandage

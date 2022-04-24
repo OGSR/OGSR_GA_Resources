@@ -1,0 +1,123 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = {+mil_assistant_goto_ambush} walker@2, walker@begin
+danger = danger_ignore
+on_death = death
+threshold = threshold@kulgband_scout_threshold
+
+[walker@begin]
+path_walk =	kulgband_scout_walk1
+path_look =	kulgband_scout_look1
+on_timer = 1|walker@1 %=make_invulnerable%
+
+
+; Сидим на остановке:
+[walker@1]
+path_walk =	kulgband_scout_walk1
+path_look =	kulgband_scout_look1
+combat_ignore_cond = always
+on_info = {+mil_assistant_goto_ambush} walker@2
+
+; Идём к засаде:
+[walker@2]
+path_walk =	kulgband_scout_walk2_1
+path_look =	kulgband_scout_look2
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+on_signal       = arrived|walker@2_1
+
+[walker@2_1]
+path_walk =	kulgband_scout_walk2_1
+path_look =	kulgband_scout_look2
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = run
+def_state_moving2 = run
+def_state_moving3 = run
+on_actor_dist_le = 5|remark
+
+[remark]
+anim = tsss
+snd = kulgband_scout_hush
+no_move = true
+target = actor
+combat_ignore_cond = always
+meet = no_meet
+on_signal = anim_end|walker@2_2
+
+[walker@2_2]
+path_walk =	kulgband_scout_walk2
+path_look =	kulgband_scout_look2
+combat_ignore_cond = always
+meet = no_meet
+def_state_moving1 = sneak
+def_state_moving2 = sneak
+def_state_moving3 = sneak
+on_signal       = arrived|walker@3 %+kulgband_scout_ambush%
+
+; В засаде:
+[walker@3]
+path_walk =	kulgband_scout_walk2
+path_look =	kulgband_scout_look2
+combat_ignore_cond = always
+on_info = {+mil_monolith_squad_go} walker@4
+
+[walker@4]
+path_walk =	kulgband_scout_walk2
+path_look =	kulgband_scout_look2
+combat_ignore_cond = always
+meet = no_meet
+on_info = {+mil_monolith_man_hit} walker@5
+
+; Мочим фанатиков:
+[walker@5]
+path_walk =	kulgband_scout_walk3
+path_look =	mil_monolith_man1_walk
+combat_ignore_cond = always
+meet = no_meet
+on_info = {+mil_monolith_surrend} walker@6
+
+; Теперь допрос:
+[walker@6]
+path_walk =	kulgband_scout_walk3
+path_look =	mil_monolith_man1_walk
+combat_ignore_cond = always
+on_info = {+mil_monolith_end} kamp
+
+; Отдыхаем:
+[kamp]
+center_point = mil_monolith_bonfire_zone_point
+radius = 4
+def_state_moving = walk
+combat_ignore_cond = always
+meet = no_meet
+on_info = {=dist_to_actor_ge(40)}%=release%
+
+
+
+
+[danger_ignore]
+ignore_distance = 10
+ignore_distance_sound = 10
+danger_inertion_time_sound = 100
+danger_expiration_time = 300
+
+
+[threshold@kulgband_scout_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+
+[death]
+on_info = %+kulgband_scout_dead%
+
+
+
+
+
+

@@ -1,0 +1,385 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-----------------------------------------------------------------------
+--- ui_yan_random_quest_wnd.script                                       
+--- Меню выбора вещей для рандомных заданий от Сахарова (артефакты/части монстров)                      
+--- Mixser (c) OGS Evolution Team                                      
+--- version 1.2 (25/09/2011)                                             
+-----------------------------------------------------------------------
+
+local money_koef = 1.75 -- Наценка на предмет, относительно базовой стоимости (cost) 
+
+function open_yan_random_quest_wnd(npc)
+	local spwn = yan_random_quest_wnd(npc)
+	level.start_stop_menu(spwn,true)
+end
+
+local delete_table = {} -- табличка под предметы, которые мы в будущем будем удалять
+
+class "yan_random_quest_wnd" (CUIScriptWnd)
+
+function yan_random_quest_wnd:__init(npc) super()
+	self.npc = npc
+	self:InitControls()
+	self:InitCallBacks()
+end
+
+function yan_random_quest_wnd:____finalize() end
+
+function yan_random_quest_wnd:InitControls()
+	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	self:Init(50,50,550,450)
+
+	-- файл-описатель наших элементов
+	local xml = CScriptXmlInit()
+	xml:ParseFile("ui_yan_random_quest_wnd.xml")
+
+	-- видео на заднем плане
+	xml:InitStatic("back_video", self)
+
+	-- рамка
+	xml:InitStatic("background", self)
+	
+	-- Название окошек
+	xml:InitStatic("window_name", self)
+	
+	-- кнопка выхода
+	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
+	
+	-- кнопка выдачи артефактов и запчастей монстров
+	self:Register(xml:Init3tButton("btn_give_item", self),"btn_give_item")
+	
+	-- Надписи
+	xml:InitStatic("art_name", self)
+	xml:InitStatic("monster_part_name", self)
+	
+	-- Инициализация отображения артефактов и запчастей монстров	
+	
+	-- Текстура под артефакт/деталь монстра
+	xml:InitStatic("frame_1", self)
+	
+	-- edit1
+	self.edit_1 = xml:InitEditBox("edit_1", self)
+	self.a1 = ogse.load_variable("yan_random_quest_easy_art", "")
+	if db.actor:object(self.a1) then
+		self.edit_1:SetNumbersOnly(true)
+		self.edit_1:SetText("0")
+		self.edit_1:Show(true)
+		self:DrawCurItem(self.a1, 50, 68, 1) -- 1 окно (изображение предмета)
+		self:DrawCurItemCost(self.a1, 165, 65, 1) -- 1 окно (цена предмета)
+		self:DrawCurItemName(self.a1, 165,  50, 1) -- 1 окно (название предмета)
+	else
+		self.edit_1:Show(false)
+	end
+		
+	-- Текстура под артефакт/деталь монстра
+	xml:InitStatic("frame_2", self)	
+		
+	-- edit2
+	self.edit_2 = xml:InitEditBox("edit_2", self)
+	self.a2 = ogse.load_variable("yan_random_quest_normal_art", "")
+	if db.actor:object(self.a2) then
+		self.edit_2:SetNumbersOnly(true)
+		self.edit_2:SetText("0")
+		self.edit_2:Show(true)
+		self:DrawCurItem(self.a2, 50, 148, 2) -- 2 окно (изображение предмета)
+		self:DrawCurItemCost(self.a2, 165,  145, 2) -- 2 окно (цена предмета)
+		self:DrawCurItemName(self.a2, 165,  130, 2) -- 2 окно (название предмета)
+	else
+		self.edit_2:Show(false)
+	end
+	
+	-- Текстура под артефакт/деталь монстра
+	xml:InitStatic("frame_3", self)
+		
+	-- edit3
+	self.edit_3 = xml:InitEditBox("edit_3", self)
+	self.a3 = ogse.load_variable("yan_random_quest_hard_art", "")
+	if db.actor:object(self.a3) then
+		self.edit_3:SetNumbersOnly(true)
+		self.edit_3:SetText("0")
+		self.edit_3:Show(true)
+		self:DrawCurItem(self.a3, 50, 228, 3) -- 3 окно (изображение предмета)
+		self:DrawCurItemCost(self.a3, 165,  225, 3) -- 3 окно (цена предмета)
+		self:DrawCurItemName(self.a3, 165,  210, 3) -- 3 окно (название предмета)
+	else
+		self.edit_3:Show(false)
+	end
+	
+	-- Текстура под артефакт/деталь монстра
+	xml:InitStatic("frame_4", self)
+		
+	-- edit4
+	self.edit_4 = xml:InitEditBox("edit_4", self)
+	self.m1 = ogse.load_variable("yan_random_quest_easy_monster_part", "")
+	if db.actor:object(self.m1) then
+		self.edit_4:SetNumbersOnly(true)
+		self.edit_4:SetText("0")
+		self.edit_4:Show(true)
+		self:DrawCurItem(self.m1, 280, 68, 4) -- 4 окно (изображение предмета)
+		self:DrawCurItemCost(self.m1, 395,  65, 4) -- 4 окно (цена предмета)
+		self:DrawCurItemName(self.m1, 395,  50, 4) -- 4 окно (название предмета)
+	else
+		self.edit_4:Show(false)
+	end
+	
+	-- Текстура под артефакт/деталь монстра
+	xml:InitStatic("frame_5", self)
+	
+	-- edit5
+	self.edit_5 = xml:InitEditBox("edit_5", self)
+	self.m2 = ogse.load_variable("yan_random_quest_normal_monster_part", "")
+	if db.actor:object(self.m2) then
+		self.edit_5:SetNumbersOnly(true)
+		self.edit_5:SetText("0")
+		self.edit_5:Show(true)
+		self:DrawCurItem(self.m2, 280, 148, 5) -- 5 окно (изображение предмета)
+		self:DrawCurItemCost(self.m2, 395,  145, 5) -- 5 окно (цена предмета)
+		self:DrawCurItemName(self.m2, 395,  130, 5) -- 5 окно (название предмета)
+	else
+		self.edit_5:Show(false)
+	end
+	
+	-- Текстура под артефакт/деталь монстра
+	xml:InitStatic("frame_6", self)	
+		
+	-- edit6
+	self.edit_6 = xml:InitEditBox("edit_6", self)
+	self.m3 = ogse.load_variable("yan_random_quest_hard_monster_part", "")
+	if db.actor:object(self.m3) then
+		self.edit_6:SetNumbersOnly(true)
+		self.edit_6:SetText("0")
+		self.edit_6:Show(true)
+		self:DrawCurItem(self.m3, 280, 228, 6) -- 6 окно (изображение предмета)
+		self:DrawCurItemCost(self.m3, 395,  225, 6) -- 6 окно (цена предмета)
+		self:DrawCurItemName(self.m3, 395,  210, 6) -- 6 окно (название предмета)
+	else
+		self.edit_6:Show(false)
+	end
+end
+
+function yan_random_quest_wnd:InitCallBacks()
+	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	self:AddCallback("btn_quit", ui_events.BUTTON_CLICKED, self.on_quit, self)
+	self:AddCallback("btn_give_item", ui_events.BUTTON_CLICKED, self.transfer_items_to_npc, self)
+end
+
+-- Выход из меню
+function yan_random_quest_wnd:on_quit()
+	self:GetHolder():start_stop_menu (self,true)
+	self:ClearCallbacks()
+end
+
+-- CallBack на клавиатуру
+function yan_random_quest_wnd:OnKeyboard(dik, keyboard_action)
+	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
+	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
+		if dik == DIK_keys.DIK_ESCAPE then
+			--self:transfer_items_to_npc()
+			self:ClearCallbacks()
+		end
+	end
+end
+
+-- Передача (удаление) вещей и выдача денег актору
+function yan_random_quest_wnd:transfer_items_to_npc()
+	local sum = 0 -- сумма денег для передачи
+	
+	delete_table = {} -- переинициализируем таблицу смертников
+	
+	-- Артефакты
+	for i=1, 3 do
+		if self["a"..tostring(i)] ~= "" and db.actor:object(self["a"..tostring(i)]) then
+			local sum_i = tonumber(self["edit_"..tostring(i)]:GetText())
+			if sum_i and sum_i > 0 then 
+				log1(self["a"..tostring(i)].." ".."sum_i = "..tostring(sum_i)) 
+				if sum_i > self["count"..tostring(i)] then sum_i = self["count"..tostring(i)] end
+				sum = sum + math.ceil(sys_ini:r_u32(self["a"..tostring(i)], "cost")*money_koef*sum_i)
+				relocate_item(self.npc, self["a"..tostring(i)], sum_i)
+				self:delete_item_by_num(self["a"..tostring(i)], sum_i)
+			else 
+				log1("sum_i = nil!") 
+			end
+		end
+	end
+		
+	-- Запчасти монстров
+	for i=1, 3 do
+		if self["m"..tostring(i)] ~= "" and db.actor:object(self["m"..tostring(i)]) then
+			local sum_i = tonumber(self["edit_"..tostring(i+3)]:GetText())
+			if sum_i and sum_i > 0 then 
+				log1(self["m"..tostring(i)].." ".."sum_i = "..tostring(sum_i)) 
+				if sum_i > self["count"..tostring(i+3)] then sum_i = self["count"..tostring(i+3)] end
+				sum = sum + math.ceil(sys_ini:r_u32(self["m"..tostring(i)], "cost")*money_koef*sum_i)
+				relocate_item(self.npc, self["m"..tostring(i)], sum_i)
+				self:delete_item_by_num(self["m"..tostring(i)], sum_i)
+			else 
+				log1("sum_i = nil!") 
+			end
+		end
+	end
+		
+	if delete_table ~= {} then
+		log1("Начинаем удалять вещи.")
+		for k,v in pairs(delete_table) do
+			local obj = alife():object(v:id())
+			alife():release(obj, true)
+		end
+		log1("Всё удалили.")
+	end
+	
+	-- Отдаём деньги игроку (зря, что ли он лишается того, чего он заработал потом и кровью!?!?)
+	if sum ~= 0 then dialogs.relocate_money(self.npc, sum, "in") else log1("Нечего выдавать в качестве награды!") end
+	
+	self:on_quit() -- Выходим из меню
+end
+
+-- Функция вывода в диалог сообщения о потере предмета (взял и модернизировал из news_manager.script)
+function relocate_item(actor, item, count)
+	if db.actor == nil then return false end
+	local task_texture, task_rect = get_texture_info("ui_iconsTotal_lost_thing")
+	local s = ""
+	if string.find(item, "af_") or item == "mutant_izlom_hand" then 
+		s = game.translate_string(sys_ini:r_string(item, "inv_name"))
+	else
+		s = game.translate_string(item)
+	end
+	if count > 1 then s = s.." ("..tostring(count)..")" end
+	local news_text = "%c[255,160,160,160]"..game.translate_string("general_out_item").."\\n".."%c[default]"..s
+	db.actor:give_talk_message(news_text, task_texture, task_rect,"actor_iconed_answer_item")
+end
+
+-- Получение количества item в инвентаре
+function yan_random_quest_wnd:get_item_num(item)
+	count = 0
+	item_name = item
+	db.actor:iterate_inventory(count_item, db.actor)
+	return count
+end
+
+function count_item(npc, item)
+	--log1(item)
+	if item:section() == item_name then count = count + 1 end
+end
+
+function yan_random_quest_wnd:delete_item_by_num(item, num1)
+	item_name = item
+	num = num1
+	count = 0
+	db.actor:iterate_inventory(delete_item, db.actor) -- запихиваем интересующие нас вещи в "камеру смертников"
+end
+
+function delete_item(npc, item)
+	if item:section() == item_name and count<num then
+		log1("Insert item "..item:section().." with id "..item:id())
+		table.insert(delete_table, item)
+		count = count + 1
+	end
+end
+
+--Рисуем предмет
+function yan_random_quest_wnd:DrawCurItem(de_item, x, y, t)
+	if self["cur_rem_textur"..t] then
+		self["cur_rem_textur"..t]:DetachFromParent()
+	end
+	self["cur_rem_textur"..t] = CUIStatic()
+	local a = self["cur_rem_textur"..t]
+	a:SetWindowName("cur_rem_textur"..t)
+	a:SetAutoDelete(true)	
+	CIconParams( de_item ):set_shader( a )
+	self:AttachChild(a)
+
+	local tx = get_x(de_item)
+	local ty = get_y(de_item)
+	local tw = get_w(de_item)
+	local th = get_h(de_item)
+
+	tx=tx*50
+	ty=ty*50
+	tw=tw*50
+	th=th*50
+
+	x = x-(tw/4)
+	y = y-(th/4)
+
+	--a:SetOriginalRect(tx,ty,tw,th)
+
+	if de_item == "mutant_izlom_hand" then
+		tw = tw-22
+	end
+
+	a:Init(x,y,tw,th)
+end
+
+--Название предмета
+function yan_random_quest_wnd:DrawCurItemName(de_item, x, y, t)
+
+	if x == nil then x = 0 end
+	if y == nil then y = 0 end
+
+	local w = self["item_name_rem"..tostring(t)]
+	if not w then
+		self["item_name_rem"..tostring(t)] = CUI3tButton()
+		w = self["item_name_rem"..tostring(t)]
+		w:SetWindowName("item_name_rem"..tostring(t))
+		w:SetAutoDelete(true)
+		self:AttachChild(w) 
+	end
+	if de_item then
+		w:SetFont(GetFontLetterica16Russian())
+		w:SetTextColor (255,255,255,255)
+		self["count"..tostring(t)] = self:get_item_num(de_item)
+		if string.find(de_item, "af_") or de_item == "mutant_izlom_hand" then 
+			de_item = game.translate_string(sys_ini:r_string(de_item, "inv_name"))
+		else
+			de_item = game.translate_string(de_item)
+		end
+		if count ~= 0 then de_item = de_item.." ("..tostring(count)..")" end
+		w:SetText(de_item)
+		w:Init(x-100,y,200,10)
+	else
+		w:SetText("")
+		w:Init(0,0,0,0)
+	end
+end
+
+-- Стоимость предмета
+function yan_random_quest_wnd:DrawCurItemCost(de_item, x, y, t)
+
+	if x == nil then x = 0 end
+	if y == nil then y = 0 end
+
+	local w = self["item_name_rem_cost"..tostring(t)]
+	if not w then
+		self["item_name_rem_cost"..tostring(t)] = CUI3tButton()
+		w = self["item_name_rem_cost"..tostring(t)]
+		w:SetWindowName("item_name_rem_cost"..tostring(t))
+		w:SetAutoDelete(true)
+		self:AttachChild(w) 
+	end
+	if de_item then
+		w:SetFont(GetFontLetterica16Russian())
+		w:SetTextColor (255,255,255,0) -- зелёный цвет
+		w:SetText(tostring(math.ceil(sys_ini:r_u32(de_item, "cost")*money_koef)).."р.")
+		w:Init(x-100,y,200,10)
+	else
+		w:SetText("")
+		w:Init(0,0,0,0)
+	end
+end
+
+function get_x(item)
+	return sys_ini:r_u32(item, "inv_grid_x")
+end
+
+function get_y(item)
+	return sys_ini:r_u32(item, "inv_grid_y")
+end
+
+function get_w(item)
+	return sys_ini:r_u32(item, "inv_grid_width")
+end
+
+function get_h(item)
+	return sys_ini:r_u32(item, "inv_grid_height")
+end

@@ -1,0 +1,18 @@
+[logic]
+active = sr_idle@idle_sound
+
+[sr_idle@idle_sound]
+;on_info = {=actor_near_klondike_zone -klondike_activated} sr_particle@idle_particle 
+on_info = {=have_klondike_key -klondike_activated +klondike_acess} sr_particle@idle_particle 
+on_info2 = {+klondike_activated} sr_idle@disabled
+
+[sr_particle@idle_particle]
+name = anomaly2\anomaly_spatial_bubble_idle
+path = klondike_particle
+mode = 2
+looped = true 
+on_info  = {=actor_near_klondike_zone -klondike_activated !playing_klondike_idle_sound} %=play_klondike_idle_sound%
+on_info2 = {!actor_near_klondike_zone} sr_idle@idle_sound %=stop_klondike_idle_sound%
+on_info3 = {+klondike_activated} sr_idle@disabled %=stop_klondike_idle_sound%
+
+[sr_idle@disabled]

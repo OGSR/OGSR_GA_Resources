@@ -1,0 +1,117 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+danger = danger_ignore
+on_death = death
+on_hit = hit
+;on_combat = remark@surrend
+combat_ignore = combat_ignore
+threshold = threshold@mil_monolith_man2_threshold
+
+[walker@begin]
+path_walk =	mil_monolith_man2_walk
+path_look =	mil_monolith_bonfire_zone_point
+on_timer = 1|walker@1 %=make_invulnerable%
+
+
+[walker@1]
+path_walk =	mil_monolith_man2_walk
+path_look =	mil_monolith_bonfire_zone_point
+combat_ignore_cond = always
+def_state_moving1 = patrol
+def_state_moving2 = patrol
+def_state_moving3 = patrol
+meet = no_meet
+on_info = {+mil_monolith_man_alarm} walker@alarm
+on_actor_dist_le = 20|walker@alarm %+mil_monolith_man_alarm%
+on_signal       = arrived|walker@2 %=unmake_invulnerable%
+
+[walker@2]
+path_walk =	mil_monolith_man2_walk
+path_look =	mil_monolith_bonfire_zone_point
+;combat_ignore_cond = {-mil_monolith_man_hit =dist_to_actor_ge(20)} always
+combat_ignore_cond = always
+def_state_moving1 = patrol
+def_state_moving2 = patrol
+def_state_moving3 = patrol
+meet = no_meet
+wounded = wounded@ignore
+on_actor_dist_le = 10|walker@alarm %+mil_monolith_man_alarm =make_invulnerable%
+on_info = {+mil_monolith_man1_dead +mil_monolith_man3_dead} remark@surrend %=make_invulnerable =set_neutral +mil_monolith_surrend%
+
+[remark@surrend]
+anim = wounded_heavy_2
+no_move = true
+target = actor
+combat_ignore_cond = always
+meet = meet@wounded
+on_info = {+mil_monolith_man_suicide} remark@surrend2 %=spawn_mil_monolith_man2grenade =unmake_invulnerable%
+
+[remark@surrend2]
+anim = wounded_heavy_2
+no_move = true
+target = actor
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 21|remark@surrend3 %=hit_obj(7368:link:1:0)%
+
+[remark@surrend3]
+anim = wounded_heavy_2
+no_move = true
+target = actor
+combat_ignore_cond = always
+meet = no_meet
+on_timer = 5|%=kill%
+
+
+; Испугалсь и сваливаем:
+[walker@alarm]
+path_walk =	mil_monolith_man_walk_away
+path_look =	mil_monolith_man_walk_away
+combat_ignore_cond = always
+def_state_moving1 = sprint_p
+def_state_moving2 = sprint_p
+def_state_moving3 = sprint_p
+meet = no_meet
+on_signal       = arrived|%=release%
+
+
+[wounded@ignore]
+hp_state        = 0|wounded_heavy@help_heavy
+hp_state_see    = 0|wounded_heavy@help_heavy
+hp_victim       = 0|nil
+hp_fight        = 0|false
+hp_cover        = 0|false
+
+[meet@wounded]
+meet_state = 2|wounded_heavy@help_heavy|1|wounded_heavy@help_heavy
+meet_state_wpn = 2|wounded_heavy@help_heavy|1|wounded_heavy@help_heavy
+victim = 1|nil
+victim_wpn = 1|nil
+use = true
+use_wpn = false
+abuse = false
+
+[danger_ignore]
+ignore_distance = 1
+
+[combat_ignore]
+combat_ignore = always
+
+[threshold@mil_monolith_man2_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[hit]
+on_info = {=hit_by_actor} %+mil_monolith_man_hit%
+
+[death]
+on_info = {=killed_by_actor} %+mil_monolith_man2_dead +mil_monolith_man_hit%, {!killed_by_actor} %+mil_monolith_man2_dead%
+
+
+
+
+
+

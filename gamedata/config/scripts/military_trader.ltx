@@ -1,0 +1,45 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker
+trade = misc\trade_military.ltx
+combat_ignore = combat_ignore
+
+[walker]
+path_walk = military_trader_walk
+path_look = military_trader_look
+meet = meet
+danger = danger_condition
+on_info = {=actor_has_weapon} remark
+combat_ignore_cond = {!actor_enemy !fighting_actor}
+
+[meet]
+use = true
+use_wpn = false
+meet_talk_enabled = true
+victim = 9|actor
+victim_wpn = 9|actor
+meet_state = 9|hello@val_escort_phrase_invite|5|wait@wait
+meet_state_wpn = 9|threat@threat_weap
+on_info = {=actor_has_weapon} remark
+
+[remark]
+no_move = true
+no_rotate = false
+target = actor
+snd = threat_back
+anim = threat
+on_info = {!actor_has_weapon} walker
+;on_timer = 10000| %=killactor%
+reactions = ignore
+danger = danger_condition
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0
+
+[combat_ignore]
+

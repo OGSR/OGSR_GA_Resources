@@ -1,0 +1,727 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+-------------------------------------------------------------------------------
+--| ogse_healing.script                                                     |--
+--| Ухудшение аптечек + медленные аптечки                                   |--
+--| Mixser, Merc13, Malandrinus, OGS Evolution Team, 2013                   |--
+--| Ревизия: 01.2013                                                        |--
+-------------------------------------------------------------------------------
+
+function attach(sm) -- для менеджера сигналов
+	sm:subscribe({signal = "on_update", fun = this.on_update_lp, queued = true})
+	sm:subscribe({signal = "on_update", fun = this.on_actor_update})
+	sm:subscribe({signal = "on_spawn", fun = this.on_actor_spawn})
+	sm:subscribe({signal = "on_save", fun = this.on_save})
+	sm:subscribe({signal = "on_actor_before_hit", fun = this.on_actor_before_hit})
+end
+
+-----------------------------------------------------------------------
+--- Общие параметры
+-----------------------------------------------------------------------
+
+-- множитель времени для того, чтобы время лечения не зависело от таймфактора
+local default_time_factor  = get_float("alife","time_factor")
+-- флажок на включение/выключение ухудшения эффективности аптечек
+local poison_medicine      = get_bool("options","poison_drugs", false)
+-- флажок на включение/выклюючение "медленных" аптечек
+slow_medicine = get_bool("options","slow_drugs", false)
+-- время лечения "медленных" аптечек по умолчанию, если не задано в секции аптечки, сек.
+local default_time_to_heal = get_float("options","default_time_to_heal", 20.0)
+-- количество аптечек, которое можно съесть без снижения эффективности
+local min_critical_medkits = get_u32("options", "min_critical_medkits", 3)
+-- количество атечек, после которого эффект становится негативным
+local max_critical_medkits = get_u32("options", "max_critical_medkits", 15)
+-- время, за которое накопленный эффект отравления снижается на одну аптечку, сек.
+local detoxication_interval = seconds2ctime(get_float("options", "medkits_detoxication_interval", 20.0) * default_time_factor)
+-- интервал обновления для эффектов от дикса и т.п., сек
+local dix_power_restore_rate = get_float("dix", "power_restore_rate", 0.1)
+--local bipsizon_psy_restore_rate = 0.003
+
+------------------------------------------ Тексты --------------------------------------------------
+local text_effect_down = {} -- ключ - номер съеденной аптечки, на которой выводится сообщение
+-- равномерно распределяем предупреждения об отравлении
+local first_intoxication_warning = min_critical_medkits + 1
+local second_intoxication_warning = math.round(min_critical_medkits + (max_critical_medkits - min_critical_medkits) / 3.0)
+local third_intoxication_warning = math.round(min_critical_medkits + 2.0 * (max_critical_medkits - min_critical_medkits) / 3.0)
+local forth_intoxication_warning = max_critical_medkits
+text_effect_down[first_intoxication_warning]  = game.translate_string("ogse_healing_first_intoxication_warning_text")
+text_effect_down[second_intoxication_warning] = game.translate_string("ogse_healing_second_intoxication_warning_text")
+text_effect_down[third_intoxication_warning]  = game.translate_string("ogse_healing_third_intoxication_warning_text")
+text_effect_down[forth_intoxication_warning]  = game.translate_string("ogse_healing_forth_intoxication_warning_text")
+
+local text_using_voda = game.translate_string("ogse_healing_text_using_voda_text")
+
+local text_already_using = game.translate_string("ogse_healing_text_already_using_text")
+local text_autodoctor_using = game.translate_string("ogse_healing_text_autodoctor_using_text")
+
+local text_yod_using_error = game.translate_string("ogse_healing_text_overdose_error_text")
+local text_dix_using_error = game.translate_string("ogse_healing_text_overdose_error_text")
+local text_bipsizon_using_error = game.translate_string("ogse_healing_text_overdose_error_text")
+local text_yod_using_error_notfunct = game.translate_string("ogse_healing_text_yod_error_text")
+
+-- обнуление всех эффектов съедаемого предмета
+-- изменённые значения в сейве не сохраняются
+-- функция предназначена в основном для использования в событии предиспользования,
+-- когда эффекты предмета ещё не применены и их можно изменить, что повлияет на собственно эффект от 
+-- предмета на параметры здоровья, радиации и т.п.. При этом подразумевается,
+-- что предмет после использования будет удалён, поэтому вопрос о сохранении этих свойств не стоит
+-- если используется подход с eat_portions_num > 1 (обычно задаётся "бесконечное" значение, типа 10000),
+-- то эту функцию либо использовать нельзя, либо надо таким же образом восстанавливать свойства предмета
+-- в событии использования (стандартный колбек callback.use, который в сущности является колбеком на 
+-- "послеиспользование", когда эффекты предмета уже применены)
+local function zero_all_item_effects(item)
+	ASSERT(item:is_eatable_item(), "")
+	item:zero_effects()
+end
+
+-- набор констант для использования в колбеках на использование и предиспользование инвентарных предметов
+-- константы сигналят, что надо делать с предметом после его обработки: 
+--     удалить, создать его дубликат, не делать ничего
+-- это надо для упорядочения работы с инвентарными предметами при разных подходах использования eat_portions_num
+-- если eat_portions_num = 1 или -1, то предмет одноразовый. В этом случае, если мы хотим "сохранить" предмет
+-- в инвентаре, то возвращаем post_use_action.create_new_item, в противном случае возвращаем post_use_action.do_nothing
+-- если же используем подход с eat_portions_num = "бесконечность", то как раз при использовании сигналим
+-- вызвавшему коду, что предмет надо удалить, т.е. возвращаем post_use_action.delete_item, в противном случае просто оставляем
+-- предмет в покое (возвращаем post_use_action.do_nothing).
+-- P.S.: Этот подход архитектурно не навязан. Используется по желанию. Константы вынесены сюда на тот случай,
+-- если кто-то захочет использовать такую же организацию кода
+local post_use_action = {
+	do_nothing = 0,
+	delete_item = 1,
+	create_new_item = 2,
+}
+
+--------------------------------- динамические переменные ------------------------------------------
+
+-- Время окончания действия препаратов. Ключи: "yod_end", "vodka_end", "dix_end", "bipsizon_end"
+-- значения, если имеется, - время окончания действия препарата в формате CTime. Если значения нет, 
+-- или время в прошлом, значит препарат неактивен.
+--local drugs_times = {}
+local amount_of_medkit_used = 0 -- количество использованных аптечек
+local next_detoxication_time = nil -- время следуюшего такта детоксикации
+local timers_immunities = { -- динамические иммунитеты от таймеров
+	["rad_immunity"] = {},
+	["rad_food_immunity"] = {},
+	["psy_immunity"] = {},
+}
+
+----------------------------------------------------------------------------------------------------
+local items_properties = {} -- ключ - секция, значение - таблица с эффектами
+local function get_item_effects(section)
+	local res = items_properties[section]
+	if not res then
+		res = {}
+		res.health     = get_float(section, "eat_health", 0.0)
+		res.satiety    = get_float(section, "eat_satiety", 0.0)
+		res.power      = get_float(section, "eat_power", 0.0)
+		res.wound_heal = get_float(section, "wounds_heal_perc", 0.0)
+		res.radiation  = get_float(section, "eat_radiation", 0.0)
+		res.max_power  = get_float(section, "eat_max_power", 0.0)
+		res.psy_health = get_float(section, "eat_psy_health", 0.0)
+		res.alcohol    = get_float(section, "eat_alcohol", 0.0)
+		items_properties[section] = res
+	end
+	return res
+end
+-- функция "портит" параметры аптечки в соответствии с неким коэффициентом порчи, который меняется от 1 (нет порчи)
+-- вниз до нуля (становится бесполезной) и далее в минус (отравление)
+-- общая идея "порчи":
+-- эффект на здоровье меняется в соотвествии с коэффициентом. Может уйти в негатив, что будет оначать "отравление"
+-- выведение радиации, лечение кровотечения и псих здоровья снижается в соответствии с коэффициентом, но не ниже нуля.
+-- В самом деле, если даже аптечка перестала выводить радиацию, то повышать её всё равно не будет.
+-- если аптечка вдруг имеет параметры алкоголя, снижения сытости и эффект усталости, то они не меняются
+local function spoil_healing_effects(effects, scale)
+	--ASSERT(scale, "scale_healing_params: scale is not defined")
+	local scaled_params = table.clone_simple(effects)
+	if not scale then return scaled_params end -- ничего не меняем
+	-- применяем эффект, для каждого параметра по-разному
+	scaled_params.health = scaled_params.health * scale -- уменьшается в точном соответствии с коэффициентом, может стать негативным
+	scaled_params.radiation = math.min(0, scaled_params.radiation * scale) -- уменьшается, но увеличивать радиацию не будет
+	scaled_params.wound_heal = math.max(0, scaled_params.wound_heal * scale) -- уменьшается, но вызывать кровотечение не будет
+	scaled_params.psy_health = math.max(0, scaled_params.psy_health * scale) -- уменьшается, но вызывать потерю псих.здоровья не будет
+	-- satiety, голод, вызываемый аптечкой (если есть), не меняется
+	-- power, усталость (если есть) не меняется
+	-- alcohol, эффект алкоголя не меняется
+	-- max_power, предельная усталость не меняется
+	return scaled_params
+end
+
+-----------------------------------------------------------------------
+--- Функции
+-----------------------------------------------------------------------
+
+function on_actor_spawn()
+	db.actor.max_power = ogse.load_var("actor_max_power", 1.0)
+	
+	if ogse.var_exists("next_detoxication_time") then
+		next_update_time = ogse.load_var("next_detoxication_time", 0)
+	end
+	
+	amount_of_medkit_used = ogse.load_var("amount_of_medkit_used", 0)
+	---восстанавливаем время лекарств
+	--drugs_times.yod_end      = ogse.load_var_safe("yod_end")
+	--drugs_times.vodka_end    = ogse.load_var_safe("vodka_end")
+	--drugs_times.dix_end      = ogse.load_var_safe("dix_end")
+	--drugs_times.bipsizon_end = ogse.load_var_safe("bipsizon_end")
+end
+function on_save()
+	ogse.save_var("actor_max_power", db.actor.max_power, "float")
+	ogse.save_or_delete_var("next_detoxication_time", next_detoxication_time, "time")
+	ogse.save_var("amount_of_medkit_used", amount_of_medkit_used, "u32")
+	
+	--ogse.save_or_delete_var("yod_end",      drugs_times.yod_end,      "time")
+	--ogse.save_or_delete_var("vodka_end",    drugs_times.vodka_end,    "time")
+	--ogse.save_or_delete_var("dix_end",      drugs_times.dix_end,      "time")
+	--ogse.save_or_delete_var("bipsizon_end", drugs_times.bipsizon_end, "time")
+end
+-- детоксикация - процесс медленный, вешаем на низкоприоритетное обновление
+function on_update_lp()
+	if next_detoxication_time and game.get_game_time() > next_detoxication_time then
+		next_detoxication_time = next_detoxication_time + detoxication_interval
+		if amount_of_medkit_used > 1 then
+			amount_of_medkit_used = amount_of_medkit_used - 1
+		end
+		if amount_of_medkit_used == 0 then -- выветрилось, можно перестать считать
+			next_detoxication_time = nil
+		end
+	end
+end
+
+---------------------- Универсальный таймер замедленных эффектов здоровья --------------------------
+class "health_effect_timer" (ogse_st_mgr.savable_timer)
+
+function health_effect_timer:__init(name) super(name)
+	self.class = script_name()..".health_effect_timer"
+	self.last_time = game.get_game_time()
+	self.prop_list = {
+		--{"остаток", "скор. изм.", "имя свойства актора"},
+		{"hl_remain", "hl_rate", "health"}, 
+		{"bl_remain", "bl_rate", "wound_heal"}, -- такого свойства нет, обрабатывается особо
+		{"pw_remain", "pw_rate", "power"}, 
+		{"ph_remain", "ph_rate", "psy_health"}, 
+		{"rd_remain", "rd_rate", "radiation"}, 
+		{"st_remain", "st_rate", "satiety"}, 
+		{"mw_remain", "mw_rate", "max_power"}, 
+		{"al_remain", "al_rate", "alcohol"}
+	} -- после изменения этой таблички в составе или порядке требуется новая игра!!!
+end
+
+-- метод для первичной инициализации, может иметь произвольное имя
+function health_effect_timer:init(hpar)
+	local par = {}
+    self.hpar = par
+	for _,v in ipairs(self.prop_list) do
+		local kremain, krate = v[1], v[2]
+		par[kremain] = hpar[kremain] or 0.0 -- remain
+		par[krate] = hpar[krate] or 0.0 -- rate
+		-- делаем некоторые проверки корректности входных данных
+		local is_ok
+		if kremain ~= "bl_remain" then
+			-- если параметр оставшейся работы не равен нулю, то соответствующая скорость изменения
+			-- должна быть не равна нулю и быть того же знака
+			is_ok = par[kremain] == 0 or (par[krate] / par[kremain] > 0)
+		else
+			-- кровотечение можно только лечить, поэтому отрицательные значения недопустимы
+			is_ok = par[kremain] >= 0 or (par[krate] / par[kremain] > 0)
+		end
+		ASSERT(is_ok, 
+			"health_effect_timer:init: incorrect parameters combination (%s = %7.2f, %s = %7.2f)", 
+			kremain, krate, par[kremain], par[krate])
+	end
+	return self
+end
+-- перегруженные методы загрузки/сохранения пользовательских данных
+function health_effect_timer:load(t)
+	self.last_time = game.get_game_time()
+	self.hpar = {}
+	for _,v in ipairs(self.prop_list) do
+		self.hpar[v[1]] = table.remove( t, 1 )
+	end
+	for _,v in ipairs(self.prop_list) do
+		self.hpar[v[2]] = table.remove( t, 1 )
+	end
+end
+function health_effect_timer:save(t, template)
+	for _,v in ipairs(self.prop_list) do
+		table.insert( template, "float" )
+		table.insert( t, self.hpar[v[1]] )
+	end
+	for _,v in ipairs(self.prop_list) do
+		table.insert( template, "float" )
+		table.insert( t, self.hpar[v[2]] )
+	end
+	return template
+end
+function health_effect_timer:print(comment) -- отладочный метод
+	log1(comment)
+	local hpar = self.hpar -- просто для сокращения объёма индексаций
+	for _,v in ipairs(self.prop_list) do
+		local kremain, krate = v[1], v[2]
+		log2("%s: %7.2f,  %s: %7.2f,  ", kremain, krate, hpar[kremain], hpar[krate])
+	end
+end
+-- метод, который собственно делает работу по лечению, и также решает, что работа закончена
+function health_effect_timer:condition()
+	local current_time = game.get_game_time()
+	local dt = current_time:diffSec(self.last_time)
+	local all_done = true -- кумулятивный признак, что таймер должен закончить работу
+	local hpar = self.hpar -- просто для сокращения объёма индексаций
+	for _,v in ipairs(self.prop_list) do
+		local kremain, krate, actor_property = v[1], v[2], v[3]
+		--log2("%s: %7.2f,  %s: %7.2f,  ", kremain, krate, hpar[kremain], hpar[krate])
+		-- проверяем, что есть влияние на данный параметр и остался резерв изменения
+		if hpar[krate] ~= 0 and hpar[kremain] ~= 0 then
+			local delta = hpar[krate] * dt -- на сколько меняем с последнего апдейта
+			--log2("delta=%7.2f", delta)
+			if delta / hpar[kremain] >= 1.0 then -- если текущее изменение больше, чем оставшаяся работа
+				hpar[kremain] = 0 -- то просто закругляемся с этим параметром
+				hpar[krate] = 0 -- то просто закругляемся с этим параметром
+				delta = hpar[kremain] -- текущее изменение будет то, что осталось
+			else 
+				-- в противном случае меняем оставшееся значение на вычисленное приращение
+				hpar[kremain] = hpar[kremain] - delta
+				-- и говорим таймеру, что заканчивать ещё рано
+				all_done = all_done and false
+			end
+			if kremain~= "bl_remain" then -- все параметры кроме кровотечения обрабатываются одинаково
+				db.actor[actor_property] = delta -- меняем на delta
+			else
+				db.actor:heal_wounds(delta)
+			end
+		end
+	end
+	self.last_time = current_time
+    return all_done -- если не был изменён ни один параметр, то закругляемся
+end
+
+-- Специализации таймера для аптечек с учётом количества работающих в данный момент.
+-- Параметры аптечки читаются из секции предмета.
+local medkits_counter = 0
+function get_medkits_counter()
+	return medkits_counter
+end
+
+class "medkit_timer" (health_effect_timer)
+function medkit_timer:__init(name) super(name)
+	self.class = script_name()..".medkit_timer"
+end
+function medkit_timer:start()
+	medkits_counter = medkits_counter + 1
+	health_effect_timer.start(self)
+end
+function medkit_timer:action()
+	medkits_counter = medkits_counter - 1
+end
+
+function medkit_timer:init(sect, scale)
+	-- scale позволяет уменьшить эффективность лечения
+	ASSERT(sect, "ogse_healing.get_heal_parameters: section is a nil eference!")
+	local spoiled_effects = spoil_healing_effects(get_item_effects(sect), scale)
+	local t = get_float(sect, "time_to_heal", default_time_to_heal) * default_time_factor
+	ASSERT(t > 0, "medkit_timer:init: healing time is less than or equal to zero, section '%s'", sect)
+	local res = {}
+	for _,v in ipairs(self.prop_list) do
+		local kremain, krate, actor_property = v[1], v[2], v[3]
+		res[kremain] = spoiled_effects[actor_property]
+		res[krate] = res[kremain] / t
+	end
+	return health_effect_timer.init(self, res)
+end
+
+local function get_combined_radiation_protection()
+	local total_rad_immunity = 1.0
+	for _,v in pairs(timers_immunities.rad_immunity) do
+		total_rad_immunity = total_rad_immunity * v
+	end
+	--local now_using_B190 = ogse_st_mgr.timer_exists("using_B190")
+	--local B190_effect = now_using_B190 and 0.1 or 1.0
+	local alcohol_effect = 1.0 - 0.2 * db.actor.alcohol -- минимально 0.8 при максимальном опъянении
+	return total_rad_immunity * alcohol_effect
+end
+local function get_combined_food_radiation_protection()
+	local total_rad_food_immunity = 1.0
+	for _,v in pairs(timers_immunities.rad_food_immunity) do
+		total_rad_food_immunity = total_rad_food_immunity * v
+	end
+	--local now_using_B190 = ogse_st_mgr.timer_exists("using_B190")
+	--local B190_effect = now_using_B190 and 0.1 or 1.0
+	local alcohol_effect = 1.0 - 0.1 * db.actor.alcohol -- минимально 0.9 при максимальном опъянении
+	return total_rad_food_immunity * alcohol_effect
+end
+local function get_combined_psy_protection()
+	local total_psy_immunity = 1.0
+	for _,v in pairs(timers_immunities.psy_immunity) do
+		total_psy_immunity = total_psy_immunity * v
+	end
+	
+	local alcohol_effect = 1.0 - 2 * db.actor.alcohol
+	if alcohol_effect < 0 then alcohol_effect = 0 end
+	
+	return total_psy_immunity * alcohol_effect
+end
+
+-- событие предхита актора
+-- здесь реализуем часть иммунитетов. 
+-- Ещё часть реализуется в событии "on_before_use", поскольку не все эффекты проходят через хит. 
+local last_t = 0
+function on_actor_before_hit(obj, hit_data)
+	local t = time_global()
+	--log3("on_actor_before_hit: %s", (t - last_t))
+	last_t = t
+	local current_time = game.get_game_time()
+	local hit_type = hit_data.hit_type
+	if hit_type == hit.radiation then
+		local who = level.object_by_id(hit_data.who_id)
+		--log3("on_actor_before_hit: radiation, who = %s", who and who:section() or "none")
+		local rad_prot = get_combined_radiation_protection()
+		--log3("hit_data.power = %s, rad_prot = %s", hit_data.power, rad_prot)
+		if rad_prot < 0.999 then
+			hit_data.power = hit_data.power * rad_prot
+		end
+	elseif hit_type == hit.telepatic then
+		--log3("on_actor_before_hit: telepatic, who = %s", who and who:section() or "none")
+		local psy_prot = get_combined_psy_protection()
+		--log3("hit_data.power = %s, psy_prot = %s", hit_data.power, psy_prot)
+		--if psy_prot > 0 then
+			hit_data.power = hit_data.power * psy_prot
+		--end
+	end
+end
+----------------------------------------------------------------------------------------------------
+function can_use_medkit(item)
+	if ogse_autodoc.ad_on_belt and ogse_autodoc.switch_on.ad then
+		if item then
+			zero_all_item_effects(item)
+		end
+		ogse_screen_msg.show_message_trouble(text_autodoctor_using)	-- нельзя использовать аптечки параллельно с автодоком
+		return false
+	end
+
+	if ogse_st_mgr.timer_exists("using_medkit") then -- если сейчас активна медленная аптечка
+		if item then
+			zero_all_item_effects(item)
+		end
+		ogse_screen_msg.show_message_trouble(text_already_using) -- действие предыд. аптечки еще не закончилось
+		return false
+	end
+
+	return true
+end
+
+function use_medkit(sect, item)
+	if not can_use_medkit(item) then
+		return post_use_action.create_new_item
+	end
+	--
+	--KRodin: ухудшение аптечек пусть работает только вместе с медленными аптечками.
+	--Иначе теперь возникают проблемы - при использовании аптечки в ноль падает выносливость и её невозможно восстановить даже энергетиком.
+	if slow_medicine then
+		if item then
+			zero_all_item_effects(item)
+		end
+	else
+		return post_use_action.do_nothing
+	end
+	--
+	-- ухудшение эффективности аптечек
+	local poisoning_scale = 1.0
+	if poison_medicine then
+		amount_of_medkit_used = amount_of_medkit_used + 1
+		if amount_of_medkit_used == 1 then -- первая аптечка, запускаем таймер детоксикации
+			next_detoxication_time = game.get_game_time() + detoxication_interval
+		end
+		
+		local msg = text_effect_down[amount_of_medkit_used]
+		if msg then ogse_screen_msg.show_message_trouble(msg) end
+		
+		poisoning_scale = math.min(1.0, 1.0 - 1.0*(amount_of_medkit_used - min_critical_medkits) / (max_critical_medkits - min_critical_medkits))
+	end
+	--log3("poisoning_scale: %f", poisoning_scale)
+	if slow_medicine then -- если включены медленные аптечки
+		medkit_timer("using_medkit"):init(sect, poisoning_scale):start(true) -- запускаем таймер медленного лечения
+	else -- Лечение обычными аптечками
+		--log1("regular medkits")
+		-- меняем всё единовременно
+		-- получаем свойства объекта из его секции
+		local effects = spoil_healing_effects(get_item_effects(sect), poisoning_scale)
+		--log1("have spoiled effects")
+		for property,effect in pairs(effects) do
+			--log3("%s: %f", property,effect)
+			if property ~= "wound_heal" then
+				db.actor[property] = effect
+			else -- кровотечение орабатывается не так, как остальные параметры
+				db.actor:heal_wounds(effect)
+			end
+		end
+	end
+	-- после удачного использования аптечку восстанавливать не надо
+	return post_use_action.do_nothing
+end
+
+----------- Эффекты от препаратов ---------------
+function use_voda(section) -- убираем все эффекты отравления аптечками
+	if poison_medicine and amount_of_medkit_used > 0 then
+		-- степень детоксикации за один приём в аптечках
+		local detoxication = get_u32(section, "detoxication_ability", 5)
+
+		amount_of_medkit_used = amount_of_medkit_used - detoxication
+		if amount_of_medkit_used < 0 then
+			amount_of_medkit_used = 0 
+			next_detoxication_time = nil
+		end
+		local msg
+		if amount_of_medkit_used >= forth_intoxication_warning then
+			msg = text_effect_down[forth_intoxication_warning]
+		elseif amount_of_medkit_used >= third_intoxication_warning then
+			msg = text_effect_down[third_intoxication_warning]
+		elseif amount_of_medkit_used >= second_intoxication_warning then
+			msg = text_effect_down[second_intoxication_warning]
+		elseif amount_of_medkit_used >= first_intoxication_warning then
+			msg = text_effect_down[first_intoxication_warning]
+		else
+			msg = text_using_voda
+		end
+		ogse_screen_msg.show_message_trouble(msg)
+	end
+	return post_use_action.do_nothing -- всегда используем
+end
+
+
+function can_use_B190()
+	if ogse_st_mgr.timer_exists("using_B190") then
+		ogse_screen_msg.show_message_trouble(text_yod_using_error)
+		return false
+	end
+	return true
+end
+
+function use_B190(section, item)
+	if item then
+		zero_all_item_effects(item)
+	end
+
+	if not can_use_B190() then
+		return post_use_action.create_new_item
+	end
+
+	if db.actor.radiation == 0 then
+		health_effect_timer_ex("using_B190"):init(section):start()
+	else
+		ogse_screen_msg.show_message_trouble(text_yod_using_error_notfunct)
+	end
+	return post_use_action.do_nothing
+end
+
+
+function can_use_dix()
+	if ogse_st_mgr.timer_exists("using_dix") then
+		ogse_screen_msg.show_message_trouble(text_dix_using_error)
+		return false
+	end
+	return true
+end
+
+function use_dix(section, item)
+	if item then
+		zero_all_item_effects(item)
+	end
+
+	if not can_use_dix() then
+		return post_use_action.create_new_item
+	end
+
+	ogse_sleep_mgr.use_stimulant(section)
+	dix_timer("using_dix"):init(section):start()
+	return post_use_action.do_nothing
+end
+
+
+function can_use_bipsizon()
+	if ogse_st_mgr.timer_exists("using_bipsizon") then
+		ogse_screen_msg.show_message_trouble(text_bipsizon_using_error)
+		return false
+	end
+	return true
+end
+
+function use_bipsizon(section, item)
+	if item then
+		zero_all_item_effects(item)
+	end
+
+	if not can_use_bipsizon() then
+		return post_use_action.create_new_item
+	end
+
+	db.actor.psy_health = db.actor.psy_health + 1.0
+	
+	health_effect_timer_ex("using_bipsizon"):init(section):start()
+	return post_use_action.do_nothing 
+end
+
+
+function use_vodka(item, section)
+	db.actor.psy_health = db.actor.psy_health + 1.0
+end
+
+-- ключ - секция предмета
+-- значение - функция использования
+local usable_sections = {
+	["medkit"]          = use_medkit,
+	["medkit_army"]     = use_medkit,
+	["medkit_scientic"] = use_medkit,
+	["voda"]            = use_voda,
+	["yod"]             = use_B190,
+	["dix"]             = use_dix,
+	["bipsizon"]        = use_bipsizon,
+	["vodka"]           = use_vodka,
+}
+
+-- Событие предшествующее использованию предмета. Используется для реализации
+-- иммунитетов, медленных аптечек и аптечек со сниженной эффективностью.
+function on_before_use_item(obj, sobj)
+	local section = sobj:section_name()
+	local fun = usable_sections[section]
+	if not fun and obj:is_eatable_item() then -- не наш предмет, но потенциально может нести радиацию
+		-- надо снизить в соответствии с иммунитетом от радиопротектора
+		local item_effects = get_item_effects(section) -- съедаемый предмет
+		if item_effects.radiation > 0 then -- и радиоактивный
+			local rad_prot = get_combined_radiation_protection()
+			if rad_prot < 0.999 then
+				local scaled_effect = item_effects.radiation * rad_prot
+				obj:set_radiation_influence(scaled_effect)
+			end
+		end
+		return true
+	end
+
+	if not fun then
+		return false
+	end
+	-- есть функция для обработки объекта
+	local res = fun(section, obj)
+	if res == post_use_action.delete_item then-- если функция обработки вернула запрос на удаление предмета
+		alife():release(sobj) -- удаляем
+		return false
+	elseif res == post_use_action.create_new_item then -- если надо создать предмет заново
+		ogse.spawn_item_in_inv(section) -- создаём
+		return false
+	end
+	return true
+end
+
+-----------------------------------------------------------------------------------------------------
+function on_actor_update()
+	local rad_prot = get_combined_radiation_protection()
+	if rad_prot < 0.999 then
+		db.actor:set_additional_radiation_protection(rad_prot)
+	end
+	db.actor:set_additional_telepatic_protection(get_combined_psy_protection())
+end
+
+local imm_names = {"rad_immunity", "rad_food_immunity", "psy_immunity"}
+local function get_immunities_effects(section)
+	local res = {}
+	for _,imm_name in ipairs(imm_names) do
+		if sys_ini:line_exist(section, imm_name) then
+			res[imm_name] = get_numbers(section, imm_name)
+			ASSERT(#res[imm_name] == 2, "")
+		end
+	end
+	return res
+end
+------------ Таймер замедленных эффектов здоровья с добавленным изменением иммунитетов -------------
+class "health_effect_timer_ex" (health_effect_timer)
+function health_effect_timer_ex:__init(name) super(name)
+	self.class = script_name()..".health_effect_timer_ex"
+end
+function health_effect_timer_ex:init(section)
+	self.section = section
+	self.immunities = get_immunities_effects(section)
+	local t = get_float(self.section, "effect_time", nil)
+	ASSERT(t, "")
+	self.total_time = t * default_time_factor
+	--
+	local effects = get_item_effects(self.section)
+	local res = {}
+	for _,v in ipairs(self.prop_list) do
+		local kremain, krate, actor_property = v[1], v[2], v[3]
+		res[kremain] = effects[actor_property]
+		res[krate] = res[kremain] / self.total_time
+	end
+	health_effect_timer.init(self, res)
+	self:set_gdelay(self.total_time)
+	return self
+end
+function health_effect_timer_ex:load(t)
+	health_effect_timer.load(self, t)
+	self.section = table.remove( t, 1 )
+	self.immunities = get_immunities_effects(self.section)
+	local t = get_float(self.section, "effect_time", nil)
+	ASSERT(t, "")
+	self.total_time = t * default_time_factor
+end
+function health_effect_timer_ex:save(t, template)
+	health_effect_timer.save(self, t, template)
+	table.insert( template, "string" )
+	table.insert( t, self.section )
+	return template
+end
+-- обновляем текущие иммунитеты от таймера
+function health_effect_timer_ex:condition()
+	local current_time = game.get_game_time()
+	local dt = current_time:diffSec(self.last_time)
+	local relative_time = current_time:diffSec(self:get_start_time()) / self.total_time
+	--log1("DEBUG!! Medicine ["..self.section.."] time ["..relative_time.."]")
+	for immunity_name,values in pairs(self.immunities) do
+		--immunities[immunity_name] = immunities[immunity_name] or {}
+		timers_immunities[immunity_name][self.id] = values[1] + (values[2] - values[1]) * relative_time
+	end
+    return health_effect_timer.condition(self)
+end
+function health_effect_timer_ex:action() -- обнуляем все иммунитеты, связанные с этим таймером
+	for immunity_name,_ in pairs(timers_immunities) do
+		timers_immunities[immunity_name][self.id] = nil
+	end
+	--log1("DEBUG!! Medicine ["..self.section.."] STOP!")
+	--self:stop()
+end
+function health_effect_timer_ex:taction()
+	self:action() -- на тот случай, если сработает по времени
+end
+---------------------- Таймер радопротектора ------------------------
+---------------------- Таймер D-IX ------------------------
+-- неболшая надстройка над универсальныйм таймером:
+-- при старте уменьшает максимальную энергию, затем запоминает новое значение,
+-- выставляет на время своего действия максимальную энергию на максимум
+-- при окончании работы возвращает обратно уменьшенное значение
+class "dix_timer" (health_effect_timer_ex)
+function dix_timer:__init(name) super(name)
+	self.class = script_name()..".dix_timer"
+end
+function dix_timer:init(section)
+	--db.actor.max_power = - 0.1 -- TODO: раскомментировать, когда будет доделан сон
+	--db.actor:update_condition()
+	self.normal_max_power = db.actor.max_power
+	db.actor.max_power = 1.0
+	health_effect_timer_ex.init(self, section)
+	return self
+end
+function dix_timer:load(t)
+	health_effect_timer_ex.load(self, t)
+
+	self.normal_max_power = table.remove( t, 1 )
+end
+function dix_timer:save(t, template)
+	health_effect_timer_ex.save(self, t, template)
+
+	table.insert( template, "float" )
+	table.insert( t, self.normal_max_power )
+	return template
+end
+function dix_timer:action() -- обнуляем все иммунитеты, связанные с этим таймером
+	db.actor.max_power = self.normal_max_power --[[ - db.actor.max_power]] -- KD: в движке SET
+	health_effect_timer_ex.action(self)
+	--log1("DEBUG!! Medicine [DIX] STOP!")
+	--self:stop()
+end

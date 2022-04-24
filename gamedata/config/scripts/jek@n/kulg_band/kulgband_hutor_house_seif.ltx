@@ -1,0 +1,25 @@
+[collide]
+ignore_static
+
+[logic]
+active = {+kulgband_hutor_house_seif_open} ph_idle@3, {+kulgband_hutor_house_seif_use} ph_idle@2, ph_idle@1
+
+[ph_idle@1]
+tips = kulgband_hutor_house_seif_use1
+on_use = {+kulgband_hutor_house_seif_task} ph_idle@2 %+kulgband_hutor_house_seif_use =spawn_kulgband_seif_dead_man%
+
+[ph_idle@2]
+tips = kulgband_hutor_house_seif_use2
+on_use = {=actor_has_item(kulgband_hutor_house_seif_key)} ph_idle@3 %+kulgband_hutor_house_seif_open =delete_kulgband_seif_dead_man%
+
+[ph_idle@3]
+nonscript_usable = true
+tips = kulgband_hutor_house_seif_use1
+
+
+
+
+
+
+
+

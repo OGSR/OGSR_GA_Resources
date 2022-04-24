@@ -1,0 +1,198 @@
+	<credits_seq>
+
+		<global_wnd x="0" y="0" width="1024" height="768">
+			<auto_static x="0" y="0" width="1024" height="768">
+				<texture x="0" y="0" width="1024" height="768">ui\ui_static_mm_back_06</texture>
+			</auto_static>
+		</global_wnd>
+		<play_each_item>1</play_each_item>
+		<item>
+			<length_sec>200</length_sec>
+			<pause_state>on</pause_state>
+			<function_on_stop>ogse_quests.this_is_the_end</function_on_stop>
+			<guard_key/>
+			<pause_sound>on</pause_sound>
+			<sound>music\credits</sound>
+			<cursor_pos/>
+			<pda_section/>
+			<grab_input>1</grab_input>
+			<!--main_wnd x="50" y="0" это подходит для широкоформата но не подходит для квадратного... Ещё один xml городить не хочу, пусть пока так и останется-->
+			<main_wnd>
+
+				<auto_static start_time="0" length_sec="41" x="270" y="30" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="graffiti50" color="white">ogsr_development</text>
+				</auto_static>
+
+
+				<auto_static start_time="2" length_sec="8" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">ogsr_engine_developers</text>
+				</auto_static>
+				<auto_static start_time="3" length_sec="7" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">ogsr_engine_developers_names</text>
+				</auto_static>
+
+				<auto_static start_time="2" length_sec="8" x="270" y="300" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">ogsr_engine_developers_url</text>
+				</auto_static>
+				<auto_static start_time="3" length_sec="7" x="270" y="360" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">ogsr_engine_developers_url_text</text>
+				</auto_static>
+
+				<auto_static start_time="10" length_sec="15" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">ogsr_engine_developers_other</text>
+				</auto_static>
+				<auto_static start_time="11" length_sec="14" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">ogsr_engine_developers_other_names</text>
+				</auto_static>
+
+				<auto_static start_time="25" length_sec="15" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">ogsr_resources_developers</text>
+				</auto_static>
+				<auto_static start_time="26" length_sec="14" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">ogsr_resources_developers_names</text>
+				</auto_static>
+
+
+
+				<auto_static start_time="41" length_sec="157" x="270" y="30" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="graffiti50" color="white">ogse_development</text>
+				</auto_static>
+
+
+				<auto_static start_time="43" length_sec="6" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">deathdoor_value</text>
+				</auto_static>
+				<auto_static start_time="44" length_sec="5" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">deathdoor_name</text>
+				</auto_static>
+				
+				<auto_static start_time="50" length_sec="6" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">coordinators_value</text>
+				</auto_static>
+				<auto_static start_time="51" length_sec="5" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">coordinators_name</text>
+				</auto_static>
+
+				<auto_static start_time="57" length_sec="6" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">engine_hacks_value</text>
+				</auto_static>
+				<auto_static start_time="58" length_sec="5" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">engine_hacks_name</text>
+				</auto_static>
+
+				<auto_static start_time="64" length_sec="8" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">scripting_value</text>
+				</auto_static>
+				<auto_static start_time="65" length_sec="7" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">scripting_name</text>
+				</auto_static>
+
+				<auto_static start_time="73" length_sec="7" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">scripting_guest_value</text>
+				</auto_static>
+				<auto_static start_time="74" length_sec="6" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">scripting_guest_name</text>
+				</auto_static>
+
+				<auto_static start_time="81" length_sec="7" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">mapping_value</text>
+				</auto_static>
+				<auto_static start_time="82" length_sec="6" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">mapping_name</text>
+				</auto_static>
+
+				<auto_static start_time="89" length_sec="10" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">modelling_value</text>
+				</auto_static>
+				<auto_static start_time="90" length_sec="9" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">modelling_name</text>
+				</auto_static>
+
+				<auto_static start_time="100" length_sec="10" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">quest_value</text>
+				</auto_static>
+				<auto_static start_time="101" length_sec="9" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">quest_name</text>
+				</auto_static>
+
+				<auto_static start_time="111" length_sec="12" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">quest_authors_value</text>
+				</auto_static>
+				<auto_static start_time="112" length_sec="11" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">quest_authors_name</text>
+				</auto_static>
+
+				<auto_static start_time="124" length_sec="7" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">instruments_value</text>
+				</auto_static>
+				<auto_static start_time="125" length_sec="6" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">instruments_name</text>
+				</auto_static>
+
+				<auto_static start_time="131" length_sec="5" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">weapon_value</text>
+				</auto_static>
+				<auto_static start_time="132" length_sec="4" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">weapon_name</text>
+				</auto_static>
+
+				<auto_static start_time="136" length_sec="6" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">editing_value</text>
+				</auto_static>
+				<auto_static start_time="137" length_sec="5" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">editing_name</text>
+				</auto_static>
+
+				<auto_static start_time="143" length_sec="6" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">english_translation_value</text>
+				</auto_static>
+				<auto_static start_time="144" length_sec="5" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">english_translation_name</text>
+				</auto_static>
+
+				<auto_static start_time="150" length_sec="6" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">french_translation_value</text>
+				</auto_static>
+				<auto_static start_time="151" length_sec="5" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">french_translation_name</text>
+				</auto_static>
+
+				<auto_static start_time="157" length_sec="6" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">quality_assurance_lead_value</text>
+				</auto_static>
+				<auto_static start_time="158" length_sec="5" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">quality_assurance_lead_name</text>
+				</auto_static>
+
+				<auto_static start_time="163" length_sec="6" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">quality_assurance_team_value</text>
+				</auto_static>
+				<auto_static start_time="164" length_sec="5" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">quality_assurance_team_name</text>
+				</auto_static>
+
+				<auto_static start_time="169" length_sec="7" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">artwork_value</text>
+				</auto_static>
+				<auto_static start_time="170" length_sec="6" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">artwork_name</text>
+				</auto_static>
+
+				<auto_static start_time="176" length_sec="6" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">third_party_value</text>
+				</auto_static>
+				<auto_static start_time="177" length_sec="5" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">third_party_name</text>
+				</auto_static>
+
+				<auto_static start_time="182" length_sec="15" x="270" y="100" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica25" color="ui_clr_2">thanks_value</text>
+				</auto_static>
+				<auto_static start_time="183" length_sec="14" x="270" y="160" width="500" height="40" light_anim="credits_head" la_cyclic="0" la_texture="0" la_alpha="1">
+					<text align="c" font="letterica18" color="white">thanks_name</text>
+				</auto_static>
+
+			</main_wnd>
+		</item>
+
+	</credits_seq>

@@ -1,0 +1,30 @@
+[logic]
+active = heli_move@idle
+
+[heli_move@idle]
+path_move = rad_heli_idle
+engine_sound = false
+combat_ignore = true
+invulnerable = true
+on_info = {+bar_deactivate_radar_done} heli_move@snd
+
+
+[heli_move@snd]
+path_move = rad_heli_idle_snd
+engine_sound = true
+combat_ignore = true
+invulnerable = true
+on_info = {+rad_start_monolith_vs_military} heli_move@move
+
+[heli_move@move]
+path_move = rad_heli_move
+engine_sound = true
+combat_ignore = true
+invulnerable = true
+on_signal = rad_heli_end | heli_move@idle2
+
+[heli_move@idle2]
+path_move = rad_heli_idle2
+engine_sound = false
+combat_ignore = true
+invulnerable = true

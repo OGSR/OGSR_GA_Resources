@@ -1,0 +1,182 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+----------------- —хема пост-процессинга пси-зон дл€ OGSM 2.x -----------------
+------------------------- Copyright 2007-2008 DEXXX ---------------------------
+
+local particles = {}
+local sound_obj_right = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror1]])
+local sound_obj_left = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror1]])
+
+class "PPEffector" (effector)
+
+function PPEffector:__init(id_number) super(id_number, 10000000)
+	self.params = effector_params()
+end
+
+function PPEffector:process(pp)
+	pp:assign(self.params)
+	effector.process(self,pp)
+	return true
+end
+
+class "action_postprocess"
+
+function action_postprocess:__init(obj, storage)
+	self.object = obj
+	self.st = storage
+	self.actor_inside = false
+end
+
+function action_postprocess:reset_scheme()
+	self.gray_amplitude = 1.0
+	self.gray_color = color (0.5,0.5,0.5)
+	self.base_color = color (0.5,0.5,0.5)
+	self.noise_var = noise (0,0,30)
+	self.intensity_base = 1
+	self.intensity_speed = 0.1
+	self.intensity = 0
+end
+
+function action_postprocess:update(delta)
+
+	if not db.actor:alive() then return end
+	
+	if not particles[self.object:id()] then
+		local fx_particle_1 = "_ecp\\mutant_controller_idle"
+		particles[self.object:id()] = particles_object(fx_particle_1)
+		-- log1("!!DEBUG CREATE PARTICLE ["..self.object:id().."]")
+	elseif particles[self.object:id()] then
+		local fx_pos = self.object:position()
+		fx_pos.y = fx_pos.y + 3
+		local part_obj = particles[self.object:id()]
+		if not part_obj:playing() then
+			-- log1("!!DEBUG PLAY PARTICLE ["..self.object:id().."]")
+			part_obj:play_at_pos(fx_pos)
+		end
+	end
+	
+	if xr_logic.try_switch_to_another_section(self.object, self.st, db.actor) then
+		if self.pp then self.pp:finish() end
+		return
+	end
+	
+	self.actor_inside = self.object:inside(db.actor:position())
+	
+	if self.actor_inside == true --[[and not ogse_hideouts.npc_inside_safe_zone(db.actor)]] then
+	
+		if not has_alife_info("actor_set_zombied") then
+			self:play_sounds()
+			self:gen_phantoms()
+			self:update_hit()
+		end
+	
+		self.pp = PPEffector(self.object:id() + 2000)
+		if self.base_color.r >= 0.2 then 
+			self.intensity = self.intensity + self.intensity_speed
+			if self.intensity > self.intensity_base then self.intensity = self.intensity_base end
+			self.pp:start()
+			self.base_color.r = self.base_color.r - 0.01
+			self.base_color.g = self.base_color.g - 0.01
+			self.base_color.b = self.base_color.b - 0.01
+			self.gray_color.r = self.gray_color.r - 0.01
+			self.gray_color.g = self.gray_color.g - 0.01
+			self.gray_color.b = self.gray_color.b - 0.01
+			self.pp.params.color_base = color(self.base_color.r, self.base_color.g, self.base_color.b)
+			self.pp.params.color_gray = color(self.gray_color.r, self.gray_color.g, self.gray_color.b)
+			self.pp.params.gray = self.gray_amplitude*self.intensity
+			self.pp.params.noise = noise(1*self.intensity,1*self.intensity,30)
+		else
+			self.pp:start()
+			self.pp.params.color_base = self.base_color
+			self.pp.params.color_gray = self.gray_color
+			self.pp.params.gray = 1
+			self.pp.params.noise = noise(1,1,30)
+		end
+	else
+		self.pp = PPEffector(self.object:id() + 2000)
+		if self.base_color.r < 0.5 then
+			self.intensity = self.intensity - self.intensity_speed
+			if self.intensity < 0 then self.intensity = 0 end
+			self.pp:start()
+			self.base_color.r = self.base_color.r + 0.01
+			self.base_color.g = self.base_color.r + 0.01
+			self.base_color.b = self.base_color.r + 0.01
+			self.gray_color.r = self.gray_color.r + 0.01
+			self.gray_color.g = self.gray_color.g + 0.01
+			self.gray_color.b = self.gray_color.b + 0.01
+			self.pp.params.color_base = color(self.base_color.r, self.base_color.g, self.base_color.b)
+			self.pp.params.color_gray = color(self.gray_color.r, self.gray_color.g, self.gray_color.b)
+			self.pp.params.gray = self.gray_amplitude*self.intensity
+			self.pp.params.noise = noise(1*self.intensity,1*self.intensity,30)
+		else
+			self.pp:finish()
+		end
+	end
+end
+
+function action_postprocess:gen_phantoms()
+	if phantom_manager.phantom_count() < 5 then
+		local yaw = math.pi*2.0*math.random()
+		local radius = 30*(math.random()/2.0+0.5)
+		local height = 2.5*math.random()
+		local a_pos = db.actor:position()
+		local pos = vector():set(math.sin(yaw)*radius+a_pos.x,a_pos.y+height,math.cos(yaw)*radius+a_pos.z)
+		phantom_manager.spawn_phantom(pos)
+	end
+end
+
+function action_postprocess:play_sounds()
+	sound_obj_right.volume = 0.5
+	sound_obj_left.volume = 0.5
+
+	if not sound_obj_left:playing() then 
+		local i=math.random(1,4)
+		if i==1 then 
+			sound_obj_left = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror1]])
+		elseif i==2 then
+			sound_obj_left = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror2]])
+		elseif i==3 then
+			sound_obj_left = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror3]])
+		elseif i==4 then
+			sound_obj_left = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror4]])
+		end
+		sound_obj_left:play_at_pos (db.actor, vector():set(1, 0, 1), 0, sound_object.s2d) 
+	end
+
+	if not sound_obj_right:playing() then 
+		local j=math.random(1,4)
+		if j==1 then 
+			sound_obj_right = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror1]])
+		elseif j==2 then
+			sound_obj_right = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror2]])
+		elseif j==3 then
+			sound_obj_right = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror3]])
+		elseif j==4 then
+			sound_obj_right = xr_sound.get_safe_sound_object([[ambient\random\rnd_the_horror4]])
+		end
+		sound_obj_right:play_at_pos (db.actor, vector():set(-1, 0, 1), 0, sound_object.s2d) 
+	end
+end
+
+function action_postprocess:update_hit()
+	local h = hit()
+	h.power = 0.02
+	h.direction = vector():set(0, 0, 0)
+	h.impulse = 0
+	h.draftsman = db.actor
+	h.type = hit.telepatic
+	h:bone( get_string( db.actor:section(), "bone_torso", "bip01_spine" ) ) -- чтобы учитывалась брон€
+	db.actor:hit(h)
+end
+
+
+
+function add_to_binder(npc, ini, scheme, section, storage)
+	local new_action = action_postprocess(npc, storage)
+	xr_logic.subscribe_action_for_events(npc, storage, new_action)
+end
+
+function set_scheme(npc, ini, scheme, section, gulag_name)
+	local st = xr_logic.assign_storage_and_bind(npc, ini, scheme, section)
+	st.logic = xr_logic.cfg_get_switch_conditions(ini, section, npc)
+end

@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<string_table>
+	<string id="st_drink">
+		<text>drink</text>
+	</string>
+	<string id="ui_st_btn_no">
+		<text>No</text>
+	</string>
+	<string id="ui_st_btn_ok">
+		<text>OK</text>
+	</string>
+	<string id="ui_st_btn_yes">
+		<text>Yes</text>
+	</string>
+	<string id="ui_st_days">
+		<text>Days</text>
+	</string>
+	<string id="ui_st_error">
+		<text>Error</text>
+	</string>
+	<string id="ui_st_hours">
+		<text>hr.</text>
+	</string>
+	<string id="ui_st_leave">
+		<text>Leave</text>
+	</string>
+	<string id="ui_st_mins">
+		<text>mins</text>
+	</string>
+	<string id="ui_st_months">
+		<text>months</text>
+	</string>
+	<string id="ui_st_params">
+		<text>Parameters</text>
+	</string>
+	<string id="ui_st_secs">
+		<text>sec.</text>
+	</string>
+	<string id="ui_st_take_all">
+		<text>Take all</text>
+	</string>
+	<string id="ui_st_time_remains">
+		<text>Remaining</text>
+	</string>
+	<string id="ui_st_trade">
+		<text>Trade</text>
+	</string>
+	<string id="ui_st_your_items">
+		<text>Your items</text>
+	</string>
+	<string id="st_level">
+		<text>Level</text>
+	</string>
+	<string id="st_game_paused">
+		<text>Pause</text>
+	</string>
+	<string id="st_bolt">
+		<text>Bolt</text>
+	</string>
+	<string id="st_items">
+		<text>Items</text>
+	</string>
+	<string id="ui_remkit_out_of_item">
+		<text>There are no suitable items to be dismantled for spares.</text>
+	</string>
+	<string id="ui_remkit_select_item">
+		<text>Pick an item from the list to be used as spares.</text>
+	</string>
+	<string id="ui_remkit_invalid_item">
+		<text>That wouldn't work - the item is ruined. Choose one in better condition.</text>
+	</string>
+	<string id="ui_remkit_item_not_repaireble">
+		<text>The item could or may not be repaired any more.</text>
+	</string>
+	<string id="ui_remkit_item_not_wanted">
+		<text>The item does not need repairs.</text>
+	</string>
+	<string id="ui_remkit_repair_success">
+		<text>You managed to improve the item's condition.</text>
+	</string>
+	<string id="ui_remkit_repair_without_changes">
+		<text>You didn't manage to improve the item's condition.</text>
+	</string>
+	<string id="ui_remkit_repair_failure">
+		<text>Your insufficient skills worsened the item's condition.</text>
+	</string>
+	<string id="ui_repair_success">
+		<text>The item has been successfully repaired.</text>
+	</string>	
+	<string id="ui_remkit_repair_nomoney">
+		<text>You don't have enough money to repair this item.</text>
+	</string>
+	<string id="ui_repair_select_item">
+		<text>Select item for repair from list.</text>
+	</string>
+	<string id="ui_cartrade_nomoney">
+		<text>You don't have enough money to buy this transport.</text>
+	</string>	
+	<string id="ui_trunk_select_item">
+		<text>Choose the item to be transfered from the list.</text>
+	</string>
+	<string id="ui_trunk_overweight">
+		<text>You cannot place this item in the trunk - it's already full.</text>
+	</string>
+	<string id="ui_rr_over_item_count">
+		<text>You can't take more than three items as reward.</text>
+	</string>
+	<string id="ui_rr_no_money">
+		<text>You exceeded money limit for reward.</text>
+	</string>
+	
+	<!-- стадии загрузки игры -->
+	<!-- Внимание! Символ '–' ниже - это не 'минус', а символ с кодом 150, которому в текстуре шрифта Graffiti19Russian сопоставлен 
+	'укороченный' пробел с шириной, в точности равный ширине символа '*'. Если будете менять соотношение пустого/заполненного
+	в этих строках, то не исполььзуйте ни минусы, ни пробелы, а копастой вставляйте такие же символы-->
+		
+	<string id="st_prefetching_objects">
+		<text>[–––––––––––––––––––––]</text>
+	</string>
+	<string id="st_server_starting">
+		<text>[*––––––––––––––––––––]</text>
+	</string>
+	<string id="st_loading_alife_simulator">
+		<text>[**–––––––––––––––––––]</text>
+	</string>
+	<string id="st_creating_new_game">
+		<text>[*********––––––––––––]</text>
+	</string>
+	<string id="st_loading_saved_game">
+		<text>[*********––––––––––––]</text>
+	</string>
+	<string id="st_server_connecting">
+		<text>[*********––––––––––––]</text>
+	</string>
+	<string id="st_client_connecting_to">
+		<text>[*********––––––––––––]</text>
+	</string>
+	<string id="st_opening_stream">
+		<text>[*********––––––––––––]</text>
+	</string>
+	<string id="st_loading_cform">
+		<text>[*********––––––––––––]</text>
+	</string>
+	<string id="st_loading_shaders">
+		<text>[*************––––––––]</text>
+	</string>
+	<string id="st_loading_geometry">
+		<text>[*************––––––––]</text>
+	</string>
+	<string id="st_loading_spatial_db">
+		<text>[*************––––––––]</text>
+	</string>
+	<string id="st_loading_details">
+		<text>[***************––––––]</text>
+	</string>
+	<string id="st_loading_sectors_portals">
+		<text>[***************––––––]</text>
+	</string>
+	<string id="st_loading_ai_objects">
+		<text>[***************––––––]</text>
+	</string>
+	<string id="st_client_spawning">
+		<text>[***************––––––]</text>
+	</string>
+	<string id="st_loading_textures">
+		<text>[***************––––––]</text>
+	</string>
+	<string id="st_client_synchronising">
+		<text>[*******************––]</text>
+	</string>
+	
+	<!-- стадии загрузки игры (не используются в сингле) -->
+	
+	<string id="bind_monster_debug1">
+		<text>WARNING! OFFLINE DEATH IS DETECTED! Object: ID: </text>
+	</string>
+	<string id="bind_monster_debug2">
+		<text> NAME:</text>
+	</string>
+	<string id="bind_monster_debug3">
+		<text> Loot will be processed and oject will be added to delete sequence!</text>
+	</string>
+	<string id="bind_monster_debug21">
+		<text>WARNING! PROCESSED OFFLINE DEAD MONSTER IS DETECTED! Object: ID: </text>
+	</string>
+	<string id="bind_monster_debug22">
+		<text> Deleting will be performed!</text>
+	</string>
+	<string id="xr_gulag_debug">
+		<text>WARNING! Logic initialization is failed! There's a diagnostic message in log - save game, exit and send log to OGSE team!</text>
+	</string>
+	<string id="xr_motivator_debug1">
+		<text>WARNING! Loot generation is failed! There's a diagnostic message in log - save game, exit and send log to OGSE team!</text>
+	</string>
+	<string id="xr_motivator_debug2">
+		<text>WARNING! Hit callback processing failed! There's a diagnostic message in log - save game, exit and send log to OGSE team!</text>
+	</string>
+	<string id="xr_motivator_debug3">
+		<text>WARNING! Shoot sound processing failed! There's a diagnostic message in log - save game, exit and send log to OGSE team!</text>
+	</string>
+	<string id="xr_motivator_debug4">
+		<text>WARNING! Death by APC processing failed! There's a diagnostic message in log - save game, exit and send log to OGSE team!</text>
+	</string>
+	<string id="xr_motivator_debug5">
+		<text>WARNING! Torchlight processing failed! There's a diagnostic message in log - save game, exit and send log to OGSE team!</text>
+	</string>
+	<string id="xr_motivator_debug6">
+		<text>WARNING! Rank massive cleaning failed! There's a diagnostic message in log - save game, exit and send log to OGSE team!</text>
+	</string>
+	<string id="xr_motivator_debug7">
+		<text>WARNING! Damaged quest corpse is found! Object:</text>
+	</string>
+	<string id="xr_motivator_debug8">
+		<text> ID: </text>
+	</string>
+	<string id="xr_motivator_debug9">
+		<text> Profile: </text>
+	</string>
+	<string id="xr_motivator_debug10">
+		<text>  Make sure that corpse is ok and it gave you all neccessary infoportions and other stuff!</text>
+	</string>
+	<string id="xr_motivator_debug11">
+		<text>WARNING! Sound callback processing failed! There's a diagnostic message in log - save game, exit and send log to OGSE team!</text>
+	</string>
+	<string id="companion_messages">
+		<text>Your companion </text>
+	</string>
+	<string id="companion_died">
+		<text> is dead!</text>
+	</string>
+	<string id="companion_died_bad">
+		<text> is dead, like all others! You've gained bad fame among stalker community!</text>
+	</string>
+	<string id="companion_signal1">
+		<text>"Found signal of the PDA of your companion. "</text>
+	</string>
+	<string id="companion_signal2">
+		<text>" is nearby!"</text>
+	</string>
+	<string id="remkit_string1">
+		<text>Abnormal</text>
+	</string>
+	<string id="remkit_string2">
+		<text>Anom.</text>
+	</string>
+	<string id="remkit_string3">
+		<text>Abnormal</text>
+	</string>
+	<string id="remkit_string4">
+		<text>Outfit</text>
+	</string>
+	<string id="remkit_string5">
+		<text>outfit</text>
+	</string>
+	<string id="remkit_string6">
+		<text>Suit</text>
+	</string>
+	<string id="remkit_string7">
+		<text>suit</text>
+	</string>
+	<string id="remkit_string8">
+		<text>Army</text>
+	</string>
+	<string id="remkit_string9">
+		<text>Army</text>
+	</string>
+	<string id="remkit_string10">
+		<text>Arm.</text>
+	</string>
+	<string id="remkit_string11">
+		<text>Armor suit</text>
+	</string>
+	<string id="remkit_string12">
+		<text>Unusual</text>
+	</string>
+	<string id="remkit_string13">
+		<text>Arm.</text>
+	</string>
+	<string id="remkit_string14">
+		<text>Necessary.</text>
+	</string>
+	
+	
+	<string id="quicklaunch_string1">
+		<text>Quick launch:</text>
+	</string>	
+	<string id="quicklaunch_string2">
+		<text>Use bandage</text>
+	</string>	
+	<string id="quicklaunch_string3">
+		<text>Use medkit</text>
+	</string>	
+	<string id="quicklaunch_string4">
+		<text>Take antirad</text>
+	</string>	
+	<string id="quicklaunch_string5">
+		<text>Take energy drink</text>
+	</string>	
+	<string id="quicklaunch_string6">
+		<text>Take B-190</text>
+	</string>	
+	<string id="quicklaunch_string7">
+		<text>Take Bipsyzon</text>
+	</string>	
+
+
+	<string id="btr_control_string1">
+		<text>APC control:</text>
+	</string>	
+	<string id="btr_control_string2">
+		<text>Open fire</text>
+	</string>	
+	<string id="btr_control_string3">
+		<text>Manual mode</text>
+	</string>	
+	<string id="btr_control_string4">
+		<text>Semiauto mode (autoaim, manual fire)</text>
+	</string>	
+	<string id="btr_control_string5">
+		<text>Auto mode (completely automatic fire)</text>
+	</string>	
+	<string id="btr_control_string6">
+		<text>Target pointing</text>
+	</string>	
+	<string id="btr_control_string7">
+		<text>Switch to another target</text>
+	</string>	
+	<string id="btr_control_string8">
+		<text>Friend/Foe system</text>
+	</string>	
+	<string id="btr_control_string9">
+		<text>Fire is controlled by gunman (companion is required)</text>
+	</string>	
+
+	<string id="flask_string1">
+		<text>Fill the flask</text>
+	</string>	
+	<string id="flask_string2">
+		<text>You can't fill the flask. There's no specific water around.</text>
+	</string>	
+	<string id="flask_string3">
+		<text>You can't drink the serum alone. Give it to Chook!</text>
+	</string>	
+	<string id="flask_string4">
+		<text>There must be Figas' notes in a cache somewhere.</text>
+	</string>	
+	
+	<string id="quest_elevator_string1">
+		<text>Marked, are you crazy? Why the fuck did you kill him? You think you're a terminator!?!? That's it, the task failed.</text>
+	</string>	
+	<string id="quest_elevator_string2">
+		<text>Marked One, there's a problem. Target eliminated by hunter. Do me a favor, clean that mess up. There will be a reward.</text>
+	</string>	
+	<string id="quest_elevator_string3">
+		<text>Barman:</text>
+	</string>	
+	
+	<string id="heart_of_yantar_string1">
+		<text>It is impossible to destroy the O-21 Sample. There is no suitable anomaly nearby that can destroy its structure.</text>
+	</string>	
+	
+	<string id="dobrozhelatel_string1">
+		<text>Pick up the case</text>
+	</string>
+	<string id="dobrozhelatel_string2">
+		<text>Marked One, this is the commander of the "Monolith" Squad speaking to you. We know, you're here - HE told us so HIMSELF. Come out and die a man. You've gone too far! It's your destiny. Don't even try to escape - all exits are blocked.</text>
+	</string>
+	<string id="dobrozhelatel_string3">
+		<text>"Monolith" squad commander:</text>
+	</string>
+	<string id="dobrozhelatel_string4">
+		<text>Meet Messenger</text>
+	</string>
+	<string id="dobrozhelatel_string5">
+		<text>Invalid password!</text>
+	</string>
+	<string id="dobrozhelatel_string6">
+		<text>Good password! Now you can disable Brain Scorcher.</text>
+	</string>
+	
+	<string id="stash_manager_string">
+		<text>Content description:</text>
+	</string>
+	<string id="scvid_location_string">
+		<text>Scvid</text>
+	</string>
+	<string id="radist_stash_location_string">
+		<text>Possible location of Radioman's stash</text>
+	</string>
+	
+	<string id="lc_mngr_string1">
+		<text>Level changer info gathered: </text>
+	</string>
+	<string id="lc_mngr_string2">
+		<text>from Cordon to the Swamp</text>
+	</string>
+	<string id="lc_mngr_string3">
+		<text>From Cordon to Darkscape</text>
+	</string>
+	<string id="lc_mngr_string4">
+		<text>from Agroprom to Swamp</text>
+	</string>
+	<string id="lc_mngr_string5">
+		<text>from Agroprom to Yantar</text>
+	</string>
+	<string id="lc_mngr_string6">
+		<text>from Dark Valley to URR</text>
+	</string>
+	<string id="lc_mngr_string7">
+		<text>from Dark Valley to Military Warehouses</text>
+	</string>
+	<string id="lc_mngr_string8">
+		<text>from Military Warehouses to City-32</text>
+	</string>
+	<string id="lc_mngr_string9">
+		<text>from Military Warehouses to Dark Valley</text>
+	</string>
+	<string id="lc_mngr_string10">
+		<text>from Yantar to Agroprom</text>
+	</string>
+	<string id="lc_mngr_string11">
+		<text>from Yantar to City-32</text>
+	</string>
+	<string id="lc_mngr_string12">
+		<text>from Yantar to Radar</text>
+	</string>
+	<string id="lc_mngr_string13">
+		<text>from Radar to URR</text>
+	</string>
+	<string id="lc_mngr_string14">
+		<text>from Radar to Yantar</text>
+	</string>
+	<string id="lc_mngr_string15">
+		<text>from CNPP-1 to CNPP-2</text>
+	</string>
+	<string id="lc_mngr_string16">
+		<text>from CNPP-2 to Generators</text>
+	</string>
+	<string id="lc_mngr_string17">
+		<text>from CNPP-2 to CNPP-1</text>
+	</string>
+	<string id="lc_mngr_string18">
+		<text>from City-32 to Military Warehouses</text>
+	</string>
+	<string id="lc_mngr_string19">
+		<text>from City-32 to Generators</text>
+	</string>
+	<string id="lc_mngr_string20">
+		<text>from City-32 to URR</text>
+	</string>
+	<string id="lc_mngr_string21">
+		<text>from URR to Dark Valley</text>
+	</string>
+	<string id="lc_mngr_string22">
+		<text>from URR to City-32</text>
+	</string>
+	
+	<string id="krot_ammo_string1">
+		<text>Box A with ammunition</text>
+	</string>
+	<string id="krot_ammo_string2">
+		<text>Box 1 with ammunition 5.56x45</text>
+	</string>
+	<string id="krot_ammo_string3">
+		<text>Box 2 with ammunition 12x70</text>
+	</string>
+	<string id="krot_ammo_string4">
+		<text>Box 3 with ammunition 7.62x54</text>
+	</string>
+	<string id="krot_ammo_string5">
+		<text>Box 4 with ammunition 5.45x39</text>
+	</string>
+	
+	<string id="bomba_string">
+		<text>Bomb</text>
+	</string>
+	
+	<string id="rub_string">
+		<text>r.</text>
+	</string>
+	
+	<string id="guest_on_elevator_string">
+		<text>Check location of strange guest</text>
+	</string>
+	<string id="companion_became_your_enemy_string">
+		<text> became your enemy!</text>
+	</string>	
+	<string id="stalker_is_dead_news_string">
+		<text>Stalker died:</text>
+	</string>	
+	
+	<string id="trunk_is_full_string">
+		<text>Trunk is full!</text>
+	</string>
+
+	<string id="st_pda_change_spot_hint">
+		<text>Change the label text</text>
+	</string>
+	<string id="st_pda_delete_spot">
+		<text>Delete a placemark</text>
+	</string>
+
+	<string id="st_attach_addon_to_wpn_in_slot_1">
+		<text>attach %s to %s in the first slot</text>
+	</string>
+	<string id="st_attach_addon_to_wpn_in_slot_2">
+		<text>attach %s to %s in the second slot</text>
+	</string>
+
+	<string id="kb_cam_1">
+		<text>First-person view</text>
+	</string>
+	<string id="kb_cam_2">
+		<text>Third-person view</text>
+	</string>
+	<string id="kb_cam_3">
+		<text>Third-person view (freelook)</text>
+	</string>
+
+	<string id="inventory_item_use_or_drag">
+		<text>Pick up an item ($$ACTION_USE$$) \n Drag an item (SHIFT+$$ACTION_USE$$)</text>
+	</string>
+	<string id="game_object_drag">
+		<text>Drag an item (SHIFT+$ $ ACTION_USE$$)</text>
+	</string>
+
+	<string id="st_press_any_key">
+		<text>Press any key to continue</text>
+	</string>
+</string_table>

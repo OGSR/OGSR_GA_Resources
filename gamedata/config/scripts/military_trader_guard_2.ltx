@@ -1,0 +1,52 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker
+combat_ignore = combat_ignore
+on_hit = hit
+on_death = death
+
+[walker]
+path_walk =	military_trader_guard_2_walk
+path_look =	military_trader_guard_2_look
+meet = meet
+on_info = {=actor_has_weapon} remark
+danger = danger_condition
+
+[meet]
+use = false
+use_wpn = false
+meet_talk_enabled = true
+victim = 60|actor
+victim_wpn = 60|actor
+meet_state = 60|guard@talk_hello
+meet_state_wpn = 60|threat@threat_weap
+on_info = {=actor_has_weapon} remark
+abuse = true
+
+[remark]
+no_move = true
+no_rotate = false
+target = actor
+snd = threat_stop,threat_weap
+anim = threat
+on_info = {!actor_has_weapon} walker
+on_timer = 10000| %=killactor%
+reactions = ignore
+danger = danger_condition
+
+[danger_condition]
+danger_expiration_time = 10000
+danger_inertion_time =  20000
+
+[combat_ignore]
+combat_ignore_cond = {-actor_attacked_trader =fighting_actor}
+
+[hit]
+on_info = {=hit_by_actor} %+actor_attacked_trader%
+
+[death]
+on_info = {=killed_by_actor} %+actor_attacked_trader%

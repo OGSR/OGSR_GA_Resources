@@ -1,0 +1,406 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--[[------------------------------------------------------------------------------------------------
+Helicoter binding
+„угай јлександр
+
+—делать:
+	- настройки в ltx
+--------------------------------------------------------------------------------------------------]]
+
+local init_chk = {}
+
+---------------------------------------------------------------------------------------------
+-- ‘ункци€ дл€ бинда
+---------------------------------------------------------------------------------------------
+
+game_heli = { 
+	["esc_heli"]=true, 
+	["agr_nii_heli"]=true, 
+	["agr_helicopter1"]=true, 
+	["agr_helicopter2"]=true, 
+	["agr_helicopter3"]=true, 
+	["agr_helicopter4"]=true, 
+	["val_chase_heli"]=true, 
+	["rostok_helicopter"]=true, 
+	["yan_helicopter_1"]=true, 
+	["yan_helicopter_2"]=true,
+	["rad_helicopter"]=true,
+	["pri_helicopter1"]=true,
+	["pri_helicopter2"]=true,
+	["pri_helicopter4"]=true,
+	["pri_helicopter_21"]=true,
+	["pri_helicopter_22"]=true,
+	["pri_helicopter_24"]=true,
+	["aes_helicopter"]=true,
+	["aes_helicopter_0000"]=true,
+	["aes_helicopter_0001"]=true,
+	["aes_helicopter_0002"]=true,
+	["aes_helicopter_0003"]=true,
+	["aes_helicopter_0004"]=true,
+	["aes_helicopter_0007"]=true,
+	["aes_helicopter_0008"]=true,
+	["aes_helicopter_0009"]=true,
+	["aes_helicopter_0010"]=true,
+	["gen_helicopter_1"]=true,
+	["gen_helicopter_2"]=true,
+	["gen_helicopter_3"]=true,	
+	["captive_on_agr_mill_base_helicopter"] = true
+}
+
+function bind( obj )
+   	local ini = obj:spawn_ini()
+   	if ini and ini:section_exist("logic") then
+		obj:bind_object( heli_binder( obj, ini ) )
+	end
+end
+
+---------------------------------------------------------------------------------------------
+-- Ѕиндер вертолЄтов
+---------------------------------------------------------------------------------------------
+class "heli_binder" ( object_binder )
+
+function heli_binder:__init( obj, ini ) super( obj )
+	self.ini         = ini
+	self.initialized = false
+	self.loaded      = false
+	self.sm = ogse_signals.get_mgr()
+end
+
+function heli_binder:reload( section )
+	object_binder.reload( self, section )
+end
+
+function heli_binder:reinit()
+	object_binder.reinit( self )
+
+
+	db.storage[self.object:id()] = {}
+	self.st = db.storage[self.object:id()]
+	self.id = self.object:id()
+
+	self.heliObject = self.object:get_helicopter()
+
+	self.object:set_callback( callback.helicopter_on_point, self.on_point, self )
+	self.object:set_callback( callback.helicopter_on_hit,   self.on_hit,   self )
+
+	self.st.combat = heli_combat.heli_combat( self.object, self.heliObject )
+	self.st.combat.lasthealth = get_heli_health( self.heliObject, self.st )
+	
+	self.last_hit_snd_timeout = 0
+
+	self.flame_start_health   = utils.cfg_get_number( sys_ini, "helicopter", "flame_start_health", self.object, true )
+	self.st.flame_start_snd   = xr_sound.get_sound_object("heli_explosion", "random")
+
+	-- на случай загрузки
+	self.st.last_alt       = self.heliObject:GetRealAltitude()
+	self.st.alt_check_time = time_global() + 1000
+end
+
+function heli_binder:update( delta )
+
+	
+	if not init_chk[self.object:id()] and not self.heliObject.m_flame_started then
+		-- log1("LAST HELI HEATH "..tostring(self.heliObject:GetfHealth()))
+		self.heliObject:SetfHealth(1)
+		self.st.combat.lasthealth = get_heli_health( self.heliObject, self.st )
+		init_chk[self.object:id()] = true
+	end	
+
+	object_binder.update( self, delta )
+	
+
+	if not self.initialized and db.actor then
+		self.initialized = true
+		xr_logic.initialize_obj( self.object, self.st, self.loaded, db.actor, modules.stype_heli )
+	end
+
+	--self.object:info_clear()
+
+	if self.st.active_section ~= nil then
+		xr_logic.issue_event( self.object, self.st[self.st.active_scheme], "update", delta )
+	end
+
+	--local active_section = db.storage[self.object:id()].active_section
+	--if active_section then
+	--	self.object:info_add('section -- ' .. active_section)
+	--end
+
+	self:check_health()
+end
+
+function heli_binder:net_spawn( data )
+	if not object_binder.net_spawn( self, data ) then
+		return false
+	end
+
+	if game_heli[self.object:name()] ~= true then
+		bind_heli.heli_blow_up(self.object)
+		return false
+	end	
+
+	db.add_heli( self.object )
+
+	self.sm:call( "on_heli_spawn", self.object, self )
+
+	return true
+end
+
+function heli_binder:net_destroy()
+	db.del_obj( self.object )
+	db.del_heli( self.object )
+
+	self.sm:call( "on_heli_net_destroy", self.object, self )
+
+	object_binder.net_destroy( self )
+end
+
+function heli_binder:net_save_relevant()
+	return true
+end
+
+function heli_binder:save( packet )
+	object_binder.save( self, packet )
+
+	xr_logic.save_obj( self.object, packet, not self.initialized )
+
+	self.st.combat:save( packet )
+end
+
+function heli_binder:load( packet )
+	self.loaded = true
+
+	object_binder.load( self, packet )
+
+	xr_logic.load_obj( self.object, packet )
+
+	self.st.combat:load( packet )
+end
+
+function heli_binder:check_health()
+	local heli = self.heliObject
+
+
+	if not heli.m_dead then
+		local health = get_heli_health( self.heliObject, self.st )
+
+		if health < self.flame_start_health and not heli.m_flame_started then
+			heli_start_flame( self.object )
+
+			heli_snd.play_snd( self.st, "damage", 3 )
+		end
+
+		if health <= 0.005 then
+			heli_die( self.object )
+
+			heli_snd.play_snd( self.st, "death", 4 )
+
+			self.sm:call( "on_heli_death", self.object, self )
+		end
+	end
+end
+
+------------------------------ callbacks ---------------------------------
+function heli_binder:on_hit( power, impulse, hit_type, enemy_id )
+	local health_loss = self.st.combat.lasthealth - self.heliObject:GetfHealth()
+	if tonumber(hit_type) == 8 then -- пулевое повреждение с нужным импульсом ( импульс вместо бронебойности, спасибо разрабам)
+		if tonumber(impulse) >= 1 then
+			self.st.combat.lasthealth = self.st.combat.lasthealth - redefine_hit(power, health_loss)
+		end
+	else
+		self.st.combat.lasthealth = self.st.combat.lasthealth - health_loss
+	end
+
+	self.heliObject:SetfHealth(self.st.combat.lasthealth)
+
+	if
+		( enemy_id and enemy_id == bind_statpkm.pkm_captured ) -- если это турель
+		or ( ogse_car_control.current_car and enemy_id == ogse_car_control.current_car:id() ) -- если это БТР, в котором сидит актор
+	then -- то надо заменить на реального виновника, т.е. ГГ
+		enemy_id = db.actor:id()
+	end
+
+	local enemy = level.object_by_id( enemy_id )
+	-- если обидчик актЄр или сталкер, то сделать его своим врагом
+	if enemy:is_actor() or enemy:is_stalker() then
+	
+		if not self.st.combat.enemy_id then
+			self.st.combat.enemy_id = enemy_id
+		end
+
+		local l_target
+		local l_prior,t_prior = 0,0
+		local target = level.object_by_id(enemy_id)
+
+		t_prior = heli_target.get_target_priority(target)
+			
+		if self.st.combat.enemy_id then
+			l_target = level.object_by_id(self.st.combat.enemy_id)
+			l_prior = heli_target.get_target_priority(l_target)
+		end
+		if (l_prior < t_prior or 
+			(l_prior == t_prior and
+			not level.object_by_id(self.object:id()):get_helicopter():isVisible(l_target)))
+			then
+			self.st.combat.enemy_id = enemy_id
+		end
+
+		if self.st.hit then
+			xr_logic.issue_event( self.object, self.st.hit, "hit_callback", self.object, power, nil, enemy, nil )
+		end
+	end
+	if self.st.combat.lasthealth < self.flame_start_health and self.st.combat.lasthealth > 0.005 and not self.heliObject.m_flame_started then
+		if not self.flame_started then
+			self.flame_started = true
+		end
+	end
+	-- пилоты ругаютс€ по рации
+	if self.last_hit_snd_timeout < time_global() then
+		heli_snd.play_snd( self.st, "hit", 2 )
+		self.last_hit_snd_timeout = time_global() + math.random( 4000, 8000 )
+	end
+end
+
+function heli_binder:on_point( distance, position, path_idx )
+	if self.st.active_section ~= nil then
+		xr_logic.issue_event( self.object, self.st[self.st.active_scheme], "waypoint_callback", self.object, nil, path_idx )
+	end
+end
+
+--------------------------------------------------------------------------
+function redefine_hit(power,health_loss)
+	local lucky_hit_chance = 0.05
+	local fire_hit_immunity = 0.05
+	local area -- зона, в которую пришлось попадание
+	local hit_chance -- шанс задеть какой-нибудь важный узел
+	local hit_immunity -- часть удара, идуща€ на разрушение узла
+	local ap_chance = (2.5*power - 1.8)*10 -- веро€тность пробити€ брони данным выстрелом, power <1.1 не пробьет,  power >1.6 пробьет 100% 
+
+	local hit = 0
+	if math.abs(0.1*power - health_loss) <= 0.0001*health_loss then 
+		area = "pilot"
+		hit_chance = 0.001 -- считаем, что задеть пилота сквозь броню очень-очень проблематично
+		hit_immunity = 2.5 --  а вот сам пилот не сильно прочный
+	elseif math.abs(0.2*power - health_loss) <= 0.0001*health_loss then
+		area = "bprop"
+		hit_chance = 1 -- открытый объект, попал - значит попал
+		hit_immunity = 0.8 -- металл все-таки, но броней не прикрыт
+	elseif math.abs(0.3*power - health_loss) <= 0.0001*health_loss then 
+		area = "fprop"
+		hit_chance = 1 -- открытый объект, попал - значит попал
+		hit_immunity = 0.8 -- металл все-таки, но броней не прикрыт
+	elseif math.abs(0.4*power - health_loss) <= 0.0001*health_loss then 
+		area = "cocpit"
+		hit_chance = 0.15 -- вс€кие провода, приборы, управление и проча€ др€нь занимает достаточно много места
+		hit_immunity = 0.8 -- вс€ эта др€нь особой прочностью не отличаетс€
+	elseif math.abs(0.5*power - health_loss) <= 0.0001*health_loss then 
+		area = "tail"
+		hit_chance = 0.1 -- только  т€ги управлени€ и привод хвостового винта. места занимают очень мало
+		hit_immunity = 0.2 -- прочна€ сталь, разрушить трудно
+	elseif math.abs(0.6*power - health_loss) <= 0.0001*health_loss then 
+		area = "main" -- сама€ жопа. жизненно важные элементы и до хрена пустого объема.
+		hit_chance = 0.4 -- двигатель занимает много места, но достать его снизу — ¬ќ«№ вертолет нереально. 
+		hit_immunity = 0.5 -- сама€ жизненно важна€ часть, но все системы дублированы
+	else 
+		area = "non_lethal" -- неповреждаемые пул€ми зоны. Ќу, дырочка в крыле, и что?
+		hit_chance = 0
+		hit_immunity = 0
+	end
+
+	if math.random() < ap_chance and math.random() < hit_chance then -- брон€ пробита и задето что-то важное
+		hit = power * fire_hit_immunity * hit_immunity
+		if math.random() < lucky_hit_chance then
+			hit = hit*15
+		end
+	end
+	return hit
+end
+function get_heli_health( heli, st )
+	local health
+
+	if st.invulnerable then
+	 --[[
+		health = 1
+		heli:SetfHealth( health )
+		-- original ]]
+		health = heli:GetfHealth() -- no invulnerable helicopters
+		
+		if health < 0 then
+			heli:SetfHealth( 0 )
+			health = 0
+		end		
+
+	else
+		health = heli:GetfHealth()
+
+		if health < 0 then
+			heli:SetfHealth( 0 )
+			health = 0
+		end
+	end
+
+	return health
+end
+
+function is_heli_alive( obj )
+	return get_heli_health( obj:get_helicopter(), db.storage[obj:id()] ) > 0.005
+end
+
+function heli_start_flame( obj )
+	obj:get_helicopter():StartFlame()
+
+	db.storage[obj:id()].flame_start_snd:play( obj )
+end
+
+function heli_die( obj )
+
+	local heli = obj:get_helicopter()
+	local st   = db.storage[obj:id()]
+
+	heli:TurnEngineSound(false)
+	heli:Die()
+
+	db.del_heli( obj )
+	
+	st.last_alt       = heli:GetRealAltitude()
+	st.alt_check_time = time_global() + 1000
+end
+
+function heli_blow_up( obj )
+	local heli = obj:get_helicopter()
+	local st   = db.storage[obj:id()]
+
+	heli:TurnEngineSound(false)
+	heli:Die()
+	heli:Explode()
+	
+	db.del_heli( obj )
+	
+	st.last_alt       = heli:GetRealAltitude()
+	st.alt_check_time = time_global() + 1000
+
+	ogse_st_mgr.start_gtimer(nil, math.random(150, 300), script_name()..".release_heli", obj:id())
+end
+
+function heli_silent_remove( obj )
+	local heli = obj:get_helicopter()
+	local st   = db.storage[obj:id()]
+	
+	db.del_heli( obj )
+	local sobj = alife():object(obj:id())
+	if sobj then
+		alife():release(sobj, true)
+	end
+	
+	st.last_alt       = heli:GetRealAltitude()
+	st.alt_check_time = time_global() + 1000
+
+	ogse_st_mgr.start_gtimer(nil, math.random(150, 300), script_name()..".release_heli", obj:id())
+end
+
+function release_heli(id)
+	local sobj = alife():object(id)
+	if sobj then
+		alife():release(sobj, true)
+	end
+end

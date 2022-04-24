@@ -1,0 +1,16 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker1
+-- Мирное получение документов у Жеки Дуплета в лаборатории 18
+on_death = death
+
+[death]
+on_info = %+dar_explorer_dead%
+-- Мирное получение документов у Жеки Дуплета в лаборатории 18
+
+[walker1]
+path_walk = x18_explorer_walk
+path_look = x18_explorer_look
+on_info = {+dar_explorer_dlg_angry} %=actor_enemy%

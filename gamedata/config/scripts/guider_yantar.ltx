@@ -1,0 +1,24 @@
+
+
+[logic]
+active = camper
+
+[smart_terrains]
+none = true
+
+[camper]
+path_walk = yan_giuder_walk
+path_look = yan_giuder_look
+danger = danger_condition
+meet = meet
+
+[meet] 
+meet_state = 2|hello
+meet_state_wpn = 3|hello_wpn
+victim = 2|actor
+victim_wpn = 3|actor
+use = true
+use_wpn = false
+
+[danger_condition]
+ignore_distance = 0

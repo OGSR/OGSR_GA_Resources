@@ -1,0 +1,188 @@
+﻿;;;;; Гранатометы, гранаты, взрывающиеся предметы ;;;;;
+#include "delayed_action_fuse.ltx"
+#include "grenade_m1.ltx" ; для подствольников
+#include "grenade_m2.ltx" ; ручные
+#include "explosive.ltx" ; взрывающиеся предметы
+
+;;;;; Аддоны ;;;;;
+#include "addon_silencer.ltx"
+#include "addon_scope.ltx"
+#include "addon_glauncher.ltx"
+#include "addon_tactical.ltx"
+
+;;;;; Другое ;;;;;
+#include "w_knife.ltx"
+#include "w_bolt.ltx"
+#include "w_binoc.ltx"
+#include "w_mounted.ltx"
+
+
+;;;;; GUNSLINGER ;;;;;
+#include "gans\w_abakan_gans.ltx"
+#include "gans\w_ak74_gans.ltx"
+#include "gans\w_ak74u_gans.ltx"
+#include "gans\w_ak101_gans.ltx"
+#include "gans\w_groza_gans.ltx"
+#include "gans\w_l85_gans.ltx"
+#include "gans\w_sig550_gans.ltx"
+#include "gans\w_sig552_gans.ltx"
+#include "gans\w_val_gans.ltx"
+
+#include "gans\w_bizon_gans.ltx"
+#include "gans\w_mp5_gans.ltx"
+#include "gans\w_p90_gans.ltx"
+#include "gans\w_ump45_gans.ltx"
+
+#include "gans\w_bm16_gans.ltx"
+#include "gans\w_saiga12_gans.ltx"
+#include "gans\w_toz34_gans.ltx"
+
+#include "gans\w_gauss_gans.ltx"
+#include "gans\w_svd_gans.ltx"
+#include "gans\w_svu_gans.ltx"
+#include "gans\w_vintorez_gans.ltx"
+
+#include "gans\w_beretta_gans.ltx"
+#include "gans\w_colt1911_gans.ltx"
+#include "gans\w_deagle_gans.ltx"
+#include "gans\w_fiveseven_gans.ltx"
+#include "gans\w_fort_gans.ltx"
+#include "gans\w_glock_gans.ltx"
+#include "gans\w_grach_gans.ltx"
+#include "gans\w_gsh18_gans.ltx"
+#include "gans\w_hpsa_gans.ltx"
+#include "gans\w_pb_gans.ltx"
+#include "gans\w_pm_gans.ltx"
+#include "gans\w_sig220_gans.ltx"
+#include "gans\w_sr1m_gans.ltx"
+#include "gans\w_stechkin_gans.ltx"
+#include "gans\w_usp_gans.ltx"
+#include "gans\w_walther_gans.ltx"
+
+#include "gans\w_rpg7_gans.ltx"
+#include "gans\w_rgm40_gans.ltx"
+;;;;; GUNSLINGER ;;;;;
+
+;------------------------------
+; Огнестрельное оружие
+;------------------------------
+
+[bullet_manager]
+tracer_width					= 0.08
+tracer_length_max				= 10.0	;24.0 ;14.0	
+tracer_length_min				= 2		;0.2
+
+;расстояние после которого учитывается hit_probabilty полностью
+hit_probability_max_dist		= 10;
+
+gravity_const					= 9.81
+
+;сопротивление воздуха, процент, который отнимается от скорости полета пули (АМК Снайпер 1.82; ОГСЕ 0.25) Оригинал ?
+air_resistance_k				= 0.25
+
+;размер шага времени (в милисекундах), по которому проигрываются (АМК Снайпер было 1 а в ОГСЕ почему-то 33) Оригинал ?
+time_step						= 10
+
+;минимальная скорость (м/с), на которой пуля еще считается и показывается
+min_bullet_speed				= 3.0
+
+;"фирменный" рикошет ОГСЕ не настраиваемый, это все в движке. Считается по уравнению в котором учтены скорость пули, пробиваемость поверхности и угол столкновения.
+;попадания дают фонтанчик партиклов из земли в течение трех секунд - сильно упала скорость пуль и они из-за этого не рикошетят и время контакта с землей у них стало намного выше
+
+;cколько процентов энергии потеряет пуля при столкновении с материалом (при падении под прямым углом)
+collision_energy_min			= 0.80 ;0.75; 0.90
+;сколько процентов энергии останется у пули при любом столкновении
+collision_energy_max			= 0.5 ;0.7;0.50
+
+whine_sounds					= weapons\whine_1, weapons\whine_2, weapons\whine_3, weapons\whine_4, weapons\whine01, weapons\whine02
+explode_particles				= explosions\expl_bullet, explosions\expl_bullet_00, explosions\expl_bullet_01, explosions\expl_bullet_02, explosions\expl_bullet_03
+
+allow_ricochet = false ; чтоб случайно по своим не попасть и  они не стали врагами.
+
+[tracers_color_table]	;color_table
+color_0 = 1.0, 0.54, 0.0 ; yellow
+color_1 = 1.0, 1.0, 1.0	; white
+color_2 = 1.0, 0.1, 0.0	; red
+color_3 = 0.3, 1.0, 0.3	; green
+color_4 = 0.0, 0.0, 0.1 ; blue
+
+;------------------------------
+; Боеприпасы
+;------------------------------
+; k_dist = коэффициент дальности, завязан на дальность в стволе 
+
+; k_disp = коэффициент кучности, завязан с кучностью в стволе 
+
+; k_hit  = коэффициент убойности, завязан с убойностью в стволе 
+
+; k_impulse = коэффициент "толчка" при попадании. Походу работает только на "неживых" 
+
+; k_pierce = коэффициент бронебойности. hit_power оружия на бронебойность влияния не оказывает.
+	; 1.1  - не пробивается забор и жесть.
+	; 1.12 - пробивается забор и застревает в первой стенке халупы.
+	; 1.15 - пробивается забор и застревает в первой стенке халупы.
+	; 1.2  - пробивается забор и застревает в первой стенке халупы.
+	; 1.25 - ствол толстого дерева не пробивается. пробивается забор и первая стенка, застревает во второй стенке халупы.
+	; 1.35 - ствол толстого дерева не пробивается.
+	; 1.4  - ствол толстого дерева не пробивается.
+	; 1.45 - ствол толстого дерева пробивается
+	; 1.5  - ствол толстого дерева пробивается
+	; бетон не пробивается никогда 
+; impair = коэффициент износа ствола от пули 
+
+; buck_shot = кол-во составляющих в пуле (напр картечь - 4, пуля - 1) 
+
+; tracer = on является ли патрон трассирующим (on/off) 
+
+; wm_size = визуальный размер дырки на стене от пули. wm скорей всего означает wallmark
+;------------------------------
+
+[ammo_base]:identity_immunities
+GroupControlSection	 = spawn_group
+discovery_dependency = 
+cform           = skeleton
+class			= AMMO
+$prefetch 		= 64
+belt = false
+impair			= 1
+buck_shot		= 1
+tracer			= off		;абсолютно некрасивый текстурный трассер, ещё более ненатурально через оптику выглядит
+explosive		= off
+k_dist			= 1
+k_disp			= 1
+k_hit			= 1
+k_impulse		= 1
+k_pierce		= 1
+wm_size         = 0.05
+
+;------------------------------
+;фейк-боеприпас для бинокля ТЧ
+[ammo_binoc_01_dummy]:ammo_base
+$spawn			= "weapons\ammo\ammo_binoc_02_dummy" ; option for Level Editor
+description		= binocular
+
+cost			= 0
+box_size		= 0
+
+inv_name		= addon_bino
+inv_name_short	= addon_bino_s
+inv_weight		= 0.1
+
+inv_grid_width	= 2
+inv_grid_height	= 1
+inv_grid_x		= 74	;16
+inv_grid_y		= 10	;8
+
+wm_size         = 0.01
+
+#include "ammo\9x18.ltx"
+#include "ammo\9x19.ltx"
+#include "ammo\9x39.ltx"
+#include "ammo\12cal.ltx"
+#include "ammo\545x39.ltx"
+#include "ammo\556x45.ltx"
+#include "ammo\762x54.ltx"
+#include "ammo\1143x23.ltx"
+#include "ammo\gauss_ammo.ltx"
+
+#include "grenadier.ltx"

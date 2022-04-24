@@ -1,0 +1,11 @@
+[logic]
+active = ph_idle@wait
+
+[ph_idle@wait]
+on_info = {+freeplay} ph_sound@alarm
+
+[ph_sound@alarm]
+snd = siren
+on_info = {+final_battle_nuke_particle} ph_idle@nil
+
+[ph_idle@nil]

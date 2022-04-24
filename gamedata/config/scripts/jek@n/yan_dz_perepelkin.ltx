@@ -1,0 +1,26 @@
+[smart_terrains]
+none = true
+
+[dont_spawn_loot]
+
+[logic]
+active = walker@perepelkin
+
+[walker@perepelkin]
+path_walk = yan_perepelkin_walk
+path_look = yan_perepelkin_look
+meet = meet
+danger = danger_condition
+combat_ignore = always
+combat_ignore_cond = always
+
+[meet]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 3|actor
+victim_wpn = 3|actor
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_corpse = 0

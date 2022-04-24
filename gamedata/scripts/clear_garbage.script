@@ -1,0 +1,125 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+--[[--------------------------------------------------------
+-|clear_garbage.script
+-|Уборшик бесхозного оружия.
+-|KRodin © 2016
+-|Version: 2.0
+-|Максимально упростил работу скрипта, вырезал весь мусор.
+-|Теперь оружие с локации удаляется при уходе с неё.
+-|Пока актор не ушёл с локации - ничего не удаляется.
+----------------------------------------------------------]]
+
+function attach(sm)
+	sm:subscribe({ signal = "on_spawn",	fun = this.remove_guns })
+end
+
+local protected_objects = { --Имена объектов, которые запрещено удалять
+	[ "esc_wpn_ak74u" ] = true,
+	[ "esc_wpn_pm" ] = true,
+	[ "esc_wpn_bm16" ] = true,
+	[ "aes_grenade_f_0001" ] = true,
+	[ "aes_grenade_f_0000" ] = true,
+	[ "aes_grenade_f_0002" ] = true,
+	[ "aes_grenade_f_0003" ] = true,
+	[ "aes_wpn_binoc" ] = true,
+	[ "aes_wpn_rpg7" ] = true,
+	[ "dar_wpn_ak74" ] = true,
+	[ "dar_wpn_rpg7" ] = true,
+	[ "gar_grenade_f_0000" ] = true,
+	[ "gar_grenade_f_0001" ] = true,
+	[ "val_wpn_ak74u" ] = true,
+	[ "val_wpn_ak74u_0000" ] = true,
+	[ "val_wpn_ak74u_0001" ] = true,
+	[ "val_wpn_mp5" ] = true,
+	[ "val_wpn_mp5_0000" ] = true,
+	[ "val_wpn_rpg_0000" ] = true,
+	[ "yan_grenade_rgd5" ] = true,
+	[ "mil_grenade_f_0016" ] = true,
+	[ "mil_grenade_f_0017" ] = true,
+	[ "mil_grenade_f_0018" ] = true,
+	[ "mil_grenade_f_0019" ] = true,
+	[ "mil_grenade_rgd5" ] = true,
+	[ "mil_grenade_rgd_0000" ] = true,
+	[ "mil_wpn_pm_0000" ] = true,
+	[ "mil_wpn_ak74u" ] = true,
+	[ "mil_wpn_ak0001" ] = true,
+	[ "mil_wpn_ak0002" ] = true,
+	[ "mil_wpn_bm16" ] = true,
+	[ "mil_wpn_pm" ] = true,
+	[ "mil_wpn_vintorez" ] = true,
+	[ "kat_wpn_ak74u" ] = true,
+	[ "level_prefix_wpn_groza" ] = true,
+	[ "bun_grenade_f1_0001" ] = true,
+	[ "bun_grenade_f1_0005" ] = true,
+	[ "bun_grenade_f1_0006" ] = true,
+	[ "bun_grenade_f1_0007" ] = true,
+	[ "bun_grenade_f1_0008" ] = true,
+	[ "kat_wpn_ak74n_rpk45_side_rail_kobra" ] = true,
+	[ "kat_gunslinger_ak" ] = true,
+	[ "rad_wpn_vintorez" ] = true,
+	[ "cit_wpn_ak74_0000" ] = true,
+	[ "cit_wpn_ak74_0001" ] = true,
+	[ "cit_grenade_f1" ] = true,
+	[ "cit_grenade_f1_0000" ] = true,
+	[ "cit_grenade_f1_0001" ] = true,
+	[ "cit_grenade_rgd5" ] = true,
+	[ "cit_grenade_rgd5_0000" ] = true,
+	[ "cit_grenade_rgd5_0001" ] = true,
+	[ "cit_grenade_rgd5_0002" ] = true,
+	[ "cit_grenade_rgd5_0003" ] = true,
+	[ "cit_binocular_a" ] = true,
+	[ "cit_wpn_ak74_0002" ] = true,
+}
+
+local protected_sections = { --Секции объектов, которые запрещено удалять
+	[ "hunters_toz" ] = true, --ТОЗ Охотника на ДТ
+	[ "cherep_svd" ] = true, --СВД Черепа в баре
+	[ "wpn_montirovka" ] = true, --Монтировка Фримена
+	[ "wpn_val_tact" ] = true, --Вал по наводке Толика на ДТ
+	[ "wpn_fort_unic" ] = true, --Форт Кузнецова
+	[ "wpn_desert_eagle_unic" ] = true, --Десерт Игл Фраера
+	[ "wpn_colt1911_unic" ] = true, --Кольт наёмников на АС
+	[ "wpn_vintorez_tact" ] = true, --Винторез в комнате за кодовой дверью на Радаре
+}
+
+local musor_sections = { --Секции всякого мусора, который надо удалять.
+	["fake_grenades_base"] = true,
+	["grenade_f1_fake"] = true,
+	["grenade_rgd5_fake"] = true,
+	["grenade_f1_test"] = true,
+	["grenade_rgd5_test"] = true,
+	["gl_test_shell"] = true,
+	["wpn_fake_missile"] = true,
+	["gl_test_shell_ammo_vog-25"] = true,
+	["gl_test_shell_ammo_vog-25p"] = true,
+	["gl_test_shell_ammo_m209"] = true,
+	["gl_fake_missile"] = true,
+	["gl_fake_missile_ammo_vog-25"] = true,
+	["gl_fake_missile_ammo_vog-25p"] = true,
+	["gl_fake_missile_ammo_m209"] = true,
+	["m_phantom"] = true,
+}
+
+function remove_guns()
+	local actor_level = level.name()
+	local t = {}
+	for id, sobj in alife():objects() do
+		local wpn_name = sobj:name()
+		local wpn_sect = sobj:section_name()
+		if	sobj.parent_id == 65535
+			and not protected_objects[wpn_name]
+			and not protected_sections[wpn_sect]
+			and ( isWeapon(sobj) or musor_sections[wpn_sect] )
+		then
+			local wpn_level = object_level_name(sobj)
+			if wpn_level ~= actor_level or musor_sections[wpn_sect] then
+				--log3("!!!Clear_garbage!!! Deleting wpn: %s , Section: %s , level: %s", wpn_name, wpn_sect, wpn_level)
+				table.insert( t, sobj )
+			end
+		end
+	end
+	for _, sobj in ipairs( t ) do
+		alife():release( sobj )
+	end
+end

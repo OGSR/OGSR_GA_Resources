@@ -1,0 +1,129 @@
+[m_phantom]:monster_base
+GroupControlSection	= spawn_group
+$spawn                  = "monsters\phantom\phantom"
+spawn 	                = on
+cform                   = skeleton
+class                   = AI_PHANT
+species					= phantom
+rank			= 0
+visuals                 = monsters\phantom\pseudodog_0 ,monsters\phantom\tushkano_0, monsters\phantom\mutant_boar_0, monsters\phantom\krovosos_0, monsters\phantom\snork_0, monsters\phantom\cat_0, monsters\phantom\chimera_0, monsters\phantom\psevdogigant_0, monsters\phantom\zombi_0, monsters\phantom\dog_0, monsters\phantom\kontroler_0
+speed                   = 2.0
+angular_speed           = 3.5	
+contact_hit				= 0.3
+
+ef_creature_type		= -1
+
+script_binding  		= phantom_manager.bind
+
+; state BIRTH
+particles_birth 		= monsters\phantom_birth
+sound_birth 			= monsters\poltergeist\attack_hit_0
+; state FLY
+particles_fly	 		= monsters\phantom_fly
+sound_fly	 			= monsters\poltergeist\die_0
+; state CONTACT
+particles_contact 		= monsters\phantom_death
+sound_contact 			= monsters\poltergeist\hit_0
+; state SHOOT
+particles_shoot 		= monsters\phantom_death
+sound_shoot				= monsters\biting\def_0
+
+material				= creatures\phantom
+
+;Цифрой 1 помечаются фантомы с шейдером model, цифрой 2 - с шейдером xanomaly, 3 - water, 4- xdistorcolor
+
+[phantom_flesh_1]:m_phantom
+$spawn                  = "monsters\phantom\phantom_flesh_1"
+visuals                 = monsters\phantom\flesh_1
+speed                   = 3.0
+contact_hit		= 0.4
+particles_fly	 	= damage_fx\burn_creatures
+particles_contact 	= anomaly2\gravi_anomaly_shield_00
+particles_shoot 	= anomaly2\gravi_anomaly_shield_00
+sound_fly	 			= monsters\poltergeist\die_1
+
+[phantom_mutant_boar_1]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_mutant_boar_1"
+visuals                 = monsters\phantom\mutant_boar_1
+contact_hit		= 0.5
+sound_fly	 			= monsters\poltergeist\die_1
+
+[phantom_pseudodog_1]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_pseudodog_1"
+visuals                 = monsters\phantom\pseudodog_1
+sound_fly	 			= monsters\poltergeist\die_2
+
+[phantom_dog_1]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_dog_1"
+visuals                 = monsters\phantom\dog_1
+sound_fly	 			= monsters\poltergeist\die_2
+
+
+[phantom_dog_2]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_dog_2"
+visuals                 = monsters\phantom\phantom_dog_2
+sound_fly	 			= monsters\poltergeist\die_2
+
+
+[phantom_psevdogigant_1]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_psevdogigant_1"
+visuals                 = monsters\phantom\psevdogigant_1
+sound_fly	 			= monsters\poltergeist\die_3
+
+[phantom_cat_1]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_cat_1"
+visuals                 = monsters\phantom\cat_1
+sound_fly	 			= monsters\poltergeist\die_3
+
+[phantom_snork_1]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_snork_1"
+visuals                 = monsters\phantom\snork_1
+sound_fly	 			= monsters\poltergeist\die_3
+
+[phantom_snork_4]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_snork_4"
+visuals                 = monsters\phantom\snork_4
+;particles_fly	 	    = explosions\campfire_boar_grill
+;particles_shoot 	    = anomaly2\plasma_generator_death
+;particles_contact 	    = anomaly2\plasma_generator_death
+;contact_hit		        = 0.6
+sound_fly	 			= monsters\poltergeist\die_3
+
+[phantom_tushkano_1]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_tushkano_1"
+visuals                 = monsters\phantom\tushkano_1
+
+[phantom_chimera_1]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_chimera_1"
+visuals                 = monsters\phantom\chimera_1
+sound_fly	 			= monsters\poltergeist\die_2
+
+[phantom_chimera_2]:phantom_snork_4
+$spawn                  = "monsters\phantom\phantom_chimera_2"
+visuals                 = monsters\phantom\chimera_2
+sound_fly	 			= monsters\poltergeist\die_2
+
+[phantom_krovosos_1]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_krovosos_1"
+visuals                 = monsters\phantom\krovosos_1
+sound_fly	 			= monsters\poltergeist\die_1
+
+[phantom_krovosos_2]:phantom_snork_4
+$spawn                  = "monsters\phantom\phantom_krovosos_2"
+visuals                 = monsters\phantom\krovosos_2
+sound_fly	 			= monsters\poltergeist\die_1
+
+[phantom_kontroler_1]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_kontroler_1"
+visuals                 = monsters\phantom\kontroler_1
+speed                   = 1.0
+angular_speed           = 3.5	
+particles_shoot 	    = anomaly2\plasma_generator_death
+sound_fly	 			= monsters\poltergeist\die_2
+
+[phantom_zombi_3]:phantom_flesh_1
+$spawn                  = "monsters\phantom\phantom_zombi_3"
+visuals                 = monsters\phantom\zombi_3
+speed                   = 2.0
+angular_speed           = 2.5	
+sound_fly	 			= monsters\poltergeist\die_1

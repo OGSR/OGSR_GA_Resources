@@ -1,0 +1,699 @@
+[wpn_bizon]:identity_immunities,base_wpn_zoom
+GroupControlSection     = spawn_group
+$spawn               	= "weapons\bizon"   ; name and section in level editor
+$npc              		= on
+$prefetch               = 8
+scheduled               = off                                ; option for ALife Simulator
+cform                   = skeleton
+class                = WP_AK74         ; class of the weapon that corresponding to CPP class
+description          = gunsl_wpn_bizon_descr
+
+ef_main_weapon_type     = 2
+ef_weapon_type          = 6
+
+hidden_bones = body, body2, body3, bone, bone2, bone3, handler2, handler3, foregrip_plastic, flash_rail, scope1, scope2, scope3, scope4, scope5, scope6, scope7, flash, light, laser, line, sight, rail, tilnik
+silencer_bone = wpn_silencer
+
+;-------------------------------------------------------------------------------
+cost              		= 3200            ; the price of the item
+weapon_class            = assault_rifle      ; the type of the box that will be used in buy-menu in multiplayer mode
+inv_weight				= 2.7								; weight in inventory
+
+;-ТТХ---------------------------------------------------------------------------
+
+hit_power           	= 0.72, 0.72, 0.72, 0.72
+hit_impulse          	= 85    ; size of physic impulse by bullet
+hit_type            	= fire_wound            ; [] type of the wound
+fire_distance           = 200    ; maximum fire distance that bullet can fly
+bullet_speed            = 210    ; starting bullet speed
+rpm                     = 640    ; max round per minute
+rpm_empty_click         = 200
+use_aim_bullet          = false                ;Поддерживается ли первая суппер пуля
+time_to_aim             = 1.0
+
+hud                        = wpn_bizon_hud            ; name of the section of the hud
+
+misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.7
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.3
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.004
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.15
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.00013
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.00015
+
+
+ammo_elapsed            = 64           ; obsolete
+ammo_mag_size        	= 64           ; clip (magazine) size
+fire_modes           	= 1, -1
+
+ammo_class           	= ammo_9x18_fmj, ammo_9x18_pmm
+grenade_class        	= ammo_vog-25         ; name of the ltx-section of used grenades
+
+launch_speed            = 0
+hand_dependence         = 1
+single_handed           = 0
+
+;---DOF-------------------------------------------------------------------------
+zoom_dof             = 0.5, 1.0, 180
+reload_dof           = 0.0, 0.5, 5, 2
+
+;----Дисперсия---------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base    = 0.25  ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor = 1.1f
+crosshair_inertion   	= 3.3
+
+;отдача
+cam_return			 = 0
+cam_relax_speed      = 5		;скорость возврата в исходное положение
+cam_relax_speed_ai   = 120.75
+cam_dispersion       = 0.7		;увеличения угла (в градусах) с каждым выстрелом
+cam_dispersion_inc   = 0.5		;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac  = 1.0		;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle        = 90.0		;максимальный угол отдачи
+cam_max_angle_horz   = 90.0		;(degree) maximum shot horizontal degree
+cam_step_angle_horz  = 1.5		;(degree) size of step camera moved in horizontal position while shooting
+
+PDM_disp_base 				= 1.2
+PDM_disp_vel_factor 		= 1.2
+PDM_disp_accel_factor 		= 1.3
+PDM_disp_crouch	 			= 0.9
+PDM_disp_crouch_no_acc 		= 0.9
+
+zoom_cam_relax_speed        = 10    ; scope & ironsight
+zoom_cam_relax_speed_ai     = 120.75
+zoom_cam_dispersion         = 0.25
+zoom_cam_dispersion_inc     = 0.25
+zoom_cam_dispersion_frac    = 1.0
+zoom_cam_max_angle          = 90.0
+zoom_cam_max_angle_horz     = 90.0
+zoom_cam_step_angle_horz    = 1.5
+
+fire_dispersion_condition_factor = 9        ;увеличение дисперсии в процентах при максимальном износе
+
+;-------------------------------------------------------------------------------
+holder_range_modifier   = 1.0                       ; во сколько раз увеличивается eye_range
+holder_fov_modifier     = 1.0              ; во сколько раз увеличивается eye_fov
+
+min_radius              = 0
+max_radius              = 50
+
+hit_probability_gd_novice  = 0.80
+hit_probability_gd_stalker = 0.80
+hit_probability_gd_veteran = 0.80
+hit_probability_gd_master  = 0.80
+
+;-------------------------------------------------------------------------------
+slot                = 2                ; // secondary
+animation_slot      = 8                ; type of the animation that will be used
+
+inv_name          	= gunsl_wpn_bizon                    ; name in inventory
+inv_name_short          = gunsl_wpn_bizon
+inv_grid_width		= 4	 ; position and size of the icon that will be used to display weapon in the inventory menu
+inv_grid_height		= 2	 ; all icons are on the texture ui_icon_equipment.dds,
+inv_grid_x			= 10  ; position and size are in terms of 64x64 squares
+inv_grid_y			= 37
+
+kill_msg_x			= 0
+kill_msg_y			= 123
+kill_msg_width		= 69
+kill_msg_height		= 30
+
+position                         = -0.021000, -0.210500, 0.008000
+orientation                      = 0.000000, 2.864789, 0.000000
+
+fire_point          =  0.0, 0.262, 0.447		; position (3rd person view) for particles of fire
+fire_point2         =  0.0, 0.262, 0.547		; position (3rd person view) for particles of fire (when shooting with secondary fire)
+
+flame_particles         = weapons\generic_weapon05      ; particles for shooting effects
+smoke_particles         = weapons\generic_shoot_00
+grenade_flame_particles = weapons\generic_weapon01
+silencer_smoke_particles   = weapons\generic_shoot_00
+
+shell_point		= 0.00, 0.262, 0.189		; position (3rd person view) for shell to throw out
+shell_particles	        = ;
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;под мишкой
+strap_position         	= -0.18,-0.45,0.2			; position (offset) and orientation of the weapon when it is strapped
+strap_orientation      	= -10,-5,10					; (3rd person view in degrees)
+strap_bone0             = bip01_spine2
+strap_bone1             = bip01_spine1
+
+startup_ammo            = 90
+visual                  = dynamics\weapons\wpn_bizon\wpn_bizon.ogf
+
+light_disabled				= false
+light_color				= 0.6,0.5,0.3
+light_range				= 5
+light_var_color				= 0.05
+light_var_range				= 0.5
+light_time				= 0.2
+
+ph_mass                 = 4
+
+;addons
+scope_status               = 2                 ; 0 - no addon
+silencer_status            = 2                   ; 1 - permanent
+grenade_launcher_status    = 0                   ; 2 - attachable
+
+zoom_enabled			= true
+zoom_rotate_time		= 0.25
+
+scope_name              = wpn_addon_scope
+scope_names             = wpn_addon_scope_pso, wpn_addon_scope_pso2, wpn_addon_scope_detector, wpn_addon_scope_night, wpn_addon_scope_kobra, wpn_addon_scope_pka, wpn_addon_scope_kashtan 
+scope_x                 = 100
+scope_y                 = 100
+
+scope_respawn                                        = wpn_bizon
+scope_respawn_wpn_addon_scope_pso                    = wpn_bizon_pso
+scope_respawn_wpn_addon_scope_pso2                   = wpn_bizon_pso2
+scope_respawn_wpn_addon_scope_detector               = wpn_bizon_detector
+scope_respawn_wpn_addon_scope_night                  = wpn_bizon_night
+scope_respawn_wpn_addon_scope_kobra                  = wpn_bizon_cobra
+scope_respawn_wpn_addon_scope_pka                    = wpn_bizon_pka
+scope_respawn_wpn_addon_scope_kashtan                = wpn_bizon_kashtan
+
+silencer_name  		= wpn_addon_sil_918			; section name for the attachable silencer
+silencer_x 					= 170							; offset in inventory icon
+silencer_y 					= 13
+grenade_launcher_name   = wpn_addon_grenade_launcher_m203
+grenade_launcher_x      = 109
+grenade_launcher_y      = 30
+
+;звуки
+
+snd_draw		= weapons\p90\p90_draw
+snd_holster		= weapons\p90\p90_hide
+snd_shoot		= weapons\bizon\bizon_shoot
+snd_empty		= weapons\glock17\glock17_dry
+snd_reload              = weapons\bizon\bizon_reload
+snd_reload_empty        = weapons\bizon\bizon_reload_empty
+snd_reload_jammed       = weapons\ak74\ak74_revival
+snd_reload_jammed_last  = weapons\ak74\ak74_revival
+snd_silncer_shot        = weapons\bizon\bizon_shoot_sil
+snd_shoot_grenade       = $silent
+snd_reload_grenade      = $silent
+snd_switch              = $silent
+snd_fire_modes          = weapons\vss\vss_firemode
+silencer_light_color    = 0.6,0.5,0.3
+silencer_light_range    = 0.01
+silencer_light_var_color= 0.05
+silencer_light_var_range= 0.01
+silencer_light_time     = 0.01
+
+
+
+[wpn_bizon_hud]:hud_base
+zoom_hide_crosshair        = true
+attach_place_idx           = 0
+item_visual                = dynamics\weapons\wpn_bizon\wpn_bizon_hud.ogf
+
+zoom_dof_near = 0.25
+zoom_dof_focus = 0.5
+hands_position				= 0.02,-0.03,0.025
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.02,-0.03,0.025
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position				= 0.0,0.0,0.0
+item_orientation			= 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.020000,0.0205000,-0.02
+aim_hud_offset_rot = -0.01700000,0.000000,0.0
+
+aim_hud_offset_pos_16x9 = -0.020000,0.0205000,-0.02
+aim_hud_offset_rot_16x9 = -0.01700000,0.000000,0.0
+
+gl_hud_offset_pos               = 0,0,0;-0.053000,-0.059000,0.000000
+gl_hud_offset_rot               = 0,0,0;-0.145000,0.000000,0.000000
+
+gl_hud_offset_pos_16x9            = 0,0,0;-0.130000,0.003500,0.000500
+gl_hud_offset_rot_16x9            = 0,0,0;0.052500,0.045000,-0.010000
+
+lean_hud_offset_pos        = 0,0,0
+lean_hud_offset_rot        = 0,0,0
+
+
+shell_point			= 0.0,-9.0,0.0
+shell_dir                       = 0.0,0.0,0.0
+shell_bone			= bolt
+
+fire_point			= 0.0,0.006,0.484
+fire_bone                       = wpn_body
+fire_point2                     = 0.0,0.007,0.73
+fire_bone2                      = wpn_body
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = bizon_draw
+anm_show_empty             = bizon_draw
+anm_show_jammed            = bizon_draw, idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = bizon_hide
+anm_hide_empty             = bizon_hide
+anm_hide_jammed            = bizon_hide, idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = bizon_idle
+anm_idle_empty                      = bizon_idle
+anm_idle_jammed                     = bizon_idle, idle_jammed
+anm_idle_slow                       = bizon_idle
+anm_idle_crouch                     = bizon_idle
+anm_idle_crouch_slow                = bizon_idle
+anm_idle_slow_empty                 = bizon_idle
+anm_idle_crouch_empty               = bizon_idle
+anm_idle_crouch_slow_empty          = bizon_idle
+anm_idle_slow_jammed                = bizon_idle, idle_jammed
+anm_idle_crouch_jammed              = bizon_idle, idle_jammed
+anm_idle_crouch_slow_jammed         = bizon_idle, idle_jammed
+
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = bizon_aim_start
+anm_idle_aim_start_empty       = bizon_aim_start
+anm_idle_aim_start_jammed      = bizon_aim_start, bizon_aim_start_jammed
+
+anm_idle_aim                   = bizon_aim, idle_aim
+anm_idle_aim_empty             = bizon_aim, idle_aim
+anm_idle_aim_jammed            = bizon_aim, idle_aim_jammed
+anm_idle_aim_scope             = bizon_aim, idle_aim
+anm_idle_aim_scope_empty       = bizon_aim, idle_aim
+anm_idle_aim_scope_jammed      = bizon_aim, idle_aim_jammed
+
+
+anm_idle_aim_end               = bizon_aim_end
+anm_idle_aim_end_empty         = bizon_aim_end
+anm_idle_aim_end_jammed        = bizon_aim_end, bizon_aim_end_jammed
+
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					    = bizon_walk
+anm_idle_moving_jammed 					= bizon_walk, idle_jammed
+anm_idle_moving_empty					= bizon_walk
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					    = bizon_walk_slow
+anm_idle_moving_slow_jammed 				= bizon_walk_slow, idle_jammed
+anm_idle_moving_slow_empty				    = bizon_walk_slow
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					        = bizon_walk_slow_down
+anm_idle_moving_crouch_jammed 					= bizon_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty					= bizon_walk_slow_down
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 					= bizon_walk_slow_super
+anm_idle_moving_crouch_slow_jammed 				= bizon_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty				= bizon_walk_slow_super
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                   = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_forward_empty             = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_forward_jammed            = bizon_aim_walk, idle_aim_jammed
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                   = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_back_empty             = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_back_jammed            = bizon_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                   = bizon_aim_walk_left, idle_aim  
+anm_idle_aim_moving_left_empty             = bizon_aim_walk_left, idle_aim
+anm_idle_aim_moving_left_jammed            = bizon_aim_walk_left, idle_aim_jammed
+
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                   = bizon_aim_walk_right, idle_aim
+anm_idle_aim_moving_right_empty             = bizon_aim_walk_right, idle_aim
+anm_idle_aim_moving_right_jammed            = bizon_aim_walk_right, idle_aim_jammed
+ 
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                   = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_forward_left_empty             = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_forward_left_jammed            = bizon_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                   = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_forward_right_empty             = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_forward_right_jammed            = bizon_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                   = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_back_left_empty             = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_back_left_jammed            = bizon_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                   = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_back_right_empty             = bizon_aim_walk, idle_aim
+anm_idle_aim_moving_back_right_jammed            = bizon_aim_walk, idle_aim_jammed
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving	              = bizon_aim_walk_scope, idle_aim
+anm_idle_aim_scope_moving_empty		      = bizon_aim_walk_scope, idle_aim
+anm_idle_aim_scope_moving_jammed	      = bizon_aim_walk_scope, idle_aim_jammed
+
+
+;Бег//////////////////////////////////////////////////////////////////
+lock_time_anm_idle_sprint_start = 0.15
+lock_time_anm_idle_sprint_start_empty = 0.15
+lock_time_anm_idle_sprint_start_jammed = 0.15
+anm_idle_sprint_start             = bizon_sprint_start
+anm_idle_sprint_start_empty       = bizon_sprint_start
+anm_idle_sprint_start_jammed      = bizon_sprint_start, idle_jammed
+
+
+anm_idle_sprint                   = bizon_sprint
+anm_idle_sprint_empty             = bizon_sprint
+anm_idle_sprint_jammed            = bizon_sprint, idle_jammed
+
+
+lock_time_anm_idle_sprint_end        = 0.35
+lock_time_anm_idle_sprint_end_empty  = 0.35
+lock_time_anm_idle_sprint_end_jammed = 0.35
+anm_idle_sprint_end             = bizon_sprint_end
+anm_idle_sprint_end_empty       = bizon_sprint_end
+anm_idle_sprint_end_jammed      = bizon_sprint_end, idle_jammed
+
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = bizon_draw
+anm_bore_empty             = bizon_draw
+anm_bore_jammed            = bizon_draw, idle_jammed
+
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                = bizon_shoot
+anm_shoot_sil            = bizon_shoot
+anm_shoot_jammed	     = bizon_shoot, idle_jammed
+anm_shoot_jammed_sil	 = bizon_shoot, idle_jammed
+anm_shoot_last           = bizon_shoot
+anm_shoot_last_sil       = bizon_shoot
+anm_shoot_aim            = bizon_aim_shoot
+anm_shoot_aim_sil        = bizon_aim_shoot
+anm_shoot_aim_jammed	 = bizon_aim_shoot, idle_aim_jammed
+anm_shoot_aim_jammed_sil = bizon_aim_shoot, idle_aim_jammed
+anm_shoot_aim_last       = bizon_aim_shoot
+anm_shoot_aim_last_sil   = bizon_aim_shoot
+anm_shoot_aim_scope            = bizon_aim_shoot_scope, bizon_aim_shoot
+anm_shoot_aim_scope_sil        = bizon_aim_shoot_scope, bizon_aim_shoot
+anm_shoot_aim_scope_last       = bizon_aim_shoot_scope, bizon_aim_shoot
+anm_shoot_aim_scope_last_sil   = bizon_aim_shoot_scope, bizon_aim_shoot
+anm_shoot_aim_scope_jammed     = bizon_aim_shoot_scope, idle_aim_jammed
+anm_shoot_aim_scope_jammed_sil = bizon_aim_shoot_scope, idle_aim_jammed
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty      = bizon_dry_empty
+anm_fakeshoot_aim_empty      = bizon_aim_dry, idle_aim
+anm_fakeshoot_jammed     = bizon_dry, idle_jammed
+anm_fakeshoot_aim_jammed     = bizon_aim_dry, idle_aim_jammed
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                           = bizon_reload
+anm_reload_empty                     = bizon_reload_empty
+anm_reload_jammed                    = bizon_revival
+anm_reload_jammed_last               = bizon_revival
+
+;Смена режима огня//////////////////////////////////////////////////////////////////////////
+use_firemode_change_anim = true
+
+;1-a
+lock_time_anm_changefiremode_from_1_to_a = 1.17
+anm_changefiremode_from_1_to_a			     = bizon_firemode_1_to_a
+lock_time_anm_changefiremode_from_1_to_a_jammed = 1.17
+anm_changefiremode_from_1_to_a_jammed		     = bizon_firemode_1_to_a, bizon_firemode_1_to_a_jammed
+lock_time_anm_changefiremode_from_1_to_a_empty = 1.17
+anm_changefiremode_from_1_to_a_empty		     = bizon_firemode_1_to_a
+
+
+;a-1
+lock_time_anm_changefiremode_from_a_to_1 = 1.17
+anm_changefiremode_from_a_to_1			     = bizon_firemode_a_to_1
+lock_time_anm_changefiremode_from_a_to_1_jammed = 1.17
+anm_changefiremode_from_a_to_1_jammed		     = bizon_firemode_a_to_1, bizon_firemode_a_to_1_jammed
+lock_time_anm_changefiremode_from_a_to_1_empty = 1.17
+anm_changefiremode_from_a_to_1_empty		     = bizon_firemode_a_to_1
+
+
+
+
+;Разрядка//////////////////////////////////////////////////////////////////////////
+use_unloadmag_anim = true
+lock_time_anm_unload_mag = 0.8
+anm_unload_mag                               = bizon_draw
+lock_time_anm_unload_mag_jammed = 0.8
+anm_unload_mag_jammed                        = bizon_draw  
+lock_time_anm_unload_mag_empty = 0.8
+anm_unload_mag_empty                         = bizon_draw
+
+;Включение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_on = bizon_lam
+lock_time_start_anm_laser_on = 0.45
+lock_time_end_anm_laser_on = 0.65
+
+anm_laser_on_empty = bizon_lam
+lock_time_start_anm_laser_on_empty = 0.45
+lock_time_end_anm_laser_on_empty = 0.65
+
+anm_laser_on_jammed = bizon_lam, idle_jammed
+lock_time_start_anm_laser_on_jammed = 0.45
+lock_time_end_anm_laser_on_jammed = 0.65
+
+
+;Выключение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_off = bizon_lam
+lock_time_start_anm_laser_off = 0.45
+lock_time_end_anm_laser_off = 0.65
+
+anm_laser_off_empty = bizon_lam
+lock_time_start_anm_laser_off_empty = 0.45
+lock_time_end_anm_laser_off_empty = 0.65
+
+anm_laser_off_jammed = bizon_lam, idle_jammed
+lock_time_start_anm_laser_off_jammed = 0.45
+lock_time_end_anm_laser_off_jammed = 0.65
+
+;Включение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_on = bizon_lam
+lock_time_start_anm_torch_on = 0.45
+lock_time_end_anm_torch_on = 0.65
+
+anm_torch_on_empty = bizon_lam
+lock_time_start_anm_torch_on_empty = 0.45
+lock_time_end_anm_torch_on_empty = 0.65
+
+anm_torch_on_jammed = bizon_lam, idle_jammed
+lock_time_start_anm_torch_on_jammed = 0.45
+lock_time_end_anm_torch_on_jammed = 0.65
+
+
+;Выключение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_off = bizon_lam
+lock_time_start_anm_torch_off = 0.45
+lock_time_end_anm_torch_off = 0.65
+
+anm_torch_off_empty = bizon_lam
+lock_time_start_anm_torch_off_empty = 0.45
+lock_time_end_anm_torch_off_empty = 0.65
+
+anm_torch_off_jammed = bizon_lam, idle_jammed
+lock_time_start_anm_torch_off_jammed = 0.45
+lock_time_end_anm_torch_off_jammed = 0.65
+
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on = bizon_headflash
+lock_time_start_anm_headlamp_on = 0.58
+lock_time_end_anm_headlamp_on = 0.5
+
+anm_headlamp_on_empty = bizon_headflash
+lock_time_start_anm_headlamp_on_empty = 0.58
+lock_time_end_anm_headlamp_on_empty = 0.5
+
+anm_headlamp_on_jammed = bizon_headflash, idle_jammed
+lock_time_start_anm_headlamp_on_jammed = 0.58
+lock_time_end_anm_headlamp_on_jammed = 0.5
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off = bizon_headflash
+lock_time_start_anm_headlamp_off = 0.58
+lock_time_end_anm_headlamp_off = 0.5
+
+anm_headlamp_off_empty = bizon_headflash
+lock_time_start_anm_headlamp_off_empty = 0.58
+lock_time_end_anm_headlamp_off_empty = 0.5
+
+anm_headlamp_off_jammed = bizon_headflash, idle_jammed
+lock_time_start_anm_headlamp_off_jammed = 0.58
+lock_time_end_anm_headlamp_off_jammed = 0.5
+
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on = bizon_headflash
+anm_nv_on_empty = bizon_headflash
+anm_nv_on_jammed = bizon_headflash, idle_jammed
+
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off = bizon_headflash
+anm_nv_off_empty = bizon_headflash
+anm_nv_off_jammed = bizon_headflash, idle_jammed
+
+[wpn_bizon_pso]:wpn_bizon
+
+hidden_bones = body, body2, body3, bone, bone2, bone3, handler2, handler3, foregrip_plastic, flash_rail, scope1, scope2, scope3, scope4, scope5, scope7, flash, light, laser, line, sight, rail, tilnik
+scope_bone = scope6
+
+hud = wpn_bizon_pso_hud
+
+scope_name              = wpn_addon_scope_pso
+scope_x              	= 39                 ; offset in inventory icon
+scope_y                 = 1
+
+
+[wpn_bizon_pso_hud]:wpn_bizon_hud
+
+aim_hud_offset_pos = -0.009,-0.004,0.15
+aim_hud_offset_rot = 0.000000,0.000000,0.0
+
+aim_hud_offset_pos_16x9 = -0.009,-0.004,0.15
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.0
+
+
+[wpn_bizon_pso2]:wpn_bizon
+
+hidden_bones = body, body2, body3, bone, bone2, bone3, handler2, handler3, foregrip_plastic, flash_rail, scope1, scope2, scope3, scope5, scope6, scope7, flash, light, laser, line, sight, rail, tilnik
+scope_bone = scope4
+
+hud = wpn_bizon_pso2_hud
+
+scope_name              = wpn_addon_scope_pso2
+scope_x              	= 39                 ; offset in inventory icon
+scope_y                 = 1
+
+
+[wpn_bizon_pso2_hud]:wpn_bizon_hud
+
+aim_hud_offset_pos = -0.009,-0.008,0.11
+aim_hud_offset_rot = 0.000000,0.000000,0.0
+
+aim_hud_offset_pos_16x9 = -0.009,-0.008,0.11
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.0
+
+
+[wpn_bizon_detector]:wpn_bizon
+
+hidden_bones = body, body2, body3, bone, bone2, bone3, handler2, handler3, foregrip_plastic, flash_rail, scope1, scope2, scope3, scope4, scope5, scope6, flash, light, laser, line, sight, rail, tilnik
+scope_bone = scope7
+
+hud = wpn_bizon_detector_hud
+
+scope_name              = wpn_addon_scope_detector
+scope_x              	= 35                 ; offset in inventory icon
+scope_y                 = 2
+
+
+[wpn_bizon_detector_hud]:wpn_bizon_hud
+
+aim_hud_offset_pos = -0.0055,-0.034,0.09
+aim_hud_offset_rot = 0.000000,0.000000,0.0
+
+aim_hud_offset_pos_16x9 = -0.0055,-0.034,0.09
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.0
+
+
+[wpn_bizon_night]:wpn_bizon
+
+hidden_bones = body, body2, body3, bone, bone2, bone3, handler2, handler3, foregrip_plastic, flash_rail, scope1, scope2, scope3, scope4, scope6, scope7, flash, light, laser, line, sight, rail, tilnik
+scope_bone = scope5
+
+hud = wpn_bizon_night_hud
+
+scope_name              = wpn_addon_scope_night
+scope_x              	= 35                 ; offset in inventory icon
+scope_y                 = 2
+
+
+[wpn_bizon_night_hud]:wpn_bizon_hud
+
+aim_hud_offset_pos = 0.002,-0.017,0.09
+aim_hud_offset_rot = 0.000000,0.000000,0.0
+
+aim_hud_offset_pos_16x9 = 0.002,-0.017,0.09
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.0
+
+
+[wpn_bizon_cobra]:wpn_bizon
+
+hidden_bones = body, body2, body3, bone, bone2, bone3, handler2, handler3, foregrip_plastic, flash_rail, scope2, scope3, scope4, scope5, scope6, scope7, flash, light, laser, line, sight, rail, tilnik
+scope_bone = scope1
+
+hud = wpn_bizon_cobra_hud
+
+scope_name              = wpn_addon_scope_kobra
+scope_x              	= 68                 ; offset in inventory icon
+scope_y                 = 4
+
+
+[wpn_bizon_cobra_hud]:wpn_bizon_hud
+
+aim_hud_offset_pos = -0.0193,-0.016,-0.02
+aim_hud_offset_rot = 0.000000,0.000000,0.0
+
+aim_hud_offset_pos_16x9 = -0.0193,-0.016,-0.02
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.0
+
+
+
+[wpn_bizon_pka]:wpn_bizon
+
+hidden_bones = body, body2, body3, bone, bone2, bone3, handler2, handler3, foregrip_plastic, flash_rail, scope1, scope3, scope4, scope5, scope6, scope7, flash, light, laser, line, sight, rail, tilnik
+scope_bone = scope2
+
+hud = wpn_bizon_pka_hud
+
+scope_name              = wpn_addon_scope_pka
+scope_x              	= 76                 ; offset in inventory icon
+scope_y                 = 2
+
+
+[wpn_bizon_pka_hud]:wpn_bizon_hud
+
+aim_hud_offset_pos = -0.0093,-0.008,0.03
+aim_hud_offset_rot = 0.000000,0.000000,0.0
+
+aim_hud_offset_pos_16x9 = -0.0093,-0.008,0.03
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.0
+
+
+[wpn_bizon_kashtan]:wpn_bizon
+
+hidden_bones = body, body2, body3, bone, bone2, bone3, handler2, handler3, foregrip_plastic, flash_rail, scope1, scope2, scope4, scope5, scope6, scope7, flash, light, laser, line, sight, rail, tilnik
+scope_bone = scope3
+
+hud = wpn_bizon_kashtan_hud
+
+scope_name              = wpn_addon_scope_kashtan
+scope_x              	= 66                ; offset in inventory icon
+scope_y                 = 0
+
+
+[wpn_bizon_kashtan_hud]:wpn_bizon_hud
+
+aim_hud_offset_pos = -0.02,-0.005,0.04
+aim_hud_offset_rot = 0.000000,0.000000,0.0
+
+aim_hud_offset_pos_16x9 = -0.02,-0.005,0.04
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.0

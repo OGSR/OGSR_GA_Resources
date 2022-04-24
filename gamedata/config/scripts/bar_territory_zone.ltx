@@ -1,0 +1,23 @@
+[logic]
+active = sr_idle@normal
+
+[sr_idle@normal]
+on_info = {+aem_startup +bar_arena_fight} sr_idle@introduce
+
+[sr_idle@introduce]
+on_info = {=aem_group(turnament)} sr_idle@nocamera, {=aem_group(stakes)} sr_idle@nocamera, sr_idle@camera
+
+[sr_idle@nocamera]
+on_timer = 11000 | sr_idle@wait_done %+bar_arena_fight_begin%
+
+[sr_idle@camera]
+on_timer = 1000 | sr_cutscene@camera %=disable_ui%
+
+[sr_cutscene@camera]
+point = t_way
+look = t_look
+cam_effector = arena
+on_signal = cameff_end | sr_idle@wait_done %+bar_arena_fight_begin =enable_ui =bar_arena_weapon_slot%
+
+[sr_idle@wait_done]
+on_info = {=actor_dead} nil %+aem_fight_done%, {-bar_arena_fight} sr_idle@normal

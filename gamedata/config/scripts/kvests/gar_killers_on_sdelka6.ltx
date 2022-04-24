@@ -1,0 +1,26 @@
+
+
+[logic]
+active = walker
+combat_ignore = combat_ignore
+on_death = death
+
+[smart_terrains]
+none = true
+
+[death]
+on_info = %+bar_kvest_sdelka_dolg_and_killers_kill_killer_6%
+
+[walker]
+path_walk = gar_killers_sdelka_5_walk
+path_look = gar_killers_sdelka_5_look
+combat_ignore_cond = {-bar_kvest_sdelka_dolg_and_killers_kill_dolg}
+on_info = {+bar_kvest_sdelka_dolg_and_killers_kill_dolg} walker@run
+
+[walker@run]
+path_walk = gar_killers_after_sdelka_walk
+path_look = gar_killers_sdelka_look
+
+[combat_ignore]
+combat_ignore_cond = {-bar_kvest_sdelka_dolg_and_killers_kill_dolg}
+

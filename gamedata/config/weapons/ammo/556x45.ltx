@@ -1,0 +1,48 @@
+;------------------------------
+[ammo_5.56x45_ss190]:ammo_base
+$spawn			= "weapons\ammo\ammo_5.56x45_ss190" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_556x45_ss190.ogf
+description		= gunsl_ammo_5.56x45_fmj_descr
+inv_name		= gunsl_ammo_5.56x45_fmj
+inv_name_short	= gunsl_ammo_5.56x45_fmj_short
+inv_grid_width	= 2
+inv_grid_height	= 1
+inv_grid_x		= 14
+inv_grid_y		= 11
+
+cost			= 460
+box_size		= 30
+inv_weight		= 0.33		;+(11,0*20=220ã.)
+
+k_disp			= 2.5
+k_hit			= 1.4
+k_impulse		= 0.98			1.1
+k_pierce		= 1.15
+;tracer			= on
+wm_size         = 0.0556
+
+
+;------------------------------
+[ammo_5.56x45_ap]:ammo_base
+$spawn			= "weapons\ammo\ammo_5.56x45_ap" ; option for Level Editor
+visual          = dynamics\weapons\wpn_ammo\ammo_556x45_ap.ogf
+description		= gunsl_ammo_5.56x45_ap_descr
+inv_name		= gunsl_ammo_5.56x45_ap
+inv_name_short	= gunsl_ammo_5.56x45_ap_short
+inv_grid_width	= 2
+inv_grid_height	= 1
+inv_grid_x		= 10
+inv_grid_y		= 11
+
+cost			= 540
+box_size		= 20
+inv_weight		= 0.22		;+(11,0*20=220ã.)
+
+k_disp			= 2.5
+k_hit			= 1.4
+k_impulse		= 0.98			;1.15
+k_pierce		= 1.25
+impair			= 1.8
+wm_size         = 0.0556
+;tracer			= on
+;explosive		= on

@@ -1,0 +1,30 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = walker@begin
+threshold = threshold@dar_bridge_kulgband_assist5_threshold
+
+[walker@begin]
+path_walk =	dar_bridge_kulgband_assist5_walk
+path_look =	dar_bridge_kulgband_assist_look
+on_timer = 1|walker@1 %=set_neutral%
+
+[walker@1]
+path_walk =	dar_bridge_kulgband_assist5_walk
+path_look =	dar_bridge_kulgband_assist_look
+combat_ignore_cond = always
+meet = no_meet
+on_info = {+kulgband_scout_talk} %=release%
+
+
+[threshold@dar_bridge_kulgband_assist5_threshold]
+max_ignore_distance = 10
+ignore_monster = 0
+
+
+
+
+
+
+

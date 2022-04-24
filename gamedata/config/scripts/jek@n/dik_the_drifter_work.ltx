@@ -1,0 +1,250 @@
+[smart_terrains]
+none = true
+
+[logic]
+active = {+dik_in_da_house} walker@final_1, walker@begin
+;active = walker@before_ochyag
+on_death = death
+threshold = threshold@dik_threshold
+
+[walker@begin]
+path_walk = drifter_walk_base
+path_look = drifter_look_base
+on_timer = 100 | walker@base %=make_invulnerable%
+
+[walker@base]
+path_walk = drifter_walk_base
+path_look = drifter_look_base
+combat_ignore_cond = always
+meet = meet@water
+danger = danger_condition
+on_info = {+dik_goto_pos1 -af_light_have} walker@p, {+af_light_have} walker@final_1, {+drifter_dog_dead} remark@res
+
+[walker@p]
+path_walk = drifter_walk_pos_0
+path_look = drifter_look_pos_0
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | remark@dog
+on_info = {+drifter_dog_dead} remark@res, {+dog_meets_danger_end -af_light_have} walker@p1, {+af_light_have} walker@final_1
+
+[walker@p0]
+path_walk = drifter_walk_pos_0
+path_look = drifter_look_pos_0
+combat_ignore_cond = always
+danger = danger_condition
+; meet = meet@water
+on_info = {+drifter_dog_dead} remark@res, {+dog_meets_danger_end} walker@p1
+
+[walker@p1]
+path_walk = drifter_walk_pos_1
+path_look = drifter_look_pos_1
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | remark@p1  %+kulg_zasada_1%
+on_info = {+drifter_dog_dead} remark@res, {+kulg_zasada_1_boets_1_dead +kulg_zasada_1_boets_2_dead +kulg_zasada_1_boets_3_dead} walker@p2
+
+[remark@p1]
+anim = help_me
+snd = drifter_helpme
+snd_anim_sync = true
+no_move = true
+meet = no_meet
+target = 7066
+combat_ignore_cond = always
+danger = danger_condition
+on_info = {+kulg_zasada_1_boets_1_dead +kulg_zasada_1_boets_2_dead +kulg_zasada_1_boets_3_dead} walker@p2, {+drifter_dog_dead} remark@res
+
+[walker@p2]
+path_walk = drifter_walk_pos_2
+path_look = drifter_look_pos_2
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | remark@p2  %+kulg_zasada_2%
+on_info = {+drifter_dog_dead} remark@res, {+kulg_zasada_2_boets_1_dead +kulg_zasada_2_boets_2_dead +dog_on_pos_3_2} walker@p3_1
+
+[remark@p2]
+anim = help_me
+no_move = true
+meet = no_meet
+target = 7066
+combat_ignore_cond = always
+danger = danger_condition
+on_info = {+kulg_zasada_2_boets_1_dead +kulg_zasada_2_boets_2_dead +dog_on_pos_3_2} walker@p3_1, {+drifter_dog_dead} remark@res
+
+[walker@p3_1]
+path_walk = drifter_walk_pos_3_1
+path_look = drifter_look_pos_3
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | remark@p3_1  %+kulg_zasada_3_1%
+on_info = {+drifter_dog_dead} remark@res, {+kulg_zasada_3_1_boets_1_dead +kulg_zasada_3_1_boets_2_dead} walker@p3
+
+[remark@p3_1]
+anim = help_me
+no_move = true
+meet = no_meet
+target = 7066
+combat_ignore_cond = always
+danger = danger_condition
+on_info = {+kulg_zasada_3_1_boets_1_dead +kulg_zasada_3_1_boets_2_dead} walker@p3, {+drifter_dog_dead} remark@res
+
+[walker@p3]
+path_walk = drifter_walk_pos_3
+path_look = drifter_look_pos_3
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | remark@p3  %+kulg_zasada_3%
+on_info = {+drifter_dog_dead} remark@res, {+kulg_zasada_3_boets_1_dead +kulg_zasada_3_boets_2_dead} walker@before_ochyag
+
+[remark@p3]
+anim = help_me
+no_move = true
+meet = no_meet
+target = 7066
+combat_ignore_cond = always
+danger = danger_condition
+on_info = {+kulg_zasada_3_boets_1_dead +kulg_zasada_3_boets_2_dead} walker@before_ochyag, {+drifter_dog_dead} remark@res
+
+[walker@before_ochyag]
+path_walk = drifter_walk_near_ochyag
+path_look = drifter_look_near_ochyag
+combat_ignore_cond = always
+danger = danger_condition
+meet = meet@water
+on_info = {+dik_goto_ochyag} walker@ochyag, {+dik_goto_house} walker@final
+
+[walker@ochyag]
+path_walk = drifter_walk_ochyag
+path_look = drifter_look_ochyag
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@gather_art
+
+[walker@gather_art]
+path_walk = drifter_walk_ochyag2
+path_look = drifter_look_ochyag2
+meet = no_meet
+danger = danger_condition
+combat_ignore_cond = always
+on_timer = 3000 | walker@before_ochyag2
+
+[walker@before_ochyag2]
+path_walk = drifter_walk_near_ochyag2
+path_look = drifter_look_near_ochyag
+combat_ignore_cond = always
+danger = danger_condition
+meet = no_meet
+on_signal       = arrived | walker@before_ochyag3 %+af_light_gather%
+
+[walker@before_ochyag3]
+path_walk = drifter_walk_near_ochyag
+path_look = drifter_look_near_ochyag
+combat_ignore_cond = always
+danger = danger_condition
+meet = meet@water2
+on_info = {+dik_goto_house} walker@final
+
+[remark@res]
+anim = psy_pain
+snd = drifter_scream
+snd_anim_sync = true
+no_move = true
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_signal = action_end | walker@base %=drifter_resurrection%
+
+[remark@res_2]
+anim = psy_pain
+snd = drifter_scream
+snd_anim_sync = true
+no_move = true
+meet = no_meet
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_signal = action_end | walker@final %=drifter_resurrection%
+
+[remark@dog]
+anim = caution
+snd = drifter_to_dog
+snd_anim_sync = false
+no_move = true
+meet = no_meet
+target = 7064
+combat_ignore_cond = always
+danger = danger_condition
+reactions  = ignore
+on_info = {+drifter_dog_dead} remark@res
+on_signal = sound_end | walker@p0
+
+[walker@final]
+path_walk = drifter_walk_final
+path_look = drifter_look_final
+danger = danger_condition
+combat_ignore_cond = always
+;meet = meet@water2
+meet = no_meet
+on_info = {+drifter_dog_dead} remark@res_2
+on_signal       = arrived | walker@final_1 %+dik_in_da_house%
+
+[walker@final_1]
+path_walk = drifter_walk_final
+path_look = drifter_look_final_1
+danger = danger_condition
+combat_ignore_cond = always
+meet = meet@water2
+on_timer = 15000 | walker@final_2
+on_info = {+drifter_dog_dead} remark@res_2
+;on_actor_dist_ge_nvis = 30 | nil %+dik_and_dog_release%
+
+[walker@final_2]
+path_walk = drifter_walk_final
+path_look = drifter_look_final_1
+danger = danger_condition
+combat_ignore_cond = always
+meet = meet@water2
+on_timer = 15000 | walker@final_1
+on_info = {+drifter_dog_dead} remark@res_2
+;on_actor_dist_ge_nvis = 30 | nil %+dik_and_dog_release%
+
+[meet@water]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 5|actor
+victim_wpn = 5|actor
+meet_state = 5|hello@somewater|3|hello@somewater
+meet_state_wpn = 5|hello@somewater|3|hello@somewater
+
+[meet@water2]
+use = true
+use_wpn = true
+meet_talk_enabled = true
+victim = 2|actor
+victim_wpn = 2|actor
+meet_state = 2|hello@somewater|1|hello@somewater
+meet_state_wpn = 2|hello@somewater|1|hello@somewater
+
+[danger_condition]
+ignore_distance = 0
+ignore_distance_grenade = 0
+ignore_distance_corpse = 0
+ignore_distance_hit = 0
+ignore_distance_sound = 0
+danger_inertion_time = 1
+
+[threshold@dik_threshold]
+max_ignore_distance = 0
+ignore_monster = 0
+
+[death]
+on_info = %+dik_the_drifter_dead%

@@ -1,0 +1,298 @@
+
+local ANIMS_ENABLED = get_bool("options","animated_items", true)
+
+local ANIM_IN_ACTION = false
+local ANIM_USED_TM, ANIM_COMPLETED_TM, CURRENT_ITEM_SECT, CURRENT_ANM_SECT = false, false, false, false
+local SLOT_RESTORE = false
+local ITEM_RELEASED = false
+
+local cfg = {
+	"eat_health",
+	"eat_power",
+	"eat_radiation",
+	"eat_satiety",
+	"eat_thirst",
+	"eat_alcohol",
+	"eat_psy_health",
+	"wounds_heal_perc",
+}
+
+local function apply_item( sect )
+	if sect == "bipsizon" then
+		ogse_healing.use_bipsizon(sect)
+		return
+	elseif sect == "yod" then
+        ogse_healing.use_B190(sect)
+		return
+	elseif sect == "dix" then
+        ogse_healing.use_dix(sect)
+		return
+	elseif string.find(sect, "^medkit") then
+		if ogse_healing.slow_medicine then
+			ogse_healing.use_medkit(sect)
+			return
+		end
+	elseif sect == "kolba_zombie" then
+		tasks_functor.use_kolba_zombie()
+		return
+	elseif sect == "kordon_samogon" then
+		db.actor:give_info_portion("kordon_samogon_forsage")
+	elseif sect == "glassful" then
+		jekan_update.pervach_use()
+	end		
+
+	for k, v in ipairs( cfg ) do
+		local val = get_float( sect, v )
+		if val ~= 0	then
+			if     k == 1 then db.actor.health = val
+			elseif k == 2 then db.actor.power = val
+			elseif k == 3 then db.actor.radiation = val
+			elseif k == 4 then db.actor.satiety = val
+			elseif k == 5 then db.actor.thirst = val
+			elseif k == 6 then db.actor.alcohol = val
+			elseif k == 7 then db.actor.psy_health = val
+			elseif k == 8 then db.actor:heal_wounds( val )
+			end
+		end
+	end
+
+	if sect == "voda" then
+		ogse_healing.use_voda(sect)
+	elseif sect == "vodka" then
+		ogse_healing.use_vodka(sect)
+	end
+end
+
+local function respawn_item(obj)
+	obj:zero_effects()
+	alife():create( obj:section(), db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id() )	   
+end
+
+local snd_in_use = false
+local function play_use_sound(sect, snd_name)
+	local snd = snd_name or get_string( sect, "use_sound" )
+	if snd then
+		if snd_in_use then
+			snd_in_use:stop()
+		end
+		snd_in_use = sound_object( snd )
+		snd_in_use:play( db.actor, 0, sound_object.s2d )
+	end
+end
+
+local function on_actor_before_use( obj, sobj )
+	local sect = obj:section()
+
+	if ANIMS_ENABLED then
+		local snd = get_string( sect, "use_sound_anm" )
+
+		if not db.actor.inventory:is_active_slot_blocked() and snd and not ANIM_IN_ACTION then
+			if sect == "yod" then
+				if not ogse_healing.can_use_B190() then
+					respawn_item(obj)
+					return
+				end
+			elseif string.find(sect, "^medkit") then
+				if not ogse_healing.can_use_medkit() then
+					respawn_item(obj)
+					return
+				end
+			elseif sect == "dix" then
+				if not ogse_healing.can_use_dix() then
+					respawn_item(obj)
+					return
+				end
+			elseif sect == "bipsizon" then
+				if not ogse_healing.can_use_bipsizon() then
+					respawn_item(obj)
+					return
+				end
+			elseif sect == "kolba_zombie" then
+				if not tasks_functor.can_use_kolba_zombie() then
+					respawn_item(obj)
+					return
+				end
+			end
+
+
+		    local slot4 = db.actor:item_in_slot(4)
+		    if slot4 then
+				ogse.save_var( script_name()..".last_ltem_moved_to_ruck", slot4:id(), "u16" )
+				db.actor:move_to_ruck(slot4) 
+			end
+
+			CURRENT_ANM_SECT = "anm_" .. obj:section()
+
+			local outfit = db.actor:item_in_slot(6)
+			if outfit then
+				if string.find(outfit:section(), "_exo") and ( string.find(sect, "^medkit") or sect == "antirad" ) then
+					CURRENT_ANM_SECT = "anm_exo_" .. obj:section()
+				end
+			end
+
+			CURRENT_ITEM_SECT = sect
+			ITEM_RELEASED = false
+
+			ANIM_USED_TM = get_u32( CURRENT_ANM_SECT, "item_used_timing" )
+			ANIM_COMPLETED_TM = get_u32( CURRENT_ANM_SECT, "anim_timing" )
+			
+			SLOT_RESTORE = db.actor:active_slot()
+
+			alife():create( CURRENT_ANM_SECT, db.actor:position(), db.actor:level_vertex_id(), db.actor:game_vertex_id(), db.actor:id() )
+			if db.actor:has_info( "ui_inventory" ) then
+				level.start_stop_menu( level.main_input_receiver(), true )
+			end
+			obj:zero_effects()
+			if db.actor:dont_has_info( "ui_inventory" ) then
+				db.actor:hide_weapon()
+			end
+		elseif snd and db.actor:has_info("ui_talk") and not ANIM_IN_ACTION then -- Нужно для того что бы диалог не обрывался если мы решили выпить\перекусить с собеседником
+			if ogse_healing.on_before_use_item(obj, sobj) then
+				play_use_sound(sect, snd)
+			end
+		elseif not ANIM_IN_ACTION then
+			if ogse_healing.on_before_use_item(obj, sobj) then
+				play_use_sound(sect)
+			end
+		else
+			respawn_item(obj)
+		end
+	else
+		if sect == "kolba_zombie" then
+			if tasks_functor.can_use_kolba_zombie() then
+				tasks_functor.use_kolba_zombie()
+			else
+				respawn_item(obj)
+			end
+		elseif sect == "kordon_samogon" then
+			db.actor:give_info_portion("kordon_samogon_forsage")
+		elseif sect == "glassful" then
+			jekan_update.pervach_use()
+		elseif ogse_healing.on_before_use_item(obj, sobj) then
+			play_use_sound(sect)
+		end
+	end
+end
+
+
+local anim_applied = false
+local anim_exist_tm = false
+local anim_exist_used_tm = false
+local function on_item_to_ruck( obj, sobj )
+	if not string.find( obj:section(), "^anm_" ) then return end
+
+	if not ITEM_RELEASED then
+		alife():release(sobj)
+		ITEM_RELEASED = true
+	end
+
+	db.actor:restore_weapon()
+
+	dsh.exec_on_update(function()
+		local ITEM_MOVED_TO_RUCK = ogse.load_var_safe( script_name()..".last_ltem_moved_to_ruck" )
+		if ITEM_MOVED_TO_RUCK then
+			ogse.delete_var( script_name()..".last_ltem_moved_to_ruck" )
+			local item = level.object_by_id(ITEM_MOVED_TO_RUCK)
+			ITEM_MOVED_TO_RUCK = false
+			if item then
+				db.actor:move_to_slot(item)
+			end
+		end
+		if SLOT_RESTORE then
+			db.actor:activate_slot(SLOT_RESTORE)
+			SLOT_RESTORE = false
+		end
+	end )
+
+	ANIM_USED_TM = false
+	ANIM_IN_ACTION = false
+	anim_applied = false
+	ANIM_COMPLETED_TM = false
+	anim_exist_tm = false
+	anim_exist_used_tm = false
+	CURRENT_ITEM_SECT = false
+	CURRENT_ANM_SECT = false
+end
+
+
+local function on_drop( obj, sobj )
+	on_item_to_ruck( obj, sobj )
+end
+
+
+local function on_item_to_slot( obj )
+	if CURRENT_ITEM_SECT and string.find( obj:section(), "^anm_" ) then
+		db.actor:restore_weapon()
+		db.actor:activate_slot(4)
+		ANIM_IN_ACTION = true
+	end
+end
+
+
+local function on_first_update()
+	local obj = db.actor:item_in_slot(4)
+	if obj and string.find( obj:section(), "^anm_" ) then
+		db.actor:move_to_ruck(obj) 
+	end
+end
+
+
+local function update_static()
+	local hud = get_hud()
+	if db.actor:alive() and not level.main_input_receiver() then
+		local anim_hud = hud:GetCustomStatic("static_anim")
+		if not anim_hud and anim_exist_used_tm and CURRENT_ITEM_SECT then
+			hud:AddCustomStatic("static_anim", true)
+			local xml = CScriptXmlInit()
+			xml:ParseFile("ui_custom_msgs.xml")
+			anim_hud = hud:GetCustomStatic("static_anim")
+			local w = anim_hud:wnd()
+			w:SetText(game.translate_string("st_item_used")..":"..game.translate_string(news_manager.get_inv_name(CURRENT_ITEM_SECT)))		
+			anim_progress = xml:InitProgressBar("static_anim:anim_progress", w)
+			anim_progress:Show(true)
+		elseif anim_hud and anim_exist_used_tm then
+			anim_progress:SetProgressPos( 100 - 100 * ( (anim_exist_used_tm - time_global()) / ANIM_USED_TM ) )
+		else
+			hud:RemoveCustomStatic("static_anim")
+		end
+	end
+end
+
+local function on_update()
+	if ANIM_IN_ACTION then
+		local tg = time_global()
+		if not anim_exist_tm then
+			if db.actor:active_slot() == 4 then
+				db.actor:hide_weapon()
+				anim_exist_tm = tg + ANIM_COMPLETED_TM
+				anim_exist_used_tm = tg + ANIM_USED_TM
+			end
+		end
+		if anim_exist_used_tm and not anim_applied then
+			if anim_exist_used_tm <= tg then
+				apply_item( CURRENT_ITEM_SECT )
+				anim_applied = true
+			end
+		end
+		if anim_exist_tm then
+			if anim_exist_tm <= tg then
+				local slot4 = db.actor:item_in_slot(4)
+				if slot4 then
+					db.actor:move_to_ruck(slot4)
+				end
+			end
+		end
+	end
+
+	update_static()
+end
+
+
+function attach( sm )
+	sm:subscribe({ signal = "on_first_update",     fun = on_first_update })
+	sm:subscribe({ signal = "on_update",           fun = on_update })
+	sm:subscribe({ signal = "on_item_to_slot",     fun = on_item_to_slot })
+	sm:subscribe({ signal = "on_item_to_ruck",     fun = on_item_to_ruck })
+	sm:subscribe({ signal = "on_drop",             fun = on_drop })
+	sm:subscribe({ signal = "on_actor_before_use", fun = on_actor_before_use })
+end

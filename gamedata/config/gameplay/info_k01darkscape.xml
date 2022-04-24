@@ -1,0 +1,783 @@
+<?xml version='1.0' encoding="windows-1251"?>
+
+<game_information_portions>
+
+	<info_portion id="scp_codelock_unlock"/>
+
+
+	<!-- Загадки Захарыча -->
+
+	<info_portion id="zagadka_1"/>
+	<info_portion id="zagadka_2"/>
+	<info_portion id="zagadka_3"/>
+	<info_portion id="zagadka_4"/>
+	<info_portion id="zagadka_5"/>
+	<info_portion id="zagadka_6"/>
+	<info_portion id="zagadka_7"/>
+	<info_portion id="zagadka_8"/>
+	<info_portion id="zagadka_9"/>
+	<info_portion id="zagadka_10"/>
+	<info_portion id="zagadka_11"/>
+	<info_portion id="zagadka_12"/>
+	<info_portion id="zagadka_13"/>
+	<info_portion id="zagadka_14"/>
+	<info_portion id="zagadka_15"/>
+	<info_portion id="zagadka_16"/>
+	<info_portion id="zagadka_17"/>
+	<info_portion id="zagadka_18"/>
+	<info_portion id="zagadka_19"/>
+	<info_portion id="zagadka_20"/>
+
+	<info_portion id="otgadka_1">
+		<article>otgadka_1</article>
+		<action>jekan_work.spawn_hunter_shron_1</action>
+	</info_portion>
+	<info_portion id="otgadka_2">
+		<article>otgadka_2</article>
+		<action>jekan_work.spawn_hunter_shron_2</action>
+	</info_portion>
+	<info_portion id="otgadka_3">
+		<article>otgadka_3</article>
+		<action>jekan_work.spawn_hunter_shron_3</action>
+	</info_portion>
+	<info_portion id="otgadka_4">
+		<article>otgadka_4</article>
+		<action>jekan_work.spawn_hunter_shron_4</action>
+	</info_portion>
+	<info_portion id="otgadka_5">
+		<article>otgadka_5</article>
+		<action>jekan_work.spawn_hunter_shron_5</action>
+	</info_portion>
+	<info_portion id="otgadka_6">
+		<article>otgadka_6</article>
+		<action>jekan_work.spawn_hunter_shron_6</action>
+	</info_portion>
+	<info_portion id="otgadka_7">
+		<article>otgadka_7</article>
+		<action>jekan_work.spawn_hunter_shron_7</action>
+	</info_portion>
+	<info_portion id="otgadka_8">
+		<article>otgadka_8</article>
+		<action>jekan_work.spawn_hunter_shron_8</action>
+	</info_portion>
+	<info_portion id="otgadka_9">
+		<article>otgadka_9</article>
+		<action>jekan_work.spawn_hunter_shron_9</action>
+	</info_portion>
+	<info_portion id="otgadka_10">
+		<article>otgadka_10</article>
+		<action>jekan_work.spawn_hunter_shron_10</action>
+	</info_portion>
+	<info_portion id="otgadka_11">
+		<article>otgadka_11</article>
+		<action>jekan_work.spawn_hunter_shron_11</action>
+	</info_portion>
+	<info_portion id="otgadka_12">
+		<article>otgadka_12</article>
+		<action>jekan_work.spawn_hunter_shron_12</action>
+	</info_portion>
+	<info_portion id="otgadka_13">
+		<article>otgadka_13</article>
+		<action>jekan_work.spawn_hunter_shron_13</action>
+	</info_portion>
+	<info_portion id="otgadka_14">
+		<article>otgadka_14</article>
+		<action>jekan_work.spawn_hunter_shron_14</action>
+	</info_portion>
+	<info_portion id="otgadka_15">
+		<article>otgadka_15</article>
+		<action>jekan_work.spawn_hunter_shron_15</action>
+	</info_portion>
+	<info_portion id="otgadka_16">
+		<article>otgadka_16</article>
+		<action>jekan_work.spawn_hunter_shron_16</action>
+	</info_portion>
+	<info_portion id="otgadka_17">
+		<article>otgadka_17</article>
+		<action>jekan_work.spawn_hunter_shron_17</action>
+	</info_portion>
+	<info_portion id="otgadka_18">
+		<article>otgadka_18</article>
+		<action>jekan_work.spawn_hunter_shron_18</action>
+	</info_portion>
+	<info_portion id="otgadka_19">
+		<article>otgadka_19</article>
+		<action>jekan_work.spawn_hunter_shron_19</action>
+	</info_portion>
+	<info_portion id="otgadka_20">
+		<article>otgadka_20</article>
+		<action>jekan_work.spawn_hunter_shron_20</action>
+	</info_portion>
+
+	<info_portion id="hunter_start"/>
+	<info_portion id="hunter_start1"/>
+	<info_portion id="ds_hunter_dead"/>
+	<info_portion id="hunter_new_zagadka"/>
+	<info_portion id="hunter_oshibka"/>
+
+
+	<!-- Сцена на лесопилке -->
+
+	<info_portion id="ds_glavar_dead"/>
+	<info_portion id="ds_patruln_dead"/>
+	<info_portion id="ds_shesterka_dead"/>
+	<info_portion id="ds_telohr_1_dead"/>
+	<info_portion id="ds_telohr_2_dead"/>
+
+	<info_portion id="bratstvo_cleaner_dead"/>
+	<info_portion id="bratstvo_lider_dead"/>
+	<info_portion id="bratstvo_orujeinik_dead"/>
+	<info_portion id="bratstvo_vrach_dead"/>
+
+	<info_portion id="lesop_nalet_start">
+		<task>lesop_nalet</task>
+	</info_portion>
+	<info_portion id="yuriy_dead"/>
+	<info_portion id="shaman_dead"/>
+	<info_portion id="dusty_dead"/>
+	<info_portion id="bacha_dead"/>
+	<info_portion id="ahmet_dead"/>
+	<info_portion id="ds_nalet_band_1_dead"/>
+	<info_portion id="ds_nalet_band_2_dead"/>
+	<info_portion id="ds_nalet_band_3_dead"/>
+	<info_portion id="ds_nalet_band_4_dead"/>
+	<info_portion id="ds_nalet_band_5_dead"/>
+	<info_portion id="ds_nalet_band_6_dead"/>
+	<info_portion id="ds_nalet_band_7_dead"/>
+	<info_portion id="ds_nalet_band_8_dead">
+		<action>jekan_work.if_band8_dead</action>
+	</info_portion>
+	<info_portion id="yuriy_nalet_otbit"/>
+
+	<info_portion id="lesop_iskatel_signal_1">
+		<action>jekan_work.lesop_iskatel_signal_1</action>
+	</info_portion>
+	<info_portion id="lesop_iskatel_signal_2">
+		<action>jekan_work.lesop_iskatel_signal_2</action>
+	</info_portion>
+	<info_portion id="lesop_bandits_signal">
+		<action>jekan_work.lesop_bandits_signal</action>
+	</info_portion>
+	<info_portion id="proffesor_quest_start"/>
+	<info_portion id="yuriy_quest_start"/>
+	<info_portion id="ds_plenniy_talk"/>
+	<info_portion id="yuriy_to_bloha"/>
+	<info_portion id="yuriy_to_bloha2"/>
+	<info_portion id="yuriy_about_plenniy"/>
+	<info_portion id="ds_plenniy_infa"/>
+	<info_portion id="ds_glavar_talk">
+		<task>ds_glavar_talk</task>
+		<action>jekan_work.cheb_helptip</action>
+	</info_portion>
+	<info_portion id="prof_task_1">
+		<task>prof_task_1</task>
+	</info_portion>
+	<info_portion id="prof_task_2">
+		<task>prof_task_2</task>
+	</info_portion>
+	<info_portion id="bandits_kill_iskateli"/>
+	<info_portion id="iskateli_surrend"/>
+	<info_portion id="iskateli_surrend1"/>
+	<info_portion id="yuriy_talk_to_surrend"/>
+	<info_portion id="prof_task_1_reward"/>
+	<info_portion id="ds_plenniy_hitted">
+		<action>jekan_work.lesop_band_iskatel_fight_reznya1</action>
+		<action>jekan_work.lesop_band_iskatel_fight_reznya2</action>
+		<action>jekan_work.lesop_band_iskatel_fight_reznya3</action>
+		<action>jekan_work.lesop_band_iskatel_fight_reznya4</action>
+		<action>jekan_work.lesop_band_iskatel_fight_reznya5</action>
+		<action>jekan_work.lesop_band_iskatel_fight_reznya6</action>
+		<action>jekan_work.lesop_band_iskatel_fight_reznya7</action>
+		<action>jekan_work.lesop_band_iskatel_fight_reznya8</action>
+		<action>jekan_work.lesop_band_iskatel_fight_reznya9</action>
+		<action>jekan_work.lesop_band_iskatel_fight_reznya10</action>
+		<action>jekan_work.lesop_band_iskatel_fight_reznya11</action>
+	</info_portion>
+	
+	<info_portion id="lesop_band_iskatel_fight_reznya"/>
+	
+	<info_portion id="kulg_band_surrend">
+		<action>jekan_work.delete_bloha</action>
+	</info_portion>
+	<info_portion id="kulg_band_talked_after_surrend"/>
+	<info_portion id="yuriy_plenniy_talk">
+		<task>yuriy_plenniy_talk</task>
+	</info_portion>
+	<info_portion id="yuriy_plennik_pomilovan"/>
+	<info_portion id="plenniy_shron_info">
+		<article>plenniy_shron_info</article>
+		<action>jekan_work.spawn_bloha_shron</action>
+		<action>jekan_work.cheb_helptip</action>
+	</info_portion>
+	<info_portion id="prof_zapiska_find"/>
+	<info_portion id="yuriy_band_surrend_reward"/>
+	<info_portion id="prof_task_2_reward"/>
+	<info_portion id="plenniy_navodka"/>
+	<info_portion id="plenniy_artnabor_task">
+		<task>plenniy_artnabor_task</task>
+	</info_portion>
+	<info_portion id="kill_kulg_band">
+		<task>kill_kulg_band</task>
+	</info_portion>
+	<info_portion id="kulg_band_dead">
+		<action>jekan_work.delete_bloha</action>
+	</info_portion>
+	<info_portion id="boltun_nayden">
+		<action>jekan_work.unmark_smert_zone</action>
+	</info_portion>
+	<info_portion id="hunter_about_boltun">
+		<task>read_book_4</task>
+		<action>jekan_work.mark_smert_zone</action>
+	</info_portion>
+	<info_portion id="have_af_light"/>
+
+
+
+	<!-- Наемники и БТР -->
+
+	<info_portion id="dar_dez_btr_spawn"/>
+	<info_portion id="dar_dez_btr_dead"/>
+	<info_portion id="dar_dez_uaz_dead"/>
+	<info_portion id="uaz_spawn_desant">
+		<action>jekan_work.uaz_spawn_desant</action>
+		<action>jekan_work.merc_desant_tip</action>
+		<action>soundtrack.uaz_spawn_desant</action>
+	</info_portion>
+	<info_portion id="dar_merk_lider_dead">
+		<action>jekan_work.spawn_merc_planshet</action>
+	</info_portion>
+	<info_portion id="dar_merk_guard_2_dead">
+	</info_portion>
+	<info_portion id="dar_merk_guard_1_dead"/>
+	<info_portion id="dar_merk_bomber_dead"/>
+	<info_portion id="dar_dez_uaz_lost">
+		<action>jekan_work.dar_merc_fail_tip</action>
+	</info_portion>
+	<info_portion id="merc_signal_uaz">
+		<action>soundtrack.merc_signal_uaz</action>
+		<action>jekan_work.merc_signal_uaz</action>
+	</info_portion>
+	<info_portion id="merc_signal_btr">
+		<action>soundtrack.merc_signal_btr</action>
+		<action>jekan_work.merc_signal_btr</action>
+	</info_portion>
+	<info_portion id="road_bomb_expl"/>
+	<info_portion id="uaz_prepare_to_go">
+		<action>jekan_work.btr_signal_to_start</action>
+	</info_portion>
+	<info_portion id="merc_signal_detonate">
+		<action>jekan_work.merc_signal_detonate</action>
+	</info_portion>
+	<info_portion id="dar_merk_lider_talked_after_zaz"/>
+	<info_portion id="spawn_dark_merc_company">
+		<task>help_bar_scientist</task>
+		<action>jekan_work.spawn_dar_merk_lider</action>
+		<action>jekan_work.spawn_dar_merk_bomber</action>
+		<action>jekan_work.spawn_dar_merk_guard_1</action>
+		<action>jekan_work.spawn_dar_merk_guard_2</action>
+		<action>jekan_work.set_merc_company_neutral</action>
+	</info_portion>
+	<info_portion id="dark_merc_company_signal">
+		<action>jekan_work.dark_merc_company_signal</action>
+		<!--action>jekan_work.cam_flight_to_dark_mercs</action-->
+	</info_portion>
+	<info_portion id="dar_officer_dead"/>
+	<info_portion id="dar_soldier_1_dead"/>
+	<info_portion id="dar_soldier_2_dead"/>
+	<info_portion id="dar_soldier_3_dead"/>
+	<info_portion id="spawn_dar_uaz">
+<!--		<action>soundtrack.merc_signal_uaz</action>
+		<action>jekan_work.merc_signal_uaz</action>-->
+	</info_portion>
+	<info_portion id="spawn_dar_uaz_signal">
+		<task>capture_the_officer</task>
+		<!--<action>jekan_work.start_uaz_timer</action>-->
+	</info_portion>
+	<info_portion id="dar_dez_btr_spawn_desant">
+		<task>kill_dar_btr</task>
+		<action>soundtrack.merc_signal_kill_btr</action>
+		<action>jekan_work.btr_spawn_desant</action>
+		<action>jekan_work.mercs_kill_btr_tip</action>
+		<action>jekan_work.spawn_rpg</action>
+	</info_portion>
+	<info_portion id="officer_goto_saray"/>
+	<info_portion id="military_radio_request">
+		<action>soundtrack.military_radio_request1</action>
+		<action>jekan_work.radio_request2</action>
+	</info_portion>
+	<info_portion id="dar_merc_reward_1">
+		<action>jekan_work.spawn_gorbovsky</action>
+		<task>help_bar_scientist_2</task>
+	</info_portion>
+	<info_portion id="dar_merc_reward_2">
+		<action>jekan_work.spawn_gorbovsky_dead</action>
+	</info_portion>
+	<info_portion id="dar_merc_planshet_info">
+		<article>dar_merc_planshet_info</article>
+		<action>jekan_work.spawn_gorbovsky_dead</action>
+	</info_portion>
+
+
+
+	<!-- Бродяга Дик -->
+
+	<info_portion id="dik_the_drifter_dead">
+		<action>jekan_work.drifter_rebirth</action>
+	</info_portion>
+	<info_portion id="drifter_dog_dead">
+		<action>jekan_work.dog_dead_tip</action>
+		<action>jekan_work.dog_dead_portion</action>
+	</info_portion>
+	<info_portion id="anomaly_ochyag_info">
+		<action>jekan_work.mark_af_light</action>
+		<article>anomaly_ochyag_info</article>
+	</info_portion>
+	<info_portion id="af_light_gather"/>
+	<info_portion id="dik_goto_ochyag"/>
+	<info_portion id="af_light_destroyed"/>
+	<info_portion id="dik_goto_pos1"/>
+	<info_portion id="kulg_zasada_1">
+		<action>jekan_work.kulg_zasada_1</action>
+	</info_portion>
+	<info_portion id="kulg_zasada_2">
+		<action>jekan_work.kulg_zasada_2</action>
+	</info_portion>
+	<info_portion id="kulg_zasada_3">
+		<action>jekan_work.kulg_zasada_3</action>
+	</info_portion>
+	<info_portion id="kulg_zasada_3_1">
+		<action>jekan_work.kulg_zasada_3_1</action>
+	</info_portion>
+	<info_portion id="kulg_zasada_1_boets_1_dead"/>
+	<info_portion id="kulg_zasada_1_boets_2_dead"/>
+	<info_portion id="kulg_zasada_1_boets_3_dead"/>
+	<info_portion id="kulg_zasada_2_boets_1_dead"/>
+	<info_portion id="kulg_zasada_2_boets_2_dead"/>
+	<info_portion id="kulg_zasada_3_boets_1_dead"/>
+	<info_portion id="kulg_zasada_3_boets_2_dead"/>
+	<info_portion id="kulg_zasada_3_1_boets_1_dead"/>
+	<info_portion id="kulg_zasada_3_1_boets_2_dead"/>
+	<info_portion id="dog_meets_danger"/>
+	<info_portion id="dog_meets_danger_end"/>
+	<info_portion id="dog_on_pos_3"/>
+	<info_portion id="dog_on_pos_3_2"/>
+	<info_portion id="dog_on_pos_ochyag"/>
+	<info_portion id="dik_goto_house"/>
+	<info_portion id="dog_dead_portion"/>
+	<info_portion id="dik_the_monster_dead">
+		<action>jekan_work.drifter_respawn_timer</action>
+	</info_portion>
+	<info_portion id="dik_the_monster_wound"/>
+	<info_portion id="af_light_birth"/>
+	<info_portion id="release_af_light"/>
+	<info_portion id="af_light_task">
+		<task>af_light_task</task>
+	</info_portion>
+	<info_portion id="book_4_info"/>
+	<info_portion id="darkstalk_spawn">
+		<task>meet_darkstalk</task>
+	</info_portion>
+	<info_portion id="af_light_have">
+		<action>jekan_work.spawn_smert_zone_port_1</action>
+	</info_portion>
+	<info_portion id="dik_in_da_house"/>
+	<info_portion id="cheburan_helped_for_af_dark">
+		<!--action>jekan_work.cheb_help_with_af_dark</action-->
+		<action>jekan_work.cheb_helptip</action>
+	</info_portion>
+	<info_portion id="infa_about_boltun">
+		<!--task>talk_with_hunter</task-->
+		<action>jekan_work.give_darskape_farm_boltun_quest</action>
+	</info_portion>
+	<info_portion id="dik_and_dog_release">
+		<action>jekan_work.drifter_body_release_1</action>
+		<action>jekan_work.dog_body_release</action>
+		<action>jekan_work.dik_and_dog_release_tip</action>
+	</info_portion>
+
+	<info_portion id="ds_telohr_1_give_the_way"/>
+
+
+	<!-- Сейфы -->
+
+	<info_portion id="safe_1_opened">
+		<action>soundtrack.safe_door_opened</action>
+	</info_portion>
+	<info_portion id="seif2_task">
+		<task>seif2_task</task>
+		<action>jekan_work.spawn_petrenko_case</action>
+	</info_portion>
+	<info_portion id="safe_2_opened">
+		<action>soundtrack.safe_door_opened</action>
+	</info_portion>
+	<info_portion id="safe2_1_spawn_shron">
+		<!-- Убрать это в релизе -->
+	</info_portion>
+
+	<info_portion id="seif3_task"/>
+	<info_portion id="safe_3_opened">
+		<action>soundtrack.safe_door_opened</action>
+	</info_portion>
+
+	<info_portion id="safe_4_opened">
+		<action>soundtrack.safe_door_opened</action>
+	</info_portion>
+
+	<info_portion id="seif5_task"/>
+	<info_portion id="safe_5_opened">
+		<action>soundtrack.safe_door_opened</action>
+	</info_portion>
+
+	<!-- Агент Братства на заправке -->
+	<info_portion id="dar_bunkerdoor_unlocked"/>
+	<info_portion id="have_af_mayatnik"/>
+	<info_portion id="zapravka_port_task">
+		<task>zapravka_port_task</task>
+		<action>jekan_work.cheb_helptip</action>
+	</info_portion>
+	<info_portion id="zapravka_pda_off">
+		<action>jekan_work.ds_zapravka_tip</action>
+	</info_portion>
+	<info_portion id="ds_zapravka_signal1">
+		<action>jekan_work.ds_zapravka_signal1</action>
+	</info_portion>
+	<info_portion id="bratstvo_agent_1_info"/>
+	<info_portion id="bratstvo_agent_1_sleep">
+		<task>find_bratstvo_9</task>
+		<article>bratstvo_agent_1_sleep</article>
+	</info_portion>
+	<info_portion id="bratstvo_finded">
+		<task>help_ds_agent</task>
+	</info_portion>
+	<info_portion id="orujeinik_talked"/>
+	<info_portion id="vrach_about_agent"/>
+	<info_portion id="vrach_goto_p2"/>
+	<info_portion id="dar_dolg_gaz66_spawn"/>
+	<info_portion id="dar_dolg_gaz66_desant">
+		<action>jekan_work.dar_dolg_gaz66_desant</action>
+		<action>soundtrack.ds_dolg_zapravka_signal</action>
+		<action>jekan_work.dar_dolg_gaz66_desant_tip</action>
+	</info_portion>
+	<info_portion id="bratstvo_goto_plen"/>
+	<info_portion id="dar_gaz_dolg1_dead"/>
+	<info_portion id="dar_gaz_dolg2_dead"/>
+	<info_portion id="dar_gaz_dolg3_dead"/>
+	<info_portion id="dar_gaz_lider_dead">
+<!--		<action>jekan_work.dar_dolg_gaz66_zachistka</action> -->
+	</info_portion>
+	<info_portion id="zapravka_shturm_start">
+		<action>jekan_work.dar_dolg_gaz66_zachistka</action>
+	</info_portion>
+	<info_portion id="zapravka_dogovor_begin"/>
+	<info_portion id="bratstvo_saving_1"/>
+	<info_portion id="bratstvo_saving_2"/>
+	<info_portion id="bratstvo_saving_3"/>
+	<info_portion id="bratstvo_agent_1_dead"/>
+	<info_portion id="bratstvo_agent_live"/>
+
+	<info_portion id="bratstvo_saving_action1">
+		<action>jekan_work.kill_bratstvo_agent</action>
+		<action>jekan_work.release_zapr_dolglider</action>
+		<action>jekan_work.release_zapr_dolg1</action>
+		<action>jekan_work.release_zapr_dolg2</action>
+		<action>jekan_work.release_zapr_dolg3</action>
+	</info_portion>
+
+	<info_portion id="bratstvo_saving_action2">
+		<action>jekan_work.kill_bratstvo_orujeinik</action>
+		<action>jekan_work.release_zapr_dolglider</action>
+		<action>jekan_work.release_zapr_dolg1</action>
+		<action>jekan_work.release_zapr_dolg2</action>
+		<action>jekan_work.release_zapr_dolg3</action>
+	</info_portion>
+
+	<!-- Чебурашка -->
+	<info_portion id="cheb_item1_find"/>
+	<info_portion id="cheb_dead"/>
+
+	<info_portion id="cheb_greeting">
+		<task>cheb_greeting</task>
+	</info_portion>
+	<info_portion id="cheb_hello"/>
+	<info_portion id="cheb_task1">
+		<task>cheb_alltask</task>
+	</info_portion>
+	<info_portion id="cheb_talked_to_hvost"/>
+	<info_portion id="cheb_hvost_dead"/>
+	<info_portion id="cheb_found_kolya"/>
+	<info_portion id="cheb_return_to_hvost"/>
+	<info_portion id="cheb_actor_in_deadcity"/>
+	<info_portion id="cheb_task2"/>
+	<info_portion id="cheb_task3"/>
+	<info_portion id="cheb_task4"/>
+	<info_portion id="cheb_task5"/>
+	<info_portion id="cheb_task6"/>
+	<info_portion id="cheb_task7"/>
+
+	<info_portion id="cheb_busy"/>
+	<info_portion id="cheb_busy_story"/>
+	<info_portion id="cheb_busy_guidance"/>
+	<info_portion id="cheb_sleep"/>
+	<info_portion id="cheb_levelhelp"/>
+
+
+	<!-- Сканер и Темные зоны -->
+
+	<info_portion id="strange_zone1_charged">
+		<action>jekan_work.strange_zone1_charged_tip</action>
+	</info_portion>
+	<info_portion id="strange_zone2_charged">
+		<action>jekan_work.strange_zone2_charged_tip</action>
+	</info_portion>
+	<info_portion id="strange_zone3_charged">
+		<action>jekan_work.strange_zone3_charged_tip</action>
+	</info_portion>
+	<info_portion id="strange_zone4_charged">
+		<action>jekan_work.strange_zone4_charged_tip</action>
+	</info_portion>
+	<info_portion id="strange_zone5_charged">
+		<action>jekan_work.strange_zone5_charged_tip</action>
+	</info_portion>
+	<info_portion id="strange_zone6_charged">
+		<action>jekan_work.strange_zone6_charged_tip</action>
+	</info_portion>
+	<info_portion id="strange_zone7_charged">
+		<action>jekan_work.strange_zone7_charged_tip</action>
+	</info_portion>
+
+	<info_portion id="afscanner_on"/>
+	<info_portion id="strangezones_on">
+		<task>yan_find_scientists</task>
+		<action>jekan_work.strange_zone_set_rebuild</action>
+	</info_portion>
+	<info_portion id="af_invis1_1_birth"/>
+	<info_portion id="af_invis2_1_birth"/>
+	<info_portion id="af_invis3_1_birth"/>
+	<info_portion id="af_invis4_1_birth"/>
+	<info_portion id="af_invis5_1_birth"/>
+	<info_portion id="af_invis6_1_birth"/>
+	<info_portion id="af_invis7_1_birth"/>
+
+	<info_portion id="strangezone1_off"/>
+	<info_portion id="strangezone2_off"/>
+	<info_portion id="strangezone3_off"/>
+	<info_portion id="strangezone4_off"/>
+	<info_portion id="strangezone5_off"/>
+	<info_portion id="strangezone6_off"/>
+	<info_portion id="strangezone7_off"/>
+
+	<info_portion id="fakeart_deleted"/>
+	
+	<info_portion id="strangezone1_has_same_art"/>
+	<info_portion id="strangezone2_has_same_art"/>
+	<info_portion id="strangezone3_has_same_art"/>
+	<info_portion id="strangezone4_has_same_art"/>
+	<info_portion id="strangezone5_has_same_art"/>
+	<info_portion id="strangezone6_has_same_art"/>
+	<info_portion id="strangezone7_has_same_art"/>
+
+	<info_portion id="strangezone1_rebuild"/>
+	<info_portion id="strangezone2_rebuild"/>
+	<info_portion id="strangezone3_rebuild"/>
+	<info_portion id="strangezone4_rebuild"/>
+	<info_portion id="strangezone5_rebuild"/>
+	<info_portion id="strangezone6_rebuild"/>
+	<info_portion id="strangezone7_rebuild"/>
+
+	<info_portion id="actor_speaked_with_iskateli_surend"/>
+	
+	<info_portion id="ds_teleports_correctly_removed"/>
+	<info_portion id="gar_teleports_correctly_removed"/>
+
+	<info_portion id="kulg_band_hutor_attacked"/>
+	
+	
+	
+	
+	
+	<info_portion id="kulg_band_meet_speech_fail"/>
+	<info_portion id="kulg_band_speech_enemy"/>
+	<info_portion id="kulg_band_hutor_vater_task"><action>jekan_work.spawn_kulg_band_hutor_vater</action><task>kulg_band_hutor_vater_task</task></info_portion>
+	<info_portion id="kulg_band_meet_speech_loose"/>
+	
+	<info_portion id="freezer_bandos_kill_newbie_task"><task>freezer_bandos_kill_newbie_task</task></info_portion>
+	<info_portion id="freezer_bandos_kulg_band_info"><task>meet_kulg_band_task</task></info_portion>
+	<info_portion id="freezer_bandos_kulg_band_info2"></info_portion>
+	<info_portion id="zona_brother2_dead_by_knife"></info_portion>
+	
+	<info_portion id="zona_bro2_pda_info">
+		<action>jekan_work.cheb_birthplace_spawn</action>
+		<action>jekan_work.spawn_chebur</action>
+		<action>jekan_work.spawn_cheb_timer</action>		
+	</info_portion>
+	
+	<info_portion id="kulgband_kill_looser_task"><task>kulgband_kill_looser_task</task></info_portion>
+	<info_portion id="kulgband_actor_name1"/>
+	<info_portion id="kulgband_actor_name2"/>
+	<info_portion id="kulgband_actor_name3"/>
+	<info_portion id="kulgband_looser_alarm"/>
+	<info_portion id="kulgband_looser_deal"/>
+	<info_portion id="kulgband_looser_dead"/>
+	
+	
+	<info_portion id="kulgband_trader_task"><task>kulgband_trader_task</task></info_portion>
+	<info_portion id="kulgband_trader_dead"/>
+	<info_portion id="kulgband_trader_givemoney1"/>
+	<info_portion id="kulgband_trader_givemoney2"/>
+	<info_portion id="kulgband_trader_dialog"/>
+	<info_portion id="kulgband_trader_car_info"><task>kulgband_trader_car_task</task></info_portion>
+	<info_portion id="kulg_band_trader_car_finded"/>
+	<info_portion id="kulg_band_trader_car_run"/>
+	<info_portion id="kulg_band_trader_car_end1"/>
+	<info_portion id="kulg_band_trader_car_end2"/>
+	
+	<info_portion id="kulgband_trader_task_end"><action>jekan_work.spawn_val_trader_npc</action><task>kulgband_filin_task</task></info_portion>
+	<info_portion id="val_filin_diary_info"><article>val_filin_diary_info_article</article></info_portion>
+	<info_portion id="dar_filin_door_try_to_open"/>
+	<info_portion id="dar_kulgband_assistant_job"><task>dar_kulgband_assistant_task</task></info_portion>
+	<info_portion id="dar_filin_door_off"/>
+	
+	<info_portion id="kulgband_scout_meet"><task>kulgband_scout_task</task></info_portion>
+	<info_portion id="mil_assistant_goto_ambush"/>
+	<info_portion id="kulgband_scout_ambush"/>
+	<info_portion id="mil_monolith_squad_go"/>
+	<info_portion id="mil_monolith_man_alarm"/>
+	<info_portion id="mil_monolith_man1_dead"/>
+	<info_portion id="mil_monolith_man2_dead"/>
+	<info_portion id="mil_monolith_man3_dead"/>
+	<info_portion id="mil_monolith_surrend"/>
+	<info_portion id="mil_monolith_man_hit"/>
+	<info_portion id="mil_monolith_man_suicide"/>
+	<info_portion id="mil_monolith_end"/>
+	
+	
+	<info_portion id="kulgband_trader_reputation_task"><task>kulgband_trader_reputation_task</task></info_portion>
+	<info_portion id="drozd_reputation_1"/>
+	<info_portion id="drozd_reputation_2"/>
+	<info_portion id="drozd_reputation_3"/>
+	<info_portion id="drozd_reputation_end"/>
+	
+	
+	<info_portion id="rad_kulgband_assist_goto_forest"/>
+	<info_portion id="rad_kulgband_assist_place1"/>
+	<info_portion id="rad_kulgband_assist_forest_end"/>
+	<info_portion id="rad_kulgband_zapis_info"><article>rad_kulgband_zapis_info_article</article></info_portion>
+	<info_portion id="rad_kulgband_assist_forest_end2"/>
+	<info_portion id="rad_kulgband_assistant_dead"/>
+	
+	<info_portion id="kulgband_strelka_task"><task>kulgband_strelka_task</task></info_portion>
+	<info_portion id="bridge_kulgband_man_shoot"/>
+	<info_portion id="bridge_kulgband_man_shoot2"/>
+	<info_portion id="dar_bridge_kulgband_assist1_dead"/>
+	<info_portion id="dar_bridge_kulgband_assist2_dead"/>
+	<info_portion id="bridge_kulgband_man_info"/>
+	
+	<info_portion id="kulgband_deadmans_info"/>
+	
+	<info_portion id="kulgband_hutor_house_seif_task"><task>kulgband_hutor_house_seif_task</task></info_portion>
+	<info_portion id="kulgband_hutor_house_seif_use"/>
+	<info_portion id="kulgband_hutor_house_seif_open"/>
+	<info_portion id="ds_shesterka_go_out"/>
+	<info_portion id="kulgband_seif_reward"/>
+	<info_portion id="kulgband_hutor_house_seif_task_fail"/>
+
+	<info_portion id="kulgband_strelka_task2"><task>kulgband_strelka_task2</task></info_portion>
+	<info_portion id="bridge_kulgband_glavar_go"/>
+	<info_portion id="bridge_kulgband_glavar_on_place"/>
+	<info_portion id="bridge_kulgband_glavar_go_away"/>
+	<info_portion id="kulgband_scout_deal"><task>kulgband_scout_task2</task></info_portion>
+	<info_portion id="kulgband_scout_fail"/>
+	<info_portion id="kulgband_scout_talk"/>
+	
+	
+	<info_portion id="kulgband_bridge_scout_pda_info"><task>kulgband_bridge_scout_pda_task</task></info_portion>
+	<info_portion id="kulgband_goto_deadcity1"><task>kulgband_deadcity_task1</task></info_portion>
+	<info_portion id="kulgband_deadcity_meet"/>
+	
+	
+	<info_portion id="ds_telohr_2_go_out"/>
+	<info_portion id="kulgband_voron_comeback"/>
+	<info_portion id="kulgband_hutor_deadman_hello"/>
+	<info_portion id="kulgband_informer_task"><task>kulgband_informer_task</task></info_portion>
+	<info_portion id="ds_glavar_blamed"/>
+	
+	<info_portion id="kulgband_informer_hello"/>
+	<info_portion id="kulgband_informer_fight"/>
+	<info_portion id="kulgband_informer_deal"/>
+	<info_portion id="kulgband_informer_dead"/>
+	<info_portion id="kulgband_informer_map_info"/>
+	
+	<info_portion id="kulgband_goto_deadcity2"><task>kulgband_deadcity_task2</task></info_portion>
+	<info_portion id="cit_kulgband_goto_klondike"/>
+	
+	<info_portion id="klondike_acess"/>
+	<info_portion id="spawn_cit_kulgband_car"/>
+	<info_portion id="cit_kulgband_car_go"/>
+	<info_portion id="cit_kulgband_car_dead_function"><action>jekan_work.spawn_cit_kulgband_car_body1</action></info_portion>
+	<info_portion id="cit_kulgband_car_dead"><action>jekan_work.spawn_cit_kulgband_car_body2</action></info_portion>
+	<info_portion id="cit_kulgband_glavar_dead"/>
+	<info_portion id="cit_kulgband_goto_klondike2"/>
+	<info_portion id="cit_kulgband_task_fail"/>
+	<info_portion id="cit_kulgband_glavar_to_klondike"/>
+	<info_portion id="cit_kulgband_glavar_cheat"/>
+	
+	<info_portion id="city_kulgband_assist1_dead"/>
+	<info_portion id="city_kulgband_assist2_dead"/>
+	<info_portion id="cit_kulgband_patruln_dead"/>
+	<info_portion id="cit_kulgband_shesterka_dead"/>
+	<info_portion id="cit_kulgband_telohr1_dead"/>
+	<info_portion id="cit_kulgband_telohr2_dead"/>
+	
+	<info_portion id="af_klondike_1_on"/>
+	<info_portion id="af_klondike_2_on"/>
+	<info_portion id="af_klondike_3_on"/>
+	<info_portion id="af_klondike_4_on"/>
+	<info_portion id="af_klondike_5_on"/>
+	<info_portion id="af_klondike_6_on"/>
+	<info_portion id="af_klondike_7_on"/>
+	<info_portion id="af_klondike_8_on"/>
+	<info_portion id="af_klondike_9_on"/>
+	<info_portion id="af_klondike_10_on"/>
+	<info_portion id="af_klondike_11_on"/>
+	<info_portion id="af_klondike_12_on"/>
+	<info_portion id="af_klondike_13_on"/>
+	<info_portion id="af_klondike_14_on"/>
+	<info_portion id="af_klondike_15_on"/>
+	<info_portion id="af_klondike_16_on"/>
+	<info_portion id="af_klondike_17_on"/>
+	<info_portion id="af_klondike_18_on"/>
+	<info_portion id="af_klondike_19_on"/>
+	<info_portion id="af_klondike_20_on"/>
+	<info_portion id="af_klondike_21_on"/>
+	<info_portion id="af_klondike_22_on"/>
+	
+	<info_portion id="cit_kulgband_enemy"/>
+	<info_portion id="cit_kulgband_car_hit"/>
+	<info_portion id="klondike_pre_acess"/>
+	<info_portion id="klondike_on"/>
+	<info_portion id="cit_kulgband_sniper_spawn"/>
+	<info_portion id="cit_kulgband_glavar2_dead"/>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</game_information_portions>

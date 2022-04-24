@@ -1,0 +1,27 @@
+[logic]
+active = walker
+trade = misc\trade_semenov.ltx
+combat_ignore = combat_ignore
+danger = danger_ignore
+inv_max_weight = 10000
+
+[walker]
+path_walk = esc_ecolog_walk
+path_look = esc_ecolog_look
+meet = meet
+danger = danger_ignore
+
+[meet]
+meet_state 		= 5 | wait@talk_hello 
+meet_state_wpn 	= 5 | threat@threat_weap
+victim 			= nil
+victim_wpn 		= 5 | actor
+use			= true
+use_wpn		= false
+abuse       = false
+
+[danger_ignore]
+ignore_distance = 0
+
+[combat_ignore]
+combat_ignore_cond = always

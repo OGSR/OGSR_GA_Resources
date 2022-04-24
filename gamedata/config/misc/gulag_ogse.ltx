@@ -1,0 +1,95 @@
+;;-----------------------------------------------------------------------------
+
+[logic@esc_millitary_near_anomaly_commander]
+active = walker@esc_millitary_near_anomaly_commander
+combat_ignore = combat_ignore@esc_millitary_near_anomaly_commander
+on_death = death@esc_millitary_near_anomaly_commander
+on_hit = hit@esc_millitary_near_anomaly_commander
+
+[death@esc_millitary_near_anomaly_commander]
+on_info = %+esc_kvest_know_do_mils_near_anomaly_take_item%
+on_info2 = {-esc_kvest_know_do_mils_near_anomaly_complete} %+esc_kvest_know_do_mils_near_anomaly_fail%
+
+[hit@esc_millitary_near_anomaly_commander]
+on_info = {=hit_by_actor} %+esc_kvest_know_do_mils_near_anomaly_take_item%
+
+[walker@esc_millitary_near_anomaly_commander]
+path_walk = commander_walk
+path_look = commander_look
+combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item -esc_kvest_know_do_mils_near_anomaly_fail =fighting_actor}
+on_info = {-esc_kvest_know_do_mils_near_anomaly_take_item} %=add_in_restrictor(esc_lager_guard_kill_zone_ogse)%
+on_actor_dist_le = 14 | remark@esc_millitary_near_anomaly_commander
+
+[remark@esc_millitary_near_anomaly_commander]
+anim = wait
+;no_move = true
+target = actor
+meet = meet@esc_millitary_near_anomaly_commander
+combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item -esc_kvest_know_do_mils_near_anomaly_fail =fighting_actor}
+on_actor_dist_ge = 16 | walker@esc_millitary_near_anomaly_commander
+
+[meet@esc_millitary_near_anomaly_commander]
+victim = 25| actor
+victim_wpn = 25| actor
+use = true
+use_wpn = false
+
+[combat_ignore@esc_millitary_near_anomaly_commander]
+combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item -esc_kvest_know_do_mils_near_anomaly_fail =fighting_actor}
+
+;;---------------------------------------------------------------------------------------
+
+
+
+[logic@esc_millitary_near_anomaly_1]
+active = walker@esc_millitary_near_anomaly_1
+combat_ignore = combat_ignore@esc_millitary_near_anomaly_commander
+on_death = death@esc_millitary_near_anomaly_1
+on_hit = hit@esc_millitary_near_anomaly_commander
+
+[death@esc_millitary_near_anomaly]
+on_info = {=killed_by_actor} %+esc_kvest_know_do_mils_near_anomaly_take_item%
+
+[walker@esc_millitary_near_anomaly_1]
+path_walk = 1_walk
+path_look = 1_look
+on_info = {-esc_kvest_know_do_mils_near_anomaly_take_item} %=add_in_restrictor(esc_lager_guard_kill_zone_ogse)%
+combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item -esc_kvest_know_do_mils_near_anomaly_fail =fighting_actor}
+meet = meet@esc_millitary_near_anomaly_commander
+
+
+[logic@esc_millitary_near_anomaly_2]
+active = walker@esc_millitary_near_anomaly_2
+combat_ignore = combat_ignore@esc_millitary_near_anomaly_commander
+on_death = death@esc_millitary_near_anomaly_2
+on_hit = hit@esc_millitary_near_anomaly_commander
+
+[walker@esc_millitary_near_anomaly_2]
+path_walk = 2_walk
+path_look = 2_look
+on_info = {-esc_kvest_know_do_mils_near_anomaly_take_item} %=add_in_restrictor(esc_lager_guard_kill_zone_ogse)%
+combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item -esc_kvest_know_do_mils_near_anomaly_fail =fighting_actor}
+meet = meet@esc_millitary_near_anomaly_commander
+
+
+[logic@esc_millitary_near_anomaly_3]
+active = walker@esc_millitary_near_anomaly_3
+combat_ignore = combat_ignore@esc_millitary_near_anomaly_commander
+on_death = death@esc_millitary_near_anomaly_3
+on_hit = hit@esc_millitary_near_anomaly_commander
+
+[walker@esc_millitary_near_anomaly_3]
+path_walk = 3_walk
+path_look = 3_look
+on_info = {-esc_kvest_know_do_mils_near_anomaly_take_item} %=add_in_restrictor(esc_lager_guard_kill_zone_ogse)%
+combat_ignore_cond = {-esc_kvest_know_do_mils_near_anomaly_take_item -esc_kvest_know_do_mils_near_anomaly_fail =fighting_actor}
+meet = meet@esc_millitary_near_anomaly_commander
+
+
+
+[logic@esc_millitary_near_anomaly_go_to_the_village]
+active = walker@esc_millitary_near_anomaly_go_to_the_village
+
+[walker@esc_millitary_near_anomaly_go_to_the_village]
+path_walk = go_to_the_village
+on_signal = path_end | %=esc_millitary_near_anomaly_start_timer_delete% nil

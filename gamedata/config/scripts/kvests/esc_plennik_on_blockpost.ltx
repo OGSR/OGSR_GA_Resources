@@ -1,0 +1,26 @@
+
+
+[logic]
+active = remark
+
+[smart_terrains]
+none = true
+
+[remark]
+anim = hello
+no_move = true
+target = actor
+meet = meet
+
+[meet]
+meet_state = 5| hello@talk_hello| 3| wait@wait| 2| ward@wait
+meet_state_wpn = 5| hello@talk_hello| 3| threat@threat_weap
+victim = 5| actor
+victim_wpn = 5| actor
+use = true
+use_wpn = false
+
+
+
+
+

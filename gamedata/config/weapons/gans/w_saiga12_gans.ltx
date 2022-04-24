@@ -1,0 +1,889 @@
+[wpn_saiga12]:identity_immunities,base_wpn_zoom
+GroupControlSection     = spawn_group
+$spawn               	= "weapons\saiga12"   ; name and section in level editor
+$npc              = on
+$prefetch               = 8
+scheduled               = off                                ; option for ALife Simulator
+cform                   = skeleton
+class                = WP_AK74       ; class of the weapon that corresponding to CPP class
+description          = gunsl_wpn_saiga12_descr
+	
+ef_main_weapon_type = 1
+ef_weapon_type      = 7
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag40, body2, body3, bone2, handler2, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_sniper, scope_pso_assault, scope_pka, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, sight, rail, silencer1
+
+;-------------------------------------------------------------------------------
+cost              	 = 8000            ; the price of the item
+weapon_class         = assault_rifle      ; the type of the box that will be used in buy-menu in multiplayer mode
+inv_weight        = 3.6                      ; weight in inventory
+
+
+;-ТТХ---------------------------------------------------------------------------
+
+hit_power            	= 0.85, 0.85, 0.85, 0.85
+hit_impulse          	= 130    ; size of physic impulse by bullet
+hit_type            	= fire_wound            ; [] type of the wound
+fire_distance           = 200    ; maximum fire distance that bullet can fly
+bullet_speed            = 225    ; starting bullet speed
+rpm                     = 120    ; max round per minute
+rpm_empty_click         = 200
+
+use_aim_bullet          = false                ;Поддерживается ли первая суппер пуля
+time_to_aim             = 1.0
+
+
+hud                     = wpn_saiga12_hud
+
+misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.8
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.2
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.003
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.5
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.0005
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.0005
+
+
+ammo_elapsed            = 8           ; obsolete
+ammo_mag_size        	= 8           ; clip (magazine) size
+fire_modes           	= 1
+
+ammo_class           	= ammo_12x70_kart, ammo_12x76_zhekan
+grenade_class        	= ammo_vog-25         
+
+launch_speed            = 0
+hand_dependence         = 1
+single_handed           = 0
+
+;---DOF-------------------------------------------------------------------------
+zoom_dof             = 0.5, 1.0, 180
+reload_dof           = 0.0, 0.5, 5, 2
+
+;----Дисперсия---------------------------------------------------------------------------
+fire_dispersion_base       = 0.25 ;0.19      ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor    = 1.1
+crosshair_inertion		   = 6.5
+
+;params of weapon recoil
+cam_return              = 0
+cam_relax_speed         = 12			;скорость возврата в исходное положение
+cam_relax_speed_ai     	= 120.75
+cam_dispersion          = 3.9		;увеличения угла (в градусах) с первым выстрелом
+cam_dispersion_inc      = 1.75	;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac     = 0.8	    ;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle			= 10.0      ;максимальный угол отдачи
+cam_max_angle_horz      = 10.0      ;(degree) maximum shot horizontal degree
+cam_step_angle_horz     = 1.5		;(degree) size of step camera moved in horizontal position while shooting
+
+zoom_cam_relax_speed         = 10	    ; scope & ironsight
+zoom_cam_relax_speed_ai      = 360
+zoom_cam_dispersion          = 3.3
+zoom_cam_dispersion_inc      = 1.5
+zoom_cam_dispersion_frac     = 1.0
+zoom_cam_max_angle           = 50.0
+zoom_cam_max_angle_horz      = 5.0
+zoom_cam_step_angle_horz     = 1.0
+fire_dispersion_condition_factor    = 10         ;увеличение дисперсии в процентах при максимальном износе
+
+PDM_disp_base 				= 2.9
+PDM_disp_vel_factor 		= 2.3
+PDM_disp_accel_factor 		= 2.3
+PDM_disp_crouch	 			= 1.0
+PDM_disp_crouch_no_acc 		= 1.0
+
+;------- for AI ------------------------------------------------------------------------
+holder_range_modifier   = 1.0              ; во сколько раз увеличивается eye_range
+holder_fov_modifier     = 1.0              ; во сколько раз увеличивается eye_fov
+
+min_radius           = 3           ; [] for AI
+max_radius           = 30          ; [] for AI
+
+hit_probability_gd_novice  = 0.80
+hit_probability_gd_stalker = 0.80
+hit_probability_gd_veteran = 0.80
+hit_probability_gd_master  = 0.80
+
+;-------------------------------------------------------------------------------
+slot                = 2                ; // secondary
+animation_slot      = 8                ; type of the animation that will be used
+
+inv_name          	= gunsl_wpn_saiga12                    ; name in inventory
+inv_name_short      = gunsl_wpn_saiga12
+inv_grid_width		= 5	 ; position and size of the icon that will be used to display weapon in the inventory menu
+inv_grid_height		= 2	 ; all icons are on the texture ui_icon_equipment.dds,
+inv_grid_x			= 10  ; position and size are in terms of 64x64 squares
+inv_grid_y			= 35
+
+kill_msg_x			= 0
+kill_msg_y			= 123
+kill_msg_width		= 69
+kill_msg_height		= 30
+
+position                         = -0.025000, -0.215000, -0.003500
+orientation                      = 0.000000, 0.000000, 0.000000
+
+fire_point          =  0.0, 0.262, 0.647		; position (3rd person view) for particles of fire
+fire_point2         =  0.0, 0.262, 0.647		; position (3rd person view) for particles of fire (when shooting with secondary fire)
+
+flame_particles         = weapons\generic_weapon05      ; particles for shooting effects
+smoke_particles         = weapons\generic_shoot_00
+grenade_flame_particles = weapons\generic_weapon01
+silencer_smoke_particles   = weapons\generic_shoot_00
+
+shell_point		= 0.00, 0.262, 0.189		; position (3rd person view) for shell to throw out
+shell_particles =
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;под мишкой
+strap_position         	= -0.18,-0.45,0.2			; position (offset) and orientation of the weapon when it is strapped
+strap_orientation      	= -10,-5,10					; (3rd person view in degrees)
+strap_bone0             = bip01_spine2
+strap_bone1             = bip01_spine1
+
+startup_ammo            = 90
+visual                  = dynamics\weapons\wpn_saiga12\wpn_saiga12.ogf
+
+light_disabled                                = false
+light_color             = 0.6,0.5,0.3
+light_range             = 5
+light_var_color         = 0.05
+light_var_range         = 0.5
+light_time              = 0.2
+
+ph_mass                 = 4
+
+;addons
+scope_status               = 2                 ; 0 - no addon
+silencer_status            = 0                   ; 1 - permanent
+grenade_launcher_status    = 0                   ; 2 - attachable
+
+zoom_enabled			= true
+zoom_rotate_time		= 0.25
+
+scope_name              = wpn_addon_scope
+scope_names             = wpn_addon_scope_pso, wpn_addon_scope_pso2, wpn_addon_scope_detector, wpn_addon_scope_night, wpn_addon_scope_kobra, wpn_addon_scope_pka, wpn_addon_scope_kashtan 
+scope_x                 = 100
+scope_y                 = 100
+
+scope_respawn                                        = wpn_saiga12
+scope_respawn_wpn_addon_scope_pso                    = wpn_saiga12_pso
+scope_respawn_wpn_addon_scope_pso2                   = wpn_saiga12_pso2
+scope_respawn_wpn_addon_scope_detector               = wpn_saiga12_detector
+scope_respawn_wpn_addon_scope_night                  = wpn_saiga12_night
+scope_respawn_wpn_addon_scope_kobra                  = wpn_saiga12_cobra
+scope_respawn_wpn_addon_scope_pka                    = wpn_saiga12_pka
+scope_respawn_wpn_addon_scope_kashtan                = wpn_saiga12_kashtan
+
+silencer_name  		= 			; section name for the attachable silencer
+silencer_x 					= 224							; offset in inventory icon
+silencer_y 					= 17
+grenade_launcher_name   = wpn_addon_grenade_launcher_m203
+grenade_launcher_x      = 109
+grenade_launcher_y      = 30
+
+;звуки
+snd_draw		= weapons\p90\p90_draw
+snd_holster		= weapons\p90\p90_hide
+snd_shoot		= weapons\saiga12\saiga12_shoot
+snd_empty		= weapons\glock17\glock17_dry
+snd_reload              = weapons\aks74u\aks74u_reload
+snd_reload_empty        = weapons\aks74u\aks74u_reload_full
+snd_reload_jammed       = weapons\ak74\ak74_revival
+snd_reload_jammed_last  = weapons\ak74\ak74_revival
+snd_shoot_grenade       = weapons\ak74\ak74_gl_shoot
+snd_reload_grenade      = weapons\ak74\ak74_gl_reload
+snd_switch              = $silent
+snd_silncer_shot        = weapons\saiga12\saiga12_shoot_silencer
+snd_fire_modes          = weapons\vss\vss_firemode
+
+silencer_light_color    = 0.6,0.5,0.3
+silencer_light_range    = 0.01
+silencer_light_var_color= 0.05
+silencer_light_var_range= 0.01
+silencer_light_time     = 0.01
+
+
+[wpn_saiga12_hud]:hud_base
+zoom_hide_crosshair        = true
+attach_place_idx           = 0
+item_visual                = dynamics\weapons\wpn_saiga12\wpn_saiga12_hud.ogf
+
+zoom_dof_near = 0.25
+zoom_dof_focus = 0.5
+
+hands_position				= 0.02,-0.02,0.02
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.02,-0.02,0.02
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position				= 0.0,0.0,0.0
+item_orientation			= 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.001,0.042000,0.0
+aim_hud_offset_rot = -0.0030000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = -0.001,0.042000,0.0
+aim_hud_offset_rot_16x9 = -0.0030000,0.000000,0.000000
+
+gl_hud_offset_pos               = 0,0,0;-0.053000,-0.059000,0.000000
+gl_hud_offset_rot               = 0,0,0;-0.145000,0.000000,0.000000
+
+gl_hud_offset_pos_16x9            = 0,0,0;-0.130000,0.003500,0.000500
+gl_hud_offset_rot_16x9            = 0,0,0;0.052500,0.045000,-0.010000
+
+lean_hud_offset_pos        = 0,0,0
+lean_hud_offset_rot        = 0,0,0
+
+
+shell_point			= 0.0,-9.0,0.0
+shell_dir                       = 0.0,0.0,0.0
+shell_bone			= bolt
+
+fire_point			= 0.0,0.005,0.835
+fire_bone                       = wpn_body
+fire_point2                     = 0.0,0.005,1.108
+fire_bone2                      = wpn_body
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = aks74u_draw
+anm_show_empty             = aks74u_draw
+anm_show_jammed            = aks74u_draw, idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = aks74u_hide
+anm_hide_empty             = aks74u_hide
+anm_hide_jammed            = aks74u_hide, idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = aks74u_idle
+anm_idle_empty                      = aks74u_idle
+anm_idle_jammed                     = aks74u_idle, idle_jammed
+anm_idle_slow                       = aks74u_idle
+anm_idle_crouch                     = aks74u_idle
+anm_idle_crouch_slow                = aks74u_idle
+anm_idle_slow_empty                 = aks74u_idle
+anm_idle_crouch_empty               = aks74u_idle
+anm_idle_crouch_slow_empty          = aks74u_idle
+anm_idle_slow_jammed                = aks74u_idle, idle_jammed
+anm_idle_crouch_jammed              = aks74u_idle, idle_jammed
+anm_idle_crouch_slow_jammed         = aks74u_idle, idle_jammed
+
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = aks74u_aim_start
+anm_idle_aim_start_empty       = aks74u_aim_start
+anm_idle_aim_start_jammed      = aks74u_aim_start, aks74u_aim_start_jammed
+
+anm_idle_aim                   = aks74u_aim, idle_aim
+anm_idle_aim_empty             = aks74u_aim, idle_aim
+anm_idle_aim_jammed            = aks74u_aim, idle_aim_jammed
+anm_idle_aim_scope             = aks74u_aim, idle_aim
+anm_idle_aim_scope_empty       = aks74u_aim, idle_aim
+anm_idle_aim_scope_jammed      = aks74u_aim, idle_aim_jammed
+
+
+
+anm_idle_aim_end               = aks74u_aim_end
+anm_idle_aim_end_empty         = aks74u_aim_end
+anm_idle_aim_end_jammed        = aks74u_aim_end, aks74u_aim_end_jammed
+
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					= aks74u_walk
+anm_idle_moving_jammed 					= aks74u_walk, idle_jammed
+anm_idle_moving_empty					= aks74u_walk
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= aks74u_walk_slow
+anm_idle_moving_slow_jammed 				= aks74u_walk_slow, idle_jammed
+anm_idle_moving_slow_empty				= aks74u_walk_slow
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					        = aks74u_walk_slow_down
+anm_idle_moving_crouch_jammed 					= aks74u_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty					= aks74u_walk_slow_down
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 					= aks74u_walk_slow_super
+anm_idle_moving_crouch_slow_jammed 				= aks74u_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty				= aks74u_walk_slow_super
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                   = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_forward_empty             = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_forward_jammed            = aks74u_aim_walk, idle_aim_jammed
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                   = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_back_empty             = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_back_jammed            = aks74u_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                   = aks74u_aim_walk_left, idle_aim  
+anm_idle_aim_moving_left_empty             = aks74u_aim_walk_left, idle_aim
+anm_idle_aim_moving_left_jammed            = aks74u_aim_walk_left, idle_aim_jammed
+
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                   = aks74u_aim_walk_right, idle_aim
+anm_idle_aim_moving_right_empty             = aks74u_aim_walk_right, idle_aim
+anm_idle_aim_moving_right_jammed            = aks74u_aim_walk_right, idle_aim_jammed
+ 
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                   = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_forward_left_empty             = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_forward_left_jammed            = aks74u_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                   = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_forward_right_empty             = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_forward_right_jammed            = aks74u_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                   = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_back_left_empty             = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_back_left_jammed            = aks74u_aim_walk, idle_aim_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                   = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_back_right_empty             = aks74u_aim_walk, idle_aim
+anm_idle_aim_moving_back_right_jammed            = aks74u_aim_walk, idle_aim_jammed
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving	              = aks74u_aim_walk_scope, idle_aim
+anm_idle_aim_scope_moving_empty		      = aks74u_aim_walk_scope, idle_aim
+anm_idle_aim_scope_moving_jammed	      = aks74u_aim_walk_scope, idle_aim_jammed
+
+
+;Бег//////////////////////////////////////////////////////////////////
+lock_time_anm_idle_sprint_start = 0.15
+lock_time_anm_idle_sprint_start_empty = 0.15
+lock_time_anm_idle_sprint_start_jammed = 0.15
+anm_idle_sprint_start             = aks74u_sprint_start
+anm_idle_sprint_start_empty       = aks74u_sprint_start
+anm_idle_sprint_start_jammed      = aks74u_sprint_start, idle_jammed
+
+
+anm_idle_sprint                   = aks74u_sprint
+anm_idle_sprint_empty             = aks74u_sprint
+anm_idle_sprint_jammed            = aks74u_sprint, idle_jammed
+
+
+lock_time_anm_idle_sprint_end        = 0.35
+lock_time_anm_idle_sprint_end_empty  = 0.35
+lock_time_anm_idle_sprint_end_jammed = 0.35
+anm_idle_sprint_end             = aks74u_sprint_end
+anm_idle_sprint_end_empty       = aks74u_sprint_end
+anm_idle_sprint_end_jammed      = aks74u_sprint_end, idle_jammed
+
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = aks74u_draw
+anm_bore_empty             = aks74u_draw
+anm_bore_jammed            = aks74u_draw, idle_jammed
+
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                = saiga12_shoot
+anm_shoot_sil            = saiga12_shoot
+anm_shoot_jammed	 = saiga12_shoot, idle_jammed
+anm_shoot_jammed_sil	 = saiga12_shoot, idle_jammed
+anm_shoot_last           = saiga12_shoot
+anm_shoot_last_sil       = saiga12_shoot
+anm_shoot_aim            = saiga12_aim_shoot
+anm_shoot_aim_sil        = saiga12_aim_shoot
+anm_shoot_aim_jammed	 = saiga12_aim_shoot, idle_aim_jammed
+anm_shoot_aim_jammed_sil = saiga12_aim_shoot, idle_aim_jammed
+anm_shoot_aim_last       = saiga12_aim_shoot
+anm_shoot_aim_last_sil   = saiga12_aim_shoot
+anm_shoot_aim_scope            = saiga12_aim_shoot_scope, saiga12_aim_shoot
+anm_shoot_aim_scope_sil        = saiga12_aim_shoot_scope, saiga12_aim_shoot
+anm_shoot_aim_scope_last       = saiga12_aim_shoot_scope, saiga12_aim_shoot
+anm_shoot_aim_scope_last_sil   = saiga12_aim_shoot_scope, saiga12_aim_shoot
+anm_shoot_aim_scope_jammed     = saiga12_aim_shoot_scope, idle_aim_jammed
+anm_shoot_aim_scope_jammed_sil = saiga12_aim_shoot_scope, idle_aim_jammed
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty      = aks74u_dry_empty
+anm_fakeshoot_aim_empty      = aks74u_aim_dry, idle_aim
+anm_fakeshoot_jammed     = aks74u_dry, idle_jammed
+anm_fakeshoot_aim_jammed     = aks74u_aim_dry, idle_aim_jammed
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                      = aks74u_reload
+anm_reload_empty                = aks74u_reload_full
+anm_reload_jammed                    = aks74u_revival
+anm_reload_jammed_last               = aks74u_revival
+
+;Смена режима огня//////////////////////////////////////////////////////////////////////////
+use_firemode_change_anim = true
+
+;1-a
+lock_time_anm_changefiremode_from_1_to_a = 1.17
+anm_changefiremode_from_1_to_a			     = aks74u_firemode_1_to_a
+lock_time_anm_changefiremode_from_1_to_a_jammed = 1.17
+anm_changefiremode_from_1_to_a_jammed		     = aks74u_firemode_1_to_a, aks74u_firemode_1_to_a_jammed
+lock_time_anm_changefiremode_from_1_to_a_empty = 1.17
+anm_changefiremode_from_1_to_a_empty		     = aks74u_firemode_1_to_a
+
+
+;a-1
+lock_time_anm_changefiremode_from_a_to_1 = 1.17
+anm_changefiremode_from_a_to_1			     = aks74u_firemode_a_to_1
+lock_time_anm_changefiremode_from_a_to_1_jammed = 1.17
+anm_changefiremode_from_a_to_1_jammed		     = aks74u_firemode_a_to_1, aks74u_firemode_a_to_1_jammed
+lock_time_anm_changefiremode_from_a_to_1_empty = 1.17
+anm_changefiremode_from_a_to_1_empty		     = aks74u_firemode_a_to_1
+
+
+
+
+;Разрядка//////////////////////////////////////////////////////////////////////////
+use_unloadmag_anim = true
+lock_time_anm_unload_mag = 0.8
+anm_unload_mag                               = aks74u_draw
+lock_time_anm_unload_mag_jammed = 0.8
+anm_unload_mag_jammed                        = aks74u_draw  
+lock_time_anm_unload_mag_empty = 0.8
+anm_unload_mag_empty                         = aks74u_draw
+
+;Включение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_on = aks74u_lam
+lock_time_start_anm_laser_on = 0.45
+lock_time_end_anm_laser_on = 0.65
+
+anm_laser_on_empty = aks74u_lam
+lock_time_start_anm_laser_on_empty = 0.45
+lock_time_end_anm_laser_on_empty = 0.65
+
+anm_laser_on_jammed = aks74u_lam, idle_jammed
+lock_time_start_anm_laser_on_jammed = 0.45
+lock_time_end_anm_laser_on_jammed = 0.65
+
+
+;Выключение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_off = aks74u_lam
+lock_time_start_anm_laser_off = 0.45
+lock_time_end_anm_laser_off = 0.65
+
+anm_laser_off_empty = aks74u_lam
+lock_time_start_anm_laser_off_empty = 0.45
+lock_time_end_anm_laser_off_empty = 0.65
+
+anm_laser_off_jammed = aks74u_lam, idle_jammed
+lock_time_start_anm_laser_off_jammed = 0.45
+lock_time_end_anm_laser_off_jammed = 0.65
+
+;Включение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_on = aks74u_lam
+lock_time_start_anm_torch_on = 0.45
+lock_time_end_anm_torch_on = 0.65
+
+anm_torch_on_empty = aks74u_lam
+lock_time_start_anm_torch_on_empty = 0.45
+lock_time_end_anm_torch_on_empty = 0.65
+
+anm_torch_on_jammed = aks74u_lam, idle_jammed
+lock_time_start_anm_torch_on_jammed = 0.45
+lock_time_end_anm_torch_on_jammed = 0.65
+
+
+;Выключение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_off = aks74u_lam
+lock_time_start_anm_torch_off = 0.45
+lock_time_end_anm_torch_off = 0.65
+
+anm_torch_off_empty = aks74u_lam
+lock_time_start_anm_torch_off_empty = 0.45
+lock_time_end_anm_torch_off_empty = 0.65
+
+anm_torch_off_jammed = aks74u_lam, idle_jammed
+lock_time_start_anm_torch_off_jammed = 0.45
+lock_time_end_anm_torch_off_jammed = 0.65
+
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on = aks74u_headflash
+lock_time_start_anm_headlamp_on = 0.58
+lock_time_end_anm_headlamp_on = 0.5
+
+anm_headlamp_on_empty = aks74u_headflash
+lock_time_start_anm_headlamp_on_empty = 0.58
+lock_time_end_anm_headlamp_on_empty = 0.5
+
+anm_headlamp_on_jammed = aks74u_headflash, idle_jammed
+lock_time_start_anm_headlamp_on_jammed = 0.58
+lock_time_end_anm_headlamp_on_jammed = 0.5
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off = aks74u_headflash
+lock_time_start_anm_headlamp_off = 0.58
+lock_time_end_anm_headlamp_off = 0.5
+
+anm_headlamp_off_empty = aks74u_headflash
+lock_time_start_anm_headlamp_off_empty = 0.58
+lock_time_end_anm_headlamp_off_empty = 0.5
+
+anm_headlamp_off_jammed = aks74u_headflash, idle_jammed
+lock_time_start_anm_headlamp_off_jammed = 0.58
+lock_time_end_anm_headlamp_off_jammed = 0.5
+
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on = aks74u_headflash
+anm_nv_on_empty = aks74u_headflash
+anm_nv_on_jammed = aks74u_headflash, idle_jammed
+
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off = aks74u_headflash
+anm_nv_off_empty = aks74u_headflash
+anm_nv_off_jammed = aks74u_headflash, idle_jammed
+
+[wpn_saiga12_pso]:wpn_saiga12
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag40, body2, body3, bone2, handler2, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_assault, scope_pka, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, sight, rail, silencer1
+scope_bone = scope_pso_sniper
+
+hud = wpn_saiga12_pso_hud
+
+scope_name              = wpn_addon_scope_pso
+scope_x              	= 37                 ; offset in inventory icon
+scope_y                 = 4
+
+
+[wpn_saiga12_pso_hud]:wpn_saiga12_hud
+
+aim_hud_offset_pos = 0.0165,-0.0015,0.15
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.0165,-0.0015,0.15
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+
+[wpn_saiga12_pso2]:wpn_saiga12
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag40, body2, body3, bone2, handler2, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_sniper, scope_pka, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, sight, rail, silencer1
+scope_bone = scope_pso_assault
+
+hud = wpn_saiga12_pso2_hud
+
+scope_name              = wpn_addon_scope_pso2
+scope_x              	= 37                 ; offset in inventory icon
+scope_y                 = 4
+
+
+[wpn_saiga12_pso2_hud]:wpn_saiga12_hud
+
+aim_hud_offset_pos = 0.0155,-0.0075,0.14
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.0155,-0.0075,0.14
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_saiga12_detector]:wpn_saiga12
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag40, body2, body3, bone2, handler2, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_sniper, scope_pka, scope_pso_assault, scope_nv_assault, flash, light, laser, line, sight, rail, silencer1
+scope_bone = scope_nv_sniper
+
+hud = wpn_saiga12_detector_hud
+
+scope_name              = wpn_addon_scope_detector
+scope_x              	= 33                 ; offset in inventory icon
+scope_y                 = 3
+
+
+[wpn_saiga12_detector_hud]:wpn_saiga12_hud
+
+aim_hud_offset_pos = 0.0175,-0.0295,0.1
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.0175,-0.0295,0.1
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_saiga12_night]:wpn_saiga12
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag40, body2, body3, bone2, handler2, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_sniper, scope_pka, scope_pso_assault, scope_nv_sniper, flash, light, laser, line, sight, rail, silencer1
+scope_bone = scope_nv_assault
+
+hud = wpn_saiga12_night_hud
+
+scope_name              = wpn_addon_scope_night
+scope_x              	= 33                 ; offset in inventory icon
+scope_y                 = 3
+
+
+[wpn_saiga12_night_hud]:wpn_saiga12_hud
+
+aim_hud_offset_pos = 0.025,-0.02,0.08
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.025,-0.02,0.08
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_saiga12_cobra]:wpn_saiga12
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag40, body2, body3, bone2, handler2, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_pso_sniper, scope_pso_assault, scope_pka, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, sight, rail, silencer1
+scope_bone = scope_cobra
+
+hud = wpn_saiga12_cobra_hud
+
+scope_name              = wpn_addon_scope_kobra
+scope_x              	= 64                 ; offset in inventory icon
+scope_y                 = 7
+
+
+[wpn_saiga12_cobra_hud]:wpn_saiga12_hud
+
+aim_hud_offset_pos = 0.004500,-0.0115000,0.0
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.004500,-0.0115000,0.0
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_saiga12_pka]:wpn_saiga12
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag40, body2, body3, bone2, handler2, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_pso_sniper, scope_pso_assault, scope_cobra, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, sight, rail, silencer1
+scope_bone = scope_pka
+
+hud = wpn_saiga12_pka_hud
+
+scope_name              = wpn_addon_scope_pka
+scope_x              	= 77                 ; offset in inventory icon
+scope_y                 = 4
+
+
+[wpn_saiga12_pka_hud]:wpn_saiga12_hud
+
+aim_hud_offset_pos = 0.01500,-0.0075000,0.05
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.01500,-0.0075000,0.05
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_saiga12_kashtan]:wpn_saiga12
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag40, body2, body3, bone2, handler2, handler3, foregrip_wood, flash_rail, scope_pka, scope_rakurs, scope_pso_sniper, scope_pso_assault, scope_cobra, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, sight, rail, silencer1
+scope_bone = scope_kashtan
+
+hud = wpn_saiga12_kashtan_hud
+
+scope_name              = wpn_addon_scope_kashtan
+scope_x              	= 62                ; offset in inventory icon
+scope_y                 = 0
+
+
+[wpn_saiga12_kashtan_hud]:wpn_saiga12_hud
+
+aim_hud_offset_pos = 0.0050,-0.0045000,0.05
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.0050,-0.0045000,0.05
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_saiga12_arena]:wpn_saiga12
+
+[wpn_saiga12_unic]:wpn_saiga12
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag30, bone2, handler, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_sniper, scope_pso_assault, scope_pka, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, rail, silencer1
+
+inv_weight = 3.7
+
+inv_name          	= gunsl_wpn_saiga12_unic
+
+inv_grid_width       = 5
+inv_grid_height      = 2
+inv_grid_x           = 20
+inv_grid_y           = 4
+
+ammo_mag_size = 10
+
+rpm                     = 140
+rpm_empty_click         = 250
+
+cam_dispersion = 3.1
+cam_dispersion_inc = 1.4
+
+zoom_cam_dispersion = 3.0
+zoom_cam_dispersion_inc    = 1
+
+PDM_disp_base = 2.7
+
+hud = wpn_saiga12_unic_hud
+
+scope_respawn                                        = wpn_saiga12_unic
+scope_respawn_wpn_addon_scope_pso                    = wpn_saiga12_unic_pso
+scope_respawn_wpn_addon_scope_pso2                   = wpn_saiga12_unic_pso2
+scope_respawn_wpn_addon_scope_detector               = wpn_saiga12_unic_detector
+scope_respawn_wpn_addon_scope_night                  = wpn_saiga12_unic_night
+scope_respawn_wpn_addon_scope_kobra                  = wpn_saiga12_unic_cobra
+scope_respawn_wpn_addon_scope_pka                    = wpn_saiga12_unic_pka
+scope_respawn_wpn_addon_scope_kashtan                = wpn_saiga12_unic_kashtan
+
+[wpn_saiga12_unic_hud]:wpn_saiga12_hud
+
+[wpn_saiga12_unic_pso]:wpn_saiga12_unic
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag30, bone2, handler, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_assault, scope_pka, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, rail, silencer1
+scope_bone = scope_pso_sniper
+
+hud = wpn_saiga12_unic_pso_hud
+
+scope_name              = wpn_addon_scope_pso
+scope_x              	= 37                 ; offset in inventory icon
+scope_y                 = 4
+
+
+[wpn_saiga12_unic_pso_hud]:wpn_saiga12_unic_hud
+
+aim_hud_offset_pos = 0.0165,-0.0015,0.15
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.0165,-0.0015,0.15
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+
+[wpn_saiga12_unic_pso2]:wpn_saiga12_unic
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag30, bone2, handler, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_sniper, scope_pka, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, rail, silencer1
+scope_bone = scope_pso_assault
+
+hud = wpn_saiga12_unic_pso2_hud
+
+scope_name              = wpn_addon_scope_pso2
+scope_x              	= 37                 ; offset in inventory icon
+scope_y                 = 4
+
+
+[wpn_saiga12_unic_pso2_hud]:wpn_saiga12_unic_hud
+
+aim_hud_offset_pos = 0.0155,-0.0075,0.14
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.0155,-0.0075,0.14
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_saiga12_unic_detector]:wpn_saiga12_unic
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag30, bone2, handler, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_sniper, scope_pka, scope_pso_assault, scope_nv_assault, flash, light, laser, line, rail, silencer1
+scope_bone = scope_nv_sniper
+
+hud = wpn_saiga12_unic_detector_hud
+
+scope_name              = wpn_addon_scope_detector
+scope_x              	= 33                 ; offset in inventory icon
+scope_y                 = 3
+
+
+[wpn_saiga12_unic_detector_hud]:wpn_saiga12_unic_hud
+
+aim_hud_offset_pos = 0.0175,-0.0295,0.1
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.0175,-0.0295,0.1
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_saiga12_unic_night]:wpn_saiga12_unic
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag30, bone2, handler, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_cobra, scope_pso_sniper, scope_pka, scope_pso_assault, scope_nv_sniper, flash, light, laser, line, rail, silencer1
+scope_bone = scope_nv_assault
+
+hud = wpn_saiga12_unic_night_hud
+
+scope_name              = wpn_addon_scope_night
+scope_x              	= 33                 ; offset in inventory icon
+scope_y                 = 3
+
+
+[wpn_saiga12_unic_night_hud]:wpn_saiga12_unic_hud
+
+aim_hud_offset_pos = 0.025,-0.02,0.08
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.025,-0.02,0.08
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_saiga12_unic_cobra]:wpn_saiga12_unic
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag30, bone2, handler, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_pso_sniper, scope_pso_assault, scope_pka, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, rail, silencer1
+scope_bone = scope_cobra
+
+hud = wpn_saiga12_unic_cobra_hud
+
+scope_name              = wpn_addon_scope_kobra
+scope_x              	= 64                 ; offset in inventory icon
+scope_y                 = 7
+
+
+[wpn_saiga12_unic_cobra_hud]:wpn_saiga12_unic_hud
+
+aim_hud_offset_pos = 0.004500,-0.0115000,0.0
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.004500,-0.0115000,0.0
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_saiga12_unic_pka]:wpn_saiga12_unic
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag30, bone2, handler, handler3, foregrip_wood, flash_rail, scope_kashtan, scope_rakurs, scope_pso_sniper, scope_pso_assault, scope_cobra, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, rail, silencer1
+scope_bone = scope_pka
+
+hud = wpn_saiga12_unic_pka_hud
+
+scope_name              = wpn_addon_scope_pka
+scope_x              	= 77                 ; offset in inventory icon
+scope_y                 = 4
+
+
+[wpn_saiga12_unic_pka_hud]:wpn_saiga12_unic_hud
+
+aim_hud_offset_pos = 0.01500,-0.0075000,0.05
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.01500,-0.0075000,0.05
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_saiga12_unic_kashtan]:wpn_saiga12_unic
+
+hidden_bones = mag45, mag45_black, mag30_black, mag60, mag30, bone2, handler, handler3, foregrip_wood, flash_rail, scope_pka, scope_rakurs, scope_pso_sniper, scope_pso_assault, scope_cobra, scope_nv_sniper, scope_nv_assault, flash, light, laser, line, rail, silencer1
+scope_bone = scope_kashtan
+
+hud = wpn_saiga12_unic_kashtan_hud
+
+scope_name              = wpn_addon_scope_kashtan
+scope_x              	= 62                ; offset in inventory icon
+scope_y                 = 0
+
+
+[wpn_saiga12_unic_kashtan_hud]:wpn_saiga12_unic_hud
+
+aim_hud_offset_pos = 0.0050,-0.0045000,0.05
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = 0.0050,-0.0045000,0.05
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000

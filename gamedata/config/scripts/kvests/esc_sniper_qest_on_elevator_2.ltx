@@ -1,0 +1,24 @@
+[logic]
+active = walker
+on_death = death
+
+[death]
+on_info = {=killed_by(9005)} %+esc_kvest_qest_on_elevator_target_kill_sniper_2%, {=killed_by_actor} %+esc_kvest_qest_on_elevator_kill_sniper_2 +esc_kvest_qest_on_elevator_kill_sniper_2_by_actor%, %+esc_kvest_qest_on_elevator_kill_sniper_2%
+
+[walker]
+path_walk = esc_visitor_sniper_2_wait_walk
+path_look = esc_visitor_sniper_2_wait_look
+meet = no_meet
+danger = danger_condition
+on_info = {+esc_kvest_qest_on_elevator_kill_target} walker@aa_run
+
+[walker@aa_run]
+path_walk = esc_teterev_walk
+def_state_moving1 = sprint
+def_state_moving2 = sprint
+def_state_moving3 = sprint
+danger = danger_condition
+on_actor_dist_ge_nvis = 120 | %+esc_kvest_qest_on_elevator_kill_sniper_fail% nil
+
+[danger_condition]
+ignore_distance_corpse = 0
