@@ -1618,10 +1618,14 @@ function captive_on_agr_mill_base_final_chance()
 	-- 3. Ставим метку на вертолёт - пленник как бы на борту
 	level_tasks.add_location_by_sid(story_ids.captive_on_agr_mill_base_heli, "blue_location", "prisoner_map_mark_text")
 	-- 4. Удаляем долговский отряд
-	delete_when_offline(id_by_sid(story_ids.captive_on_agr_mill_base_dolg_quard1)):start()
-	delete_when_offline(id_by_sid(story_ids.captive_on_agr_mill_base_dolg_quard2)):start()
-	delete_when_offline(id_by_sid(story_ids.captive_on_agr_mill_base_dolg_quard3)):start()
-	delete_when_offline(id_by_sid(story_ids.captive_on_agr_mill_base_dolg_commander)):start()
+	for _, sid in ipairs({"captive_on_agr_mill_base_dolg_quard1", "captive_on_agr_mill_base_dolg_quard2", "captive_on_agr_mill_base_dolg_quard3", "captive_on_agr_mill_base_dolg_commander"}) do
+		local sobj = alife():story_object(story_ids[sid])
+		if sobj then
+			delete_when_offline(sobj.id):start()
+		else
+			log3("!![%s] object with sid [%s] not found!", script_name(), sid)
+		end
+	end
 end
 
 -- Вызывается, когда вертолет уходит
@@ -2088,16 +2092,17 @@ function kvest_help_to_chuk_go_to_zavod()
 	return false
 end
 
-local StalkerZombFiga
+local StalkerZombFigaId
 function on_death_figa(actor, figa)
-	StalkerZombFiga = figa
+	StalkerZombFigaId = figa:id()
 end
 function death_figa()
 	--ogse.spawn_item_in_inv("medkit", nil, 16)
 	--ogse.spawn_item_in_inv("bandage", nil, 16)
-	ogse_st_mgr.start_timer("death_figa_timer", 1.0, "tasks_functor.death_figa_2")
+	ogse_st_mgr.start_timer("death_figa_timer", 1.0, "tasks_functor.death_figa_2", StalkerZombFigaId)
 end
-function death_figa_2()
+function death_figa_2(id)
+	local StalkerZombFiga = level.object_by_id(id)
 	StalkerZombFiga:kill(StalkerZombFiga)
 	local chuk = level_object_by_sid(story_ids.yan_chuk_really_zombied)
 	ogse.spawn_item_in_inv("af_gold_fish", chuk)
@@ -2326,12 +2331,7 @@ end
 
 function search_weapon(npc, item)
 	if item and item:is_weapon_magazined() then
-		local weapon_section = item:section()
-		local w_cl = 0
-		w_cl = xr_companion.get_parameters_from_table(weapon_section)
-		if xr_companion.weapon_class[w_cl] then
-			svyaznoy_has_weapon = true
-		end
+		svyaznoy_has_weapon = true
 	end
 end
 
@@ -3552,14 +3552,18 @@ end
 function fix_art(art_id, bone)
 	local obj = level.object_by_id(art_id)
 	if not obj then return end
-	local ph_shell = obj:get_physics_shell()
-	if not ph_shell then return end
-	local ph_element = ph_shell:get_element_by_bone_name(bone)
-	if not ph_element then return end
 
 	local bone_id = obj:get_bone_id( bone )
 	if bone_id ~= 65535 then
-		ph_element:fix()
+		local ph_shell = obj:get_physics_shell()
+		if ph_shell then
+			local ph_element = ph_shell:get_element_by_bone_name(bone)
+			if ph_element then
+				ph_element:fix()
+			end
+		end
+	else
+		log3("!![%s] bone [%s] not found in [%s]", script_name(), bone, obj:name())
 	end
 end
 

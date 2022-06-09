@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding="UTF-8"?>
 <window>
 <!-- Журнал -->
-	<main_wnd x="30" y="85" width="913" height="592"> 
+	<main_wnd x="30" y="100" width="913" height="592"> 
 		<left_frame x="0" y="0" width="350" height="592" a="90">
 			<texture>ui\amk_pda_frame_sub</texture>
 
@@ -54,7 +54,7 @@
 			</work_area>
 		</left_frame>
 	
-		<right_frame x="362" y="0" width="600" height="592">
+		<right_frame x="362" y="0" width="405" height="592">
 			<texture>ui\amk_pda_frame_sub</texture>
 			
 			<auto_static x="8" y="45" width="4" height="460">
@@ -69,8 +69,8 @@
 				
 			</right_frame_header>
 			
-			<work_area x="8" y="33" width="561" height="546">
-				<scroll_view  x="25" y="8" width="561" height="546" always_show_scroll="1" scroll_profile="pda"/>
+			<work_area x="8" y="33" width="390" height="580">
+				<scroll_view  x="25" y="8" width="390" height="580" always_show_scroll="1" scroll_profile="pda"/>
 			</work_area>
 		</right_frame>
 	

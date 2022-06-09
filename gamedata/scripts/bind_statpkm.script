@@ -82,7 +82,6 @@ local activation_cmds = {
 	[key_bindings.kWPN_4] = 3,
 	[key_bindings.kWPN_5] = 4,
 	[key_bindings.kWPN_6] = 5,
-	[key_bindings.kWPN_8] = 8,
 }
 -- таймер, который ждёт активации оружия, чтобы переключить активный слот на заданный
 class "activate_slot_after_wpn_restore" (ogse_qt.quick_timer)

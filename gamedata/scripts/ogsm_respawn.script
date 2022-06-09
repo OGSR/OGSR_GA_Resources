@@ -227,7 +227,7 @@ function level_spawn()
 
 		-- proceed_spawn("zombie_immortal", vector():set(-109, -20, -217), 1, 44, 1, level_name.."_zombie_portion_6", "fake")
 
-		proceed_spawn("tushkano_weak", vector():set(-11, 2, 265), 1, 44, 5, level_name.."_tushkano_portion_1")
+		proceed_spawn("burer_strong", vector():set(-11, 2, 265), 1, 44, 5, level_name.."_tushkano_portion_1")
 
 	end
 
@@ -239,7 +239,7 @@ function level_spawn()
 
 		
 		proceed_spawn("fracture_weak", vector():set(181, -1, -114), 1, 265, 1, level_name.."_fracture_portion_1")
-		proceed_spawn("fracture_weak", vector():set(-221, -4, 158), 1, 265, 2, level_name.."_fracture_portion_2")
+		proceed_spawn("burer_strong", vector():set(-221, -4, 158), 1, 265, 2, level_name.."_fracture_portion_2")
 		proceed_spawn("fracture_weak", vector():set(163, -3, 258), 1, 265, 2, level_name.."_fracture_portion_3")
 
 		proceed_spawn("zombie_weak", vector():set(34, 2, -96), 1, 265, 1, level_name.."_zombie_portion_1", "fake")
@@ -257,7 +257,7 @@ function level_spawn()
 	if level_name == "l03_agroprom" then
 	--SPAWN_V1
 		proceed_spawn("fracture_weak", vector():set(-219, 9, 15), 1, 693, 1, level_name.."_fracture_portion_1")
-		proceed_spawn("fracture_weak", vector():set(-151, 4, 60), 1, 693, 1, level_name.."_fracture_portion_2")
+		proceed_spawn("burer_strong", vector():set(-151, 4, 60), 1, 693, 1, level_name.."_fracture_portion_2")
 
 		if has_alife_info("agr_krot_met") then
 	--SPAWN_V1
@@ -285,7 +285,7 @@ function level_spawn()
 	--SPAWN_V1
 		--	proceed_spawn("burer_weak", vector():set(64, -2, -320), 1, 830, 1, level_name.."_burer_portion_1")
 			proceed_spawn("fracture_weak", vector():set(-16, -2, -282), 1, 830, 1, level_name.."_fracture_portion_1")
-			proceed_spawn("tushkano_weak", vector():set(-111, 1, -241), 1, 830, 7, level_name.."_tushkano_portion_1")
+			proceed_spawn("burer_strong", vector():set(-111, 1, -241), 1, 830, 7, level_name.."_tushkano_portion_1")
 			proceed_spawn("zombie_strong", vector():set(105, 2, -241), 1, 830, 1, level_name.."_zombie_portion_1")
 		end
 
@@ -301,7 +301,7 @@ function level_spawn()
 		end
 
 	--SPAWN_V1
-		proceed_spawn("tushkano_weak", vector():set(114, 1, 58), 1, 830, 7, level_name.."_tushkano_portion_2")
+		proceed_spawn("m_controller_normal", vector():set(114, 1, 58), 1, 830, 7, level_name.."_tushkano_portion_2")
 	end
 
 
@@ -311,7 +311,7 @@ function level_spawn()
 		proceed_spawn("cat_weak", vector():set(270, 2, -92), 1, 1233, 2, level_name.."_cat_portion_1")
 		proceed_spawn("cat_weak", vector():set(208, 5, -92), 1, 1233, 2, level_name.."_cat_portion_2")
 
-		proceed_spawn("chimera_weak", vector():set(275, 5, -152), 1, 1233, 1, level_name.."_chimera_portion_1")
+		proceed_spawn("burer_strong", vector():set(275, 5, -152), 1, 1233, 1, level_name.."_chimera_portion_1")
 	end
 
 
@@ -332,7 +332,7 @@ function level_spawn()
 		proceed_spawn("zombie_ghost", vector():set(-72, -12, -159), 1, 1340, 1, level_name.."_zombie_portion_2", "fake")
 
 		proceed_spawn("zombie_old", vector():set(-179, 2, 193), 1, 1340, 1, level_name.."_zombie_portion_3", "fake")
-		proceed_spawn("zombie_normal", vector():set(-179, 2, 193), 1, 1340, 1, level_name.."_zombie_portion_4", "fake")
+		proceed_spawn("burer_strong", vector():set(-179, 2, 193), 1, 1340, 1, level_name.."_zombie_portion_4", "fake")
 
 		proceed_spawn("zombie_ghost", vector():set(-72, -12, -159), 1, 1340, 1, level_name.."_zombie_portion_5", "fake")
 	end
@@ -352,16 +352,14 @@ function level_spawn()
 		proceed_spawn("zombie_weak", vector():set(-299, -21, 251), 1, 1670, 1, level_name.."_zombie_portion_4", "fake")
 
 		proceed_spawn("zombie_ghost", vector():set(-314, -20, 274), 1, 1670, 1, level_name.."_zombie_portion_5", "fake")
-		proceed_spawn("zombie_weak", vector():set(-314, -20, 274), 1, 1670, 1, level_name.."_zombie_portion_6", "fake")
-
-		-- proceed_spawn("burer_weak", vector():set(85, -11, 59), 1, 1670, 1, level_name.."_burer_portion_1")
+		proceed_spawn("burer_strong", vector():set(-314, -20, 274), 1, 1670, 1, level_name.."_zombie_portion_6", "fake")
 	end
 
 
 	---- Радар ----
 	if level_name == "l10_radar" then
 	--SPAWN_V1
-		proceed_spawn("zombie_weak", vector():set(337, -43, -208), 1, 1940, 1, level_name.."_zombie_portion_1")
+		proceed_spawn("m_controller_normal", vector():set(337, -43, -208), 1, 1940, 1, level_name.."_zombie_portion_1")
 		proceed_spawn("zombie_normal", vector():set(337, -43, -208), 1, 1940, 1, level_name.."_zombie_portion_2")
 		proceed_spawn("zombie_ghost", vector():set(337, -43, -208), 1, 1940, 1, level_name.."_zombie_portion_3")
 		proceed_spawn("zombie_old", vector():set(337, -43, -208), 1, 1940, 1, level_name.."_zombie_portion_4")
@@ -398,7 +396,7 @@ function level_spawn()
 		proceed_spawn("zombie_rusty", vector():set(121.22, 2.62, 314), 1, 2269, 3, level_name.."_zombie_portion_10")
 		proceed_spawn("zombie_rusty", vector():set(66, 2.62, 321.73), 1, 2269, 3, level_name.."_zombie_portion_11")
 
-	 proceed_spawn("burer_weak", vector():set(-128, 3, 33), 1, 2269, 1, level_name.."_burer_portion_1")
+	 proceed_spawn("burer_strong", vector():set(-128, 3, 33), 1, 2269, 1, level_name.."_burer_portion_1")
 	 proceed_spawn("burer_weak", vector():set(112, 1, 212), 1, 2269, 1, level_name.."_burer_portion_2")	
 	 proceed_spawn("fracture_weak", vector():set(8, 2, 105), 1, 2269, 1, level_name.."_fracture_portion_1")
 	 proceed_spawn("fracture_weak", vector():set(-54, -1, 60), 1, 2269, 1, level_name.."_fracture_portion_2")	
@@ -427,7 +425,7 @@ function level_spawn()
 			proceed_spawn("zombie_rusty", vector():set(510.29995727539,-0.099319487810135,226.10000610352),1,2650, 5, level_name.."_zombie_portion_1")
 			proceed_spawn("chimera_strong", vector():set(845.60003662109,-0.10687708854675,230.29998779297),1,2650, 1, level_name.."_chimera_portion_1")
 			proceed_spawn("psy_dog", vector():set(163.79998779297,-0.11011606454849,233.79998779297),1,2650, 1, level_name.."_dog_portion_1")
-			proceed_spawn("bloodsucker_strong", vector():set(-18.200000762939,-0.058292359113693,196),1,2650, 2, level_name.."_bloodsucker_portion_1")
+			proceed_spawn("burer_strong", vector():set(-18.200000762939,-0.058292359113693,196),1,2650, 2, level_name.."_bloodsucker_portion_1")
 			proceed_spawn("m_controller_old_fat", vector():set(272.29998779297,-0.097160130739212,151.19999694824),1,2650, 1, level_name.."_controller_portion_1")
 		end
 	end

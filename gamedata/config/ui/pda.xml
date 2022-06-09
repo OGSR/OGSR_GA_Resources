@@ -7,10 +7,11 @@
 	</off_button>
 
 
-	<main x=0 y=0 width=1024 height=768/>
-	<background_static x="0" y="0" width="1024" height="768">
+	<main x="100" y="54" width="790" height="736"/>
+	<background_static x="0" y="-54" width="850" height="768" stretch="1">
 		<texture>amk_pda</texture>
 	</background_static>
+
 
 	<!-- Main buttons background -->
 	<mbbackground_frame_line x="110" y="574" width="591" height="32">
@@ -26,7 +27,7 @@
 	</timer_frame_line>
                    
 	<!-- TAB CONTROL -->
-	<tab x="250" y="35" width="800" height="30">
+	<tab x="150" y="55" width="800" height="30">
 		<!-- BUTTONS -->
 		<button x="0" y="7" width="50" height="20" hint="pda_btn_quests_hint">
 			<text align="l" x="0" y="0" font="graffiti22" r="120" g="117" b="67">pda_btn_quests</text>

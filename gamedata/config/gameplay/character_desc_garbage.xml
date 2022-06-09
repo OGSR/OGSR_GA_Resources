@@ -502,7 +502,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_ak74u_pka = 1, scope \n
+			wpn_ak74u \n
+			wpn_addon_scope_pka \n
 			ammo_5.45x39_fmj \n
 			wpn_grach \n
 			ammo_9x19_fmj \n
@@ -637,7 +638,8 @@
 		<visual>actors\dolg\stalker_do_mask_1</visual>
 		<supplies>
 			[spawn] \n
-			wpn_ak74u_pka = 1, scope \n
+			wpn_ak74u \n
+			wpn_addon_scope_pka \n
 			ammo_5.45x39_fmj \n
 			wpn_grach \n
 			ammo_9x19_fmj \n
@@ -703,7 +705,8 @@
 		<visual>actors\dolg\stalker_do_balon_8</visual>
 		<supplies>
 			[spawn] \n
-			wpn_svd_kashtan = 1, scope \n
+			wpn_svd \n
+			wpn_addon_scope_kashtan \n
 			ammo_7.62x54_7h1 \n
 			wpn_grach \n
 			ammo_9x19_fmj \n
@@ -769,7 +772,8 @@
 			[spawn] \n
 			wpn_pm \n
 			ammo_9x18_fmj \n
-			wpn_ak74_pso = 1, scope \n
+			wpn_ak74 \n
+			wpn_addon_scope_pso \n
 			ammo_5.45x39_fmj \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_items.xml" \n

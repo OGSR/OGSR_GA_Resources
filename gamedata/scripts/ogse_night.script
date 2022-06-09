@@ -59,7 +59,6 @@ function check_night( npc )
   local npc_rank = ranks.get_obj_rank_name( npc )
   if
     npc:best_enemy()
-    or xrs_battle_ai.in_combat[ nid ]
     or (
       npc:binded_object()[ script_name() .. ".being_hit" ]
       and npc:binded_object()[ script_name() .. ".being_hit" ] > time_global()

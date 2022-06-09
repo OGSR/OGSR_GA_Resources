@@ -452,6 +452,17 @@ Particle_Gravi_Wave		= ogsm\ogsm_burer_wave
 ;custom_data = scripts\psy_burer.ltx
 immunities_sect			= burer_strong_immunities
 
+;------------------------------------------------------------------------
+; Influences
+;------------------------------------------------------------------------
+psy_linear_factor    = 0.50
+psy_quadratic_factor = 0
+psy_max_distance     = 33.0
+psy_max_power			=	6.4
+psy_sound				=	anomaly\psy_voices_1_l
+psy_pp_effector_name	= 	postprocess_psi_aura
+psy_pp_highest_at		= 	0.05
+
 [burer_v_strong]:burer_strong
 $spawn		= "monsters\burers\burer_v_strong"
 ; KRodin: надо подумать, замен€ть ли визуал уже заспавненным монстрам. Ќаверное да...

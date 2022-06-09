@@ -100,7 +100,7 @@ end
 
 -- Функция передача экзоскелета от Борова за убийство Фраера
 function kill_fraer_complete(first_speaker, second_speaker) 
-dialogs.relocate_item_section(second_speaker, "bandit_plash_m1", "in")
+	dialogs.relocate_item_section(second_speaker, "outfit_bandit_m1_exo1", "in")
 end
 
 -- Функция проверка, жив ли долговец Пуля

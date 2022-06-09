@@ -1,138 +1,192 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+---- AI Additions ----
+---- Rulix aka Bak ----
+---- 8.5.2009,18.01.2016
+-- создано на базе схемы метания гранат от   xStream  (xrs_grenade.script)
 
----- Rulix aka Bak --- 8.5.2009
--- ������� �� ���� ����� ������� ������ ��   xStream  (xrs_grenade.script)
+--local mass_test = true
 
-function read_from_ini(ini,sec,val,def,typ,sub)
-	local res = rx_utils.read_from_ini(ini,sec,val,def,typ)
-	if sub and type(res) == "string" then
-		local p = string.find(res,sub,1,true)
-		if p then
-			res = string.sub(res,1,p-1)
+local launch_actions_permitted = {		-- экшены, с которых разрешено переключение на action_launch_grenade
+[stalker_ids.action_combat_planner] = true,
+[stalker_ids.action_danger_planner] = true,		-- работа в денжере!
+--[xr_actions_id.combat_zombied_base] = true,
+--[xr_actions_id.combat_zombied_base+1] = true,
+[xr_actions_id.combat_camper_base] = true,
+[xr_actions_id.combat_camper_base+1] = true,
+[xr_actions_id.stohe_camper_base+1] = true,
+}
+
+local world_gravity = 2*9.81	--level.physics_world():gravity()
+local min_aim_time = 300
+
+local test_res = {}
+local active_shells = {}
+local config_data = {}
+local enemy_memory = {}
+
+local function printf(s, ...)
+--	rx_utils.printf("gl:"..s,...)
+--	get_console():execute("flush")
+end
+local function delete_obj(id)
+	table.insert(rx_ai.ids_to_remove,id)
+end
+local function read_from_ini(ini,sec,val,def,typ)
+	return rx_utils.read_from_ini(ini,sec,val,def,typ)
+end
+local warn_sound
+local function warn_actor(npc)
+	local gd = level.get_game_difficulty()
+	if gd < 1 then
+		if not warn_sound then
+			warn_sound = rx_utils.get_sound([[device\pda\pda_alarm]])
+			warn_sound.volume = 0.9
 		end
+		if not warn_sound:playing() then
+			warn_sound:play_at_pos(db.actor,vector():set(0,0,0),0,sound_object.s2d)
+		end
+	end
+	if gd < 2 then
+		level.map_add_object_spot(npc:id(),"rx_gl_hit_sector","")
+	end
+	if gd < 3 then
+		level.map_add_object_spot(db.actor:id(),"rx_gl_alarm","")
+	end
+end
+
+local gl_ini = ini_file([[misc\ai_additions\gl.ltx]])
+ASSERTX(gl_ini:section_exist("main"),"no gl_ini")
+local gl_sets = {forbidden_factions = {},forbidden_npcs = {},
+				ranks = {},
+				min_dist = read_from_ini(gl_ini,"main","min_dist",5),
+				max_dist = read_from_ini(gl_ini,"main","max_dist",90),
+				check_prd = read_from_ini(gl_ini,"main","check_period",2000),
+				check_prd_c = read_from_ini(gl_ini,"main","check_period_covert",6000),
+				spawn_ammo = read_from_ini(gl_ini,"main","spawn_ammo",false,0)}
+
+for k,v in ipairs(rx_utils.get_rank_list()) do
+	gl_sets.ranks[v] = {
+	aim = read_from_ini(gl_ini,v,"aim_time",500)/100,
+	reload = math.min(5000,read_from_ini(gl_ini,v,"reload_time",3200)),
+	repose = math.max(1000,read_from_ini(gl_ini,v,"repose_time",10000)),
+	dev = 100-read_from_ini(gl_ini,v,"accuracy",80,3)
+	}
+end
+local aim_be_only = read_from_ini(gl_ini,"main","aim_be_only",false,0)
+gl_sets.forbidden_factions = rx_utils.parse_list(gl_ini,"main","forbidden_factions",true)
+gl_sets.forbidden_npcs = rx_utils.parse_list(gl_ini,"main","forbidden_npcs",true)
+gl_ini = nil
+
+
+class "evaluator_gl_ready" (property_evaluator)		-- определяет, есть ли занятие для схемы, запоминает цели для стрельбы
+function evaluator_gl_ready:__init(npc,name,storage) super (nil,name)
+	self.st = storage
+	self.dbst = db.storage[npc:id()]
+	self.check_time = 0
+	self.mem_time = 0
+	self.st.squad = string.format("%s-%s-%s",npc:team(),npc:squad(),npc:group())	-- не переопределяется при изменении сквада
+	rx_ai.subscribe_for_events(npc,self)
+end
+function evaluator_gl_ready:evaluate()
+	local npc,stor = self.object,self.st
+	local be,tg = npc:best_enemy(),time_global()
+	if be and enemy_memory[stor.squad] and self.mem_time < tg and npc:memory_time(be)+1500 > tg and IsStalker(be) then
+		local mtime = rx_utils.is_actor(be) and 30000 or 20000
+		enemy_memory[stor.squad][be:id()] = {be:position(),be:level_vertex_id(),tg+mtime}
+		self.mem_time = tg+1000
+	end
+	if self.check_time > tg then
+		return false
+	end
+	local res,ammo = check_ammo(npc)
+	stor.gl_ready = res
+	stor.can_fire = false
+	if res then	-- основное условие - наличие гранатомёта и гранат
+		stor.ammo = ammo
+		if stor.charged then
+			if be and not xr_wounded.is_wounded(be) then
+				stor.can_fire = true
+			elseif not be and self.dbst.danger_flag then
+				stor.can_fire = true
+			else
+				res = false	-- врагов нет - расходимся
+			end
+		end
+	else
+		self.check_time = tg+(be and 2000 or 10000)
 	end
 	return res
 end
-
-local temp = {fms = {},npcs = {},rem = {}}
-local gl_sets = {forbiddens = {weapons = {},factions = {},npcs = {}},
-				weapons = {},
-				ranks = {},
-				fms = {},
-				min_dist = read_from_ini(sys_ini,"rx_gl_main","min_dist",5),
-				max_dist = read_from_ini(sys_ini,"rx_gl_main","max_dist",90),
-				enabled = read_from_ini(sys_ini,"rx_gl_main","enabled",true,0),
-				check_prd = read_from_ini(sys_ini,"rx_gl_main","check_period",2000),
-				spawn_prd = read_from_ini(sys_ini,"rx_gl_main","spawn_period",180)
-}
-
-local bad_acts = {xr_actions_id.stohe_meet_base+1,
-				watcher_act and watcher_act.actid_reach_item,
-				watcher_act and watcher_act.actid_grab_item
-}
-
-
-local engage_after_update = 5
-local count_update = {}
-
-function init()
-	local ranks = {"novice","experienced","veteran","master"}
-	for k,v in ipairs(ranks) do
-		local s = "rx_gl_"..v
-		gl_sets.ranks[v] = {aim = read_from_ini(sys_ini,s,"aim_time",100),reload = read_from_ini(sys_ini,s,"reload_time",3200)}
+function evaluator_gl_ready:hit_callback(amount,dir,who,bone_id)
+	local npc = self.object
+	if enemy_memory[self.st.squad] and bone_id ~= 0 and math.random() < 0.3 and who and who:alive() and IsStalker(who) and npc:relation(who) == game_object.enemy and not xr_combat_ignore.is_ignored(npc,who) then
+		enemy_memory[self.st.squad][who:id()] = {who:position(),who:level_vertex_id(),time_global()+30000}
 	end
-	gl_sets.forbiddens.weapons = rx_utils.parse_list(sys_ini,"rx_gl_main","forbidden_weapons",true)
-	gl_sets.forbiddens.factions = rx_utils.parse_list(sys_ini,"rx_gl_main","forbidden_factions",true)
-	gl_sets.forbiddens.npcs = rx_utils.parse_list(sys_ini,"rx_gl_main","forbidden_npcs",true)
-	gl_sets.inited = true
+end
+-- удаление мусора из инвентаря при смерти
+function evaluator_gl_ready:death_callback()
+	local npc,sim = self.object,alife()
+	for i=0,npc:object_count()-1 do
+		local item = npc:object(i)
+		local sec = item:section()
+		if (string.find(sec,"gl_fake_missile") or string.find(sec,"gl_test_shell")) and sim:object(item:id()) then
+			delete_obj(item:id())
+		end
+	end
 end
 
-local forbidden_monster_clsids = {
-	[clsid.dog_s] = true,
-	[clsid.flesh_s] = true,
-	[clsid.pseudodog_s] = true,
-	[clsid.cat_s] = true,
-}
-function valid_target(obj)
-	if obj:is_actor() then
-		return true
-	elseif obj:is_stalker() then
-		return not xr_wounded.is_wounded(obj) and ogse.armor_type(obj) <= 3
-	elseif obj:is_monster() then
-		return not forbidden_monster_clsids[obj:clsid()]
-	end
-	return false
-end
 
 class "evaluator_launch_grenade" (property_evaluator)
-function evaluator_launch_grenade:__init(npc,name,storage) super (nil,name)
+function evaluator_launch_grenade:__init(name,storage,planner) super (nil,name)
 	self.st = storage
-	self.st.check_time = time_global()+math.random(500,1000)
+	self.st.check_time = time_global()+math.random(2000,10000)
+	self.covert_time = time_global()+math.random(5000,15000)
+	self.planner = planner
 end
 function evaluator_launch_grenade:evaluate()
-	if count_update[self.object:id()] and count_update[self.object:id()] <= engage_after_update then
-		count_update[self.object:id()] = count_update[self.object:id()] + 1
-		return false
-	elseif not count_update[self.object:id()] then
-		count_update[self.object:id()] = 0
-		return false			
-	end
 --	self.st.charged = true
-	local npc = self.object
-	--
-	if not npc:alive() then return end
-	--
-	local wpn = npc:active_item()
-	local tg = time_global()
-	if xr_wounded.is_wounded(npc) then
+	local stor = self.st
+	if not stor.can_fire then
 		return false
 	end
-	--if xrs_battle_ai and xrs_battle_ai.is_combat_ignore(npc) then
-	--	return false
-	--end		
-	local alt_be = nil
-	if xrs_battle_ai then
-		alt_be = xrs_battle_ai.get_target(npc)
-	end	
-	local be = alt_be or npc:best_enemy()
-	if self.st.launch then
-		if self.st.charged and check_weapon(wpn) then
-			ogse_debug.add_active_eval( self.object, script_name(), "launch_grenade" )
-			return true
-		else
-			self.st.launch = nil
-			self.st.check_time = tg+gl_sets.check_prd+math.random(1500)
+	if not enemy_memory[stor.squad] then
+		enemy_memory[stor.squad] = {}
+	end
+	if stor.launch then
+		if xr_wounded.is_wounded(self.object) then	-- что ещё нужно сюда добавить?
+			stor.launch = nil
 			return false
 		end
-	elseif not (be and self.st.charged and npc:weapon_unstrapped() and check_ammo(npc)) then
-		return false
+		return true
 	end
---	local bd = npc:best_danger()
-	local target = be --or (bd and bd:object())
-	if self.st.check_time < tg and target and not xr_wounded.is_wounded(target) then
-		local sp = npc:position()
-		-- ���� �����
-		if not npc:see(target) then
-			target = nil
-			for o in npc:memory_visible_objects() do
-				local obj = o:object()
-				if obj and obj.clsid and obj:alive() and o.visible and npc:relation(obj) == game_object.enemy and valid_target(obj) then
-					target = obj
-					break
+	local tg = time_global()
+	if stor.check_time < tg then
+		stor.check_time = tg+gl_sets.check_prd+math.random(500)
+		local npc = self.object
+		local wpn = npc:active_item()
+		if wpn and npc:weapon_unstrapped() and launch_actions_permitted[self.planner:current_action_id()] == true and wpn:get_ammo_in_magazine() ~= 0 and not npc:critically_wounded() and not xr_wounded.is_wounded(npc) then
+			local target
+			local be = npc:best_enemy()
+			if be and (npc:see(be) or self.covert_time > tg or not safe_to_reload(npc,self)) then
+				target = pick_visible_target(npc,get_shell_radius(stor.ammo))
+				if target then
+					-- все хорошо - пробуем
+					stor.covert = false
+					stor.launch = true
+					stor.target = target:id()
+					return true
+				end
+			elseif self.covert_time < tg then
+				target,stor.target_lvid = pick_covert_target(npc,get_shell_radius(stor.ammo),stor.squad)
+				self.covert_time = tg+gl_sets.check_prd_c+math.random(1000)
+				if target then
+					-- все хорошо - пробуем
+					stor.covert = true
+					stor.launch = true
+					stor.target = target
+					return true
 				end
 			end
 		end
-		if target then
-			local dist = sp:distance_to(target:position())
-			if dist < gl_sets.max_dist and dist > gl_sets.min_dist then
-				-- ��� ������ - �������
-				self.st.target = target
-				self.st.launch = true
-				ogse_debug.add_active_eval( self.object, script_name(), "launch_grenade_2" )
-				return true
-			end
-		end
-		self.st.check_time = tg+gl_sets.check_prd+math.random(500)
 	end
 	return false
 end
@@ -145,141 +199,275 @@ end
 
 function action_launch_grenade:initialize()
 	action_base.initialize(self)
-	local npc,wpn = self.object,self.object:active_item()
-	if check_weapon(wpn) then
-		local shell = {}
-		for k,v in pairs(gl_sets.weapons[wpn:section()].shells) do
-			local s = npc:object(v)
-			if s then
-				table.insert(shell,v)
+	local npc,wpn,st = self.object,self.object:active_item(),self.st
+	if not wpn then
+		self:cancel(2500,true)
+		return
+	elseif wpn:get_ammo_in_magazine() == 0 then
+		wpn:set_ammo_elapsed(1)
+	end
+	npc:set_desired_direction()
+	npc:set_mental_state(anim.danger)
+	npc:set_item(object.aim1,wpn)
+	local dir
+	if st.covert then
+		self.target_point = st.target
+		dir = vector():sub(self.target_point,npc:center())
+		npc:set_desired_position()
+		npc:set_movement_type(move.stand)
+		-- correct aim
+		local dist = self.target_point:distance_to(npc:center())
+		self.fixd = dist > 80 and 40
+		if st.target_lvid then
+			local c_back = 1-level.cover_in_direction(st.target_lvid,dir)
+			if c_back > 0.75 and math.abs(dir.y) < dist/6 then
+				local c_front = 1-level.cover_in_direction(st.target_lvid,vector():invert(dir))
+				local cor = math.max(0.5,c_back-c_front)
+				self.target_point:add(vector():set(0,cor,0))
 			end
 		end
-		self.shell = shell[math.random(#shell)]
+		-- apply accuracy
+		local dev = dist*st.rs.dev
+		if dist > 25 and dev < 8000 and math.random() < 0.4 then
+			dev = 8000
+		end
+		if dev > 0 then
+			self.target_point:add(vector():set(math.random(-dev,dev)/1000,0,math.random(-dev,dev)/1000))
+		end
+		local canfire,dir = TransferenceAndThrowVelToThrowDir(dir,config_data[wpn:section()].vel,world_gravity)
+		if canfire == 0 then
+			self:cancel(9000)
+			return
+		end
+	else
+		dir = npc:sight_params().m_vector	--npc:direction()
 	end
-	if not (self.shell and self.st.target and self.st.target:alive()) then
-		self:cancel(1500)
-		return
+	self.direction = dir
+	self.aim_time = 0
+	if st.covert then
+		self.stage = 0
+		self.test_end = time_global()+6000
+		self.aim_time = time_global()+2500
+		self.launch_pos = npc:bone_position("bip01_head"):add(npc:direction():div(3))
+	else
+		self.stage = 3
+		config_data[wpn:section()].sswitch:play(npc,npc:center())
 	end
-	npc:set_desired_position()
-	npc:set_desired_direction()
-	npc:set_movement_type(move.stand)
-	npc:set_mental_state(anim.danger)
-	npc:set_item(object.idle,wpn)
-	self.lvid = npc:level_vertex_id()
-	self.bodystate = npc:body_state()
-	self.target_point = self.st.target:position()
-	self.direction = utils.vector_copy_by_val(self.target_point):sub(npc:position()):add(vector():set(0,1,0))
-	self.test_end = time_global()+5000
-	if rx_wmgr then
-		rx_wmgr.get_wm(npc):disable(10000)
+	self.relax_time = math.random(300,1000)
+	rx_ai.subscribe_for_events(npc,self)
+	state_mgr.lock(npc,true,true)
+	local wm = npc:get_wm(true)
+	if wm then
+		wm:disable()
 	end
-	self.stage = 0
+	-- предупреждение игрока
+	if st.target == db.actor:id() then
+		warn_actor(npc)
+	end
+end
+
+function action_launch_grenade:set_direction()
+	local npc,tdir = self.object,self.direction
+	local at = self.aim_time-time_global()
+	if at > 100 then
+		local sp = npc:sight_params().m_vector:getP()
+		local tp = tdir:getP()
+		local dif = sp > tp and sp-tp or tp-sp
+		if dif > 0.02 and dif < 1 then
+			local st = math.max(dif/8,10/at)
+			local p = tp > sp and math.min(tp,sp+st) or math.max(tp,sp-st)
+			tdir = vector():setHP(tdir:getH(),p)
+		end
+	end
+	npc:set_sight(look.direction,tdir,true)	-- torso_look
 end
 
 function action_launch_grenade:execute()
 	action_base.execute(self)
-	local npc,wpn,tg = self.object,self.object:active_item(),time_global()
-	if not self.stage then
-		return
-	elseif not wpn or wpn:get_ammo_in_magazine() == 0 then
-		self:cancel(2500,true)
+	local npc,wpn = self.object,self.object:active_item()
+	if not (self.stage and wpn) then
+		printf("action_launch_grenade[%s]:there is a proplem in action manager %s %s %s",npc:character_name(),self.stage,wpn~=nil,self.st.launch)
 		return
 	end
-	npc:set_movement_type(move.stand)
-	npc:set_body_state(self.bodystate)
---	npc:set_sight(look.direction,self.direction)
-	npc:set_sight(look.fire_point,self.target_point)
-	if self.stage == 0 then
-		local s = alife():create("gl_test_shell_"..self.shell,npc:position(),npc:level_vertex_id(),npc:game_vertex_id(),npc:id())
-		self.test_shell = s.id
-		self.stage = 1
-	elseif self.stage == 1 then -- ������
-		if check_victims(npc,self.target_point,get_shell_params(self.shell).radius,true) then
-			self.launch_pos = npc:bone_position(get_string(npc:section(), "bone_head", "bip01_head"))
-			self.type = math.random(8)
-			launch2(npc,self.test_shell,self.target_point,self.launch_pos,get_shell_params(self.shell).radius,self.type,true)
-			gl_switch(npc)
+	if not self.fake_missile then
+		local so = npc:object("gl_fake_missile_"..self.st.ammo)
+		if so then
+			self.fake_missile = so:id()
+		else
+			self.fake_missile = create_grenade("gl_fake_missile_"..self.st.ammo,npc).id
+			return
+		end
+	end
+	if self.movetype then
+		npc:set_movement_type(self.movetype)
+	end
+	if npc:animation_count() ~= 0 then
+		self:set_direction()
+		return
+	end
+	local st = self.st
+	if st.covert then
+		if self.stage == 0 then
+			self.test_shell = create_grenade("gl_test_shell_"..st.ammo,npc).id
+			self.stage = 1
+		elseif self.stage == 1 then
+			set_to_launch(npc,self.test_shell,self.target_point,self.launch_pos,config_data[wpn:section()].vel,get_shell_radius(st.ammo),true,self.fixd)
 			self.stage = 2
-		else
-			self:cancel(3000)
-		end
-	elseif self.stage == 2 then -- ��������
-		local alt_be = nil
-		if xrs_battle_ai then
-			alt_be = xrs_battle_ai.get_target(npc)
-		end
-		local trg = self.st.target or alt_be or npc:best_enemy()
-		if trg and npc:see(trg) and npc:animation_count() == 0 then
-			npc:set_sight(look.fire_point,trg:position())
-			npc:set_item(object.fire1,wpn,1,700)
-		else
-			npc:set_item(object.aim1,wpn)
-			npc:set_sight(look.fire_point,self.target_point)
-		end
-		local ts = temp.fms[self.test_shell]
-		if not ts then
-			self:cancel(3000)
-		elseif self.test_end < tg then
-			self:cancel(3000)
-		elseif ts.explode then
-			self.str_pos = ts.pos
-			self.aim_time = tg+gl_sets.ranks[ranks.get_obj_rank_name(npc)].aim
-			self.stage = 3
-		end
-	elseif self.stage == 3 then -- ��������
-		if self.aim_time > tg then
-			npc:set_item(object.aim1,wpn)
-			npc:set_sight(look.direction,self.direction)
-		else
-			if check_victims(npc,self.str_pos,get_shell_params(self.shell).radius,true) and npc:object(self.shell) then
-				npc:set_item(object.aim1,wpn)
-				local s = alife():create("gl_fake_missile_"..self.shell,npc:position(),npc:level_vertex_id(),npc:game_vertex_id(),npc:id())
-				self.fake_missile = s.id
-				self.stage = 4
-			else
+		elseif self.stage == 2 then
+			if test_res[self.test_shell] == true then
+--				do	-- анимация
+					local anim,anim_time
+					if npc:body_state() == move.crouch then
+						anim,anim_time = "cr_torso_7_draw_0",1200
+					else
+						anim,anim_time = "norm_torso_7_draw_0",900
+					end
+					npc:clear_animations()
+					rx_utils.add_anim(npc,anim,true)
+--				end
+				config_data[wpn:section()].sswitch:play(npc,npc:center(),0.25)
+				-- предупреждение игрока
+				if self.target_point:distance_to(db.actor:position()) < get_shell_radius(st.ammo)+3 then
+					warn_actor(npc)
+				end
+				self.aim_time = time_global()+math.max(st.rs.aim*50,anim_time)
+				self.stage = 3
+			elseif not active_shells[self.test_shell] or test_res[self.test_shell] == false then
+				self:cancel(3000)
+			elseif self.test_end < time_global() then
 				self:cancel(3000)
 			end
+		elseif self.stage == 3 then
+			if self.aim_time > time_global() then
+			else
+				set_to_launch(npc,self.fake_missile,self.target_point,self.launch_pos,config_data[wpn:section()].vel,get_shell_radius(st.ammo),false,self.fixd)
+				run_shoot_effect(npc,wpn)
+				st.check_time = time_global()+st.rs.repose+math.random(1000)+self.relax_time
+				self.relax_time = time_global()+self.relax_time
+				self.stage = 4
+			end
 		end
-	elseif self.stage == 4 then -- ������
-		launch2(npc,self.fake_missile,self.target_point,self.launch_pos,get_shell_params(self.shell).radius,self.type)
-		particles_object(gl_sets.weapons[wpn:section()].prtcl):play_at_pos(npc:bone_position("bip01_l_finger02"))
-		rx_utils.get_sound(gl_sets.weapons[wpn:section()].sshoot):play_at_pos(npc,npc:position(),0,sound_object.s3d)
-		local anim
-		if self.bodystate == move.crouch then
-			anim = "cr_torso_4_attack_0"
-		else
-			anim = "norm_torso_4_attack_0"
+	else------------------------------------------------------------
+		if self.stage == 3 then
+			local target_obj = level.object_by_id(st.target)
+			if not (target_obj and target_obj:alive()) then
+				self:cancel(3000)
+				return
+			end
+			local target_lvid = target_obj:level_vertex_id()
+			local target_point = target_obj:position()
+			local dir = vector():sub(target_point,npc:center())
+			-- установка времени прицеливания
+			if not self.target_lvid then
+				local dist = dir:magnitude()
+				if dist < 20 and IsMonster(target_obj) then
+					self.aim_time = time_global()+min_aim_time
+				elseif npc:movement_type() == move.run then
+					if dist < 50 then
+						self.aim_time = time_global()+min_aim_time
+					else
+						self.movetype = math.random() < 0.5 and move.walk or move.stand
+						npc:set_movement_type(self.movetype)
+						self.aim_time = time_global()+math.max(st.rs.aim*dist,min_aim_time)
+					end
+				elseif math.random() < 0.5 then
+					self.movetype = move.stand
+					npc:set_movement_type(self.movetype)
+					self.aim_time = time_global()+math.max(st.rs.aim*dist*0.75,min_aim_time)
+				else
+					self.aim_time = time_global()+math.max(st.rs.aim*dist,min_aim_time)
+				end
+			end
+			-- определение направления взгляда
+			local canfire,dir = TransferenceAndThrowVelToThrowDir(dir,config_data[wpn:section()].vel,world_gravity)
+			if canfire == 0 then
+				self:cancel(9000)
+				return
+			end
+			-- проверка открытости цели
+			local is_graph_avail = not rx_utils.is_actor(target_obj) or level.vertex_position(target_lvid):distance_to_sqr(target_point) < 3
+			if not npc:see(target_obj) then
+				if level.cover_in_direction(npc:level_vertex_id(),dir) < 0.2 then
+					self:cancel(1000)	-- не стрелять, если зашёл за стену
+					return
+				elseif not is_graph_avail or level.cover_in_direction(target_lvid,vector():invert(dir)) < 0.2 then
+					self.aim_time = 0
+					if self.target_lvid then
+						target_lvid = self.target_lvid
+						target_point = self.target_point
+						dir = self.direction
+					end
+				end
+			end
+			if self.aim_time > time_global() then
+				if self.aim_time > time_global()+500 and (target_obj:best_enemy() or target_obj:see(npc)) then
+					rx_sound.set_sound_play(npc:id(),"gl_fire")
+				end
+			else
+				-- расчёт точки выстрела
+				local vel = config_data[wpn:section()].vel
+				local dist = target_point:distance_to(npc:center())
+				if is_graph_avail then
+					-- взять упреждение
+					if self.target_lvid and target_lvid ~= self.target_lvid and dist > vel/2 then
+						local prvp = self.target_point	--level.vertex_position(self.target_lvid)
+						local adist = target_point:distance_to(prvp)
+						if adist > 1 and adist < 5 then
+							local alvid = level.vertex_in_direction(target_lvid,vector():sub(target_point,prvp),3*adist*dist/vel)
+							local atrgp = level.vertex_position(alvid)
+--							adist = atrgp:distance_to(level.vertex_position(target_lvid))
+							local _,adir = TransferenceAndThrowVelToThrowDir(vector():sub(atrgp,npc:center()),vel,world_gravity)
+							if level.cover_in_direction(alvid,vector():invert(adir)) > 0.3 then
+								target_lvid = alvid
+								target_point = atrgp
+								dir = adir
+							end
+						end
+					end
+					-- взять поправку по укрытости цели
+					local c_back = 1-level.cover_in_direction(target_lvid,dir)
+					if c_back > 0.75 and math.abs(vector():sub(target_point,npc:center()).y) < dist/6 then
+						local c_front = 1-level.cover_in_direction(target_lvid,vector():invert(dir))
+						local cor = math.max(0.5,c_back-c_front)
+						target_point:add(vector():set(0,cor,0))
+					end
+				end
+				-- применить отклонение по точности
+				local dev = math.random() < 0.9 and dist*st.rs.dev or 0
+				if npc:movement_type() == move.run then
+					dev = dev + 140*dist
+				elseif npc:movement_type() == move.walk then
+					dev = dev + 20*dist
+				end
+				if dev > 0 then
+					target_point:add(vector():set(math.random(-dev,dev)/1000,0,math.random(-dev,dev)/1000))
+				end
+				-- к полёту готов
+				local launch_pos = npc:bone_position("bip01_head"):add(npc:direction():div(3))
+				set_to_launch(npc,self.fake_missile,target_point,launch_pos,vel,get_shell_radius(st.ammo),false,dist > 70 and 40)
+				run_shoot_effect(npc,wpn)
+				st.check_time = time_global()+st.rs.repose+math.random(1000)+self.relax_time
+				self.relax_time = time_global()+self.relax_time
+				self.stage = 4
+			end
+			self.target_lvid = target_lvid
+			self.target_point = target_point
+			self.direction = dir
 		end
-		npc:clear_animations()
-		rx_utils.add_anim(npc,anim)
-		self.st.charged = false
-		local rem = npc:object(self.shell)
-		if rem then
-			temp.rem[rem:id()] = true
-			run_fms_timer()
-		end
-		self:cancel(3000)
 	end
+	if self.stage == 4 then
+		if self.relax_time > time_global() then
+		else
+			st.charged = rx_ai.save_var(npc,"gl_charged",false)
+			self:cancel()	-- конец
+		end
+	end
+	self:set_direction()
 end
 
 function action_launch_grenade:cancel(ms)
-	local npc = self.object
-	if self.test_shell then
-		temp.fms[self.test_shell] = nil
-		temp.rem[self.test_shell] = false
-		run_fms_timer()
-	end
 	self.st.launch = nil
-	self.bodystate = nil
 	self.stage = nil
-	self.shell = nil
-	self.direction = nil
-	self.test_shell = nil
-	self.fake_missile = nil
-	self.target_point = nil
-	self.type = nil
-	self.test_end = nil
-	self.str_pos = nil
 	if ms then
 		self.st.check_time = time_global()+ms
 	end
@@ -287,12 +475,47 @@ end
 
 function action_launch_grenade:finalize()
     action_base.finalize(self)
-	if self.st.launch then
-		self:cancel()
+	local npc = self.object
+	if self.test_shell then
+		if active_shells[self.test_shell] then
+			delete_obj(self.test_shell)
+			active_shells[self.test_shell] = nil
+		end
+		test_res[self.test_shell] = nil
+		self.test_shell = nil
 	end
-	self.object:set_item(object.idle,self.object:active_item())
-	if rx_wmgr then
-		rx_wmgr.get_wm(self.object):enable()
+	level.map_remove_object_spot(db.actor:id(),"rx_gl_alarm")
+	level.map_remove_object_spot(npc:id(),"rx_gl_hit_sector")
+	if not npc:alive() then
+		return
+	end
+	rx_ai.unsubscribe_from_events(npc:id(),self)
+	rx_sound.block_alarm_sound(npc)
+	local wm = npc:get_wm(true)
+	if wm then
+		wm:enable()
+	end
+	self:cancel()
+	npc:set_movement_type(move.walk)	-- фикс для горбатого экшена набегания на врага
+	npc:clear_animations()
+	npc:set_sight(look.direction,npc:direction(),0)
+	npc:set_item(object.idle,npc:active_item())
+	state_mgr.lock(npc,false)
+	self.movetype = nil
+	self.direction = nil
+	self.fake_missile = nil
+	self.target_point = nil
+	self.target_lvid = nil
+end
+function action_launch_grenade:hit_callback()	-- при хите сразу пуляем и кончаем без задержки
+	local npc = self.object
+	if self.st.launch and self.fake_missile and self.target_point then
+		self.target_point:add(vector():set(math.random(-800,800)/100,0,math.random(-800,800)/100))
+		if self.stage < 3 then
+			self.stage = 3
+		end
+		self.aim_time = 0
+		self.relax_time = 0
 	end
 end
 
@@ -300,539 +523,792 @@ end
 class "evaluator_reload_gl" (property_evaluator)
 function evaluator_reload_gl:__init(npc,name,storage) super (nil,name)
 	self.st = storage
+	self.wait = time_global()+math.random(3000)
 	self.evn = false
-	self.wait = time_global()+math.random(6000)
 	rx_ai.subscribe_for_events(npc,self)
 end
 function evaluator_reload_gl:evaluate()
+	if not self.st.gl_ready or self.st.charged then
+		return false
+	end
+	if self.wait > time_global() then
+		return self.evn
+	end
 	local npc = self.object
-	if not alife():object(npc:id()) then return end
-
-	if self.st.charged then
-		return false
+	if not (npc:critically_wounded() or npc:mental_state() == anim.panic or npc:is_talking() or self.storage:property(stalker_ids.property_danger_grenade)) then
+		return safe_to_reload(npc,self)
 	end
-	if xr_wounded.is_wounded(npc) then
-		return false
-	end	
-	local wpn = npc:active_item()
-	if not (wpn and wpn:id() == self.st.wpn_id) then
-		self.evn = false
-	end
-	if self.dif then
-		self.dif = nil
-	else
-		self.dif = true
-		if self.evn == true then
-			ogse_debug.add_active_eval( self.object, script_name(), "reload_gl" )
-			return true
-		end
-		return false
-	end
-	if self.wait < time_global() and check_ammo(npc) then
-		local in_cover = rx_utils.npc_in_cover(npc)
-		if not in_cover then
-			self.evn = false
-			self.wait = time_global()+1600
-		else
-			self.st.wpn_id = wpn and wpn:id()
-			self.evn = true
-		end
-	else
-		self.evn = false
-	end
-	if self.evn == true then
-		ogse_debug.add_active_eval( self.object, script_name(), "reload_gl_2" )
-		return true
-	end	
+	self.evn = false
+	self.wait = time_global()+3000
 	return false
 end
 function evaluator_reload_gl:hit_callback(amount)
-	self.wait = time_global()+amount*10000
+	self.evn = false
+	self.wait = time_global()+5000+amount*10000
 end
 
 
 class "action_reload_gl" (action_base)
 function action_reload_gl:__init (npc,action_name,storage) super (nil,action_name)
 	self.st = storage
-	self.st.charged = true
+	self.st.charged = rx_ai.get_var(npc,"gl_charged",true)
 end
 function action_reload_gl:initialize()
 	action_base.initialize(self)
 	local npc = self.object
-	npc:set_desired_position()
-	npc:set_desired_direction()
-	npc:set_movement_type(move.stand)
-	npc:set_item(object.idle,npc:active_item())
-	self.dir = npc:direction()
-	self.end_time = time_global()+(self.st.charge_time or gl_sets.ranks[ranks.get_obj_rank_name(npc)].reload or 3000)
-	if rx_wmgr then
-		rx_wmgr.get_wm(npc):disable(self.end_time)
+	self.bstate = npc:body_state()
+	if self.bstate ~= move.crouch and not rx_utils.npc_in_cover(npc) then
+		self.bstate = move.crouch
+		npc:set_body_state(self.bstate)
+		npc:set_mental_state(anim.danger)
 	end
-	self.mgr = npc:motivation_action_manager()
-	for k,v in pairs(bad_acts) do
-		local actn = self.mgr:action(v)
-		if actn then
-			actn:add_precondition(world_property(evid_gl_reload,false))
-		end
+	npc:set_desired_position()
+--	npc:set_desired_direction()
+	npc:set_movement_type(move.stand)
+	if npc:best_enemy() and not xr_wounded.is_wounded(npc:best_enemy()) and not rx_utils.npc_in_cover(npc) then
+		npc:set_sight(npc:best_enemy(),true,true)
+	else
+		npc:set_sight(look.direction,npc:direction())
+	end
+	state_mgr.lock(npc,true)
+	npc:set_item(object.idle,npc:active_item())
+	npc:set_mental_state(anim.danger)
+	self.end_time = time_global()+self.st.rs.reload
+	local wm = npc:get_wm(true)
+	if wm then
+		wm:disable()
 	end
 end
 function action_reload_gl:execute()
 	action_base.execute(self)
 	local npc,anim = self.object
-	npc:set_sight(look.direction,self.dir)
 	npc:set_movement_type(move.stand)
 	local wpn = npc:active_item()
-	if not (wpn and wpn:id() == self.st.wpn_id) then
-		return
-	end
 	if self.play then
 		if self.end_time <= time_global() then
-			self.st.charged = true
+			self.st.charged = rx_ai.save_var(npc,"gl_charged",true)
 		end
 	else
 		if not npc:weapon_unstrapped() then
 			npc:set_item(object.idle,wpn)
 			return
 		end
-		if npc:body_state() == move.crouch then
+		if self.bstate == move.crouch then
 			anim = "cr_torso_3_reload_0"
 		else
 			anim = "norm_torso_3_reload_0"
 		end
 		if wpn then
-			rx_utils.add_anim(npc,anim)
-			rx_utils.get_sound(gl_sets.weapons[wpn:section()].sreload):play_at_pos(npc,npc:position(),2)
+			rx_utils.add_anim(npc,anim,true)
+			config_data[wpn:section()].sreload:play(npc,npc:center(),math.max(0.3,math.min(3,self.st.rs.reload/1000)-1))
 		end
 		self.play = true
 	end
 end
 function action_reload_gl:finalize()
     action_base.finalize(self)
-	if self.end_time <= time_global()+1500 then
-		self.st.charged = true
+	local npc = self.object
+	if not npc:alive() then
+		return
 	end
-	self.object:clear_animations()
-	self.dir = nil
+	if self.end_time <= time_global()+self.st.rs.reload/2 then
+		self.st.charged = rx_ai.save_var(npc,"gl_charged",true)
+	end
+	npc:set_movement_type(move.walk)	-- фикс для горбатого экшена набегания на врага
+	npc:clear_animations()
+--	npc:set_sight(look.direction,npc:direction(),0)
+	state_mgr.lock(npc,false)
+	rx_sound.block_alarm_sound(npc)
 	self.play = nil
 	self.end_time = nil
-	self.direction = nil
-	if rx_wmgr then
-		rx_wmgr.get_wm(self.object):enable()
+	local wm = npc:get_wm(true)
+	if wm then
+		wm:enable()
 	end
-	for k,v in pairs(bad_acts) do
-		local actn = self.mgr:action(v)
-		if actn then
-			actn:remove_precondition(evid_gl_reload)
+end
+
+function safe_to_reload(npc,st)
+	local be = npc:best_enemy()
+	local tg = time_global()
+	local enemies,tt = {},{}
+	if be and not xr_wounded.is_wounded(be) then
+		enemies[1] = be
+		tt[be:id()] = true
+	else
+		st.evn = true
+		st.wait = tg+2000
+		return true
+	end
+	local actorid = db.actor:id()
+	for o in npc:memory_visible_objects() do
+		local obj = o:object()
+		local id = obj:id()
+		if id == actorid and obj:alive() and npc:relation(obj) == game_object.enemy and rx_utils.actor_aiming_at_me(npc) and level.cover_in_direction(npc:level_vertex_id(),vector():invert(device().cam_dir)) > 0.1 then
+			st.evn = false
+			st.wait = tg+2000
+			return false
+		elseif not tt[id] then
+			if obj and obj:alive() and npc:relation(obj) == game_object.enemy and (IsStalker(obj) and not xr_wounded.is_wounded(obj) or IsMonster(obj)) then
+				table.insert(enemies,obj)
+				tt[id] = true
+			end
 		end
 	end
-	self.mgr = nil
-end
-
-
-function launch(obj,target,typ)
-	local dir = utils.vector_copy_by_val(target):sub(obj:position())
-	local dist_xz = obj:position():distance_to_xz(target)
-	local lvel = 75
-	local add = vector():set(0,0,0)
-	add.y = (dist_xz/22)^1.8
-	if typ == 1 then
-		add.y = add.y+dist_xz/100
-	elseif typ == 2 then
-		add.y = add.y+dist_xz*2/100
-	elseif typ == 3 then
-		add.y = add.y-dist_xz/100
-	elseif typ == 4 then
-		add.y = add.y-dist_xz*2/100
-	elseif typ == 5 then
-		add.y = add.y-dist_xz*3/100
-	end
-	dir:add(add)
-	obj:set_desired_direction(dir)
-	local hit = hit()
-	hit.type = hit.strike
-	hit.power = 0
-	hit.impulse = lvel*15
-	hit.draftsman = obj
-	hit.direction = dir
-	obj:hit(hit)
-end
-
-function launch2( npc, id, target, pos, radius, typ, test )
-  local obj = level.object_by_id( id )
-  ASSERT( obj, "[%s]: launch2: [%s] not found", script_name(), id )
-  npc:drop_item_and_teleport( obj, pos )
-  mark_grenade_non_pickable( obj )
-  --
-  temp.fms[ id ] = {
-    [ "cnt"    ] = 0,
-    [ "launch" ] = true,
-    [ "npc_id" ] = npc:id(),
-    [ "radius" ] = radius,
-    [ "target" ] = target,
-    [ "test"   ] = test,
-    [ "time"   ] = time_global() + 6000,
-    [ "type"   ] = typ,
-    [ "vel"    ] = 0,
-  }
-  run_fms_timer()
-end
-
-function gl_switch(npc)
-	local wpn = npc:active_item()
-	if check_weapon(wpn) and npc:weapon_unstrapped() then
-		local anim
-		if npc:body_state() == move.crouch then
-			anim = "cr_torso_7_draw_0"
-		else
-			anim = "norm_torso_7_draw_0"
+	for o in npc:memory_sound_objects() do
+		local obj = o:object()
+		if not tt[obj:id()] then
+			if obj and obj:alive() and npc:relation(obj) == game_object.enemy and (IsStalker(obj) and not xr_wounded.is_wounded(obj) or IsMonster(obj)) then
+				table.insert(enemies,obj)
+			end
 		end
-		npc:set_item(object.idle,wpn)
-		npc:clear_animations()
-		rx_utils.add_anim(npc,anim)
-		rx_utils.get_sound(gl_sets.weapons[wpn:section()].sswitch):play_no_feedback(npc,sound_object.s3d,0,npc:position(),1.0)
 	end
+	local npc_lvid = npc:level_vertex_id()
+	local f = 20
+	for i,enemy in ipairs(enemies) do
+		local dir = enemy:position():sub(npc:position())
+		local dist = dir:magnitude()
+		local cover = level.cover_in_direction(npc_lvid,dir)
+		if dist < 10 or enemy:see(npc) and (dist < 30 or cover > 0.6 or dist*cover > dist-f*cover) then		-- чем дальше враг, тем меньше требуется прикрытия
+			st.evn = false
+			st.wait = tg+2500
+			return false
+		end
+	end
+	st.evn = true
+	st.wait = tg+500
+	return true
 end
 
-function get_shell_params(sec)
-	if not gl_sets.fms[sec] then
+function get_shell_radius(sec)
+	if not config_data[sec] then
 		local fake = read_from_ini(nil,sec,"fake_grenade_name","wpn_fake_missile",1)
 		local br = read_from_ini(nil,fake,"blast_r",10)
+		local fc = read_from_ini(nil,fake,"frags",5)
 		local fr = read_from_ini(nil,fake,"frags_r",15)
-		gl_sets.fms[sec] = {radius = math.max(br,fr), fake = fake}
+		config_data[sec] = math.max(br,math.min(fc,fr))	-- если осколков мало, то бояться их особо не стоит
 	end
-	return gl_sets.fms[sec]
+	return config_data[sec]
 end
 
 function check_weapon(wpn)
-	if wpn == nil or alife():object(wpn:id()) == nil then return false end
-	local sec = wpn:section()
-	if rx_utils.is_weapon(wpn) and gl_sets.forbiddens.weapons[sec] ~= true then
-		if ogse_wpn_utils.get_grenade_launcher_flag(wpn) then
-			if not gl_sets.weapons[sec] then
+	if rx_utils.item_is_fa(wpn) then
+		local sec = wpn:section()
+		if rx_utils.addon_attached(wpn,"gl") then
+			if not config_data[sec] then
 				local particles = read_from_ini(nil,sec,"grenade_flame_particles","weapons\\generic_weapon01",2)
-				local sound_shoot = read_from_ini(nil,sec,"snd_shoot_grenade","weapons\\ak74\\ak74_gl_shoot",2,',')
-				local sound_reload = read_from_ini(nil,sec,"snd_reload_grenade","weapons\\ak74\\ak74_gl_reload",2,',')
-				local sound_switch = read_from_ini(nil,sec,"snd_switch","weapons\\ak74\\ak74_gl_activate",2,',')
+				local sound_shoot = rx_sound.dihud_sound(sec,"snd_shoot_grenade")
+				local sound_reload = rx_sound.dihud_sound(sec,"snd_reload_grenade")
+				local sound_switch = rx_sound.dihud_sound(sec,"snd_switch")
+				local fire_point = read_from_ini(nil,sec,"fire_point2",nil,4) or read_from_ini(nil,sec,"fire_point",vector():set(0,0,0),4)
 				local launcher = read_from_ini(nil,sec,"grenade_launcher_name",nil,1)
 				if not launcher then
 					launcher = sec
 				end
 				local vel =	read_from_ini(nil,launcher,"grenade_vel",76)
 				local shells = {}
-				for i,s in ipairs(rx_utils.parse_list(sys_ini,sec,"grenade_class")) do
-					if sys_ini:section_exist("gl_test_shell_"..s) and sys_ini:section_exist("gl_fake_missile_"..s) then
+				local ini = system_ini()
+				for i,s in ipairs(rx_utils.parse_list(ini,sec,"grenade_class")) do
+					if ini:section_exist("gl_test_shell_"..s) and ini:section_exist("gl_fake_missile_"..s) then
 						table.insert(shells,s)
-					--else
+					else
+						rx_utils.printf("not found rx_gl sections for shell [%s]!!!",s)
 					end
 				end
-				gl_sets.weapons[sec] = {shells = shells,vel = vel,prtcl = particles,sshoot = sound_shoot,sreload = sound_reload,sswitch = sound_switch}
+--				printf("read_wpn_params[%s]:vel=[%s],launcher=[%s],prtcl=[%s],sshoot=[%s],sreload=[%s],sswitch=[%s],fp=[%s]",sec,vel,launcher,particles,sound_shoot,sound_reload,sound_switch,rx_utils.vec_to_str(fire_point))
+				config_data[sec] = {shells = shells,vel = vel,prtcl = particles,sshoot = sound_shoot,sreload = sound_reload,sswitch = sound_switch,fp = fire_point}
 			end
-			if #gl_sets.weapons[sec].shells == 0 then
+			if #config_data[sec].shells == 0 then
 				return false
 			end
 			return true
 		end
+		--if mass_test then
+		--	config_data[sec] = {shells = {"ammo_vog-25"},vel = 70,prtcl = "weapons\\generic_weapon01",sshoot = rx_sound.dihud_sound("wpn_lr300","snd_shoot_grenade"),sreload = rx_sound.dihud_sound("wpn_lr300","snd_reload_grenade"),sswitch = rx_sound.dihud_sound("wpn_lr300","snd_switch"),fp = vector():set(0,0,0)}
+		--	return true
+		--end
 	end
 	return false
 end
 
-function check_ammo(npc)
+local ready_mem = {}
+function check_ammo(npc)	-- проверить наличие оружия и патронов
 	local wpn = npc:active_item()
-	if not check_weapon(wpn) then
+	if not wpn then
 		return false
 	end
-	for k,v in pairs(gl_sets.weapons[wpn:section()].shells) do
-		if npc:object(v) then
-			return true
+	local rm = ready_mem[wpn:id()]
+	if rm and rm.t > time_global() then
+		return rm.ammo~=nil,rm.ammo
+	end
+	if check_weapon(wpn) then
+		for k,v in ipairs(config_data[wpn:section()].shells) do
+			if npc:object(v) then
+				ready_mem[wpn:id()] = {ammo = v,t = time_global()+24000}
+				return true,v	-- выбрать патрон (первый попавшийся)
+			end
+		end
+		if gl_sets.spawn_ammo then
+			local shells = config_data[wpn:section()].shells
+			alife():create(shells[math.random(#shells)],npc:position(),npc:level_vertex_id(),npc:game_vertex_id(),npc:id())
+			return false
 		end
 	end
+	ready_mem[wpn:id()] = {t = time_global()+61000}
 	return false
 end
 
-function check_enemy(npc,be)
-	return be:alive() and npc:see(be) and not xr_wounded.is_wounded(be) -- and be:position():distance_to(level.vertex_position(be:level_vertex_id()))<2
-end
-
-function check_victims(npc,pos,radius,pre)
-	local nid = npc:id()
-	if not radius then
-		radius = 1
-	end
-	if npc:position():distance_to(pos) < radius+1.5 then
+function check_victims(nid,pos,radius,want_enemy)	-- нет ли в радиусе поражения друзей; а враги есть?
+	local npc = level.object_by_id(nid)
+	if not npc then
 		return false
 	end
-	local enemy = false
-	for k,v in pairs(db.creature) do
-		local obj = level.object_by_id(k)
-		if k ~= nid and obj and obj:alive() then
-			if obj:position():distance_to(pos) < radius+1 then
-				if npc:relation(obj) == game_object.enemy then
-					enemy = true
-				else
-					return false
+	radius = radius+1
+	radius = radius*radius
+	if npc:position():distance_to_sqr(pos) < radius then
+		return false
+	end
+	local enemy
+	if db.creatures then
+		for id,obj in pairs(db.creatures) do
+			if id ~= nid and obj and obj:alive() then
+				if obj:position():distance_to_sqr(pos) < radius then
+					if npc:relation(obj) == game_object.enemy then
+						enemy = true
+					else
+						return false
+					end
+				end
+			end
+		end
+	else
+		local sst,mst = modules.stype_stalker,modules.stype_mobile
+		for id,t in pairs(db.storage) do
+			if (t.stype == sst or t.stype == mst or id == 0) and id ~= nid then
+				local obj = level.object_by_id(id)
+				if obj and obj:alive() then
+					if obj:position():distance_to_sqr(pos) < radius then
+						if npc:relation(obj) == game_object.enemy then
+							enemy = true
+						else
+							return false
+						end
+					end
 				end
 			end
 		end
 	end
-	if pre then
+	if want_enemy then
 		return enemy
 	else
 		return true
 	end
 end
 
-function spawn_shell(npc)
-	local wpn = npc:active_item()
-	if check_weapon(wpn) then
-		local cnt = #gl_sets.weapons[wpn:section()].shells
-		if cnt ~= 0 then
-			local shell = gl_sets.weapons[wpn:section()].shells[math.random(cnt)]
-			alife():create(shell,npc:position(),npc:level_vertex_id(),npc:game_vertex_id(),npc:id())
+local function get_friendspos_list(npc)
+	local friends,npc_id = {},npc:id()
+	if db.creatures then
+		for id,obj in pairs(db.creatures) do
+			if obj and obj:alive() and id ~= npc_id and npc:relation(obj) ~= game_object.enemy then
+				friends[#friends+1] = obj:center()
+			end
+		end
+	else
+		local sst = modules.stype_stalker
+		for id,t in pairs(db.storage) do
+			if (t.stype == sst or id == 0) and id ~= npc_id then
+				local obj = level.object_by_id(id)
+				if obj and obj:alive() and npc:relation(obj) ~= game_object.enemy then
+					friends[#friends+1] = obj:center()
+				end
+			end
+		end
+	end
+	return friends
+end
+function pick_visible_target(npc,radius)
+	radius = radius+3
+	local npc_pos = npc:center()
+	local min_dist = math.max(gl_sets.min_dist,radius)
+	local max_dist = gl_sets.max_dist
+	radius,min_dist,max_dist = radius*radius,min_dist*min_dist,max_dist*max_dist
+	local friends
+	local enemy = npc:best_enemy()
+	if npc:see(enemy) then	-- сначала проверяем лучшего врага
+		local en_pos = enemy:center()
+		local dist = npc_pos:distance_to_sqr(en_pos)
+		if dist > min_dist then
+			if dist < max_dist then
+				friends = get_friendspos_list(npc)
+				local cres = true
+				for i,fpos in ipairs(friends) do
+					if fpos:distance_to_sqr(en_pos) < radius then
+						cres = false
+						break
+					end
+				end
+				if cres then
+					return enemy
+				end
+			end
+		else
+			return -- если лучший враг виден и слишком близко для выстрела
+		end
+	end
+	if aim_be_only then
+		return
+	end
+	friends = friends or get_friendspos_list(npc)
+	local tg,npc_id,be_id = time_global(),npc:id(),enemy:id()
+	local max_dist_monster = math.min(npc:max_ignore_monster_distance()^2,max_dist)
+--	local mem = enemy_memory[squad]
+	for o in npc:memory_visible_objects() do	-- затем всех в зоне видимости
+		local obj = o:object()
+		if o.level_time == tg and obj and obj.clsid then
+			if obj:alive() and not xr_wounded.is_wounded(obj) then
+				if obj:id() ~= be_id and obj:id() ~= npc_id and
+					npc:relation(obj) == game_object.enemy and not xr_combat_ignore.is_ignored(npc,obj) then
+					local en_pos = obj:center()
+					local dist = npc_pos:distance_to_sqr(en_pos)
+					if dist > min_dist and dist < (IsMonster(obj) and max_dist_monster or max_dist) then
+						local cres = true
+						for i=1,#friends do
+							if friends[i]:distance_to_sqr(en_pos) < radius then
+								cres = false
+								break
+							end
+						end
+						if cres then
+							return obj
+						end
+					end
+				end
+--			elseif IsStalker(obj) then
+--				mem[obj:id()] = nil		-- нужно забывать увиденные тушки
+			end
 		end
 	end
 end
 
-function update()
-  local tg = time_global()
-  for k, v in pairs( temp.fms ) do
-    local sobj = alife():object( k )
-    if sobj then
-      local obj = level.object_by_id( k )
-      if obj and obj:parent() then
-      elseif obj then
-        if v.launch then
-          launch( obj, v.target, v.type )
-          temp.fms[ k ].launch = nil
-          temp.fms[ k ].type   = nil
-        end
-        local vel = get_atn_vel( obj )
-        if v.explode then
-        elseif v.time < tg then
-          temp.rem[ k ] = true
-          temp.fms[ k ] = nil
-        elseif v.cnt > 6 or v.vel > 20 then
-          local pos = obj:position()
-          if vel < v.vel * 0.92 or vel > v.vel * 1.11 then
-            if v.test then
-              temp.fms[ k ].pos     = pos
-              temp.fms[ k ].explode = true
-              temp.rem[ k ] = true
-            else
-              local npc = level.object_by_id( v.npc_id )
-              if npc and not npc:is_stalker() then npc = nil end
-              if npc and check_victims( npc, pos, v.radius ) then
-                obj:explode_initiator( npc:id() )
-              else
-                temp.rem[ k ] = true
-				if npc then
-                  spawn_shell( npc )
+function pick_covert_target(npc,radius,squad)
+	radius = radius+5
+	local npc_pos = npc:center()
+	local min_dist = math.max(gl_sets.min_dist,radius)
+	local max_dist = gl_sets.max_dist
+	radius,min_dist,max_dist = radius*radius,min_dist*min_dist,max_dist*max_dist
+	local tg,npc_lvid = time_global(),npc:level_vertex_id()
+	local mem = enemy_memory[squad]
+	local enemy = npc:best_enemy()
+	if aim_be_only and enemy then
+		local embe = mem[enemy:id()]
+		if embe then
+			if embe[3]+10000 > tg then
+				local pos = embe[1]
+				local dist = npc_pos:distance_to_sqr(pos)
+				if dist < max_dist and dist > min_dist and level.cover_in_direction(npc_lvid,vector():sub(pos,npc_pos)) > 0.2 then
+					for i,fpos in ipairs(get_friendspos_list(npc)) do
+						if fpos:distance_to_sqr(pos) < radius then
+							return
+						end
+					end
+					return pos,embe[2]
 				end
-              end
-              temp.fms[ k ] = nil
-            end
-          else
-            temp.fms[ k ].vel = vel
-            temp.fms[ k ].cnt = v.cnt + 1
-          end
-        else
-          temp.fms[ k ].vel = vel
-          temp.fms[ k ].cnt = v.cnt + 1
-        end
-      else
-        temp.rem[ k ] = true
-        temp.fms[ k ] = nil
-      end
-    elseif not v.explode then
-      temp.fms[ k ] = nil
-    end
-  end
-  for id, v in pairs( temp.rem ) do
-    local se = alife():object(id)
-    if se or ( se == false and se.parent_id and se.parent_id ~= 65535 ) then
-      alife():release( se )
-    end
-  end
-  temp.rem = {}
+			else
+				mem[enemy:id()] = nil
+			end
+		end
+		return
+	end
+	local friends = get_friendspos_list(npc)
+	for id,t in pairs(mem) do
+		if t[3] > tg then
+			local pos = t[1]
+			local dist = npc_pos:distance_to_sqr(pos)
+			if dist < max_dist and dist > min_dist then
+				local obj = db.storage[id] and level.object_by_id(id)
+				if not (obj and obj:alive() and not xr_wounded.is_wounded(obj)) then
+					mem[id] = nil
+				elseif level.cover_in_direction(npc_lvid,vector():sub(pos,npc_pos)) > 0.2 then
+					local cres = true
+					for i=1,#friends do
+						if friends[i]:distance_to_sqr(pos) < radius then
+							cres = false
+							break
+						end
+					end
+					if cres then
+						return pos,t[2]
+					end
+				end
+			end
+		else
+			mem[id] = nil
+		end
+	end
+	local danger = npc:best_danger()
+	if danger then
+		local obj = danger:object()
+		if obj and obj:alive() and npc:relation(obj) == game_object.enemy and not xr_wounded.is_wounded(obj) then	-- and not xr_combat_ignore.is_ignored(npc,obj)
+			local danger_time = tg-danger:time()
+			if danger_time > 0 and danger_time < 30000 then
+				local pos = danger:position()
+				local dist = npc_pos:distance_to_sqr(pos)
+				if dist < max_dist and dist > min_dist and level.cover_in_direction(npc_lvid,vector():sub(pos,npc_pos)) > 0.2 then
+					local cres = true
+					for i=1,#friends do
+						if friends[i]:distance_to_sqr(pos) < radius then
+							cres = false
+							break
+						end
+					end
+					if cres then
+						local lvid = level.vertex_id and level.vertex_id(pos)
+						if lvid == nil or lvid > 4294967294 then
+							lvid = obj:level_vertex_id()
+						end
+						return pos,lvid
+					end
+				end
+			end
+		end
+	end
 end
 
-function npc_update(npc,st)
-  if not st.gl_shell_spawn then
-    st.gl_shell_spawn = true
-    ogse_signals.get_mgr():reschedule(
-      gl_sets.spawn_prd * 1000 + math.random( 1000 )
-    )
-    return
-  end
-  ogse_signals.get_mgr():reschedule( gl_sets.spawn_prd * 1000 )
-  local wpn = npc:active_item()
-  if check_weapon( wpn ) then
-    local prb = npc:character_rank() / 1500
-    if prb > 0.9 then
-      prb = 0.9
-    elseif prb < 0.01 then
-      prb = 0.01
-    end
-    if math.random() < prb then
-      local have_shell
-      local shells = gl_sets.weapons[ wpn:section() ].shells
-      if table.getn( shells ) == 0 then return end
-      for i, s in ipairs( shells ) do
-        if npc:object( s ) then
-          have_shell = true
-          break
-        end
-      end
-      if not have_shell then
-        local shell = shells[ math.random( table.getn( shells ) ) ]
-        alife():create(
-          shell, npc:position(), npc:level_vertex_id(), npc:game_vertex_id(),
-          npc:id()
-        )
-      end
-    end
-  end
-end
-
-function get_atn_vel(obj)
-	if not obj or not obj.get_physics_shell or not obj:get_physics_shell() then
+local function TransferenceAndThrowVelToTgA(transference,throw_vel,gravity_accel)
+	local sqx = transference.x*transference.x+transference.z*transference.z
+	local sqv = throw_vel*throw_vel
+	local sqD4 = 1-gravity_accel/(sqv*sqv)*(2*transference.y*sqv+gravity_accel*sqx)
+	if sqD4 < 0 then
 		return 0
 	end
-	local vel = vector():set(0,0,0)
-	obj:get_physics_shell():get_linear_vel(vel)
-	vel = math.abs(vel.x)+math.abs(vel.y)+math.abs(vel.z)
-	return vel
+	local tgA = vector():set(0,0,0)
+	local s = sqx^0.5
+	local mlt = sqv/(gravity_accel*s)
+	if sqD4 == 0 then
+		tgA.y = mlt
+		tgA.x = mlt
+		return 1,s,tgA
+	end
+	local D4 = sqD4^0.5
+	tgA.x = mlt*(1-D4)
+	tgA.y = mlt*(1+D4)
+	return 2,s,tgA
 end
 
-evid_gl_fire = rx_ai.base_id+1
+function TransferenceAndThrowVelToThrowDir(transference,throw_vel,gravity_accel)
+	local throw_dir = transference
+	local ret,s,tgA = TransferenceAndThrowVelToTgA(transference,throw_vel,gravity_accel)
+	if ret == 0 then
+		throw_dir:setHP(throw_dir:getH(),math.pi/4)
+		throw_dir:normalize()
+	elseif ret == 1 then
+		throw_dir.y = tgA.y*s
+		throw_dir:normalize()
+	elseif ret == 2 then
+		throw_dir.y = tgA.x*s
+		throw_dir:normalize()
+	end
+	return ret,throw_dir
+end
+
+function run_shoot_effect(npc,wpn)
+	if npc:movement_type() ~= move.run then
+		local anim
+		if npc:body_state() == move.crouch then
+			anim = "cr_torso_4_attack_1"
+		else
+			anim = "norm_torso_4_attack_1"
+		end
+		npc:clear_animations()
+		npc:play_cycle(anim)
+	end
+	local data = config_data[wpn:section()]
+	local fpm = matrix()--:setHPB(0,0,0)
+	fpm.i = vector():set(0,0,0)
+	fpm.j = vector():set(0,0,0)
+	fpm.k = wpn:direction()
+	fpm.c = npc:bone_position("bip01_r_finger01")
+	local fp = rx_utils.transform_tiny(fpm,data.fp)
+	data.sshoot:play(npc,fp)
+	particles_object(data.prtcl):play_at_pos(fp)
+end
+
+function set_to_launch(npc,id,target,pos,lvel,radius,test,fixdir)
+	local shell = level.object_by_id(id)
+	npc:drop_item_and_teleport(shell,pos)
+	active_shells[id] = {npc = npc:id(),radius = radius,target = target,lvel = lvel,fix_dir = fixdir and fixdir*fixdir,test = test}
+	shell:set_fastcall(trace_shell,shell)
+end
+
+local function launch_shell(obj,data)
+	local dir = vector():sub(data.target,obj:position())
+	local lvel = data.lvel
+	local dist = dir:magnitude()
+	local tim = dist^1.2/lvel
+	data.ltime = time_global()+250
+	data.time = data.ltime+tim*1000+1500
+	---------------------------
+	local canfire,dir = TransferenceAndThrowVelToThrowDir(dir,lvel,world_gravity)
+--	if canfire == 0 then
+--		printf("canfire == 0 dir.y=%s",canfire,dir.y)
+--		data.time = 0
+--		return 0
+--	end
+	---------------------------
+	local curvel = vector()
+	local ps = obj:get_physics_shell()
+	ps:get_linear_vel(curvel)
+	dir:mul(lvel)
+	local lgv = (dir.x^2+dir.z^2)^0.5
+	dir:add(curvel:invert())
+	lvel = dir:magnitude()
+	local h = hit()
+	h.type = hit.strike
+	h.power = 0
+	h.impulse = lvel*obj:mass()
+	h.draftsman = obj
+	h.direction = dir
+	obj:hit(h)
+--	printf("launch_shell[%s]:lvel %s lgv %s mass %s",obj:name(),data.lvel,lgv,obj:mass())
+	return lgv	-- возващает начальную горизонтальную скорость
+end
+
+local function test_result(data,pos)
+	local tres = check_victims(data.npc,pos,data.radius,true)
+	return tres or tres == nil and data.target:distance_to(pos) < data.radius+5
+end
+
+local function explode_shell(obj)
+	local id = obj:id()
+	local data = active_shells[id]
+	local pos = obj:position()
+	if data.test then
+		delete_obj(id)
+		test_res[id] = test_result(data,pos)
+	else
+		if check_victims(data.npc,pos,data.radius) then
+			obj:explode(0)
+		else
+			delete_obj(id)
+		end
+	end
+	active_shells[id] = nil
+end
+
+local function remove_shell(id)
+	delete_obj(id)
+	if active_shells[id] and active_shells[id].test then
+		test_res[id] = false
+	end
+	active_shells[id] = nil
+end
+
+local function correct_speed(obj,data)
+	local ps = obj:get_physics_shell()
+	if not ps then
+		printf("correct_speed[%s] not ps!!!",obj:name())
+		return false
+	end
+	local vel = vector()
+	ps:get_linear_vel(vel)
+	local vel_num = vel:magnitude()
+	if vel_num < 7 and not data.rel then
+		if data.ltime < time_global() then	-- если в течение полусекунды не взлетела, значит упёрлась в препятствие
+			data.time = 0					-- просто удаляем
+		else
+			return false			-- снаряд ещё не запущен
+		end
+	end
+	if data.vel then
+		if vel.y == data.vel.y then
+			return false			-- скорость не обновилась
+		end
+		local cos = data.vel and vector():set(vel):normalize():dotproduct(vector():set(data.vel):normalize())
+		if cos < 0.99 then
+			return true
+		elseif cos < 0.9999 and obj:position():distance_to_sqr(data.target) < 6 then
+			return true
+		end
+	end
+	data.vel = vel
+	if data.rel then
+		return false
+	end
+	if obj:position():distance_to_sqr(data.target) < 25 then
+		data.rel = true
+	end
+	local vel_xz,lgv = (vel.x^2+vel.z^2)^0.5,data.lgv
+	if vel_xz >= lgv then
+		return false
+	end
+	local ak = (lgv-vel_xz)/lgv	-- получаем потерю скорости
+	local push = vector():mul(vel,ak)
+	local push_impulse = push:magnitude()*obj:mass()*1.5
+	local h = hit()
+	h.type = hit.strike
+	h.power = 0
+	h.impulse = push_impulse
+	h.draftsman = obj
+	h.direction = push
+	obj:hit(h)
+	return false
+end
+
+function trace_shell(obj)
+	local id = obj:id()
+--	if not alife():object(id) then
+--		remove_shell(id)
+--		printf("[%s]fail sobj!!!!!",id)
+--		return true
+--	end
+	if obj:parent() then
+		remove_shell(id)
+		printf("[%s:%s]fail parent",id,obj:name())
+		return true
+	end
+	local data = active_shells[id]
+	if not data then
+		printf("[%s:%s]not data!",id,obj:name())
+		return true
+	end
+	if not data.launched then
+		data.lgv = launch_shell(obj,data)
+		data.launched = true
+	else
+		local trigger = correct_speed(obj,data)
+		if trigger then
+			explode_shell(obj)
+			return true
+		elseif data.time < time_global() then
+			remove_shell(id)
+			return true
+		end
+		if data.fix_dir and obj:position():distance_to_sqr(data.target) < data.fix_dir then
+			data.lgv = launch_shell(obj,data)
+			data.fix_dir = nil
+		end
+	end
+	return false
+end
+
+function create_grenade(section,owner)
+	local sobj = alife():create(section,owner:position(),owner:level_vertex_id(),owner:game_vertex_id(),owner:id())
+
+	local pk = get_netpk( sobj, 1 )
+	ASSERT( ( pk and pk:isOk() ), "can't read netpacket of %s", sobj:name() )
+	local data = pk:get()
+	data.object_flags = bit_or(  data.object_flags, object_flags.SwitchOnline )
+	data.object_flags = bit_and( data.object_flags, bit_not(object_flags.SwitchOffline) )
+	data.object_flags = bit_and( data.object_flags, bit_not(object_flags.VisibleForAI) )
+	data.object_flags = bit_and( data.object_flags, bit_not(object_flags.UsefulForAI) )
+	data.object_flags = bit_and( data.object_flags, bit_not(object_flags.UsedAI_Locations) )
+	data.object_flags = bit_and( data.object_flags, bit_not(object_flags.CanSave) )
+	pk:set( data )
+
+	return sobj
+end
+
+function destroy_after_explode(obj)
+	if active_shells[obj:id()].time < time_global() then
+		remove_shell(obj:id())
+		return true
+	end
+	return false
+end
+
+evid_gl_ready = rx_ai.base_id+1
+evid_gl_fire = evid_gl_ready+1
 evid_gl_reload = evid_gl_fire+1
 actid_gl_fire = evid_gl_fire
 actid_gl_reload = evid_gl_reload
 
+launch_actions_permitted[actid_gl_reload] = true
+rx_ai.death_disable_evas[evid_gl_ready] = false
+
 function add_to_binder(npc,ini,scheme,section,storage)
-	if not gl_sets.inited then
-		init()
-	end
 	local manager = npc:motivation_action_manager()
-	local state_mgr_to_idle_combat 	= xr_actions_id.state_mgr + 1
-	local state_mgr_to_idle_alife 	= xr_actions_id.state_mgr + 2	
-	if not (gl_sets.enabled and not gl_sets.forbiddens.factions[npc:character_community()] and not gl_sets.forbiddens.npcs[npc:name()]) then
+	if not (not gl_sets.forbidden_factions[npc:character_community()] and not gl_sets.forbidden_npcs[npc:name()] and not gl_sets.forbidden_npcs[npc:profile_name()] and npc:alive()) then
+		manager:add_evaluator(evid_gl_ready,property_evaluator_const(false))
 		manager:add_evaluator(evid_gl_fire,property_evaluator_const(false))
 		manager:add_evaluator(evid_gl_reload,property_evaluator_const(false))
+		storage.disabled = true
 		return
 	end
-	manager:add_evaluator(evid_gl_fire,evaluator_launch_grenade(npc,"eva_launch_grenade",storage))
+	manager:add_evaluator(evid_gl_ready,evaluator_gl_ready(npc,"eva_gl_ready",storage))
+	manager:add_evaluator(evid_gl_fire,evaluator_launch_grenade("eva_launch_grenade",storage,manager))
 	manager:add_evaluator(evid_gl_reload,evaluator_reload_gl(npc,"eva_reload_gl",storage))
 	local action = action_launch_grenade(npc,"act_launch_grenade",storage)
 	action:add_precondition(world_property(stalker_ids.property_alive,true))
 	action:add_precondition(world_property(xr_evaluators_id.sidor_wounded_base,false))
-	if rx_facer then
-		action:add_precondition(world_property(rx_facer.evid_facer,false))
-	end
-	action:add_precondition( world_property( xrs_grenade.prop_grenade,          	     false  ) )	
-	if ogsm_hideout then
-		action:add_precondition(world_property(ogsm_hideout.property_blowout, false))
-		action:add_precondition(world_property(ogsm_hideout.property_hideout_lost, false))
-	end
-	action:add_precondition(world_property(evid_gl_fire,true))
-	action:add_effect(world_property(evid_gl_fire,false))
-	manager:add_action(actid_gl_fire,action)
-	action = action_reload_gl(npc,"act_reload_gl",storage)
-	action:add_precondition(world_property(stalker_ids.property_alive,true))
-	action:add_precondition(world_property(xr_evaluators_id.sidor_wounded_base,false))
-	if rx_bandage and rx_bandage.enable_scheme then
+	if rx_bandage then
 		action:add_precondition(world_property(rx_bandage.evid_bandage,false))
 	end
 	if rx_facer then
 		action:add_precondition(world_property(rx_facer.evid_facer,false))
 	end
-	action:add_precondition( world_property( xrs_grenade.prop_grenade,          	     false  ) )
-	if ogsm_hideout then
-		action:add_precondition(world_property(ogsm_hideout.property_blowout, false))
-		action:add_precondition(world_property(ogsm_hideout.property_hideout_lost, false))
+	if xrs_grenade then
+		action:add_precondition(world_property(xrs_grenade.evid_aaa_grenade,false))
 	end
+--	if blowout_scheme and blowout_scheme.evid_outside then
+--		action:add_precondition(world_property(blowout_scheme.evid_outside,false))
+--	end
+	action:add_precondition(world_property(evid_gl_ready,true))
+	action:add_precondition(world_property(evid_gl_fire,true))
+	action:add_effect(world_property(evid_gl_fire,false))
+	manager:add_action(actid_gl_fire,action)
+	------------------------------------------------------------------------------------
+	action = action_reload_gl(npc,"act_reload_gl",storage)
+	action:add_precondition(world_property(stalker_ids.property_alive,true))
+	action:add_precondition(world_property(xr_evaluators_id.sidor_wounded_base,false))
+	action:add_precondition(world_property(stalker_ids.property_danger_grenade,false))
+	action:add_precondition(world_property(xr_evaluators_id.state_mgr+3,true)) --!!
+	if rx_bandage then
+		action:add_precondition(world_property(rx_bandage.evid_bandage,false))
+	end
+	if rx_facer then
+		action:add_precondition(world_property(rx_facer.evid_facer,false))
+	end
+	if rx_knife then
+		action:add_precondition(world_property(rx_knife.evid_knife_attack,false))
+	end
+	if xr_help_wounded then
+		action:add_precondition(world_property(xr_help_wounded.evid_wounded_exist,false))
+	end
+	if xrs_grenade then
+		action:add_precondition(world_property(xrs_grenade.evid_crazy_grenadier,false))
+		action:add_precondition(world_property(xrs_grenade.evid_aaa_grenade,false))
+		action:add_precondition(world_property(xrs_grenade.evid_psyh,false))
+	end
+--	if blowout_scheme and blowout_scheme.evid_outside then
+--		action:add_precondition(world_property(blowout_scheme.evid_outside,false))
+--	end
+	action:add_precondition(world_property(evid_gl_ready,true))
 	action:add_precondition(world_property(evid_gl_reload,true))
 	action:add_effect(world_property(evid_gl_reload,false))
 	manager:add_action(actid_gl_reload,action)
-	for i,id in ipairs({xr_actions_id.alife,state_mgr_to_idle_combat,state_mgr_to_idle_alife,stalker_ids.action_combat_planner,stalker_ids.action_danger_planner}) do
+	-- включение в планировщик
+	for i,id in ipairs({xr_actions_id.alife,stalker_ids.action_combat_planner,stalker_ids.action_danger_planner}) do
 		action = manager:action(id)
 		action:add_precondition(world_property(evid_gl_fire,false))
 		action:add_precondition(world_property(evid_gl_reload,false))
 	end
+	-- необходимо добавить предусловие схеме собирательства и прочим низкоприоритетным общим схемам
+--[[	for i,id in ipairs({}) do
+		action = manager:action(id)
+		if action then
+			action:add_precondition(world_property(evid_gl_reload,false))
+		end
+	end]]
 end
 
 function set_scheme(npc,ini,scheme,section)
 	local st = xr_logic.assign_storage_and_bind(npc,ini,scheme,section)
+	st.rs = gl_sets.ranks[ranks.get_obj_rank_name(npc)]
 end
 
+--[[
 function disable_scheme(npc,scheme)
 	local st = db.storage[npc:id()][scheme]
 	if st then
-		st.enabled = false
+		st.disabled = true
 	end
-end
-
-
-function attach( sm )
-  sm:subscribe({ signal = "on_npc_death", fun = this.on_death     })
-  sm:subscribe({ signal = "on_npc_spawn", fun = this.on_npc_spawn })
-end
-
-
-function on_npc_spawn( obj, binder )
-  if not obj:alive()         then return end
-  if
-    gl_sets.spawn_prd == 0
-    or ( not gl_sets.enabled )
-    or gl_sets.forbiddens.factions[ obj:character_community() ]
-    or gl_sets.forbiddens.npcs[ obj:name() ]
-  then
-    return
-  end
-  local s = {
-    [ "signal" ] = "on_npc_update." .. obj:id(),
-    [ "fun"    ] = this.on_npc_update,
-    [ "queued" ] = true,
-  }
-  binder[ script_name() .. ".subscribed" ] = s
-  ogse_signals.get_mgr():subscribe( s )
-end
-
-
-function on_npc_update( obj )
-  local st = rx_ai.get_storage( obj:id() )
-  npc_update( obj, st )
-end
-
-
-function on_death( obj )
-  local binder     = obj:binded_object()
-  local subscribed = binder[ script_name() .. ".subscribed" ]
-  if subscribed then
-    ogse_signals.get_mgr():unsubscribe( subscribed )
-    binder[ script_name() .. ".subscribed" ] = nil
-  end
-end
-
-
-local fms_t
-function run_fms_timer()
-  if not fms_t then
-    fms_t = check_fms_timer():start()
-  end
-end
-
-class "check_fms_timer" ( ogse_qt.quick_timer )
-function check_fms_timer:__init() super()
-end
-
-function check_fms_timer:condition()
-  return next( temp.fms ) == nil
-end
-
-function check_fms_timer:action()
-  fms_t = nil
-end
-
-function check_fms_timer:update()
-  update()
-end
+end]]

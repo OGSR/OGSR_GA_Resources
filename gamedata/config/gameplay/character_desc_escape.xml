@@ -80,9 +80,10 @@
 		<supplies>
 		[spawn] \n
 			wpn_svu \n
+			wpn_addon_scope_pso \n
 			ammo_7.62x54_7h14 \n
-			wpn_usp \n
-			ammo_11.43x23_fmj \n
+			wpn_desert_eagle \n
+			ammo_11.43x23_hydro \n
 		</supplies>
 		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
 		<actor_dialog>quest_not_work_dialog</actor_dialog>
@@ -582,7 +583,7 @@
 		<visual>actors\unic\npc_lis</visual>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
+			wpn_mp133 \n
 			ammo_12x70_kart \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -1513,7 +1514,8 @@
 		<visual>actors\soldier\soldier_beret_1</visual>
 		<supplies>
 			[spawn] \n
-			wpn_ak74_cobra = 1, scope \n
+			wpn_ak74 \n
+			wpn_addon_scope_kobra \n
 			ammo_5.45x39_ap \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
@@ -1545,7 +1547,8 @@
 		<visual>actors\soldier\soldier_spetsnaz</visual>
 		<supplies>
 			[spawn] \n
-			wpn_ak74_cobra = 1, scope \n
+			wpn_ak74 \n
+			wpn_addon_scope_kobra \n
 			ammo_5.45x39_ap \n
 			wpn_pm \n
 			ammo_9x18_pmm \n

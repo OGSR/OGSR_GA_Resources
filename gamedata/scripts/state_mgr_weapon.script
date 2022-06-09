@@ -1,114 +1,123 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+local state_lib_states = state_lib.states
 
---' ОРУЖИЕ
---' Соответствует ли состояние оружия требуемому
+--' РћР РЈР–РР•
+--' РЎРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ Р»Рё СЃРѕСЃС‚РѕСЏРЅРёРµ РѕСЂСѓР¶РёСЏ С‚СЂРµР±СѓРµРјРѕРјСѓ
 class "eva_state_mgr_weapon" (property_evaluator)
 function eva_state_mgr_weapon:__init(name, st) super (nil, name)
 	self.st = st
 end
 function eva_state_mgr_weapon:evaluate()
-	local weapon = state_lib.states[self.st.target_state].weapon
-	if (weapon == nil) then
+	local weapon = state_lib_states[self.st.target_state].weapon
+	-- СЃРѕСЃС‚РѕСЏРЅРёРµ РЅРµ СѓРєР°Р·Р°РЅРѕ
+	if weapon == nil then
 		return true
 	end
-	local bestweapon = (rx_wmgr and rx_wmgr.get_wm(self.object):get_weapon()) or self.object:best_weapon()
-	if not bestweapon or not bestweapon:is_weapon() then
+
+	local bestweapon = rx_utils.get_weapon(self.object)	--self.object:best_weapon()
+
+	-- РѕСЂСѓР¶РёСЏ РЅРµС‚
+	if bestweapon == nil then
 		return true
 	end
 	local activeitem = self.object:active_item()
-	if (weapon == "strapped" and
-	   ((strappable_weapon(bestweapon) and self.object:weapon_strapped()) or
-	   (not strappable_weapon(bestweapon) and activeitem == nil))) then
-		return true
-	end		
-	if	(
-			(
-				(weapon == "unstrapped") or
-				(weapon == "fire") or
-				(weapon == "sniper_fire")
-			) and
-			(self.object:weapon_unstrapped() == true) and	
-			(activeitem ~= nil) and
-			(bestweapon ~= nil) and
-			(activeitem:id() == bestweapon:id())
-		) then
-		local		temp = "false"
-		if (self.object:weapon_unstrapped() == true) then
-			temp	= "true";
+
+	-- РѕСЂСѓР¶РёРµ РІРёСЃРёС‚ Р·Р° СЃРїРёРЅРѕР№
+	if weapon == "strapped" then
+		if strappable_weapon(bestweapon) then
+			return self.object:weapon_strapped()
+		else
+			return activeitem == nil
 		end
-		return true
-	end	
-	if (weapon == "none" and
-	   activeitem == nil) then
-		return true
 	end
-	if (weapon == "drop" and
-	   activeitem == nil) then
-		return true
+
+	-- РѕСЂСѓР¶РёРµ РІ СЂСѓРєР°С…
+	if weapon == "unstrapped" or weapon == "fire" or weapon == "sniper_fire" then
+		return self.object:weapon_unstrapped() and activeitem and activeitem:id() == bestweapon:id()
 	end
+
+	-- РѕСЂСѓР¶РёРµ СѓР±СЂР°РЅРѕ/РІС‹Р±СЂРѕС€РµРЅРѕ
+	if weapon == "none" or weapon == "drop" then
+		return activeitem == nil
+	end
+
 	return false
 end
---' Лочим ли мы все это для оружия или нет?
+--' Р›РѕС‡РёРј Р»Рё РјС‹ РІСЃРµ СЌС‚Рѕ РґР»СЏ РѕСЂСѓР¶РёСЏ РёР»Рё РЅРµС‚?
 class "eva_state_mgr_weapon_locked" (property_evaluator)
-function eva_state_mgr_weapon_locked:__init(name, st) super (nil, name)
-	self.st = st
+function eva_state_mgr_weapon_locked:__init(name) super (nil, name)
 end
 function eva_state_mgr_weapon_locked:evaluate()
 	return not (self.object:weapon_unstrapped() or self.object:weapon_strapped())
 end
 
---' Необходимо ли повесить оружие на спину
+
+--' РќРµРѕР±С…РѕРґРёРјРѕ Р»Рё РїРѕРІРµСЃРёС‚СЊ РѕСЂСѓР¶РёРµ РЅР° СЃРїРёРЅСѓ
 class "eva_state_mgr_weapon_strapped" (property_evaluator)
 function eva_state_mgr_weapon_strapped:__init(name, st) super (nil, name)
 	self.st = st
 end
 function eva_state_mgr_weapon_strapped:evaluate()
-	return state_lib.states[self.st.target_state].weapon == "strapped"
+	return state_lib_states[self.st.target_state].weapon == "strapped"
 end
---' Висит ли уже оружие на спине
+
+--' Р’РёСЃРёС‚ Р»Рё СѓР¶Рµ РѕСЂСѓР¶РёРµ РЅР° СЃРїРёРЅРµ	(РќР• РРЎРџРћР›Р¬Р—РЈР•РўРЎРЇ)
 class "eva_state_mgr_weapon_strapped_now" (property_evaluator)
 function eva_state_mgr_weapon_strapped_now:__init(name) super (nil, name)
 end
 function eva_state_mgr_weapon_strapped_now:evaluate()
-	local wpn = (rx_wmgr and rx_wmgr.get_wm(self.object):get_weapon()) or self.object:best_weapon()
-	if not wpn or not wpn:is_weapon() then
+	-- РІРёСЃРёС‚
+	if self.object:weapon_strapped() then
 		return true
 	end
-	return self.object:weapon_strapped() or 
-		   (not strappable_weapon(wpn) and self.object:active_item() == nil)
+	local wpn = rx_utils.get_weapon(self.object)	-- self.object:best_weapon()
+	-- РѕСЂСѓР¶РёСЏ РЅРµС‚
+	if wpn == nil then
+		return true
+	end
+	-- РЅРµР»СЊР·СЏ РїРѕРІРµСЃРёС‚СЊ - РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ СѓР±СЂР°РЅРѕ
+	if self.object:active_item() == nil and not strappable_weapon(wpn) then
+		return true
+	end
+	return false
 end
 
---' Необходимо ли держать оружие в руках
+--' РќРµРѕР±С…РѕРґРёРјРѕ Р»Рё РґРµСЂР¶Р°С‚СЊ РѕСЂСѓР¶РёРµ РІ СЂСѓРєР°С…
 class "eva_state_mgr_weapon_unstrapped" (property_evaluator)
 function eva_state_mgr_weapon_unstrapped:__init(name, st) super (nil, name)
 	self.st = st
 end
 function eva_state_mgr_weapon_unstrapped:evaluate()
-	return state_lib.states[self.st.target_state].weapon == "unstrapped" or
-	       state_lib.states[self.st.target_state].weapon == "fire" or
-		   state_lib.states[self.st.target_state].weapon == "sniper_fire"
+	local weapon = state_lib_states[self.st.target_state].weapon
+	return weapon == "unstrapped"
+		or weapon == "fire"
+		or weapon == "sniper_fire"
 end
---' Держит ли уже он оружие в руках
+--' Р”РµСЂР¶РёС‚ Р»Рё СѓР¶Рµ РѕРЅ РѕСЂСѓР¶РёРµ РІ СЂСѓРєР°С…	(РќР• РРЎРџРћР›Р¬Р—РЈР•РўРЎРЇ)
 class "eva_state_mgr_weapon_unstrapped_now" (property_evaluator)
 function eva_state_mgr_weapon_unstrapped_now:__init(name) super (nil, name)
 end
 function eva_state_mgr_weapon_unstrapped_now:evaluate()
-	local wpn = (rx_wmgr and rx_wmgr.get_wm(self.object):get_weapon()) or self.object:best_weapon()
-	return 	self.object:weapon_unstrapped() and		
-			self.object:active_item() ~= nil and		
-			wpn ~= nil and
-			self.object:active_item():id() == wpn:id()
+	if not self.object:weapon_unstrapped() then
+		return false
+	end
+	local activeitem = self.object:active_item()
+	if not activeitem then
+		return false
+	end
+	local wpn = rx_utils.get_weapon(self.object)	-- self.object:best_weapon()
+	return wpn and activeitem:id() == wpn:id()
 end
 
---' Необходимо ли спрятать оружие вообще
+--' РќРµРѕР±С…РѕРґРёРјРѕ Р»Рё СЃРїСЂСЏС‚Р°С‚СЊ РѕСЂСѓР¶РёРµ РІРѕРѕР±С‰Рµ
 class "eva_state_mgr_weapon_none" (property_evaluator)
 function eva_state_mgr_weapon_none:__init(name, st) super (nil, name)
 	self.st = st
 end
 function eva_state_mgr_weapon_none:evaluate()
-	return state_lib.states[self.st.target_state].weapon == "none"			
+	return state_lib_states[self.st.target_state].weapon == "none"
 end
---' Спрятано ли оружие вообще.
+
+--' РЎРїСЂСЏС‚Р°РЅРѕ Р»Рё РѕСЂСѓР¶РёРµ РІРѕРѕР±С‰Рµ	(РќР• РРЎРџРћР›Р¬Р—РЈР•РўРЎРЇ)
 class "eva_state_mgr_weapon_none_now" (property_evaluator)
 function eva_state_mgr_weapon_none_now:__init(name) super (nil, name)
 end
@@ -116,103 +125,143 @@ function eva_state_mgr_weapon_none_now:evaluate()
 	return self.object:active_item() == nil
 end
 
---' Необходимо ли бросить оружие
+--' РќРµРѕР±С…РѕРґРёРјРѕ Р»Рё Р±СЂРѕСЃРёС‚СЊ РѕСЂСѓР¶РёРµ
 class "eva_state_mgr_weapon_drop" (property_evaluator)
 function eva_state_mgr_weapon_drop:__init(name, st) super (nil, name)
 	self.st = st
 end
 function eva_state_mgr_weapon_drop:evaluate()
-	return state_lib.states[self.st.target_state].weapon == "drop"			
+	return state_lib_states[self.st.target_state].weapon == "drop"
 end
 
---' Необходимо ли стрелять
+--' РќРµРѕР±С…РѕРґРёРјРѕ Р»Рё СЃС‚СЂРµР»СЏС‚СЊ	(РќР• РРЎРџРћР›Р¬Р—РЈР•РўРЎРЇ)
 class "eva_state_mgr_weapon_fire" (property_evaluator)
 function eva_state_mgr_weapon_fire:__init(name, st) super (nil, name)
 	self.st = st
 end
 function eva_state_mgr_weapon_fire:evaluate()
-	return state_lib.states[self.st.target_state].weapon == "fire" or
-	       state_lib.states[self.st.target_state].weapon == "sniper_fire"
+	local weapon = state_lib_states[self.st.target_state].weapon
+	return weapon == "fire"
+		or weapon == "sniper_fire"
 end
 
---' Достать оружие
+
+--' Р”РѕСЃС‚Р°С‚СЊ РѕСЂСѓР¶РёРµ
 class "act_state_mgr_weapon_unstrapp" (action_base)
 function act_state_mgr_weapon_unstrapp:__init(name, st) super (nil, name)
 	self.st = st
 end
 function act_state_mgr_weapon_unstrapp:initialize()
 	action_base.initialize(self)
-	self.object:set_item(get_idle_state(self.st.target_state), get_weapon(self.object, self.st.target_state))
+	if not self.st.planner:evaluator(self.st.properties["direction"]):evaluate()
+		and self.st.planner:evaluator(self.st.properties["movement"]):evaluate()
+		and not self.st.planner:evaluator(self.st.properties["movement_stand"]):evaluate() then
+		if self.st.planner:evaluator(self.st.properties["direction_search"]):evaluate() then
+			self.st.planner:action(self.st.operators["direction_search"]):turn()
+		else
+			self.st.planner:action(self.st.operators["direction_turn"]):turn()
+		end
+	end
 end
 function act_state_mgr_weapon_unstrapp:execute()
 	action_base.execute(self)
+	-- РѕР±СЂР°Р±РѕС‚РєР° СЃР»СѓС‡Р°СЏ СЃРјРµРЅС‹ РѕСЂСѓР¶РёСЏ РІРѕ РІСЂРµРјСЏ СЌРєС€РµРЅР°
+	local wpn = get_weapon(self.object,self.st.target_state)
+	if self.weapon ~= (wpn and wpn:id()) then
+		self.object:set_item(get_idle_state(self.st.target_state), wpn)
+		self.weapon = wpn and wpn:id()
+	end
 end
 function act_state_mgr_weapon_unstrapp:finalize()
 	action_base.finalize(self)
+	self.weapon = nil
 end
 
---' Спрятать оружие
+--' РЎРїСЂСЏС‚Р°С‚СЊ РѕСЂСѓР¶РёРµ
 class "act_state_mgr_weapon_strapp" (action_base)
 function act_state_mgr_weapon_strapp:__init(name, st) super (nil, name)
 	self.st = st
 end
 function act_state_mgr_weapon_strapp:initialize()
 	action_base.initialize(self)
-	local weap = get_weapon(self.object, self.st.target_state)
-	if strappable_weapon(weap) then
-		self.object:set_item(object.strap, weap)
-	else
-		self.object:set_item(object.idle, nil)
+	if not self.st.planner:evaluator(self.st.properties["direction"]):evaluate()
+		and self.st.planner:evaluator(self.st.properties["movement"]):evaluate()
+		and not self.st.planner:evaluator(self.st.properties["movement_stand"]):evaluate() then
+		if self.st.planner:evaluator(self.st.properties["direction_search"]):evaluate() then
+			self.st.planner:action(self.st.operators["direction_search"]):turn()
+		else
+			self.st.planner:action(self.st.operators["direction_turn"]):turn()
+		end
 	end
 end
-function act_state_mgr_weapon_strapp:execute()	
+function act_state_mgr_weapon_strapp:execute()
 	action_base.execute(self)
+	-- РѕР±СЂР°Р±РѕС‚РєР° СЃР»СѓС‡Р°СЏ СЃРјРµРЅС‹ РѕСЂСѓР¶РёСЏ РІРѕ РІСЂРµРјСЏ СЌРєС€РµРЅР°
+	local wpn = get_weapon(self.object,self.st.target_state)
+	if self.weapon ~= (wpn and wpn:id()) then
+		-- РЅРµР»СЊР·СЏ СЃС‚СЂР°РїР°С‚СЊ РІРѕ РІСЂРµРјСЏ РїРµСЂРµР·Р°СЂСЏРґРєРё
+		if rx_utils.get_weapon_state(wpn) == rx_utils.EWeaponStates.eReload then
+			return
+		end
+		if strappable_weapon(wpn) then
+			self.object:set_item(object.strap, wpn)
+		else
+			self.object:set_item(object.idle, nil)
+		end
+		self.weapon = wpn and wpn:id()
+	end
 end
 function act_state_mgr_weapon_strapp:finalize()
 	action_base.finalize(self)
+	self.weapon = nil
 end
 
---' убрать оружие
+--' СѓР±СЂР°С‚СЊ РѕСЂСѓР¶РёРµ
 class "act_state_mgr_weapon_none" (action_base)
-function act_state_mgr_weapon_none:__init(name, st) super (nil, name)
+function act_state_mgr_weapon_none:__init(name,st) super (nil, name)
 	self.st = st
 end
 function act_state_mgr_weapon_none:initialize()
 	action_base.initialize(self)
-	self.object:set_item(object.idle, nil)
+	if not self.st.planner:evaluator(self.st.properties["direction"]):evaluate()
+		and self.st.planner:evaluator(self.st.properties["movement"]):evaluate()
+		and not self.st.planner:evaluator(self.st.properties["movement_stand"]):evaluate() then
+		if self.st.planner:evaluator(self.st.properties["direction_search"]):evaluate() then
+			self.st.planner:action(self.st.operators["direction_search"]):turn()
+		else
+			self.st.planner:action(self.st.operators["direction_turn"]):turn()
+		end
+	end
 end
 function act_state_mgr_weapon_none:execute()
 	action_base.execute(self)
-end
-function act_state_mgr_weapon_none:finalize()
-	action_base.finalize(self)
+	self.object:set_item(object.idle, nil)
 end
 
---' бросить оружие
+--' Р±СЂРѕСЃРёС‚СЊ РѕСЂСѓР¶РёРµ
 class "act_state_mgr_weapon_drop" (action_base)
 function act_state_mgr_weapon_drop:__init(name, st) super (nil, name)
 	self.st = st
 end
 function act_state_mgr_weapon_drop:initialize()
 	action_base.initialize(self)
-	local weap = get_weapon(self.object, self.st.target_state)
+	local weap = get_weapon(self.object,self.st.target_state)	--self.object:active_item()
 	if strappable_weapon(weap) then
-		self.object:set_item(object.drop, weap)
+		self.object:set_item(object.drop, weap)	--self.object:drop_item(weap)
 	else
 		self.object:set_item(object.idle, nil)
 	end
-end
-function act_state_mgr_weapon_drop:execute()
-	action_base.execute(self)
-end
-function act_state_mgr_weapon_drop:finalize()
-	action_base.finalize(self)
+	if weap and xr_corpse_detection and xr_wounded.is_wounded(self.object) then
+		xr_corpse_detection.restricted_add(weap:id(),rx_ai.get_storage(self.object:id()).hit_by_anomaly and 'anomaly' or self.object:id())
+	end
 end
 
+
 function get_idle_state(target_state)
-	if state_lib.states[target_state].mental == anim.danger and
-	   state_lib.states[target_state].movement == move.stand and
-	   state_lib.states[target_state].animation == nil
+	local state = state_lib_states[target_state]
+	if state.mental == anim.danger and
+	   state.movement == move.stand and
+	   state.animation == nil
 	then
 		return object.aim1
 	else
@@ -220,33 +269,96 @@ function get_idle_state(target_state)
 	end
 end
 
-function get_weapon(obj, target_state)
-	if state_lib.states[target_state].weapon_slot == nil then
-		return (rx_wmgr and rx_wmgr.get_wm(obj):get_weapon()) or obj:best_weapon()
+function get_weapon(obj,target_state)
+	local slot = state_lib_states[target_state].weapon_slot
+	if slot == nil then
+		return rx_utils.get_weapon(obj)	-- obj:best_weapon()
 	else
-		return obj:item_in_slot(state_lib.states[target_state].weapon_slot)
+		local wm = obj:get_wm(true)	--(rx_utils.script)
+		return wm and wm:get_weapon_by_slot(slot) or obj:item_in_slot(slot)
 	end
 end
 
-local strappable_wpn_classes = {
-	[clsid.wpn_vintorez_s] = true,
-	[clsid.wpn_ak74_s] = true,
-	[clsid.wpn_lr300_s] = true,
-	[clsid.wpn_shotgun_s] = true,
-	[clsid.wpn_bm16_s] = true,
-	[clsid.wpn_svd_s] = true,
-	[clsid.wpn_svu_s] = true,
-	[clsid.wpn_rpg7_s] = true,
-	[clsid.wpn_val_s] = true,
-	[clsid.wpn_groza_s] = true,
-}
-
+local sys_ini = system_ini()
 function strappable_weapon(obj)
-    local cls = get_clsid(obj)
-
-	return cls and strappable_wpn_classes[cls]
+	return obj and sys_ini:line_exist(obj:section(),"strap_bone0") or false
 end
 
-function get_queue_params(npc, target)
-	return 3, 1000
+function get_queue_params(npc, target, weapon)
+	if not target then
+		return math.random(1,3),700
+	end
+
+	return 3, 300
+end
+
+function weapon_fire(npc,st)
+	local libst = state_lib_states[st.target_state]
+	local state = libst.weapon
+	if state == nil or state == "strapped" then
+		return
+	end
+
+	local wpn = rx_utils.get_weapon(npc)	-- npc:best_weapon()
+	if not wpn then
+		return
+	end
+
+	if state == "unstrapped" then
+		npc:set_item(get_idle_state(st.target_state), wpn)
+		return
+	end
+
+	if state == "fire" or state == "sniper_fire" then
+		if st.look_object ~= nil then
+			local look_object = level.object_by_id(st.look_object)
+			if look_object == nil then
+				st.look_object = nil
+				return
+			end
+			if look_object:alive() and npc:see(look_object) then
+				local dist = npc:position():distance_to(look_object:position())
+				local rank = npc:character_rank()*rx_utils.rank_unit
+				if state == "sniper_fire" then
+					local sniper_aim = dist*30 - 1500*rank
+					npc:set_item(object.fire1, wpn, 1, math.max(1100,sniper_aim))
+				else
+					local queue = 1+math.floor(40/dist)
+					npc:set_item(object.fire1, wpn, math.random(queue,queue*2), math.max(1600-1000*rank,dist*20))
+				end
+			end
+		elseif st.look_position ~= nil then
+			if state == "sniper_fire" then
+				npc:set_item(object.fire1, wpn, 1, 3000)
+			else
+				npc:set_item(object.fire1, wpn, math.random(1,4), 700)
+			end
+		elseif st.target_state == "psy_shoot" then
+			npc:set_item(object.fire1, wpn)
+		else
+			npc:set_item(object.aim1, wpn)
+		end
+	end
+end
+
+action_base.fire_ = function(npc,wpn,dist,sniper)
+	if not wpn then
+		wpn = rx_utils.get_weapon(npc)
+	end
+	if not dist then
+		if sniper then
+			npc:set_item(object.fire1, wpn, 1, 3000)
+		else
+			npc:set_item(object.fire1, wpn, math.random(1,4), 700)
+		end
+		return
+	end
+	local rank = npc:character_rank()*rx_utils.rank_unit
+	if sniper then
+		local sniper_aim = dist*30 - 1500*rank
+		npc:set_item(object.fire1, wpn, 1, math.max(1100,sniper_aim))
+	else
+		local queue = 1+math.floor(40/dist)
+		npc:set_item(object.fire1, wpn, math.random(queue,queue*2), math.max(1600-1000*rank,dist*20))
+	end
 end

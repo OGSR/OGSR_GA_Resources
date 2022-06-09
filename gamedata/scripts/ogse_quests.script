@@ -1470,7 +1470,7 @@ function reward_actor(first_speaker, second_speaker) --Выдача наград
 		tasks_functor.make_actor_normal()
 	end
 
-	xr_gulag.setGulagNeutral("esc_blokpost", db.actor)
+	xr_gulag.setGulagFriend("esc_blokpost", db.actor)
 
 	dialogs.relocate_item_section(second_speaker, "mil_transponder", "in")
 	dialogs.relocate_item_section(second_speaker, "military_outfit", "in") --лучше тут экзу выдавать, наверно
@@ -1940,7 +1940,7 @@ function on_transponder_to_ruck(obj)
 	if obj:section() == "mil_transponder" then
 		if db.actor:has_info("actor_set_milstalker") and not db.actor:has_info("actor_set_zombied") then
 			local comm = ogse.load_variable("actor_orig_comm", "actor")
-			local run_funct = return_functions[comm]
+			local run_funct = return_functions[comm] or return_functions["actor"]
 			run_funct()		
 		end
 		--if db.actor:has_info("esc_bridge_pass_on") then

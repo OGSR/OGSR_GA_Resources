@@ -1,8 +1,6 @@
 -- -*- mode: lua; coding: windows-1251-dos -*-
 
 function attach(sm)
-	if not ogse.is_developer_mode() then return end --KRodin: должно работать только в режиме разработчика.
-
 	sm:subscribe({signal = "on_key_down", fun = this.on_key_down})
 end
 

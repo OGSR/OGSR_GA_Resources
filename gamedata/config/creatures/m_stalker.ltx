@@ -223,7 +223,7 @@ satiety_health_v			= 0.0 ;0.0001			;увеличение здоровья при уменьшении сытости
 satiety_critical			= 0.0					;критическое значения сытости (в процентах от 0..1) когда здоровье начианает уменьшаться
 radiation_health_v			= 0.001					;уменьшение здоровья при воздействии радиации
 morale_v					= 0.001				;скорость восстановления морали 						
-health_hit_part				= 0.9 ;1.0					;процент хита, уходящий на отнимание здоровья
+health_hit_part				= 1.0					;процент хита, уходящий на отнимание здоровья
 power_hit_part				= 0.0					;процент хита, уходящий на отнимание силы
 psy_health_v				= 0.01					;скорость восстановления psy-здоровья
 health_restore_v            = 0.0001               ;скорость восстановления здоровья
@@ -413,9 +413,9 @@ DynamicSoundsCount			= 32
 DynamicHitCount				= 32
 
 ;---ENEMY------------------------------------------------------------
-ignore_monster_threshold	= 0.3 ;0.0
-max_ignore_distance			= 30 ;15 ;10
-panic_threshold				= 0 ;0.02 ;0.1
+ignore_monster_threshold	= 0.0
+max_ignore_distance			= 15   ;10
+panic_threshold				= 0.02 ;0.1
 retreat_threshold	 		= 0.2  ;0.1
 DamagedThreshold	 		= 0.3
 
@@ -476,15 +476,14 @@ bone_model					= bip01
 crouch_type					= -1 ; 0 - crouch a little, 1 - crouch full; -1 - random crouch
 
 ;---FIRE DISPERSIONS--------------------------------------------------
-; http://www.amk-team.ru/forum/index.php?showtopic=4653&p=971638
-disp_walk_stand				= 0 ;7
-disp_walk_crouch			= 0 ;4
-disp_run_stand				= 0 ;7
-disp_run_crouch				= 0 ;4
-disp_stand_stand			= 0 ;3.5
-disp_stand_crouch			= 0 ;1.5
-disp_stand_stand_zoom		= 0 ;1.1 ;1
-disp_stand_crouch_zoom		= 0 ;1.25;1
+disp_walk_stand				= 7
+disp_walk_crouch			= 4
+disp_run_stand				= 7
+disp_run_crouch				= 4
+disp_stand_stand			= 3.5
+disp_stand_crouch			= 1.5
+disp_stand_stand_zoom		= 1.1 ;1
+disp_stand_crouch_zoom		= 1.25;1
 
 ;---FIRE QUEUE PARAMETERS
 weapon_min_queue_size_far		= 1
@@ -541,10 +540,6 @@ ph_skel_shot_up_factor      = 0.25
 ;---------------------------------------------------------------------
 ph_character_have_wounded_state = true; имеет ли персонаж состояние раненый
 ;----------------------------------------------------------------------
-
-; Использовать упрощенную версию can_kill_entity_from() с меньшим
-; кол-вом проверок. Проверять только по направлению стрельбы.
-fast_can_kill_entity = true
 
 
 ;--------------------------------------------------------------------------------------------------------------------

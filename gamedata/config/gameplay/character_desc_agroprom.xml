@@ -21,8 +21,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_abakan = 1, launcher \n
-			ammo_5.45x39_fmj \n
+			wpn_ak_alfa \n
+			ammo_7.62x39_fmj \n
             wpn_bm16 \n
             ammo_12x70_kart \n
 			grenade_f1 = 2 \n
@@ -133,8 +133,9 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_ak74_pka = 1, scope \n
-			ammo_5.45x39_ap \n
+			wpn_ak_alfa, silencer \n
+			wpn_addon_scope_eotech \n
+			ammo_7.62x39_ap = 5 \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
 			grenade_f1 = 2 \n
@@ -330,8 +331,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_abakan \n
-			ammo_5.45x39_fmj \n
+			wpn_ak_alfa \n
+			ammo_7.62x39_fmj \n
 			wpn_bm16 \n
             ammo_12x70_kart \n
 			grenade_f1 = 2 \n
@@ -634,7 +635,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_ak74_pka = 1, scope launcher \n
+			wpn_ak74 = 1, launcher \n
+			wpn_addon_scope_pka \n
 			ammo_vog-25 \n
 			ammo_5.45x39_fmj \n
 			wpn_pm \n
@@ -668,7 +670,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_ak74_pka = 1, scope launcher \n
+			wpn_ak74 = 1, launcher silencer \n
+			wpn_addon_scope_pka \n
 			ammo_vog-25 \n
 			ammo_5.45x39_ap \n
 			wpn_pm \n
@@ -704,7 +707,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_ak74_pka = 1, scope \n
+			wpn_ak74 \n
+			wpn_addon_scope_pka \n
 			ammo_5.45x39_fmj \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
@@ -737,7 +741,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_ak74_pka = 1, scope \n
+			wpn_ak74 = 1, launcher \n
+			wpn_addon_scope_pka \n
 			ammo_5.45x39_ap \n
 			wpn_pb \n
 			ammo_9x18_pmm \n
@@ -979,7 +984,8 @@
 	[spawn] \n
 	wpn_saiga12 \n
 	ammo_12x70_kart \n
-	wpn_ak101_cobra = 1, scope \n
+	wpn_ak101 \n
+	wpn_addon_scope_kobra \n
 	ammo_5.56x45_ap \n
 	device_torch \n
 #include "gameplay\character_drugs.xml"

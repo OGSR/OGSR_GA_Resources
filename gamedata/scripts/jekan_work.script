@@ -4873,6 +4873,10 @@ function hawe_kulg_band_hutor_vater()
 	return false
 end
 
+function kulg_band_water_out(actor, npc)
+	dialogs.relocate_item_section(npc, "kulg_band_vater", "out")
+end
+
 function ds_glavar_flash_off()
 	-- Удаляем флешки из инвентаря:
 	ogse.remove_item_from_inventory(db.actor:object("klondaik_flash_1"),actor)

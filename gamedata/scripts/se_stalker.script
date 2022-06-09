@@ -60,7 +60,12 @@ function se_stalker:get_job_online()
 	end
 end
 --------------------
-function se_stalker:can_switch_offline()
+function se_stalker:can_switch_offline(sk)
+	--XRKRODIN: На мой взгляд, нам это не нужно!
+	--if rx_ai and self.online and not sk then
+	--	return rx_ai.npc_can_switch_offline(self)
+	--end
+
 	local can_be_offline = false
 	if self.force_offline then
 		can_be_offline = true

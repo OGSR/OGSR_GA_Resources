@@ -179,8 +179,8 @@ function on_save()
 	  --log3("t: %s", t)
       ASSERT(
         #t == #template,
-        "unexpected table size: got %s, expected %s",
-        #t, #template
+        "[%s] unexpected table size: t: %s, template: %s",
+        tclass, t, template
       )
       t_cnt = t_cnt + 1
     end

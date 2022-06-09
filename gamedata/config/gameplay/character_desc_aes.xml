@@ -88,7 +88,8 @@
     <visual>actors\monolit\stalker_mo_head_1</visual>
     <supplies>
       [spawn] \n
-		wpn_svd_pso = 1, scope \n
+		wpn_svd \n
+		wpn_addon_scope_pso \n
 		ammo_7.62x54_7h14 \n
 		grenade_f1 = 2 \n
         device_torch \n
@@ -192,7 +193,8 @@
 		<visual>actors\soldier\soldier_beret_5</visual>		
 		<supplies>
 		[spawn] \n
-		wpn_ak101_cobra = 1, scope \n
+		wpn_ak101 = 1, launcher \n
+		wpn_addon_scope_kobra \n
 		ammo_5.56x45_ap \n
 		wpn_pm \n
 		ammo_9x18_pmm \n
@@ -230,7 +232,8 @@
 		<visual>actors\militari\stalker_militari_antigas_2</visual>		
 		<supplies>
 			[spawn] \n
-			wpn_ak101_cobra = 1, scope \n
+			wpn_ak101 = 1, launcher \n
+			wpn_addon_scope_pso2 \n
 			ammo_5.56x45_ap \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
@@ -268,7 +271,8 @@
 		<visual>actors\soldier\soldier_antigas</visual>		
 		<supplies>
 		[spawn] \n
-		wpn_ak101_pka = 1, scope \n
+		wpn_ak101 \n
+		wpn_addon_scope_pka \n
 		ammo_5.56x45_ap \n
 		wpn_pm \n
 		ammo_9x18_pmm \n
@@ -306,7 +310,8 @@
 		<visual>actors\militari\stalker_militari_antigas_2</visual>		
 		<supplies>
 		[spawn] \n
-		wpn_ak101_pka = 1, scope \n
+		wpn_ak101 = 1, launcher \n
+		wpn_addon_scope_pka \n
 		ammo_5.56x45_ap \n
 		wpn_pm \n
 		ammo_9x18_pmm \n

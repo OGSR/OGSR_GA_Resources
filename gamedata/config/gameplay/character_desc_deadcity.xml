@@ -382,7 +382,7 @@
 	  <snd_config>characters_voice\human_01\stalker\</snd_config> 
 	  <crouch_type>1</crouch_type> 
 	  <visual>actors\militari\stalker_militari_2</visual> 
-	  <supplies>[spawn] \n wpn_glock \n quest_btr_keys \n</supplies> 
+	  <supplies>[spawn] \n wpn_desert_eagle \n quest_btr_keys \n</supplies> 
   </specific_character>
   <specific_character id="btr_quest_heli_pilot" team_default = "1">
 		<name>GENERATE_NAME_lieutenant</name>
@@ -549,7 +549,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_ak74_pka = 1, scope \n
+			wpn_ak74 \n
+			wpn_addon_scope_pka \n
 			ammo_5.45x39_ap \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
@@ -593,7 +594,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_ak74_pka = 1, scope \n
+			wpn_ak74 \n
+			wpn_addon_scope_pka \n
 			ammo_5.45x39_ap \n
 			wpn_pm \n
 			ammo_9x18_pmm \n

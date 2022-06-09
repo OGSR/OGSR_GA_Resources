@@ -194,7 +194,13 @@ inv_grid_x			= 0
 inv_grid_y			= 0
 cost				= 0
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; rx_wmgr/prstor box
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+[rx_wmgr_box]:inventory_box
+visual			= grenadier\ammo_vog-25.ogf
+;script_binding		= rx_wmgr.bind_box
 
 
 [spectator]
@@ -620,6 +626,7 @@ use_radio=kUSE_RADIO
 focus=kFOCUS
 quicksave=kQUICK_SAVE
 quickload=kQUICK_LOAD
+namesave=kNAME_SAVE
 
 #include "tuning\ogse_config.ltx"
 
@@ -640,11 +647,6 @@ quickload=kQUICK_LOAD
 #include "misc\dream.ltx"
 #include "misc\dialog_manager.ltx"
 
-#include "misc\rx_ai.ltx"
-#include "misc\rx_bandage.ltx"
-#include "misc\rx_facer.ltx"
-#include "misc\rx_gl.ltx"
-#include "misc\rx_weapon_mgr.ltx"
 ;====================================
 #include "misc\dsh_rukzak.ltx"
 ;====================================

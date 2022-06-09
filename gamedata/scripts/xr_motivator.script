@@ -301,6 +301,8 @@ function motivator_binder:net_spawn(sobject)
 	self:subscribe_updaters()
 	--
 	if not self.object:alive() then
+		if rx_ai then rx_ai.corpse_net_spawn(self.object,self.loaded) end
+
 		--' Наносим небольшой импульс вперед.
 --[=[ -- KRodin: выключено, если будут повисания трупов в воздухе - включить.
 		local h = hit()
@@ -359,15 +361,9 @@ function motivator_binder:net_spawn(sobject)
 	if xr_combat_companion then
 		manager:add_evaluator(xr_combat_companion.prop_combat, property_evaluator_const(false))
 	end
-	if xrs_battle_ai then
-		manager:add_evaluator(xrs_battle_ai.evid_altcombat, property_evaluator_const(false))	
-	end
+
 	if xr_companion then
 		manager:add_evaluator(xr_companion.property_need_companion, property_evaluator_const(false))
-	end
-	if xrs_grenade then
-		manager:add_evaluator(xrs_grenade.prop_fire, property_evaluator_const(false))
-		manager:add_evaluator(xrs_grenade.prop_grenade, property_evaluator_const(false))
 	end
 	if ogsm_hideout then
 		manager:add_evaluator(ogsm_hideout.property_blowout, property_evaluator_const(false))
@@ -375,7 +371,7 @@ function motivator_binder:net_spawn(sobject)
 		manager:add_evaluator(ogsm_hideout.property_inhide, property_evaluator_const(false))
 	end
 	--
-	if not self.loaded then --Нужно для того, чтоб логика сохранялась/загружалась при перебросе непися в оффлайн/онлайн. В этом случае метод load() не вызывается.
+	if not self.loaded then --Нужно для того, чтоб логика сохранялась/загружалась при перебросе непися в оффлайн/онлайн. В этом случае метод load() не вызывается. В том числе юзается при телепортации неписей с локи на локу. Они ведь в этом случае просто выйдут в онлайн, без load()
 		self.loaded = xr_logic.load_logic_online(self.object)
 		local st = self.st
 		st.loaded_ini_filename = st.ini_filename
@@ -388,6 +384,8 @@ function motivator_binder:net_spawn(sobject)
 	--
 	xr_gulag.setup_gulag_and_logic_on_spawn( self.object, self.st, sobject, modules.stype_stalker, self.loaded )
 	--
+	if rx_ai then rx_ai.npc_net_spawn(self.object) end
+	--
 	self.am:call( "on_npc_spawn", self.object, self )
 	--
 	return true
@@ -398,12 +396,6 @@ function motivator_binder:subscribe_updaters()
   local s_name = "on_npc_update." .. self.object:id()
   if self.object:alive() then
     self.updaters = {
-      {
-        [ "signal" ] = s_name,
-        [ "self"   ] = self,
-        [ "fun"    ] = self.check_art_weapon,
-        [ "queued" ] = true,
-      },
       {
         [ "signal" ] = s_name,
         [ "self"   ] = self,
@@ -432,6 +424,8 @@ end
 
 function motivator_binder:net_destroy()
 --log3("~~[%s] Start destroy [%s]", script_name(), self.object and self.object:name() or "nil")
+	if rx_ai then rx_ai.npc_net_destroy(self.object) end
+
 	xr_logic.save_logic_online(self.object)
 
 	local st = db.storage[self.object:id()]
@@ -568,6 +562,8 @@ function motivator_binder:hit_callback(obj, amount, local_direction, who, bone_i
 
 	xr_wounded.hit_callback(self.object:id())
 
+	if rx_ai then rx_ai.npc_hit(obj,amount,local_direction,who,bone_index,self.object) end
+
 	self.am:call( "on_npc_hit", self.object, amount, local_direction, who, bone_index )
 end
 
@@ -577,6 +573,8 @@ function motivator_binder:death_callback(victim, who)
 	self.object:set_tip_text_default()
 
 	--log3("!!![%s][%s] killed from [%s]!!!", script_name(), self.object:name(), who:name())
+
+	if rx_ai then rx_ai.npc_death(self.object,who) end
 
 	if self.st.death then
 		xr_logic.issue_event(self.object, self.st.death, "death_callback", self.object, who)
@@ -618,6 +616,11 @@ function motivator_binder:update(delta)
 		self.first_update = true
 		self.am:call( "on_npc_first_update", self.object, delta )
 	end
+	
+	if self.object:alive() then
+		if rx_ai then rx_ai.npc_update(self.object,self.st) end
+	end
+
 	self.am:call( "on_npc_update." .. self.object:id(), self.object, delta )
 end
 
@@ -626,49 +629,6 @@ function motivator_binder:update_tip_text()
 		self.object:set_tip_text("character_use")
 	else
 		self.object:set_tip_text("")
-	end
-end
-
-function motivator_binder:check_art_weapon()
--------------------------------------
---' Изредка движок сглюкивает,
---' назначая неписю в слот артефакт
---' этого следует избежать,
---' так как такие неписи
---' застревают на попытке 
---' применения арта как оружия
--------------------------------------
-	ogse_signals.get_mgr():reschedule( math.random( 1000, 5000 ) )
-	local item_in_slot = self.object:item_in_slot(1)
-	local act_item = self.object:active_item()
-	if act_item and item_in_slot and act_item:id() == item_in_slot:id() then
-		local item_in_slot_sec = act_item:section()
-		local item_in_slot_id = act_item:id()
-		if item_in_slot_sec and item_in_slot_id and act_item:is_artefact() then
-			--' Если непись получил арт в слот по ошибке при загрузке игры, мы просто
-			--' обновим ему оружие в руках и всё. Иначе, если он взял арт в руки и отказывается
-			--' его убирать, а лучшее оружие получить не удаётся, придётся арт выбросить, отрелизить и вернуть ему в рюкзак.
-			-- log1("WARNING! Engine error - art in NPC weapon slot! "..tostring(item_in_slot_sec).." ID "..tostring(item_in_slot_id))
-			-- local s_obj = alife():object(item_in_slot_id)
-			local bw = rx_utils.get_weapon(self.object)
-			local be = self.object:best_enemy()
-			local rem_id = self.object:active_item():id()
-			self.object:drop_item(self.object:active_item())
-			local s_obj = alife():object(rem_id)
-			if s_obj then
-				-- log1("ITEM RESET "..tostring(item_in_slot_sec))
-				alife():release(s_obj, true)
-				alife():create(item_in_slot_sec,self.object:position(),self.object:level_vertex_id(),self.object:game_vertex_id(),self.object:id())
-			end			
-			if bw and bw:is_weapon() then
-				-- log1("TOSS WEAPON TO "..bw:section().." FROM "..tostring(rem_id))
-				if be then
-					self.object:set_item(object.fire1, bw)
-				else
-					self.object:set_item(object.idle, bw)
-				end
-			end
-		end
 	end
 end
 
@@ -775,6 +735,10 @@ function motivator_binder:on_item_drop(obj)
 		timer_drop_weapon(obj, obj:parent()):start()
 	end
 
+	if rx_ai then
+		rx_ai.npc_item_drop(self.object,obj)
+	end
+
 	self.am:call( "on_npc_item_drop", self.object, obj, sobj )
 end
 
@@ -790,6 +754,10 @@ function motivator_binder:on_item_take(obj)
 		end
 	end
 
+	if rx_ai then
+		rx_ai.npc_item_take(self.object,obj)
+	end
+
 	self.am:call( "on_npc_item_take", self.object, obj, sobj )
 end
 
@@ -797,7 +765,6 @@ end
 --Если вернёт false - объект не будет вступать в бой.
 --Вызывается:
 --Одноименным калбеком из движка (для движковой боёвки)
---Из xrs_battle_ai.check_is_enemy (скриптовая боёвка)
 --Из xr_danger
 --Из xr_camper.action_patrol:process_danger()
 --Из функции check_sound в мотиваторе
@@ -855,22 +822,11 @@ function addCommonPrecondition(action)
 		action:add_precondition (world_property(xr_companion.property_need_companion, false))
 	end
 
-	if xrs_battle_ai then
-		action:add_precondition (world_property(xrs_battle_ai.evid_altcombat, false))
-	end	
-
 	if ogsm_hideout then
 		action:add_precondition(world_property(ogsm_hideout.property_blowout, false))
 		action:add_precondition(world_property(ogsm_hideout.property_hideout_lost, false))
 		action:add_precondition(world_property(ogsm_hideout.property_inhide, false))
 	end
 
-	if xrs_ai then xrs_ai.addCommonPrecondition(action) end
-
 	if rx_ai then rx_ai.addCommonPrecondition(action) end
-
-	if watcher_act then
-		action:add_precondition (world_property(watcher_act.evid_see_stuff, false))
-		action:add_precondition (world_property(watcher_act.evid_near_stuff, false))
-	end
 end

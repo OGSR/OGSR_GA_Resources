@@ -1270,13 +1270,15 @@ function set_item_default_highlighting( item )
 end
 
 
-rx_bandage = false --Выключаю полностью. Чтоб даже не компилился.
 
 if sys_ini:r_bool("stalker", "can_select_items") then
 	log1("~~[_G] can_select_items == true for stalkers. Disabling rx_wmgr...")
 	_G["rx_wmgr"] = false
 end
 
+ABORTX = abort
+ASSERTX = ASSERT
+function printf() end
 
 --*****************************************************************************************************************
 --Средства для отдадки таблиц, должны детектировать часть ошибок когда с unordered таблицей пытаются работать как c ordered.

@@ -607,8 +607,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_abakan \n
-			ammo_5.45x39_fmj \n
+			wpn_ak_alfa \n
+			ammo_7.62x39_fmj \n
 			wpn_bm16 \n
 			ammo_12x70_kart \n
 #include "gameplay\character_items.xml" \n
@@ -1829,8 +1829,8 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-            wpn_abakan \n
-			ammo_5.45x39_fmj \n
+			wpn_ak_alfa \n
+			ammo_7.62x39_fmj \n
             wpn_pm \n
 			ammo_9x18_fmj \n
 #include "gameplay\character_items.xml" \n
@@ -1896,7 +1896,8 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_svd_pso = 1, scope \n
+			wpn_svd \n
+			wpn_addon_scope_pso \n
             ammo_7.62x54_7h1 \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
@@ -1928,7 +1929,8 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_svd_pso = 1, scope \n
+			wpn_svd \n
+			wpn_addon_scope_pso2 \n
             ammo_7.62x54_7h1 \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
@@ -1960,7 +1962,8 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_svd_pso = 1, scope \n
+			wpn_svd \n
+			wpn_addon_scope_pso \n
             ammo_7.62x54_7h1 \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
@@ -2026,8 +2029,8 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-            wpn_abakan \n
-			ammo_5.45x39_fmj \n
+			wpn_ak_alfa \n
+			ammo_7.62x39_fmj \n
 			wpn_pm \n
 			ammo_9x18_fmj \n
 #include "gameplay\character_items.xml"	\n
@@ -2160,8 +2163,8 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-            wpn_abakan \n
-			ammo_5.45x39_fmj \n
+			wpn_ak_alfa \n
+			ammo_7.62x39_fmj \n
 			wpn_pm \n
 			ammo_9x18_fmj \n
 
@@ -3071,6 +3074,7 @@
 		<supplies>
 			[spawn] \n
 			wpn_svu \n
+			wpn_addon_scope_pso \n
 			ammo_7.62x54_7h1 \n
 			ammo_9x19_pbp \n
 			wpn_mp5 \n
@@ -3104,6 +3108,7 @@
 		<supplies>
 			[spawn] \n
 			wpn_svu \n
+			wpn_addon_scope_pso \n
 			ammo_7.62x54_7h1 \n
 			ammo_9x19_pbp \n
 			wpn_mp5 \n

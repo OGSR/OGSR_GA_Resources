@@ -32,27 +32,6 @@ local checking_table =
 	device_treasure = "devices",
 }
 
-local changeble_addons = {
-	"wpn_addon_scope_pso",
-	"wpn_addon_scope_pso2",
-	"wpn_addon_scope_rakurs",
-	"wpn_addon_scope_detector",
-	"wpn_addon_scope_night",
-	"wpn_addon_scope_kobra",
-	"wpn_addon_scope_pka",
-	"wpn_addon_scope_kashtan",
-	"wpn_addon_scope_po4x34",
-	"wpn_addon_scope_eotech",
-	"wpn_addon_scope_susat",
-	"wpn_addon_scope_susat_dusk",
-	"wpn_addon_scope_susat_night",
-	"wpn_addon_scope_elcan",
-	"wpn_addon_scope_pu",
-	"wpn_addon_scope_pgo7",
-	"wpn_addon_grenade_launcher", 
-	"wpn_addon_grenade_launcher_m203",
-}
-
 -- Шаблоны для тайников
 local treasure_scheme = {"arts", "weapons", "outfits", "ammo", "devices", "other"}
 
@@ -289,8 +268,8 @@ end
 function random_treasure:get_item(item)
 	local time_array = {}
 		if self.order[1] == "weapons" and (item == "addons" or item == "ammo") then
-			--[=[if item == "addons" then time_array["section"] = self:get_addon_to_weapon() --Из за этого вылеты из за несовместимости с системой аддонов.
-			else--]=]if item == "ammo" then time_array["section"] = self:get_ammo_to_weapon() end 
+			if item == "addons" then time_array["section"] = self:get_addon_to_weapon()
+			elseif item == "ammo" then time_array["section"] = self:get_ammo_to_weapon() end 
 		else if #self.level_reward[item] ~= 0 then time_array["section"] = self.level_reward[item][math.random(#self.level_reward[item])] end end
 		
 		if item ~= "ammo" then
@@ -320,22 +299,26 @@ end
 
 -- Функция получения аддона к оружию
 function random_treasure:get_addon_to_weapon()
-	
-	local scope, silencer, launcher = ""
 	local weapon = self.current_reward[1].section
 	local addons = {}
-	
-	if sys_ini:line_exist(weapon, "scope_status") and sys_ini:r_u32(weapon, "scope_status") == 2 then table.insert(addons, sys_ini:r_string(weapon, "scope_name")) end
 
-	if sys_ini:line_exist(weapon, "silencer_status") and sys_ini:r_u32(weapon, "silencer_status") == 2 then table.insert(addons, sys_ini:r_string(weapon, "silencer_name")) end
-	if sys_ini:line_exist(weapon, "grenade_launcher_status") and sys_ini:r_u32(weapon, "grenade_launcher_status") == 2 then table.insert(addons, sys_ini:r_string(weapon, "grenade_launcher_name")) end
-	
-	for k,v in pairs(changeble_addons) do
-		if sys_ini:line_exist(weapon, v) then table.insert(addons, v) end
+	if sys_ini:line_exist(weapon, "scope_status") and sys_ini:r_u32(weapon, "scope_status") == 2 and sys_ini:line_exist(weapon, "scope_names") then
+		addons = parse_names(sys_ini:r_string(weapon, "scope_names"))
 	end
-	
-	if #addons ~= 0 then return addons[math.random(#addons)] else return "medkit" end -- вернём аптечку, если нет аддона к орудию в принципе
-	
+
+	if sys_ini:line_exist(weapon, "silencer_status") and sys_ini:r_u32(weapon, "silencer_status") == 2 then
+		table.insert(addons, sys_ini:r_string(weapon, "silencer_name"))
+	end
+
+	if sys_ini:line_exist(weapon, "grenade_launcher_status") and sys_ini:r_u32(weapon, "grenade_launcher_status") == 2 then
+		table.insert(addons, sys_ini:r_string(weapon, "grenade_launcher_name"))
+	end
+
+	if #addons > 0 then
+		return addons[math.random(#addons)]
+	else
+		return "medkit" -- вернём аптечку, если нет аддона к орудию в принципе
+	end
 end
 
 function random_treasure:get_ammo_to_weapon()

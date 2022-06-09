@@ -15,11 +15,6 @@ function attach(sm)
 end
 
 game_time_factor = get_float("alife", "time_factor")
----------------------------------------------------------------
-deadmans_table = {} -- см. dsh_deadmans_table_proxy.script
--- Формат хранения:
--- [id] = { time_died = time_when_killed, killer = who:id() }
----------------------------------------------------------------
 
 art_levels = {
 ["af_medusa"] = 1,
@@ -1245,6 +1240,9 @@ function show_time( forced )
 	local cs = hud:GetCustomStatic("hud_time_text")
 	if not cs then
 		cs = hud:AddCustomStatic("hud_time_text", true)
+		local wnd = get_main_window()
+		local st = wnd:GetStatic( "minimap:background" )
+		st:AttachChild(cs:wnd())
 	end
 	local h = level.get_time_hours()
 	local m = level.get_time_minutes()

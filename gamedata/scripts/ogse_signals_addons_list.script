@@ -16,7 +16,6 @@ addons = {
 	"ogse_weather_mgr",
 	"ogse_surge_mgr",
 	"ogse_lights_mgr",
-	"ogse_mental_fix",
 	"ogse_actor_conditions_mgr",
 	"ogse_water_restrictor",
 	"ogse_healing",
@@ -47,7 +46,6 @@ addons = {
 	"dsh_rukzak",
 	"dsh_particles",
 	"dsh_monster_attack",
-	"dsh_deadmans_table_proxy",
 	"dsh_respawn",
 	"dsh_enemies",
 	"dsh_anomaly_detector", --должен быть после ogse_anomaly!
@@ -56,7 +54,6 @@ addons = {
 	"clear_garbage",
 	"trade_manager",
 	"xr_combat_companion",
-	"xrs_battle_ai",
 	"xr_combat_ignore",
 	"quest_deadcity",
 	"jekan_books",
@@ -64,8 +61,6 @@ addons = {
 	"jekan_update",
 	"jekan_work",
 	"sr_light",
-	"xrs_grenade",
-	"xrs_medic",
 	"amkii_equip",
 	"state_mgr",
 	"pma_escape",
@@ -99,17 +94,7 @@ addons = {
 	"inventory", --должен быть последним!
 }
 
---Для быстрого отключения/включения скриптов
-if rx_ai then
-	table.insert( addons, "rx_ai" )
-end
-if rx_gl then
-	table.insert( addons, "rx_gl" )
-end
-if rx_wmgr then
-	table.insert( addons, "rx_wmgr" )
-end
-
+--Для быстрого отключения/включения скрипта
 if ogse_dbg_teleport then
 	table.insert( addons, "ogse_dbg_teleport" )
 end

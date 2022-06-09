@@ -45,105 +45,24 @@ anm_idle_moving_crouch 	        = apteka
 anm_idle_moving_crouch_slow     = apteka
 anm_idle_sprint			= apteka
 anm_idle_sprint_start		= apteka
+anm_idle_sprint_end 		= apteka
 anm_bore			= apteka
 
-[anm_medkit_army]:anm_base
-anim_timing = 3070
-item_used_timing = 2500
+[anm_medkit_army]:anm_medkit
 visual                  	= dynamics\devices\dev_aptechka\dev_aptechka_mid.ogf
 hud				= anm_medkit_army_hud
 
-snd_draw					= items\medkit\medkit
-snd_holster					= items\medkit\medkit
-snd_gyro					= items\medkit\medkit
-snd_zoomin					= items\medkit\medkit
-snd_zoomout					= items\medkit\medkit
-snd_shoot					= items\medkit\medkit
-snd_empty					= items\medkit\medkit
-snd_reload					= items\medkit\medkit
-snd_close					= items\medkit\medkit
-
 [anm_medkit_army_hud]:anm_medkit_hud
-
-hands_position				= 0.0,-0.025,0.11
-hands_orientation			= 0.0,0.0,0.0
-hands_position_16x9			= 0.0,-0.025,0.06
-hands_orientation_16x9			= 0.0,0.0,0.0
-
-item_position = 0.0,0.0,0.0
-item_orientation = 0.0,0.0,0.0
-
-aim_hud_offset_pos = -0.171504,0.060500,-0.089010
-aim_hud_offset_rot = 0.048900,0.082240,-0.009000
-aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
-aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
 
 item_visual             	= gwr\equipment\medkit_army\medkit_army_hud.ogf
 
-anm_show			= apteka
-anm_hide			= apteka
-anm_idle			= apteka
-anm_idle_slow                   = apteka
-anm_idle_crouch                 = apteka
-anm_idle_crouch_slow            = apteka
-anm_idle_aim			= apteka
-anm_idle_aim_end		= apteka
-anm_idle_moving			= apteka
-anm_idle_moving_slow 		= apteka
-anm_idle_moving_crouch 	        = apteka
-anm_idle_moving_crouch_slow     = apteka
-anm_idle_sprint			= apteka
-anm_idle_sprint_start		= apteka
-anm_bore			= apteka
-
-[anm_medkit_scientic]:anm_base
-anim_timing = 3070
-item_used_timing = 2500
+[anm_medkit_scientic]:anm_medkit
 visual                  	= dynamics\devices\dev_aptechka\dev_aptechka_high.ogf
 hud				= anm_medkit_scientic_hud
 
-snd_draw					= items\medkit\medkit
-snd_holster					= items\medkit\medkit
-snd_gyro					= items\medkit\medkit
-snd_zoomin					= items\medkit\medkit
-snd_zoomout					= items\medkit\medkit
-snd_shoot					= items\medkit\medkit
-snd_empty					= items\medkit\medkit
-snd_reload					= items\medkit\medkit
-snd_close					= items\medkit\medkit
-
 [anm_medkit_scientic_hud]:anm_medkit_hud
 
-hands_position				= 0.0,-0.025,0.11
-hands_orientation			= 0.0,0.0,0.0
-hands_position_16x9			= 0.0,-0.025,0.06
-hands_orientation_16x9			= 0.0,0.0,0.0
-
-item_position = 0.0,0.0,0.0
-item_orientation = 0.0,0.0,0.0
-
-aim_hud_offset_pos = -0.171504,0.060500,-0.089010
-aim_hud_offset_rot = 0.048900,0.082240,-0.009000
-aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
-aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
-
 item_visual             	= gwr\equipment\medkit_sci\medkit_sci_hud.ogf
-
-anm_show			= apteka
-anm_hide			= apteka
-anm_idle			= apteka
-anm_idle_slow                   = apteka
-anm_idle_crouch                 = apteka
-anm_idle_crouch_slow            = apteka
-anm_idle_aim			= apteka
-anm_idle_aim_end		= apteka
-anm_idle_moving			= apteka
-anm_idle_moving_slow 		= apteka
-anm_idle_moving_crouch 	        = apteka
-anm_idle_moving_crouch_slow     = apteka
-anm_idle_sprint			= apteka
-anm_idle_sprint_start		= apteka
-anm_bore			= apteka
 
 [anm_antirad]:anm_base
 anim_timing = 6700
@@ -192,6 +111,7 @@ anm_idle_moving_crouch 	        = antirad
 anm_idle_moving_crouch_slow     = antirad
 anm_idle_sprint			= antirad
 anm_idle_sprint_start		= antirad
+anm_idle_sprint_end 		= antirad
 anm_bore			= antirad
 
 [anm_bandage]:anm_base
@@ -241,6 +161,7 @@ anm_idle_moving_crouch 	        = bandage
 anm_idle_moving_crouch_slow     = bandage
 anm_idle_sprint			= bandage
 anm_idle_sprint_start		= bandage
+anm_idle_sprint_end 		= bandage
 anm_bore			= bandage
 
 [anm_dix]:anm_base
@@ -290,105 +211,25 @@ anm_idle_moving_crouch 	                                = drug_last
 anm_idle_moving_crouch_slow 	                        = drug_last
 anm_idle_sprint			                        = drug_last
 anm_idle_sprint_start 		                        = drug_last
+anm_idle_sprint_end 		= drug_last
 anm_bore						= drug_last
 
-[anm_bipsizon]:anm_base
-anim_timing = 3800
-item_used_timing = 2300
+[anm_bipsizon]:anm_dix
+
 visual                  	= dynamics\equipments\medical\drug_psy_blockade.ogf
 hud				= anm_bipsizon_hud
 
-snd_draw					= items\drug\drug_last
-snd_holster					= items\drug\drug_last
-snd_gyro					= items\drug\drug_last
-snd_zoomin					= items\drug\drug_last
-snd_zoomout					= items\drug\drug_last
-snd_shoot					= items\drug\drug_last
-snd_empty					= items\drug\drug_last
-snd_reload					= items\drug\drug_last
-snd_close					= items\drug\drug_last
-
-[anm_bipsizon_hud]:anm_base_hud
-
-hands_position				= 0.0,-0.02,0.0
-hands_orientation			= 0.0,0.0,0.0
-hands_position_16x9			= 0.0,-0.02,0.0
-hands_orientation_16x9			= 0.0,0.0,0.0
-
-item_position = 0.0,0.0,0.0
-item_orientation = 0.0,0.0,0.0
-
-aim_hud_offset_pos = -0.171504,0.060500,-0.089010
-aim_hud_offset_rot = 0.048900,0.082240,-0.009000
-aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
-aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+[anm_bipsizon_hud]:anm_dix_hud
 
 item_visual             	= gwr\equipment\drug_psy_blockade\drug_psy_blockade_hud.ogf
 
-anm_show						= drug_last 
-anm_hide						= drug_last
-anm_idle						= drug_last
-anm_idle_slow                                           = drug_last
-anm_idle_crouch                                         = drug_last
-anm_idle_crouch_slow                                    = drug_last
-anm_idle_aim				                = drug_last
-anm_idle_aim_end					= drug_last
-anm_idle_moving			                        = drug_last
-anm_idle_moving_slow 		                        = drug_last
-anm_idle_moving_crouch 	                                = drug_last
-anm_idle_moving_crouch_slow 	                        = drug_last
-anm_idle_sprint			                        = drug_last
-anm_idle_sprint_start	                        	= drug_last
-anm_bore						= drug_last
-
-[anm_yod]:anm_base
-anim_timing = 3700
-item_used_timing = 2300
+[anm_yod]:anm_dix
 visual                  	= dynamics\equipments\medical\drug_radioprotector.ogf
 hud				= anm_yod_hud
 
-snd_draw					= items\drug\drug_last
-snd_holster					= items\drug\drug_last
-snd_gyro					= items\drug\drug_last
-snd_zoomin					= items\drug\drug_last
-snd_zoomout					= items\drug\drug_last
-snd_shoot					= items\drug\drug_last
-snd_empty					= items\drug\drug_last
-snd_reload					= items\drug\drug_last
-snd_close					= items\drug\drug_last
-
-[anm_yod_hud]:anm_base_hud
-
-hands_position				= 0.0,-0.02,0.0
-hands_orientation			= 0.0,0.0,0.0
-hands_position_16x9			= 0.0,-0.02,0.0
-hands_orientation_16x9			= 0.0,0.0,0.0
-
-item_position = 0.0,0.0,0.0
-item_orientation = 0.0,0.0,0.0
-
-aim_hud_offset_pos = -0.171504,0.060500,-0.089010
-aim_hud_offset_rot = 0.048900,0.082240,-0.009000
-aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
-aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+[anm_yod_hud]:anm_dix_hud
 
 item_visual             	= gwr\equipment\drug_radioprotector\drug_radioprotector_hud.ogf
-
-anm_show						= drug_last 
-anm_hide						= drug_last
-anm_idle						= drug_last
-anm_idle_slow                                           = drug_last
-anm_idle_crouch                                         = drug_last
-anm_idle_crouch_slow                                    = drug_last
-anm_idle_aim				                = drug_last
-anm_idle_aim_end					= drug_last
-anm_idle_moving			                        = drug_last
-anm_idle_moving_slow 		                        = drug_last
-anm_idle_moving_crouch 	                                = drug_last
-anm_idle_moving_crouch_slow 	                        = drug_last
-anm_idle_sprint			                        = drug_last
-anm_idle_sprint_start 		                        = drug_last
-anm_bore						= drug_last
 
 
 [anm_exo_medkit]:anm_base
@@ -438,6 +279,7 @@ anm_idle_moving_crouch 	        = medkit_exo
 anm_idle_moving_crouch_slow     = medkit_exo
 anm_idle_sprint			= medkit_exo
 anm_idle_sprint_start		= medkit_exo
+anm_idle_sprint_end 		= medkit_exo
 anm_bore			= medkit_exo
 
 [anm_exo_medkit_army]:anm_base
@@ -487,6 +329,7 @@ anm_idle_moving_crouch 	        = medkit_exo_blue
 anm_idle_moving_crouch_slow     = medkit_exo_blue
 anm_idle_sprint			= medkit_exo_blue
 anm_idle_sprint_start		= medkit_exo_blue
+anm_idle_sprint_end 		= medkit_exo_blue
 anm_bore			= medkit_exo_blue
 
 [anm_exo_medkit_scientic]:anm_base
@@ -536,6 +379,7 @@ anm_idle_moving_crouch 	        = medkit_exo_yellow
 anm_idle_moving_crouch_slow     = medkit_exo_yellow
 anm_idle_sprint			= medkit_exo_yellow
 anm_idle_sprint_start		= medkit_exo_yellow
+anm_idle_sprint_end 		= medkit_exo_yellow
 anm_bore			= medkit_exo_yellow
 
 [anm_exo_antirad]:anm_base

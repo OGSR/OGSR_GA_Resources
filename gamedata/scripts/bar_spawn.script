@@ -62,8 +62,6 @@ end
 
 function spawn_cherep_svd()
 	local sobj = ogse.spawn_object(spawn_db.spawn_cherep_svd)
-    local wpn = sobj:get_weapon()
-    wpn.addon_flags = wpn.addon_flags:set( ogse_wpn_utils.addons_flags.scope, true )
 end
 -------------------------------------------------------
 ---' Массивы атакующих

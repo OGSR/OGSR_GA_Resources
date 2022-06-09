@@ -1,235 +1,78 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+local state_lib_states = state_lib.states
 
---' ПЕРЕМЕЩЕНИЕ
---' мы уже находимся в необходимом состоянии?
+--' РџР•Р Р•РњР•Р©Р•РќРР•
+--' РјС‹ СѓР¶Рµ РЅР°С…РѕРґРёРјСЃСЏ РІ РЅРµРѕР±С…РѕРґРёРјРѕРј СЃРѕСЃС‚РѕСЏРЅРёРё?
 class "eva_state_mgr_movement" (property_evaluator)
 function eva_state_mgr_movement:__init(name, st) super (nil, name)
 	self.st = st
 end
 function eva_state_mgr_movement:evaluate()
-	return (state_lib.states[self.st.target_state].movement == nil) or
-		   (state_lib.states[self.st.target_state].movement == self.object:target_movement_type())
---		   (state_lib.states[self.st.target_state].movement == self.object:movement_type())		   
+	local movement = state_lib_states[self.st.target_state].movement
+	return movement == nil
+		or movement == self.object:target_movement_type()
 end
---' нужно ли нам идти
+
+
+--' РЅСѓР¶РЅРѕ Р»Рё РЅР°Рј РёРґС‚Рё
 class "eva_state_mgr_movement_walk" (property_evaluator)
 function eva_state_mgr_movement_walk:__init(name, st) super (nil, name)
 	self.st = st
 end
 function eva_state_mgr_movement_walk:evaluate()
-	return state_lib.states[self.st.target_state].movement == move.walk
+	return state_lib_states[self.st.target_state].movement == move.walk
 end
---' нужно ли нам бежать
+
+--' РЅСѓР¶РЅРѕ Р»Рё РЅР°Рј Р±РµР¶Р°С‚СЊ
 class "eva_state_mgr_movement_run" (property_evaluator)
 function eva_state_mgr_movement_run:__init(name, st) super (nil, name)
 	self.st = st
 end
 function eva_state_mgr_movement_run:evaluate()
-	return state_lib.states[self.st.target_state].movement == move.run
+	return state_lib_states[self.st.target_state].movement == move.run
 end
---' нужно ли нам стоять
+
+--' РЅСѓР¶РЅРѕ Р»Рё РЅР°Рј СЃС‚РѕСЏС‚СЊ
 class "eva_state_mgr_movement_stand" (property_evaluator)
 function eva_state_mgr_movement_stand:__init(name, st) super (nil, name)
 	self.st = st
 end
 function eva_state_mgr_movement_stand:evaluate()
-	return state_lib.states[self.st.target_state].movement == move.stand
+	return state_lib_states[self.st.target_state].movement == move.stand
 end
---' стоим ли мы
+
+
+--' СЃС‚РѕРёРј Р»Рё РјС‹
 class "eva_state_mgr_movement_stand_now" (property_evaluator)
-function eva_state_mgr_movement_stand_now:__init(name, st) super (nil, name)
-	self.st = st
+function eva_state_mgr_movement_stand_now:__init(name) super (nil, name)
 end
 function eva_state_mgr_movement_stand_now:evaluate()
 	return self.object:target_movement_type() == move.stand
---	return self.object:movement_type() == move.stand
 end
 
 
---' Включаем ходьбу
+--' Р’РєР»СЋС‡Р°РµРј С…РѕРґСЊР±Сѓ
 class "act_state_mgr_movement_walk" (action_base)
 function act_state_mgr_movement_walk:__init(name, st) super (nil, name)
-	self.st = st
-end
-function act_state_mgr_movement_walk:initialize()
-	
-	action_base.initialize(self)
-	self.object:set_movement_type(move.walk)
-	--'self.object:movement_enabled(true)
 end
 function act_state_mgr_movement_walk:execute()
 	action_base.execute(self)
+	self.object:set_movement_type(move.walk)
 end
-function act_state_mgr_movement_walk:finalize()
-	action_base.finalize(self)
-end
---' Включаем бег
+
+--' Р’РєР»СЋС‡Р°РµРј Р±РµРі
 class "act_state_mgr_movement_run" (action_base)
 function act_state_mgr_movement_run:__init(name, st) super (nil, name)
-	self.st = st
-end
-function act_state_mgr_movement_run:initialize()
-	action_base.initialize(self)
-	self.object:set_movement_type(move.run)
-	--'self.object:movement_enabled(true)
 end
 function act_state_mgr_movement_run:execute()
 	action_base.execute(self)
+	self.object:set_movement_type(move.run)
 end
-function act_state_mgr_movement_run:finalize()
-	action_base.finalize(self)
-end
---' Включаем стояние на месте
+
+--' Р’РєР»СЋС‡Р°РµРј СЃС‚РѕСЏРЅРёРµ РЅР° РјРµСЃС‚Рµ
 class "act_state_mgr_movement_stand" (action_base)
 function act_state_mgr_movement_stand:__init(name, st) super (nil, name)
-	self.st = st
 end
-function act_state_mgr_movement_stand:initialize()
-	action_base.initialize(self)
-	self.object:set_movement_type(move.stand)
-end
-
 function act_state_mgr_movement_stand:execute()
 	action_base.execute(self)
-end
-function act_state_mgr_movement_stand:finalize()
-	action_base.finalize(self)
-end
-
-
---'*********************************************************************
---'*						smart actions							   *
---'*********************************************************************
-
-
-
---' STAND_turn
-
-class "act_state_mgr_movement_stand_turn" (action_base)
-
-function act_state_mgr_movement_stand_turn:__init(name, st) super (nil, name)
-	self.st = st
-end
-function act_state_mgr_movement_stand_turn:initialize()
-	
-	action_base.initialize(self)
-	
-	state_mgr_direction.turn(self.object, self.st)
 	self.object:set_movement_type(move.stand)
-	
-	
 end
-
-function act_state_mgr_movement_stand_turn:execute()
-	action_base.execute(self)
-end
-function act_state_mgr_movement_stand_turn:finalize()
-	action_base.finalize(self)
-end
-
---' STAND_search
-
-class "act_state_mgr_movement_stand_search" (action_base)
-
-function act_state_mgr_movement_stand_search:__init(name, st) super (nil, name)
-	self.st = st
-end
-function act_state_mgr_movement_stand_search:initialize()
-
-	action_base.initialize(self)
-	self.object:set_movement_type(move.stand)
-	self.object:set_sight(state_mgr_direction.look_position_type(self.object, self.st), nil, 0)
-
-end
-function act_state_mgr_movement_stand_search:execute()
-	action_base.execute(self)
-end
-function act_state_mgr_movement_stand_search:finalize()
-	action_base.finalize(self)
-end
-
---' WALK_turn
-
-class "act_state_mgr_movement_walk_turn" (action_base)
-function act_state_mgr_movement_walk_turn:__init(name, st) super (nil, name)
-	self.st = st
-end
-function act_state_mgr_movement_walk_turn:initialize()
-	action_base.initialize(self)
-	self.object:set_movement_type(move.walk)
-	--'self.object:movement_enabled(true)
-	state_mgr_direction.turn(self.object, self.st)
- 
-end
-function act_state_mgr_movement_walk_turn:execute()
-	action_base.execute(self)
-end
-function act_state_mgr_movement_walk_turn:finalize()
-	action_base.finalize(self)
-end
-
-
---' WALK_search
-
-class "act_state_mgr_movement_walk_search" (action_base)
-function act_state_mgr_movement_walk_search:__init(name, st) super (nil, name)
-	self.st = st
-end
-function act_state_mgr_movement_walk_search:initialize()
-	action_base.initialize(self)
-	self.object:set_movement_type(move.walk)
-	--'self.object:movement_enabled(true)
-	self.object:set_sight(state_mgr_direction.look_position_type(self.object, self.st), nil, 0)
-	
-end
-function act_state_mgr_movement_walk_search:execute()
-	action_base.execute(self)
-end
-function act_state_mgr_movement_walk_search:finalize()
-	action_base.finalize(self)
-end
-
-
---' RUN_turn
-
-class "act_state_mgr_movement_run_turn" (action_base)
-function act_state_mgr_movement_run_turn:__init(name, st) super (nil, name)
-	self.st = st
-end
-function act_state_mgr_movement_run_turn:initialize()
-	action_base.initialize(self)
-	self.object:set_movement_type(move.run)
-	--'self.object:movement_enabled(true)
-	state_mgr_direction.turn(self.object, self.st)
- 
-end
-function act_state_mgr_movement_run_turn:execute()
-	action_base.execute(self)
-end
-function act_state_mgr_movement_run_turn:finalize()
-	action_base.finalize(self)
-end
-
-
---' RUN_search
-
-class "act_state_mgr_movement_run_search" (action_base)
-function act_state_mgr_movement_run_search:__init(name, st) super (nil, name)
-	self.st = st
-end
-function act_state_mgr_movement_run_search:initialize()
-	action_base.initialize(self)
-	self.object:set_movement_type(move.run)
-	--'self.object:movement_enabled(true)
-	self.object:set_sight(state_mgr_direction.look_position_type(self.object, self.st), nil, 0)
-	
-end
-function act_state_mgr_movement_run_search:execute()
-	action_base.execute(self)
-end
-function act_state_mgr_movement_run_search:finalize()
-	action_base.finalize(self)
-end
-
-
-

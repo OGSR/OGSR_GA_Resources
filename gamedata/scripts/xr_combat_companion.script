@@ -110,6 +110,36 @@ function on_npc_enemy_callback( obj, enemy, result )
 end
 
 
+function IsShotgun( object )
+  if object then
+    return get_u32( object:section(), "ef_weapon_type" ) == 7
+  end
+  return false
+end
+
+function IsSniperRifle( object )
+  if object then
+    return get_u32( object:section(), "ef_weapon_type" ) == 8
+  end
+  return false
+end
+
+-- локации где можно атаковать БТР и вертолеты
+local armor_allowed_locations = { [ "l13_generators_ogse" ] = true }
+
+function is_armor( target )
+  local level_name = level.name()
+  if not armor_allowed_locations[ level_name ] then return false end
+  local heli = db.heli[ target:id() ]
+  local car  = db.cars[ target:id() ]
+  if heli or car then
+    return true
+  else
+    return false
+  end
+end
+
+
 ----------------------------------------------------------------------------------------------------
 -- Настройки схемы
 ----------------------------------------------------------------------------------------------------
@@ -267,13 +297,13 @@ function we_are_under_attack(enemy)
 				local npc = level.object_by_id(k)
 				if npc then
 					local enemy_status = check_is_enemy_of_me_or_actor(npc, enemy)
-					local enemy_target = xrs_battle_ai.primary_target[enemy:id()]
-					if (target:id() == actor_id or (enemy_target and enemy_target == actor_id)) and not must_stay(npc) then
+					local enemy_target = enemy:best_enemy()
+					if (target:id() == actor_id or (enemy_target and enemy_target:id() == actor_id)) and not must_stay(npc) then
 						if enemy_status then
 							return true
 						end						
 					end
-					if target:id() == npc:id() or (enemy_target and enemy_target == npc:id()) then
+					if target:id() == npc:id() or (enemy_target and enemy_target:id() == npc:id()) then
 						if enemy_status then
 							return true
 						end				
@@ -447,7 +477,7 @@ function refresh_targets(companion)
 	local enemy_by_engine = companion:best_enemy()
 	if enemy_by_engine and enemy_by_engine:alive() and not (xr_wounded.is_wounded(enemy_by_engine) and not fighting_wounded[enemy_by_engine:id()]) then
 		if not targets_list[enemy_by_engine:id()] and (check_is_enemy_of_me_or_actor(companion, enemy_by_engine) or 
-		(xrs_battle_ai and (xrs_battle_ai.primary_target[enemy_by_engine:id()] and (xrs_battle_ai.primary_target[enemy_by_engine:id()] == companion_id or xrs_battle_ai.primary_target[enemy_by_engine:id()] == actor_id))))
+		(enemy_by_engine:best_enemy() and (enemy_by_engine:best_enemy():id() == companion_id or enemy_by_engine:best_enemy():id() == actor_id)))
 		then
 			register_as_target(enemy_by_engine)
 		end
@@ -629,7 +659,7 @@ function set_weapons_fire(npc, enemy, weapon)
 			local npc_pos = weapon:position()
 			local distance = npc_pos:distance_to(be_pos)
 			
-			if xrs_battle_ai and xrs_battle_ai.is_armor(enemy) then
+			if is_armor(enemy) then
 				if string.find(enemy:name(),"btr") then
 					be_pos = enemy:bone_position("mashine_gun_tower")
 				else
@@ -673,9 +703,9 @@ function set_weapons_fire(npc, enemy, weapon)
 			type_of_fire = object.fire1
 		end
 	
-		if xrs_battle_ai.IsShotgun(weapon) then
+		if IsShotgun(weapon) then
 			npc:set_item(type_of_fire, weapon, 1, 800)
-		elseif xrs_battle_ai.IsSniperRifle(weapon) then
+		elseif IsSniperRifle(weapon) then
 			npc:set_item(type_of_fire, weapon, 1, 500)
 		elseif IsHighRecoilRapidFire(weapon) then	
 			npc:set_item(type_of_fire, weapon, 5, 50)
@@ -766,13 +796,13 @@ function set_combat_sight(npc, enemy, weapon)
 	local distance = npc_pos:distance_to(enemy_pos)
 
 	if ( enemy:is_stalker() or enemy:is_actor() ) then
-		if xrs_battle_ai.IsShotgun(weapon) then
+		if IsShotgun(weapon) then
 			if enemy_pos.y < (npc_pos.y - 1) then
 				bone = get_string(enemy:section(), "bone_head", "bip01_head")
 			else
 				bone = "bip01_neck"
 			end
-		elseif xrs_battle_ai.IsSniperRifle(weapon) then
+		elseif IsSniperRifle(weapon) then
 			bone = "eyelid_1"
 		elseif not IsHighRecoilRapidFire(weapon) then
 			if distance < 25 then
@@ -798,7 +828,7 @@ function set_combat_sight(npc, enemy, weapon)
 			bone = "bip01_pelvis"
 		end
 	else	
-		if xrs_battle_ai.IsSniperRifle(weapon) then
+		if IsSniperRifle(weapon) then
 			if enemy_pos.y < (npc_pos.y - 1) then
 				bone = get_string(enemy:section(), "bone_head", "bip01_head")
 			else
@@ -1189,18 +1219,9 @@ function action_combat_activity:execute()
 		xr_sound.set_sound(self.object, nil)
 		return
 	end
-	
-	if xrs_battle_ai and xrs_battle_ai.hit_timeout then
-		if xrs_battle_ai.hit_timeout[self.object:id()] and xrs_battle_ai.hit_timeout[self.object:id()] > time_global() then
-			self.object:movement_enabled(false)
-		elseif xrs_battle_ai.hit_timeout[self.object:id()] then	
-			xrs_battle_ai.hit_timeout[self.object:id()] = nil
-			self.object:movement_enabled(true)
-		end	
-	else
-		self.object:movement_enabled(true)
-	end
-	
+
+	self.object:movement_enabled(true)
+
 	self.object:set_desired_direction()
 	self.object:set_desired_position ()
 	self.object:set_detail_path_type ( move.curve )
@@ -1246,7 +1267,7 @@ function action_combat_activity:execute()
 
 	local bw = nil
 	if not act_item or act_item:is_knife() then
-		local wm = rx_wmgr and rx_wmgr.get_wm(self.object)
+		local wm = rx_wmgr and self.object:get_wm(true)
 		bw = (wm and wm:get_weapon()) or self.object:best_weapon()
 	else
 		bw = act_item
@@ -1488,19 +1509,21 @@ function add_to_binder( object, char_ini, scheme, section, st )
 	action:add_precondition( world_property( stalker_ids.property_alive,     true  ) )
 	action:add_precondition( world_property( property_wounded,				 false ) )
 	if xrs_grenade then
-		action:add_precondition( world_property( xrs_grenade.prop_fire,          		     false  ) )
-		action:add_precondition( world_property( xrs_grenade.prop_grenade,          	     false  ) )
+		action:add_precondition(world_property(xrs_grenade.evid_aaa_grenade,false))
 	end
-	if rx_bandage and rx_bandage.enable_scheme then
-		action:add_precondition( world_property( rx_bandage.evid_bandage,			false ) )
-	end	
-	if rx_facer then
-		action:add_precondition( world_property( rx_facer.evid_facer,				false ) )
-	end
+	--if rx_bandage then
+	--	action:add_precondition (world_property(rx_bandage.evid_bandage,	false))
+	--end
+	--if rx_facer then
+	--	action:add_precondition( world_property( rx_facer.evid_facer,				false ) )
+	--end
 	if rx_gl then
-		action:add_precondition( world_property( rx_gl.evid_gl_fire,				false ) )
-		action:add_precondition( world_property( rx_gl.evid_gl_reload,				false ) )
+		action:add_precondition (world_property(rx_gl.evid_gl_reload,		false))
 	end
+	if rx_kill_wounded then
+		action:add_precondition(world_property(rx_kill_wounded.evid_enemy_wounded,false))
+	end
+
 	action:add_precondition( world_property( prop_combat,          	         true  ) )
 	action:add_effect      ( world_property( prop_combat,   				 false ) )
 	action:add_effect(world_property( stalker_ids.property_enemy, false ))	

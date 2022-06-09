@@ -113,10 +113,8 @@ end
 --Если для того, чтобы не воевали - enemy_callback и так им воевать не разрешит.
 function make_relationship_with_actor(relation, npc, actor)
 	if relation == "friend" then
-		xrs_battle_ai.reset_everything(npc)
 		npc:set_relation(game_object.friend, actor)
 		npc:set_goodwill(5000, actor)
-		xrs_battle_ai.disable_object(npc, actor)
 		--[=[for companion_id, _ in pairs(xr_companion.companions) do
 			local companion = level.object_by_id(companion_id)
 			if companion then
@@ -124,15 +122,12 @@ function make_relationship_with_actor(relation, npc, actor)
 				npc:set_goodwill(5000, companion)
 				companion:set_relation(game_object.friend, npc)
 				companion:set_goodwill(5000, npc)	
-				xrs_battle_ai.disable_object(npc, companion)
 				xr_combat_companion.disable_object(companion, npc) 
 			end
 		end--]=]
 	elseif relation == "neutral" then
-		xrs_battle_ai.reset_everything(npc)
 		npc:set_relation(game_object.neutral, actor)
 		npc:set_goodwill(500, actor)
-		xrs_battle_ai.disable_object(npc, actor)
 		--[=[for companion_id, _ in pairs(xr_companion.companions) do
 			local companion = level.object_by_id(companion_id)
 			if companion then
@@ -140,7 +135,6 @@ function make_relationship_with_actor(relation, npc, actor)
 				npc:set_goodwill(500, companion)
 				companion:set_relation(game_object.neutral, npc)
 				companion:set_goodwill(500, npc)		
-				xrs_battle_ai.disable_object(npc, companion)
 				xr_combat_companion.disable_object(companion, npc) 			
 			end
 		end--]=]
@@ -456,7 +450,7 @@ function actor_clear_community()
 	log1("ACTOR NOW IN [NEUTRAL] COMMUNITY")
 	clear_all_actor_community_info()
 	if db.actor and db.actor:alive() then
-		db.actor:set_character_community("actor", 0, 0)
+		db.actor:set_character_community(ogse.load_var( "actor_community", "actor" ), 0, 0)
 		db.actor:give_info_portion("actor_set_actor")
 		xr_companion.set_community_by_actor()
 	end
@@ -478,6 +472,7 @@ function actor_set_dolg(actor, npc)
 	clear_all_actor_community_info()
 	if db.actor and db.actor:alive() then
 		db.actor:set_character_community("actor_dolg", 0, 0)
+		ogse.save_var( "actor_community", db.actor:character_community() )
 		db.actor:give_info_portion("actor_set_dolg")
 		xr_companion.set_community_by_actor()
 		return true
@@ -489,6 +484,7 @@ function actor_set_freedom()
 	clear_all_actor_community_info()
 	if db.actor and db.actor:alive() then
 		db.actor:set_character_community("actor_freedom",0,0)
+		ogse.save_var( "actor_community", db.actor:character_community() )
 		db.actor:give_info_portion("actor_set_freedom")
 		xr_companion.set_community_by_actor()
 		return true
@@ -501,6 +497,7 @@ function actor_set_bandit()
 	clear_all_actor_community_info()
 	if db.actor and db.actor:alive() then
 		db.actor:set_character_community("bandit",0,0)
+		ogse.save_var( "actor_community", db.actor:character_community() )
 		db.actor:give_info_portion("actor_set_bandit")
 		xr_companion.set_community_by_actor()
 		return true
@@ -512,6 +509,7 @@ function set_actor_prebandit()
 	clear_all_actor_community_info()
 	if db.actor and db.actor:alive() then
 		db.actor:set_character_community("actor_prebandit",0,0)
+		ogse.save_var( "actor_community", db.actor:character_community() )
 		db.actor:give_info_portion("actor_prebandit")
 		xr_companion.set_community_by_actor()
 		ogse.g_start_timer("dismiss_prebandit",0,24,0)
@@ -524,6 +522,7 @@ function set_actor_prebandit1()
 	clear_all_actor_community_info()
 	if db.actor and not has_alife_info("actor_set_bandit") and db.actor:alive() then
 		db.actor:set_character_community("actor_prebandit",0,0)
+		ogse.save_var( "actor_community", db.actor:character_community() )
 		db.actor:give_info_portion("actor_prebandit")
 		xr_companion.set_community_by_actor()
 		ogse.g_start_timer("dismiss_prebandit",0,48,0)
@@ -537,6 +536,7 @@ function set_actor_milstalker()
 	clear_all_actor_community_info()
 	if db.actor and db.actor:alive() then
 		db.actor:set_character_community("mil_stalker",0,0)
+		ogse.save_var( "actor_community", db.actor:character_community() )
 		db.actor:give_info_portion("actor_set_milstalker")
 		xr_companion.set_community_by_actor()
 		return true

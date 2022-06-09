@@ -90,10 +90,11 @@
 		</phrase_list>
 	</dialog>
 	<dialog id="kill_fraer_dome">
-		<has_info>kill_fraer_done_0</has_info>
+		<has_info>kill_fraer_dome</has_info>
+		<dont_has_info>kill_fraer_complete</dont_has_info>
 		<phrase_list>
 			<phrase id="0">
-				<text>kill_fraer_dome_0</text>
+				<text>tm_reward_job</text>
 				<give_info>kill_fraer_complete</give_info>
 				<action>ogsm_quests.kill_fraer_complete</action>
 			</phrase>

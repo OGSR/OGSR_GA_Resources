@@ -67,7 +67,7 @@ end
 number_of_companions = 0
 companions = {}
 
-local prohibit_rpg_7 = true
+local prohibit_rpg_7 = false
 
 local desired_distance = 3
 local min_distance = 1.5
@@ -139,48 +139,11 @@ local suitable_communities = {
 }
 
 -----------------------------------------------------
--- Типы боеприпасов
--- 1 - пистолетный
--- 2 - дробовой
--- 3 - промежуточный
--- 4 - винтовочный
--- 5 - тяжелое оружие
------------------------------------------------------
-local ammo_types = {
-[1]						= {
-	[1] = "9x18",
-	[2] = "9x19",
-	[3] = "7.62x25",
-	[4] = "11.43x23",
-	[5] = "arbolt"
-},
-[2]						= {
-	[1] = "12x7"
-},
-[3]						= {
-	[1] = "5.45x39",
-	[2] = "5.56x45",
-	[3] = "7.62x39",
-	[4] = "9x39"
-},
-[4]						= {
-	[1] = "7.62x54",
-	[2] = "gauss",
-	[3] = "8.6x70"
-},
-[5] 					= {
-	[1] = "vog",
-	[2] = "m20",
-	[3] = "og-7",
-	[4] = "flame"
-}
-}
------------------------------------------------------
 -- Классы оружия
 -- первая цифра тип патрона
 -- вторая цифра флаг наличия авт. режима огня
 -----------------------------------------------------
-weapon_class = {
+local weapon_class = {
 [10] = "pistol",
 [11] = "submashinegun",
 [20] = "shotgun",
@@ -193,77 +156,21 @@ weapon_class = {
 [51] = "flamethrower"
 
 }
+
 -----------------------------------------------------
--- список оружия по классам - пришлось сделать потому,
--- что функции чтения ini не могу считывать родительские
--- параметры, как это ни странно
+-- Получение оружия по параметрам
 -----------------------------------------------------
-local weapons_list = {
-
--- пистолеты
-["wpn_pm"]				= 10,
-["wpn_pb"]				= 10,
-["wpn_fort"]			= 10,
-["wpn_stechkin"]		= 10,
-["wpn_hpsa"]			= 10,
-["wpn_beretta"]			= 10,
-["wpn_fiveseven"]		= 10,
-["wpn_glock"]	    	= 10,
-["wpn_grach"]	    	= 10,
-["wpn_gsh18"]	    	= 10,
-["wpn_walther"]			= 10,
-["wpn_sr1m"]	    	= 10,
-["wpn_usp"]				= 10,
-["wpn_sig220"]	    	= 10,
-["wpn_colt1911"]		= 10,
-["wpn_desert_eagle"]	= 10,
-
---Дробовики
-["wpn_bm16"]			= 20,
-["wpn_bm16_full"]		= 20,
-["wpn_toz34"]			= 20,
-["wpn_toz34_full"]		= 20,
-["wpn_saiga12"]			= 20,
-
---ПП
-["wpn_bizon"]			= 11,
-["wpn_mp5"]				= 11,
-["wpn_p90"]				= 11,
-["wpn_ump45"]			= 11,
-
---Штурмовые
-["wpn_abakan"]			= 31,
-["wpn_ak74u"]			= 31,
-["wpn_ak74"]			= 31,
-["wpn_ak101"]			= 31,
-["wpn_l85"]				= 31,
-["wpn_groza"]			= 31,
-["wpn_sig550"]			= 31,
-["wpn_sig552"]			= 31,
-["wpn_val"]				= 31,
-
---Снайперки
-["wpn_vintorez"]		= 40,
-["wpn_svu"]				= 40,
-["wpn_svd"]				= 40,
-["wpn_gauss"]			= 40,
-
---Тяжелое
-["wpn_rpg7"]				= 50,
-}
------------------------------------------------------
--- Получение оружия по параметрам из таблицы
------------------------------------------------------
-function get_parameters_from_table(weapon_sect)
-	if weapons_list[weapon_sect] then
-		return weapons_list[weapon_sect]
-	else	
-		for k,v in pairs(weapons_list) do
-			if string.find(weapon_sect, k) then
-				return v
-			end
-		end
-		return 0
+local function get_parameters_from_table(wpn)
+	if wpn:is_pistol() then
+		return 10
+	elseif wpn:clsid() == clsid.wpn_rpg7_s then
+		return 50
+	elseif xr_combat_companion.IsSniperRifle(wpn) then
+		return 40
+	elseif xr_combat_companion.IsShotgun(wpn) then
+		return 20
+	else
+		return 31
 	end
 end
 -----------------------------------------------------
@@ -293,64 +200,26 @@ local companion_has = {}
 -----------------------------------------------------
 -- Селектор вооружения (будет работать только с менеджером вооружений)
 -----------------------------------------------------
-function check_weapon(weapon_section, npc_id)
-	if weapon_section and npc_id then
-		if not companion_weapon[npc_id] or (companion_weapon[npc_id] and companion_weapon[npc_id] == "anything") then
-			return true
-		end
-		if string.find(weapon_section, "grenade") or string.find(weapon_section, "knife") then
-			return true
-		end		
-		local ammo_type = 0
-		local fire_mode = 5
-		local stop_flag = 0
-		local w_cl = 0
-		w_cl = get_parameters_from_table(weapon_section)
-		if w_cl == 0 then
-			log1("!!!ERROR - Companion weapon selector cannot find ammo class or mode for "..weapon_section.."!!! Will use configs instead!")
-			if sys_ini:line_exist(weapon_section, "ammo_class") then
-				local ammo = sys_ini:r_string(weapon_section, "ammo_class")
-				for k, v in pairs(ammo_types) do
-					local search_patterns = v
-					if search_patterns then
-						for kk, vv in pairs(search_patterns) do
-							if string.find(ammo, vv) then
-								ammo_type = k
-								stop_flag = 1
-								break
-							end
-						end
-					end
-					if stop_flag == 1 then
-						break
-					end
-				end
-			end			
-			if sys_ini:line_exist(weapon_section, "fire_modes") then
-				local fm = sys_ini:r_string(weapon_section, "fire_modes")
-				if string.find(fm,"-1") then
-					fire_mode = 1 -- автоматическое оружие
-				else	
-					fire_mode = 0
-				end
-			end			
-			w_cl = tonumber(tostring(ammo_type)..tostring(fire_mode))
-		end
-		-- get_parameters_from_table
-		local current_weapon_class = weapon_class[w_cl]
-		if current_weapon_class then
-			local comp_weap = companion_weapon[npc_id]
-			if comp_weap ~= current_weapon_class then
-				return false
-			else
-				return true
-			end
-		else
-			log1("!!!ERROR - Companion weapon selector cannot find weapon_class for WPN "..weapon_section.." ammo "..tostring(ammo_type).." and fire_mode "..tostring(fire_mode).."!!!")
-			return false
-		end
+function check_weapon(wpn, npc_id)
+	if not companion_weapon[npc_id] or (companion_weapon[npc_id] and companion_weapon[npc_id] == "anything") then
+		return true
 	end
-	return false
+	if wpn:is_grenade() or wpn:is_knife() then
+		return true
+	end
+
+	local w_cl = get_parameters_from_table(wpn)
+	local current_weapon_class = weapon_class[w_cl]
+	if current_weapon_class then
+		local comp_weap = companion_weapon[npc_id]
+		if comp_weap ~= current_weapon_class then
+			return false
+		else
+			return true
+		end
+	else
+		return false
+	end
 end
 
 -----------------------------------------------------
@@ -390,47 +259,15 @@ end
 -- Итератор поиска
 -----------------------------------------------------
 function search_weapon(npc, item)
-	local ammo = 0
-	local mode = 5
-	local stop_flag = 0
 	if npc and item and item:is_weapon_magazined() then
-		local weapon_section = item:section()
-		if string.find(weapon_section, "grenade") then
-			return
-		end
-		local w_cl = 0
-		w_cl = get_parameters_from_table(weapon_section)
-		if w_cl == 0 then
-			log1("!!!ERROR - Companion weapon selector cannot find ammo class or mode for "..weapon_section.."!!!")
-			if sys_ini:line_exist(weapon_section, "ammo_class") then
-				local ammo_string = sys_ini:r_string(weapon_section, "ammo_class")
-				for k, v in pairs(ammo_types) do
-					local search_patterns = v
-					if search_patterns then
-						for kk, vv in pairs(search_patterns) do
-							if string.find(ammo_string, vv) then
-								ammo = k
-								stop_flag = 1
-								break
-							end
-						end
-					end
-					if stop_flag == 1 then
-						break
-					end
-				end
-			end		
-			if sys_ini:line_exist(weapon_section, "fire_modes") then
-				local fm = sys_ini:r_string(weapon_section, "fire_modes")
-				if string.find(fm,"-1") then
-					mode = 1
-				else	
-					mode = 0
-				end		
+		local st = rx_ai.get_storage( npc:id() )
+		if st and st.wm then
+			if not ( rx_wmgr.wm_modes.forbiddens[item:section()] ~= true and item:condition() >= rx_wmgr.wm_modes.min_cond and st.wm:have_ammo(item, false) ) then
+				return
 			end
-			w_cl = tonumber(tostring(ammo)..tostring(mode))
 		end
-		--log1("FOUND "..weapon_section.." CLASS "..w_cl)
+
+		local w_cl = get_parameters_from_table(item)
 		if weapon_class[w_cl] then
 			if not companion_has[npc:id()] then
 				companion_has[npc:id()] = {
@@ -467,8 +304,6 @@ function search_weapon(npc, item)
 			elseif weapon_class[w_cl] == "flamethrower" then
 				companion_has[npc:id()].flamethrower = true
 			end
-		else
-			log1("!!!ERROR - Companion weapon selector cannot find weapon_class for WPN "..weapon_section.." ammo "..tostring(ammo).." and fire_mode "..tostring(mode).."!!!")
 		end
 	end
 end
@@ -479,7 +314,7 @@ end
 local function update_wmgr(npc) --Принудительное обновление оружейного менеджера
 	local st = rx_ai.get_storage( npc:id() )
 	if st and st.wm then
-		st.wm.refresh_weapon_list = true
+		st.wm.do_update_list = true
 	end
 end
 ----------------------------------
@@ -1584,19 +1419,35 @@ if db.actor:dont_has_info("dar_samogon_trance") then
 	action:add_precondition(world_property(xr_evaluators_id.abuse_base, false))
 	action:add_precondition(world_property(xr_combat_companion.prop_combat, false))
 	if xrs_grenade then
-		action:add_precondition( world_property( xrs_grenade.prop_fire,          		     false  ) )
-		action:add_precondition( world_property( xrs_grenade.prop_grenade,          	     false  ) )
+		action:add_precondition(world_property(xrs_grenade.evid_aaa_grenade,false))
 	end
-	if rx_bandage and rx_bandage.enable_scheme then
-		action:add_precondition(world_property(rx_bandage.evid_bandage,false))
-	end	
+	if rx_bandage then
+		action:add_precondition (world_property(rx_bandage.evid_bandage,	false))
+	end
 	if rx_facer then
 		action:add_precondition(world_property(rx_facer.evid_facer,false))
 	end
 	if rx_gl then
-		action:add_precondition(world_property(rx_gl.evid_gl_fire,false))
-		action:add_precondition(world_property(rx_gl.evid_gl_reload,false))
-	end	
+		action:add_precondition (world_property(rx_gl.evid_gl_reload,		false))
+	end
+	
+	if rx_reload then
+		action:add_precondition(world_property(rx_reload.evid_reload,false))
+	end
+	--if xr_corpse_detection then
+	--	action:add_precondition(world_property(xr_corpse_detection.evid_corpse_exist,false))
+	--end
+	--if post_combat_idle then
+	--	action:add_precondition(world_property(post_combat_idle.evid_post_combat,false))
+	--end
+
+	if xr_help_wounded then
+		action:add_precondition(world_property(xr_help_wounded.evid_wounded_exist,false))
+	end
+	if rx_knife then
+		action:add_precondition(world_property(rx_knife.evid_knife_attack,false))
+	end
+
 	action:add_precondition(world_property(property_wounded, false))
 	action:add_precondition(world_property(property_need_companion, true))
 	action:add_effect(world_property(property_need_companion, false))

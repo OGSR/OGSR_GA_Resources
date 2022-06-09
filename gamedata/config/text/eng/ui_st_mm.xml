@@ -321,7 +321,7 @@
 		<text>Lighting distance</text>
 	</string>
 	<string id="ui_mm_npc_torch">
-		<text>NPC flashlights</text>
+		<text>NPC volumetric flashlights</text>
 	</string>
 	<string id="ui_mm_sun_quality">
 		<text>Shadows quality</text>
@@ -681,7 +681,7 @@
 		<text>The illumination range is r2_slight_fade</text>
 	</string>
 	<string id="video_settings_name_14">
-		<text>The flashlights NPC - ai_use_torch_dynamic_lights</text>
+		<text>NPC volumetric flashlights - ai_use_torch_dynamic_lights</text>
 	</string>
 	<string id="video_settings_name_15">
 		<text>Shadow quality - r2_ls_squality</text>
@@ -881,7 +881,7 @@
 		<text>This setting adjusts the accuracy of the lighting calculation as the distance to them increases. The higher it is, the more detailed the shadows from dynamic light sources will look at a distance.</text>
 	</string>
 	<string id="video_settings_desc_14">
-		<text>This setting allows the game to process the light of NPC flashlights as dynamic light sources, i.e. to form an illuminated spot, cast shadows from such light to objects, etc. On weak PCs, disabling this setting can give a serious speed boost at night, in camps with a large number of NPCs.</text>
+		<text>This option allows the game to process the volumetric light from NPC flashlights. On slower hardware, disabling this setting may provide a noticeable performance boost at nighttime when in camps with lots of NPCs.</text>
 	</string>
 	<string id="video_settings_desc_15">
 		<text>This setting adjusts the quality of drawing shadows in the game. The higher it is, the smoother the edges of the shadows will be.</text>

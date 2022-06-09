@@ -442,28 +442,20 @@ end
 
 -- saves a Lua var as xml file
 function xml.save(var, filename)
-    if var and filename and #filename ~= 0 then
-        local file = io.open(filename, 'w')
-        if file then
-            file:write("<?xml version=\"1.0\" encoding=\"windows-1251\"?>\n\n")
-            file:write(xml.str(var))
-			file:flush()
-            file:close()
-            return true
-        else
-            filename = filename:gsub('\\', '/')
-            local dir, path, name = filename:match('^([^/]+)(.-)([^/]+)$')
+	if var and filename and #filename ~= 0 then
+		stdfs.VerifyPath(filename)
 
-            for node in path:gmatch("[^/]+") do
-                dir = dir .. '/'.. node
-                local result = os.execute( 'if not exist "'..dir..'/*.*" ( md "'..dir..'" )' )
-				assert(result == 0, "[xml.save] Can't create dir: "..dir)
-            end
+		local file = io.open(filename, 'w')
+		assert(file, "[xml.save] Can't create file: "..filename)
+		file:write("<?xml version=\"1.0\" encoding=\"windows-1251\"?>\n\n")
+		file:write(xml.str(var))
+		file:flush()
+		file:close()
 
-            xml.save(var, filename)
-        end
-    end
-    return false
+		return true
+	end
+
+	return false
 end
 
 -- Function 'xml.find' ----------------------

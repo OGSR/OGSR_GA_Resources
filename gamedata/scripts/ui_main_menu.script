@@ -214,7 +214,7 @@ function main_menu:OnKeyboard(dik, keyboard_action)
 				end
 			end
 		elseif dik == DIK_keys.DIK_F1 then
-			if ogse.check_game() and ogse.is_developer_mode() and ui_cheat_main then
+			if ogse.check_game() and ui_cheat_main then
 				ui_cheat_main.start_menu(self)
 			end
 		end

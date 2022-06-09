@@ -276,7 +276,7 @@ function random_task_reward:generate_weapon()
 	table.insert(money_info, time_array)
 	self:check_table(time_array)
 	-- Выдаём по возможности аддон
-	if math.random(100) >= 40 then 
+	if math.random(100) > 30 then 
 		time_array = {}
 		local help = ogse_random_treasure.random_treasure("none", 0) -- для вызова аддона
 		help.current_reward[1] = 

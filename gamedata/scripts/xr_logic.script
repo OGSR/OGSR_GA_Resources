@@ -234,8 +234,7 @@ function disable_generic_schemes(npc, stype)
 		if ogsm_hideout then
 			ogsm_hideout.disable_scheme(npc, "ogsm_hideout")
 		end
-		if xrs_ai then xrs_ai.disable_schemes(npc, stype) end
-		if rx_ai then rx_ai.disable_schemes(npc, stype) end
+		if rx_ai then rx_ai.disable_schemes(npc) end
     	xr_use.disable_scheme(npc, "use")
 		xr_hit.disable_scheme(npc, "hit")
 		xr_meet.disable_scheme(npc, "actor_dialogs")
@@ -243,7 +242,6 @@ function disable_generic_schemes(npc, stype)
 		xr_combat_ignore.disable_scheme(npc, "combat_ignore")
 		xr_companion.disable_scheme(npc, "companion")
 		xr_combat_companion.disable_scheme(npc, "companion_combat")
-		xrs_battle_ai.disable_scheme(npc, "alternate_combat")
 	elseif stype == modules.stype_mobile then
 		mob_combat.disable_scheme(npc, "mob_combat")
 		mob_trade.disable_scheme(npc, "mob_trade")
@@ -266,7 +264,6 @@ function enable_generic_schemes(ini, npc, stype, section)
 		xr_danger.set_danger(npc, ini, "danger", "danger")
 		xr_companion.enable_scheme(npc, ini, "companion", section)
 		xr_combat_companion.enable_scheme(npc, ini, "companion_combat", section)
-		xrs_battle_ai.enable_scheme(npc, ini, "alternate_combat", section)
 
 		local combat_section = utils.cfg_get_string(ini, section, "on_combat", npc, false, "")
 		xr_combat.set_combat_checker(npc, ini, "combat", combat_section)
@@ -309,10 +306,7 @@ function enable_generic_schemes(ini, npc, stype, section)
 			xr_combat_ignore.set_combat_ignore_checker(npc, ini, "combat_ignore", combat_ignore_section)
 		end
 
-		watcher_act.set_scheme(npc, ini, "watcher_act", section)
-
-		if xrs_ai then xrs_ai.enable_schemes(ini, npc, stype, section) end
-		if rx_ai then rx_ai.enable_schemes(ini,npc) end
+		if rx_ai then rx_ai.enable_schemes(ini,npc,section) end
 
 	elseif stype == modules.stype_mobile then
 		local combat_section = utils.cfg_get_string(ini, section, "on_combat", npc, false, "")
@@ -443,7 +437,7 @@ function reset_generic_schemes_on_scheme_switch(npc, scheme, section)
 			stalker_generic.reset_threshold(npc, scheme, st, section)
 			stalker_generic.reset_show_spot(npc, scheme, st, section)
 		end
-
+		if rx_ai then rx_ai.reset_schemes(npc, scheme, st, section) end
 	elseif st.stype == modules.stype_mobile then
 		xr_meet.dialog_manager_reset(npc, st.stype)
 		mob_release(npc)
@@ -1408,6 +1402,8 @@ function load_logic_online(obj)
 			end
 			if npc_data.logic_data["act"] and npc_data.logic_data["act"] ~= "" then
 				st.active_section = npc_data.logic_data["act"]
+			else
+				st.active_section = "nil" --В activate_by_section нужно передать строку "nil", а не nil, чтобы не активировать ни одной из схем.
 			end   
 			if npc_data.logic_data["act_time"] and npc_data.logic_data["act_time"] ~= "" then
 				local cur_tm = time_global()

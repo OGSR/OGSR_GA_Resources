@@ -3,26 +3,51 @@
 function attach(sm)
   sm:subscribe({ signal = "on_key_down", fun = this.quicksave })
   sm:subscribe({ signal = "on_key_down", fun = this.quickload })
+  sm:subscribe({ signal = "on_key_down", fun = this.namesave })
 end
 
 function quicksave(key, bind)
-if level.main_input_receiver() and not db.actor:alive() then return end
-  if key == bind_to_dik(key_bindings.kQUICK_SAVE) then
-  local cnt = ogse.load_var( "next_quicksave", 0 )
-  if cnt == 9 then
-    cnt = 1
-  else
-    cnt = cnt + 1
-  end
-  ogse.save_var( "next_quicksave", cnt, "u8" )
-  local next_save = string.format( "%s_quicksave_%u", user_name(), cnt )
-  cmd( "save", next_save )
-end
+	if level.main_input_receiver() or not db.actor:alive() then return end
+
+	if bind == key_bindings.kQUICK_SAVE then
+		local cnt = ogse.load_var( "next_quicksave", 0 )
+		if cnt >= 9 then
+			cnt = 1
+		else
+			cnt = cnt + 1
+		end
+		ogse.save_var( "next_quicksave", cnt, "u8" )
+		local next_save = string.format( "%s_quicksave_%u", user_name(), cnt )
+		cmd( "save", next_save )
+	end
 end
 
 function quickload(key, bind)
-  if level.main_input_receiver() then return end
-    if key == bind_to_dik(key_bindings.kQUICK_LOAD) then
+	if level.main_input_receiver() then return end
+
+    if bind == key_bindings.kQUICK_LOAD then
         cmd("load_last_save")
     end
+end
+
+--[[------------------------------------------------------------------------------------
+	Реализация сохранения с именем в формате:
+	<имя пользователя> <локация> <игровые дни><игровые часы><игровые минуты>.sav
+--]]------------------------------------------------------------------------------------
+function namesave(key, bind)
+	if level.main_input_receiver() or not db.actor:alive() then return end
+
+	if bind == key_bindings.kNAME_SAVE then
+		local cr_wrong_name_save = string.format( "%s_namesave", user_name())
+		cmd( "save", cr_wrong_name_save )
+		
+		local rename_name_save = dsh.safe_file_name( string.format( "%s %d. %s %02d.%02d", game.translate_string( "ui_autosave_day" ), news_manager.game_days(), game.translate_string( level.name() ), level.get_time_hours(), level.get_time_minutes() ) )
+		local f = getFS()
+		local wrong_name_save_sav = f:update_path( "$game_saves$", cr_wrong_name_save..".sav" )
+		local true_name_save_sav  = f:update_path( "$game_saves$", rename_name_save..".sav" )
+		local wrong_name_save_dds = f:update_path( "$game_saves$", cr_wrong_name_save..".dds" )
+		local true_name_save_dds  = f:update_path( "$game_saves$", rename_name_save..".dds")
+		f:file_rename( wrong_name_save_sav, true_name_save_sav, true )
+		f:file_rename( wrong_name_save_dds, true_name_save_dds, true )
+	end
 end

@@ -223,7 +223,7 @@ function CTreasure:give_treasure(k)
 		local new_treasure = ogse_random_treasure.random_treasure(v.name, v.target)
 		local new_items = new_treasure:set_random_reward()
 		if new_items then 
-			log3("~~[CTreasure:give_treasure] treasure_info.items use random items: %s", new_items)
+			--log3("~~[CTreasure:give_treasure] treasure_info.items use random items: %s", new_items)
 			v.items = new_items
 		end
 		new_treasure = nil --Чистим неиспользуемое

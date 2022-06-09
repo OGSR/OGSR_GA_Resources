@@ -1086,6 +1086,7 @@ function load()
 end
 
 function show_reward(actor, npc, p1, p2)
+	local item_texture, item_rect = get_texture_info("ui_iconsTotal_find_item")
 	local task_details = get_random_task().task_info[get_random_task().task_id_by_desc_phrase_id[p2]]
 	if task_details == nil then return end
 	if not task_details.reward_item and not task_details.reward_money then return end
@@ -1095,14 +1096,13 @@ function show_reward(actor, npc, p1, p2)
 		return
 	end
 	--
-	db.actor:give_talk_message("Я тебе за это дам вот что:", "ui\\icon_guider", Frect():set(0,0,1,1), "other_iconed_answer_item")
+	db.actor:give_talk_message(game.translate_string("show_reward"), item_texture, item_rect, "other_iconed_answer_item")
 	--
 	if task_details.reward_item then
 		local rwd = {}
 		for _, sect in ipairs(task_details.reward_item) do
 			rwd[sect] = not rwd[sect] and 1 or rwd[sect] + 1
 		end
-		local item_texture, item_rect = get_texture_info("ui_iconsTotal_find_item")
 		for sect, num in pairs(rwd) do
 			db.actor:give_talk_message(
 				( num > 1 and num .. " x " or "" ) .. dsh.strip_quotes( game.translate_string( get_string( sect, "inv_name" ) ) )

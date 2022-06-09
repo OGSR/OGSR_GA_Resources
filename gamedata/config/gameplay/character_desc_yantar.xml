@@ -20,7 +20,8 @@
 		<visual>actors\ecolog\stalker_ecolog</visual>
 		<supplies>
 			[spawn] \n
-			wpn_svd_pso = 1, scope \n
+			wpn_svd \n
+			wpn_addon_scope_pso \n
 			ammo_7.62x54_7h14 \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
@@ -57,7 +58,8 @@
 		<visual>actors\soldier_spetsnaz</visual>
 		<supplies>
 			[spawn] \n
-			wpn_svd_pso = 1, scope \n
+			wpn_svd_pso \n
+			wpn_addon_scope_pso \n
 			ammo_7.62x54_7h14 \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
@@ -130,7 +132,8 @@
 		<visual>actors\soldier\soldier_beret_1</visual>
 		<supplies>
 			[spawn] \n
-			wpn_ak74u = 1, scope launcher \n
+			wpn_abakan = 1, launcher \n
+			wpn_addon_scope_night \n
 			ammo_vog-25 \n
 			ammo_5.45x39_ap \n
 			wpn_pm \n
@@ -192,7 +195,8 @@
 		<visual>actors\soldier_spetsnaz</visual>
 		<supplies>
 			[spawn] \n
-			wpn_svd_pso = 1, scope \n
+			wpn_svd \n
+			wpn_addon_scope_pso \n
 			ammo_7.62x54_7h14 \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
@@ -516,7 +520,7 @@
 		<crouch_type>1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_val = 1, silencer \n
+			wpn_val = 1 \n
 			ammo_9x39_ap \n
 			lab_x16_documents \n
 			outfit_stalker_m1 \n

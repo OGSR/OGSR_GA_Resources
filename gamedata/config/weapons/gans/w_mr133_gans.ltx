@@ -1,0 +1,496 @@
+[wpn_mp133]:identity_immunities,base_wpn_zoom
+GroupControlSection			= spawn_group
+discovery_dependency 		= 
+$spawn                   	= "weapons\mr133"					; option for Level Editor
+$npc			 			= on				; option for Level Editor
+$prefetch 		 			= 8
+scheduled                	= off              ; option for ALife Simulator
+cform                    	= skeleton
+class                    	= WP_SHOTG
+description					= gunsl_wpn_mr133_descr
+
+ef_main_weapon_type			= 1
+ef_weapon_type				= 7
+
+hidden_bones = stvol_small, planka, s_aimpoint, s_eot, s_specter
+silencer_bone = wpn_silencer
+launcher_bone = wpn_launcher
+
+;-----------------------------------------------------------------------------------
+holder_range_modifier	= 1.0               ; во сколько раз увеличивается eye_range 
+holder_fov_modifier		= 0.7              ; во сколько раз увеличивается eye_fov
+;-----------------------------------------------------------------------------------
+
+tri_state_reload			= on
+
+cost					 	= 10000
+weapon_class			 	= shotgun
+inv_weight				= 4.4
+
+
+;-ТТХ---------------------------------------------------------------------------
+
+hit_power            	= 0.95, 0.95, 0.95, 0.95
+hit_impulse          	= 150    ; size of physic impulse by bullet
+hit_type            	= fire_wound            ; [] type of the wound
+fire_distance           = 150    ; maximum fire distance that bullet can fly
+bullet_speed            = 250    ; starting bullet speed
+rpm                     = 100    ; max round per minute
+rpm_empty_click         = 200
+
+use_aim_bullet          = false                ;Поддерживается ли первая суппер пуля
+time_to_aim             = 1.0
+
+misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.8
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.2
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.003
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.5
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.0005
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.0005
+
+ammo_elapsed            = 6
+ammo_mag_size        	= 6
+
+ammo_class           	= ammo_12x70_kart, ammo_12x76_zhekan
+grenade_class        	= ammo_vog-25         
+
+launch_speed            = 0
+hand_dependence         = 1
+single_handed           = 0
+
+;---DOF-------------------------------------------------------------------------
+zoom_dof             = 0.5, 1.0, 180
+reload_dof           = 0.0, 0.5, 5, 2
+
+;----Дисперсия---------------------------------------------------------------------------
+fire_dispersion_base       = 0.25 ;0.19      ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor    = 1.1
+crosshair_inertion		   = 6.5
+
+;params of weapon recoil
+cam_return              = 0
+cam_relax_speed         = 15			;скорость возврата в исходное положение
+cam_relax_speed_ai     	= 120.75
+cam_dispersion          = 2.9		;увеличения угла (в градусах) с первым выстрелом
+cam_dispersion_inc      = 1.55	;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac     = 0.6	    ;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle			= 10.0      ;максимальный угол отдачи
+cam_max_angle_horz      = 10.0      ;(degree) maximum shot horizontal degree
+cam_step_angle_horz     = 1.5		;(degree) size of step camera moved in horizontal position while shooting
+
+zoom_cam_relax_speed         = 10	    ; scope & ironsight
+zoom_cam_relax_speed_ai      = 360
+zoom_cam_dispersion          = 3.3
+zoom_cam_dispersion_inc      = 1.5
+zoom_cam_dispersion_frac     = 1.0
+zoom_cam_max_angle           = 50.0
+zoom_cam_max_angle_horz      = 5.0
+zoom_cam_step_angle_horz     = 1.0
+fire_dispersion_condition_factor    = 10         ;увеличение дисперсии в процентах при максимальном износе
+
+PDM_disp_base 				= 2.5
+PDM_disp_vel_factor 		= 2.1
+PDM_disp_accel_factor 		= 2.1
+PDM_disp_crouch	 			= 1.0
+PDM_disp_crouch_no_acc 		= 1.0
+
+;------- for AI ------------------------------------------------------------------------
+holder_range_modifier   = 1.0              ; во сколько раз увеличивается eye_range
+holder_fov_modifier     = 1.0              ; во сколько раз увеличивается eye_fov
+
+min_radius           = 3           ; [] for AI
+max_radius           = 30          ; [] for AI
+
+hit_probability_gd_novice  = 0.80
+hit_probability_gd_stalker = 0.80
+hit_probability_gd_veteran = 0.80
+hit_probability_gd_master  = 0.80
+
+;-------------------------------------------------------------------------------
+slot                = 2                ; // secondary
+animation_slot      = 9                ; type of the animation that will be used
+
+inv_name					= gunsl_wpn_mr133
+inv_name_short				= gunsl_wpn_mr133
+
+inv_grid_width				= 6
+inv_grid_height				= 2
+inv_grid_x					= 20
+inv_grid_y					= 28
+
+kill_msg_x			= 91
+kill_msg_y			= 104
+kill_msg_width		= 80
+kill_msg_height		= 20
+
+position                         = -0.018000, -0.114000, 0.017000
+orientation                      = 0.000000, -0.000000, 0.000000
+
+fire_point                  = 0, 0.158, 0.647
+fire_point2                 = 0, 0.158, 0.647
+
+flame_particles				= weapons\generic_weapon05
+smoke_particles     			= 
+silencer_smoke_particles   		= 
+
+direction                	= 0, 0, 1
+shell_point				 	= 0.0, 0.138, 0.07
+
+
+hud                      	= wpn_mp133_hud
+normal                   	= 0, 1, 0
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;под мишкой
+strap_position              = -0.26, -0.10, 0.05
+strap_orientation           = -15, -9, 110
+strap_bone0                 = bip01_spine2
+strap_bone1                 = bip01_spine1
+
+startup_ammo            = 90
+visual                  = dynamics\weapons\wpn_mr133\wpn_mr133
+
+light_color		 			= 0.6,0.5,0.3
+light_range		 			= 6.0
+light_var_color		 		= 0.05
+light_var_range		 		= 0.5
+light_time 		 			= 0.2
+
+ph_mass			 			= 3
+
+;addons
+scope_status				= 2
+silencer_status				= 0
+grenade_launcher_status		= 0
+
+scope_name              = wpn_addon_scope
+scope_names             = wpn_addon_scope_eotech, wpn_addon_scope_susat_dusk, wpn_addon_scope_elcan
+scope_x                 = 100
+scope_y                 = 100
+
+scope_respawn                                        = wpn_mp133
+scope_respawn_wpn_addon_scope_eotech                 = wpn_mp133_eotech
+scope_respawn_wpn_addon_scope_susat_dusk             = wpn_mp133_susat_dusk
+scope_respawn_wpn_addon_scope_elcan                  = wpn_mp133_elcan
+
+zoom_enabled				= true
+
+;звуки
+snd_shoot_duplet			= weapons\mp133\mp133_shoot
+snd_draw				= weapons\mp133\mp133_draw
+snd_holster				= weapons\p90\p90_hide
+snd_shoot				= weapons\mp133\mp133_shoot
+snd_empty				= weapons\glock17\glock17_dry
+snd_reload				= weapons\mp133\mp133_reload_end
+snd_open_weapon				= weapons\mp133\mp133_open
+snd_add_cartridge			= weapons\mp133\mp133_insert2, 1.0, 0.1
+snd_close_weapon       = $no_sound, 0
+snd_close_weapon_empty = weapons\mp133\mp133_reload_end
+snd_misfire			        = weapons\mp133\mp133_close_empty
+
+
+[wpn_mp133_hud]
+zoom_hide_crosshair	= true
+
+shell_point			= 0.02,0.072,0.228
+shell_dir                     	= 0.0, 1.0, 0.0
+shell_bone			= wpn_body
+
+fire_point		= 0, 0.0, 0.2
+shoot_point		= 0,0,-1.2
+fire_bone			= muzzle
+
+attach_place_idx		= 0
+item_visual                   	= dynamics\weapons\wpn_mr133\wpn_mr133_hud
+
+hands_position				= 0.02,-0.02,-0.224
+hands_orientation			= 0.0,0.0,0.0
+
+hands_position_16x9			= 0.02,-0.02,-0.224
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position				= 0.0,0.0,0.0
+item_orientation			= 0.0,0.0,0.0
+
+aim_hud_offset_pos				= -0.002500,0.030000,-0.107500
+aim_hud_offset_rot				= -0.010000,-0.000000,0.000000
+
+aim_hud_offset_pos_16x9				= -0.002500,0.030000,-0.107500
+aim_hud_offset_rot_16x9				= -0.010000,-0.000000,0.000000
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = mr133_draw
+anm_show_empty             = mr133_draw
+anm_show_jammed            = mr133_draw
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = mr133_hide
+anm_hide_empty             = mr133_hide
+anm_hide_jammed            = mr133_hide
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = mr133_idle
+anm_idle_empty                      = mr133_idle
+anm_idle_jammed                     = mr133_idle
+anm_idle_slow                       = mr133_idle
+anm_idle_crouch                     = mr133_idle
+anm_idle_crouch_slow                = mr133_idle
+anm_idle_slow_empty                 = mr133_idle
+anm_idle_crouch_empty               = mr133_idle
+anm_idle_crouch_slow_empty          = mr133_idle
+anm_idle_slow_jammed                = mr133_idle
+anm_idle_crouch_jammed              = mr133_idle
+anm_idle_crouch_slow_jammed         = mr133_idle
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = mr133_aim_start, idle_aim_start
+anm_idle_aim_start_empty       = mr133_aim_start, idle_aim_start
+anm_idle_aim_start_jammed      = mr133_aim_start, idle_aim_start
+
+anm_idle_aim                   = mr133_aim, idle_aim
+anm_idle_aim_empty             = mr133_aim, idle_aim
+anm_idle_aim_jammed            = mr133_aim, idle_aim
+anm_idle_aim_scope             = mr133_aim, idle_aim
+anm_idle_aim_scope_empty       = mr133_aim, idle_aim
+anm_idle_aim_scope_jammed      = mr133_aim, idle_aim
+
+
+
+anm_idle_aim_end               = mr133_aim_end, idle_aim_end
+anm_idle_aim_end_empty         = mr133_aim_end, idle_aim_end
+anm_idle_aim_end_jammed        = mr133_aim_end, idle_aim_end
+
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					= mr133_walk
+anm_idle_moving_jammed 					= mr133_walk
+anm_idle_moving_empty					= mr133_walk
+
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= mr133_walk_slow
+anm_idle_moving_slow_jammed 				= mr133_walk_slow
+anm_idle_moving_slow_empty				= mr133_walk_slow
+
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					= mr133_walk_slow_down
+anm_idle_moving_crouch_jammed 				= mr133_walk_slow_down
+anm_idle_moving_crouch_empty				= mr133_walk_slow_down
+
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 				= mr133_walk_slow_super
+anm_idle_moving_crouch_slow_jammed 			= mr133_walk_slow_super
+anm_idle_moving_crouch_slow_empty			= mr133_walk_slow_super
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward 				= mr133_aim_walk, idle_aim
+anm_idle_aim_moving_forward_empty			= mr133_aim_walk, idle_aim
+anm_idle_aim_moving_forward_jammed 			= mr133_aim_walk, idle_aim
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back 				= mr133_aim_walk, idle_aim
+anm_idle_aim_moving_back_empty			        = mr133_aim_walk, idle_aim
+anm_idle_aim_moving_back_jammed 			= mr133_aim_walk, idle_aim
+
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left 				= mr133_aim_walk_left, idle_aim
+anm_idle_aim_moving_left_empty			        = mr133_aim_walk_left, idle_aim
+anm_idle_aim_moving_left_jammed 			= mr133_aim_walk_left, idle_aim
+
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right 				= mr133_aim_walk_right, idle_aim
+anm_idle_aim_moving_right_empty			        = mr133_aim_walk_right, idle_aim
+anm_idle_aim_moving_right_jammed 			= mr133_aim_walk_right, idle_aim
+ 
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left 				= mr133_aim_walk, idle_aim
+anm_idle_aim_moving_forward_left_empty			        = mr133_aim_walk, idle_aim
+anm_idle_aim_moving_forward_left_jammed 			= mr133_aim_walk, idle_aim
+
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right 				= mr133_aim_walk, idle_aim
+anm_idle_aim_moving_forward_right_empty			        = mr133_aim_walk, idle_aim
+anm_idle_aim_moving_forward_right_jammed 			= mr133_aim_walk, idle_aim
+
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left 				= mr133_aim_walk, idle_aim
+anm_idle_aim_moving_back_left_empty			= mr133_aim_walk, idle_aim
+anm_idle_aim_moving_back_left_jammed 			= mr133_aim_walk, idle_aim
+
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right 				= mr133_aim_walk, idle_aim
+anm_idle_aim_moving_back_right_empty			= mr133_aim_walk, idle_aim
+anm_idle_aim_moving_back_right_jammed 			= mr133_aim_walk, idle_aim
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving 				= mr133_aim_walk_scope, idle_aim
+anm_idle_aim_scope_moving_empty			        = mr133_aim_walk_scope, idle_aim
+anm_idle_aim_scope_moving_jammed 			= mr133_aim_walk_scope, idle_aim
+
+
+;Бег//////////////////////////////////////////////////////////////////
+lock_time_anm_idle_sprint_start = 0.15
+lock_time_anm_idle_sprint_start_empty = 0.15
+lock_time_anm_idle_sprint_start_jammed = 0.15
+anm_idle_sprint_start             = mr133_sprint_start
+anm_idle_sprint_start_empty       = mr133_sprint_start
+anm_idle_sprint_start_jammed      = mr133_sprint_start
+
+
+anm_idle_sprint                   = mr133_sprint
+anm_idle_sprint_empty             = mr133_sprint
+anm_idle_sprint_jammed            = mr133_sprint
+
+
+lock_time_anm_idle_sprint_end        = 0.35
+lock_time_anm_idle_sprint_end_empty  = 0.35
+lock_time_anm_idle_sprint_end_jammed = 0.35
+anm_idle_sprint_end             = mr133_sprint_end
+anm_idle_sprint_end_empty       = mr133_sprint_end
+anm_idle_sprint_end_jammed      = mr133_sprint_end
+
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = mr133_draw
+anm_bore_empty             = mr133_draw
+anm_bore_jammed            = mr133_draw
+
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                      = mr133_shoot, shoot
+anm_shoot_jammed               = mr133_shoot, shoot
+anm_shoot_last                 = mr133_shoot, shoot
+anm_shoot_aim                  = mr133_aim_shoot, shoot
+anm_shoot_aim_jammed           = mr133_aim_shoot, shoot
+anm_shoot_aim_last             = mr133_aim_shoot, shoot
+anm_shoot_aim_scope            = mr133_aim_shoot, shoot_aim
+anm_shoot_aim_scope_last       = mr133_aim_shoot, shoot_aim
+anm_shoot_aim_scope_jammed     = mr133_aim_shoot, shoot_aim
+
+;Осечка//////////////////////////////////////////////////
+anm_fakeshoot_empty          = mr133_dry_empty
+anm_fakeshoot_aim_empty      = mr133_aim_dry, idle_aim
+anm_fakeshoot_jammed         = mr133_dry
+anm_fakeshoot_aim_jammed     = mr133_aim_dry, idle_aim
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_open			= mr133_reload_start
+anm_add_cartridge		= mr133_reload, reload_add
+;anm_add_cartridge_empty		= mr133_reload_start_new, reload_add
+anm_close_empty			= mr133_reload_empty, reload_empty
+anm_close_jammed		= mr133_revival, revival
+anm_close			= mr133_reload_end
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on                             = mr133_headflash
+lock_time_start_anm_headlamp_on = 0.58
+lock_time_end_anm_headlamp_on = 0.5
+
+anm_headlamp_on_empty                       = mr133_headflash
+lock_time_start_anm_headlamp_on_empty = 0.58
+lock_time_end_anm_headlamp_on_empty = 0.5
+
+anm_headlamp_on_jammed                      = mr133_headflash
+lock_time_start_anm_headlamp_on_jammed = 0.58
+lock_time_end_anm_headlamp_on_jammed = 0.5
+
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off                            = mr133_headflash
+lock_time_start_anm_headlamp_off = 0.58
+lock_time_end_anm_headlamp_off = 0.5
+
+anm_headlamp_off_empty                      = mr133_headflash
+lock_time_start_anm_headlamp_off_empty = 0.58
+lock_time_end_anm_headlamp_off_empty = 0.5
+
+anm_headlamp_off_jammed                     = mr133_headflash
+lock_time_start_anm_headlamp_off_jammed = 0.58
+lock_time_end_anm_headlamp_off_jammed = 0.5
+
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on                                   = mr133_headflash
+anm_nv_on_empty                             = mr133_headflash
+anm_nv_on_jammed                            = mr133_headflash
+
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off                                  = mr133_headflash
+anm_nv_off_empty                            = mr133_headflash
+anm_nv_off_jammed                           = mr133_headflash
+
+
+[wpn_mp133_eotech]:wpn_mp133
+
+hidden_bones = stvol_small, s_aimpoint, s_specter
+
+hud = wpn_mp133_eotech_hud
+
+scope_name              = wpn_addon_scope_eotech
+scope_x              	= 90
+scope_y                 = -6
+
+
+[wpn_mp133_eotech_hud]:wpn_mp133_hud
+
+aim_hud_offset_pos = -0.000700,-0.011000,0.000000
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = -0.000700,-0.011000,0.000000
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_mp133_susat_dusk]:wpn_mp133
+
+hidden_bones = stvol_small, s_eot, s_specter
+
+hud                      			= wpn_mp133_susat_dusk_hud
+
+scope_name              = wpn_addon_scope_susat_dusk
+scope_x              	= 90                ; offset in inventory icon
+scope_y                 = -8
+
+
+[wpn_mp133_susat_dusk_hud]:wpn_mp133_hud
+
+aim_hud_offset_pos = -0.000144,-0.014080,-0.110000
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = -0.000144,-0.014080,-0.110000
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000
+
+
+[wpn_mp133_elcan]:wpn_mp133
+
+hidden_bones = stvol_small, s_aimpoint, s_eot
+
+hud = wpn_mp133_elcan_hud
+
+scope_name              = wpn_addon_scope_elcan
+scope_x              	= 65
+scope_y                 = -10
+
+
+[wpn_mp133_elcan_hud]:wpn_mp133_hud
+
+aim_hud_offset_pos = -0.000500,-0.016500,-0.204999
+aim_hud_offset_rot = 0.000000,0.000000,0.000000
+
+aim_hud_offset_pos_16x9 = -0.000500,-0.016500,-0.204999
+aim_hud_offset_rot_16x9 = 0.000000,0.000000,0.000000

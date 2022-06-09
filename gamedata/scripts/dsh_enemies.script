@@ -139,7 +139,7 @@ function check_is_enemy_always( obj, enemy )
   end
   --
   if level.name() == "l07_military" and obj:is_stalker() and enemy:is_stalker() and ( obj:character_community() == "freedom" or obj:character_community() == "dolg" ) and ( enemy:character_community() == "freedom" or enemy:character_community() == "dolg" ) then
-    return has_alife_info("mil_freedom_under_attack") or has_alife_info("mil_max_arrive")
+    return has_alife_info("mil_freedom_under_attack") or has_alife_info("mil_max_arrive") or not has_alife_info("mil_patrol_dead")
   end
   --
   return true

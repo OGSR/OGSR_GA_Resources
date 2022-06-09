@@ -20,16 +20,7 @@ function on_monster_spawn( obj, binder )
       obj:set_custom_panic_threshold( 0 )
     end
 
-    if obj:clsid() == clsid.burer_s then
-	  if obj:section() == "burer_strong" then --KRodin: TODO: заменить на движковую ауру
-        table.insert( subscribed, {
-          [ "signal" ] = s_name,
-          [ "fun"    ] = this.psy_burer_attack,
-          [ "queued" ] = true,
-          [ "__unsubscribe_on_death" ] = true,
-        })
-      end
-    elseif obj:clsid() == clsid.chimera_s then
+    if obj:clsid() == clsid.chimera_s then
       if get_string(obj:section(), "bones_particles") then
         table.insert( subscribed, {
           [ "signal" ] = s_name,
@@ -132,38 +123,6 @@ end
 
 
 local master_koef = 1 / ( 4 - level.get_game_difficulty() )
-
-
---Атака ПСИ-Бюрера
-local psy_burer_sound = {
-	{ ["sound_name"] = sound_object([[ambient\random\rnd_moan2]]), ["direction"] = 1,  ["volume"] = 0.5 },
-	{ ["sound_name"] = sound_object([[ambient\random\rnd_moan1]]), ["direction"] = -1, ["volume"] = 0.5 }
-}
-function psy_burer_attack( obj )
-	if not may_attack() then level.remove_pp_effector(1002) return end
-	--
-	if obj:position():distance_to(db.actor:position()) < 30 then
-		level.add_pp_effector("dead_zone.ppe", 1002, true)
------------------------------
-		local zh = hit()
-		zh.draftsman = obj
-		zh.type = hit.telepatic
-		zh.direction = obj:position():sub(db.actor:position())
-		zh:bone( get_string( db.actor:section(), "bone_torso", "bip01_spine" ) ) -- чтобы учитывалась броня
-		zh.power = 0.1
-		for k,v in pairs(psy_burer_sound) do
-			if not v.sound_name:playing() then
-				v.sound_name = sound_object("ambient\\random\\rnd_moan"..math.random(5))
-				v.sound_name.volume = v.volume
-				v.sound_name:play_at_pos(db.actor, vector():set(v.direction, 0, 1), 0, sound_object.s2d)
-				db.actor:hit(zh)
-			end
-		end
------------------------------
-	else
-		level.remove_pp_effector(1002)
-	end
-end
 
 
 --Атака электрохимеры
@@ -482,7 +441,6 @@ local monster_infoportion = {
 		"pseudodog", "flesh", "boar", "snork", "bloodsucker", "controller", "gigant", "poltergeist", "cat", "fracture", "tushkano"
 	}
 }
-local malish_arts = {"af_night_star", "af_soul", "af_electra_moonlight", "af_ameba_mica", "af_rusty_sea-urchin", "af_dummy_battery", "af_dummy_glassbeads", "af_fuzz_kolobok"}
 
 function quest_functions_on_death( obj, who )
 	local section_name = obj:section()
@@ -490,8 +448,6 @@ function quest_functions_on_death( obj, who )
 -----------------------------------------------
 	if section_name == "zombie_plague" then --Тут отключаются эффекты чумного зомби при его смерти
 		insect_particle:stop()
-	elseif section_name == "burer_strong" then --Тут отключаются эффекты пси-бюрера при его смерти --TODO: Убрать когда заменю на движковую ауру бюрера
-		level.remove_pp_effector(1002)
 -----------------------------------------------
 	elseif string.find(section_name, "zombie_rusty") then -- Уничтожение зомби-камикадзе + спаун руки
 		blow_zombie(obj)

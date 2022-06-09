@@ -475,6 +475,37 @@ function go_offline_watch_timer:action()
    end
 end
 
+
+-- Возвращает угол между проекциями векторов vec1 и vec2 на
+-- горизонтальную плоскость.
+-- положительный угол - доворот vec1 до vec2 по часовой.
+function horz_angle( vec1, vec2 )
+  local x =  vec2.x * vec1.x + vec2.z * vec1.z
+  -- повернули систему координат
+  local y = -vec2.z * vec1.x + vec2.x * vec1.z
+  return math.atan2( y, x )     -- угол доворота от -pi до pi
+end
+
+local visibility_treshold_value = 0.45 -- трешхолд видимости
+
+local function actor_see( npc )
+  -- арктангенс 45 град /npc:position():distance_to(db.actor:position())
+  local dangerang = 1
+  local ang = horz_angle(
+    device().cam_dir, npc:position():sub( device().cam_pos )
+  )
+  local visibility_value = level.cover_in_direction(
+    db.actor:level_vertex_id(), npc:position():sub( db.actor:position() )
+  )
+  local tgt = ang > -dangerang and ang < dangerang
+    and visibility_value > visibility_treshold_value
+  if tgt then
+    return true
+  end
+  return false
+end
+
+
 ------------------------------
 -- периодическая перепроверка
 ------------------------------
@@ -482,7 +513,7 @@ function PeriodicalUpdate(oNpc)
 	if oNpc:wounded() then return end
 
 	if needs_refit[oNpc:id()] then
-		if not xrs_battle_ai.actor_see(oNpc) and not oNpc:is_talking() then
+		if not actor_see(oNpc) and not oNpc:is_talking() then
 			oNpc:clear_animations()
 			needs_refit[oNpc:id()] = nil
 			refit_npc(oNpc ,oNpc:id())

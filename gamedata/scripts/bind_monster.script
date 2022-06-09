@@ -51,6 +51,8 @@ function generic_object_binder:net_spawn(sobject)
 	--self.object:set_callback(callback.use_object, self.use_callback, self)
 	--
 	if not self.object:alive() then
+		if rx_ai then rx_ai.corpse_net_spawn(self.object, self.loaded) end
+
 		--' Наносим небольшой импульс вперед.
 		local h = hit()
 		h.draftsman = self.object
@@ -193,6 +195,8 @@ function generic_object_binder:death_callback(victim, who)
 
 	smart_terrain.on_death( self.object:id() )
 
+	if rx_ai then rx_ai.monster_death(victim, who) end
+
 	self.am:call( "on_monster_death", self.object, who )
 end
 
@@ -311,7 +315,6 @@ end
 --Если вернёт false - объект не будет вступать в бой.
 --Вызывается:
 --Одноименным калбеком из движка (для движковой боёвки)
---Из xrs_battle_ai.check_is_enemy (скриптовая боёвка)
 --Из xr_danger
 --Из xr_camper.action_patrol:process_danger()
 --Из функции check_sound в мотиваторе

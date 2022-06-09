@@ -672,18 +672,36 @@
 		<texture x="493" y="936" width="32" height="32">ui\ui_common</texture>
 	</alife_presentation_smart_target_spot>
 
+
+<!-- ai pack -->
 	<grenade_location>
 		<level_map spot="grenade_spot"		pointer="quest_pointer"/>
 		<mini_map spot="grenade_mini_spot"	pointer="quest_pointer"/>
 	</grenade_location>
-	<grenade_spot  x="0" y="0" width="11" height="11" stretch="1" alignment="c" light_anim="ui_slow_blinking_alpha" la_cyclic="0">
+	<grenade_spot  x="0" y="0" width="11" height="11" stretch="1" alignment="c" xform_anim="map_spot_new_xform" xform_anim_cyclic="0">
 		<texture>ui_beltbut_granade_t</texture>
 	</grenade_spot>
-	<grenade_mini_spot  x="0" y="0" width="11" height="11" stretch="1" alignment="c" light_anim="ui_slow_blinking_alpha" la_cyclic="0">
+	<grenade_mini_spot  x="0" y="0" width="11" height="11" stretch="1" alignment="c" xform_anim="map_spot_new_xform" xform_anim_cyclic="0">
 		<texture>ui_beltbut_granade_t</texture>
 		<texture_below r="0" g="255" b="0">ui_beltbut_granade_t</texture_below>
 		<texture_above r="0" g="255" b="0">ui_beltbut_granade_t</texture_above>
 	</grenade_mini_spot>
+<!-- ai additions -->
+        <rx_gl_alarm ttl="5">
+                <mini_map spot="rx_gl_alarm_spot"/>
+        </rx_gl_alarm>
+        <rx_gl_alarm_spot width="48" height="48" alignment="c" stretch="1" xform_anim="map_spot_new_xform" xform_anim_cyclic="1">
+      <!--          <texture x="665" y="972" width="32" height="24">ui\ui_common</texture> -->
+	<!-- 	<texture x="64" y="0" width="32" height="32">ui\ui_alife</texture>-->
+	  	<texture r="248" g="173" b="0">ui_frame_error_sign_red</texture>
+	<!--	<texture r="224" g="60" b="53">ui_frame_error_sign_alarm</texture>-->
+        </rx_gl_alarm_spot>
+
+	<rx_gl_hit_sector ttl="5" pos_to_actor="1">
+		<mini_map  spot="mp_hit_sector_mini_spot"/>
+	</rx_gl_hit_sector>
+<!-- ai additions -->
+
 
 	<map_companion>
 		<level_map spot="map_companion_spot"/>
