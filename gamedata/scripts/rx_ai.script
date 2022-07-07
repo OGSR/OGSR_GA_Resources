@@ -211,12 +211,12 @@ function npc_death(npc,who)
 		for i,val in ipairs({'fa_target','gl_charged','kw_type','courage','kn_spawn','gr_psyh','wounded_fight','wounded_state','wounded_sound','wounded_victim','wounded_time'}) do
 			pstor[val] = nil
 		end
-		-- fixing possible afterlife evaluators activity
-		local planner = st.rx_ai.planner or npc:motivation_action_manager()
-		for id,ret in pairs(death_disable_evas) do
-			planner:remove_evaluator(id)
-			planner:add_evaluator(id,property_evaluator_const(ret))
-		end
+		-- fixing possible afterlife evaluators activity --У нас в движке все эвалуаторы после смерти персонажа перестают работать, так что это не нужно.
+		--local planner = st.rx_ai.planner or npc:motivation_action_manager()
+		--for id,ret in pairs(death_disable_evas) do
+		--	planner:remove_evaluator(id)
+		--	planner:add_evaluator(id,property_evaluator_const(ret))
+		--end
 	end
 end
 

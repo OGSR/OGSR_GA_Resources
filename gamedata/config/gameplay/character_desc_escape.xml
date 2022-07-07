@@ -253,7 +253,7 @@
 		<visual>actors\novice\green_stalker_2</visual>
 		<supplies>
 		[spawn] \n
-			wpn_pm \n
+			wpn_bizon \n
 			ammo_9x18_fmj \n
 			bread \n
 		</supplies>
@@ -284,7 +284,7 @@
 		<visual>actors\muzikant</visual>
 		<supplies>
 		[spawn] \n
-			wpn_pm \n
+			wpn_bizon \n
 			ammo_9x18_fmj \n
 			guitar_a \n
 		</supplies>
@@ -414,7 +414,7 @@
 		<supplies>
 			[spawn] \n
 			wpn_knife \n
-			wpn_pm \n
+			wpn_bizon \n
 			ammo_9x18_fmj \n
 		</supplies>
 		<start_dialog>escape_trader_start_dialog</start_dialog>
@@ -497,8 +497,8 @@
 			[spawn] \n
 			wpn_sig552 \n
 			ammo_5.56x45_ss190 \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_usp \n
+			ammo_11.43x23_hydro \n
 			hand_radio \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -547,8 +547,8 @@
 			[spawn] \n
 			wpn_val \n
 			ammo_9x39_pab9 \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_colt1911 \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_food.xml"
@@ -741,7 +741,7 @@
 			wpn_groza \n
 			ammo_9x39_pab9 \n
 			ammo_vog-25 \n
-			wpn_mp5 \n
+			wpn_fiveseven \n
 			ammo_9x19_pbp \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -778,10 +778,10 @@
 		<visual>actors\killer\stalker_ki_head_1</visual>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
-			wpn_p90 \n
-			ammo_5.56x45_ss190 \n
+		wpn_ak101 \n
+		ammo_5.56x45_ap \n
+			wpn_sr1m \n
+			ammo_11.43x23_hydro \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -814,8 +814,8 @@
 			[spawn] \n
 			wpn_toz34 \n
 			ammo_12x70_kart \n
-			wpn_mp5 \n
-			ammo_9x19_fmj \n
+			wpn_ump45 \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_food.xml"
@@ -880,8 +880,8 @@
 		<visual>actors\bandit\stalker_bandit_5</visual>
 		<supplies>
 			[spawn] \n
-			wpn_mp5 \n
-			ammo_9x19_fmj \n
+			wpn_ump45 \n
+			ammo_11.43x23_hydro \n
 			wpn_toz34 \n
 			ammo_12x70_kart \n
 #include "gameplay\character_drugs.xml" \n
@@ -1219,7 +1219,7 @@
 			[spawn] \n
 			wpn_ak74u \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_pb = 1, silencer \n
 			ammo_9x18_pmm \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
@@ -1252,7 +1252,7 @@
 			[spawn] \n
 			wpn_ak74u \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_pmm \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
@@ -1318,7 +1318,7 @@
 			[spawn] \n
 			wpn_ak74u \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_bizon \n
 			ammo_9x18_pmm \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
@@ -1352,7 +1352,7 @@
 			wpn_ak74 \n
 			ammo_5.45x39_fmj \n			
 			ammo_9x19_fmj \n
-			wpn_grach \n
+			wpn_glock \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -1418,7 +1418,7 @@
 			wpn_ak74 \n
 			ammo_5.45x39_fmj \n			
 			ammo_9x19_fmj \n
-			wpn_grach \n
+			wpn_gsh18 \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -1484,7 +1484,7 @@
 			wpn_ak74 \n
 			ammo_5.45x39_fmj \n
 			ammo_9x19_fmj \n
-			wpn_grach \n
+			wpn_gsh18 \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -1550,7 +1550,7 @@
 			wpn_ak74 \n
 			wpn_addon_scope_kobra \n
 			ammo_5.45x39_ap \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_pmm \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
@@ -1682,7 +1682,7 @@
 			[spawn] \n
 			wpn_ak74u \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_pb = 1, silencer \n
 			ammo_9x18_pmm \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
@@ -1715,7 +1715,7 @@
 			[spawn] \n
 			wpn_ak74u \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_pmm \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
@@ -1848,7 +1848,7 @@
 			[spawn] \n
 			wpn_ak74 \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_pmm \n
             grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
@@ -1881,7 +1881,7 @@
 			[spawn] \n
 			wpn_ak74 \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_pmm \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
@@ -1978,7 +1978,7 @@
 		<supplies>
 			[spawn] \n
 			wpn_knife \n
-			wpn_hpsa = 1, prob = 0.99  \n
+			wpn_hpsa \n
 		</supplies>
 		<start_dialog>hello_dialog</start_dialog>
 		<actor_dialog>odessa_trader_repair</actor_dialog>

@@ -380,8 +380,8 @@ end
 function transfer_povar_items(first_speaker, second_speaker)
 vdk_cnt = 10
 db.actor:iterate_inventory(del_vodka, db.actor)
-for i=1,3 do
-	dialogs.relocate_item_section(first_speaker, "ammo_8.6x70_lm", "in")
+for i=1,5 do
+	dialogs.relocate_item_section(first_speaker, "ammo_5.56x45_ap", "in")
 end
 end
 

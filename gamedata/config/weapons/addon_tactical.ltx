@@ -1,5 +1,5 @@
 [red_laser]
-laser_light_section = laser_definition
+laser_light_section = red_laser_definition
 laser_ray_bones = line
 
 laserdot_attach_bone = line 
@@ -11,16 +11,24 @@ laserdot_world_attach_offset_x = 0.0
 laserdot_world_attach_offset_y = 0.1
 laserdot_world_attach_offset_z = 0.05
 
-[laser_definition]
+[red_laser_definition]
 range           = 100	                            ; дальность в метрах
 range_r2        = 100	                            ; дальность в метрах (для динамического освещения)
-color           = 1.0f, 0.0f, 0.0f, 1.0f			; цвет, из 4 компонентов <r,g,b,a> значением от 0 до 3.
-color_r2        = 1.0f, 0.0f, 0.0f, 1.0f			; цвет, из 4 компонентов <r,g,b,a> значением от 0 до 3. (для динамического освещения)
+color           = 3.0f, 0.0f, 0.0f, 1.0f			; цвет, из 4 компонентов <r,g,b,a> значением от 0 до 3.
+color_r2        = 3.0f, 0.0f, 0.0f, 1.0f			; цвет, из 4 компонентов <r,g,b,a> значением от 0 до 3. (для динамического освещения)
 color_animator  = ;battery_low								; цвет аниматора (empty - аниматор не используется). //light_torch_01
 ;spot_texture    = internal\internal_light_torch_r3	; текстура яркой точки (только для динамического освещения).
-spot_angle      = 1	                            ; угол разлета света (определяет размер пятна)		; угол освещения в градусах.
+spot_angle      = 0.3	                            ; угол разлета света (определяет размер пятна)		; угол освещения в градусах.
 
 
+[green_laser]:red_laser
+
+laser_light_section = green_laser_definition
+
+[green_laser_definition]:red_laser_definition
+
+color           = 0.0f, 0.0f, 3.0f, 1.0f			; цвет, из 4 компонентов <r,g,b,a> значением от 0 до 3.
+color_r2        = 0.0f, 0.0f, 3.0f, 1.0f			; цвет, из 4 компонентов <r,g,b,a> значением от 0 до 3. (для динамического освещения)
 
 [tactical_torch]
 flashlight_section = flashlight_definition

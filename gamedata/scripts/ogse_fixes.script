@@ -36,7 +36,13 @@ function on_spawn()
 	--
 	fix_dead_city_exit_to_pjd()	
 	--
-	fix_svoboda_snipers()	
+	fix_svoboda_snipers()
+	--
+	fix_k01_darkscape_level_changer_to_escape()
+	--
+	fix_allspawn_weapons()
+	--
+	fox_can_hide()
 end
 
 function on_first_update()
@@ -449,4 +455,71 @@ function on_npc_first_update(obj)
 			obj:change_team( teamn, obj:squad(), obj:group() )
 		end
 	end
+end
+
+
+--Фикс перехода Лощина - Кордон, чтобы можно было перейти на кордон на машине без танцев с бубнами.
+function fix_k01_darkscape_level_changer_to_escape()
+  if ogse.var_exists("fix_k01_darkscape_level_changer_to_escape") then return end
+  ogse.save_var("fix_k01_darkscape_level_changer_to_escape", true)
+
+  local sobj = alife():object( "k01_darkscape_level_changer_to_escape" )
+  log3( "~~[%s]: fix %s (%s)", script_name(), sobj:name(), sobj.level_name )
+
+  sobj.position = vector():set( -596.325806, -2.015073, -408.151184 )
+  sobj.custom_data = "" -- можно выходить за переход
+end
+
+
+--Оллспавн творит какую-то дичь с серверными параметрами оружий. Причины не понятны, поэтому будем фиксить вот так:
+--[====[
+[20.06.22 13:03:53.425] --FOUND ALLSPAWN WEAPON! NAME: ['kat_gunslinger_ak'], SECT: ['wpn_ak_alfa_tact']
+[20.06.22 13:03:53.427] --FOUND ALLSPAWN WEAPON! NAME: ['val_wpn_ak74u'], SECT: ['wpn_ak74u_cobra']
+[20.06.22 13:03:53.430] --FOUND ALLSPAWN WEAPON! NAME: ['val_wpn_ak74u_0000'], SECT: ['wpn_ak74u_cobra']
+[20.06.22 13:03:53.432] --FOUND ALLSPAWN WEAPON! NAME: ['val_wpn_ak74u_0001'], SECT: ['wpn_ak74u_cobra']
+[20.06.22 13:03:53.433] --FOUND ALLSPAWN WEAPON! NAME: ['dar_wpn_ak74'], SECT: ['wpn_ak74']
+[20.06.22 13:03:53.434] --FOUND ALLSPAWN WEAPON! NAME: ['mil_wpn_ak0001'], SECT: ['wpn_ak74']
+[20.06.22 13:03:53.434] --FOUND ALLSPAWN WEAPON! NAME: ['mil_wpn_ak0002'], SECT: ['wpn_ak74']
+[20.06.22 13:03:53.434] --FOUND ALLSPAWN WEAPON! NAME: ['mil_wpn_ak74u'], SECT: ['wpn_ak74u']
+[20.06.22 13:03:53.435] --FOUND ALLSPAWN WEAPON! NAME: ['cit_wpn_ak74_0000'], SECT: ['wpn_ak74']
+[20.06.22 13:03:53.437] --FOUND ALLSPAWN WEAPON! NAME: ['cit_wpn_ak74_0001'], SECT: ['wpn_ak74']
+[20.06.22 13:03:53.439] --FOUND ALLSPAWN WEAPON! NAME: ['cit_wpn_ak74_0002'], SECT: ['wpn_ak74']
+[20.06.22 13:03:53.439] --FOUND ALLSPAWN WEAPON! NAME: ['mil_wpn_colt1911_unic'], SECT: ['wpn_colt1911_unic']
+[20.06.22 13:03:53.441] --FOUND ALLSPAWN WEAPON! NAME: ['rad_wpn_vintorez'], SECT: ['wpn_vintorez']
+--]====]
+function fix_allspawn_weapons()
+	if ogse.var_exists("fix_allspawn_weapons") then return end
+	ogse.save_var("fix_allspawn_weapons", true)
+
+	for _, name in ipairs({"kat_gunslinger_ak", "val_wpn_ak74u", "val_wpn_ak74u_0000", "val_wpn_ak74u_0001", "dar_wpn_ak74", "mil_wpn_ak0001", "mil_wpn_ak0002", "mil_wpn_ak74u", "cit_wpn_ak74_0000", "cit_wpn_ak74_0001", "cit_wpn_ak74_0002", "mil_wpn_colt1911_unic", "rad_wpn_vintorez"}) do
+		local sobj = alife():object(name)
+		if sobj and sobj.parent_id == 65535 then
+			local addons = flags8():zero()
+			if name:find("^val_wpn_ak74u") then
+				addons:set( ogse_wpn_utils.addons_flags.scope, true)
+			end
+			sobj:get_weapon().addon_flags = addons
+			sobj:get_inventory_item().item_condition = 1
+			log3("--FIXED ALLSPAWN WEAPON! NAME: [%s], SECT: [%s], ADDON_FLAGS: [%u]", sobj:name(), sobj:section_name(), sobj:get_weapon().addon_flags:get())
+		end
+	end
+end
+
+
+--Чтобы Лис мог прятаться от выброса, уберем ему ограничения на выход из рестриктора.
+function fox_can_hide()
+  if ogse.var_exists("fox_can_hide") then return end
+
+  local sobj = alife():object( "esc_fox" )
+  if sobj then
+    local pk = get_netpk( sobj )
+    ASSERT( ( pk and pk:isOk() ), "can't read netpacket of %s", sobj:name() )
+    local data = pk:get()
+    if data.base_out_restrictors ~= "" then
+      data.base_out_restrictors = ""
+      pk:set( data )
+      log3( "~~[%s] Fox_can_hide!", script_name() )
+      ogse.save_var("fox_can_hide", true)
+	end
+  end
 end

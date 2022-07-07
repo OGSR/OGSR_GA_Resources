@@ -209,6 +209,14 @@ function friends_on_fire_line(npc)
 	end
 	local dir_aim = enemy_pos:sub(npc_pos)
 	local be_dist = dir_aim:magnitude()
+
+	if not npc:see_right_now( enemy ) then
+		--log3("!!npc [%s] not see enemy [%s]", npc:name(), enemy:name())
+		st.f, st.d = true, be_dist
+		st.wait = tg + 1500
+		return st.f, st.d
+	end
+
 	if be_dist > 3 then
 		local disp = get_weapon_dispersion(npc) + 0.025	--npc:accuracy()
 		local aH,aP = dir_aim:getH(),dir_aim:getP()

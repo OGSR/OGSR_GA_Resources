@@ -1,0 +1,1583 @@
+[wpn_m4]:identity_immunities,base_wpn_zoom
+GroupControlSection     = spawn_group
+$spawn               	= "weapons\m4"      ; option for Level Editor
+$npc                    = on                                ; option for Level Editor
+$prefetch               = 8
+scheduled               = off                                ; option for ALife Simulator
+cform                   = skeleton
+class                   = WP_AK74
+description          	= gunsl_wpn_m4_descr
+ef_main_weapon_type     = 2
+ef_weapon_type          = 6
+
+hidden_bones = laser, grip, s_kemper, s_eot, s_aimpoint, s_acog, s_pn23, s_leupold, s_specter, s_susat, mag_60, mag_45
+silencer_bone = wpn_silencer
+launcher_bone = wpn_launcher
+
+;-------------------------------------------------------------------------------
+cost                    = 7000
+weapon_class            = assault_rifle        ; Type of the weapon
+inv_weight           	= 3.4
+
+;--TTX--------------------------------------------------------------------------
+hit_power               = 0.9, 0.9, 0.9, 0.9
+hit_impulse             = 100
+hit_type				= fire_wound
+fire_distance           = 250
+bullet_speed            = 600        ;начальная скорость пули
+rpm                     = 750
+rpm_empty_click         = 250
+
+use_aim_bullet          = false                ;Поддерживается ли первая суппер пуля
+time_to_aim             = 3.0
+
+hud                     = wpn_m4_hud
+
+misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
+;изношенность, при которой появляется шанс осечки
+misfire_start_condition		= 0.85
+;изношеность при которой шанс осечки становится константным
+misfire_end_condition		= 0.25
+;шанс осечки при изношености больше чем misfireStartCondition
+misfire_start_prob	     	= 0.004
+;шанс осечки при изношености больше чем misfireEndCondition
+misfire_end_prob	     	= 0.08
+;увеличение изношености при одиночном выстреле
+condition_shot_dec      	= 0.0003
+;увеличение изношености при выстреле очередью
+condition_queue_shot_dec	= 0.00035
+
+ammo_elapsed            = 30
+ammo_mag_size           = 30
+
+ammo_class              = ammo_5.56x45_ss190, ammo_5.56x45_ap
+grenade_class           = ammo_m209
+fire_modes              = 1, -1
+launch_speed            = 0
+hand_dependence         = 1
+single_handed           = 0
+
+;--дисперсия----------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base    = 0.21    ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor = 1.4f
+crosshair_inertion		= 6.20
+
+;отдача
+cam_return				= 0
+cam_relax_speed         = 6      ;скорость возврата в исходное положение
+cam_relax_speed_ai      = 360
+cam_dispersion          = 0.80      ;увеличения угла (в градусах) с первым выстрелом
+cam_dispersion_inc      = 0.45    ;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion_frac     = 1.0    ;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle           = 50.0         ;максимальный угол отдачи
+cam_max_angle_horz      = 50.0      ;(degree) maximum shot horizontal degree
+cam_step_angle_horz     = 2.5    ;(degree) size of step camera moved in horizontal position while shooting
+
+PDM_disp_base 				= 1.3
+PDM_disp_vel_factor 		= 2.2
+PDM_disp_accel_factor 		= 2.2
+PDM_disp_crouch	 			= 1.0
+PDM_disp_crouch_no_acc 		= 1.0
+
+zoom_cam_relax_speed         = 5     ; scope & ironsight
+zoom_cam_relax_speed_ai      = 360
+zoom_cam_dispersion          = 0.45
+zoom_cam_dispersion_inc      = 0.3
+zoom_cam_dispersion_frac     = 0.85
+zoom_cam_max_angle           = 50.0
+zoom_cam_max_angle_horz      = 50.0
+zoom_cam_step_angle_horz     = 2
+
+fire_dispersion_condition_factor = 15        ;увеличение дисперсии в процентах при максимальном износе
+
+;---DOF-------------------------------------------------------------------------
+zoom_dof						= 0.5, 1.0, 180
+reload_dof					= 0.0, 0.5, 5, 2
+
+;-------------------------------------------------------------------------------
+holder_range_modifier   = 1.85             ; во сколько раз увеличивается eye_range
+holder_fov_modifier     = 1.0              ; во сколько раз увеличивается eye_fov
+
+hit_probability_gd_novice  = 0.85
+hit_probability_gd_stalker = 0.85
+hit_probability_gd_veteran = 0.85
+hit_probability_gd_master  = 0.85
+
+min_radius              = 5
+max_radius              = 100
+
+;-------------------------------------------------------------------------------
+slot                    = 2                ; // secondary
+animation_slot          = 2                ; type of the animation that will be used
+
+inv_name          = gunsl_wpn_m4
+inv_name_short    = gunsl_wpn_m4
+
+inv_grid_width          = 5
+inv_grid_height         = 2
+inv_grid_x           	= 20
+inv_grid_y           	= 30
+
+kill_msg_x           	= 84
+kill_msg_y           	= 28
+kill_msg_width       	= 73
+kill_msg_height         = 30
+
+;-------------------------------------------------------------------------------
+position                = -0.026, -0.135, 0.0
+orientation             = 0, 0, 0
+
+fire_point              = 0.0,0.186,0.435
+fire_point2             = 0.0, 0.106, 0.468
+
+flame_particles         = weapons\generic_weapon05
+smoke_particles         = weapons\generic_shoot_00
+grenade_flame_particles = weapons\generic_weapon01
+silencer_smoke_particles   = weapons\generic_shoot_00
+
+shell_point             = -0.020000,0.167000,0.082000
+shell_dir               = 0.0, 0.0, 0.4
+shell_particles         = ;       ; name of the particles for shells
+
+;--STRAP PARAMETERS-----------------------------------------------------------------
+;под мишкой
+strap_position         	= -0.15,-0.36,0.25			; position (offset) and orientation of the weapon when it is strapped
+strap_orientation      	= -10,-5,10					; (3rd person view in degrees)
+strap_bone0             = bip01_spine2
+strap_bone1             = bip01_spine1
+
+startup_ammo            = 90
+visual                  = dynamics\weapons\wpn_m4\wpn_m4.ogf
+
+light_disabled				= false
+light_color             = 0.6,0.5,0.3
+light_range             = 5
+light_var_color         = 0.05
+light_var_range         = 0.5
+light_time              = 0.2
+
+ph_mass                 = 5
+;cost                   = 2100
+
+;addons
+scope_status            = 2
+silencer_status         = 2
+grenade_launcher_status = 2
+
+zoom_enabled            = true                                                ; (on,off)zoom mode (right mouse button)
+zoom_rotate_time        = 0.25
+
+scope_name              = wpn_addon_scope
+scope_names             = wpn_addon_scope_susat, wpn_addon_scope_eotech, wpn_addon_scope_susat_dusk, wpn_addon_scope_kemper, wpn_addon_scope_elcan, wpn_addon_scope_susat_night, wpn_addon_scope_acog, wpn_addon_scope_leupold
+scope_x                 = 100
+scope_y                 = 100
+
+scope_respawn                                        = wpn_m4
+scope_respawn_wpn_addon_scope_susat                  = wpn_m4_susat
+scope_respawn_wpn_addon_scope_eotech                 = wpn_m4_eotech
+scope_respawn_wpn_addon_scope_susat_dusk             = wpn_m4_susat_dusk
+scope_respawn_wpn_addon_scope_kemper                 = wpn_m4_kemper
+scope_respawn_wpn_addon_scope_elcan                  = wpn_m4_elcan
+scope_respawn_wpn_addon_scope_susat_night            = wpn_m4_susat_night
+scope_respawn_wpn_addon_scope_acog                   = wpn_m4_acog
+scope_respawn_wpn_addon_scope_leupold                = wpn_m4_leupold
+
+silencer_name  		= wpn_addon_sil_556			; section name for the attachable silencer
+silencer_x 		= 194
+silencer_y 		= 10
+grenade_launcher_name      = wpn_addon_grenade_launcher_l123a2  ; section name for the attachable grenade launcher
+grenade_launcher_x      = 110
+grenade_launcher_y      = 11
+
+;звуки
+snd_draw		= weapons\sig550\sig550_draw
+snd_holster		= weapons\p90\p90_hide
+snd_shoot		= weapons\m4\m4_shoot
+snd_empty		= weapons\glock17\glock17_dry
+snd_reload              = weapons\m4\m4_reload
+snd_reload_empty        = weapons\m4\m4_reload_empty
+snd_reload_jammed       = weapons\m4\m4_revival
+snd_reload_jammed_last  = weapons\m4\m4_revival
+snd_shoot_grenade       = weapons\m203\m203_shoot
+snd_reload_grenade      = weapons\m203\m203_reload
+snd_switch              = weapons\m203\m203_activate
+snd_silncer_shot        = weapons\m4\m4_shoot_silencer
+snd_fire_modes          = weapons\l85\l85_firemode
+snd_tact_item_on        = weapons\l85\l85_lam
+silencer_light_color    = 0.6,0.5,0.3
+silencer_light_range    = 0.01
+silencer_light_var_color= 0.05
+silencer_light_var_range= 0.01
+silencer_light_time     = 0.01
+
+
+
+[wpn_m4_hud]:hud_base
+zoom_hide_crosshair        = true
+attach_place_idx           = 0
+item_visual				= dynamics\weapons\wpn_m4\wpn_m4_hud.ogf
+
+zoom_dof_near = 0.25
+zoom_dof_focus = 0.5
+
+hands_position		    = 0.0,0.01,-0.065
+hands_orientation	    = 0.0,0.0,0.0
+
+hands_position_16x9	    = 0.0,0.01,-0.065
+hands_orientation_16x9	    = 0.0,0.0,0.0
+
+item_position		    = 0.0,0.0,0.0
+item_orientation	    = 0.0,0.0,0.0
+
+aim_hud_offset_pos         = 0.0,0.018,0.0
+aim_hud_offset_rot         = -0.01,0.0,0.0
+
+aim_hud_offset_pos_16x9    = 0.0,-0.018,0.0
+aim_hud_offset_rot_16x9    = -0.01,0.0,0.0
+
+gl_hud_offset_pos          = 0.0,0.012,-0.05
+gl_hud_offset_rot          = 0.0,0.0,0.0
+
+gl_hud_offset_pos_16x9     = 0.0,0.012,-0.1
+gl_hud_offset_rot_16x9     = 0.0,0.0,0.0
+
+lean_hud_offset_pos        = 0,0,0
+lean_hud_offset_rot        = 0,0,0
+
+shell_point		   = 0.0,-9.0,0.0
+shell_dir                  = 0.0,0.0,0.0
+shell_bone	           = bolt
+
+fire_point              = 0.0, 0.0635,0.678
+fire_bone      	           = wpn_body
+fire_point2		   = 0.0,-0.075,0.697
+fire_bone2		   = wpn_body
+
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = m4_draw
+anm_show_empty             = m4_draw, idle_empty
+anm_show_jammed            = m4_draw, idle_jammed
+anm_show_w_gl              = m4_gloff_draw
+anm_show_empty_w_gl        = m4_gloff_draw, idle_empty
+anm_show_jammed_w_gl       = m4_gloff_draw, idle_jammed
+anm_show_g                 = m4_glon_draw, m4_glon_idle
+anm_show_empty_g           = m4_glon_draw, m4_glon_idle_empty
+anm_show_jammed_g          = m4_glon_draw, m4_glon_idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = m4_hide
+anm_hide_empty             = m4_hide, idle_empty
+anm_hide_jammed            = m4_hide, idle_jammed
+anm_hide_w_gl              = m4_gloff_hide
+anm_hide_empty_w_gl        = m4_gloff_hide, idle_empty
+anm_hide_jammed_w_gl       = m4_gloff_hide, idle_jammed
+anm_hide_g                 = m4_glon_hide, m4_glon_idle
+anm_hide_empty_g           = m4_glon_hide, m4_glon_idle_empty
+anm_hide_jammed_g          = m4_glon_hide, m4_glon_idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = m4_idle
+anm_idle_empty                      = m4_idle, idle_empty
+anm_idle_jammed                     = m4_idle, idle_jammed
+anm_idle_slow                       = m4_idle
+anm_idle_slow_empty                 = m4_idle, idle_empty
+anm_idle_slow_jammed                = m4_idle, idle_jammed
+anm_idle_crouch                     = m4_idle
+anm_idle_crouch_empty               = m4_idle, idle_empty
+anm_idle_crouch_jammed              = m4_idle, idle_jammed
+anm_idle_crouch_slow                = m4_idle
+anm_idle_crouch_slow_empty          = m4_idle, idle_empty
+anm_idle_crouch_slow_jammed         = m4_idle, idle_jammed
+
+anm_idle_w_gl                            = m4_gloff_idle
+anm_idle_empty_w_gl                      = m4_gloff_idle, idle_empty
+anm_idle_jammed_w_gl                     = m4_gloff_idle, idle_jammed
+anm_idle_slow_w_gl                       = m4_gloff_idle
+anm_idle_slow_empty_w_gl                 = m4_gloff_idle, idle_empty
+anm_idle_slow_jammed_w_gl                = m4_gloff_idle, idle_jammed
+anm_idle_crouch_w_gl                     = m4_gloff_idle
+anm_idle_crouch_empty_w_gl               = m4_gloff_idle, idle_empty
+anm_idle_crouch_jammed_w_gl              = m4_gloff_idle, idle_jammed
+anm_idle_crouch_slow_w_gl                = m4_gloff_idle
+anm_idle_crouch_slow_empty_w_gl          = m4_gloff_idle, idle_empty
+anm_idle_crouch_slow_jammed_w_gl         = m4_gloff_idle, idle_jammed
+
+anm_idle_g                            = m4_glon_idle, m4_glon_idle
+anm_idle_empty_g                      = m4_glon_idle, m4_glon_idle_empty
+anm_idle_jammed_g                     = m4_glon_idle, m4_glon_idle_jammed
+anm_idle_slow_g                       = m4_glon_idle, m4_glon_idle
+anm_idle_slow_empty_g                 = m4_glon_idle, m4_glon_idle_empty
+anm_idle_slow_jammed_g                = m4_glon_idle, m4_glon_idle_jammed
+anm_idle_crouch_g                     = m4_glon_idle, m4_glon_idle
+anm_idle_crouch_empty_g               = m4_glon_idle, m4_glon_idle_empty
+anm_idle_crouch_jammed_g              = m4_glon_idle, m4_glon_idle_jammed
+anm_idle_crouch_slow_g                = m4_glon_idle, m4_glon_idle
+anm_idle_crouch_slow_empty_g          = m4_glon_idle, m4_glon_idle_empty
+anm_idle_crouch_slow_jammed_g         = m4_glon_idle, m4_glon_idle_jammed
+
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = m4_aim_start
+anm_idle_aim_start_empty       = m4_aim_start, idle_empty
+anm_idle_aim_start_jammed      = m4_aim_start, idle_jammed
+
+anm_idle_aim_start_w_gl        = m4_gloff_aim_start
+anm_idle_aim_start_empty_w_gl  = m4_gloff_aim_start, idle_empty
+anm_idle_aim_start_jammed_w_gl = m4_gloff_aim_start, idle_jammed
+
+anm_idle_aim_start_g           = m4_glon_aim_start, m4_glon_idle
+anm_idle_aim_start_empty_g     = m4_glon_aim_start, m4_glon_idle_empty
+anm_idle_aim_start_jammed_g    = m4_glon_aim_start, m4_glon_idle_jammed
+
+anm_idle_aim                   = m4_aim
+anm_idle_aim_empty             = m4_aim, idle_empty
+anm_idle_aim_jammed            = m4_aim, idle_jammed
+anm_idle_aim_scope             = m4_aim
+anm_idle_aim_scope_empty       = m4_aim, idle_empty
+anm_idle_aim_scope_jammed      = m4_aim, idle_jammed
+
+anm_idle_aim_w_gl                   = m4_gloff_aim
+anm_idle_aim_empty_w_gl             = m4_gloff_aim, idle_empty
+anm_idle_aim_jammed_w_gl            = m4_gloff_aim, idle_jammed
+anm_idle_aim_scope_w_gl             = m4_gloff_aim
+anm_idle_aim_scope_empty_w_gl       = m4_gloff_aim, idle_empty
+anm_idle_aim_scope_jammed_w_gl      = m4_gloff_aim, idle_jammed
+
+anm_idle_aim_g                   = m4_glon_aim, m4_glon_idle
+anm_idle_aim_empty_g             = m4_glon_aim, m4_glon_idle_empty
+anm_idle_aim_jammed_g            = m4_glon_aim, m4_glon_idle_jammed
+anm_idle_aim_scope_g             = m4_glon_aim, m4_glon_idle
+anm_idle_aim_scope_empty_g       = m4_glon_aim, m4_glon_idle_empty
+anm_idle_aim_scope_jammed_g      = m4_glon_aim, m4_glon_idle_jammed
+
+anm_idle_aim_end               = m4_aim_end
+anm_idle_aim_end_empty         = m4_aim_end
+anm_idle_aim_end_jammed        = m4_aim_end, idle_jammed
+
+anm_idle_aim_end_w_gl          = m4_gloff_aim_end
+anm_idle_aim_end_empty_w_gl    = m4_gloff_aim_end, idle_empty
+anm_idle_aim_end_jammed_w_gl   = m4_gloff_aim_end, m4_gloff_aim_end_jammed
+
+anm_idle_aim_end_g             = m4_glon_aim_end, m4_glon_idle
+anm_idle_aim_end_empty_g       = m4_glon_aim_end, m4_glon_idle_empty
+anm_idle_aim_end_jammed_g      = m4_glon_aim_end, m4_glon_idle_jammed
+
+
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 						= m4_walk
+anm_idle_moving_jammed 					= m4_walk, idle_jammed
+anm_idle_moving_empty					= m4_walk, idle_empty
+
+anm_idle_moving_w_gl 					= m4_gloff_walk
+anm_idle_moving_jammed_w_gl 			= m4_gloff_walk, idle_jammed
+anm_idle_moving_empty_w_gl				= m4_gloff_walk, idle_empty
+
+anm_idle_moving_g 						= m4_glon_walk, m4_glon_idle
+anm_idle_moving_jammed_g 				= m4_glon_walk, m4_glon_idle_jammed
+anm_idle_moving_empty_g					= m4_glon_walk, m4_glon_idle_empty
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= m4_walk_slow
+anm_idle_moving_slow_jammed 			= m4_walk_slow, idle_jammed
+anm_idle_moving_slow_empty				= m4_walk_slow, idle_empty
+
+anm_idle_moving_slow_w_gl 				= m4_gloff_walk_slow
+anm_idle_moving_slow_jammed_w_gl 		= m4_gloff_walk_slow, idle_jammed
+anm_idle_moving_slow_empty_w_gl			= m4_gloff_walk_slow, idle_empty
+
+anm_idle_moving_slow_g 					= m4_glon_walk_slow, m4_glon_idle
+anm_idle_moving_slow_jammed_g 			= m4_glon_walk_slow, m4_glon_idle_jammed
+anm_idle_moving_slow_empty_g			= m4_glon_walk_slow, m4_glon_idle_empty
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					= m4_walk_slow_down
+anm_idle_moving_crouch_jammed 			= m4_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty			= m4_walk_slow_down, idle_empty
+
+anm_idle_moving_crouch_w_gl 			= m4_gloff_walk_slow_down
+anm_idle_moving_crouch_jammed_w_gl 		= m4_gloff_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty_w_gl		= m4_gloff_walk_slow_down, idle_empty
+
+anm_idle_moving_crouch_g 				= m4_glon_walk_slow_down, m4_glon_idle
+anm_idle_moving_crouch_jammed_g 		= m4_glon_walk_slow_down, m4_glon_idle_jammed
+anm_idle_moving_crouch_empty_g			= m4_glon_walk_slow_down, m4_glon_idle_empty
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 				= m4_walk_slow_super
+anm_idle_moving_crouch_slow_jammed 			= m4_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty			= m4_walk_slow_super, idle_empty
+
+anm_idle_moving_crouch_slow_w_gl 			= m4_gloff_walk_slow_super
+anm_idle_moving_crouch_slow_jammed_w_gl 	= m4_gloff_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty_w_gl		= m4_gloff_walk_slow_super, idle_empty
+
+anm_idle_moving_crouch_slow_g 				= m4_glon_walk_slow_super, m4_glon_idle
+anm_idle_moving_crouch_slow_jammed_g 		= m4_glon_walk_slow_super, m4_glon_idle_jammed
+anm_idle_moving_crouch_slow_empty_g			= m4_glon_walk_slow_super, m4_glon_idle_empty
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                             = m4_aim_walk 
+anm_idle_aim_moving_forward_empty                       = m4_aim_walk, idle_empty
+anm_idle_aim_moving_forward_jammed                      = m4_aim_walk, idle_jammed
+
+anm_idle_aim_moving_forward_w_gl                        = m4_gloff_aim_walk
+anm_idle_aim_moving_forward_empty_w_gl                  = m4_gloff_aim_walk, idle_empty
+anm_idle_aim_moving_forward_jammed_w_gl                 = m4_gloff_aim_walk, idle_jammed
+
+anm_idle_aim_moving_forward_g                           = m4_glon_aim_walk, m4_glon_idle
+anm_idle_aim_moving_forward_empty_g                     = m4_glon_aim_walk, m4_glon_idle_empty
+anm_idle_aim_moving_forward_jammed_g                    = m4_glon_aim_walk, m4_glon_idle_jammed
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                                = m4_aim_walk
+anm_idle_aim_moving_back_empty                          = m4_aim_walk, idle_empty
+anm_idle_aim_moving_back_jammed                         = m4_aim_walk, idle_jammed
+
+anm_idle_aim_moving_back_w_gl                           = m4_gloff_aim_walk
+anm_idle_aim_moving_back_empty_w_gl                     = m4_gloff_aim_walk, idle_empty
+anm_idle_aim_moving_back_jammed_w_gl                    = m4_gloff_aim_walk, idle_jammed
+
+anm_idle_aim_moving_back_g                              = m4_glon_aim_walk, m4_glon_idle
+anm_idle_aim_moving_back_empty_g                        = m4_glon_aim_walk, m4_glon_idle_empty
+anm_idle_aim_moving_back_jammed_g                       = m4_glon_aim_walk, m4_glon_idle_jammed
+
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                                = m4_aim_walk_left
+anm_idle_aim_moving_left_empty                          = m4_aim_walk_left, idle_empty
+anm_idle_aim_moving_left_jammed                         = m4_aim_walk_left, idle_jammed
+
+anm_idle_aim_moving_left_w_gl                           = m4_gloff_aim_walk_left
+anm_idle_aim_moving_left_empty_w_gl                     = m4_gloff_aim_walk_left, idle_empty
+anm_idle_aim_moving_left_jammed_w_gl                    = m4_gloff_aim_walk_left, idle_jammed
+
+anm_idle_aim_moving_left_g                              = m4_glon_aim_walk_left, m4_glon_idle
+anm_idle_aim_moving_left_empty_g                        = m4_glon_aim_walk_left, m4_glon_idle_empty
+anm_idle_aim_moving_left_jammed_g                       = m4_glon_aim_walk_left, m4_glon_idle_jammed
+
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                               = m4_aim_walk_right
+anm_idle_aim_moving_right_empty                         = m4_aim_walk_right, idle_empty
+anm_idle_aim_moving_right_jammed                        = m4_aim_walk_right, idle_jammed
+
+anm_idle_aim_moving_right_w_gl                          = m4_gloff_aim_walk_right
+anm_idle_aim_moving_right_empty_w_gl                    = m4_gloff_aim_walk_right, idle_empty
+anm_idle_aim_moving_right_jammed_w_gl                   = m4_gloff_aim_walk_right, idle_jammed
+
+anm_idle_aim_moving_right_g                             = m4_glon_aim_walk_right, m4_glon_idle
+anm_idle_aim_moving_right_empty_g                       = m4_glon_aim_walk_right, m4_glon_idle_empty
+anm_idle_aim_moving_right_jammed_g                      = m4_glon_aim_walk_right, m4_glon_idle_jammed
+ 
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                        = m4_aim_walk
+anm_idle_aim_moving_forward_left_empty                  = m4_aim_walk, idle_empty
+anm_idle_aim_moving_forward_left_jammed                 = m4_aim_walk, idle_jammed
+
+anm_idle_aim_moving_forward_left_w_gl                   = m4_gloff_aim_walk
+anm_idle_aim_moving_forward_left_empty_w_gl             = m4_gloff_aim_walk, idle_empty
+anm_idle_aim_moving_forward_left_jammed_w_gl            = m4_gloff_aim_walk, idle_jammed
+
+anm_idle_aim_moving_forward_left_g                      = m4_glon_aim_walk, m4_glon_idle
+anm_idle_aim_moving_forward_left_empty_g                = m4_glon_aim_walk, m4_glon_idle_empty
+anm_idle_aim_moving_forward_left_jammed_g               = m4_glon_aim_walk, m4_glon_idle_jammed
+
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                       = m4_aim_walk
+anm_idle_aim_moving_forward_right_empty                 = m4_aim_walk, idle_empty
+anm_idle_aim_moving_forward_right_jammed                = m4_aim_walk, idle_jammed
+
+anm_idle_aim_moving_forward_right_w_gl                  = m4_gloff_aim_walk
+anm_idle_aim_moving_forward_right_empty_w_gl            = m4_gloff_aim_walk, idle_empty
+anm_idle_aim_moving_forward_right_jammed_w_gl           = m4_gloff_aim_walk, idle_jammed
+
+anm_idle_aim_moving_forward_right_g                     = m4_glon_aim_walk, m4_glon_idle
+anm_idle_aim_moving_forward_right_empty_g               = m4_glon_aim_walk, m4_glon_idle_empty
+anm_idle_aim_moving_forward_right_jammed_g              = m4_glon_aim_walk, m4_glon_idle_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                           = m4_aim_walk
+anm_idle_aim_moving_back_left_empty                     = m4_aim_walk, idle_empty
+anm_idle_aim_moving_back_left_jammed                    = m4_aim_walk, idle_jammed
+
+anm_idle_aim_moving_back_left_w_gl                      = m4_gloff_aim_walk
+anm_idle_aim_moving_back_left_empty_w_gl                = m4_gloff_aim_walk, idle_empty
+anm_idle_aim_moving_back_left_jammed_w_gl               = m4_gloff_aim_walk, idle_jammed
+
+anm_idle_aim_moving_back_left_g                         = m4_glon_aim_walk, m4_glon_idle
+anm_idle_aim_moving_back_left_empty_g                   = m4_glon_aim_walk, m4_glon_idle_empty
+anm_idle_aim_moving_back_left_jammed_g                  = m4_glon_aim_walk, m4_glon_idle_jammed
+
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                          = m4_aim_walk
+anm_idle_aim_moving_back_right_empty                    = m4_aim_walk, idle_empty
+anm_idle_aim_moving_back_right_jammed                   = m4_aim_walk, idle_jammed
+
+anm_idle_aim_moving_back_right_w_gl                     = m4_gloff_aim_walk
+anm_idle_aim_moving_back_right_empty_w_gl               = m4_gloff_aim_walk, idle_empty
+anm_idle_aim_moving_back_right_jammed_w_gl              = m4_gloff_aim_walk, idle_jammed
+
+anm_idle_aim_moving_back_right_g                        = m4_glon_aim_walk, m4_glon_idle
+anm_idle_aim_moving_back_right_empty_g                  = m4_glon_aim_walk, m4_glon_idle_empty
+anm_idle_aim_moving_back_right_jammed_g                 = m4_glon_aim_walk, m4_glon_idle_jammed
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving	                        = m4_aim_walk_scope
+anm_idle_aim_scope_moving_empty		                = m4_aim_walk_scope, idle_empty
+anm_idle_aim_scope_moving_jammed	                = m4_aim_walk_scope, idle_jammed
+
+anm_idle_aim_scope_moving_w_gl	                    = m4_gloff_aim_walk_scope
+anm_idle_aim_scope_moving_empty_w_gl		        = m4_gloff_aim_walk_scope, idle_empty
+anm_idle_aim_scope_moving_jammed_w_gl	            = m4_gloff_aim_walk_scope, idle_jammed
+
+anm_idle_aim_scope_moving_g	                        = m4_glon_aim_walk, m4_glon_idle
+anm_idle_aim_scope_moving_empty_g		       		= m4_glon_aim_walk, m4_glon_idle_empty
+anm_idle_aim_scope_moving_jammed_g	                = m4_glon_aim_walk, m4_glon_idle_jammed
+
+
+;Бег//////////////////////////////////////////////////////////////////
+lock_time_anm_idle_sprint_start = 0.15
+lock_time_anm_idle_sprint_start_empty = 0.15
+lock_time_anm_idle_sprint_start_jammed = 0.15
+
+lock_time_anm_idle_sprint_start_w_gl = 0.15
+lock_time_anm_idle_sprint_start_empty_w_gl = 0.15
+lock_time_anm_idle_sprint_start_jammed_w_gl = 0.15
+
+lock_time_anm_idle_sprint_start_g = 0.15
+lock_time_anm_idle_sprint_start_empty_g = 0.15
+lock_time_anm_idle_sprint_start_jammed_g = 0.15
+
+anm_idle_sprint_start             = m4_sprint_start
+anm_idle_sprint_start_empty       = m4_sprint_start, idle_empty
+anm_idle_sprint_start_jammed      = m4_sprint_start, idle_jammed
+
+anm_idle_sprint_start_w_gl        = m4_gloff_sprint_start
+anm_idle_sprint_start_empty_w_gl  = m4_gloff_sprint_start, idle_empty
+anm_idle_sprint_start_jammed_w_gl = m4_gloff_sprint_start, idle_jammed
+
+anm_idle_sprint_start_g           = m4_glon_sprint_start, m4_glon_idle
+anm_idle_sprint_start_empty_g     = m4_glon_sprint_start, m4_glon_idle_empty
+anm_idle_sprint_start_jammed_g    = m4_glon_sprint_start, m4_glon_idle_jammed
+
+
+anm_idle_sprint                   = m4_sprint
+anm_idle_sprint_empty             = m4_sprint, idle_empty
+anm_idle_sprint_jammed            = m4_sprint, idle_jammed
+
+anm_idle_sprint_w_gl              = m4_gloff_sprint
+anm_idle_sprint_empty_w_gl        = m4_gloff_sprint, idle_empty
+anm_idle_sprint_jammed_w_gl       = m4_gloff_sprint, idle_jammed
+
+anm_idle_sprint_g                 = m4_glon_sprint, m4_glon_idle
+anm_idle_sprint_empty_g           = m4_glon_sprint, m4_glon_idle_empty
+anm_idle_sprint_jammed_g          = m4_glon_sprint, m4_glon_idle_jammed
+
+
+lock_time_anm_idle_sprint_end             = 0.35
+lock_time_anm_idle_sprint_end_empty       = 0.35
+lock_time_anm_idle_sprint_end_jammed      = 0.35
+
+lock_time_anm_idle_sprint_end_w_gl        = 0.35
+lock_time_anm_idle_sprint_end_empty_w_gl  = 0.35
+lock_time_anm_idle_sprint_end_jammed_w_gl = 0.35
+
+lock_time_anm_idle_sprint_end_g           = 0.35
+lock_time_anm_idle_sprint_end_empty_g     = 0.35
+lock_time_anm_idle_sprint_end_jammed_g    = 0.35
+
+
+anm_idle_sprint_end              = m4_sprint_end
+anm_idle_sprint_end_empty        = m4_sprint_end, idle_empty
+anm_idle_sprint_end_jammed       = m4_sprint_end, idle_jammed
+
+anm_idle_sprint_end_w_gl         = m4_gloff_sprint_end
+anm_idle_sprint_end_empty_w_gl   = m4_gloff_sprint_end, idle_empty
+anm_idle_sprint_end_jammed_w_gl  = m4_gloff_sprint_end, idle_jammed
+
+anm_idle_sprint_end_g            = m4_glon_sprint_end, m4_glon_idle
+anm_idle_sprint_end_empty_g      = m4_glon_sprint_end, m4_glon_idle
+anm_idle_sprint_end_jammed_g     = m4_glon_sprint_end, m4_glon_idle_jammed
+
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = m4_draw
+anm_bore_empty             = m4_draw, idle_empty
+anm_bore_jammed            = m4_draw, idle_jammed
+anm_bore_w_gl              = m4_gloff_draw
+anm_bore_empty_w_gl        = m4_gloff_draw, idle_empty
+anm_bore_jammed_w_gl       = m4_gloff_draw, idle_jammed
+anm_bore_g                 = m4_glon_draw, m4_glon_idle
+anm_bore_empty_g           = m4_glon_draw, m4_glon_idle_empty
+anm_bore_jammed_g          = m4_glon_draw, m4_glon_idle_jammed
+
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                      = m4_shoot, shoot
+anm_shoot_sil                  = m4_shoot, shoot
+anm_shoot_jammed	       	   = m4_shoot, idle_jammed
+anm_shoot_jammed_sil	       = m4_shoot, idle_jammed
+anm_shoot_last                 = m4_shoot, shoot_last
+anm_shoot_last_sil             = m4_shoot, shoot_last
+anm_shoot_aim                  = m4_aim_shoot, aim_shoot
+anm_shoot_aim_sil              = m4_aim_shoot, aim_shoot
+anm_shoot_aim_jammed	       = m4_aim_shoot, idle_jammed
+anm_shoot_aim_jammed_sil       = m4_aim_shoot, idle_jammed
+anm_shoot_aim_last             = m4_aim_shoot, aim_shoot_last
+anm_shoot_aim_last_sil         = m4_aim_shoot, aim_shoot_last
+anm_shoot_aim_scope            = m4_aim_shoot_scope, aim_shoot
+anm_shoot_aim_scope_sil        = m4_aim_shoot_scope, aim_shoot
+anm_shoot_aim_scope_last       = m4_aim_shoot_scope, aim_shoot_last
+anm_shoot_aim_scope_last_sil   = m4_aim_shoot_scope, aim_shoot_last
+anm_shoot_aim_scope_jammed     = m4_aim_shoot_scope, idle_jammed
+anm_shoot_aim_scope_jammed_sil = m4_aim_shoot_scope, idle_jammed
+
+anm_shoot_w_gl                      = m4_gloff_shoot, shoot
+anm_shoot_sil_w_gl                  = m4_gloff_shoot, shoot
+anm_shoot_jammed_w_gl	            = m4_gloff_shoot, idle_jammed
+anm_shoot_jammed_sil_w_gl	        = m4_gloff_shoot, idle_jammed
+anm_shoot_last_w_gl                 = m4_gloff_shoot, shoot_last
+anm_shoot_last_sil_w_gl             = m4_gloff_shoot, shoot_last
+anm_shoot_aim_w_gl                  = m4_gloff_aim_shoot, aim_shoot
+anm_shoot_aim_sil_w_gl              = m4_gloff_aim_shoot, aim_shoot
+anm_shoot_aim_jammed_w_gl	        = m4_gloff_aim_shoot, idle_jammed
+anm_shoot_aim_jammed_sil_w_gl       = m4_gloff_aim_shoot, idle_jammed
+anm_shoot_aim_last_w_gl             = m4_gloff_aim_shoot, aim_shoot_last
+anm_shoot_aim_last_sil_w_gl         = m4_gloff_aim_shoot, aim_shoot_last
+anm_shoot_aim_scope_w_gl            = m4_gloff_aim_shoot_scope, aim_shoot
+anm_shoot_aim_scope_sil_w_gl        = m4_gloff_aim_shoot_scope, aim_shoot
+anm_shoot_aim_scope_last_w_gl       = m4_gloff_aim_shoot_scope, aim_shoot_last
+anm_shoot_aim_scope_last_sil_w_gl   = m4_gloff_aim_shoot_scope, aim_shoot_last
+anm_shoot_aim_scope_jammed_w_gl     = m4_gloff_aim_shoot_scope, idle_jammed
+anm_shoot_aim_scope_jammed_sil_w_gl = m4_gloff_aim_shoot_scope, idle_jammed
+
+
+;Cтрельба с подствола////////////////////////////////////////////////////////////////////
+anm_shoot_g              = m4_glon_shoot, m4_glon_idle
+anm_shoot_empty_g        = m4_glon_shoot, m4_glon_idle_empty
+anm_shoot_jammed_g       = m4_glon_shoot, m4_glon_idle_jammed
+anm_shoot_aim_g          = m4_glon_aim_shoot, m4_glon_idle
+anm_shoot_aim_empty_g    = m4_glon_aim_shoot, m4_glon_idle_empty
+anm_shoot_aim_jammed_g   = m4_glon_aim_shoot, m4_glon_idle_jammed
+
+;Перезарядка подствола///////////////////////////////////////////////////////////////////
+anm_reload_g                   = m4_gl_reload, m4_gl_reload
+anm_reload_empty_g             = m4_gl_reload, m4_gl_reload_empty
+anm_reload_jammed_g            = m4_gl_reload, m4_gl_reload_jammed
+
+;Переключение на патроны/////////////////////////////////////////////////////////////////
+anm_switch                 = m4_gl_deactivate, m4_gl_deactivate
+anm_switch_w_gl            = m4_gl_deactivate, m4_gl_deactivate
+anm_switch_empty_w_gl      = m4_gl_deactivate, m4_gl_deactivate_empty
+anm_switch_jammed_w_gl     = m4_gl_deactivate, m4_gl_deactivate_jammed
+
+;Переключение на гранаты/////////////////////////////////////////////////////////////////
+anm_switch_g              = m4_gl_activate, m4_gl_activate
+anm_switch_empty_g        = m4_gl_activate, m4_gl_activate_empty
+anm_switch_jammed_g       = m4_gl_activate, m4_gl_activate_jammed
+
+;Осечка//////////////////////////////////////////////////
+lock_time_anm_fakeshoot_empty      = 0.20
+anm_fakeshoot_empty                = m4_dry_empty
+lock_time_anm_fakeshoot_aim_empty  = 0.20
+anm_fakeshoot_aim_empty            = m4_aim_dry, idle_empty
+lock_time_anm_fakeshoot_jammed     = 0.90
+anm_fakeshoot_jammed               = m4_dry, idle_jammed
+lock_time_anm_fakeshoot_aim_jammed = 0.20
+anm_fakeshoot_aim_jammed           = m4_aim_dry, m4_aim_jammed
+
+lock_time_anm_fakeshoot_empty_w_gl      = 0.20
+anm_fakeshoot_empty_w_gl                = m4_gloff_dry_empty, idle_empty
+lock_time_anm_fakeshoot_aim_empty_w_gl  = 0.20
+anm_fakeshoot_aim_empty_w_gl            = m4_gloff_aim_dry, idle_empty
+lock_time_anm_fakeshoot_jammed_w_gl     = 0.90
+anm_fakeshoot_jammed_w_gl               = m4_gloff_dry, idle_jammed
+lock_time_anm_fakeshoot_aim_jammed_w_gl = 0.20
+anm_fakeshoot_aim_jammed_w_gl           = m4_gloff_aim_dry, idle_jammed
+
+lock_time_anm_fakeshoot_g     = 0.20
+anm_fakeshoot_g               = m4_glon_dry_empty, m4_glon_idle
+lock_time_anm_fakeshoot_aim_g = 0.20
+anm_fakeshoot_aim_g           = m4_glon_aim_dry, m4_glon_idle
+
+lock_time_anm_fakeshoot_jammed_g     = 0.20
+anm_fakeshoot_jammed_g               = m4_glon_dry_empty, m4_glon_idle_jammed
+lock_time_anm_fakeshoot_aim_jammed_g = 0.20
+anm_fakeshoot_aim_jammed_g           = m4_glon_aim_dry, m4_glon_idle_jammed
+
+lock_time_anm_fakeshoot_empty_g     = 0.20
+anm_fakeshoot_empty_g               = m4_glon_dry_empty, m4_glon_idle_empty
+lock_time_anm_fakeshoot_aim_empty_g = 0.20
+anm_fakeshoot_aim_empty_g           = m4_glon_aim_dry, m4_glon_idle_empty
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                           = m4_reload, reload_empty_new
+anm_reload_empty                     = m4_reload_empty, reload_empty_new
+anm_reload_jammed                    = m4_revival, revival
+anm_reload_jammed_last               = m4_revival, revival
+anm_reload_w_gl                      = m4_gloff_reload, reload_empty_new
+anm_reload_empty_w_gl                = m4_gloff_reload_empty, reload_empty_new
+anm_reload_jammed_w_gl               = m4_gloff_revival, revival
+anm_reload_jammed_last_w_gl          = m4_gloff_revival, revival
+
+
+
+;Анимации устарнения осечки при отсутствии установленного прицела.
+anm_reload_jammed_noscope            = m4_revival, revival
+anm_reload_jammed_last_noscope       = m4_revival, revival
+anm_reload_jammed_w_gl_noscope       = m4_gloff_revival, revival
+anm_reload_jammed_last_w_gl_noscope  = m4_gloff_revival, revival
+
+;Включение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_on                                = m4_tac_lam
+lock_time_start_anm_laser_on = 0.35
+lock_time_end_anm_laser_on = 0.55
+
+anm_laser_on_empty                          = m4_tac_lam, idle_empty
+lock_time_start_anm_laser_on_empty = 0.35
+lock_time_end_anm_laser_on_empty = 0.55
+
+anm_laser_on_jammed                         = m4_tac_lam, idle_jammed
+lock_time_start_anm_laser_on_jammed = 0.35
+lock_time_end_anm_laser_on_jammed = 0.55
+
+
+;Выключение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_off                               = m4_tac_lam
+lock_time_start_anm_laser_off = 0.35
+lock_time_end_anm_laser_off = 0.55
+
+anm_laser_off_empty                         = m4_tac_lam, idle_empty
+lock_time_start_anm_laser_off_empty = 0.35
+lock_time_end_anm_laser_off_empty = 0.55
+
+anm_laser_off_jammed                        = m4_tac_lam, idle_jammed
+lock_time_start_anm_laser_off_jammed = 0.35
+lock_time_end_anm_laser_off_jammed = 0.55
+
+
+;Включение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_on                                = m4_tac_lam
+lock_time_start_anm_torch_on = 0.35
+lock_time_end_anm_torch_on = 0.55
+
+anm_torch_on_empty                          = m4_tac_lam, idle_empty
+lock_time_start_anm_torch_on_empty = 0.35
+lock_time_end_anm_torch_on_empty = 0.55
+
+anm_torch_on_jammed                         = m4_tac_lam, idle_jammed
+lock_time_start_anm_torch_on_jammed = 0.35
+lock_time_end_anm_torch_on_jammed = 0.55
+
+
+;Выключение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_off                               = m4_tac_lam
+lock_time_start_anm_torch_off = 0.35
+lock_time_end_anm_torch_off = 0.55
+
+anm_torch_off_empty                         = m4_tac_lam, idle_empty
+lock_time_start_anm_torch_off_empty = 0.35
+lock_time_end_anm_torch_off_empty = 0.55
+
+anm_torch_off_jammed                        = m4_tac_lam, idle_jammed
+lock_time_start_anm_torch_off_jammed = 0.35
+lock_time_end_anm_torch_off_jammed = 0.55
+
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on                             = m4_headflash
+lock_time_start_anm_headlamp_on = 0.58
+lock_time_end_anm_headlamp_on = 0.5
+
+anm_headlamp_on_empty                       = m4_headflash, idle_empty
+lock_time_start_anm_headlamp_on_empty = 0.58
+lock_time_end_anm_headlamp_on_empty = 0.5
+
+anm_headlamp_on_jammed                      = m4_headflash, idle_jammed
+lock_time_start_anm_headlamp_on_jammed = 0.58
+lock_time_end_anm_headlamp_on_jammed = 0.5
+
+
+anm_headlamp_on_w_gl                        = m4_gloff_headflash
+lock_time_start_anm_headlamp_on_w_gl = 0.58
+lock_time_end_anm_headlamp_on_w_gl = 0.5
+
+anm_headlamp_on_empty_w_gl                  = m4_gloff_headflash, idle_empty
+lock_time_start_anm_headlamp_on_empty_w_gl = 0.58
+lock_time_end_anm_headlamp_on_empty_w_gl = 0.5
+
+anm_headlamp_on_jammed_w_gl                 = m4_gloff_headflash, idle_jammed
+lock_time_start_anm_headlamp_on_jammed_w_gl = 0.58
+lock_time_end_anm_headlamp_on_jammed_w_gl = 0.5
+
+
+anm_headlamp_on_g                        = m4_glon_headflash, m4_glon_idle
+lock_time_start_anm_headlamp_on_g = 0.58
+lock_time_end_anm_headlamp_on_g = 0.5
+
+anm_headlamp_on_empty_g                  = m4_glon_headflash, m4_glon_idle_empty
+lock_time_start_anm_headlamp_on_empty_g = 0.58
+lock_time_end_anm_headlamp_on_empty_g = 0.5
+
+anm_headlamp_on_jammed_g                 = m4_glon_headflash, m4_glon_idle_jammed
+lock_time_start_anm_headlamp_on_jammed_g = 0.58
+lock_time_end_anm_headlamp_on_jammed_g = 0.5
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off                            = m4_headflash
+lock_time_start_anm_headlamp_off = 0.58
+lock_time_end_anm_headlamp_off = 0.5
+
+anm_headlamp_off_empty                      = m4_headflash, idle_empty
+lock_time_start_anm_headlamp_off_empty = 0.58
+lock_time_end_anm_headlamp_off_empty = 0.5
+
+anm_headlamp_off_jammed                     = m4_headflash, idle_jammed
+lock_time_start_anm_headlamp_off_jammed = 0.58
+lock_time_end_anm_headlamp_off_jammed = 0.5
+
+
+anm_headlamp_off_w_gl                       = m4_gloff_headflash
+lock_time_start_anm_headlamp_off_w_gl = 0.58
+lock_time_end_anm_headlamp_off_w_gl = 0.5
+
+anm_headlamp_off_empty_w_gl                 = m4_gloff_headflash, idle_empty
+lock_time_start_anm_headlamp_off_empty_w_gl = 0.58
+lock_time_end_anm_headlamp_off_empty_w_gl = 0.5
+
+anm_headlamp_off_jammed_w_gl                = m4_gloff_headflash, idle_jammed
+lock_time_start_anm_headlamp_off_jammed_w_gl = 0.58
+lock_time_end_anm_headlamp_off_jammed_w_gl = 0.5
+
+
+anm_headlamp_off_g                       = m4_glon_headflash, m4_glon_idle
+lock_time_start_anm_headlamp_off_g = 0.58
+lock_time_end_anm_headlamp_off_g = 0.5
+
+anm_headlamp_off_empty_g                 = m4_glon_headflash, m4_glon_idle_empty
+lock_time_start_anm_headlamp_off_empty_g = 0.58
+lock_time_end_anm_headlamp_off_empty_g = 0.5
+
+anm_headlamp_off_jammed_g                = m4_glon_headflash, m4_glon_idle_jammed
+lock_time_start_anm_headlamp_off_jammed_g = 0.58
+lock_time_end_anm_headlamp_off_jammed_g = 0.5
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on                                   = m4_headflash
+anm_nv_on_empty                             = m4_headflash, idle_empty
+anm_nv_on_jammed                            = m4_headflash, idle_jammed
+
+anm_nv_on_w_gl                              = m4_gloff_headflash
+anm_nv_on_empty_w_gl                        = m4_gloff_headflash, idle_empty
+anm_nv_on_jammed_w_gl                       = m4_gloff_headflash, idle_jammed
+
+anm_nv_on_g                                 = m4_glon_headflash, m4_glon_idle
+anm_nv_on_empty_g                           = m4_glon_headflash, m4_glon_idle_empty
+anm_nv_on_jammed_g                          = m4_glon_headflash, m4_glon_idle_jammed
+
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off                                  = m4_headflash
+anm_nv_off_empty                            = m4_headflash, idle_empty
+anm_nv_off_jammed                           = m4_headflash, idle_jammed
+
+anm_nv_off_w_gl                             = m4_gloff_headflash
+anm_nv_off_empty_w_gl                       = m4_gloff_headflash, idle_empty
+anm_nv_off_jammed_w_gl                      = m4_gloff_headflash, idle_empty
+
+anm_nv_off_g                                = m4_glon_headflash, m4_glon_idle
+anm_nv_off_empty_g                          = m4_glon_headflash, m4_glon_idle_empty
+anm_nv_off_jammed_g                         = m4_glon_headflash, m4_glon_idle_jammed
+
+[wpn_m4_eotech]:wpn_m4
+
+hidden_bones = laser, grip, s_kemper, s_aimpoint, s_acog, s_pn23, s_leupold, s_specter, s_susat, ironsight, mag_60, mag_45
+
+hud = wpn_m4_eotech_hud
+
+scope_name              = wpn_addon_scope_eotech
+scope_x              	= 82
+scope_y                 = -6
+
+
+[wpn_m4_eotech_hud]:wpn_m4_hud
+
+aim_hud_offset_pos = 0.0,0.0043,0.0
+aim_hud_offset_rot = 0.03,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0043.0
+aim_hud_offset_rot_16x9 = 0.03,0.0,0.0
+
+
+[wpn_m4_susat_dusk]:wpn_m4
+
+hidden_bones = laser, grip, s_kemper, s_eot, s_acog, s_pn23, s_leupold, s_specter, s_susat, ironsight, mag_60, mag_45
+
+hud = wpn_m4_susat_dusk_hud
+
+scope_name              = wpn_addon_scope_susat_dusk
+scope_x              	= 85
+scope_y                 = -10
+
+
+[wpn_m4_susat_dusk_hud]:wpn_m4_hud
+
+aim_hud_offset_pos = 0.0,-0.0176,0.0
+aim_hud_offset_rot = 0.0025,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0176,0.0
+aim_hud_offset_rot_16x9 = 0.0025,0.0,0.0
+
+
+[wpn_m4_kemper]:wpn_m4
+
+hidden_bones = laser, grip, s_eot, s_aimpoint, s_acog, s_pn23, s_leupold, s_specter, s_susat, ironsight, mag_60, mag_45
+
+hud = wpn_m4_kemper_hud
+
+scope_name              = wpn_addon_scope_kemper
+scope_x              	= 82
+scope_y                 = -8
+
+
+[wpn_m4_kemper_hud]:wpn_m4_hud
+
+aim_hud_offset_pos = 0.0,-0.0021,0.0
+aim_hud_offset_rot = 0.03,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0021,0.0
+aim_hud_offset_rot_16x9 = 0.03,0.0,0.0
+
+
+[wpn_m4_acog]:wpn_m4
+
+hidden_bones = laser, grip, s_kemper, s_eot, s_aimpoint, s_pn23, s_leupold, s_specter, s_susat, ironsight, mag_60, mag_45
+
+hud = wpn_m4_acog_hud
+
+scope_name              = wpn_addon_scope_acog
+scope_x              	= 74                 ; offset in inventory icon
+scope_y                 = -8
+
+
+[wpn_m4_acog_hud]:wpn_m4_hud
+
+aim_hud_offset_pos = 0.0,-0.016,-0.076
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.016,-0.076
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_m4_elcan]:wpn_m4
+
+hidden_bones = laser, grip, s_kemper, s_eot, s_aimpoint, s_acog, s_pn23, s_leupold, s_susat, ironsight, mag_60, mag_45
+
+hud = wpn_m4_elcan_hud
+
+scope_name              = wpn_addon_scope_elcan
+scope_x              	= 54                 ; offset in inventory icon
+scope_y                 = -7
+
+
+[wpn_m4_elcan_hud]:wpn_m4_hud
+
+aim_hud_offset_pos = 0.0,-0.0205,-0.12
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0205,-0.12
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_m4_susat_night]:wpn_m4
+
+hidden_bones = laser, grip, s_kemper, s_eot, s_aimpoint, s_acog, s_leupold, s_specter, s_susat, ironsight, mag_60, mag_45
+
+hud = wpn_m4_susat_night_hud
+
+scope_name              = wpn_addon_scope_susat_night
+scope_x              	= 44                 ; offset in inventory icon
+scope_y                 = -8
+
+scope_lense_hud_fov = 0.3
+
+[wpn_m4_susat_night_hud]:wpn_m4_hud
+
+aim_hud_offset_pos = 0.0,-0.0415,-0.003
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0415,-0.003
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_m4_leupold]:wpn_m4
+
+hidden_bones = laser, grip, s_kemper, s_eot, s_aimpoint, s_acog, s_pn23, s_specter, s_susat, ironsight, mag_60, mag_45
+
+hud = wpn_m4_leupold_hud
+
+scope_name              = wpn_addon_scope_leupold
+scope_x              	= 54                 ; offset in inventory icon
+scope_y                 = 0
+
+scope_lense_hud_fov = 0.3
+
+[wpn_m4_leupold_hud]:wpn_m4_hud
+
+aim_hud_offset_pos = 0.0,-0.0195,-0.034
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0195,-0.034
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_m4_susat]:wpn_m4
+
+hidden_bones = laser, grip, s_kemper, s_eot, s_aimpoint, s_acog, s_pn23, s_leupold, s_specter, ironsight, mag_60, mag_45
+
+hud = wpn_m4_susat_hud
+
+scope_name              = wpn_addon_scope_susat
+scope_x              	= 80                 ; offset in inventory icon
+scope_y                 = -8
+
+
+[wpn_m4_susat_hud]:wpn_m4_hud
+
+aim_hud_offset_pos = 0.0,-0.0385,-0.121
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0385,-0.121
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_m4_tact]:wpn_m4, red_laser, tactical_torch
+
+hidden_bones = s_eot, s_kemper, s_aimpoint, s_acog, s_pn23, s_leupold, s_specter, s_susat, mag_30, mag_45
+
+cost                    = 10000
+inv_weight           	= 3.5
+
+ammo_elapsed            = 60
+ammo_mag_size           = 60
+
+inv_name          = gunsl_wpn_m4_tact
+inv_name_short    = gunsl_wpn_m4_tact
+
+inv_grid_x           	= 20
+inv_grid_y           	= 32
+
+hud = wpn_m4_tact_hud
+
+;--дисперсия----------------------------------------------------------------------------
+;базовая дисперсия
+fire_dispersion_base    = 0.21    ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+control_inertion_factor = 1.4f
+crosshair_inertion		= 6.20
+
+;отдача
+cam_return				= 0
+cam_relax_speed         = 5      ;скорость возврата в исходное положение
+cam_dispersion          = 0.75      ;увеличения угла (в градусах) с первым выстрелом
+cam_dispersion_inc      = 0.4    ;увеличениe cam_dispersion с каждым выстрелом
+cam_step_angle_horz     = 2.0    ;(degree) size of step camera moved in horizontal position while shooting
+
+PDM_disp_base 				= 1.2
+PDM_disp_vel_factor 		= 2.0
+PDM_disp_accel_factor 		= 2.0
+
+zoom_cam_dispersion          = 0.4
+zoom_cam_dispersion_frac     = 0.8
+zoom_cam_step_angle_horz     = 1.8
+
+grenade_launcher_status = 0
+
+scope_respawn                                        = wpn_m4_tact
+scope_respawn_wpn_addon_scope_susat                  = wpn_m4_tact_susat
+scope_respawn_wpn_addon_scope_eotech                 = wpn_m4_tact_eotech
+scope_respawn_wpn_addon_scope_susat_dusk             = wpn_m4_tact_susat_dusk
+scope_respawn_wpn_addon_scope_kemper                 = wpn_m4_tact_kemper
+scope_respawn_wpn_addon_scope_elcan                  = wpn_m4_tact_elcan
+scope_respawn_wpn_addon_scope_susat_night            = wpn_m4_tact_susat_night
+scope_respawn_wpn_addon_scope_acog                   = wpn_m4_tact_acog
+scope_respawn_wpn_addon_scope_leupold                = wpn_m4_tact_leupold
+
+laserdot_attach_offset_x = -0.011000
+laserdot_attach_offset_y = 0.083500
+laserdot_attach_offset_z = -0.400000
+
+torch_attach_offset_x = -0.07
+torch_attach_offset_y = 0.12
+torch_attach_offset_z = -0.2
+torch_omni_attach_offset_x = -0.07
+torch_omni_attach_offset_y = 0.12
+torch_omni_attach_offset_z = -0.23
+torch_omni_range = 0.25
+torch_r2_omni_range = 0.25
+
+
+laserdot_world_attach_offset_x = -0.035
+laserdot_world_attach_offset_y = 0.133
+laserdot_world_attach_offset_z = 0.281
+
+torch_world_attach_offset_x = -0.035
+torch_world_attach_offset_y = 0.168
+torch_world_attach_offset_z = 0.283
+
+torch_omni_world_attach_offset_x = -0.035
+torch_omni_world_attach_offset_y = 0.168
+torch_omni_world_attach_offset_z = 0.283
+
+[wpn_m4_tact_hud]:wpn_m4_hud
+
+;Доставание///////////////////////////////////////////////////
+anm_show                   = m4_tac_draw
+anm_show_empty             = m4_tac_draw, idle_empty
+anm_show_jammed            = m4_tac_draw, idle_jammed
+
+;Убирание/////////////////////////////////////////////////////
+anm_hide                   = m4_tac_hide
+anm_hide_empty             = m4_tac_hide, idle_empty
+anm_hide_jammed            = m4_tac_hide, idle_jammed
+
+;Бездействие//////////////////////////////////////////////////
+anm_idle                            = m4_tac_idle
+anm_idle_empty                      = m4_tac_idle, idle_empty
+anm_idle_jammed                     = m4_tac_idle, idle_jammed
+anm_idle_slow                       = m4_tac_idle
+anm_idle_slow_empty                 = m4_tac_idle, idle_empty
+anm_idle_slow_jammed                = m4_tac_idle, idle_jammed
+anm_idle_crouch                     = m4_tac_idle
+anm_idle_crouch_empty               = m4_tac_idle, idle_empty
+anm_idle_crouch_jammed              = m4_tac_idle, idle_jammed
+anm_idle_crouch_slow                = m4_tac_idle
+anm_idle_crouch_slow_empty          = m4_tac_idle, idle_empty
+anm_idle_crouch_slow_jammed         = m4_tac_idle, idle_jammed
+
+;Бездействие в прицеливании///////////////////////////////////
+anm_idle_aim_start             = m4_tac_aim_start
+anm_idle_aim_start_empty       = m4_tac_aim_start, idle_empty
+anm_idle_aim_start_jammed      = m4_tac_aim_start, m4_aim_start_jammed
+
+anm_idle_aim                   = m4_tac_aim
+anm_idle_aim_empty             = m4_tac_aim, idle_empty
+anm_idle_aim_jammed            = m4_tac_aim, idle_jammed
+anm_idle_aim_scope             = m4_tac_aim
+anm_idle_aim_scope_empty       = m4_tac_aim, idle_empty
+anm_idle_aim_scope_jammed      = m4_tac_aim, idle_jammed
+
+anm_idle_aim_end               = m4_tac_aim_end
+anm_idle_aim_end_empty         = m4_tac_aim_end, idle_empty
+anm_idle_aim_end_jammed        = m4_tac_aim_end, idle_jammed
+
+;Ходьба ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving 					= m4_tac_walk
+anm_idle_moving_jammed 					= m4_tac_walk, idle_jammed
+anm_idle_moving_empty					= m4_tac_walk, idle_empty
+
+;Ходьба медленная (SHIFT) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_slow 					= m4_tac_walk_slow
+anm_idle_moving_slow_jammed 				= m4_tac_walk_slow, idle_jammed
+anm_idle_moving_slow_empty				= m4_tac_walk_slow, idle_empty
+
+;Ходьба в полуприсяди (CTRL) ВПЕРЕД//////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch 					= m4_tac_walk_slow_down
+anm_idle_moving_crouch_jammed 				= m4_tac_walk_slow_down, idle_jammed
+anm_idle_moving_crouch_empty				= m4_tac_walk_slow_down, idle_empty
+
+;Ходьба в присяде (CTRL+SHIFT) ВПЕРЕД/////////////////////////////////////////////////////////////////////////
+anm_idle_moving_crouch_slow 				= m4_tac_walk_slow_super
+anm_idle_moving_crouch_slow_jammed 			= m4_tac_walk_slow_super, idle_jammed
+anm_idle_moving_crouch_slow_empty			= m4_tac_walk_slow_super, idle_empty
+
+;ходьба в прицеливании ВПЕРЕД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward                             = m4_tac_aim_walk
+anm_idle_aim_moving_forward_empty                       = m4_tac_aim_walk, idle_empty
+anm_idle_aim_moving_forward_jammed                      = m4_tac_aim_walk, idle_jammed
+
+;ходьба в прицеливании НАЗАД//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back                                = m4_tac_aim_walk
+anm_idle_aim_moving_back_empty                          = m4_tac_aim_walk, idle_empty
+anm_idle_aim_moving_back_jammed                         = m4_tac_aim_walk, idle_jammed
+
+;ходьба в прицеливании ВЛЕВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_left                                = m4_tac_aim_walk_left
+anm_idle_aim_moving_left_empty                          = m4_tac_aim_walk_left, idle_empty
+anm_idle_aim_moving_left_jammed                         = m4_tac_aim_walk_left, idle_jammed
+
+;ходьба в прицеливании ВПРАВО//////////////////////////////////////////////////////////////////
+anm_idle_aim_moving_right                               = m4_tac_aim_walk_right
+anm_idle_aim_moving_right_empty                         = m4_tac_aim_walk_right, idle_empty
+anm_idle_aim_moving_right_jammed                        = m4_tac_aim_walk_right, idle_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВЛЕВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_left                        = m4_tac_aim_walk, m4_aim
+anm_idle_aim_moving_forward_left_empty                  = m4_tac_aim_walk, m4_aim
+anm_idle_aim_moving_forward_left_jammed                 = m4_tac_aim_walk, idle_jammed
+
+;ходьба в прицеливании ВПЕРЕД+ВПРАВО///////////////////////////////////////////////////////////
+anm_idle_aim_moving_forward_right                       = m4_tac_aim_walk
+anm_idle_aim_moving_forward_right_empty                 = m4_tac_aim_walk, idle_empty
+anm_idle_aim_moving_forward_right_jammed                = m4_tac_aim_walk, idle_jammed
+
+;ходьба в прицеливании НАЗАД+ВЛЕВО/////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_left                           = m4_tac_aim_walk
+anm_idle_aim_moving_back_left_empty                     = m4_tac_aim_walk, idle_empty
+anm_idle_aim_moving_back_left_jammed                    = m4_tac_aim_walk, idle_jammed
+
+;ходьба в прицеливании НАЗАД+ВПРАВО////////////////////////////////////////////////////////////
+anm_idle_aim_moving_back_right                          = m4_tac_aim_walk
+anm_idle_aim_moving_back_right_empty                    = m4_tac_aim_walk, idle_empty
+anm_idle_aim_moving_back_right_jammed                   = m4_tac_aim_walk, idle_jammed
+
+;ходьба в прицеливании при надетом прицеле////////////////////////////////////////////////////
+anm_idle_aim_scope_moving	                        = m4_tac_aim_walk_scope
+anm_idle_aim_scope_moving_empty		                = m4_tac_aim_walk_scope, idle_empty
+anm_idle_aim_scope_moving_jammed	                = m4_tac_aim_walk_scope, idle_jammed
+
+;Бег//////////////////////////////////////////////////////////////////
+lock_time_anm_idle_sprint_start = 0.15
+lock_time_anm_idle_sprint_start_empty = 0.15
+lock_time_anm_idle_sprint_start_jammed = 0.15
+
+lock_time_anm_idle_sprint_start_w_gl = 0.15
+lock_time_anm_idle_sprint_start_empty_w_gl = 0.15
+lock_time_anm_idle_sprint_start_jammed_w_gl = 0.15
+
+lock_time_anm_idle_sprint_start_g = 0.15
+lock_time_anm_idle_sprint_start_empty_g = 0.15
+lock_time_anm_idle_sprint_start_jammed_g = 0.15
+
+anm_idle_sprint_start             = m4_tac_sprint_start
+anm_idle_sprint_start_empty       = m4_tac_sprint_start, idle_empty
+anm_idle_sprint_start_jammed      = m4_tac_sprint_start, idle_jammed
+
+anm_idle_sprint                   = m4_tac_sprint
+anm_idle_sprint_empty             = m4_tac_sprint, idle_empty
+anm_idle_sprint_jammed            = m4_tac_sprint, idle_jammed
+
+lock_time_anm_idle_sprint_end             = 0.35
+lock_time_anm_idle_sprint_end_empty       = 0.35
+lock_time_anm_idle_sprint_end_jammed      = 0.35
+
+lock_time_anm_idle_sprint_end_w_gl        = 0.35
+lock_time_anm_idle_sprint_end_empty_w_gl  = 0.35
+lock_time_anm_idle_sprint_end_jammed_w_gl = 0.35
+
+lock_time_anm_idle_sprint_end_g           = 0.35
+lock_time_anm_idle_sprint_end_empty_g     = 0.35
+lock_time_anm_idle_sprint_end_jammed_g    = 0.35
+
+anm_idle_sprint_end              = m4_tac_sprint_end
+anm_idle_sprint_end_empty        = m4_tac_sprint_end, idle_empty
+anm_idle_sprint_end_jammed       = m4_tac_sprint_end, idle_jammed
+
+
+;Скука////////////////////////////////////////////////////////////////////
+anm_bore                   = m4_tac_draw
+anm_bore_empty             = m4_tac_draw, idle_empty
+anm_bore_jammed            = m4_tac_draw, idle_jammed
+
+;Выстрелы обычными патронами/////////////////////////////////////////////////////////////////////
+anm_shoot                      = m4_tac_shoot, shoot
+anm_shoot_sil                  = m4_tac_shoot, shoot
+anm_shoot_jammed			   = m4_tac_shoot, idle_jammed
+anm_shoot_jammed_sil	       = m4_tac_shoot, idle_jammed
+anm_shoot_last                 = m4_tac_shoot, shoot_last
+anm_shoot_last_sil             = m4_tac_shoot, shoot_last
+anm_shoot_aim                  = m4_tac_aim_shoot, shoot
+anm_shoot_aim_sil              = m4_tac_aim_shoot, shoot
+anm_shoot_aim_jammed	       = m4_tac_aim_shoot, idle_jammed
+anm_shoot_aim_jammed_sil       = m4_tac_aim_shoot, idle_jammed
+anm_shoot_aim_last             = m4_tac_aim_shoot, shoot_last
+anm_shoot_aim_last_sil         = m4_tac_aim_shoot, shoot_last
+anm_shoot_aim_scope            = m4_tac_aim_shoot_scope, shoot
+anm_shoot_aim_scope_sil        = m4_tac_aim_shoot_scope, shoot
+anm_shoot_aim_scope_last       = m4_tac_aim_shoot_scope, shoot_last
+anm_shoot_aim_scope_last_sil   = m4_tac_aim_shoot_scope, shoot_last
+anm_shoot_aim_scope_jammed     = m4_tac_aim_shoot_scope, idle_jammed
+anm_shoot_aim_scope_jammed_sil = m4_tac_aim_shoot_scope, idle_jammed
+
+;Осечка//////////////////////////////////////////////////
+lock_time_anm_fakeshoot_empty      = 0.20
+anm_fakeshoot_empty                = m4_tac_dry_empty, idle_empty
+lock_time_anm_fakeshoot_aim_empty  = 0.20
+anm_fakeshoot_aim_empty            = m4_tac_aim_dry
+lock_time_anm_fakeshoot_jammed     = 0.90
+anm_fakeshoot_jammed               = m4_tac_dry, idle_jammed
+lock_time_anm_fakeshoot_aim_jammed = 0.20
+anm_fakeshoot_aim_jammed           = m4_tac_aim_dry, idle_jammed
+
+
+;Перезарядка/////////////////////////////////////////////////////////////////////
+anm_reload                           = m4_tac_reload, reload_empty_new
+anm_reload_empty                     = m4_tac_reload_empty, reload_empty_new
+anm_reload_jammed                    = m4_tac_revival, revival
+anm_reload_jammed_last               = m4_tac_revival, revival
+
+;Анимации устарнения осечки при отсутствии установленного прицела.
+anm_reload_jammed_noscope            = m4_tac_revival, revival
+anm_reload_jammed_last_noscope       = m4_tac_revival, revival
+
+;Включение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_on                                = m4_tac_lam
+lock_time_start_anm_laser_on = 0.35
+lock_time_end_anm_laser_on = 0.55
+
+anm_laser_on_empty                          = m4_tac_lam, idle_empty
+lock_time_start_anm_laser_on_empty = 0.35
+lock_time_end_anm_laser_on_empty = 0.55
+
+anm_laser_on_jammed                         = m4_tac_lam, idle_jammed
+lock_time_start_anm_laser_on_jammed = 0.35
+lock_time_end_anm_laser_on_jammed = 0.55
+
+
+;Выключение ЛЦУ//////////////////////////////////////////////////////////////////////////
+anm_laser_off                               = m4_tac_lam
+lock_time_start_anm_laser_off = 0.35
+lock_time_end_anm_laser_off = 0.55
+
+anm_laser_off_empty                         = m4_tac_lam, idle_empty
+lock_time_start_anm_laser_off_empty = 0.35
+lock_time_end_anm_laser_off_empty = 0.55
+
+anm_laser_off_jammed                        = m4_tac_lam, idle_jammed
+lock_time_start_anm_laser_off_jammed = 0.35
+lock_time_end_anm_laser_off_jammed = 0.55
+
+
+;Включение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_on                                = m4_tac_lam
+lock_time_start_anm_torch_on = 0.35
+lock_time_end_anm_torch_on = 0.55
+
+anm_torch_on_empty                          = m4_tac_lam, idle_empty
+lock_time_start_anm_torch_on_empty = 0.35
+lock_time_end_anm_torch_on_empty = 0.55
+
+anm_torch_on_jammed                         = m4_tac_lam, idle_jammed
+lock_time_start_anm_torch_on_jammed = 0.35
+lock_time_end_anm_torch_on_jammed = 0.55
+
+
+;Выключение фонаря//////////////////////////////////////////////////////////////////////////
+anm_torch_off                               = m4_tac_lam
+lock_time_start_anm_torch_off = 0.35
+lock_time_end_anm_torch_off = 0.55
+
+anm_torch_off_empty                         = m4_tac_lam, idle_empty
+lock_time_start_anm_torch_off_empty = 0.35
+lock_time_end_anm_torch_off_empty = 0.55
+
+anm_torch_off_jammed                        = m4_tac_lam, idle_jammed
+lock_time_start_anm_torch_off_jammed = 0.35
+lock_time_end_anm_torch_off_jammed = 0.55
+
+
+;включение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_on                             = m4_tac_headflash
+lock_time_start_anm_headlamp_on = 0.58
+lock_time_end_anm_headlamp_on = 0.5
+
+anm_headlamp_on_empty                       = m4_tac_headflash, idle_empty
+lock_time_start_anm_headlamp_on_empty = 0.58
+lock_time_end_anm_headlamp_on_empty = 0.5
+
+anm_headlamp_on_jammed                      = m4_tac_headflash, idle_jammed
+lock_time_start_anm_headlamp_on_jammed = 0.58
+lock_time_end_anm_headlamp_on_jammed = 0.5
+
+
+;выключение налобника//////////////////////////////////////////////////////////////////////////
+anm_headlamp_off                            = m4_tac_headflash
+lock_time_start_anm_headlamp_off = 0.58
+lock_time_end_anm_headlamp_off = 0.5
+
+anm_headlamp_off_empty                      = m4_tac_headflash, idle_empty
+lock_time_start_anm_headlamp_off_empty = 0.58
+lock_time_end_anm_headlamp_off_empty = 0.5
+
+anm_headlamp_off_jammed                     = m4_tac_headflash, idle_jammed
+lock_time_start_anm_headlamp_off_jammed = 0.58
+lock_time_end_anm_headlamp_off_jammed = 0.5
+
+
+;включение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_on                                   = m4_tac_headflash
+anm_nv_on_empty                             = m4_tac_headflash, idle_empty
+anm_nv_on_jammed                            = m4_tac_headflash, idle_jammed
+
+
+;выключение пнв//////////////////////////////////////////////////////////////////////////
+anm_nv_off                                  = m4_tac_headflash
+anm_nv_off_empty                            = m4_tac_headflash, idle_empty
+anm_nv_off_jammed                           = m4_tac_headflash, idle_jammed
+
+
+[wpn_m4_tact_eotech]:wpn_m4_tact
+
+hidden_bones = s_kemper, s_aimpoint, s_acog, s_pn23, s_leupold, s_specter, s_susat, ironsight, mag_30, mag_45
+
+hud = wpn_m4_tact_eotech_hud
+
+scope_name              = wpn_addon_scope_eotech
+scope_x              	= 82
+scope_y                 = -6
+
+
+[wpn_m4_tact_eotech_hud]:wpn_m4_tact_hud
+
+aim_hud_offset_pos = 0.0,0.0043,0.0
+aim_hud_offset_rot = 0.03,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0043.0
+aim_hud_offset_rot_16x9 = 0.03,0.0,0.0
+
+
+[wpn_m4_tact_susat_dusk]:wpn_m4_tact
+
+hidden_bones = s_kemper, s_eot, s_acog, s_pn23, s_leupold, s_specter, s_susat, ironsight, mag_30, mag_45
+
+hud = wpn_m4_tact_susat_dusk_hud
+
+scope_name              = wpn_addon_scope_susat_dusk
+scope_x              	= 82
+scope_y                 = -8
+
+
+[wpn_m4_tact_susat_dusk_hud]:wpn_m4_tact_hud
+
+aim_hud_offset_pos = 0.0,-0.0176,0.0
+aim_hud_offset_rot = 0.0025,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0176,0.0
+aim_hud_offset_rot_16x9 = 0.0025,0.0,0.0
+
+
+[wpn_m4_tact_kemper]:wpn_m4_tact
+
+hidden_bones = s_eot, s_aimpoint, s_acog, s_pn23, s_leupold, s_specter, s_susat, ironsight, mag_30, mag_45
+
+hud = wpn_m4_tact_kemper_hud
+
+scope_name              = wpn_addon_scope_kemper
+scope_x              	= 85
+scope_y                 = -10
+
+
+[wpn_m4_tact_kemper_hud]:wpn_m4_tact_hud
+
+aim_hud_offset_pos = 0.0,-0.0021,0.0
+aim_hud_offset_rot = 0.03,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0021,0.0
+aim_hud_offset_rot_16x9 = 0.03,0.0,0.0
+
+
+[wpn_m4_tact_acog]:wpn_m4_tact
+
+hidden_bones = s_kemper, s_eot, s_aimpoint, s_pn23, s_leupold, s_specter, s_susat, ironsight, mag_30, mag_45
+
+hud = wpn_m4_tact_acog_hud
+
+scope_name              = wpn_addon_scope_acog
+scope_x              	= 74
+scope_y                 = -8
+
+
+[wpn_m4_tact_acog_hud]:wpn_m4_tact_hud
+
+aim_hud_offset_pos = 0.0,-0.016,-0.076
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.016,-0.076
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_m4_tact_elcan]:wpn_m4_tact
+
+hidden_bones = s_kemper, s_eot, s_aimpoint, s_acog, s_pn23, s_leupold, s_susat, ironsight, mag_30, mag_45
+
+hud = wpn_m4_tact_elcan_hud
+
+scope_name              = wpn_addon_scope_elcan
+scope_x              	= 54
+scope_y                 = -7
+
+
+[wpn_m4_tact_elcan_hud]:wpn_m4_tact_hud
+
+aim_hud_offset_pos = 0.0,-0.0205,-0.12
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0205,-0.12
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_m4_tact_susat_night]:wpn_m4_tact
+
+hidden_bones = s_kemper, s_eot, s_aimpoint, s_acog, s_leupold, s_specter, s_susat, ironsight, mag_30, mag_45
+
+hud = wpn_m4_tact_susat_night_hud
+
+scope_name              = wpn_addon_scope_susat_night
+scope_x              	= 44
+scope_y                 = -8
+
+scope_lense_hud_fov = 0.3
+
+[wpn_m4_tact_susat_night_hud]:wpn_m4_tact_hud
+
+aim_hud_offset_pos = 0.0,-0.0415,-0.003
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0415,-0.003
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_m4_tact_leupold]:wpn_m4_tact
+
+hidden_bones = s_kemper, s_eot, s_aimpoint, s_acog, s_pn23, s_specter, s_susat, ironsight, mag_30, mag_45
+
+hud = wpn_m4_tact_leupold_hud
+
+scope_name              = wpn_addon_scope_leupold
+scope_x              	= 54
+scope_y                 = 0
+
+scope_lense_hud_fov = 0.3
+
+[wpn_m4_tact_leupold_hud]:wpn_m4_tact_hud
+
+aim_hud_offset_pos = 0.0,-0.0195,-0.034
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0195,-0.034
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0
+
+
+[wpn_m4_tact_susat]:wpn_m4_tact
+
+hidden_bones = s_kemper, s_eot, s_aimpoint, s_acog, s_pn23, s_leupold, s_specter, ironsight, mag_30, mag_45
+
+hud = wpn_m4_tact_susat_hud
+
+scope_name              = wpn_addon_scope_susat
+scope_x              	= 80
+scope_y                 = -8
+
+
+[wpn_m4_tact_susat_hud]:wpn_m4_tact_hud
+
+aim_hud_offset_pos = 0.0,-0.0385,-0.121
+aim_hud_offset_rot = 0.0,0.0,0.0
+
+aim_hud_offset_pos_16x9 = 0.0,-0.0385,-0.121
+aim_hud_offset_rot_16x9 = 0.0,0.0,0.0

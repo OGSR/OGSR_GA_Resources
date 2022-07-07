@@ -3572,11 +3572,11 @@ function question_of_immortality_fisrt_part_green(enable)
 	local green_anom = level.object_by_id(ogse.load_var("green_anomaly_id"))
 	local common_anom = level.object_by_id(ogse.load_var("common_anomaly_id"))
 	if enable then
-		green_anom:enable_anomaly()
-		common_anom:disable_anomaly()
+		if green_anom then green_anom:enable_anomaly() end
+		if common_anom then common_anom:disable_anomaly() end
 	else
-		green_anom:disable_anomaly()
-		common_anom:enable_anomaly()
+		if green_anom then green_anom:disable_anomaly() end
+		if common_anom then common_anom:enable_anomaly() end
 	end
 end
 
@@ -3712,7 +3712,9 @@ function dead_stalker_little_pseudogigant_spawn_sound_zone()
 end
 
 function dead_stalker_little_pseudogigant_spawn_gigant()
-	ogse.spawn_object(spawn_db.dead_stalker_little_pseudogigant_spawn_gigant)
+	--ogse.spawn_object(spawn_db.dead_stalker_little_pseudogigant_spawn_gigant)
+	local mob = spawn_db.dead_stalker_little_pseudogigant_spawn_gigant
+	dsh.create_free_mob(mob.sec, vector():set(unpack(mob.pos)), mob.lvid, mob.gvid)
 end
 
 function dead_stalker_little_pseudogigant_give_reward()

@@ -130,7 +130,7 @@ function af_teleport_trap_binder:reinit()
 	telekill_case_id = ogse.var_exists("telekill_case_id") and ogse.load_var("telekill_case_id") or false
 
 	if has_alife_info("ogse_teleport_trap_research_art_actor_finish_dead_zone") then
-		set_item_untakeable(self.object)
+		--set_item_untakeable(self.object)
 	end
 
 	object_binder.reinit(self)
@@ -425,7 +425,7 @@ function delete_dead_zone()
 	for _, id in pairs( ogse.load_var("ogse_teleport_art_id") ) do
 		local obj = level.object_by_id(id)
 		if obj and obj:is_artefact() then
-			set_item_untakeable(obj)
+			--set_item_untakeable(obj)
 		end
 	end
 end

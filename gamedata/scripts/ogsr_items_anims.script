@@ -85,8 +85,14 @@ local function on_actor_before_use( obj, sobj )
 
 	if ANIMS_ENABLED then
 		local snd = get_string( sect, "use_sound_anm" )
+		if not snd then return end
 
-		if not db.actor.inventory:is_active_slot_blocked() and snd and not ANIM_IN_ACTION then
+		if ANIM_IN_ACTION then
+			respawn_item(obj)
+			return
+		end
+
+		if not db.actor.inventory:is_active_slot_blocked() then
 			if sect == "yod" then
 				if not ogse_healing.can_use_B190() then
 					respawn_item(obj)
@@ -146,11 +152,7 @@ local function on_actor_before_use( obj, sobj )
 			if db.actor:dont_has_info( "ui_inventory" ) then
 				db.actor:hide_weapon()
 			end
-		elseif snd and db.actor:has_info("ui_talk") and not ANIM_IN_ACTION then -- Нужно для того что бы диалог не обрывался если мы решили выпить\перекусить с собеседником
-			if ogse_healing.on_before_use_item(obj, sobj) then
-				play_use_sound(sect, snd)
-			end
-		elseif not ANIM_IN_ACTION then
+		elseif db.actor:has_info("ui_talk") then -- Нужно для того что бы диалог не обрывался если мы решили выпить\перекусить с собеседником
 			if ogse_healing.on_before_use_item(obj, sobj) then
 				play_use_sound(sect)
 			end

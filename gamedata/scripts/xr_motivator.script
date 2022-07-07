@@ -729,7 +729,7 @@ end
 function motivator_binder:on_item_drop(obj)
 	if not obj then return end
 	local sobj = alife():object(obj:id())
-	if not sobj then return end
+	--if not sobj then return end --XRKRODIN: Это важно, чтобы правильно обновлять оружейный менежжер при удалении оружия из инвентаря нпс, не раскомментировать!
 
 	if obj:is_weapon() then
 		timer_drop_weapon(obj, obj:parent()):start()

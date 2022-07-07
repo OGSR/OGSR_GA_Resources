@@ -50,7 +50,7 @@
 		<visual>actors\bandit\stalker_bandit_1</visual>
 		<supplies>
 			[spawn] \n
-			wpn_grach \n
+			wpn_fiveseven \n
 			ammo_9x19_fmj \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -136,7 +136,7 @@
 		<crouch_type>1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_pm \n
+			wpn_bizon \n
             ammo_9x18_fmj \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -220,8 +220,8 @@
 		<crouch_type>1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+		wpn_ak101 \n
+		ammo_5.56x45_ap \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_food.xml"
@@ -313,7 +313,7 @@
 			[spawn] \n
 			wpn_ak74u \n
 			ammo_5.45x39_fmj \n
-			wpn_grach \n
+			wpn_hpsa \n
 			ammo_9x19_fmj \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -378,7 +378,7 @@
 			[spawn] \n
 			wpn_ak74 \n
 			ammo_5.45x39_fmj \n
-			wpn_grach \n
+			wpn_glock \n
             ammo_9x19_fmj \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -412,7 +412,7 @@
 			wpn_ak74 \n
 			ammo_5.45x39_fmj \n
 			wpn_fort \n
-			ammo_9x19_fmj \n
+			ammo_9x18_pmm \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_food.xml"	
@@ -743,7 +743,7 @@
 			[spawn] \n
 			wpn_toz34 \n
 			ammo_12x70_kart \n
-			wpn_grach \n
+			wpn_glock \n
 			ammo_9x19_fmj \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -773,7 +773,7 @@
 			[spawn] \n
 			wpn_saiga12 \n
 			ammo_12x70_kart \n
-			wpn_grach \n
+			wpn_glock \n
 			ammo_9x19_fmj \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -864,7 +864,7 @@
 			wpn_ak74u \n
 			ammo_5.45x39_fmj \n
 			wpn_addon_scope_kobra \n
-			wpn_grach \n
+			wpn_fiveseven \n
 			ammo_9x19_fmj \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -926,7 +926,7 @@
 			wpn_ak74 \n
 			ammo_5.45x39_fmj \n
 			wpn_fort \n
-			ammo_9x19_fmj \n
+			ammo_9x18_pmm \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_food.xml"
@@ -1016,8 +1016,8 @@
 			[spawn] \n
 			wpn_sig550 \n
 			ammo_5.56x45_ss190 \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_usp \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_food.xml"
@@ -1048,7 +1048,7 @@
 		<supplies>
 			[spawn] \n
 			wpn_fort \n
-			ammo_9x19_fmj \n
+			ammo_9x18_pmm \n
 			wpn_saiga12 \n
 			ammo_12x70_kart \n
 #include "gameplay\character_drugs.xml" \n
@@ -1177,7 +1177,7 @@
             wpn_svd \n
 			wpn_addon_scope_kashtan \n
 			ammo_7.62x54_7h1 \n
-			wpn_grach \n
+			wpn_gsh18 \n
 			ammo_9x19_fmj \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -1239,7 +1239,7 @@
             wpn_abakan = 1, launcher \n
 			wpn_addon_scope_pso2 \n
 			ammo_5.45x39_fmj \n
-			wpn_grach \n
+			wpn_gsh18 \n
 			ammo_9x19_fmj \n
             
 #include "gameplay\character_drugs.xml" \n
@@ -1334,7 +1334,7 @@
 			[spawn] \n
             wpn_saiga12 \n
 			ammo_12x70_kart \n
-			wpn_grach \n
+			wpn_gsh18 \n
 			ammo_9x19_fmj \n
             
 #include "gameplay\character_drugs.xml" \n
@@ -1459,7 +1459,7 @@
 			wpn_groza\n
 			wpn_addon_scope_eotech \n
 			ammo_9x39_pab9 \n
-			wpn_grach \n
+			wpn_gsh18 \n
 			ammo_9x19_fmj \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_food.xml" \n
@@ -1621,7 +1621,7 @@
 			[spawn] \n
 			wpn_l85 \n
 			ammo_5.56x45_ss190 \n
-			wpn_beretta \n
+			wpn_walther \n
 			ammo_9x19_fmj \n
 #include "gameplay\character_items.xml"	\n
 #include "gameplay\character_food.xml" \n
@@ -1687,7 +1687,8 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_p90 \n
+			wpn_m4 \n
+			wpn_addon_scope_acog \n
 			ammo_5.56x45_ss190 \n
 			wpn_beretta \n
 			ammo_9x19_pbp \n
@@ -1720,10 +1721,10 @@
 		<visual>actors\svoboda\stalker_sv_rukzak_3_1</visual>
 		<supplies>
 			[spawn] \n
-			wpn_l85 \n
+			wpn_m4 \n
 			wpn_addon_scope_susat \n
 			ammo_5.56x45_ss190 \n
-			wpn_beretta \n
+			wpn_walther \n
 			ammo_9x19_fmj \n
 #include "gameplay\character_items.xml"	\n
 #include "gameplay\character_food.xml" \n
@@ -1786,9 +1787,9 @@
 		<visual>actors\killer\stalker_ki_mask</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_l85 = 1, launcher \n
 			ammo_5.56x45_ss190 \n
-			wpn_fiveseven \n
+			wpn_hpsa \n
 			ammo_9x19_fmj \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -1822,7 +1823,7 @@
 			ammo_5.45x39_fmj \n
 			ammo_vog-25 \n
 			wpn_fort \n
-			ammo_9x19_fmj \n
+			ammo_9x18_pmm \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_food.xml"
@@ -1849,7 +1850,7 @@
 		<visual>actors\killer\stalker_ki_mask</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_m4 = 1, launcher \n
 			ammo_5.56x45_ss190 \n
 			wpn_saiga12 \n
 			ammo_12x70_kart \n
@@ -2294,7 +2295,7 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_grach \n
+			wpn_fiveseven \n
 			ammo_9x19_fmj \n
 		</supplies>
 		
@@ -2344,7 +2345,7 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_pm \n
+			wpn_bizon \n
 			ammo_9x18_fmj \n
 		</supplies>
 		
@@ -2419,7 +2420,7 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_pm \n
+			wpn_bizon \n
 			ammo_9x18_fmj \n
 		</supplies>
 		
@@ -2600,8 +2601,8 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+		wpn_ak101 \n
+		ammo_5.56x45_ap \n
 		</supplies>
 		
 #include "gameplay\character_criticals_1.xml"
@@ -2970,7 +2971,7 @@
 			ammo_vog-25 \n
 			ammo_5.45x39_ap \n
 			wpn_fort \n
-			ammo_9x19_pbp \n
+			ammo_9x18_pmm \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"
@@ -3006,7 +3007,7 @@
 			ammo_vog-25 \n
 			ammo_5.45x39_ap \n
 			wpn_fort \n
-			ammo_9x19_pbp \n
+			ammo_9x18_pmm \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"
@@ -3633,8 +3634,8 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_usp \n
+			ammo_11.43x23_hydro \n
 			wpn_abakan \n
 			ammo_5.45x39_fmj \n
 #include "gameplay\character_items.xml" \n
@@ -3731,7 +3732,7 @@
 		<visual>actors\svoboda\stalker_sv_hood_9</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_sig550 \n
 			wpn_addon_scope_elcan \n
 			ammo_5.56x45_ss190 \n
 #include "gameplay\character_items.xml" \n

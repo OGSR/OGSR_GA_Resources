@@ -529,7 +529,6 @@ function visual_timer:start(...)
 	self.sm:subscribe(self.on_hud_show_desc)
 	local hud = get_hud()
 	hud:AddCustomStatic("hud_timer", true)
-	hud:AddCustomStatic("hud_timer_text", true)
 
 	self.script_name = self.action_name
 
@@ -540,7 +539,6 @@ function visual_timer:stop()
 	self.on_hud_show_desc = nil --KRodin: необходимо! Отпускаем объект для сборщика мусора.
 	local hud = get_hud()
 	hud:RemoveCustomStatic("hud_timer")
-	hud:RemoveCustomStatic("hud_timer_text")
 
 	savable_timer.stop(self)
 end
@@ -550,10 +548,6 @@ function visual_timer:on_hud_show()
 		hud:RemoveCustomStatic("hud_timer")
 	end
 	hud:AddCustomStatic("hud_timer", true)
-	if hud:GetCustomStatic("hud_timer_text") then
-		hud:RemoveCustomStatic("hud_timer_text")
-	end
-	hud:AddCustomStatic("hud_timer_text", true)
 end
 function visual_timer:_aux_cond()
 	savable_timer._aux_cond(self)
@@ -573,7 +567,7 @@ function visual_timer:condition()
 	local m = math.floor(dt/60 - h*60)
 	local s = math.floor(dt - h*3600 - m*60)
 	local txt = string.format("%02d:%02d:%02d", h, m, s)
-	get_hud():GetCustomStatic("hud_timer_text"):wnd():SetText(txt)
+	get_hud():GetCustomStatic("hud_timer"):wnd():SetText(txt)
 	return false
 end
 

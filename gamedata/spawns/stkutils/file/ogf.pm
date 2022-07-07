@@ -647,8 +647,7 @@ sub read_vertices {
 	my ($cf) = @_;
 	my $data = ${$cf->r_chunk_data()};
 	my ($vertex_format, $vertex_count) = unpack('VV', substr($data, 0, 8, ''));
-	$self->{vertex_format} = $vertex_format;
-	$self->{vertex_count} = $vertex_count;
+	$self->{vertices}->{format} = $vertex_format;
 	if ($vertex_format == OGF_VERTEXFORMAT_FVF_OLD) {
 		for (my $i = 0; $i < $vertex_count; $i++) {
 			my $packet = stkutils::data_packet->new(\substr($data, 0, 32, ''));
@@ -736,13 +735,13 @@ sub read_icontainer {
 sub read_indices {
 	my $self = shift;
 	my ($cf) = @_;
-	my $packet = stkutils::data_packet->new($cf->r_chunk_data());
-	my ($indices_count) = $packet->unpack('V', 4);
+	my $data = ${$cf->r_chunk_data()};
+	my ($indices_count) = unpack('V', substr($data, 0, 4, ''));
 	for (my $i = 0; $i < $indices_count; $i++) {
-		my ($index) = $packet->unpack('v', 2);;
+		my ($index) = substr($data, 0, 2, '');
 		push @{$self->{indices}}, $index;
 	}
-	fail('there some data in packet left: '.$packet->resid()) unless $packet->resid() == 0;
+	fail('there some data in packet left: '.length($data)) unless length($data) == 0;
 	$self->set_loaded('OGF_INDICES');
 }
 sub read_children_l {
@@ -1535,27 +1534,27 @@ sub write_vertices {
 	$cf->w_chunk_open($chunk_names{$self->{ogf_version}}{'OGF_VERTICES'});
 	$cf->w_chunk_data(pack('VV', $self->{vertex_format}, $self->{vertex_count}));
 	if ($self->{vertex_format} == OGF_VERTEXFORMAT_FVF_OLD) {
-		foreach my $vertice (@{$self->{vertices}->{data}}) {
+		foreach my $vertice (@{$self->{vertices}}) {
 			$cf->w_chunk_data(pack('f3f3f2', @{$vertice->{point}}, @{$vertice->{normal}}, @{$vertice->{textcoords}}));
 		}
 	} elsif ($self->{ogf_version} == 3 && $self->{vertex_format} == OGF_VERTEXFORMAT_FVF_1L) {
-		foreach my $vertice (@{$self->{vertices}->{data}}) {
+		foreach my $vertice (@{$self->{vertices}}) {
 			$cf->w_chunk_data(pack('f3f3f2l', @{$vertice->{point}}, @{$vertice->{normal}}, @{$vertice->{textcoords}}, $vertice->{matrix}));
 		}
 	} elsif ($self->{vertex_format} == OGF_VERTEXFORMAT_FVF_1L or $self->{vertex_format} == OGF_VERTEXFORMAT_FVF_1_CS) {
-		foreach my $vertice (@{$self->{vertices}->{data}}) {
+		foreach my $vertice (@{$self->{vertices}}) {
 			$cf->w_chunk_data(pack('f3f3f3f3f2l', @{$vertice->{point}}, @{$vertice->{normal}}, @{$vertice->{t}}, @{$vertice->{b}}, @{$vertice->{textcoords}}, $vertice->{matrix}));
 		}
 	} elsif ($self->{vertex_format} == OGF_VERTEXFORMAT_FVF_2L or $self->{vertex_format} == OGF_VERTEXFORMAT_FVF_2_CS) {
-		foreach my $vertice (@{$self->{vertices}->{data}}) {
+		foreach my $vertice (@{$self->{vertices}}) {
 			$cf->w_chunk_data(pack('vvf3f3f3f3ff2', $vertice->{matrix0}, $vertice->{matrix1}, @{$vertice->{point}}, @{$vertice->{normal}}, @{$vertice->{t}}, @{$vertice->{b}}, $vertice->{w}, @{$vertice->{textcoords}}));
 		}
 	} elsif ($self->{vertex_format} == OGF_VERTEXFORMAT_FVF_3_CS) {
-		foreach my $vertice (@{$self->{vertices}->{data}}) {
+		foreach my $vertice (@{$self->{vertices}}) {
 			$cf->w_chunk_data(pack('vvvf3f3f3f3fff2', $vertice->{matrix0}, $vertice->{matrix1}, $vertice->{matrix2}, @{$vertice->{point}}, @{$vertice->{normal}}, @{$vertice->{t}}, @{$vertice->{b}}, $vertice->{w0}, $vertice->{w1}, @{$vertice->{textcoords}}));
 		}
 	} elsif ($self->{vertex_format} == OGF_VERTEXFORMAT_FVF_4_CS) {
-		foreach my $vertice (@{$self->{vertices}->{data}}) {
+		foreach my $vertice (@{$self->{vertices}}) {
 			$cf->w_chunk_data(pack('vvvvf3f3f3f3ffff2', $vertice->{matrix0}, $vertice->{matrix1}, $vertice->{matrix2}, $vertice->{matrix3}, @{$vertice->{point}}, @{$vertice->{normal}}, @{$vertice->{t}}, @{$vertice->{b}}, $vertice->{w0}, $vertice->{w1}, $vertice->{w2}, @{$vertice->{textcoords}}));
 		}
 	}
@@ -1570,7 +1569,7 @@ sub write_indices {
 	my $self = shift;
 	my ($cf) = @_;
 	$cf->w_chunk_open($chunk_names{$self->{ogf_version}}{'OGF_INDICES'});
-	$cf->w_chunk_data(pack('V', $#{$self->{indices}} + 1));
+	$cf->w_chunk_data(pack('V', $self->{indices_count}));
 	foreach my $index (@{$self->{indices}}) {
 		$cf->w_chunk_data(pack('v', $index));
 	}
@@ -1758,25 +1757,25 @@ sub write_s_smparams {
 	my $self = shift;
 	my ($cf, $mode) = @_;
 	$cf->w_chunk_open($chunk_names{$self->{ogf_version}}{'OGF_S_SMPARAMS_'.$mode});
-	$cf->w_chunk_data(pack('vv', $self->{motions}->{params_version}, $#{$self->{partitions}} + 1));
-	foreach my $part (@{$self->{partitions}}) {
+	$cf->w_chunk_data(pack('vv', $self->{sm_params_version}, $#{$self->{s_smparams_partitions}} + 1));
+	foreach my $part (@{$self->{s_smparams_partitions}}) {
 		$cf->w_chunk_data(pack('Z*v', $part->{name}, $part->{bone_count}));
 		foreach my $bone (@{$part->{bones}}) {
-			if ($mode == 0 || $self->{motions}->{params_version} == 1) {
+			if ($mode == 0 || $self->{sm_params_version} == 1) {
 				$cf->w_chunk_data(pack('V', $bone->{bone_id}));
-			} elsif ($self->{motions}->{params_version} == 2) {
+			} elsif ($self->{sm_params_version} == 2) {
 				$cf->w_chunk_data(pack('Z*', $bone->{bone_name}));
-			} elsif ($self->{motions}->{params_version} == 3 || $self->{motions}->{params_version} == 4) {	
+			} elsif ($self->{sm_params_version} == 3 || $self->{sm_params_version} == 4) {	
 				$cf->w_chunk_data(pack('Z*V', $bone->{bone_name}, $bone->{bone_id}));
 			}
 		}
 	}
 	$cf->w_chunk_data(pack('v', $#{$self->{s_smparams_motions}} + 1));
-	foreach my $mot (@{$self->{motions}->{data}}) {
+	foreach my $mot (@{$self->{s_smparams_motions}}) {
 		if ($mode == 1) {
 			$cf->w_chunk_data(pack('Z*V', $mot->{name}, $mot->{flags}));
 			write_motion_def($mot, $cf);
-			if ($self->{motions}->{params_version} == 4) {
+			if ($self->{sm_params_version} == 4) {
 				$cf->w_chunk_data(pack('V', $#{$mot->{mmarks}} + 1));
 				foreach my $nmark (@{$mot->{mmarks}}) {
 					write_motion_mark($nmark, $cf);

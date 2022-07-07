@@ -57,7 +57,7 @@
       [spawn] \n
 	  		wpn_val \n
             ammo_9x39_ap \n
-			wpn_beretta \n
+			wpn_walther \n
 			ammo_9x19_pbp \n
 			grenade_f1 = 2 \n
             device_torch \n
@@ -93,7 +93,7 @@
 	  		wpn_ak101 \n
 			wpn_addon_scope_kobra \n
             ammo_5.56x45_ap \n
-			wpn_beretta \n
+			wpn_hpsa \n
 			ammo_9x19_pbp \n
 			grenade_f1 = 2 \n
             device_torch \n
@@ -195,7 +195,8 @@
 		<visual>actors\stalker_svoboda\stalker_svoboda_skat</visual>
 		<supplies>
 			[spawn] \n
-	  		wpn_sig552 \n
+	  		wpn_m4 \n
+	  		wpn_addon_scope_leupold \n
             ammo_5.56x45_ap \n
             device_torch \n
 #include "gameplay\character_drugs.xml"

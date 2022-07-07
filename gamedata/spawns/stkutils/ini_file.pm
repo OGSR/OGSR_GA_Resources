@@ -94,7 +94,7 @@ sub export_properties {
 	my $fh = $self->{fh};
 	print $fh "\n; $comment properties\n" if defined $comment;
 	foreach my $p (@_) {
-	print "$p->{name}, $p->{type}\n";
+#	print "$p->{name}, $p->{type}\n";
 		my $format = format_for_number->{$p->{type}};
 		defined $format					&& do {_export_scalar($fh, $format, $container, $p); next;};
 		($p->{type} eq 'sz')			&& do {_export_string($fh, $container, $p); next;};
@@ -143,7 +143,7 @@ sub _export_vector {
 	if ($p->{type} =~ /dumb/) {
 		printf $fh "$p->{name} = ".unpack('H*', $container->{$p->{name}})."\n";	
 	} else {
-		return if ($p->{default} && ref($p->{default}) eq 'ARRAY' && comp_arrays($container, $p));
+		return if (@{$p->{default}} && comp_arrays($container, $p));
 		print $fh "$p->{name} = ", join(', ', @{$container->{$p->{name}}}), "\n";
 	}
 }

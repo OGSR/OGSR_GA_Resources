@@ -196,11 +196,6 @@ function main_menu:OnKeyboard(dik, keyboard_action)
 			end
 		elseif dik == DIK_keys.DIK_N then --personal_test
 			xpcall(function() dofile(getFS():update_path("$game_scripts$", "personal_test.lua")) end, log1)
-		elseif dik == DIK_keys.DIK_S then --Тестовый спавн
-			if ogse.check_game() and ogse.is_developer_mode() then
-				xpcall( function() dofile(getFS():update_path("$game_scripts$", "test_spawn.lua")) end, log1)
-				self:close_and_delete_menu()
-			end
 		elseif dik == DIK_keys.DIK_F3 then --Показать текущие координаты
 			if ogse.check_game() then
 				utils2.show_coordinates()

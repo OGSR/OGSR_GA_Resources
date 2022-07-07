@@ -4,6 +4,21 @@
 --	Wounded cover by Rulix
 ----------------------------------------------------------------------------------------------------------------------
 
+local pseudo_wounded = {
+	[ "esc_fox" ] = true,
+	[ "val_sos_wounded" ] = true,
+	[ "val_escort_bandit_halfdead" ] = true,
+--[==[ --NS2016
+	[ "avu_killer" ]             = true,
+	[ "esc_foto_muzhik_zapas" ]  = true,
+	[ "esc_foto_muzhik" ]        = true,
+	[ "milit_zapas_fotomuzhik" ] = true,
+	[ "military_fotomuzhik" ]    = true,
+	[ "foto_monolitovets" ]      = true,
+	[ "nevid_monolit" ]          = true,
+--]==]
+}
+
 ---------------------------------------------------------------------------------------------------------------------
 --Evaluators
 ----------------------------------------------------------------------------------------------------------------------
@@ -311,7 +326,12 @@ function Cwound_manager:update()
 	hp	= 100*self.npc.health
 	psy	= 100*self.npc.psy_health
 
---	printf("PSY [%s] HP [%s]", psy, hp)
+	if pseudo_wounded[ self.npc:name() ] and self.npc.health < 0.3 then --Квестовые раненые не должны вставать, самолечиться и тп.
+		if self.npc.health > 0.1 then
+			self.npc.health = -0.01
+		end
+		hp = 1
+	end
 
 	self.state, self.sound = self:process_psy_wound(psy)
 

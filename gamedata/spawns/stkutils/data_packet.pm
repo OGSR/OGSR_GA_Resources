@@ -134,7 +134,7 @@ fail("template is not defined") if !(defined $_[1]);
 		$_[0]->{pos} += $_[2];
 	}
 fail("data container is empty") if !(defined $_[0]->{data});
-print "@values\n";
+#print "@values\n";
 	if ($fl == 1) {
 		foreach my $val (@values) {
 			$val = 0 if (isinf($val) || isnan($val));
@@ -147,7 +147,7 @@ sub unpack_properties {
 	my $self = shift;
 	my $container = shift;
 	foreach my $p (@_) {
-print "$p->{name} = ";
+#print "$p->{name} = ";
 	
 		my $template = template_for_scalar->{$p->{type}};
 		($p->{type} eq 'sz')			&& do {$self->_unpack_string($container, $p); next;};

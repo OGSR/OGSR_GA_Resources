@@ -24,10 +24,10 @@
 		<visual>actors\svoboda\stalker_sv_hood_9</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_m4 \n
 			ammo_5.56x45_ss190 \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_usp \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"			
@@ -60,8 +60,8 @@
 			[spawn] \n
 			wpn_sig552 \n
 			ammo_5.56x45_ss190 \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_usp \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"			
@@ -96,10 +96,10 @@
 		<visual>actors\svoboda\stalker_sv_rukzak_1_1</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_m4 = 1, launcher \n
 			ammo_5.56x45_ss190 \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_usp \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"			
@@ -160,7 +160,7 @@
 		<visual>actors\svoboda\stalker_sv_rukzak_1</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_sig550_tact \n
 			ammo_5.56x45_ss190 \n
 			wpn_mp133 \n
 			ammo_12x70_kart \n
@@ -193,7 +193,8 @@
 		<visual>actors\stalker_svoboda\stalker_sv_heavy</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_m4 \n
+			wpn_addon_scope_acog \n
 			ammo_5.56x45_ss190 \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
@@ -230,10 +231,10 @@
 		<visual>actors\stalker_svoboda\stalker_sv_heavy</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_l85 = 1, launcher \n
 			ammo_5.56x45_ss190 \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_colt1911 \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"			
@@ -263,7 +264,8 @@
 		<visual>actors\unic\npc_sv_leader</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_m4 = 1, launcher \n
+			wpn_addon_scope_leupold \n
 			ammo_5.56x45_ss190 \n
 			wpn_mp133 \n
 			ammo_12x70_kart \n
@@ -312,10 +314,10 @@
 		<visual>actors\svoboda\stalker_sv_balon_1</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_l85 = 1, launcher \n
 			ammo_5.56x45_ss190 \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_colt1911 \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"	
@@ -351,7 +353,7 @@
 		<visual>actors\svoboda\stalker_sv_max</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_m4 \n
 			ammo_5.56x45_ss190 \n
 			wpn_mp133 \n
 			ammo_12x70_kart \n
@@ -420,7 +422,7 @@
 		<visual>actors\svoboda\stalker_sv_cook</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_m4 \n
 			ammo_5.56x45_ss190 \n
 			wpn_mp133 \n
 			ammo_12x70_kart \n
@@ -474,10 +476,10 @@
 		<visual>actors\unic\npc_kap</visual>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_l85 \n
 			ammo_5.56x45_ss190 \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_colt1911 \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"	
@@ -610,10 +612,10 @@
 		<visual>actors\unic\npc_cherep</visual>
 		<supplies>
 			[spawn] \n
-            wpn_abakan \n
-			ammo_5.45x39_fmj \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+            wpn_ak101_tact \n
+			ammo_5.56x45_ap \n
+			wpn_desert_eagle \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"	
@@ -648,8 +650,8 @@
 			[spawn] \n
 			wpn_p90 \n
 			ammo_5.56x45_ss190 \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_colt1911 \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"	
@@ -682,8 +684,8 @@
 			[spawn] \n
 			wpn_ak74u \n
 			ammo_5.45x39_fmj \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_colt1911 \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"	
@@ -751,8 +753,8 @@
 			[spawn] \n
 			wpn_p90 \n
 			ammo_5.56x45_ss190 \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_desert_eagle \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"	

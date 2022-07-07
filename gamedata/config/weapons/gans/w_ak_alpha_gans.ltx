@@ -23,8 +23,8 @@ inv_weight        = 3.5                      ; weight in inventory
 hit_power            = 1.0, 1.0, 1.0, 1.0
 hit_impulse          = 100    ; size of physic impulse by bullet
 hit_type             = fire_wound            ; [] type of the wound
-fire_distance           = 200 ;1000                  ; maximum fire distance that bullet can fly
-bullet_speed            = 550                ; starting bullet speed
+fire_distance           = 300 ;1000                  ; maximum fire distance that bullet can fly
+bullet_speed            = 650                ; starting bullet speed
 rpm                     = 600    ; max round per minute
 rpm_empty_click         = 200
 
@@ -79,18 +79,18 @@ crosshair_inertion			= 6
 cam_return					= 0
 cam_relax_speed             = 10		;скорость возврата в исходное положение
 cam_relax_speed_ai      	= 360
-cam_dispersion              = 0.8		;увеличения угла (в градусах) с первым выстрелом
-cam_dispersion_inc         	= 0.5		;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion              = 0.9		;увеличения угла (в градусах) с первым выстрелом
+cam_dispersion_inc         	= 0.6		;увеличениe cam_dispersion с каждым выстрелом
 cam_dispersion_frac        	= 1.0	    ;ствол будет подыматься на cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle				= 50.0      ;максимальный угол отдачи
-cam_max_angle_horz         	= 5.0      ;(degree) maximum shot horizontal degree
-cam_step_angle_horz        	= 0.35		;(degree) size of step camera moved in horizontal position while shooting
+cam_max_angle				= 55.0      ;максимальный угол отдачи
+cam_max_angle_horz         	= 5.5      ;(degree) maximum shot horizontal degree
+cam_step_angle_horz        	= 0.4		;(degree) size of step camera moved in horizontal position while shooting
 
 zoom_cam_relax_speed         = 10	    ; scope & ironsight
 zoom_cam_relax_speed_ai      = 360
-zoom_cam_dispersion          = 0.45
-zoom_cam_dispersion_inc      = 0.45
-zoom_cam_dispersion_frac     = 0.7
+zoom_cam_dispersion          = 0.5
+zoom_cam_dispersion_inc      = 0.5
+zoom_cam_dispersion_frac     = 0.8
 zoom_cam_max_angle           = 50.0
 zoom_cam_max_angle_horz      = 5.0
 zoom_cam_step_angle_horz     = 0.3
@@ -110,10 +110,10 @@ holder_fov_modifier     = 1.0              ; во сколько раз увел
 min_radius           = 3           ; [] for AI
 max_radius           = 100          ; [] for AI
 
-hit_probability_gd_novice  = 0.80
-hit_probability_gd_stalker = 0.80
-hit_probability_gd_veteran = 0.80
-hit_probability_gd_master  = 0.80
+hit_probability_gd_novice  = 0.85
+hit_probability_gd_stalker = 0.85
+hit_probability_gd_veteran = 0.85
+hit_probability_gd_master  = 0.85
 
 ;-------------------------------------------------------------------------------
 slot                    = 2                ; // secondary
@@ -176,8 +176,8 @@ zoom_rotate_time        = 0.25
 
 scope_name              = wpn_addon_scope
 scope_names             = wpn_addon_scope_susat, wpn_addon_scope_eotech, wpn_addon_scope_susat_dusk, wpn_addon_scope_elcan, wpn_addon_scope_susat_night, wpn_addon_scope_rakurs
-scope_x                 = 100
-scope_y                 = 100
+scope_x              	= 78
+scope_y                 = -10
 
 scope_respawn                                        = wpn_ak_alfa
 scope_respawn_wpn_addon_scope_susat                  = wpn_ak_alfa_susat
@@ -1188,6 +1188,8 @@ control_inertion_factor = 1.1f
 PDM_disp_vel_factor = 1.65
 
 hud = wpn_ak_alfa_tact_hud
+
+scope_names = wpn_addon_scope_susat, wpn_addon_scope_eotech, wpn_addon_scope_susat_dusk, wpn_addon_scope_elcan, wpn_addon_scope_susat_night; , wpn_addon_scope_rakurs
 
 scope_respawn                                        = wpn_ak_alfa_tact
 scope_respawn_wpn_addon_scope_susat                  = wpn_ak_alfa_tact_susat

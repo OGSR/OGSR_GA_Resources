@@ -1200,8 +1200,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_mp5 \n
-			ammo_9x19_fmj \n
+			wpn_ump45 \n
+			ammo_11.43x23_hydro \n
 			wpn_toz34 \n
 			ammo_12x70_kart \n
 #include "gameplay\character_items.xml" \n
@@ -1344,7 +1344,7 @@
 			[spawn] \n
             wpn_ak74 \n
             ammo_5.45x39_ap \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_pmm \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"
@@ -1510,7 +1510,7 @@
 			[spawn] \n
 			wpn_val \n
 			ammo_9x39_ap \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_pmm \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
@@ -1591,10 +1591,11 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
-			wpn_p90 \n
-			ammo_5.56x45_ss190 \n
+		wpn_m4_tact \n
+		ammo_5.56x45_ap \n
+		wpn_addon_scope_kemper \n
+			wpn_sr1m \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"
@@ -1630,8 +1631,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_usp \n
+			ammo_11.43x23_hydro \n
 			wpn_p90 \n
 			ammo_5.56x45_ss190 \n
 			bar_tiran_pda \n
@@ -1665,9 +1666,7 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
-			wpn_sig552 \n
+			wpn_l85 \n
 			ammo_5.56x45_ss190 \n
 			bar_lucky_pda \n
 #include "gameplay\character_items.xml" \n
@@ -1701,8 +1700,8 @@
 			[spawn] \n
 			wpn_toz34 \n
 			ammo_12x76_zhekan \n
-			wpn_mp5 \n
-			ammo_9x19_pbp \n
+			wpn_ump45 \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_food.xml"
@@ -1998,7 +1997,7 @@
 			[spawn] \n
             wpn_ak74 \n
             ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_pmm \n
 #include "gameplay\character_items.xml"	\n
 #include "gameplay\character_food.xml" \n
@@ -2064,7 +2063,7 @@
 			[spawn] \n
             wpn_abakan \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_fmj \n
 
 #include "gameplay\character_items.xml"	\n
@@ -2232,7 +2231,7 @@
 			[spawn] \n
             wpn_abakan \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_fmj \n
 
 #include "gameplay\character_items.xml"	\n
@@ -2680,7 +2679,7 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_l85 \n
 			ammo_5.56x45_ss190 \n
 			wpn_toz34 \n
 			ammo_12x70_kart \n
@@ -2746,7 +2745,7 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_sig552 \n
+			wpn_m4 \n
 			ammo_5.56x45_ss190 \n
 			wpn_toz34 \n
 			ammo_12x70_kart \n
@@ -2849,7 +2848,7 @@
 			[spawn] \n
 			wpn_ak74u \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_pmm \n
 #include "gameplay\character_items.xml"\n
 #include "gameplay\character_food.xml" \n
@@ -2973,8 +2972,8 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_colt1911 \n
+			ammo_11.43x23_hydro \n
 			wpn_p90 \n
 			ammo_5.56x45_ss190 \n
 #include "gameplay\character_items.xml"\n
@@ -3006,10 +3005,10 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
-			wpn_p90 \n
-			ammo_5.56x45_ss190 \n
+		wpn_ak101 = 1, launcher \n
+		ammo_5.56x45_ap \n
+			wpn_sr1m \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml"\n
 #include "gameplay\character_food.xml" \n
 #include "gameplay\character_drugs.xml"
@@ -3039,10 +3038,11 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
-			wpn_p90 \n
-			ammo_5.56x45_ss190 \n
+		wpn_ak101 = 1 \n
+		wpn_addon_scope_pka \n
+		ammo_5.56x45_ap \n
+			wpn_sr1m \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml"\n
 #include "gameplay\character_food.xml" \n
 #include "gameplay\character_drugs.xml"
@@ -3076,8 +3076,8 @@
 			wpn_svu \n
 			wpn_addon_scope_pso \n
 			ammo_7.62x54_7h1 \n
-			ammo_9x19_pbp \n
-			wpn_mp5 \n
+			wpn_ump45 \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml"\n
 #include "gameplay\character_food.xml" \n
 #include "gameplay\character_drugs.xml"
@@ -3175,10 +3175,10 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
-			wpn_p90 \n
-			ammo_5.56x45_ss190 \n
+		wpn_ak101 = 1, launcher \n
+		ammo_5.56x45_ap \n
+			wpn_sr1m \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml"\n
 #include "gameplay\character_food.xml" \n
 #include "gameplay\character_drugs.xml"
@@ -3239,8 +3239,9 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+		wpn_ak101 = 1, launcher \n
+		wpn_addon_scope_pka \n
+		ammo_5.56x45_ap \n
 			wpn_p90 \n
 			ammo_5.56x45_ss190 \n
 #include "gameplay\character_items.xml"\n
@@ -3271,8 +3272,9 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+		wpn_ak101 = 1, launcher \n
+		wpn_addon_scope_pka \n
+		ammo_5.56x45_ap \n
 			wpn_p90 \n
 			ammo_5.56x45_ss190 \n
 #include "gameplay\character_items.xml"\n

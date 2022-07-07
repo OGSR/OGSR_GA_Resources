@@ -46,7 +46,7 @@
 		<visual>actors\novice\green_stalker_3</visual>
 		<supplies>
 		[spawn] \n
-			wpn_pm \n
+			wpn_bizon \n
 			ammo_9x18_fmj \n
 			interactive_detector_advanced \n
 		</supplies>
@@ -77,7 +77,8 @@
 		<supplies>
 			[spawn] \n
 			wpn_bizon \n
-			wpn_grach \n
+			ammo_9x18_fmj \n
+			wpn_fiveseven \n
 			ammo_9x19_fmj \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
@@ -210,7 +211,7 @@
 		<visual>actors\bandit\stalker_bandit_master</visual>
 		<supplies>
 			[spawn] \n
-			wpn_mp5 = 1, prob = 0.80 \n
+			wpn_mp5 \n
 			ammo_9x19_fmj \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
@@ -273,7 +274,7 @@
 		<visual>actors\bandit\stalker_bandit_7</visual>
 		<supplies>
 			[spawn] \n
-			wpn_grach \n
+			wpn_hpsa \n
 			ammo_9x19_fmj \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_drugs.xml" \n
@@ -401,7 +402,7 @@
 			[spawn] \n
 			wpn_toz34 \n
 			ammo_12x70_kart \n
-			wpn_grach \n
+			wpn_hpsa \n
 			ammo_9x19_fmj \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_items.xml" \n
@@ -437,7 +438,7 @@
 			[spawn] \n
 			wpn_ak74u \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_fmj \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_items.xml" \n
@@ -505,7 +506,7 @@
 			wpn_ak74u \n
 			wpn_addon_scope_pka \n
 			ammo_5.45x39_fmj \n
-			wpn_grach \n
+			wpn_gsh18 \n
 			ammo_9x19_fmj \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_items.xml" \n
@@ -538,7 +539,7 @@
 			[spawn] \n
 			wpn_ak74 \n
 			ammo_5.45x39_fmj \n
-			wpn_pm \n
+			wpn_stechkin \n
 			ammo_9x18_fmj \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_items.xml" \n
@@ -604,7 +605,7 @@
 			[spawn] \n
 			wpn_toz34 \n
 			ammo_12x76_zhekan \n
-			wpn_grach \n
+			wpn_glock \n
 			ammo_9x19_fmj \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_items.xml" \n
@@ -641,7 +642,7 @@
 			wpn_ak74u \n
 			wpn_addon_scope_pka \n
 			ammo_5.45x39_fmj \n
-			wpn_grach \n
+			wpn_gsh18 \n
 			ammo_9x19_fmj \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_items.xml" \n
@@ -708,7 +709,7 @@
 			wpn_svd \n
 			wpn_addon_scope_kashtan \n
 			ammo_7.62x54_7h1 \n
-			wpn_grach \n
+			wpn_gsh18 \n
 			ammo_9x19_fmj \n
 			grenade_f1 = 2 \n
 #include "gameplay\character_items.xml" \n
@@ -803,7 +804,7 @@
 		<visual>actors\bandit\stalker_bandit_1</visual>
 		<supplies>
 			[spawn] \n
-			wpn_grach \n
+			wpn_fiveseven \n
 			ammo_9x19_fmj \n
 			device_torch
 		</supplies>		

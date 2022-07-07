@@ -38,16 +38,11 @@ function namesave(key, bind)
 	if level.main_input_receiver() or not db.actor:alive() then return end
 
 	if bind == key_bindings.kNAME_SAVE then
-		local cr_wrong_name_save = string.format( "%s_namesave", user_name())
-		cmd( "save", cr_wrong_name_save )
-		
-		local rename_name_save = dsh.safe_file_name( string.format( "%s %d. %s %02d.%02d", game.translate_string( "ui_autosave_day" ), news_manager.game_days(), game.translate_string( level.name() ), level.get_time_hours(), level.get_time_minutes() ) )
-		local f = getFS()
-		local wrong_name_save_sav = f:update_path( "$game_saves$", cr_wrong_name_save..".sav" )
-		local true_name_save_sav  = f:update_path( "$game_saves$", rename_name_save..".sav" )
-		local wrong_name_save_dds = f:update_path( "$game_saves$", cr_wrong_name_save..".dds" )
-		local true_name_save_dds  = f:update_path( "$game_saves$", rename_name_save..".dds")
-		f:file_rename( wrong_name_save_sav, true_name_save_sav, true )
-		f:file_rename( wrong_name_save_dds, true_name_save_dds, true )
+		local levname = game.translate_string( level.name() )
+		local days = news_manager.game_days()
+		local hours = level.get_time_hours()	
+		local minutes = level.get_time_minutes() 
+		local savename = dsh.safe_file_name( string.format( "%s %u. %02u-%02u. %s", game.translate_string( "ui_autosave_day" ), days, hours, minutes, levname ) )
+		cmd( "save " .. savename )
 	end
 end

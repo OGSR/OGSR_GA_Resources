@@ -42,14 +42,6 @@ function on_monster_spawn( obj, binder )
         [ "queued" ] = true,
         [ "__unsubscribe_on_death" ] = true,
       })
-	  if obj:section() == "m_controller_special" then
-        table.insert( subscribed, {
-          [ "signal" ] = s_name,
-          [ "fun"    ] = this.super_controller_attack,
-          [ "queued" ] = true,
-          [ "__unsubscribe_on_death" ] = true,
-        })
-	  end
     elseif obj:clsid() == clsid.dog_s then
 	  if obj:section() == "dog_v_strong" then
         table.insert( subscribed, {
@@ -243,16 +235,6 @@ function controller_psy_attack( obj )
 				end
 			end
 		end
-	end
-end
-
---Эффекты квестового суперконтроллёра --Говно на самом деле, но мне лень переделать на что-то более красивое.
-function super_controller_attack(obj)
-	if not may_attack() then return end
-	local posit = obj:position()
-	if posit:distance_to(db.actor:position()) < 85 then
-		jekan_update.controller_special_effect(p_obj)
-		jekan_update.actor_weapon_drop()
 	end
 end
 

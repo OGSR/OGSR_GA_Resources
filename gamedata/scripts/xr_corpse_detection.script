@@ -538,7 +538,9 @@ function action_search_corpse:execute()
 		if self.a.anim_started then
 			if self.a.do_chik and self.a.do_chik < time_global() then
 				self.a.do_chik = nil
-				chik_chik(npc,target)
+				if self.a.is_corpse then
+					chik_chik(npc, target)
+				end
 			end
 			self:update_animation()
 			return

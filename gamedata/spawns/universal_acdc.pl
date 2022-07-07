@@ -713,18 +713,11 @@ sub import_alife {
 				print $idx_log "\n[$object->{cse_object}->{name}]\nnew_idx = $id\n" if !defined $self->idx();
 			}
 			
-			# отладка для отношений
-			if (defined $object->{cse_object}->{g_group})
-			{
-				print "team $object->{cse_object}->{g_team}, squad $object->{cse_object}->{g_squad}, group $object->{cse_object}->{g_group}, $object->{cse_object}->{name}\n";
-			}
-			
 			push @{$self->{alife_objects}}, $object;
 			$id++;
 		}
 		$lif->close();
 	}
-	
 	if (defined $if->section('unk')) {
 		my $fn = $if->value('unk', 'binary_files');
 		my $bin_fh = IO::File->new($fn, 'r') or fail("$fn: $!\n");

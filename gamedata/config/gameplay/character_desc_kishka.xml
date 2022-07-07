@@ -220,8 +220,8 @@
 		<visual>actors\bandit\stalker_bandit_master</visual>
 		<supplies>
 		[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+		wpn_ak101 \n
+		ammo_5.56x45_ap \n
 		</supplies>
 		<start_dialog>kulg_band_zasada_boets_dialog</start_dialog>
 	</specific_character>
@@ -553,8 +553,8 @@
 		<visual>actors\killer\stalker_ki_antigas</visual>
 		<supplies>
 		[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+		wpn_ak101 \n
+		ammo_5.56x45_ap \n
 		</supplies>
 		<actor_dialog>dm_help_wounded_medkit_dialog</actor_dialog>
 	</specific_character>
@@ -823,7 +823,7 @@
 		<visual>actors\yuriy</visual>
 		<supplies>
 		[spawn] \n
-			wpn_pm \n
+			wpn_bizon \n
 			ammo_9x18_pmm \n
 		</supplies>
 		<start_dialog>yuriy_start_dialog</start_dialog>
@@ -917,7 +917,7 @@
 		<visual>actors\brat_doc</visual>
 		<supplies>
 		[spawn] \n
-			wpn_pm \n
+			wpn_bizon \n
 			ammo_9x18_pmm \n
 			device_pda \n
 		</supplies>
@@ -975,7 +975,7 @@
 		<visual>actors\brat3</visual>
 		<supplies>
 		[spawn] \n
-			wpn_pm \n
+			wpn_bizon \n
 			ammo_9x18_pmm \n
 #include "gameplay\character_items.xml"\n
 #include "gameplay\character_food.xml" \n
@@ -1259,8 +1259,8 @@
 		<visual>actors\unic\npc_sprat</visual>
 		<supplies>
 		[spawn] \n
-			wpn_mp5 \n
-			ammo_9x19_fmj \n
+			wpn_ump45 \n
+			ammo_11.43x23_hydro \n
 #include "gameplay\character_items.xml"\n
 #include "gameplay\character_food.xml" \n
 #include "gameplay\character_drugs.xml"
@@ -1854,8 +1854,8 @@
 		<snd_config>characters_voice\human_01\ military\</snd_config>
 		<supplies>
 			[spawn] \n
-			wpn_mp5 \n
-			ammo_9x19_pbp = 1 \n
+			wpn_ump45 \n
+			ammo_11.43x23_hydro \n
 			wpn_toz34 \n
 			ammo_12x76_zhekan \n
 #include "gameplay\character_drugs.xml"
@@ -1912,8 +1912,8 @@
 			[spawn] \n
 			wpn_toz34 \n
 			ammo_12x70_kart \n
-			wpn_mp5 \n
-			ammo_9x19_fmj = 1 \n
+			wpn_ump45 \n
+			ammo_11.43x23_hydro \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 #include "gameplay\character_food.xml"
@@ -2214,10 +2214,10 @@
 		<snd_config>characters_voice\human_01\ military\</snd_config>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
-			wpn_p90 \n
-			ammo_5.56x45_ss190 \n
+		wpn_ak101 \n
+		ammo_5.56x45_ap \n
+			wpn_sr1m \n
+			ammo_11.43x23_hydro \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 #include "gameplay\character_food.xml"
@@ -2245,8 +2245,8 @@
 		<snd_config>characters_voice\human_01\ military\</snd_config>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_desert_eagle \n
+			ammo_11.43x23_hydro \n
 			wpn_p90 \n
 			ammo_5.56x45_ss190 \n
 			device_torch \n
@@ -2276,10 +2276,10 @@
 		<snd_config>characters_voice\human_01\ military\</snd_config>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
-			wpn_p90 \n
-			ammo_5.56x45_ss190 \n
+		wpn_ak101 \n
+		ammo_5.56x45_ap \n
+			wpn_sr1m \n
+			ammo_11.43x23_hydro \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 #include "gameplay\character_food.xml"
@@ -2306,8 +2306,8 @@
 		<snd_config>characters_voice\human_01\ military\</snd_config>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+			wpn_desert_eagle \n
+			ammo_11.43x23_hydro \n
 			wpn_p90 \n
 			ammo_5.56x45_ss190 \n
 			device_torch \n
@@ -2697,8 +2697,8 @@
 		<snd_config>characters_voice\human_01\ military\</snd_config>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
-			ammo_12x70_kart \n
+		wpn_ak101 \n
+		ammo_5.56x45_ap \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 #include "gameplay\character_food.xml"
@@ -3423,8 +3423,8 @@
 			[spawn] \n
 			wpn_fort \n
 			ammo_9x18_fmj = 1 \n
-			wpn_mp5 \n
-			ammo_9x19_fmj \n
+			wpn_ump45 \n
+			ammo_11.43x23_hydro \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 #include "gameplay\character_food.xml"
