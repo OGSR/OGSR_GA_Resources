@@ -225,9 +225,7 @@ function level_spawn()
 
 		proceed_spawn("zombie_ghost", vector():set(131, -4, 30), 1, 44, 1, level_name.."_zombie_portion_5", "fake")
 
-		-- proceed_spawn("zombie_immortal", vector():set(-109, -20, -217), 1, 44, 1, level_name.."_zombie_portion_6", "fake")
-
-		proceed_spawn("burer_strong", vector():set(-11, 2, 265), 1, 44, 5, level_name.."_tushkano_portion_1")
+		proceed_spawn("zombie_immortal", vector():set(-11, 2, 265), 1, 44, 5, level_name.."_tushkano_portion_1")
 
 	end
 

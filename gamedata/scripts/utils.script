@@ -260,7 +260,7 @@ function is_day()
 end
 
 function electro_art_enabled()
-    return level.get_time_hours() >= 0 and level.get_time_hours() < 5
+    return not is_day()
 end
 
 -- Перевод угла из радианов в градусы

@@ -655,3 +655,30 @@ break_sound			= material\bottle\collide\bottle_break_1
 
 use_sound_anm = items\vodka\vodka_drink
 use_sound = inv_sounds\inv_vodka
+
+[device_activated]:food ; Это костыль для анимации включения приборов
+$spawn 				= "food and drugs\bread"
+visual              = dynamics\devices\dev_bred\dev_bred.ogf
+description			= kostyl
+cost				= 0
+inv_name			= kostyl
+inv_name_short		= kostyl
+inv_weight			= 0.2
+
+inv_grid_width		= 1
+inv_grid_height		= 1
+inv_grid_x			= 11
+inv_grid_y			= 9
+
+; eatable item
+eat_health        = 0
+eat_thirst 	      = 0
+eat_satiety       = 0
+eat_power         = 0
+eat_radiation     = 0
+eat_alcohol	      = 0
+wounds_heal_perc  = 0
+eat_portions_num  = -1
+
+use_sound_anm = weapons\headflash_off
+use_sound = weapons\headflash_off

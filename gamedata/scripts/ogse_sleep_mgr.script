@@ -84,6 +84,7 @@ function begin_sleep(desired_sleep_time)
 	local dt_ms = math.ceil(desired_sleep_time * 3600 * 1000 / sleep_counts)
 	--local actor_binder = db.actor:binded_object()
 	local prev_health = db.actor.health
+	--local surge_dt = dsh_cop_weather.get_surge_time() * 3600 * 1000
 	for i=1,sleep_counts do
 		-- переводим стрелки
 		level.advance_game_time(dt_ms)
@@ -104,11 +105,19 @@ function begin_sleep(desired_sleep_time)
 		end
 
 		-- начинается выброс
-		if ogse_weather_mgr.get_weather_mgr():is_surge_in_process() then
+		if dsh_cop_weather.get_weather_mgr():is_surge_in_process() then
 			ogse.autohiding_msg("ogse_sleep_mgr_warn_3_text", 1500)
 			urgent_awakening = true
 			break		
 		end
+
+		-- в следующей итерации начнется выброс
+		--surge_dt = surge_dt - dt_ms
+		--if surge_dt < dt_ms then
+		--	ogse.autohiding_msg("ogse_sleep_mgr_warn_3_text", 1500)
+		--	urgent_awakening = true
+		--	break
+		--end
 
 		-- проверяем условие останова сна по состоянию здоровья
 		local cur_health = db.actor.health
@@ -125,6 +134,10 @@ function begin_sleep(desired_sleep_time)
 	db.actor.power = 1
 	sleeping_now = false
 	break_sleep_request = false
+
+	-- обновили менеджер погоды
+	dsh_cop_weather.get_weather_mgr():force_update()
+
 	-- сколько реально спали
 	awakening_time = game.get_game_time()
 	local real_sleep_time = awakening_time:diffSec(start_sleep_time)

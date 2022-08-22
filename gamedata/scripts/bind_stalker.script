@@ -44,8 +44,24 @@ function actor_binder:net_spawn(data)
 	if rx_ai then rx_ai.actor_net_spawn() end
 
 -----------------------------------------------------------
-	cmd("r2_ls_bloom_threshold 1.") --Избавляемся от пересветов
-	cmd("r2_gloss_factor 1.") --Избавляемся от пересветов
+  cmd("r_SunShafts_Radius 2.0")
+  cmd("r_SunShafts_Blend 0.01")
+  cmd("r_sunshafts_intensity 0.1")
+  cmd("r2_ls_bloom_threshold 0.0001")
+  cmd("r2_ls_bloom_kernel_scale 0.9")
+  cmd("r2_sun_lumscale 1.0")
+  cmd("r2_sun_lumscale_amb 1.0")
+  cmd("r2_sun_lumscale_hemi 1.0")
+  cmd("r2_tonemap on")
+  cmd("r2_tonemap_adaptation 3.")
+  cmd("r2_tonemap_amount 0.7")
+  cmd("r2_tonemap_lowlum 0.0001")
+  cmd("r2_tonemap_middlegray 2.0")
+
+  if get_console():get_float("r2_gloss_factor") > 2 then --Попытка избавиться от пересветов мокрых поверхностей
+    cmd("r2_gloss_factor 1.5")
+  end
+-----------------------------------------------------------
 	cmd("cam_inert 0") --сбрасываем инерцию камеры в 0
 	cmd("g_cop_death_anim 0") --Отключаем Death Anims, с ними куча багов.
 	cmd("r3_minmax_sm off") --От этого фпс дропается у некоторых при долгой игре.
@@ -55,6 +71,7 @@ function actor_binder:net_spawn(data)
 	cmd("r2_exp_donttest_shad off") --Это экономит фпс.
 	cmd("unbind use_medkit") --эти кнопки нам не нужны.
 	cmd("unbind use_bandage")
+	cmd("snd_efx off")
 -----------------------------------------------------------
 
 	self.am:subscribe({ signal = "on_talk_open",  fun = this.hide_weapon    })

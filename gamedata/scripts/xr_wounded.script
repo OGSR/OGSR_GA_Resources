@@ -5,17 +5,18 @@
 ----------------------------------------------------------------------------------------------------------------------
 
 local pseudo_wounded = {
-	[ "esc_fox" ] = true,
-	[ "val_sos_wounded" ] = true,
-	[ "val_escort_bandit_halfdead" ] = true,
+	[ "esc_vagon_wounded" ] = 0.35,
+	[ "esc_fox" ] = 0.3,
+	[ "val_sos_wounded" ] = 0.3,
+	[ "val_escort_bandit_halfdead" ] = 0.3,
 --[==[ --NS2016
-	[ "avu_killer" ]             = true,
-	[ "esc_foto_muzhik_zapas" ]  = true,
-	[ "esc_foto_muzhik" ]        = true,
-	[ "milit_zapas_fotomuzhik" ] = true,
-	[ "military_fotomuzhik" ]    = true,
-	[ "foto_monolitovets" ]      = true,
-	[ "nevid_monolit" ]          = true,
+	[ "avu_killer" ]             = 0.3,
+	[ "esc_foto_muzhik_zapas" ]  = 0.3,
+	[ "esc_foto_muzhik" ]        = 0.3,
+	[ "milit_zapas_fotomuzhik" ] = 0.3,
+	[ "military_fotomuzhik" ]    = 0.3,
+	[ "foto_monolitovets" ]      = 0.3,
+	[ "nevid_monolit" ]          = 0.3,
 --]==]
 }
 
@@ -326,7 +327,7 @@ function Cwound_manager:update()
 	hp	= 100*self.npc.health
 	psy	= 100*self.npc.psy_health
 
-	if pseudo_wounded[ self.npc:name() ] and self.npc.health < 0.3 then --Квестовые раненые не должны вставать, самолечиться и тп.
+	if pseudo_wounded[ self.npc:name() ] and self.npc.health < pseudo_wounded[ self.npc:name() ] then --Квестовые раненые не должны вставать, самолечиться и тп.
 		if self.npc.health > 0.1 then
 			self.npc.health = -0.01
 		end

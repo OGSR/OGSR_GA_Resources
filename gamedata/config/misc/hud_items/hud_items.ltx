@@ -346,6 +346,51 @@ chemical_burn_immunity						= 1.0
 explosion_immunity						= 1.0
 fire_wound_immunity						= 1.0
 
+
+[anm_device_activated]:anm_base
+anim_timing = 1000
+item_used_timing = 500
+visual          = dynamics\devices\dev_conserv\dev_conserv.ogf
+hud				= anm_device_activated_hud
+
+snd_draw					= weapons\headflash_on
+snd_holster					= weapons\headflash_on
+snd_gyro					= weapons\headflash_on
+snd_zoomin					= weapons\headflash_on
+snd_zoomout					= weapons\headflash_on
+snd_shoot					= weapons\headflash_on
+snd_empty					= weapons\headflash_on
+snd_reload					= weapons\headflash_on
+snd_close					= weapons\headflash_on
+
+[anm_device_activated_hud]:anm_base_hud
+
+hands_position				= 0.0,-0.13,0.21
+hands_orientation			= 0.0,0.0,0.0
+hands_position_16x9			= 0.0,-0.13,0.16
+hands_orientation_16x9		= 0.0,0.0,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+item_visual             	= gwr\food\headflash\headflash_hud.ogf
+
+anm_show			= headflash
+anm_hide			= energy_zaglushka
+anm_idle			= energy_zaglushka
+anm_idle_slow                   = energy_zaglushka
+anm_idle_crouch                 = energy_zaglushka
+anm_idle_crouch_slow            = energy_zaglushka
+anm_idle_aim			= energy_zaglushka
+anm_idle_aim_end		= energy_zaglushka
+anm_idle_moving			= energy_zaglushka
+anm_idle_moving_slow 		= energy_zaglushka
+anm_idle_moving_crouch 	        = energy_zaglushka
+anm_idle_moving_crouch_slow     = energy_zaglushka
+anm_idle_sprint			= energy_zaglushka
+anm_idle_sprint_start 		= energy_zaglushka
+anm_bore			= energy_zaglushka
+
 #include "anm_medical.ltx"
 #include "anm_food.ltx"
 #include "anm_drinks.ltx"

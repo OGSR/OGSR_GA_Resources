@@ -453,7 +453,7 @@ end
 function thunderbird_visual_effect()
 	local hud = get_hud()
 	local sm = ogse_signals.get_mgr()
-	local next_time = ogse_weather_mgr.get_surge_time()
+	local next_time = dsh_cop_weather.get_surge_time()
 	local cs = hud:GetCustomStatic("blow")
 	if not cs then
 		cs = hud:AddCustomStatic("blow", true)

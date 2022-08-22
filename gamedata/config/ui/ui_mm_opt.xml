@@ -85,7 +85,7 @@
 		<cap_resolution x="140" y="290" width="143" height="21">
 			<text font="letterica16" r="215" g="195" b="170">ui_mm_resolution</text>
 		</cap_resolution>
-		<list_resolution x="300" y="285" width="261" height="21" always_show_scroll="1">
+		<list_resolution x="300" y="285" width="261" height="21" list_length="15" always_show_scroll="1">
 			<options_item entry="vid_mode" group="mm_opt_video"/>
 			<text_color>
 				<e r="216" g="186" b="140"/>
@@ -712,6 +712,20 @@
 			<options_item entry="g_mouse_wheel_switch_slot" group="mm_opt_gameplay"/>
 			<text font="letterica16" r="215" g="195" b="170">ui_mm_switch_slot</text>
 		</check_switch_slot>
+
+		<cap_font_scale_x x="140" y="580" width="143" height="21">
+			<text font="letterica16" r="215" g="195" b="170">ui_mm_font_scale_x</text>
+		</cap_font_scale_x>
+		<track_font_scale_x x="300" y="575" width="245" height="21" invert="0" step="0.01" min="0.5" max="2">
+			<options_item entry="g_font_scale_x" group="mm_opt_gameplay"/>
+		</track_font_scale_x>
+
+		<cap_font_scale_y x="140" y="610" width="143" height="21">
+			<text font="letterica16" r="215" g="195" b="170">ui_mm_font_scale_y</text>
+		</cap_font_scale_y>
+		<track_font_scale_y x="300" y="605" width="245" height="21" invert="0" step="0.01" min="0.5" max="2">
+			<options_item entry="g_font_scale_y" group="mm_opt_gameplay"/>
+		</track_font_scale_y>
 
 	</tab_gameplay>
 	

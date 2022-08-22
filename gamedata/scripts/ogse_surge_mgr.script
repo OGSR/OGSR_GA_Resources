@@ -602,7 +602,7 @@ function surge_final()
 	for _, k in ipairs( all_infos ) do
 	  db.actor:disable_info_portion( k )
 	end
-	ogse_weather_mgr.get_weather_mgr():prepare_new_surge() -- тут вставл€ем перезапуск выброса в погодном менеджере
+	dsh_cop_weather.get_weather_mgr():prepare_new_surge() -- тут вставл€ем перезапуск выброса в погодном менеджере
 	--
 	dsh.timeout( 10000, news_manager.autosave, "¬ыброс. " .. game.translate_string( level.name() ) )
 	set_pda_params(vector():set(0,0,0))

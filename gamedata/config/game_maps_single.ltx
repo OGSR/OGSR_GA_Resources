@@ -2,25 +2,28 @@
 l01_escape
 l02_garbage
 l03_agroprom
-l03u_agr_underground
 l04_darkvalley
-l04u_labx18
 l05_bar
 l06_rostok
 l07_military
 l08_yantar
-l08u_brainlab
 l09_deadcity_ogse
 l10_radar
-l10u_bunker
 l11_pripyat
 l12_stancia
 l12_stancia_2
-l12u_control_monolith
-l12u_sarcofag
 l13_generators_ogse
 k01_darkscape_ogse
 l22_marsh
+
+;Эти локации не будут показываться на глобальной карте
+[level_maps_single_ext]
+l03u_agr_underground
+l04u_labx18
+l08u_brainlab
+l10u_bunker
+l12u_control_monolith
+l12u_sarcofag
 l23_x9
 
 
@@ -86,7 +89,7 @@ music_tracks    = l04_darkvalley_musics
 texture			= map\map_labx18_map
 bound_rect		= -51.236, -37.911, 47.999, 81.159
 global_rect		= 876,1824,904,1824.01
-weathers		= indoor_x18
+weathers		= indoor
 music_tracks	= l04_labx18_musics
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -174,7 +177,7 @@ music_tracks    = l12_stancia_musics
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [l12u_sarcofag]
 global_rect		= 434.5, 317.7,	436.5, 319.7
-weathers		= sarkofag
+weathers		= indoor
 music_tracks    = l12u_sarcofag_musics
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

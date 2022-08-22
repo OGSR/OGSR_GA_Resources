@@ -30,7 +30,6 @@ local scope_section							-- Секция прицела в строковом �
 
 --флаги
 local nv_scope_fx_autoenable = true			-- Автовключение пнв/подсветки в прицеле.
-local night_vision_fx_not_sniper = true		-- Если true - значит НЕ находимся в режиме прицеливания.
 -----------------------------------------
 local night_vision_fx_on = false			-- флаг работающего ПНВ
 local night_vision_btr_fx_on = false		-- флаг работающего ПНВ БТР
@@ -135,7 +134,7 @@ function call_pnv(key, bind) --Действие при нажатии клави
 
 	if ogse_car_control.in_btr and not night_vision_surge_block then --если сидим в БТР'е
 		if not night_vision_btr_fx_on then turn_on_nv_btr_fx() else turn_off_nv_btr_fx() end --вкл/выкл ПНВ БТР
-	elseif night_vision_fx_not_sniper and not night_vision_surge_block and not db.actor:item_in_slot(9) then -- Если не смотрим в прицел
+	elseif not night_vision_surge_block and not db.actor:item_in_slot(9) then -- Если не смотрим в прицел
 		if not night_vision_fx_on then nv_fx_on() else turn_off_nv_fx() end --вкл/выкл прибор ПНВ
 	end
 	return true
@@ -156,7 +155,6 @@ end
 
 local night_vision_fx_store = false --с помощью этого флага будем восстанавливать работу прибора ПНВ после прицеливания.
 function on_sniper_mode() --Вошли в режим прицеливания. Вызывается из ogse_hud_control
-	night_vision_fx_not_sniper = false --С помощью этого флага будем определять, находимся ли в режиме прицеливания.
 	scope_section = get_active_scope_section() --получаем секцию прицела
 	if nv_scope_fx_autoenable then --если задано автовключение пнв в прицеле, то:
 		nv_scope_fx_on()	--включаем пнв в прицеле
@@ -166,7 +164,6 @@ end
 function off_sniper_mode() --Вышли из режима прицеливания. Вызывается из ogse_hud_control
 	if night_vision_scope_fx_on then turn_off_nv_scope_fx()	end -- вырубаем пнв в прицеле
 	scope_section = nil --переводим в nil, на всякий случай
-	night_vision_fx_not_sniper = true --вышли из режима прицеливания.
 	if night_vision_fx_store then --Если запомнили что пнв был включен, значит включаем его.
 		night_vision_fx_store = false
 		if not night_vision_surge_block then

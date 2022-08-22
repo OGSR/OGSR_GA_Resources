@@ -33,7 +33,7 @@ local adv_vid_opt_params = {
 	{ "aniso",                 "track", 0, hint_colors.yellow, "video_settings_name_8" , "video_settings_desc_8"  },
 	--
 	{ "aa",                    "list",  0, hint_colors.green , "video_settings_name_19", "video_settings_desc_19", only_2a_and_more_mode },
-	{ "msaa",                  "list",  1, hint_colors.red   , "", ""                                            , only_3_mode  }, --мсаа норм работает только на р3, пока.
+	{ "msaa",                  "list",  1, hint_colors.red   , "", ""                                            , only_3_and_more_mode  },
 	{ "ssample",               "track", 0, hint_colors.green , "", ""                                            , only_1_mode  },
 	--
 	{ "detail_density",        "track", 0, hint_colors.red   , "video_settings_name_4" , "video_settings_desc_4"  },
@@ -75,8 +75,8 @@ local adv_vid_opt_params = {
 --	{ "r2_sun_lumscale_hemi",  "track", 0, hint_colors.green , "video_settings_name_63", "video_settings_desc_63", only_2_and_more_mode  }, --Яркость солнца и тп - это всё же часть погоды, менять её наверное не нужно.
 --	{ "r2_tf_mipbias",         "track", 0, hint_colors.green , "video_settings_name_20", "video_settings_desc_20" }, -- Лучше это не менять, а то на DX10+ при значениях выше -0.5f мылится UI.
 --	{ "r2_sun_near_border",    "track", 0, hint_colors.green , "video_settings_name_23", "video_settings_desc_23", only_2_and_more_mode  }, --теперь эта команда ни на что не влияет, т.ч. выключаю.
-	{ "r2_tonemap",            "check", 0, hint_colors.green , "video_settings_name_25", "video_settings_desc_25", only_2_and_more_mode  },
-	{ "r2_tonemap_middlegray", "track", 0, hint_colors.green , "video_settings_name_26", "video_settings_desc_26", only_2_and_more_mode  },
+--	{ "r2_tonemap",            "check", 0, hint_colors.green , "video_settings_name_25", "video_settings_desc_25", only_2_and_more_mode  },
+--	{ "r2_tonemap_middlegray", "track", 0, hint_colors.green , "video_settings_name_26", "video_settings_desc_26", only_2_and_more_mode  },
 	{ "r2_rain_drops",         "check", 0, hint_colors.green , "video_settings_name_47", "video_settings_desc_47", only_2a_and_more_mode },
 	{ "r2_visor_refl",         "check", 0, hint_colors.green , "video_settings_name_65", "",                       only_2a_and_more_mode },
 	{ "r2_actor_shadow",       "check", 0, hint_colors.green , "video_settings_name_56", "",                       only_2a_and_more_mode },

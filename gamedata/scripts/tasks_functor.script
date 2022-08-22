@@ -74,7 +74,9 @@ function on_take(obj, sobj)
 		end
 		return true
 	elseif sect == "bomba" then
-		level.start_stop_menu(this.ui_neutralize_bomb(), true)
+		if level.name() == "l01_escape" then
+			level.start_stop_menu(this.ui_neutralize_bomb(), true)
+		end
 		return true
 	elseif sect == "kid_zapisi" and not has_alife_info("kid_zapisi_read") then
 		db.actor:give_info_portion("kid_zapisi_read")
@@ -2500,13 +2502,16 @@ end
 function bun_spawn_bomba()
 	local pos = db.actor:position()
     local bomba = alife():create("bomba", vector():set(pos.x+1, pos.y, pos.z+1), db.actor:level_vertex_id(), db.actor:game_vertex_id())
-	ogse_st_mgr.start_timer("bun_babah_bomba", 2, "tasks_functor.bun_babah_bomba", bomba.id)
+	--ogse_st_mgr.start_timer("bun_babah_bomba", 2, "tasks_functor.bun_babah_bomba", bomba.id)
+	level.client_spawn_manager():add( bomba.id, -1, function(id, obj)
+		obj:explode(0)
+	end )
 end
 
-function bun_babah_bomba(bomb_id)
+--[[function bun_babah_bomba(bomb_id)
 	--news_manager.send_tip(db.actor, "spawn_pda_monolit", 0, "stalker", 9000)
 	hit_obj_by_id_simple(bomb_id, 1000, 0)
-end
+end--]]
 
 
 class "ui_bun_comp" (CUIScriptWnd)

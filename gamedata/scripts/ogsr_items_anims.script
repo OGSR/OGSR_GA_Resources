@@ -39,6 +39,9 @@ local function apply_item( sect )
 		db.actor:give_info_portion("kordon_samogon_forsage")
 	elseif sect == "glassful" then
 		jekan_update.pervach_use()
+	elseif sect == "device_activated" then
+		torch_switch()
+		return
 	end		
 
 	for k, v in ipairs( cfg ) do
@@ -286,9 +289,39 @@ local function on_update()
 		end
 	end
 
+	if db.actor:active_item() and db.actor:active_item():section()== "anm_device_activated" then return end
 	update_static()
 end
 
+function on_key_down(key, bind )
+	if
+		bind ~= key_bindings.kTORCH
+		or level.main_input_receiver()
+		or ANIM_IN_ACTION
+		or not db.actor:alive()
+		or db.actor:active_item() 
+		or get_actor_obj():IsDetectorActive()
+	then
+		return
+	end
+
+	local torch = db.actor:item_in_slot( 9 )
+	if torch and torch:is_torch() then
+		local sobj = alife():create( "device_activated", vector():set( 0, 0, 0 ), 0, 0, 0 )
+		level.client_spawn_manager():add( sobj.id, -1, function( id, obj ) dsh.exec_on_update( function() db.actor:eat( obj ) end ) end )
+		torch_switch()
+	end
+end
+
+function torch_switch()
+  if db.actor:alive() then
+    local torch = db.actor:item_in_slot( 9 )
+    if torch and torch:is_torch() then
+      torch = get_torch_obj( torch )
+      torch:switch( true )
+    end
+  end
+end
 
 function attach( sm )
 	sm:subscribe({ signal = "on_first_update",     fun = on_first_update })
@@ -297,4 +330,5 @@ function attach( sm )
 	sm:subscribe({ signal = "on_item_to_ruck",     fun = on_item_to_ruck })
 	sm:subscribe({ signal = "on_drop",             fun = on_drop })
 	sm:subscribe({ signal = "on_actor_before_use", fun = on_actor_before_use })
+	sm:subscribe({ signal = "on_key_down",         fun = this.on_key_down })
 end

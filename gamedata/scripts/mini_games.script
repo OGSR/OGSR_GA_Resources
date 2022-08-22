@@ -386,7 +386,7 @@ end
 
 function MGame_WhereBall:btn_start()
 	StavkaWBG = tonumber(self.edit_stavka:GetText())
-	if StavkaWBG < 500 or StavkaWBG > 2000 or db.actor:money() < StavkaWBG then
+	if not StavkaWBG or StavkaWBG < 500 or StavkaWBG > 2000 or db.actor:money() < StavkaWBG then
 		self:error_stavka()
 		btn_start_WB:Enable(true)
 		return false

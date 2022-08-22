@@ -363,6 +363,13 @@ function activate_by_section(npc, ini, section, loading)
 		db.storage[npc_id].activation_game_time = game.get_game_time()
 	end
 
+	if not section or not ini:section_exist(section) then
+		if not ini:section_exist(section) and section ~= "nil" then --такое может быть если сбросить нпс логику, к примеру вылечить врага.
+			log3("~~[%s] section [%s] not found in logic of object [%s]", script_name(), section, npc:name())
+		end
+		section = "nil"
+	end
+
 	if section == "nil" then
 		db.storage[npc_id].overrides = nil
 		reset_generic_schemes_on_scheme_switch(npc, "nil", "nil")
@@ -370,10 +377,6 @@ function activate_by_section(npc, ini, section, loading)
 		db.storage[npc_id].active_scheme = nil
 		return
 	end
-
-	--log1("!!XR_LOGIC DEBUG ["..tostring(npc:name()).."] sect ["..tostring(section).."]")
-
-	if not section or not ini:section_exist(section) then section = "nil" end
 
 	if ini:section_exist(section) then
 		local scheme = utils.get_scheme_by_section(section)
@@ -411,8 +414,6 @@ function activate_by_section(npc, ini, section, loading)
 		else
 			issue_event(npc, db.storage[npc_id][scheme], "reset_scheme", loading, npc)
 		end
-	--else
-		--- abort("object '%s': activate_by_section: section '%s' does not exist", npc:name(), section)
 	end
 end
 

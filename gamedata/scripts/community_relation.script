@@ -1,7 +1,5 @@
 -- -*- mode: lua; coding: windows-1251-dos -*-
 
---TODO: Удалить все вызовы этого скрипта из диалогов, has_30000 и relocate_30000 используются в диалоге bar_informator_enter_bandit, перенести куда-нибудь.
-
 --------------------------------------------------------------------------------------------------------
 function has_1000(actor, npc)
 	return actor:money() >= 1000
@@ -72,20 +70,29 @@ end
 --------------------------------------------------------------------------------------------------------
 function bad_relation_stalker(trader, actor)
 	return relation_registry.community_goodwill ("stalker", db.actor:id()) < -50
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_prebandit" and db.actor:character_community() ~= "bandit"
 end
 
 function bad_relation_stalker_10000(trader, actor)
 	return relation_registry.community_goodwill ("stalker", db.actor:id()) >= -150
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_prebandit" and db.actor:character_community() ~= "bandit"
 end
 
 function bad_relation_stalker_30000(trader, actor)
-	return relation_registry.community_goodwill ("stalker", db.actor:id()) < -150 and
-	relation_registry.community_goodwill ("stalker", db.actor:id()) >= -1000
+	return relation_registry.community_goodwill ("stalker", db.actor:id()) < -150
+		and relation_registry.community_goodwill ("stalker", db.actor:id()) >= -1000
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_prebandit" and db.actor:character_community() ~= "bandit"
 end
 
 function bad_relation_stalker_50000(trader, actor)
 	return relation_registry.community_goodwill ("stalker", db.actor:id()) < -1000
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_prebandit" and db.actor:character_community() ~= "bandit"
 end
+
 
 function repair_relation_stalker(trader, actor)
 	relation_registry.set_community_goodwill ("stalker", db.actor:id(), 0)
@@ -94,20 +101,33 @@ end
 --------------------------------------------------------------------------------------------------------
 function bad_relation_dolg()
 	return relation_registry.community_goodwill ("dolg", db.actor:id()) < -50
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_freedom"
+		and db.actor:character_community() ~= "actor_prebandit" and db.actor:character_community() ~= "bandit"
 end
 
 function bad_relation_dolg_10000(trader, actor)
 	return relation_registry.community_goodwill ("dolg", db.actor:id()) >= -150
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_freedom"
+		and db.actor:character_community() ~= "actor_prebandit" and db.actor:character_community() ~= "bandit"
 end
 
 function bad_relation_dolg_30000(trader, actor)
-	return relation_registry.community_goodwill ("dolg", db.actor:id()) < -150 and
-	relation_registry.community_goodwill ("dolg", db.actor:id()) >= -1000
+	return relation_registry.community_goodwill ("dolg", db.actor:id()) < -150
+		and relation_registry.community_goodwill ("dolg", db.actor:id()) >= -1000
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_freedom"
+		and db.actor:character_community() ~= "actor_prebandit" and db.actor:character_community() ~= "bandit"
 end
 
 function bad_relation_dolg_80000(trader, actor)
 	return relation_registry.community_goodwill ("dolg", db.actor:id()) < -1000
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_freedom"
+		and db.actor:character_community() ~= "actor_prebandit" and db.actor:character_community() ~= "bandit"
 end
+
 
 function repair_relation_dolg()
 	relation_registry.set_community_goodwill ("dolg", db.actor:id(), 500)
@@ -116,20 +136,29 @@ end
 --------------------------------------------------------------------------------------------------------
 function bad_relation_freedom()
 	return relation_registry.community_goodwill ("freedom", db.actor:id()) < -50
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_dolg"
 end
 
 function bad_relation_freedom_10000(trader, actor)
 	return relation_registry.community_goodwill ("freedom", db.actor:id()) >= -150
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_dolg"
 end
 
 function bad_relation_freedom_30000(trader, actor)
-	return relation_registry.community_goodwill ("freedom", db.actor:id()) < -150 and
-	relation_registry.community_goodwill ("freedom", db.actor:id()) >= -1000
+	return relation_registry.community_goodwill ("freedom", db.actor:id()) < -150
+		and relation_registry.community_goodwill ("freedom", db.actor:id()) >= -1000
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_dolg"
 end
 
 function bad_relation_freedom_80000(trader, actor)
 	return relation_registry.community_goodwill ("freedom", db.actor:id()) < -1000
+		and db.actor:character_community() ~= "actor_zombied"
+		and db.actor:character_community() ~= "actor_dolg"
 end
+
 
 function repair_relation_freedom()
 	relation_registry.set_community_goodwill ("freedom", db.actor:id(), 500)
@@ -138,20 +167,29 @@ end
 --------------------------------------------------------------------------------------------------------
 function bad_relation_bandit(trader, actor)
 	return relation_registry.community_goodwill ("bandit", db.actor:id()) < -50
+		and db.actor:character_community() ~= "actor_zombied"
+		and (db.actor:character_community() == "actor_prebandit" or db.actor:character_community() == "bandit")
 end
 
 function bad_relation_bandit_10000(trader, actor)
 	return relation_registry.community_goodwill ("bandit", db.actor:id()) >= -150
+		and db.actor:character_community() ~= "actor_zombied"
+		and (db.actor:character_community() == "actor_prebandit" or db.actor:character_community() == "bandit")
 end
 
 function bad_relation_bandit_30000(trader, actor)
-	return relation_registry.community_goodwill ("bandit", db.actor:id()) < -150 and
-	relation_registry.community_goodwill ("bandit", db.actor:id()) >= -1000
+	return relation_registry.community_goodwill ("bandit", db.actor:id()) < -150
+		and relation_registry.community_goodwill ("bandit", db.actor:id()) >= -1000
+		and db.actor:character_community() ~= "actor_zombied"
+		and (db.actor:character_community() == "actor_prebandit" or db.actor:character_community() == "bandit")
 end
 
 function bad_relation_bandit_50000(trader, actor)
 	return relation_registry.community_goodwill ("bandit", db.actor:id()) < -1000
+		and db.actor:character_community() ~= "actor_zombied"
+		and (db.actor:character_community() == "actor_prebandit" or db.actor:character_community() == "bandit")
 end
+
 
 function repair_relation_bandit(trader, actor)
 	relation_registry.set_community_goodwill ("bandit", db.actor:id(), 0)
