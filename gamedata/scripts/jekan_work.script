@@ -3857,39 +3857,33 @@ end
 
 -- Магнит ------------------------------------------------------------------------------------------
 
-function teleport_to_magnit()
+function teleport_to_magnit(af_minus, af_minus_ser)
 	local sobj = alife():story_object(story_ids.magnit_part)
 	local pos = sobj.position
 	local sobjlvl = alife():level_name(game_graph():vertex(sobj.m_game_vertex_id):level_id())
 	local actorlvl = level.name()
--- Сработало
-	if actorlvl == sobjlvl and not ogse_car_control.current_car then
+
+	if actorlvl == sobjlvl and not ogse_car_control.current_car then -- Сработало
 		news_manager.send_tip(db.actor, "af_magnit_is_full", nil, "anomal", 4000, nil)
-		ogse.spawn_item_in_inv("magnit_full", db.actor)
-		ogse.remove_item_from_inventory(db.actor:object("af_magnit_part1"),actor)
+		ogse.spawn_item_in_inv("magnit_full")
+		alife():release(af_minus_ser)
 		level.add_pp_effector("teleport.ppe", 2007, false)
 		soundtrack.magnit_portal()
 		delete_magnit_part()
 		db.actor:set_actor_position(pos)
-		return true
+	elseif actorlvl ~= sobjlvl then -- Не сработало
+		dsh.exec_on_update(function()
+			db.actor:move_to_ruck(af_minus);
+			update_inventory_window()
+			news_manager.send_tip(db.actor, "magnit_part_too_far", nil, "anomal", 6000, nil)
+		end)
+	elseif ogse_car_control.current_car then -- Мы в танке
+		dsh.exec_on_update(function()
+			db.actor:move_to_ruck(af_minus);
+			update_inventory_window()
+			news_manager.send_tip(db.actor, "magnit_part_car_fail", nil, "anomal", 6000, nil)
+		end)
 	end
--- Не сработало
-	if actorlvl ~= sobjlvl then
-		ogse.remove_item(db.actor:object("af_magnit_part1"))
-		ogse.spawn_item_in_inv("af_magnit_part1")
-		news_manager.send_tip(db.actor, "magnit_part_too_far", nil, "anomal", 6000, nil)
-		actor_disable_inventory()
-		return false
-	end
--- Мы в танке
-	if ogse_car_control.current_car then
-		ogse.remove_item(db.actor:object("af_magnit_part1"))
-		ogse.spawn_item_in_inv("af_magnit_part1")
-		news_manager.send_tip(db.actor, "magnit_part_car_fail", nil, "anomal", 6000, nil)
-		actor_disable_inventory()
-		return false
-	end
-	return false
 end
 
 function spawn_magnit_part()

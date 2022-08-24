@@ -1,5 +1,4 @@
 
-uniform float4 screen_res; // Screen resolution (x-Width,y-Height, zw - 1/resolution)
 uniform float4 addon_VControl; // x - интенсивность визора стекла, y -  насколько далеко от центра будет круг стекла
 
 #define HELMET_VISUAL_QUALITY 3 // [1;2;3]

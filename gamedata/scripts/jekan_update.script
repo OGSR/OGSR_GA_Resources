@@ -142,9 +142,9 @@ end
 
 ----------------------------------------------------------------------------------------------------
 
-function magnit_part_work_from_belt(obj)
+function magnit_part_work_from_belt(obj, sobj)
 	if obj:section() == "af_magnit_part1" then
-		return jekan_work.teleport_to_magnit()
+		return jekan_work.teleport_to_magnit(obj, sobj)
 	end
 end
 
