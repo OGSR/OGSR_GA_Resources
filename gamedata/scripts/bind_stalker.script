@@ -56,11 +56,14 @@ function actor_binder:net_spawn(data)
   cmd("r2_sun_lumscale 1.0")
   cmd("r2_sun_lumscale_amb 1.0")
   cmd("r2_sun_lumscale_hemi 1.1")
-  cmd("r2_tonemap on")
-  cmd("r2_tonemap_adaptation 3.")
-  cmd("r2_tonemap_amount 0.7")
-  cmd("r2_tonemap_lowlum 0.0001")
-  cmd("r2_tonemap_middlegray 2.0")
+  if not ogse.var_exists("cgim_configs2") then
+    cmd("r2_tonemap on")
+    cmd("r2_tonemap_adaptation 3.")
+    cmd("r2_tonemap_amount 0.7")
+    cmd("r2_tonemap_lowlum 0.0001")
+    cmd("r2_tonemap_middlegray 2.0")
+    ogse.save_var("cgim_configs2", true)
+  end
 
   if get_console():get_float("r2_gloss_factor") > 2 then --Попытка избавиться от пересветов мокрых поверхностей
     cmd("r2_gloss_factor 1.5")

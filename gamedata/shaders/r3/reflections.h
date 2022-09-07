@@ -25,6 +25,11 @@ By LVutner for X-Ray Oxygen project (2020)
 #define SSR_SAMPLES int(20) // Extreme
 #define SSR_DISTANCE float(400.0)
 
+#if defined(USE_MSAA)
+TEXTURE2DMS(float4, MSAA_SAMPLES) s_last_frame;
+#else
+Texture2D s_last_frame;
+#endif
 
 /*Helper functions*/
 float RayAttenBorder(float2 pos, float value)
@@ -107,7 +112,11 @@ float4 compute_ssr(float3 position, float3 normal)
 	float edge = RayAttenBorder(refl_tc.xy, SSR_EDGE_ATTENUATION);
 
 	/*Sample image with reflected TC*/	
-	float3 img = s_image.Load(int3(refl_tc.xy * screen_res.xy,0),0);
+#if defined(USE_MSAA)
+    float3 img = s_last_frame.Load(refl_tc.xy * screen_res.xy, 0);
+#else
+    float3 img = s_last_frame.Sample(smp_nofilter, refl_tc.xy);
+#endif
 
 	/*Image.rgb, Reflcontrol.a*/
 	return float4(img.xyz, reflection*edge);

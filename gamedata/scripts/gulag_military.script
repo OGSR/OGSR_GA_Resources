@@ -673,7 +673,7 @@ function check_state (gulag)
 			end   
 			return 2
        end   
-       if has_alife_info("mil_freedom_attack") then
+       if has_alife_info("mil_freedom_attack") and not has_alife_info("mil_lukash_dolg_task_complete") then
           return 3
        end
     end        
@@ -687,7 +687,7 @@ function check_state (gulag)
        end
     end            
     
-    if has_alife_info("mil_freedom_attack") then
+    if has_alife_info("mil_freedom_attack") and not has_alife_info("mil_lukash_dolg_task_complete") then
        return 3
     end   
     return 0
