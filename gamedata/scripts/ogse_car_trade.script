@@ -485,8 +485,8 @@ function car_trade_dialog:buy_car()
 	
 	if money >= cost then 
 
-		--alife():create( destr_item.section, vector():set(destr_item.coord_x, destr_item.coord_y, destr_item.coord_z), destr_item.l_vid, destr_item.g_vid)
-		ogse.spawn_object(destr_item.spawn_item)
+		local sobj = ogse.spawn_object(destr_item.spawn_item)
+		level.map_add_object_spot(sobj.id, "crlc_big", destr_item.name)
 
 		destr_item.disabled = 1
 	

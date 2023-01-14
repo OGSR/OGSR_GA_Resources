@@ -1,0 +1,160 @@
+-- -*- mode: lua; coding: windows-1251-dos -*-
+
+function attach( sm )
+  sm:subscribe({ signal = "on_key_down", fun = this.on_key_down })
+end
+
+--------------------------------------------------------------
+-- Trigger
+--------------------------------------------------------------
+local mc_anm_sec = "anim_mask_clean"
+local snd_gasmask = sound_object('weapons\\gasmask_swipe')
+local snd_torch = sound_object('weapons\\headflash_on')
+local hide_hand_speed = 1.5
+
+local lowered_anm_kinds = {
+	["w_sniper"] 	= true,
+	["w_rifle"] 	= true,
+	["w_smg"]	    = true,
+	["w_shotgun"] 	= true,
+}
+
+local lowered_anm_classes = {
+	["WP_VAL"] 		= true,
+	["WP_AK74"] 	= true,
+	["WP_LR300"] 	= true,
+	["WP_BM16"] 	= true,
+	["WP_SVD"] 		= true,
+	["WP_SVU"]		= true,
+	["WP_GROZA"] 	= true,
+	["WP_SHOTG"] 	= true,
+	["WP_RG6"] 		= true,
+	["WP_RPG7"] 	= true,
+	["D_PDA"]		= true,
+}
+
+function allow_animation()
+	local active_item = db.actor:active_item()
+	return game.hud_motion_allowed() and not level.only_allow_movekeys()
+		and ( not active_item or active_item:get_hud_item_state() == 0 )
+		and not db.actor.inventory:is_active_slot_blocked()
+end
+
+function on_key_down(key, bind)
+    if level.main_input_receiver()
+    or not db.actor:alive()
+    or not allow_animation() then return end
+
+	local torch = db.actor:item_in_slot( 9 )
+	if bind == key_bindings.kSWIPE_MASK then
+		if get_actor_obj():IsDetectorActive() or get_con_string("r2_rain_drops_control") == "off" then return end
+    	swipe_mask()
+	elseif torch and bind == key_bindings.kTORCH and not db.actor:active_item() then
+    	torch_switcher()
+	end
+end
+
+-- EMULATION SWIPE RAIN DROPS
+function swipe_mask()
+	local anm_name = "script\\gasmask.anm"
+	local anm_additional_length = 0.45
+	local itm = db.actor:active_item()
+				
+	if itm then
+		local kind = get_string(itm:section(),"kind")
+		local class = get_string(itm:section(),"class")
+		if ((kind and lowered_anm_kinds[kind]) or (class and lowered_anm_classes[class])) then
+			anm_name = "script\\lower.anm"
+			anm_additional_length = 0.4
+		end
+	end
+
+	local mc_anm_time_1 = game.get_motion_length(mc_anm_sec, "anm_hide_hand", hide_hand_speed)
+	local mc_anm_time_2 = game.get_motion_length(mc_anm_sec, "anm_wipe", 1)
+	if db.actor:active_item() or get_actor_obj():IsDetectorActive() then
+		game.play_hud_motion(1, mc_anm_sec, "anm_hide_hand", true, hide_hand_speed)
+	end
+	game.play_hud_anm(anm_name, 0, 1, 1, false)
+	local new_speed = game.set_hud_anm_time(anm_name, ((mc_anm_time_1 + mc_anm_time_2) / 1000) + anm_additional_length)
+	animation_on()
+
+	dsh.timeout( mc_anm_time_1, function()
+		game.play_hud_motion(db.actor:active_item() and 1 or 2, mc_anm_sec, "anm_wipe", false, 1)
+		snd_gasmask:play(db.actor, 0, sound_object.s2d)
+		level.add_cam_effector("camera_effects\\weapon\\gasmask_swipe1.anm", 7538, false, "", 0, false)
+		dsh.timeout( mc_anm_time_2 - 400, function()
+			if new_speed then
+				game.play_hud_anm(anm_name, 0, new_speed, 1, false, true)
+			end
+			rain_drops_restart()
+			dsh.timeout( mc_anm_time_2, animation_off )
+		end )
+	end )
+end
+
+-- EMULATION TORCH SWITCH
+function torch_switcher()
+	local detector = db.actor:item_in_slot( 8 )
+	local torch_anm_sec = "anim_headlamp"
+	local anim = "anm_headflash"
+	if detector and get_actor_obj():IsDetectorActive() then
+		torch_anm_sec = "anim_headlamp_detector"
+		anim = "anm_" .. detector:section()
+	end
+	local torch_anm_time_1 = game.get_motion_length(torch_anm_sec, anim, 1)
+	animation_on()
+	torch_switch()
+	game.play_hud_motion(db.actor:active_item() and 1 or 2, torch_anm_sec, anim, false, 1)
+	snd_torch:play(db.actor, 0, sound_object.s2d)
+	level.add_cam_effector("camera_effects\\weapon\\headflash.anm", 7538, false, "", 0, false)
+	dsh.timeout( torch_anm_time_1 - 800, function()
+		torch_switch()
+		dsh.timeout( torch_anm_time_1, animation_off )
+	end )
+end
+
+function nv_switcher(functor_on_switch)
+	local detector = db.actor:item_in_slot( 8 )
+	local torch_anm_sec = "anim_headlamp"
+	local anim = "anm_headflash"
+	if detector and get_actor_obj():IsDetectorActive() then
+		torch_anm_sec = "anim_headlamp_detector"
+		anim = "anm_" .. detector:section()
+	end
+	local torch_anm_time_1 = game.get_motion_length(torch_anm_sec, anim, 1)
+	animation_on()
+	game.play_hud_motion(db.actor:active_item() and 1 or 2, torch_anm_sec, anim, false, 1)
+	snd_torch:play(db.actor, 0, sound_object.s2d)
+	level.add_cam_effector("camera_effects\\weapon\\headflash.anm", 7538, false, "", 0, false)
+	dsh.timeout( torch_anm_time_1 - 800, function()
+		functor_on_switch()
+		dsh.timeout( torch_anm_time_1, animation_off )
+	end )
+end
+
+function torch_switch()
+  if db.actor:alive() then
+    local torch = db.actor:item_in_slot( 9 )
+    if torch and torch:is_torch() then
+      torch = get_torch_obj( torch )
+      torch:switch( true )
+    end
+  end
+end
+
+function animation_on()
+	level.only_allow_movekeys(true)
+	level.set_actor_allow_ladder(false)
+end
+
+function animation_off()
+	level.only_allow_movekeys(false)
+	level.set_actor_allow_ladder(true)
+end
+
+-- RAIN DROPS RESTART
+function rain_drops_restart()
+	level.only_allow_movekeys(false)
+	cmd("r2_rain_drops_control off")
+	dsh.timeout( 10, function() cmd("r2_rain_drops_control on") end )
+end

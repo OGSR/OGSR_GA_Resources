@@ -192,7 +192,8 @@
 		<crouch_type>1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_toz34 \n
+			wpn_wincheaster1300 \n
+			wpn_addon_scope_eotech \n
 			ammo_12x76_zhekan \n
 #include "gameplay\character_drugs.xml" \n
 #include "gameplay\character_items.xml" \n
@@ -2370,7 +2371,8 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_toz34 \n
+			wpn_wincheaster1300 \n
+			wpn_addon_scope_elcan \n
 			ammo_12x70_kart \n
 		</supplies>
 		
@@ -2472,8 +2474,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj \n
+			wpn_wincheaster1300 \n
+			ammo_12x70_kart \n
 		</supplies>
 		
 #include "gameplay\character_criticals_1.xml"
@@ -2679,7 +2681,7 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_toz34 \n
+			wpn_wincheaster1300 \n
 			ammo_12x70_kart \n
 		</supplies>
 		
@@ -2708,8 +2710,9 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj \n
+			wpn_wincheaster1300 \n
+			wpn_addon_scope_elcan \n
+			ammo_12x70_kart \n
 			wpn_pm \n
 			ammo_9x18_fmj \n
 #include "gameplay\character_drugs.xml" \n
@@ -2772,8 +2775,9 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj \n
+			wpn_wincheaster1300 \n
+			wpn_addon_scope_eotech \n
+			ammo_12x70_kart \n
 			wpn_pm \n
 			ammo_9x18_fmj \n
 #include "gameplay\character_drugs.xml" \n
@@ -2836,8 +2840,8 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj \n
+			wpn_wincheaster1300 \n
+			ammo_12x70_kart \n
 			wpn_pm \n
 			ammo_9x18_fmj \n
 #include "gameplay\character_drugs.xml" \n
@@ -3571,7 +3575,8 @@
 		<visual>actors\bandit\stalker_bandit_master</visual>
 		<supplies>
 			[spawn] \n
-			wpn_saiga12 \n
+			wpn_wincheaster1300_unic \n
+			wpn_addon_scope_susat_night \n
 			ammo_12x70_kart \n
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
@@ -4398,8 +4403,6 @@
 			[spawn] \n
 			wpn_p90 \n
 			ammo_5.56x45_ap \n
-			wpn_toz34 \n
-			ammo_12x70_kart \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 		</supplies>
@@ -4483,8 +4486,6 @@
 			[spawn] \n
 			wpn_p90 \n
 			ammo_5.56x45_ap \n
-			wpn_toz34 \n
-			ammo_12x70_kart \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 		</supplies>

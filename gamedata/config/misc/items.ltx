@@ -25,8 +25,6 @@ wounds_heal_perc 	= 0
 eat_portions_num 	= 1
 ; food item
 animation_slot  	= 4
-;hud item
-hud 				= wpn_vodka_hud
 
 ;-------------------------------------------------------
 ; Музыкальный инструмент
@@ -729,23 +727,6 @@ inv_grid_x		= 10
 inv_grid_y		= 26
 cost			= 2100
 
-;-------------------------------------------------------
-; Другое
-;-------------------------------------------------------
-[wpn_vodka_hud]:identity_immunities
-fire_point               = 0.0, 0.0, 0.06
-fire_bone                = bip01_head
-orientation              = 0, 0, 0
-position                 = 0, 0, 0
-visual                   = dynamics\devices\dev_vodka\dev_vodka_hud.ogf
-
-anim_idle			= vodka_2
-anim_show			= vodka_1
-anim_hide			= vodka_4
-anim_play			= vodka_5
-anim_prepare		= vodka_5
-anim_eat			= vodka_3
-
 [sigaret]:antir_f
 $spawn				= "food and drugs\sigaret"
 visual              = weapons\sigaret\sigaret.ogf
@@ -778,25 +759,8 @@ eat_portions_num = 20
 ; slot				= 6
 animation_slot		= 4
 
-;hud item
-hud = wpn_sigaret_hud
-
 [sigaret_quest]:sigaret
 visual = equipments\item_cigarette.ogf
-
-[wpn_sigaret_hud]:identity_immunities
-fire_point               = 0.0, 0.0, 0.06
-fire_bone                = bip01_head
-orientation              = 0, 0, 0
-position                 = 0, 0, 0
-visual                   = weapons\sigaret\sigaret_hud.ogf
-
-anim_idle			= kurit_2
-anim_show			= kurit_1
-anim_hide			= kurit_4
-anim_play			= kurit_5
-anim_prepare		= kurit_5
-anim_eat			= kurit_3
 
 [matras]:antir_f
 $spawn    	= "food and drugs\matras"
@@ -922,9 +886,6 @@ eat_portions_num = -1
 
 ; food item
 animation_slot  = 4
-
-;hud item
-hud = wpn_vodka_hud
 
 ; ---------------------------------------------------------
 [device_pnv_1]:identity_immunities

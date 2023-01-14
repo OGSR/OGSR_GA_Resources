@@ -1008,6 +1008,10 @@ function get_best_weapon_prm(npc)
 end
 
 function lootable(item,cls_id)
+	if not alife():object(item:id()) then
+		return false
+	end
+
 	if is_quest_item(item) then
 		return false
 	end

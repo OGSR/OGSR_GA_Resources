@@ -78,8 +78,32 @@ eat_alcohol	      = -0.007
 wounds_heal_perc  = 0
 eat_portions_num  = -1
 
-use_sound_anm = items\bread\bread_use
-use_sound = inv_sounds\inv_food
+
+item_used_timing = 4100
+snd_use = inv_sounds\inv_food
+snd_use_anm = items\bread\bread_use
+
+cam_effect = camera_effects\weapon\bread_eat.anm
+
+hud = bread_hud
+
+[bread_hud]:hud_base
+item_visual             	= gwr\food\bread\bread_hud.ogf
+hands_position				= -0.15,-0.4,0.35
+hands_orientation			= 0.0,0.3,0.0
+hands_position_16x9			= -0.15,-0.4,0.35
+hands_orientation_16x9			= 0.0,0.3,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.171504,0.060500,-0.089010
+aim_hud_offset_rot = 0.048900,0.082240,-0.009000
+aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
+aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+
+anm_use			= bread_eat
+
 
 [kolbasa_a]:food
 GroupControlSection		= spawn_group
@@ -134,8 +158,31 @@ eat_alcohol	         = -0.09
 wounds_heal_perc     = 0
 eat_portions_num     = -1
 
-use_sound_anm = items\kolbasa\kolbasa_use
-use_sound = inv_sounds\inv_food
+item_used_timing = 4100
+snd_use = inv_sounds\inv_food
+snd_use_anm = items\kolbasa\kolbasa_use
+
+hud = kolbasa_hud
+
+cam_effect = camera_effects\weapon\kolbasa_eat.anm
+
+[kolbasa_hud]:hud_base
+item_visual             	= gwr\food\kolbasa\kolbasa_hud.ogf
+hands_position				= -0.15,-0.4,0.35
+hands_orientation			= 0.0,0.3,0.0
+hands_position_16x9			= -0.15,-0.4,0.35
+hands_orientation_16x9			= 0.0,0.3,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.171504,0.060500,-0.089010
+aim_hud_offset_rot = 0.048900,0.082240,-0.009000
+aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
+aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+
+anm_use			= kolbasa_eat
+
 
 [conserva]:food
 $spawn 				= "food and drugs\conserva"
@@ -175,8 +222,31 @@ bone_name			= bip01_r_hand
 position_offset			= 0.0,0.0,0.0
 angle_offset			= 1.570790,1.570790,3.92699
 
-use_sound_anm = items\conserva\conserva_use
-use_sound = inv_sounds\inv_food
+item_used_timing = 8300
+snd_use = inv_sounds\inv_food
+snd_use_anm = items\conserva\conserva_use
+
+hud = conserva_hud
+
+cam_effect = camera_effects\weapon\conserva_eat.anm
+
+[conserva_hud]:hud_base
+item_visual             	= gwr\food\conserva\conserva_hud.ogf
+hands_position				= 0.0,-0.18,0.19
+hands_orientation			= 0.0,0.0,0.0
+hands_position_16x9			= 0.0,-0.18,0.19
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.171504,0.060500,-0.089010
+aim_hud_offset_rot = 0.048900,0.082240,-0.009000
+aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
+aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+
+anm_use			        = conserva_eat
+
 
 [vodka_a]:food
 GroupControlSection		= spawn_group
@@ -259,8 +329,27 @@ hud                 = wpn_vodka_hud
 break_particles		= explosions\explosion_bottle
 break_sound			= material\bottle\collide\bottle_break_1
 
-use_sound_anm = items\vodka\vodka_drink
-use_sound = inv_sounds\inv_vodka
+item_used_timing = 6100
+snd_use = inv_sounds\inv_vodka
+snd_use_anm = items\vodka\vodka_drink_last
+
+hud = vodka_hud
+
+cam_effect = camera_effects\weapon\vodka_last.anm
+
+[vodka_hud]:hud_base
+hands_position				= 0.0,-0.02,0.14
+hands_orientation			= 0.0,0.0,0.0
+hands_position_16x9			= 0.0,-0.02,0.14
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+item_visual             	= gwr\food\vodka\vodka_hud.ogf
+
+anm_use			= vodka_last
+anm_use_stop_k = 0.92
 
 [voda_a]:identity_immunities
 GroupControlSection		= spawn_group
@@ -344,8 +433,27 @@ hud = wpn_vodka_hud
 break_particles		= explosions\explosion_bottle
 break_sound			= material\bottle\collide\bottle_break_1
 
-use_sound_anm = items\water\water_drink
-use_sound = inv_sounds\inv_softdrink
+item_used_timing = 6100
+snd_use = items\water\water_drink_last
+snd_use_anm = items\water\water_drink_last
+
+hud = voda_hud
+
+cam_effect = camera_effects\weapon\water_last.anm
+
+[voda_hud]:hud_base
+hands_position				= 0.0,-0.02,0.14
+hands_orientation			= 0.0,0.0,0.0
+hands_position_16x9			= 0.0,-0.02,0.14
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+item_visual             	= gwr\food\water\water_hud.ogf
+
+anm_use			= water_last
+anm_use_stop_k = 0.92
 
 [kefir_a]:identity_immunities
 GroupControlSection		= spawn_group
@@ -427,36 +535,72 @@ hud = wpn_vodka_hud
 break_particles		= explosions\explosion_bottle
 break_sound			= material\bottle\collide\bottle_break_1
 
-use_sound_anm = items\water\water_drink
-use_sound = inv_sounds\inv_softdrink
+item_used_timing = 6100
+snd_use = items\water\water_drink_last
+snd_use_anm = items\water\water_drink_last
 
-[pivo_a]:identity_immunities
-GroupControlSection		= spawn_group
-discovery_dependency	= 
-$spawn					= "food and drugs\pivo_a"
-cform                   = skeleton
-class					= II_ATTCH
-visual                  = dynamics\devices\dev_drink_pivo\dev_drink_pivo
-cost					= 150
-inv_name				= "pivo"
-inv_name_short			= "pivo"
-inv_weight				= 0.5
-inv_grid_width			= 1
-inv_grid_height			= 1
-inv_grid_x				= 22
-inv_grid_y				= 0
+hud = kefir_hud
+
+cam_effect = camera_effects\weapon\water_last.anm
+
+[kefir_hud]:voda_hud
+item_visual             	= gwr\food\kefir\kefir_hud.ogf
+
+
+[energy_drink]:vodka
+$spawn 				= "food and drugs\energy_drink"
+inv_name			= energy_drink_name
+inv_name_short		= energy_drink_short_name
+visual				= dynamics\devices\dev_drink_stalker\dev_drink_stalker.ogf ;equipments\drink_stalker.ogf
+description			= enc_equipment_energydrink
+cost				= 75
+
+inv_grid_width		        = 1
+inv_grid_height		        = 1
+inv_grid_x			= 19
+inv_grid_y			= 7
+inv_weight			= 0.3
+
+eat_health			= 0
+eat_thirst 			= 0.7
+eat_satiety			= 0
+eat_power			= 0.4
+eat_alcohol			= 0
+eat_radiation		        = 0
+wounds_heal_perc	        = 0
+eat_portions_num	        = 1
+eat_max_power		        = 0
+sleep_suppression_time      = 0.5
 
 attach_angle_offset		= 0.000000, 0.000000, 0.000000
-attach_position_offset	= 0.087266, -0.078540, 0.052360
+attach_position_offset	        = 0.087266, -0.078540, 0.052360
 attach_bone_name		= bip01_r_hand
-auto_attach				= false
+auto_attach			= false
 
-can_trade			= false
+item_used_timing = 4000
+snd_use = inv_sounds\inv_softdrink
+snd_use_anm = items\energy\energy_drink
 
-// should be deleted after update
-bone_name				= bip01_r_hand
-position_offset			 = 0.0,0.0,0.0
-angle_offset			 = 1.570790,1.570790,3.92699
+hud = energy_drink_hud
+
+cam_effect = camera_effects\weapon\energy_drink.anm
+
+[energy_drink_hud]:hud_base
+item_visual             	= gwr\food\energy\energy_hud.ogf
+hands_position				= 0.0,-0.02,0.14
+hands_orientation			= 0.0,0.0,0.0
+hands_position_16x9			= 0.0,-0.02,0.14
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.171504,0.060500,-0.089010
+aim_hud_offset_rot = 0.048900,0.082240,-0.009000
+aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
+aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+
+anm_use						= energy_drink
 
 [pivo]:identity_immunities
 GroupControlSection	= spawn_group
@@ -510,41 +654,46 @@ hud = wpn_vodka_hud
 break_particles		= explosions\explosion_bottle
 break_sound			= material\bottle\collide\bottle_break_1
 
-use_sound_anm = items\energy\energy_drink
-use_sound = inv_sounds\inv_softdrink
+item_used_timing = 4000
+snd_use = inv_sounds\inv_softdrink
+snd_use_anm = items\energy\energy_drink
 
-[energy_drink]:vodka
-$spawn 				= "food and drugs\energy_drink"
-inv_name			= energy_drink_name
-inv_name_short		= energy_drink_short_name
-visual				= dynamics\devices\dev_drink_stalker\dev_drink_stalker.ogf ;equipments\drink_stalker.ogf
-description			= enc_equipment_energydrink
-cost				= 75
+hud = pivo_hud
 
-inv_grid_width		        = 1
-inv_grid_height		        = 1
-inv_grid_x			= 19
-inv_grid_y			= 7
-inv_weight			= 0.3
+cam_effect = camera_effects\weapon\energy_drink.anm
 
-eat_health			= 0
-eat_thirst 			= 0.7
-eat_satiety			= 0
-eat_power			= 0.4
-eat_alcohol			= 0
-eat_radiation		        = 0
-wounds_heal_perc	        = 0
-eat_portions_num	        = 1
-eat_max_power		        = 0
-sleep_suppression_time      = 0.5
+[pivo_hud]:energy_drink_hud
+item_visual             	= gwr\food\pivo\pivo_hud.ogf
+
+
+[pivo_a]:identity_immunities
+GroupControlSection		= spawn_group
+discovery_dependency	= 
+$spawn					= "food and drugs\pivo_a"
+cform                   = skeleton
+class					= II_ATTCH
+visual                  = dynamics\devices\dev_drink_pivo\dev_drink_pivo
+cost					= 150
+inv_name				= "pivo"
+inv_name_short			= "pivo"
+inv_weight				= 0.5
+inv_grid_width			= 1
+inv_grid_height			= 1
+inv_grid_x				= 22
+inv_grid_y				= 0
 
 attach_angle_offset		= 0.000000, 0.000000, 0.000000
-attach_position_offset	        = 0.087266, -0.078540, 0.052360
+attach_position_offset	= 0.087266, -0.078540, 0.052360
 attach_bone_name		= bip01_r_hand
-auto_attach			= false
+auto_attach				= false
 
-use_sound_anm = items\energy\energy_drink
-use_sound = inv_sounds\inv_softdrink
+can_trade			= false
+
+// should be deleted after update
+bone_name				= bip01_r_hand
+position_offset			 = 0.0,0.0,0.0
+angle_offset			 = 1.570790,1.570790,3.92699
+
 
 ; не удалять! Это квестовая водка.
 [kordon_samogon]:identity_immunities
@@ -592,14 +741,20 @@ eat_portions_num 	= -1
 ;slot				= 6
 animation_slot		= 4
 
-;hud item
-hud                 = wpn_vodka_hud
-
 break_particles		= explosions\explosion_bottle
 break_sound			= material\bottle\collide\bottle_break_1
 
-use_sound_anm = items\vodka\vodka_drink
-use_sound = inv_sounds\inv_vodka
+item_used_timing = 6100
+snd_use = inv_sounds\inv_vodka
+snd_use_anm = items\vodka\vodka_drink_last
+
+hud = kordon_samogon_hud
+
+cam_effect = camera_effects\weapon\vodka_last.anm
+
+[kordon_samogon_hud]:vodka_hud
+item_visual             	= gwr\food\samogon\samogon_hud.ogf
+
 
 ; не удалять! Это квестовый стакан первача.
 [glassful]:identity_immunities
@@ -653,32 +808,30 @@ hud                 = wpn_vodka_hud
 break_particles		= explosions\explosion_bottle
 break_sound			= material\bottle\collide\bottle_break_1
 
-use_sound_anm = items\vodka\vodka_drink
-use_sound = inv_sounds\inv_vodka
+item_used_timing = 7700
+snd_use = inv_sounds\inv_vodka
+snd_use_anm = items\anabiotic\anabiotic
 
-[device_activated]:food ; Это костыль для анимации включения приборов
-$spawn 				= "food and drugs\bread"
-visual              = dynamics\devices\dev_bred\dev_bred.ogf
-description			= kostyl
-cost				= 0
-inv_name			= kostyl
-inv_name_short		= kostyl
-inv_weight			= 0.2
+hud = glassful_hud
 
-inv_grid_width		= 1
-inv_grid_height		= 1
-inv_grid_x			= 11
-inv_grid_y			= 9
+cam_effect = camera_effects\weapon\biotic.anm
 
-; eatable item
-eat_health        = 0
-eat_thirst 	      = 0
-eat_satiety       = 0
-eat_power         = 0
-eat_radiation     = 0
-eat_alcohol	      = 0
-wounds_heal_perc  = 0
-eat_portions_num  = -1
+[glassful_hud]:hud_base
+item_visual             	= gwr\equipment\drug_anabiotic\drug_anabiotic_hud.ogf
+hands_position				= 0.0,-0.02,0.14
+hands_orientation			= 0.0,0.0,0.0
+hands_position_16x9			= 0.0,-0.02,0.14
+hands_orientation_16x9			= 0.0,0.0,0.0
 
-use_sound_anm = weapons\headflash_off
-use_sound = weapons\headflash_off
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.171504,0.060500,-0.089010
+aim_hud_offset_rot = 0.048900,0.082240,-0.009000
+aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
+aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+
+anm_use						= biotic
+
+
+[device_activated]:bread ; xrSimpodin: это оставлено для совместимости сейвов

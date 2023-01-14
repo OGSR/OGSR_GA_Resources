@@ -268,63 +268,39 @@ function move_mgr:reset(path_walk, path_walk_info, path_look, path_look_info, te
 end
 
 
-local pp_anoms     = {}
-local pp_validated = {}
-
 function invalidate_pp_accessibility()
-  pp_anoms     = {}
-  pp_validated = {}
-end
-
--- ќчищаем патрульный путь от аномалий.
-local function remove_anomalies_on_path( npc, ppname )
-  if pp_anoms[ ppname ] or not pp_validated[ ppname ] then return end
-
-  local pp = patrol( ppname )
-  ASSERT( pp, "[%s]: patrol [%s] not found", script_name(), ppname )
-
-  for i = 0, pp:count() - 1 do
-    local nearest_anoms = ogse_anomaly.get_all_nearest_anomalies_by_point_in_radius( pp:point(i), npc:radius() )
-    for _, anom in ipairs( nearest_anoms ) do
-      local sobj = alife():object(anom.id)
-      if not ogse_anomaly.is_not_anomaly(sobj) and not ogse_anomaly.is_exclusion_anomaly(sobj) --[=[and not string.find(sobj:section_name(), "handmade_")--]=] then --¬сЄ таки аномалии, поставленные руками, тоже надо удал€ть, иначе получим вылет из за недоступности вертекса.
-        log3( "~~[%s]: removing anomaly [%s] on point [%s] for [%s]", script_name(), sobj:name(), ppname, npc:name() )
-        ogse_anomaly.set_anomaly_mode(anom.id, "anom_off")
-        alife():release(sobj)
-      end
-    end
-  end
-
-  pp_anoms[ ppname ] = true
 end
 
 local function validate_accessibility( npc, ppname )
-	remove_anomalies_on_path( npc, ppname )
-
-	if pp_validated[ppname] ~= nil then
-		return pp_validated[ppname]
-	end
-
-	pp_validated[ppname] = false
 	local pp = patrol(ppname)
 	if pp then
 		for i = 0, pp:count() - 1 do
-			--log3("~~[%s] verifying point [%s] on path [%s] VTX [%s] for [%s]", script_name(), i, ppname, pp:level_vertex_id(i), npc:name())
+			--log3("--[%s] verifying point [%s] on path [%s] VTX [%s] for [%s]", script_name(), i, ppname, pp:level_vertex_id(i), npc:name())
+			-- ќчищаем патрульный путь от аномалий.--
+			local nearest_anoms = ogse_anomaly.get_all_nearest_anomalies_by_point_in_radius( pp:point(i), npc:radius() )
+			for _, anom in ipairs( nearest_anoms ) do
+				local sobj = alife():object(anom.id)
+				if not ogse_anomaly.is_not_anomaly(sobj) and not ogse_anomaly.is_exclusion_anomaly(sobj) --[=[and not string.find(sobj:section_name(), "handmade_")--]=] then --¬сЄ таки аномалии, поставленные руками, тоже надо удал€ть, иначе получим вылет из за недоступности вертекса.
+					log3( "~~[%s]: removing anomaly [%s] on point [%s] for [%s]", script_name(), sobj:name(), ppname, npc:name() )
+					ogse_anomaly.set_anomaly_mode(anom.id, "anom_off")
+					alife():release(sobj)
+				end
+			end
+			----------------------------------------
 			if not npc:accessible(pp:level_vertex_id(i)) then
-				--log3("!![%s] verifying point [%s] on path [%s] VTX [%s] for [%s] not accessible!", script_name(), i, ppname, pp:level_vertex_id(i), npc:name())
-				return pp_validated[ ppname ]
+				log3("!![%s] verifying point [%s] on path [%s] VTX [%s] for [%s] not accessible!", script_name(), i, ppname, pp:level_vertex_id(i), npc:name())
+				return false
 			end
 
 			if pp:level_vertex_id( i ) > level.vertex_count() then
 				log3( "!![%s]: wrong point [%s] on path [%s]: level_vertex_id = %s", script_name(), i, ppname, pp:level_vertex_id( i ) )
-				return pp_validated[ ppname ]
+				return false
 			end
-
-			pp_validated[ ppname ] = true
 		end
+		return true
 	end
 
-	return pp_validated[ ppname ]
+	return false
 end
 
 

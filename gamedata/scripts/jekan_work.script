@@ -4220,17 +4220,9 @@ end
 
 function check_digger_weapon_quest_fail()
 	if db.actor:has_info("digger_weapon_quest_fail") or db.actor:has_info("digger_offence") then
-		digger_weapon_change()
 		return true
 	end
 	return false
-end
-
-function digger_weapon_change(stalker, player)
-	if db.actor:object("diggers_weapon") ~= nil then
-		ogse.remove_item_from_inventory_by_name("diggers_weapon",db.actor)
-		ogse.spawn_item_in_inv("wpn_l85_tact", db.actor)
-	end
 end
 
 function spawn_engine_restrictor()

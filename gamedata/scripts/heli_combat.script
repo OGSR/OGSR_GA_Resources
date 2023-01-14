@@ -385,19 +385,17 @@ function heli_combat:initialize()
 end
 
 function heli_combat:save( packet )
---	packet:w_bool( self.retreat_already )
-
-
 	if utils.level_changing() then
 		packet:w_bool( false )
 		return
 	end
 
 	packet:w_bool( self.initialized )
-	packet:w_s16 ( self.status )
-	packet:w_float ( self.lasthealth )
 
 	if self.initialized then
+		packet:w_s16 ( self.status )
+		packet:w_float ( self.lasthealth )
+
 		local t = time_global()
 
 		packet:w_s16 ( self.enemy_id )
@@ -421,12 +419,12 @@ function heli_combat:save( packet )
 end
 
 function heli_combat:load( packet )
---	self.retreat_already = packet:r_bool()
 	self.initialized     = packet:r_bool()
-	self.status          = packet:r_s16()
-	self.lasthealth      = packet:r_float()
-	
+
 	if self.initialized then
+		self.status          = packet:r_s16()
+		self.lasthealth      = packet:r_float()
+
 		local t = time_global()
 		self.enemy_last_seen_pos  = vector():set(0, 0, 0)
 		self.enemy_id             = packet:r_s16()

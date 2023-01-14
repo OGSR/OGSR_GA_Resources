@@ -85,7 +85,6 @@ local pda =
 	-- ПДА Диггера юры:
 	["diggers_pda"] 			= function () 
 			db.actor:give_info_portion("diggers_pda_info")
-			jekan_work.digger_weapon_change()
 	end,
 	
 	-- ПДА Князя:

@@ -116,7 +116,7 @@ end
 
 function on_update()
 	local torch = db.actor:item_in_slot(9)
-	if not torch then return end
+	if not torch or not db.actor:active_item() then return end
 	torch = get_torch_obj(torch)
 
 	local nv_on = torch.nvd_on and not ogse_car_control.in_btr and not night_vision_surge_block
@@ -134,8 +134,19 @@ function call_pnv(key, bind) --Действие при нажатии клави
 
 	if ogse_car_control.in_btr and not night_vision_surge_block then --если сидим в БТР'е
 		if not night_vision_btr_fx_on then turn_on_nv_btr_fx() else turn_off_nv_btr_fx() end --вкл/выкл ПНВ БТР
-	elseif not night_vision_surge_block and not db.actor:item_in_slot(9) then -- Если не смотрим в прицел
-		if not night_vision_fx_on then nv_fx_on() else turn_off_nv_fx() end --вкл/выкл прибор ПНВ
+	elseif not night_vision_surge_block and ( not db.actor:item_in_slot(9) or not db.actor:active_item() ) then -- Если не смотрим в прицел
+		local switch_finc = function()
+			if not night_vision_fx_on then
+				nv_fx_on()
+			else
+				turn_off_nv_fx()
+			end
+		end
+		if ogsr_actor_animation.allow_animation() then
+			ogsr_actor_animation.nv_switcher(switch_finc) --анимация вкл/выкл прибор ПНВ
+		else
+			switch_finc()
+		end
 	end
 	return true
 end

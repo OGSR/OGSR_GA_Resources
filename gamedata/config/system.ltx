@@ -626,6 +626,7 @@ focus=kFOCUS
 quicksave=kQUICK_SAVE
 quickload=kQUICK_LOAD
 namesave=kNAME_SAVE
+swipe_mask=kSWIPE_MASK
 
 #include "tuning\ogse_config.ltx"
 
@@ -704,6 +705,27 @@ pull_force_factor = 10
 ; Можно вообще убрать пути из своего all.spawn и все перенести в ltx файлы, для удобства.
 ;[engine_custom_spawn]
 ;waypoints_file = <name_of_file.ltx> ; путь к файлу в $game_config$
+
+
+; Замена шейдеров в визуалах
+[vis_shaders_replace]
+; шейдер тесселяции: models\model -> models\model_pn
+dynamics\weapons\wpn_hand = models\model,models\model_pn, models\weapons,models\model_pn
+actors   = models\model,models\model_pn, models\weapons,models\model_pn, models\artefact,models\model_pn, models\artefact2,models\model_pn
+monsters = models\model,models\model_pn
+gwr\food\kolbasa = ; на колбасе тесселяция работает как то странно
+gwr = models\model,models\model_pn, models\weapons,models\model_pn
+
+
+[hud_movement_layers]
+;types: 0 = aim_walk, 1 = aim_crouch, 2 = crouch, 3 = walk, 4 = run, 5 = sprint
+;type                    path                           speed   power
+movement_layer_0        = movement\aim_walk.anm,     1,         0.85
+movement_layer_1        = movement\aim_walk.anm,     0.75,     0.5
+movement_layer_2        = movement\newwalk.anm,      1,      0.1
+movement_layer_3        = movement\newwalk.anm,      1,      0.1
+movement_layer_4        = movement\newwalk.anm,      1.25,     0.125
+movement_layer_5        = movement\newrunreload.anm, 1,      0.15
 
 
 ;---------------------------------------------------------------ARENA_EXTENSION_MOD------------------------------------------------------------------

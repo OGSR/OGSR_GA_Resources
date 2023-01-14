@@ -43,6 +43,8 @@ function on_spawn()
 	fix_allspawn_weapons()
 	--
 	fox_can_hide()
+	--
+	fix_l01_escape_level_changer_to_darkscape()
 end
 
 function on_first_update()
@@ -522,4 +524,22 @@ function fox_can_hide()
       ogse.save_var("fox_can_hide", true)
 	end
   end
+end
+
+
+--Фикс Кордон - Лощина, чтобы dest_position была за туннелем.
+function fix_l01_escape_level_changer_to_darkscape()
+  if ogse.var_exists("fix_l01_escape_level_changer_to_darkscape") then return end
+
+  local sobj = alife():object( "l01_escape_level_changer_to_darkscape" )
+  if not sobj then return end
+
+  log3( "~~[%s]: fix %s (%s)", script_name(), sobj:name(), sobj.level_name )
+  local lc = sobj:get_level_changer()
+  lc.dest_game_vertex_id  = 3199
+  lc.dest_level_vertex_id = 2394
+  lc.dest_position        = vector():set( -588.11633300781, -1.7542750835419, -411.06097412109 )
+  lc.dest_direction       = vector():set( 0.71428716182709, 0, -0.69985258579254 )
+
+  ogse.save_var("fix_l01_escape_level_changer_to_darkscape", true)
 end

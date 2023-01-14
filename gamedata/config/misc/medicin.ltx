@@ -41,8 +41,52 @@ wounds_heal_perc = 0
 
 eat_portions_num = 1
 
-use_sound_anm = items\antirad\injector
-use_sound = inv_sounds\inv_pills
+item_used_timing = 4150
+item_used_timing_exo = 2200
+snd_use = inv_sounds\inv_pills
+snd_use_anm = items\antirad\injector
+snd_use_exo_anm = items\medkit\medkit_exo_alt
+
+hud = antirad_hud
+hud_exo = antirad_exo_hud
+
+cam_effect = camera_effects\weapon\antirad.anm
+cam_effect_exo = camera_effects\weapon\medkit_exo_antirad.anm
+
+[antirad_hud]:hud_base
+item_visual             	= gwr\equipment\antirad\antirad_hud.ogf
+hands_position				= 0.0,-0.025,0.1
+hands_orientation			= 0.0,0.0,0.0
+hands_position_16x9			= 0.0,-0.025,0.05
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.171504,0.060500,-0.089010
+aim_hud_offset_rot = 0.048900,0.082240,-0.009000
+aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
+aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+
+anm_use			= antirad
+
+[antirad_exo_hud]:hud_base
+hands_position				= 0.0,-0.015,0.14
+hands_orientation			= 0.0,0.0,0.0
+hands_position_16x9			= 0.0,-0.015,0.09
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.171504,0.060500,-0.089010
+aim_hud_offset_rot = 0.048900,0.082240,-0.009000
+aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
+aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+
+item_visual             	= gwr\equipment\medkit_exo\medkit_exo_hud.ogf
+
+anm_use			= medkit_exo_antirad
 
 [dix]:medicin
 $spawn 			= "food and drugs\dix"
@@ -75,8 +119,31 @@ eat_portions_num	= 1
 effect_time         = 300; время действия в секундах реального времени
 psy_immunity        = 2.0, 1.5 ; негативно сказывается на пси-устойчивости вследствие перевозбуждения нервной системы
 
-use_sound_anm = items\drug\drug
-use_sound = inv_sounds\inv_pills
+item_used_timing = 2300
+snd_use = inv_sounds\inv_pills
+snd_use_anm = items\drug\drug_last
+
+hud = dix_hud
+
+cam_effect = camera_effects\weapon\drug_last.anm
+
+[dix_hud]:hud_base
+item_visual             	= gwr\equipment\drug_coagulant\drug_coagulant_hud.ogf
+hands_position				= 0.0,-0.02,0.0
+hands_orientation			= 0.0,0.0,0.0
+hands_position_16x9			= 0.0,-0.02,0.0
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.171504,0.060500,-0.089010
+aim_hud_offset_rot = 0.048900,0.082240,-0.009000
+aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
+aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+
+anm_use						= drug_last 
+
 
 [bipsizon]:medicin
 $spawn 			= "food and drugs\bipsizon"
@@ -108,8 +175,17 @@ eat_portions_num	= 1
 effect_time         = 60; время действия в секундах реального времени
 psy_immunity        = 0.0, 0.0
 
-use_sound_anm = items\drug\drug
-use_sound = inv_sounds\inv_pills
+item_used_timing = 2300
+snd_use = inv_sounds\inv_pills
+snd_use_anm = items\drug\drug_last
+
+hud = bipsizon_hud
+
+cam_effect = camera_effects\weapon\drug_last.anm
+
+[bipsizon_hud]:dix_hud
+item_visual             	= gwr\equipment\drug_psy_blockade\drug_psy_blockade_hud.ogf
+
 
 [yod]:medicin
 $spawn 			= "food and drugs\yod"
@@ -142,8 +218,16 @@ effect_time         = 120; время действия в секундах ре�
 rad_immunity        = 0.1, 0.1
 rad_food_immunity   = 0.5, 0.5
 
-use_sound_anm = items\drug\drug
-use_sound = inv_sounds\inv_pills
+item_used_timing = 2300
+snd_use = inv_sounds\inv_pills
+snd_use_anm = items\drug\drug_last
+
+hud = yod_hud
+
+cam_effect = camera_effects\weapon\drug_last.anm
+
+[yod_hud]:dix_hud
+item_visual             	= gwr\equipment\drug_radioprotector\drug_radioprotector_hud.ogf
 
 [medkit]:medicin
 $spawn 				= "food and drugs\medkit"
@@ -172,8 +256,39 @@ eat_portions_num	= 1
 
 time_to_heal		= 10 ; время лечения в секундах реального времени
 
-use_sound_anm = items\medkit\medkit
-use_sound = inv_sounds\inv_medkit
+item_used_timing = 2500
+item_used_timing_exo = 2200
+snd_use = inv_sounds\inv_pills
+snd_use_anm = items\medkit\medkit
+snd_use_exo_anm = items\medkit\medkit_exo
+
+hud = medkit_hud
+hud_exo = medkit_exo_hud
+
+cam_effect = camera_effects\weapon\apteka.anm
+cam_effect_exo = camera_effects\weapon\medkit_exo.anm
+
+[medkit_hud]:hud_base
+item_visual             	= gwr\equipment\medkit\medkit_hud.ogf
+hands_position				= 0.0,-0.025,0.11
+hands_orientation			= 0.0,0.0,0.0
+hands_position_16x9			= 0.0,-0.025,0.06
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.171504,0.060500,-0.089010
+aim_hud_offset_rot = 0.048900,0.082240,-0.009000
+aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
+aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+
+anm_use			= apteka
+
+
+[medkit_exo_hud]:antirad_exo_hud
+anm_use			= medkit_exo
+
 
 [medkit_army]:medicin
 $spawn 				= "food and drugs\medkit_army"
@@ -202,8 +317,25 @@ eat_portions_num	= 1
 
 time_to_heal		= 10 ; время лечения в секундах реального времени 
 
-use_sound_anm = items\medkit\medkit
-use_sound = inv_sounds\inv_medkit
+item_used_timing = 2500
+item_used_timing_exo = 2200
+snd_use = inv_sounds\inv_pills
+snd_use_anm = items\medkit\medkit
+snd_use_exo_anm = items\medkit\medkit_exo
+
+hud = medkit_army_hud
+hud_exo = medkit_army_exo_hud
+
+cam_effect = camera_effects\weapon\apteka.anm
+cam_effect_exo = camera_effects\weapon\medkit_exo_blue.anm
+
+[medkit_army_hud]:medkit_hud
+item_visual             	= gwr\equipment\medkit_army\medkit_army_hud.ogf
+
+
+[medkit_army_exo_hud]:antirad_exo_hud
+anm_use			= medkit_exo_blue
+
 
 [medkit_scientic]:medicin
 $spawn 				= "food and drugs\medkit_scientic"
@@ -232,8 +364,25 @@ eat_portions_num	= 1
 
 time_to_heal		= 10 ; время лечения в секундах реального времени 
 
-use_sound_anm = items\medkit\medkit
-use_sound = inv_sounds\inv_medkit
+item_used_timing = 2500
+item_used_timing_exo = 2200
+snd_use = inv_sounds\inv_pills
+snd_use_anm = items\medkit\medkit
+snd_use_exo_anm = items\medkit\medkit_exo
+
+hud = medkit_scientic_hud
+hud_exo = medkit_scientic_exo_hud
+
+cam_effect = camera_effects\weapon\apteka.anm
+cam_effect_exo = camera_effects\weapon\medkit_exo_yellow.anm
+
+[medkit_scientic_hud]:medkit_hud
+item_visual             	= gwr\equipment\medkit_sci\medkit_sci_hud.ogf
+
+
+[medkit_scientic_exo_hud]:antirad_exo_hud
+anm_use			= medkit_exo_yellow
+
 
 [bandage]:medicin
 $spawn 				= "food and drugs\bandage"
@@ -259,5 +408,28 @@ eat_radiation       = 0.0
 wounds_heal_perc    = 0.7
 eat_portions_num    = 1
 
-use_sound_anm = items\bandage\bandage
-use_sound = inv_sounds\inv_bandage
+item_used_timing = 3700
+snd_use = inv_sounds\inv_bandage
+snd_use_anm = items\bandage\bandage
+
+hud = bandage_hud
+
+cam_effect = camera_effects\weapon\bandage.anm
+
+[bandage_hud]:hud_base
+item_visual             	= gwr\equipment\bandage\bandage_hud.ogf
+hands_position				= 0.0,-0.02,0.14
+hands_orientation			= 0.0,0.0,0.0
+hands_position_16x9			= 0.0,-0.02,0.14
+hands_orientation_16x9			= 0.0,0.0,0.0
+
+item_position = 0.0,0.0,0.0
+item_orientation = 0.0,0.0,0.0
+
+aim_hud_offset_pos = -0.171504,0.060500,-0.089010
+aim_hud_offset_rot = 0.048900,0.082240,-0.009000
+aim_hud_offset_pos_16x9 = -0.193470,0.061100,-0.037740
+aim_hud_offset_rot_16x9 = 0.057800,0.111900,-0.011000
+
+anm_use			= bandage
+anm_use_alt		= bandage1

@@ -481,3 +481,12 @@ function start_gtimerDHMS( name, d, h, m, s, fname, ... )
     :init( fname, ... )
     :start()
 end
+
+function level_timeout( ms, func )
+  local t = level.add_call(
+    function() return true end,
+    function() func() end
+  )
+  t:set_pause( ms )
+  return t
+end

@@ -196,8 +196,8 @@
 		<visual>actors\bandit\stalker_bandit_veteran</visual>
 		<supplies>
 		[spawn] \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj \n
+			wpn_wincheaster1300 \n
+			ammo_12x70_kart \n
 		</supplies>
 		<start_dialog>kulg_band_zasada_boets_dialog</start_dialog>
 	</specific_character>
@@ -1289,8 +1289,9 @@
 		<visual>actors\neytral\stalker_neytral_hood_uzor</visual>
 		<supplies>
 		[spawn] \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj \n
+			wpn_wincheaster1300 \n
+			wpn_addon_scope_eotech \n
+			ammo_12x70_kart \n
 #include "gameplay\character_items.xml"\n
 #include "gameplay\character_food.xml" \n
 #include "gameplay\character_drugs.xml"
@@ -1454,7 +1455,7 @@
 		<visual>actors\bandit\stalker_bandit_antigas</visual>
 		<supplies>
 		[spawn] \n
-			wpn_toz34 \n
+			wpn_wincheaster1300 \n
 			ammo_12x70_kart \n
 			af_medusa_special \n
 #include "gameplay\character_items.xml"\n
@@ -1910,8 +1911,6 @@
 		<snd_config>characters_voice\human_01\ military\</snd_config>
 		<supplies>
 			[spawn] \n
-			wpn_toz34 \n
-			ammo_12x70_kart \n
 			wpn_ump45 \n
 			ammo_11.43x23_hydro \n
 			device_torch \n
@@ -1940,8 +1939,9 @@
 		<snd_config>characters_voice\human_01\ military\</snd_config>
 		<supplies>
 			[spawn] \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj = 1 \n
+			wpn_wincheaster1300 \n
+			wpn_addon_scope_elcan \n
+			ammo_12x70_kart \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 #include "gameplay\character_food.xml"
@@ -1994,9 +1994,8 @@
 		<snd_config>characters_voice\human_01\ military\</snd_config>
 		<supplies>
 			[spawn] \n
-			ammo_9x18_fmj = 1 \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj = 1 \n
+			wpn_wincheaster1300 \n
+			ammo_12x70_kart \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 #include "gameplay\character_food.xml"
@@ -2424,9 +2423,8 @@
 		<snd_config>characters_voice\human_01\ military\</snd_config>
 		<supplies>
 			[spawn] \n
-			ammo_9x18_fmj = 1 \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj = 1 \n
+			wpn_wincheaster1300 \n
+			ammo_12x70_kart \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 #include "gameplay\character_food.xml"
@@ -2577,9 +2575,9 @@
 		<snd_config>characters_voice\human_01\ military\</snd_config>
 		<supplies>
 			[spawn] \n
-			ammo_9x18_fmj = 1 \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj = 1 \n
+			wpn_wincheaster1300 \n
+			wpn_addon_scope_elcan \n
+			ammo_12x70_kart \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 #include "gameplay\character_food.xml"
@@ -2997,9 +2995,9 @@
 			[spawn] \n
 			wpn_fort \n
 			ammo_9x18_fmj = 1 \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj = 1 \n
-
+			wpn_wincheaster1300 \n
+			wpn_addon_scope_eotech \n
+			ammo_12x70_kart \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 #include "gameplay\character_food.xml"
@@ -3331,8 +3329,8 @@
 			[spawn] \n
 			wpn_fort \n
 			ammo_9x18_fmj = 1 \n
-			wpn_ak74 \n
-			ammo_5.45x39_fmj = 1 \n
+			wpn_wincheaster1300 \n
+			ammo_12x70_kart \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
 #include "gameplay\character_food.xml"
