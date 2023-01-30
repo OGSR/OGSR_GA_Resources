@@ -233,14 +233,14 @@
 		<text>HBAO</text>
 	</string>
 	<string id="ui_mm_ssao_quality">
-		<text>SSAO Quality</text>
+		<text>SSDO Quality</text>
 	</string>
 
 	<string id="ui_mm_r2_steep_parallax">
 		<text>Steep parallax</text>
 	</string>	
 	<string id="ui_mm_terrain_parallax">
-		<text>Parallax on terrain</text>
+		<text>Parallax on terrain textures</text>
 	</string>	
 	<string id="ui_mm_mt_texload">
 		<text>Multi-threaded texture loading</text>
@@ -253,6 +253,9 @@
 	</string>
 	<string id="ui_mm_r2_zoom_dof">
 		<text>The effect of dof when aiming</text>
+	</string>
+	<string id="ui_mm_dof_zoom_param">
+		<text>DOF intensity when aiming</text>
 	</string>
 	<string id="ui_mm_dof_zoom_far">
 		<text>Far edge dof effect</text>
@@ -444,7 +447,7 @@
 		<text>Sunlight luminosity</text>
 	</string>
 	<string id="ui_mm_r_aa_mode">
-		<text>Smoothing</text>
+		<text>Anti-aliasing</text>
 	</string>	
 	<string id="ui_mm_r2_aa">
 		<text>Antialiasing (R2)</text>
@@ -520,7 +523,7 @@
 	</string>
 
 	<string id="r_sslr_enable">
-		<text>Reflections in puddles</text>
+		<text>Reflections in water and puddles</text>
 	</string>
 
 	<string id="ui_mm_rs_mt_texload">
@@ -654,7 +657,7 @@
 
 
 	<string id="video_settings_name_1">
-	<text>The inertia of the camera - cam_inert</text>
+		<text>Multisample anti-aliasing - r3_msaa</text>
 	</string>
 	<string id="video_settings_name_2">
 		<text>Visibility range-rs_vis_distance</text>
@@ -705,7 +708,7 @@
 		<text>Anti-aliasing on dynamic lighting - r2_aa</text>
 	</string>
 	<string id="video_settings_name_19">
-		<text>Type of smoothing on dynamic lighting - r2_aa_mode</text>
+		<text>Type of Anti-aliasing - r2_aa_mode</text>
 	</string>
 	<string id="video_settings_name_20">
 		<text>The clarity of textures at a distance - r__tf_mipbias</text>
@@ -720,7 +723,7 @@
 		<text>The angle of shadow rendering - r2_sun_near_border</text>
 	</string>
 	<string id="video_settings_name_24">
-		<text>Proper shade from the sun - r2_true_sun_shadows</text>
+		<text>Parallax on terrain textures - r_terrain_parallax_enable</text>
 	</string>
 	<string id="video_settings_name_25">
 		<text>HDR Tonal mapping - r2_tonemap</text>
@@ -762,7 +765,7 @@
 		<text>Intensity of pre-calculated global illumination - r2_ao_intensity</text>
 	</string>
 	<string id="video_settings_name_37">
-		<text>Глобальное освещение - r2_ssao</text>
+		<text>SSDO (ScreenSpace Directional Occlusion) - r2_ssao</text>
 	</string>
 	<string id="video_settings_name_38">
 		<text>Global lighting mode - r2_ssao_mode</text>
@@ -774,7 +777,7 @@
 		<text>The focusing effect of the eye - r2_dof_enable</text>
 	</string>
 	<string id="video_settings_name_41">
-		<text>The effect of scene depth in the charge - r2_dof_reload</text>
+		<text>The effect of dof when reloading - r2_dof_reload</text>
 	</string>
 	<string id="video_settings_name_42">
 		<text>The effect of depth of the scene when aiming - g_dof_zoom</text>
@@ -804,10 +807,10 @@
 		<text>Surround light - r2_volumetric_lights</text>
 	</string>
 	<string id="video_settings_name_51">
-		<text>Reflections - r2_reflections</text>
+		<text>Reflections in water and puddles - r_sslr_enable</text>
 	</string>
 	<string id="video_settings_name_52">
-		<text>Reflection mode - r2_reflections_mode</text>
+		<text>Tesselation - r4_enable_tessellation</text>
 	</string>
 	<string id="video_settings_name_53">
 		<text>Shader optimization - r2_gbuffer_opt</text>
@@ -851,7 +854,7 @@
 	</string>
 
 	<string id="video_settings_desc_1">
-		<text>This setting adjusts the degree of inertia of the player's viewpoint. The higher it is, the more the point of view will swing when walking and running, when hitting, as well as the more noticeable the effect of moving the sight when the main character is exhausted after a long run. ATTENTION! This is an"amateur" setting, and if you don't know exactly what you're doing, leave it at the default value.</text>
+		<text>MSAA is a very heavy and at the same time very high quality type of anti-aliasing. Qualitatively smoothes wires, vegetation, translucent geometry.</text>
 	</string>
 	<string id="video_settings_desc_2">
 		<text>This setting adjusts the amount by which the visibility limit set in the current weather profile is multiplied. The range of values of this value is from 0.4 (minimum slider) to 1.5 (maximum slider). For example, in the weather, a viewing range of 150 meters is set. At the minimum of the slider you will see at 60 meters, at the maximum at 225. High viewing range can greatly reduce the performance of older PCs.</text>
@@ -905,7 +908,7 @@
 		<text>This setting enables shader smoothing on dynamic lighting.</text>
 	</string>
 	<string id="video_settings_desc_19">
-		<text>This setting switches the anti-aliasing type on dynamic lighting. Two types of antialiasing are available - FXAA (Fast Approximate antialiasing) and SMAA (Subpixel Morphological antialiasing).</text>
+		<text>This setting switches the anti-aliasing type on dynamic lighting. Available SMAA (Subpixel Morphological antialiasing).</text>
 	</string>
 	<string id="video_settings_desc_20">
 		<text>This setting adjusts the detail of mip levels of textures at a distance. The normal value of this slider is average, and when you reduce it, the textures at a distance will be less clear, when you increase them-more clear, but excessive magnification can lead to the appearance of moire and unpleasant flickering dots on distant objects.</text>
@@ -920,7 +923,7 @@
 		<text>This setting adjusts the viewing angle at which shadows are normally drawn. If this angle is not sufficient, extra triangular shadows will be constantly visible at the edges of the screen. It is recommended to keep the setting at maximum.</text>
 	</string>
 	<string id="video_settings_desc_24">
-		<text>This setting includes the calculation of shadows from the actual position of the sun. ATTENTION! The shadows look correct, however, due to the calculation features, the FPS is significantly reduced in the morning and evening hours.</text>
+		<text>This effect may not look good on all ground textures because correct heightmaps are required for all ground textures.</text>
 	</string>
 	<string id="video_settings_desc_25">
 		<text>This setting enables the HDR Tone mapping effect. It improves the image by accentuating details that would not be sufficiently contrasting without this effect - small elements, edges, while not making the image excessively bright.</text>
@@ -959,7 +962,7 @@
 		<text>This setting adjusts the intensity of the pre-calculated global lighting in the game. Higher values allow you to get a more realistic picture, but lead to a darkening of the scene.</text>
 	</string>
 	<string id="video_settings_desc_37">
-		<text>This setting enables global lighting mode in the game. This effect, when enabled, calculates areas that are additionally shaded by the model geometry, making the lighting more similar to that in the real world, with partial shadows and shading from equipment elements, clothing, machine parts, and other small parts of the geometry appearing on the models.</text>
+		<text>This setting enables global lighting mode in the game. This effect, when enabled, calculates areas that are additionally shaded by the model geometry, making the lighting more similar to that in the real world, with partial shadows and shading from equipment elements, clothing, machine parts, grass, and other small parts of the geometry.</text>
 	</string>
 	<string id="video_settings_desc_38">
 		<text>This setting adjusts the mode of operation of the global lighting effect in the game.</text>
@@ -1001,10 +1004,10 @@
 		<text>The setting includes surround light for some lamps.</text>
 	</string>
 	<string id="video_settings_desc_51">
-		<text>The setting includes reflections on water and wet surfaces (when wet is enabled).</text>
+		<text>This setting enables reflections on the water and in puddles during rain.</text>
 	</string>
 	<string id="video_settings_desc_52">
-		<text>Reflection mode. The following options are possible: on the water, on the asphalt, on the water and on the asphalt. ATTENTION! Reflections (especially on asphalt) can significantly reduce performance.</text>
+		<text>Tessellation increases the quality of low-polygonal models of NPS, monsters, hands of the actor, animated objects (bottles, etc.). The angular models become more smoothed.</text>
 	</string>
 	<string id="video_settings_desc_53">
 		<text>This setting enables shader optimization mode. Allows you to raise the FPS on video cards with a narrow bus or low memory bandwidth.</text>
@@ -1028,10 +1031,12 @@
 		<text>Activates simultaneous loading of textures by multiple threads. It can slightly reduce the load time of the save if you have an SSD.</text>
 	</string>
 	<string id="video_settings_desc_61">
-		<text>It makes sense to increase the viewing angle for wide monitors and depending on individual preferences. For more fine-tuning, use resp. the console command.</text>
+		<text>It makes sense to increase the viewing angle for wide monitors and depending on individual preferences.
+		%c[red] \nThis setting is activated only after loading the game, because its value is saved in the save. Setting this option via console/user.ltx will not work. This is done specifically because of some features of the mod.</text>
 	</string>
 	<string id="video_settings_desc_62">
-		<text>The player's viewing angle. If a value such as 0.45 or less (less in the middle of the slider), the weapon will be closer, if this is set to 0.65 or more (more the middle of the slider), the weapons in the game will appear on. It makes sense to individually configure for wide monitors and depending on the FOV.</text>
+		<text>The player's viewing angle. If a value such as 0.45 or less (less in the middle of the slider), the weapon will be closer, if this is set to 0.65 or more (more the middle of the slider), the weapons in the game will appear on. It makes sense to individually configure for wide monitors and depending on the FOV.
+		%c[red] \nThis setting is activated only after the game is loaded, like the fov setting!</text>
 	</string>
 	<string id="video_settings_desc_63">
 		<text>This setting adjusts the intensity of hemi lighting. The higher it is, the lighter it will be. ATTENTION! This is an"amateur" setting, and if you don't know exactly what you're doing, leave it at the default value. Boost if the overall game seems too dark to you and you can't achieve the desired effect with the brightness/contrast sliders.</text>

@@ -1,14 +1,14 @@
 local ANIMS_ENABLED = get_bool("options","animated_items", true)
 
 local cfg = {
-	"eat_health",
-	"eat_power",
-	"eat_radiation",
-	"eat_satiety",
-	"eat_thirst",
-	"eat_alcohol",
-	"eat_psy_health",
-	"wounds_heal_perc",
+	["eat_health"]		= function(v) db.actor.health = v end,
+	["eat_power"]		= function(v) db.actor.power = v end,
+	["eat_radiation"]	= function(v) db.actor.radiation = v end,
+	["eat_satiety"]		= function(v) db.actor.satiety = v end,
+	["eat_thirst"]		= function(v) db.actor.thirst = v end,
+	["eat_alcohol"]		= function(v) db.actor.alcohol = v end,
+	["eat_psy_health"]	= function(v) db.actor.psy_health = v end,
+	["wounds_heal_perc"]= function(v) db.actor:heal_wounds( v ) end,
 }
 
 local function apply_item( sect )
@@ -35,18 +35,10 @@ local function apply_item( sect )
 		jekan_update.pervach_use()
 	end		
 
-	for k, v in ipairs( cfg ) do
-		local val = get_float( sect, v )
+	for line, func in pairs( cfg ) do
+		local val = get_float( sect, line )
 		if val ~= 0	then
-			if     k == 1 then db.actor.health = val
-			elseif k == 2 then db.actor.power = val
-			elseif k == 3 then db.actor.radiation = val
-			elseif k == 4 then db.actor.satiety = val
-			elseif k == 5 then db.actor.thirst = val
-			elseif k == 6 then db.actor.alcohol = val
-			elseif k == 7 then db.actor.psy_health = val
-			elseif k == 8 then db.actor:heal_wounds( val )
-			end
+			func(val)
 		end
 	end
 
@@ -89,6 +81,8 @@ local function play_item_use(item)
             used_time = get_string(item, "item_used_timing_exo")
             snd = get_string(item, "snd_use_exo_anm")
             cam_effect = get_string(item, "cam_effect_exo")
+        elseif (outfit:section() == "scientific_outfit" or outfit:section() == "ecolog_outfit" or outfit:section() == "protection_outfit") and string.find(item, "^medkit") then
+            anim = "anm_use_alt"
         end
     end
 
