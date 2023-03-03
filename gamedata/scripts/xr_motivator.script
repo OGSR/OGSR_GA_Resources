@@ -490,6 +490,16 @@ function motivator_binder:before_hit_callback(hit_data)
 				hit_data.ignore_hit = true
 				return -- хит проигнорировали - дальше делать нечего.
 			end
+			--
+			if hit_data.weapon_id then
+				local wpn = level.object_by_id(hit_data.weapon_id)
+				if hit_data.hit_type == hit.fire_wound and wpn and wpn:is_weapon_magazined() then
+					--Увеличим урон от оружия при стрельбе по нпс
+					local koef = get_float(wpn:section(), "multiply_hit_from_actor", 1)
+					--log3("~~[%s] Power of hit before: [%s], after [%s]", script_name(), hit_data.power, hit_data.power * koef)
+					hit_data.power = hit_data.power * koef
+				end
+			end
 		end
 	end
 	--

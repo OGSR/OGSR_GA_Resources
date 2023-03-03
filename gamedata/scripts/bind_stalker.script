@@ -80,7 +80,6 @@ function actor_binder:net_spawn(data)
 	cmd("r2_exp_donttest_shad off") --Это экономит фпс.
 	cmd("unbind use_medkit") --эти кнопки нам не нужны.
 	cmd("unbind use_bandage")
-	cmd("snd_efx off")
 -----------------------------------------------------------
 
 	self.am:subscribe({ signal = "on_talk_open",  fun = this.hide_weapon    })
