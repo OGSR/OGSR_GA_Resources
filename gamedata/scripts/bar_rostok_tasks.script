@@ -1,9 +1,9 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function proceed()
     local actor = db.actor
 	-- Bar Rostok
-	-- выдача информации с флешки профессора
+	-- РІС‹РґР°С‡Р° РёРЅС„РѕСЂРјР°С†РёРё СЃ С„Р»РµС€РєРё РїСЂРѕС„РµСЃСЃРѕСЂР°
 	if not has_alife_info("bar_ecolog_research_normal") and
 	   not has_alife_info("bar_ecolog_research_corrupted") and
 	   actor:object("bar_ecolog_flash") 

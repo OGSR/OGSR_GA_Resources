@@ -58,12 +58,8 @@
 					<!-- <text font="letterica25" r="225" g="225" b="250" complex_mode="0">Tasks</text> -->
 					     <text font="letterica25" r="120" g="117" b="67" complex_mode="0">Tasks</text>
 				</title>
-				<texture>amk_blank_01</texture>
-				
-				<anim_static x="290" y="-6" width="32" height="32" frames = "16" duration = "1000" columns = "8" frame_width = "32" frame_height = "32" cyclic = "1" autoplay = "1">
-					<texture>ui\ui_pda_anims_01</texture>
-				</anim_static>
 
+				<texture>amk_blank_01</texture>
 			</left_frame_header>
 
 			<list x="0" y="48" width="344" height="539" right_ident="10" bottom_indent="42" always_show_scroll="0" scroll_profile="pda"/>
@@ -92,12 +88,12 @@
 						</title>
 					</header_frame_line>
 
-					<scroll_view  x="8" y="45" width="537" height="542" right_ident="10" scroll_profile="pda">
+					<scroll_view x="0" y="0" width="405" height="590" right_ident="10" scroll_profile="pda" always_show_scroll="0">
 						<objective_item x="0" y="0" width="386" height="10">
 							<image x="170" y="0" width="90" height="90" stretch="1"/>
 							
 							<text_cont x="5" y="90" width="386" height="10">
-								<text font="letterica18" r="255" g="255" b="255"/>
+								<text font="letterica18" r="255" g="255" b="255" align="j"/>
 							</text_cont>
 							
 						</objective_item>

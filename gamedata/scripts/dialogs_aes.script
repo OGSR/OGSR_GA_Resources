@@ -1,7 +1,7 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
 
---' Мы отказываемся вступить в осознание, нас переносит на вторую станцию
+
+--' РњС‹ РѕС‚РєР°Р·С‹РІР°РµРјСЃСЏ РІСЃС‚СѓРїРёС‚СЊ РІ РѕСЃРѕР·РЅР°РЅРёРµ, РЅР°СЃ РїРµСЂРµРЅРѕСЃРёС‚ РЅР° РІС‚РѕСЂСѓСЋ СЃС‚Р°РЅС†РёСЋ
 function osoznanie_decline(npc, actor)
 	db.actor:disable_info_portion("oso_init_dialog")
 	
@@ -28,7 +28,7 @@ function osoznanie_decline(npc, actor)
 end
 
 
---' Мы соглашаемся вступить в осознание, конец игры.
+--' РњС‹ СЃРѕРіР»Р°С€Р°РµРјСЃСЏ РІСЃС‚СѓРїРёС‚СЊ РІ РѕСЃРѕР·РЅР°РЅРёРµ, РєРѕРЅРµС† РёРіСЂС‹.
 function osoznanie_agree(npc, actor)
 	db.actor:disable_info_portion("oso_init_dialog")
 	npc:stop_talk()

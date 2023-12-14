@@ -1,10 +1,10 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -----------------------------------------------------------------------
 --- ogse_car_control.script
---- Продажа и спавн всего транспорта в игре
---- Модуль интерфейса и логики управления БТР
---- Авторы: KamikaZze, Dusty79, Malandrinus
+--- РџСЂРѕРґР°Р¶Р° Рё СЃРїР°РІРЅ РІСЃРµРіРѕ С‚СЂР°РЅСЃРїРѕСЂС‚Р° РІ РёРіСЂРµ
+--- РњРѕРґСѓР»СЊ РёРЅС‚РµСЂС„РµР№СЃР° Рё Р»РѕРіРёРєРё СѓРїСЂР°РІР»РµРЅРёСЏ Р‘РўР 
+--- РђРІС‚РѕСЂС‹: KamikaZze, Dusty79, Malandrinus
 --- version 2.0.00 (22/05/2014)
 -----------------------------------------------------------------------
 
@@ -14,7 +14,7 @@
 --	log_stream:flush()
 --end
 
-function attach(sm) -- для менеджера сигналов
+function attach(sm) -- РґР»СЏ РјРµРЅРµРґР¶РµСЂР° СЃРёРіРЅР°Р»РѕРІ
 	sm:subscribe({signal = "on_spawn",    fun = this.on_spawn})
 	sm:subscribe({signal = "on_destroy", fun = this.on_destroy})
 	sm:subscribe({signal = "on_key_down", fun = this.on_key_down})
@@ -35,11 +35,11 @@ function attach(sm) -- для менеджера сигналов
 	sm:subscribe({signal = "on_npc_spawn", fun = this.register_target})
 	sm:subscribe({signal = "on_npc_death", fun = this.unregister_target})
 	sm:subscribe({signal = "on_npc_net_destroy", fun = this.unregister_target})
-	---- Изначально не работает, после некоторых манипуляций заработало, но криво. Поэтому отключено.
+	---- РР·РЅР°С‡Р°Р»СЊРЅРѕ РЅРµ СЂР°Р±РѕС‚Р°РµС‚, РїРѕСЃР»Рµ РЅРµРєРѕС‚РѕСЂС‹С… РјР°РЅРёРїСѓР»СЏС†РёР№ Р·Р°СЂР°Р±РѕС‚Р°Р»Рѕ, РЅРѕ РєСЂРёРІРѕ. РџРѕСЌС‚РѕРјСѓ РѕС‚РєР»СЋС‡РµРЅРѕ.
 	--sm:subscribe({signal = "on_heli_spawn", fun = this.register_target})
 	--sm:subscribe({signal = "on_heli_death", fun = this.unregister_target})
 	--sm:subscribe({signal = "on_heli_net_destroy", fun = this.unregister_target})
-	---- Машины вообще не регистрируются, хз почему. Да и нужно вообще их регистрировать?
+	---- РњР°С€РёРЅС‹ РІРѕРѕР±С‰Рµ РЅРµ СЂРµРіРёСЃС‚СЂРёСЂСѓСЋС‚СЃСЏ, С…Р· РїРѕС‡РµРјСѓ. Р”Р° Рё РЅСѓР¶РЅРѕ РІРѕРѕР±С‰Рµ РёС… СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊ?
 	--sm:subscribe({signal = "on_car_spawn", fun = this.register_target})
 	--sm:subscribe({signal = "on_car_death", fun = this.unregister_target})
 	--sm:subscribe({signal = "on_car_net_destroy", fun = this.unregister_target})
@@ -52,15 +52,15 @@ local alt_hud_bg
 
 local fov_vol
 local current_btr_fov
-local btr_fov_max_value -- максимально допустимый для зумма БТР FOV (ZOOM-)
-local btr_fov_min_value -- минимально допустимый для зумма БТР FOV (ZOOM+)
--- Значения FOV, больше или меньше которых FOV выставлять нельзя
+local btr_fov_max_value -- РјР°РєСЃРёРјР°Р»СЊРЅРѕ РґРѕРїСѓСЃС‚РёРјС‹Р№ РґР»СЏ Р·СѓРјРјР° Р‘РўР  FOV (ZOOM-)
+local btr_fov_min_value -- РјРёРЅРёРјР°Р»СЊРЅРѕ РґРѕРїСѓСЃС‚РёРјС‹Р№ РґР»СЏ Р·СѓРјРјР° Р‘РўР  FOV (ZOOM+)
+-- Р—РЅР°С‡РµРЅРёСЏ FOV, Р±РѕР»СЊС€Рµ РёР»Рё РјРµРЅСЊС€Рµ РєРѕС‚РѕСЂС‹С… FOV РІС‹СЃС‚Р°РІР»СЏС‚СЊ РЅРµР»СЊР·СЏ
 local min_alarm_fov_vol = 5
 local max_alarm_fov_vol = 140
 
 local periscope_modes = { manual = 1, target_select = 2, auto = 3 }
 local periscope_mode
-local recognition_target_mode -- флаг распознавания цели
+local recognition_target_mode -- С„Р»Р°Рі СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ С†РµР»Рё
 local actor_torch_was_enabled = false
 
 local article_by_car_section = {
@@ -99,15 +99,15 @@ function unsubscribe()
 	end
 end
 
-function on_attach_vehicle(obj) --Только что залезли в машину
-	local info = article_by_car_section[obj:section()] --Кусок перенесен из биндера авто.
+function on_attach_vehicle(obj) --РўРѕР»СЊРєРѕ С‡С‚Рѕ Р·Р°Р»РµР·Р»Рё РІ РјР°С€РёРЅСѓ
+	local info = article_by_car_section[obj:section()] --РљСѓСЃРѕРє РїРµСЂРµРЅРµСЃРµРЅ РёР· Р±РёРЅРґРµСЂР° Р°РІС‚Рѕ.
 	if info then
 		if db.actor:dont_has_info(info) then
-			db.actor:give_info_portion(info) --Дадим инфу для энциклопедии
+			db.actor:give_info_portion(info) --Р”Р°РґРёРј РёРЅС„Сѓ РґР»СЏ СЌРЅС†РёРєР»РѕРїРµРґРёРё
 		end
 	end
 	--
-	--Выключим фонарик актора
+	--Р’С‹РєР»СЋС‡РёРј С„РѕРЅР°СЂРёРє Р°РєС‚РѕСЂР°
 	local actor_torch = db.actor:item_in_slot(9)
 	if actor_torch and actor_torch:is_torch() then
 		actor_torch = get_torch_obj(actor_torch)
@@ -116,8 +116,6 @@ function on_attach_vehicle(obj) --Только что залезли в машину
 			actor_torch_was_enabled = true
 		end
 	end
-	--
-	SetDetailsMinRadius(2.0) -- убираем траву из под ног
 	--
 	fov_vol = ogse.load_var("OGSR_ACTOR_FOV", get_console():get_float("fov"))
 	current_btr_fov = ogse.load_var( script_name()..".current_btr_fov", fov_vol, "float")
@@ -130,6 +128,12 @@ function on_attach_vehicle(obj) --Только что залезли в машину
 	current_car = obj
 	in_btr = string.find(obj:section(), "btr") ~= nil
 	if in_btr then
+		if level.game_indicators_shown() then
+			transfer_btr_hud_to_static()
+		else
+			transfer_btr_hud_to_alt()
+		end
+
 		enable_car_gun(obj, true)
 	end
 	--
@@ -138,9 +142,8 @@ function on_attach_vehicle(obj) --Только что залезли в машину
 	subscribe()
 end
 
-function on_detach_vehicle() --Только что вылезли из машины
-	SetDetailsMinRadius(0.0) -- вертаем траву обратно
-	fix_camera_limits = false --Оно тут зачем?
+function on_detach_vehicle() --РўРѕР»СЊРєРѕ С‡С‚Рѕ РІС‹Р»РµР·Р»Рё РёР· РјР°С€РёРЅС‹
+	fix_camera_limits = false --РћРЅРѕ С‚СѓС‚ Р·Р°С‡РµРј?
 	bind_stalker.restore_weapon()
 	switch_firing(current_car, false)
 	current_car = false
@@ -149,7 +152,7 @@ function on_detach_vehicle() --Только что вылезли из машины
 		in_btr = false
 	end
 	--
-	--Включим фонарик актора, если выключали
+	--Р’РєР»СЋС‡РёРј С„РѕРЅР°СЂРёРє Р°РєС‚РѕСЂР°, РµСЃР»Рё РІС‹РєР»СЋС‡Р°Р»Рё
 	if actor_torch_was_enabled then
 		local actor_torch = db.actor:item_in_slot(9)
 		if actor_torch and actor_torch:is_torch() then
@@ -163,7 +166,7 @@ function on_detach_vehicle() --Только что вылезли из машины
 	--
 	unsubscribe()
 	--
-	ogse.save_var( script_name()..".current_btr_fov", current_btr_fov, "float" ) --Сохраняем fov
+	ogse.save_var( script_name()..".current_btr_fov", current_btr_fov, "float" ) --РЎРѕС…СЂР°РЅСЏРµРј fov
 end
 
 
@@ -177,7 +180,7 @@ end
 
 
 function on_spawn()
-	local bg = get_hud():AddCustomStatic("btr_hud_background", true):wnd() -- подложка для окна худа БТР
+	local bg = get_hud():AddCustomStatic("btr_hud_background", true):wnd() -- РїРѕРґР»РѕР¶РєР° РґР»СЏ РѕРєРЅР° С…СѓРґР° Р‘РўР 
 	bg:SetWidth(0)
 	bg:SetColor(GetARGB(0,255,255,255))
 	bg:SetWndRect(Frect():set(0,0,1024,768))
@@ -188,23 +191,23 @@ function on_spawn()
 	alt_hud_bg:Show(true)
 	get_hud():AddDialogToRender(alt_hud_bg)
 	--
-	btr_hud_wnd = btr_hud() -- если ещё не создали, то создать
-	ASSERT(btr_hud_wnd, "ogse_car_control.on_spawn: btr_hud_wnd == nil") -- были проблемы при создании
+	btr_hud_wnd = btr_hud() -- РµСЃР»Рё РµС‰С‘ РЅРµ СЃРѕР·РґР°Р»Рё, С‚Рѕ СЃРѕР·РґР°С‚СЊ
+	ASSERT(btr_hud_wnd, "ogse_car_control.on_spawn: btr_hud_wnd == nil") -- Р±С‹Р»Рё РїСЂРѕР±Р»РµРјС‹ РїСЂРё СЃРѕР·РґР°РЅРёРё
 	bg:AttachChild(btr_hud_wnd)
 	--
 	car_hud_wnd = car_hud()
-	ASSERT(car_hud_wnd, "ogse_car_control.on_spawn: car_hud_wnd == nil") -- на всякий случай
+	ASSERT(car_hud_wnd, "ogse_car_control.on_spawn: car_hud_wnd == nil") -- РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№
 	bg:AttachChild(car_hud_wnd)
 
-	periscope_mode = ogse.load_var( script_name()..".periscope_mode", periscope_modes.manual, "u8") --Загружаем режим стрельбы
-	recognition_target_mode = ogse.load_var( script_name()..".recognition_target_mode", true, "bool") --Загружаем режим автораспознавания
+	periscope_mode = ogse.load_var( script_name()..".periscope_mode", periscope_modes.manual, "u8") --Р—Р°РіСЂСѓР¶Р°РµРј СЂРµР¶РёРј СЃС‚СЂРµР»СЊР±С‹
+	recognition_target_mode = ogse.load_var( script_name()..".recognition_target_mode", true, "bool") --Р—Р°РіСЂСѓР¶Р°РµРј СЂРµР¶РёРј Р°РІС‚РѕСЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ
 end
 
 
 function on_save()
-	ogse.save_var( script_name()..".periscope_mode", periscope_mode, "u8" ) --Сохраняем режим стрельбы
-	ogse.save_var( script_name()..".recognition_target_mode", recognition_target_mode, "bool" ) --Сохраняем режим автораспознавания
-	ogse.save_var( script_name()..".current_btr_fov", current_btr_fov or get_console():get_float("fov"), "float" ) --Сохраняем fov
+	ogse.save_var( script_name()..".periscope_mode", periscope_mode, "u8" ) --РЎРѕС…СЂР°РЅСЏРµРј СЂРµР¶РёРј СЃС‚СЂРµР»СЊР±С‹
+	ogse.save_var( script_name()..".recognition_target_mode", recognition_target_mode, "bool" ) --РЎРѕС…СЂР°РЅСЏРµРј СЂРµР¶РёРј Р°РІС‚РѕСЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ
+	ogse.save_var( script_name()..".current_btr_fov", current_btr_fov or get_console():get_float("fov"), "float" ) --РЎРѕС…СЂР°РЅСЏРµРј fov
 end
 
 function on_destroy()
@@ -227,12 +230,10 @@ function transfer_btr_hud_to_static()
 	--
 	local bg = get_hud():GetCustomStatic("btr_hud_background"):wnd()
 	bg:AttachChild(btr_hud_wnd)
-	btr_hud_wnd.emty:Show(false)
+	--btr_hud_wnd.emty:Show(false)
 	--
 	bg:AttachChild(car_hud_wnd)
 	car_hud_wnd:Show(true)
-	--
-	--ogse_signals.get_mgr():call("on_hud_show") --Вроде бы это более не нужно.
 end
 
 function transfer_btr_hud_to_alt()
@@ -240,12 +241,10 @@ function transfer_btr_hud_to_alt()
 	btr_hud_wnd:DetachFromParent()
 	--
 	alt_hud_bg:AttachChild(btr_hud_wnd)
-	btr_hud_wnd.emty:Show(true)
+	--btr_hud_wnd.emty:Show(true)
 	--
 	alt_hud_bg:AttachChild(car_hud_wnd)
 	car_hud_wnd:Show(false)
-	--
-	--ogse_signals.get_mgr():call("on_hud_show") --Вроде бы это более не нужно.
 end
 
 in_btr = false
@@ -253,7 +252,7 @@ current_car = false
 local current_target_id = nil
 local targets = {}
 
-function actor_has_control_module() -- проверка на квестовый БТР
+function actor_has_control_module() -- РїСЂРѕРІРµСЂРєР° РЅР° РєРІРµСЃС‚РѕРІС‹Р№ Р‘РўР 
 	if current_car and in_btr then
 		local btr = level_object_by_sid(story_ids.dead_city_btr_real)
 		if btr and btr:id() == ogse_car_control.current_car:id() then
@@ -265,7 +264,7 @@ function actor_has_control_module() -- проверка на квестовый БТР
 	return false
 end
 
-function actor_has_power_unit() -- проверка на квестовый БТР
+function actor_has_power_unit() -- РїСЂРѕРІРµСЂРєР° РЅР° РєРІРµСЃС‚РѕРІС‹Р№ Р‘РўР 
 	if current_car and in_btr then
 		local btr = level_object_by_sid(story_ids.dead_city_btr_real)
 		if btr and btr:id() == ogse_car_control.current_car:id() then
@@ -293,41 +292,41 @@ function unregister_target(obj)
 	end
 end
 
-local periscope_faile_fx_intensity     = 200                         -- интенсивность налагаемого эффекта визуального шума при выбросе (0-255)
+local periscope_faile_fx_intensity     = 200                         -- РёРЅС‚РµРЅСЃРёРІРЅРѕСЃС‚СЊ РЅР°Р»Р°РіР°РµРјРѕРіРѕ СЌС„С„РµРєС‚Р° РІРёР·СѓР°Р»СЊРЅРѕРіРѕ С€СѓРјР° РїСЂРё РІС‹Р±СЂРѕСЃРµ (0-255)
 
-local btr_fov_different               = 5                           -- изменение FOV за один щелчок оборота колёсика мыши
-local target_detect_range             = 180                         -- радиус захвата целей
-local target_max_range                = 150                         -- наибольший радиус сопровождения целей
-local target_min_range                = 4                           -- наименьший радиус сопровождения целей
-local auto_fire_broken_limit          = 0.35                        -- уровень исправности БТР, ниже которого автоматический режим выходит из строя
-local recognition_target_broken_limit = 0.25                        -- уровень исправности БТР, ниже которого распознавание целей выходит из строя
-local general_broken_limit            = 0.20                        -- уровень исправности БТР, ниже которого выдаётся тревожное сообщение
-local snd_new_target                  = [[detectors\contact_8]]     -- звук при захвате новой цели
-local snd_error                       = [[car\gear_old]]     -- звук при ошибке
+local btr_fov_different               = 5                           -- РёР·РјРµРЅРµРЅРёРµ FOV Р·Р° РѕРґРёРЅ С‰РµР»С‡РѕРє РѕР±РѕСЂРѕС‚Р° РєРѕР»С‘СЃРёРєР° РјС‹С€Рё
+local target_detect_range             = 180                         -- СЂР°РґРёСѓСЃ Р·Р°С…РІР°С‚Р° С†РµР»РµР№
+local target_max_range                = 150                         -- РЅР°РёР±РѕР»СЊС€РёР№ СЂР°РґРёСѓСЃ СЃРѕРїСЂРѕРІРѕР¶РґРµРЅРёСЏ С†РµР»РµР№
+local target_min_range                = 4                           -- РЅР°РёРјРµРЅСЊС€РёР№ СЂР°РґРёСѓСЃ СЃРѕРїСЂРѕРІРѕР¶РґРµРЅРёСЏ С†РµР»РµР№
+local auto_fire_broken_limit          = 0.35                        -- СѓСЂРѕРІРµРЅСЊ РёСЃРїСЂР°РІРЅРѕСЃС‚Рё Р‘РўР , РЅРёР¶Рµ РєРѕС‚РѕСЂРѕРіРѕ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёР№ СЂРµР¶РёРј РІС‹С…РѕРґРёС‚ РёР· СЃС‚СЂРѕСЏ
+local recognition_target_broken_limit = 0.25                        -- СѓСЂРѕРІРµРЅСЊ РёСЃРїСЂР°РІРЅРѕСЃС‚Рё Р‘РўР , РЅРёР¶Рµ РєРѕС‚РѕСЂРѕРіРѕ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ С†РµР»РµР№ РІС‹С…РѕРґРёС‚ РёР· СЃС‚СЂРѕСЏ
+local general_broken_limit            = 0.20                        -- СѓСЂРѕРІРµРЅСЊ РёСЃРїСЂР°РІРЅРѕСЃС‚Рё Р‘РўР , РЅРёР¶Рµ РєРѕС‚РѕСЂРѕРіРѕ РІС‹РґР°С‘С‚СЃСЏ С‚СЂРµРІРѕР¶РЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
+local snd_new_target                  = [[detectors\contact_8]]     -- Р·РІСѓРє РїСЂРё Р·Р°С…РІР°С‚Рµ РЅРѕРІРѕР№ С†РµР»Рё
+local snd_error                       = [[car\gear_old]]     -- Р·РІСѓРє РїСЂРё РѕС€РёР±РєРµ
 local fix_camera_limits = false
-need_companion_btr = true -- должна быть доступна снаружи
+need_companion_btr = true -- РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РґРѕСЃС‚СѓРїРЅР° СЃРЅР°СЂСѓР¶Рё
 
-local reprioritize_timeout = 500 	-- интервал реприоретизации, мсек - нельзя делать слишком низким - будет судорожно метаться между целями
-local memory_timeout = 60000		-- время, сколько помнить о появлении врага, миллиссекунд
-local combat_mult_npc = 0.5			-- множитель веса ближней цели неписей
-local combat_mult_monster = 0.3		-- множитель веса ближней цели неписей
+local reprioritize_timeout = 500 	-- РёРЅС‚РµСЂРІР°Р» СЂРµРїСЂРёРѕСЂРµС‚РёР·Р°С†РёРё, РјСЃРµРє - РЅРµР»СЊР·СЏ РґРµР»Р°С‚СЊ СЃР»РёС€РєРѕРј РЅРёР·РєРёРј - Р±СѓРґРµС‚ СЃСѓРґРѕСЂРѕР¶РЅРѕ РјРµС‚Р°С‚СЊСЃСЏ РјРµР¶РґСѓ С†РµР»СЏРјРё
+local memory_timeout = 60000		-- РІСЂРµРјСЏ, СЃРєРѕР»СЊРєРѕ РїРѕРјРЅРёС‚СЊ Рѕ РїРѕСЏРІР»РµРЅРёРё РІСЂР°РіР°, РјРёР»Р»РёСЃСЃРµРєСѓРЅРґ
+local combat_mult_npc = 0.5			-- РјРЅРѕР¶РёС‚РµР»СЊ РІРµСЃР° Р±Р»РёР¶РЅРµР№ С†РµР»Рё РЅРµРїРёСЃРµР№
+local combat_mult_monster = 0.3		-- РјРЅРѕР¶РёС‚РµР»СЊ РІРµСЃР° Р±Р»РёР¶РЅРµР№ С†РµР»Рё РЅРµРїРёСЃРµР№
 local last_reprioritize		= nil
-local primary_target = nil 			-- кого окучивать будем, id
-local need_issue_targeting_warning = false -- предупредить о пиздеце под колесами
+local primary_target = nil 			-- РєРѕРіРѕ РѕРєСѓС‡РёРІР°С‚СЊ Р±СѓРґРµРј, id
+local need_issue_targeting_warning = false -- РїСЂРµРґСѓРїСЂРµРґРёС‚СЊ Рѕ РїРёР·РґРµС†Рµ РїРѕРґ РєРѕР»РµСЃР°РјРё
 local need_warn_turret_failure = false
-local targets_list = {}		-- список целей
-local last_target = {}				-- последняя цель, [id] = last_time 
-------- структура записи таблицы
+local targets_list = {}		-- СЃРїРёСЃРѕРє С†РµР»РµР№
+local last_target = {}				-- РїРѕСЃР»РµРґРЅСЏСЏ С†РµР»СЊ, [id] = last_time 
+------- СЃС‚СЂСѓРєС‚СѓСЂР° Р·Р°РїРёСЃРё С‚Р°Р±Р»РёС†С‹
 -- targets_list[npc_id] = {
-	-- npc = непись или нет
-	-- range = расстояние
-	-- vis = видим или нет
+	-- npc = РЅРµРїРёСЃСЊ РёР»Рё РЅРµС‚
+	-- range = СЂР°СЃСЃС‚РѕСЏРЅРёРµ
+	-- vis = РІРёРґРёРј РёР»Рё РЅРµС‚
 -- }
 
 local car_health                  = 0.0
 local car_critically_damaged      = false
-local auto_fire_operable          = true   -- флаг исправности автоматического режима
-local recognition_target_operable = true   -- флаг исправности распознавания цели
+local auto_fire_operable          = true   -- С„Р»Р°Рі РёСЃРїСЂР°РІРЅРѕСЃС‚Рё Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРіРѕ СЂРµР¶РёРјР°
+local recognition_target_operable = true   -- С„Р»Р°Рі РёСЃРїСЂР°РІРЅРѕСЃС‚Рё СЂР°СЃРїРѕР·РЅР°РІР°РЅРёСЏ С†РµР»Рё
 
 function is_manual_mode()
 	return periscope_mode == periscope_modes.manual
@@ -343,7 +342,7 @@ function is_recognition_target_active()
 	return recognition_target_mode and recognition_target_operable
 end
 
---Проверка, можно ли открыть багажник
+--РџСЂРѕРІРµСЂРєР°, РјРѕР¶РЅРѕ Р»Рё РѕС‚РєСЂС‹С‚СЊ Р±Р°РіР°Р¶РЅРёРє
 function car_which_trunk_we_looking_at(car)
 	local true_car = car:get_car()
 	if true_car and true_car:GetfHealth() > 0.05 then
@@ -356,7 +355,7 @@ function car_which_trunk_we_looking_at(car)
 	return false
 end
 
--- получить машину, на топливный бак которой мы смотрим
+-- РїРѕР»СѓС‡РёС‚СЊ РјР°С€РёРЅСѓ, РЅР° С‚РѕРїР»РёРІРЅС‹Р№ Р±Р°Рє РєРѕС‚РѕСЂРѕР№ РјС‹ СЃРјРѕС‚СЂРёРј
 function car_which_gastank_we_looking_at()
 	if current_car then return nil end
 	local car = level.get_target_obj()
@@ -374,7 +373,7 @@ function car_which_gastank_we_looking_at()
 	return nil
 end
 
---Проверка, можно ли открыть дверцу двигателя
+--РџСЂРѕРІРµСЂРєР°, РјРѕР¶РЅРѕ Р»Рё РѕС‚РєСЂС‹С‚СЊ РґРІРµСЂС†Сѓ РґРІРёРіР°С‚РµР»СЏ
 function car_which_engine_door_we_looking_at(car)
 	local true_car = car:get_car()
 	if true_car and true_car:GetfHealth() > 0.05 then
@@ -388,12 +387,12 @@ function car_which_engine_door_we_looking_at(car)
 	return false
 end
 
--- коллбек на нажатие клавиши
+-- РєРѕР»Р»Р±РµРє РЅР° РЅР°Р¶Р°С‚РёРµ РєР»Р°РІРёС€Рё
 function on_key_down(key, bind)
 	if level.main_input_receiver() then return end
 
-	if not current_car then -- действия, имеющие смысл только при нахождении снаружи машины
-		if bind == key_bindings.kEXT_1 then -- Заправка транспорта
+	if not current_car then -- РґРµР№СЃС‚РІРёСЏ, РёРјРµСЋС‰РёРµ СЃРјС‹СЃР» С‚РѕР»СЊРєРѕ РїСЂРё РЅР°С…РѕР¶РґРµРЅРёРё СЃРЅР°СЂСѓР¶Рё РјР°С€РёРЅС‹
+		if bind == key_bindings.kEXT_1 then -- Р—Р°РїСЂР°РІРєР° С‚СЂР°РЅСЃРїРѕСЂС‚Р°
 			local car = car_which_gastank_we_looking_at()
 			if car then
 				refuel(car)
@@ -402,10 +401,18 @@ function on_key_down(key, bind)
 		end
 	end
 	
-	if not in_btr then return end -- последующие действия имеют смысл только при нахождении внутри БТР
-	
-	if bind == key_bindings.kL_LOOKOUT then -- управление распознаванием
-		if not recognition_target_operable then -- режим распознования сломался
+	if not in_btr then return end -- РїРѕСЃР»РµРґСѓСЋС‰РёРµ РґРµР№СЃС‚РІРёСЏ РёРјРµСЋС‚ СЃРјС‹СЃР» С‚РѕР»СЊРєРѕ РїСЂРё РЅР°С…РѕР¶РґРµРЅРёРё РІРЅСѓС‚СЂРё Р‘РўР 
+
+	if bind == key_bindings.kCAM_1 then
+		btr_hud_wnd:Show(true)
+	elseif bind == key_bindings.kCAM_2 or bind == key_bindings.kCAM_3 then
+		btr_hud_wnd:Show(false)
+	elseif bind == key_bindings.kHIDEHUD then --СѓР±СЂР°Р»Рё С…СѓРґ
+		transfer_btr_hud_to_alt()
+	elseif bind == key_bindings.kSHOWHUD then --РїРѕРєР°Р·Р°Р»Рё С…СѓРґ
+		transfer_btr_hud_to_static()
+	elseif bind == key_bindings.kL_LOOKOUT then -- СѓРїСЂР°РІР»РµРЅРёРµ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµРј
+		if not recognition_target_operable then -- СЂРµР¶РёРј СЂР°СЃРїРѕР·РЅРѕРІР°РЅРёСЏ СЃР»РѕРјР°Р»СЃСЏ
 			play_error_sound()
 			return
 		end
@@ -413,14 +420,14 @@ function on_key_down(key, bind)
 			play_error_sound()
 			return		
 		end
-		recognition_target_mode = not recognition_target_mode -- переключаем режим
-		switch_firing(current_car, false) -- надо прекратить стрелять на всякий случай
+		recognition_target_mode = not recognition_target_mode -- РїРµСЂРµРєР»СЋС‡Р°РµРј СЂРµР¶РёРј
+		switch_firing(current_car, false) -- РЅР°РґРѕ РїСЂРµРєСЂР°С‚РёС‚СЊ СЃС‚СЂРµР»СЏС‚СЊ РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№
 		current_target_id = nil
-	elseif bind == key_bindings.kWPN_1 then -- установить ручной режим
+	elseif bind == key_bindings.kWPN_1 then -- СѓСЃС‚Р°РЅРѕРІРёС‚СЊ СЂСѓС‡РЅРѕР№ СЂРµР¶РёРј
 		periscope_mode = periscope_modes.manual
-		switch_firing(current_car, false) -- останавливаем огонь (если вдруг мы переключили режим при зажатой мыши во время огня)
+		switch_firing(current_car, false) -- РѕСЃС‚Р°РЅР°РІР»РёРІР°РµРј РѕРіРѕРЅСЊ (РµСЃР»Рё РІРґСЂСѓРі РјС‹ РїРµСЂРµРєР»СЋС‡РёР»Рё СЂРµР¶РёРј РїСЂРё Р·Р°Р¶Р°С‚РѕР№ РјС‹С€Рё РІРѕ РІСЂРµРјСЏ РѕРіРЅСЏ)
 		current_target_id = nil
-	elseif bind == key_bindings.kWPN_2 then -- установить режим автонаведения с ручным выбором цели и ручным огнём
+	elseif bind == key_bindings.kWPN_2 then -- СѓСЃС‚Р°РЅРѕРІРёС‚СЊ СЂРµР¶РёРј Р°РІС‚РѕРЅР°РІРµРґРµРЅРёСЏ СЃ СЂСѓС‡РЅС‹Рј РІС‹Р±РѕСЂРѕРј С†РµР»Рё Рё СЂСѓС‡РЅС‹Рј РѕРіРЅС‘Рј
 		if not actor_has_control_module() then
 			play_error_sound()
 			return		
@@ -428,7 +435,7 @@ function on_key_down(key, bind)
 		periscope_mode = periscope_modes.target_select
 		switch_firing(current_car, false)
 		current_target_id = nil
-	elseif bind == key_bindings.kWPN_3 then -- установить полностью автоматический режим (наведение и огонь)
+	elseif bind == key_bindings.kWPN_3 then -- СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РїРѕР»РЅРѕСЃС‚СЊСЋ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёР№ СЂРµР¶РёРј (РЅР°РІРµРґРµРЅРёРµ Рё РѕРіРѕРЅСЊ)
 		if not actor_has_control_module() then
 			play_error_sound()
 			return		
@@ -440,11 +447,11 @@ function on_key_down(key, bind)
 		periscope_mode = periscope_modes.auto
 		switch_firing(current_car, false) 
 		current_target_id = nil
-		-- также отключаем огонь, 
-		-- хоть и автоматический режим, но пусть курок нажимает автоматический решатель, а пока прекращаем.
-	elseif bind == key_bindings.kWPN_FIRE then -- начать стрелять (обычно левая крысо-кнопка)
-		if is_auto_fire_mode() then -- если мы сейчас стреляли автоматически
-			periscope_mode = periscope_modes.manual -- то переходим в полуавтоматический режим
+		-- С‚Р°РєР¶Рµ РѕС‚РєР»СЋС‡Р°РµРј РѕРіРѕРЅСЊ, 
+		-- С…РѕС‚СЊ Рё Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёР№ СЂРµР¶РёРј, РЅРѕ РїСѓСЃС‚СЊ РєСѓСЂРѕРє РЅР°Р¶РёРјР°РµС‚ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёР№ СЂРµС€Р°С‚РµР»СЊ, Р° РїРѕРєР° РїСЂРµРєСЂР°С‰Р°РµРј.
+	elseif bind == key_bindings.kWPN_FIRE then -- РЅР°С‡Р°С‚СЊ СЃС‚СЂРµР»СЏС‚СЊ (РѕР±С‹С‡РЅРѕ Р»РµРІР°СЏ РєСЂС‹СЃРѕ-РєРЅРѕРїРєР°)
+		if is_auto_fire_mode() then -- РµСЃР»Рё РјС‹ СЃРµР№С‡Р°СЃ СЃС‚СЂРµР»СЏР»Рё Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё
+			periscope_mode = periscope_modes.manual -- С‚Рѕ РїРµСЂРµС…РѕРґРёРј РІ РїРѕР»СѓР°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёР№ СЂРµР¶РёРј
 			current_target_id = nil
 		end
 		if not actor_has_control_module() then
@@ -452,9 +459,9 @@ function on_key_down(key, bind)
 			return		
 		end		
 		switch_firing(current_car, true)
-	elseif bind == key_bindings.kWPN_ZOOM then -- переключение целей явным указанием (обычно правая крысо-кнопка)
-		if not is_target_select_mode() or surge then -- работает в полуавтоматическом режиме и не работает во время выброса
-			play_error_sound() -- пшик
+	elseif bind == key_bindings.kWPN_ZOOM then -- РїРµСЂРµРєР»СЋС‡РµРЅРёРµ С†РµР»РµР№ СЏРІРЅС‹Рј СѓРєР°Р·Р°РЅРёРµРј (РѕР±С‹С‡РЅРѕ РїСЂР°РІР°СЏ РєСЂС‹СЃРѕ-РєРЅРѕРїРєР°)
+		if not is_target_select_mode() or surge then -- СЂР°Р±РѕС‚Р°РµС‚ РІ РїРѕР»СѓР°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРј СЂРµР¶РёРјРµ Рё РЅРµ СЂР°Р±РѕС‚Р°РµС‚ РІРѕ РІСЂРµРјСЏ РІС‹Р±СЂРѕСЃР°
+			play_error_sound() -- РїС€РёРє
 			return
 		end
 		if not actor_has_control_module() then
@@ -467,9 +474,9 @@ function on_key_down(key, bind)
 			switch_firing(current_car, false)
 			current_target_id = new_target_id
 		end
-	elseif bind == key_bindings.kR_LOOKOUT then -- управление распознаванием
-		if not is_target_select_mode() or surge then -- работает в полуавтоматическом режиме и не работает во время выброса
-			play_error_sound() -- пшик
+	elseif bind == key_bindings.kR_LOOKOUT then -- СѓРїСЂР°РІР»РµРЅРёРµ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµРј
+		if not is_target_select_mode() or surge then -- СЂР°Р±РѕС‚Р°РµС‚ РІ РїРѕР»СѓР°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРј СЂРµР¶РёРјРµ Рё РЅРµ СЂР°Р±РѕС‚Р°РµС‚ РІРѕ РІСЂРµРјСЏ РІС‹Р±СЂРѕСЃР°
+			play_error_sound() -- РїС€РёРє
 			return
 		end
 		if not actor_has_control_module() then
@@ -484,26 +491,26 @@ function on_key_down(key, bind)
 		end
 	end
 end
--- получить следующую цель в списке
+-- РїРѕР»СѓС‡РёС‚СЊ СЃР»РµРґСѓСЋС‰СѓСЋ С†РµР»СЊ РІ СЃРїРёСЃРєРµ
 function get_next_target()
-	-- ищем в два приёма:
-	-- 1. От текущей цели до конца
-	-- 2. От начала до текущей цели
+	-- РёС‰РµРј РІ РґРІР° РїСЂРёС‘РјР°:
+	-- 1. РћС‚ С‚РµРєСѓС‰РµР№ С†РµР»Рё РґРѕ РєРѕРЅС†Р°
+	-- 2. РћС‚ РЅР°С‡Р°Р»Р° РґРѕ С‚РµРєСѓС‰РµР№ С†РµР»Рё
 	local id = current_target_id
 	repeat 
 		local target_item
 		id, target_item = next(targets, id)
-		if not id then -- дошли до конца, это также обработает ситуацию пустой таблицы целей
+		if not id then -- РґРѕС€Р»Рё РґРѕ РєРѕРЅС†Р°, СЌС‚Рѕ С‚Р°РєР¶Рµ РѕР±СЂР°Р±РѕС‚Р°РµС‚ СЃРёС‚СѓР°С†РёСЋ РїСѓСЃС‚РѕР№ С‚Р°Р±Р»РёС†С‹ С†РµР»РµР№
 			break
 		end
 		if can_be_target(target_item.obj) then
 			return id
 		end
 	until false
-	-- если дошли до сюда, а текущей цели небыло, значит искали с начала и дошли до конца. Ничего не нашли и выходим
+	-- РµСЃР»Рё РґРѕС€Р»Рё РґРѕ СЃСЋРґР°, Р° С‚РµРєСѓС‰РµР№ С†РµР»Рё РЅРµР±С‹Р»Рѕ, Р·РЅР°С‡РёС‚ РёСЃРєР°Р»Рё СЃ РЅР°С‡Р°Р»Р° Рё РґРѕС€Р»Рё РґРѕ РєРѕРЅС†Р°. РќРёС‡РµРіРѕ РЅРµ РЅР°С€Р»Рё Рё РІС‹С…РѕРґРёРј
 	if not current_target_id then return nil end
-	-- иначе ищем в части массива, предшествующей текущей цели
-	-- в этой точке id равен nil, значит будеи искать с начала таблицы
+	-- РёРЅР°С‡Рµ РёС‰РµРј РІ С‡Р°СЃС‚Рё РјР°СЃСЃРёРІР°, РїСЂРµРґС€РµСЃС‚РІСѓСЋС‰РµР№ С‚РµРєСѓС‰РµР№ С†РµР»Рё
+	-- РІ СЌС‚РѕР№ С‚РѕС‡РєРµ id СЂР°РІРµРЅ nil, Р·РЅР°С‡РёС‚ Р±СѓРґРµРё РёСЃРєР°С‚СЊ СЃ РЅР°С‡Р°Р»Р° С‚Р°Р±Р»РёС†С‹
 	repeat 
 		local target_item
 		id, target_item = next(targets, id)
@@ -513,7 +520,7 @@ function get_next_target()
 	until id == current_target_id
 	return id
 end
--- найти цель по оси взгляда
+-- РЅР°Р№С‚Рё С†РµР»СЊ РїРѕ РѕСЃРё РІР·РіР»СЏРґР°
 function find_target_at_sight()
 	local res_target_id
 	local targ_dist = math.huge
@@ -533,28 +540,28 @@ function find_target_at_sight()
 	return res_target_id
 end
 
--- Проверка отпускания клавиш
+-- РџСЂРѕРІРµСЂРєР° РѕС‚РїСѓСЃРєР°РЅРёСЏ РєР»Р°РІРёС€
 function on_key_up(key, bind)
 	if in_btr then
 		if level.main_input_receiver() then return end
-		-- управление огнём
-		if bind == key_bindings.kWPN_FIRE then -- прекращаем огонь
+		-- СѓРїСЂР°РІР»РµРЅРёРµ РѕРіРЅС‘Рј
+		if bind == key_bindings.kWPN_FIRE then -- РїСЂРµРєСЂР°С‰Р°РµРј РѕРіРѕРЅСЊ
 			switch_firing(current_car, false)
 		elseif bind == key_bindings.kWPN_ZOOM then
 			--target_select_mode = false
-		elseif key == DIK_keys.MOUSE_3 then -- управление зуммом
+		elseif key == DIK_keys.MOUSE_3 then -- СѓРїСЂР°РІР»РµРЅРёРµ Р·СѓРјРјРѕРј
 			db.actor:set_camera_fov(fov_vol)
 			current_btr_fov = fov_vol
 		end
 	end
 end
 
--- Проверка вращения колесика мыши
+-- РџСЂРѕРІРµСЂРєР° РІСЂР°С‰РµРЅРёСЏ РєРѕР»РµСЃРёРєР° РјС‹С€Рё
 function on_wheel(vol)
 	if level.main_input_receiver() then return end
 	local act = db.actor
 	if in_btr and act and act:alive() then
-		-- управление зуммом
+		-- СѓРїСЂР°РІР»РµРЅРёРµ Р·СѓРјРјРѕРј
 		if vol == 0 then return end
 		local current_fov = act:get_camera_fov()
 		local new_fov = current_fov + (vol > 0 and 1 or -1) * btr_fov_different
@@ -583,7 +590,7 @@ function on_info(npc, info_id)
 end
 
 -------------------------------------------------------------------------------------------------------------
--- функция заправки машины топливом
+-- С„СѓРЅРєС†РёСЏ Р·Р°РїСЂР°РІРєРё РјР°С€РёРЅС‹ С‚РѕРїР»РёРІРѕРј
 -------------------------------------------------------------------------------------------------------------
 function refuel(car_obj)
 	ASSERT(car_obj, "refuel: car is a nil reference")
@@ -607,9 +614,9 @@ function refuel(car_obj)
 	ogse_screen_msg.show_message_use_item(item:section())
 	alife():release(alife():object(item:id()), true)
 
---KRodin: Квестовая врезка перенесена сюда из апдейта биндера авто.
+--KRodin: РљРІРµСЃС‚РѕРІР°СЏ РІСЂРµР·РєР° РїРµСЂРµРЅРµСЃРµРЅР° СЃСЋРґР° РёР· Р°РїРґРµР№С‚Р° Р±РёРЅРґРµСЂР° Р°РІС‚Рѕ.
 	if string.find(car_obj:name(), "esc_vehicle_zaz_in_novice_lager") then
-		-- условие завершения подзадачи на заправку запора
+		-- СѓСЃР»РѕРІРёРµ Р·Р°РІРµСЂС€РµРЅРёСЏ РїРѕРґР·Р°РґР°С‡Рё РЅР° Р·Р°РїСЂР°РІРєСѓ Р·Р°РїРѕСЂР°
 		if db.actor:has_info("esc_kvest_sdelka_with_mils_start") and db.actor:dont_has_info("escape_kvest_with_military_zaz_fueled") then
 			db.actor:give_info_portion("escape_kvest_with_military_zaz_fueled")
 		end
@@ -647,8 +654,8 @@ function btr_hud:__init() super()
 	self.fire_mode        = xml:InitStatic("main:firing_mode", self)
 	self.target_select    = xml:InitStatic("main:target_select", self)
 	self.target_obstacle  = xml:InitStatic("main:target_obstacle", self)
-	self.emty             = xml:InitStatic("main:off_bkgnd", self)
-	self.emty:Show(false)
+	--self.emty             = xml:InitStatic("main:off_bkgnd", self)
+	--self.emty:Show(false)
 	self.frame            = xml:InitStatic("main:frame_static", self)
 	self:Show(false)
 end
@@ -656,9 +663,9 @@ function btr_hud:enable_noise(enable)
 	self.noise:Show(enable)
 end
 
---===============< непосредственно управление оружием машины >=================--
+--===============< РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕ СѓРїСЂР°РІР»РµРЅРёРµ РѕСЂСѓР¶РёРµРј РјР°С€РёРЅС‹ >=================--
 local explode_old_value = 0
--- активация/деактивация пушки
+-- Р°РєС‚РёРІР°С†РёСЏ/РґРµР°РєС‚РёРІР°С†РёСЏ РїСѓС€РєРё
 function enable_car_gun(car, enable)
 	local script_car = car:get_car()
 	if script_car:HasWeapon() then
@@ -667,10 +674,10 @@ function enable_car_gun(car, enable)
 end
 
 local avoid_bug = 0
--- обновление направления пушки
+-- РѕР±РЅРѕРІР»РµРЅРёРµ РЅР°РїСЂР°РІР»РµРЅРёСЏ РїСѓС€РєРё
 function update_car_gun_direction(car)
 	local script_car = car:get_car()
-	if not script_car:HasWeapon() then return end -- у машины нет оружия
+	if not script_car:HasWeapon() then return end -- Сѓ РјР°С€РёРЅС‹ РЅРµС‚ РѕСЂСѓР¶РёСЏ
 	local position
 	local explode = script_car:ExplodeTime()
 	if explode_old_value == 0 then
@@ -682,18 +689,18 @@ function update_car_gun_direction(car)
 			explode_old_value = explode
 		end
 	end
-	if is_manual_mode() then -- ручной контроль
+	if is_manual_mode() then -- СЂСѓС‡РЅРѕР№ РєРѕРЅС‚СЂРѕР»СЊ
 		local dev = device()
 		local dist = level.get_target_dist()
 		if dist < 1 then dist = 100 end
 		position = dev.cam_pos:mad(dev.cam_dir, dist)
-	elseif is_target_select_mode() or (is_auto_fire_mode() and auto_fire_operable) then -- автоматический контроль
+	elseif is_target_select_mode() or (is_auto_fire_mode() and auto_fire_operable) then -- Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРёР№ РєРѕРЅС‚СЂРѕР»СЊ
 		local targ_item = targets[current_target_id]
 		local targ
 		if targ_item then
 			targ = targ_item.obj
 		end
-		if not targ or not targ:alive() then -- цель отсутствует, в оффлайне или дохлая
+		if not targ or not targ:alive() then -- С†РµР»СЊ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚, РІ РѕС„С„Р»Р°Р№РЅРµ РёР»Рё РґРѕС…Р»Р°СЏ
 			current_target_id = nil
 			if avoid_bug < time_global() or not actor_has_control_module() then
 				script_car:SetParam(CCar.eWpnToDefaultDir, vector())
@@ -714,7 +721,7 @@ function update_car_gun_direction(car)
 		need_warn_turret_failure = true
 	end
 end
--- включение/выключение огня
+-- РІРєР»СЋС‡РµРЅРёРµ/РІС‹РєР»СЋС‡РµРЅРёРµ РѕРіРЅСЏ
 local cannon_firing = false
 function switch_firing(car, fire)
 	ASSERT(car, "switch_firing: car is a nil reference")
@@ -728,7 +735,7 @@ function switch_firing(car, fire)
 		cannon_firing = fire
 	end
 end
--- получить машину, в которой сидит ГГ
+-- РїРѕР»СѓС‡РёС‚СЊ РјР°С€РёРЅСѓ, РІ РєРѕС‚РѕСЂРѕР№ СЃРёРґРёС‚ Р“Р“
 function get_actor_car()
 	local holder = db.actor:get_holder()
 	if holder and holder:is_car() then return holder end
@@ -754,17 +761,11 @@ function setup_car_camera(car)
 end
 
 
-function SetDetailsMinRadius(radius)
-	cmd("r2_no_details_radius "..radius)
-end
-
 function on_first_update()
-	current_car = get_actor_car() --При спавне рано - всегда возвращает nil
+	current_car = get_actor_car() --РџСЂРё СЃРїР°РІРЅРµ СЂР°РЅРѕ - РІСЃРµРіРґР° РІРѕР·РІСЂР°С‰Р°РµС‚ nil
 	if current_car then
 		this.on_attach_vehicle(current_car)
 	end
-
-	SetDetailsMinRadius(current_car and 2.0 or 0.0)
 
 	if db.actor:has_info("no_net_signal") then
 		surge = true
@@ -773,8 +774,8 @@ end
 
 
 function update_car_hud()
-	local car = get_actor_car() -- получаем машину, в которой сидит ГГ
-	if car then -- обновляем состояние машины
+	local car = get_actor_car() -- РїРѕР»СѓС‡Р°РµРј РјР°С€РёРЅСѓ, РІ РєРѕС‚РѕСЂРѕР№ СЃРёРґРёС‚ Р“Р“
+	if car then -- РѕР±РЅРѕРІР»СЏРµРј СЃРѕСЃС‚РѕСЏРЅРёРµ РјР°С€РёРЅС‹
 		update_car_states(car)
 		if fix_camera_limits then
 			local car_cam = car:get_camera()
@@ -793,7 +794,7 @@ function update_car_hud()
 			update_btr_hud(car)
 			update_fire_status(car)
 		end
-	else --KRodin: каллбек on_detach_vehicle временами работает криво, поэтому сделаем так:
+	else --KRodin: РєР°Р»Р»Р±РµРє on_detach_vehicle РІСЂРµРјРµРЅР°РјРё СЂР°Р±РѕС‚Р°РµС‚ РєСЂРёРІРѕ, РїРѕСЌС‚РѕРјСѓ СЃРґРµР»Р°РµРј С‚Р°Рє:
 		ogse_signals.get_mgr():call("on_detach_vehicle")
 	end
 end
@@ -835,7 +836,7 @@ function show_car_hud()
 		ogse_signals.get_mgr():call("on_sit_down_in_btr")
 		ogse_signals.get_mgr():call("on_hud_show")
 	end
-	car_hud_wnd:Show(true)
+	car_hud_wnd:Show(level.game_indicators_shown())
 end
 function hide_car_hud(btr)
 	car_hud_wnd:Show(false)
@@ -851,10 +852,10 @@ end
 
 local chech_count = 0
 
--- обновление всех элементов худа
+-- РѕР±РЅРѕРІР»РµРЅРёРµ РІСЃРµС… СЌР»РµРјРµРЅС‚РѕРІ С…СѓРґР°
 function update_btr_hud(car)
 	if not in_btr or not db.actor then return end
-	-- обновление видимости шума на экране
+	-- РѕР±РЅРѕРІР»РµРЅРёРµ РІРёРґРёРјРѕСЃС‚Рё С€СѓРјР° РЅР° СЌРєСЂР°РЅРµ
 	btr_hud_wnd:enable_noise(in_btr and (surge or not actor_has_power_unit()))
 	
 	if not actor_has_power_unit() then
@@ -942,7 +943,7 @@ function update_btr_hud(car)
 		btr_hud_wnd.recognition_mode:SetText(game.translate_string("btr_error_3_text"))
 	end
 	--
-	-- состояние стрельбы
+	-- СЃРѕСЃС‚РѕСЏРЅРёРµ СЃС‚СЂРµР»СЊР±С‹
 	local script_car = car:get_car()
 	local target_str = game.translate_string("ogse_car_no_targ_text")
 	local obstacle_ind_visible = false
@@ -961,7 +962,7 @@ function update_btr_hud(car)
 	btr_hud_wnd.target_obstacle:Show(obstacle_ind_visible)
 	btr_hud_wnd.target:SetText(target_str)
 	--------------------------------------------------------------------------------------------
-	-- маркер цели
+	-- РјР°СЂРєРµСЂ С†РµР»Рё
 	update_target_marker()
 	--------------------------------------------------------------------------------------------
 end
@@ -976,10 +977,10 @@ end
 
 function can_be_target(object)
 	--log3("[can_be_target] - start check [%s]", object:name() or "")
-	if object:id() == current_car:id() then return false end -- объект - наша сабственная машина
-	if is_recognition_target_active() and not is_enemy(object) then return false end -- если работает распознавание свой/чужой и цель нам не враг, то игнорируем
-	local obj_dist = object:position():distance_to(db.actor:position()) -- расстояние от актора до объекта
-	if obj_dist > target_detect_range or (obj_dist < target_min_range and not is_auto_fire_mode()) then return false end -- цель вне пределов досягаемости - игнорируем
+	if object:id() == current_car:id() then return false end -- РѕР±СЉРµРєС‚ - РЅР°С€Р° СЃР°Р±СЃС‚РІРµРЅРЅР°СЏ РјР°С€РёРЅР°
+	if is_recognition_target_active() and not is_enemy(object) then return false end -- РµСЃР»Рё СЂР°Р±РѕС‚Р°РµС‚ СЂР°СЃРїРѕР·РЅР°РІР°РЅРёРµ СЃРІРѕР№/С‡СѓР¶РѕР№ Рё С†РµР»СЊ РЅР°Рј РЅРµ РІСЂР°Рі, С‚Рѕ РёРіРЅРѕСЂРёСЂСѓРµРј
+	local obj_dist = object:position():distance_to(db.actor:position()) -- СЂР°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ Р°РєС‚РѕСЂР° РґРѕ РѕР±СЉРµРєС‚Р°
+	if obj_dist > target_detect_range or (obj_dist < target_min_range and not is_auto_fire_mode()) then return false end -- С†РµР»СЊ РІРЅРµ РїСЂРµРґРµР»РѕРІ РґРѕСЃСЏРіР°РµРјРѕСЃС‚Рё - РёРіРЅРѕСЂРёСЂСѓРµРј
 	--log3("[can_be_target] - [%s] CAN BE TARGET!", object:name() or "")
 	return true
 end
@@ -994,7 +995,7 @@ end
 
 function process_enemy(car, enemy)
 	if enemy and ( enemy:is_stalker() or enemy:is_monster() ) and enemy:alive() then
-		-- человек ты иль монструшка
+		-- С‡РµР»РѕРІРµРє С‚С‹ РёР»СЊ РјРѕРЅСЃС‚СЂСѓС€РєР°
 		register_as_target(car, enemy)
 	end
 end
@@ -1011,7 +1012,7 @@ function register_as_target(car, enemy)
 		}
 		enemy_record.npc = ( enemy:is_stalker() or enemy:is_actor() )
 		enemy_record.range = dist
-		enemy_record.vis = script_car:IsObjectVisible(enemy) or enemy:see(car) or false -- мы видим текущую цель или она видит нас
+		enemy_record.vis = script_car:IsObjectVisible(enemy) or enemy:see(car) or false -- РјС‹ РІРёРґРёРј С‚РµРєСѓС‰СѓСЋ С†РµР»СЊ РёР»Рё РѕРЅР° РІРёРґРёС‚ РЅР°СЃ
 		enemy_record.weight = 1000
 		if enemy_record.vis == true and enemy_record.npc == true then
 			enemy_record.last_time_seen = time_global()
@@ -1023,7 +1024,7 @@ function register_as_target(car, enemy)
 end
 
 function get_targets_from_registry(car)
-	-- сбор врагов, вызывается из reprioritize_targets
+	-- СЃР±РѕСЂ РІСЂР°РіРѕРІ, РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· reprioritize_targets
 	for id, target_item in pairs(targets) do
 		local target = target_item.obj --level.object_by_id(id)
 		if can_be_target(target) then
@@ -1033,7 +1034,7 @@ function get_targets_from_registry(car)
 end
 
 function refresh_targets_btr(car)
-	-- обновление реестра врагов, вызывается из апдейта
+	-- РѕР±РЅРѕРІР»РµРЅРёРµ СЂРµРµСЃС‚СЂР° РІСЂР°РіРѕРІ, РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· Р°РїРґРµР№С‚Р°
 		need_issue_targeting_warning = false
 	--
 	local script_car = car:get_car()
@@ -1041,7 +1042,7 @@ function refresh_targets_btr(car)
 		local check_target = level.object_by_id(k)
 		if check_target and check_target:alive() then
 			local dist	= car:position():distance_to(check_target:position())
-			local vis	= script_car:IsObjectVisible(check_target) or check_target:see(car) -- мы видим текущую цель или она видит нас
+			local vis	= script_car:IsObjectVisible(check_target) or check_target:see(car) -- РјС‹ РІРёРґРёРј С‚РµРєСѓС‰СѓСЋ С†РµР»СЊ РёР»Рё РѕРЅР° РІРёРґРёС‚ РЅР°СЃ
 			v.range	= dist
 			if vis then
 				v.vis	= true
@@ -1116,8 +1117,8 @@ function refresh_targets_btr(car)
 end
 
 function reprioritize_targets(car)
-	-- обновление основной цели, вызывается из апдейта
-	-- обновим предварительно реестр целей
+	-- РѕР±РЅРѕРІР»РµРЅРёРµ РѕСЃРЅРѕРІРЅРѕР№ С†РµР»Рё, РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· Р°РїРґРµР№С‚Р°
+	-- РѕР±РЅРѕРІРёРј РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ СЂРµРµСЃС‚СЂ С†РµР»РµР№
 	
 	if last_reprioritize and time_global() < (last_reprioritize+reprioritize_timeout) and primary_target then
 		return
@@ -1126,43 +1127,43 @@ function reprioritize_targets(car)
 	get_targets_from_registry(car)
 	refresh_targets_btr(car)
 
-	-- На дистанциях выше 20 метров приоритет неписям, ближе 20 метров приоритет монстрам. При дистанции ниже 10 метров но выше минимальной объект сразу становится примари_таргет без вариантов. 
-	-- При варианте далее 20 метров проверяем видимость, приоритет видимому.
+	-- РќР° РґРёСЃС‚Р°РЅС†РёСЏС… РІС‹С€Рµ 20 РјРµС‚СЂРѕРІ РїСЂРёРѕСЂРёС‚РµС‚ РЅРµРїРёСЃСЏРј, Р±Р»РёР¶Рµ 20 РјРµС‚СЂРѕРІ РїСЂРёРѕСЂРёС‚РµС‚ РјРѕРЅСЃС‚СЂР°Рј. РџСЂРё РґРёСЃС‚Р°РЅС†РёРё РЅРёР¶Рµ 10 РјРµС‚СЂРѕРІ РЅРѕ РІС‹С€Рµ РјРёРЅРёРјР°Р»СЊРЅРѕР№ РѕР±СЉРµРєС‚ СЃСЂР°Р·Сѓ СЃС‚Р°РЅРѕРІРёС‚СЃСЏ РїСЂРёРјР°СЂРё_С‚Р°СЂРіРµС‚ Р±РµР· РІР°СЂРёР°РЅС‚РѕРІ. 
+	-- РџСЂРё РІР°СЂРёР°РЅС‚Рµ РґР°Р»РµРµ 20 РјРµС‚СЂРѕРІ РїСЂРѕРІРµСЂСЏРµРј РІРёРґРёРјРѕСЃС‚СЊ, РїСЂРёРѕСЂРёС‚РµС‚ РІРёРґРёРјРѕРјСѓ.
 	local last_weight 	= 1000
 	
 	for k, v in pairs(targets_list) do
-		if v.vis == true then -- если цель видит нас
+		if v.vis == true then -- РµСЃР»Рё С†РµР»СЊ РІРёРґРёС‚ РЅР°СЃ
 			local close_combat, far_combat = 20, 100
 			local mult = combat_multiplier(v.npc)
-			if v.npc == true then -- если она непись
-				if v.range >= close_combat and v.range < far_combat then -- и цель на средней дистанции
+			if v.npc == true then -- РµСЃР»Рё РѕРЅР° РЅРµРїРёСЃСЊ
+				if v.range >= close_combat and v.range < far_combat then -- Рё С†РµР»СЊ РЅР° СЃСЂРµРґРЅРµР№ РґРёСЃС‚Р°РЅС†РёРё
 					v.weight = v.range * combat_multiplier(v.npc)
-				elseif v.range < close_combat then -- а если вплотную
+				elseif v.range < close_combat then -- Р° РµСЃР»Рё РІРїР»РѕС‚РЅСѓСЋ
 					v.weight = 0
 				end
-			else -- а если монстр
-				if v.range >= close_combat and v.range < far_combat then -- если не ближний бой
+			else -- Р° РµСЃР»Рё РјРѕРЅСЃС‚СЂ
+				if v.range >= close_combat and v.range < far_combat then -- РµСЃР»Рё РЅРµ Р±Р»РёР¶РЅРёР№ Р±РѕР№
 					v.weight = v.range
-				elseif v.range < close_combat then -- а если ближний
+				elseif v.range < close_combat then -- Р° РµСЃР»Рё Р±Р»РёР¶РЅРёР№
 					v.weight = v.range * combat_multiplier(v.npc)
 				end
 			end
-		else -- если невидима
+		else -- РµСЃР»Рё РЅРµРІРёРґРёРјР°
 			if primary_target == k then
 				last_target[primary_target] = time_global()
 				primary_target = nil
 			end
-			if v.npc == false then -- если она монстр
+			if v.npc == false then -- РµСЃР»Рё РѕРЅР° РјРѕРЅСЃС‚СЂ
 				if v.range < 20 then 
 					v.weight = v.range * 2
 				else
 					v.weight = 1000
 				end
-			else -- а если непись
-				if v.range < 50 then -- если в радиусе "слуха"
+			else -- Р° РµСЃР»Рё РЅРµРїРёСЃСЊ
+				if v.range < 50 then -- РµСЃР»Рё РІ СЂР°РґРёСѓСЃРµ "СЃР»СѓС…Р°"
 					v.weight = v.range * 3
-				elseif v.range < 100 then -- если в радиусе максимального отхода от ГГ
-					if v.last_time_seen and (v.last_time_seen + memory_timeout) > time_global() then -- если видели её не менее минуты назад
+				elseif v.range < 100 then -- РµСЃР»Рё РІ СЂР°РґРёСѓСЃРµ РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ РѕС‚С…РѕРґР° РѕС‚ Р“Р“
+					if v.last_time_seen and (v.last_time_seen + memory_timeout) > time_global() then -- РµСЃР»Рё РІРёРґРµР»Рё РµС‘ РЅРµ РјРµРЅРµРµ РјРёРЅСѓС‚С‹ РЅР°Р·Р°Рґ
 						v.weight = v.range * 4
 					else	
 						v.weight = 1000
@@ -1186,7 +1187,7 @@ function reprioritize_targets(car)
 		last_reprioritize = time_global()
 		
 		--local obj = level.object_by_id(primary_target)
-		--log3("--BTR_SKYNET_COMBAT: Выбрана цель: [%s]", obj and obj:name() or "UKNOWN")
+		--log3("--BTR_SKYNET_COMBAT: Р’С‹Р±СЂР°РЅР° С†РµР»СЊ: [%s]", obj and obj:name() or "UKNOWN")
 		return
 	else
 		last_target = {}
@@ -1219,7 +1220,7 @@ function update_fire_status(car)
 	local script_car = car:get_car()
 	
 	if current_target_id then
-		-- стреляем
+		-- СЃС‚СЂРµР»СЏРµРј
 		local tget = level.object_by_id(current_target_id)
 		if tget then
 			switch_firing(car, (script_car:IsObjectVisible(tget) or tget:see(db.actor)))
@@ -1227,12 +1228,12 @@ function update_fire_status(car)
 		end
 	end
 
-	-- прекращаем
+	-- РїСЂРµРєСЂР°С‰Р°РµРј
 	switch_firing(car, false)
 end
 
--- Возвращает угол между проекциями векторов vec1 и vec2 на горизонтальную плоскость
--- положительный угол - доворот vec1 до vec2 по часовой.
+-- Р’РѕР·РІСЂР°С‰Р°РµС‚ СѓРіРѕР» РјРµР¶РґСѓ РїСЂРѕРµРєС†РёСЏРјРё РІРµРєС‚РѕСЂРѕРІ vec1 Рё vec2 РЅР° РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅСѓСЋ РїР»РѕСЃРєРѕСЃС‚СЊ
+-- РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Р№ СѓРіРѕР» - РґРѕРІРѕСЂРѕС‚ vec1 РґРѕ vec2 РїРѕ С‡Р°СЃРѕРІРѕР№.
 function horz_angle(vec1,vec2)
 	local a = vec1:getH() - vec2:getH()
 	if a < -math.pi then return a + 2*math.pi end
@@ -1318,7 +1319,7 @@ function play_error_sound()
 end
 
 ----------------------------------------------------------------------------------------------------
---/ Модуль интерфейса прицельной марки БТР /--
+--/ РњРѕРґСѓР»СЊ РёРЅС‚РµСЂС„РµР№СЃР° РїСЂРёС†РµР»СЊРЅРѕР№ РјР°СЂРєРё Р‘РўР  /--
 
 local target_textures = {
 	[true]  = {[true] = [[ui\target_mark]],       [false] = [[ui\target_mark_dots]]},
@@ -1326,7 +1327,7 @@ local target_textures = {
 }
 local target_colors = {[true] = GetARGB(255, 255, 0, 0), [false] = GetARGB(255, 0, 255, 117)}
 
--- Обновляет прицельные метки
+-- РћР±РЅРѕРІР»СЏРµС‚ РїСЂРёС†РµР»СЊРЅС‹Рµ РјРµС‚РєРё
 function update_target_marker()
 	if not current_target_id then
 		btr_hud_wnd.hud_target:Show(false)
@@ -1363,7 +1364,7 @@ function get_aiming_point_for_target(targ)
 	elseif targ:is_stalker() then
 		return targ:bone_position("bip01_pelvis")
 	elseif targ:is_monster() then
-		return targ:position() --targ:bone_position("bip01_spine") --KRodin: у многих новых монстров совершенно другие кости, нежели у обычных в ТЧ. Поэтому лучше их не использовать.
+		return targ:position() --targ:bone_position("bip01_spine") --KRodin: Сѓ РјРЅРѕРіРёС… РЅРѕРІС‹С… РјРѕРЅСЃС‚СЂРѕРІ СЃРѕРІРµСЂС€РµРЅРЅРѕ РґСЂСѓРіРёРµ РєРѕСЃС‚Рё, РЅРµР¶РµР»Рё Сѓ РѕР±С‹С‡РЅС‹С… РІ РўР§. РџРѕСЌС‚РѕРјСѓ Р»СѓС‡С€Рµ РёС… РЅРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ.
 	else
 		local bone_name = clsid2target_bone[targ:clsid()]
 		if bone_name then
@@ -1391,12 +1392,12 @@ function get_screen_coords(point)
 end
 
 
---------Перенесено из trunk_inv.script--------
+--------РџРµСЂРµРЅРµСЃРµРЅРѕ РёР· trunk_inv.script--------
 --
--- Получение ближайшей машины
--- убрана нехорошая возможность получить любую машину по отсутствии секции
--- для этого лучше сделать отдельную функцию get_any_car
--- также функция возвращает клиентский объект машины вместо id
+-- РџРѕР»СѓС‡РµРЅРёРµ Р±Р»РёР¶Р°Р№С€РµР№ РјР°С€РёРЅС‹
+-- СѓР±СЂР°РЅР° РЅРµС…РѕСЂРѕС€Р°СЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРѕР»СѓС‡РёС‚СЊ Р»СЋР±СѓСЋ РјР°С€РёРЅСѓ РїРѕ РѕС‚СЃСѓС‚СЃС‚РІРёРё СЃРµРєС†РёРё
+-- РґР»СЏ СЌС‚РѕРіРѕ Р»СѓС‡С€Рµ СЃРґРµР»Р°С‚СЊ РѕС‚РґРµР»СЊРЅСѓСЋ С„СѓРЅРєС†РёСЋ get_any_car
+-- С‚Р°РєР¶Рµ С„СѓРЅРєС†РёСЏ РІРѕР·РІСЂР°С‰Р°РµС‚ РєР»РёРµРЅС‚СЃРєРёР№ РѕР±СЉРµРєС‚ РјР°С€РёРЅС‹ РІРјРµСЃС‚Рѕ id
 function get_nearest_car_by_section(sect_name)
 	ASSERT(sect_name, "get_nearest_car_by_section: section parameter is nil or missed")
 	local nearest_car
@@ -1434,18 +1435,6 @@ end
 function is_car_on_level(car_sect)
 	for k,car in pairs(db.cars) do
 		if car and car:section()==car_sect and car:get_car():GetfHealth()>0.05 then
-			return true
-		end
-	end
-	return false
-end
-
---Расстояние от машины до нпс
-function car_in_range_exist(sid, section_name, dist)
-	local npc = level_object_by_sid(sid)
-	ASSERT(npc, "is_car_in_range: object not found for sid = "..sid)
-	for k, car in pairs(db.cars) do
-		if car and car:section() == section_name and npc:position():distance_to(car:position()) < dist then
 			return true
 		end
 	end

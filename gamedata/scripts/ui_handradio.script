@@ -1,17 +1,17 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --/ ui_handradio.script /----
 --/ Hand radio module /--
 --/ OGS Evolution Team 2009-2015 /--
---/ Модуль использования рации - hand_radio_f /--
+--/ РњРѕРґСѓР»СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ СЂР°С†РёРё - hand_radio_f /--
 
 -----------------------------------
--- Кнопки
+-- РљРЅРѕРїРєРё
 -----------------------------------
--- 1. Слушать общий канал
--- 2. Подозвать напарника к себе
--- 3. Приказать напарнику оставаться на месте
--- 4. Приказать напарнику спрятаться
+-- 1. РЎР»СѓС€Р°С‚СЊ РѕР±С‰РёР№ РєР°РЅР°Р»
+-- 2. РџРѕРґРѕР·РІР°С‚СЊ РЅР°РїР°СЂРЅРёРєР° Рє СЃРµР±Рµ
+-- 3. РџСЂРёРєР°Р·Р°С‚СЊ РЅР°РїР°СЂРЅРёРєСѓ РѕСЃС‚Р°РІР°С‚СЊСЃСЏ РЅР° РјРµСЃС‚Рµ
+-- 4. РџСЂРёРєР°Р·Р°С‚СЊ РЅР°РїР°СЂРЅРёРєСѓ СЃРїСЂСЏС‚Р°С‚СЊСЃСЏ
 -----------------------------------
 
 function attach(sm)
@@ -21,7 +21,7 @@ end
 
 function on_item_use(item)
 	local section = item:section()
-	if section == "hand_radio_f" then -- если это радио
+	if section == "hand_radio_f" then -- РµСЃР»Рё СЌС‚Рѕ СЂР°РґРёРѕ
 		open_radio_dialog()
 		return true
 	end
@@ -56,20 +56,20 @@ function handradio:__finalize() end
 
 
 function handradio:InitControls()
-	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	-- Р·РґРµСЃСЊ РѕРїСЂРµРґРµР»СЏРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ Р»РµРІРѕРіРѕ РІРµСЂС…РЅРµРіРѕ СѓРіР»Р° Рё С€РёСЂРёРЅСѓ-РІС‹СЃРѕС‚Сѓ
 	self:Init(50,50,550,450)
 
-	-- файл-описатель наших элементов
+	-- С„Р°Р№Р»-РѕРїРёСЃР°С‚РµР»СЊ РЅР°С€РёС… СЌР»РµРјРµРЅС‚РѕРІ
 	local xml = CScriptXmlInit()
 	xml:ParseFile("ui_handradio.xml")
 
-	-- видео на заднем плане
+	-- РІРёРґРµРѕ РЅР° Р·Р°РґРЅРµРј РїР»Р°РЅРµ
 	xml:InitStatic("back_video", self)
 
-	-- рамка
+	-- СЂР°РјРєР°
 	xml:InitStatic("background", self)
 
-	-- кнопки
+	-- РєРЅРѕРїРєРё
 	self:Register(xml:Init3tButton("window_name", self),"window_name")
 	self:Register(xml:Init3tButton("caption", self),"caption")
 	self.btn_1 = xml:Init3tButton("btn_1", self)
@@ -85,10 +85,10 @@ function handradio:InitControls()
 	self:Register(self.btn_4, "btn_4")
 	self.btn_4:Enable(false)	
 	
-	-- кнопка выхода
+	-- РєРЅРѕРїРєР° РІС‹С…РѕРґР°
 	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
 	
-	-- определяем доступность кнопок
+	-- РѕРїСЂРµРґРµР»СЏРµРј РґРѕСЃС‚СѓРїРЅРѕСЃС‚СЊ РєРЅРѕРїРѕРє
 	self.btn_1:Enable(true)
 
 	for id, _ in pairs(xr_companion.companions) do
@@ -104,7 +104,7 @@ end
 
 
 function handradio:InitCallBacks()
-	-- тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+	-- С‚СѓС‚ РёРЅС‚РµСЂР°РєС‚РёРІРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹, РїСЂРё РѕРїСЂРµРґРµР»РµРЅРЅРѕРј РґРµР№СЃС‚РІРёРё РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ Р·Р°РґР°РЅРЅР°СЏ С„-РёСЏ
 	self:AddCallback("btn_1", ui_events.BUTTON_CLICKED, self.listen, self)
 	self:AddCallback("btn_2", ui_events.BUTTON_CLICKED, self.call_friend, self)
 	self:AddCallback("btn_3", ui_events.BUTTON_CLICKED, self.stay_friend, self)
@@ -117,7 +117,7 @@ end
 function handradio:OnKeyboard(dik, keyboard_action)
 	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
 	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
--- на выход повесим Esc
+-- РЅР° РІС‹С…РѕРґ РїРѕРІРµСЃРёРј Esc
 		if dik == DIK_keys.DIK_ESCAPE then
 			self:on_quit()
 		end
@@ -174,7 +174,7 @@ function handradio:listen()
 	end
 	if snd and not snd:playing() then
 		snd:play_no_feedback(db.actor,sound_object.s2d, 0, vector():set(0, 0, 0), 1.0)
-		--[=[ --Реакция на "Мутень" --KRodin: не используется
+		--[=[ --Р РµР°РєС†РёСЏ РЅР° "РњСѓС‚РµРЅСЊ" --KRodin: РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ
 		local muten_id = xs_stor.get("muten_id", nil)
 		if muten_id then
 			local muten_obj = level.object_by_id(muten_id)
@@ -280,7 +280,7 @@ end
 
 class "sound_cycle_waiting" (ogse_st_mgr.savable_timer)
 function sound_cycle_waiting:__init() super()
-	-- обязательная строка с именем класса таймера
+	-- РѕР±СЏР·Р°С‚РµР»СЊРЅР°СЏ СЃС‚СЂРѕРєР° СЃ РёРјРµРЅРµРј РєР»Р°СЃСЃР° С‚Р°Р№РјРµСЂР°
 	self.class = script_name()..".sound_cycle_waiting"
 end
 

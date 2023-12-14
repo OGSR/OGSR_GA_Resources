@@ -4,7 +4,7 @@ active = sr_idle@inactive
 [sr_idle@inactive]
 on_info = {+strangezones_on} sr_idle@start_3
  
-;Стартовые секции:
+;РЎС‚Р°СЂС‚РѕРІС‹Рµ СЃРµРєС†РёРё:
 [sr_idle@start_1]
 on_info = {+strangezone6_off} sr_idle@already_has_art
 on_info2 = {=actor_have_dark_art_1} sr_idle@already_has_art %-strangezone6_rebuild -af_invis6_1_birth =restart_strange_zone6%
@@ -21,7 +21,7 @@ on_info2 = {=actor_have_dark_art_3} sr_idle@already_has_art %-strangezone6_rebui
 on_actor_inside = {!actor_have_dark_art_3 +af_invis6_1_birth} sr_idle@middle_3 %=zone6birth3 -strange_zone6_charged -fakeart_deleted%
 
 
-;Промежуточные рабочие секции:
+;РџСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹Рµ СЂР°Р±РѕС‡РёРµ СЃРµРєС†РёРё:
 [sr_idle@already_has_art]
 on_info = {=actor_have_dark_art_1 =actor_have_dark_art_2 =actor_have_dark_art_3} sr_idle@nil
 on_info2 = {+strangezone6_rebuild =actor_have_dark_art_2 =actor_have_dark_art_3} sr_idle@start_1
@@ -48,7 +48,7 @@ on_actor_inside = {+fakeart_deleted !actor_have_dark_art_2} sr_idle@reload_2
 on_info = {=actor_have_dark_art_3} sr_idle@already_has_art %-strangezone6_rebuild -af_invis6_1_birth%
 on_actor_inside = {+fakeart_deleted !actor_have_dark_art_3} sr_idle@reload_3
 
-;Секция перезарядки:
+;РЎРµРєС†РёСЏ РїРµСЂРµР·Р°СЂСЏРґРєРё:
 [sr_idle@reload_1]
 on_timer = 900 | sr_idle@start_1 %-af_invis6_1_birth +strange_zone6_charged%
 [sr_idle@reload_2]

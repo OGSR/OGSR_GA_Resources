@@ -95,6 +95,10 @@ local function play_item_use(item)
     level.only_allow_movekeys(true)
     level.set_actor_allow_ladder(false)
 
+	local act_it = db.actor:active_item()
+	local act_it_slot = act_it and get_u32(act_it:section(), "slot", false) or false
+	local is_det_active = get_actor_obj():IsDetectorActive()
+
 	local prev_active_slot = db.actor:active_slot()
 	db.actor:activate_slot(255)
 
@@ -111,7 +115,7 @@ local function play_item_use(item)
 		local anim_hud_wnd = anim_hud:wnd()
 		local xml = CScriptXmlInit()
 		xml:ParseFile("ui_custom_msgs.xml")
-		anim_hud_wnd:SetText(game.translate_string("st_item_used")..":"..game.translate_string(news_manager.get_inv_name(item)))		
+		anim_hud_wnd:SetText(game.translate_string("st_item_used")..": "..game.translate_string(news_manager.get_inv_name(item)))		
 		local anim_progress = xml:InitProgressBar("static_anim:anim_progress", anim_hud_wnd)
 		anim_progress:Show(true)
 
@@ -122,6 +126,17 @@ local function play_item_use(item)
 		local tmr = dsh.timeout(anm_duration, function()
 			level.only_allow_movekeys(false)
 			level.set_actor_allow_ladder(true)
+
+			-- когда в руке длинное оружие и детектор одновременно, если использовать анимированный предмет (аптечку например),
+			-- и во время применения переключаться на бег к примеру и ещё в некоторых случаях,
+			-- детектор не возвращается и левая рука исчезает вообще, чтоб появилась надо убрать детектор из слота и вернуть обратно.
+			if is_det_active and act_it and not (act_it_slot == 0 or act_it_slot == 1 or act_it_slot == 5) then
+				local det = db.actor:item_in_slot(8)
+				if det then
+					db.actor:move_to_ruck(det)
+					db.actor:move_to_slot(det, true)
+				end
+			end
 
 			db.actor:activate_slot(prev_active_slot)
 

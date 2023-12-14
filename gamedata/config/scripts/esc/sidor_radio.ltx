@@ -15,7 +15,7 @@ on_info4 = {+sidor_receiver_broke} sr_sound_act@sidor
 on_info5 = {+sidor_receiver_off} ph_sound@off
 
 [ph_sound@horrortime]
-;?не доигрывает, перекл. на ph_sound@day (что-то убирает horror_time?)
+;?РЅРµ РґРѕРёРіСЂС‹РІР°РµС‚, РїРµСЂРµРєР». РЅР° ph_sound@day (С‡С‚Рѕ-С‚Рѕ СѓР±РёСЂР°РµС‚ horror_time?)
 tips = switcher_on
 nonscript_usable = false
 on_use = %+sidor_receiver_off =play_snd_from_obj2(device\click10b)%
@@ -27,7 +27,7 @@ on_info4 = {+sidor_receiver_broke} sr_sound_act@sidor
 on_info5 = {+sidor_receiver_off} ph_sound@off
 
 [ph_sound@blowout]
-;+звука нет
+;+Р·РІСѓРєР° РЅРµС‚
 tips = switcher_on
 nonscript_usable = false
 on_use = %+sidor_receiver_off =play_snd_from_obj2(device\click10b)%
@@ -39,41 +39,41 @@ on_info5 = {+sidor_receiver_off} ph_sound@off
 
 [ph_sound@off]
 on_info = {+sidor_receiver_broke} sr_sound_act@sidor
-;В sound_theme.script в секции ph_themes прописать пустой звук ph_snd_themes["no_music"] = {[[no_sound]]
-;и проиграть его snd = no_music
-;или - сделать тише volume_control = 0.0
-;или - не дать схеме звук :) 
+;Р’ sound_theme.script РІ СЃРµРєС†РёРё ph_themes РїСЂРѕРїРёСЃР°С‚СЊ РїСѓСЃС‚РѕР№ Р·РІСѓРє ph_snd_themes["no_music"] = {[[no_sound]]
+;Рё РїСЂРѕРёРіСЂР°С‚СЊ РµРіРѕ snd = no_music
+;РёР»Рё - СЃРґРµР»Р°С‚СЊ С‚РёС€Рµ volume_control = 0.0
+;РёР»Рё - РЅРµ РґР°С‚СЊ СЃС…РµРјРµ Р·РІСѓРє :) 
 tips = switcher_off
 nonscript_usable = false
 on_use =  %-sidor_receiver_off =play_snd_from_obj2(device\click10b)% ph_sound@day
 
 
 [hit@mafon]
-;по дефолту НЕ отрабатывается, надо physic_destroyable_object!!!
+;РїРѕ РґРµС„РѕР»С‚Сѓ РќР• РѕС‚СЂР°Р±Р°С‚С‹РІР°РµС‚СЃСЏ, РЅР°РґРѕ physic_destroyable_object!!!
 on_info = %+sidor_receiver_broke%
 
 
 [sr_sound_act@sidor]
-;проигрывает 1 раз звук относительно gamedata\sounds\
+;РїСЂРѕРёРіСЂС‹РІР°РµС‚ 1 СЂР°Р· Р·РІСѓРє РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ gamedata\sounds\
 ;+++snd = characters_voice\scenario\trader\trader_tutorial_rejection_4
-;или случайный звук из темы из sound_theme.script (будет играть зациклено)
+;РёР»Рё СЃР»СѓС‡Р°Р№РЅС‹Р№ Р·РІСѓРє РёР· С‚РµРјС‹ РёР· sound_theme.script (Р±СѓРґРµС‚ РёРіСЂР°С‚СЊ Р·Р°С†РёРєР»РµРЅРѕ)
 theme = sidor_music_broke
-;+trader_script1c_15 хочешь убить - значит есть за что
-;+trader_tutorial_rejection_5 не зли меня!
-;-коротко trader_script1b_3 ты что, пьян?
-;trader_tutorial_rejection_4 ты часом не зомбирован?
-;delay = 10000					;задержка перед проигрыванием. По умолчанию - 0.
-;delay_max = 15000				;между проигрыванием звука будет взят случайный промежуток между delay и delay_max.
+;+trader_script1c_15 С…РѕС‡РµС€СЊ СѓР±РёС‚СЊ - Р·РЅР°С‡РёС‚ РµСЃС‚СЊ Р·Р° С‡С‚Рѕ
+;+trader_tutorial_rejection_5 РЅРµ Р·Р»Рё РјРµРЅСЏ!
+;-РєРѕСЂРѕС‚РєРѕ trader_script1b_3 С‚С‹ С‡С‚Рѕ, РїСЊСЏРЅ?
+;trader_tutorial_rejection_4 С‚С‹ С‡Р°СЃРѕРј РЅРµ Р·РѕРјР±РёСЂРѕРІР°РЅ?
+;delay = 10000					;Р·Р°РґРµСЂР¶РєР° РїРµСЂРµРґ РїСЂРѕРёРіСЂС‹РІР°РЅРёРµРј. РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - 0.
+;delay_max = 15000				;РјРµР¶РґСѓ РїСЂРѕРёРіСЂС‹РІР°РЅРёРµРј Р·РІСѓРєР° Р±СѓРґРµС‚ РІР·СЏС‚ СЃР»СѓС‡Р°Р№РЅС‹Р№ РїСЂРѕРјРµР¶СѓС‚РѕРє РјРµР¶РґСѓ delay Рё delay_max.
 ;stereo = true
 on_signal = sound_end | sr_particle@smoke
 
 
 [sr_particle@smoke]
 name = explosions\expl_car_smoke_small
-;одиночный вейпоинт, не требует НИ
+;РѕРґРёРЅРѕС‡РЅС‹Р№ РІРµР№РїРѕРёРЅС‚, РЅРµ С‚СЂРµР±СѓРµС‚ РќР
 path = esc_gorizont_look
 mode = 2
 looped = false
 ;on_signal = particle_end | nil
-;можно "починить" :)
+;РјРѕР¶РЅРѕ "РїРѕС‡РёРЅРёС‚СЊ" :)
 on_info = {-sidor_receiver_broke} ph_sound@day

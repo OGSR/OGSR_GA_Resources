@@ -1,6 +1,6 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
------------------ Схема пост-процессинга пси-зон для OGSM 2.x -----------------
+
+----------------- РЎС…РµРјР° РїРѕСЃС‚-РїСЂРѕС†РµСЃСЃРёРЅРіР° РїСЃРё-Р·РѕРЅ РґР»СЏ OGSM 2.x -----------------
 ------------------------- Copyright 2007-2008 DEXXX ---------------------------
 
 local particles = {}
@@ -165,7 +165,7 @@ function action_postprocess:update_hit()
 	h.impulse = 0
 	h.draftsman = db.actor
 	h.type = hit.telepatic
-	h:bone( get_string( db.actor:section(), "bone_torso", "bip01_spine" ) ) -- чтобы учитывалась броня
+	h:bone( get_string( db.actor:section(), "bone_torso", "bip01_spine" ) ) -- С‡С‚РѕР±С‹ СѓС‡РёС‚С‹РІР°Р»Р°СЃСЊ Р±СЂРѕРЅСЏ
 	db.actor:hit(h)
 end
 

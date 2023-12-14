@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function arrived_to_loschina()
 	if has_alife_info("loschina_task_start") and level.name() == "k01_darkscape_ogse" then

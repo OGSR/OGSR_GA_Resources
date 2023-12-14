@@ -1,14 +1,14 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -----------------------------------------------------------------------
 --- ogse_scripted_btr.script
---- Модуль логики управления стационарного охранного БТР
---- Авторы: KamikaZze
+--- РњРѕРґСѓР»СЊ Р»РѕРіРёРєРё СѓРїСЂР°РІР»РµРЅРёСЏ СЃС‚Р°С†РёРѕРЅР°СЂРЅРѕРіРѕ РѕС…СЂР°РЅРЅРѕРіРѕ Р‘РўР 
+--- РђРІС‚РѕСЂС‹: KamikaZze
 --- version 1.0.00 (22/06/2014)
 -----------------------------------------------------------------------
 
 function attach(sm)
-	sm:subscribe({signal = "on_init", fun = this.check_subscribe}) --При спавне актора рано, т.к надо подписывать до начала спавна монстров и НПС
+	sm:subscribe({signal = "on_init", fun = this.check_subscribe}) --РџСЂРё СЃРїР°РІРЅРµ Р°РєС‚РѕСЂР° СЂР°РЅРѕ, С‚.Рє РЅР°РґРѕ РїРѕРґРїРёСЃС‹РІР°С‚СЊ РґРѕ РЅР°С‡Р°Р»Р° СЃРїР°РІРЅР° РјРѕРЅСЃС‚СЂРѕРІ Рё РќРџРЎ
 end
 
 local cars_by_location = {
@@ -43,26 +43,26 @@ local targets = {}
 local can_fire				= {}
 local objects				= {}
 
-local reprioritize_timeout = 500 	-- интервал реприоретизации, мсек - нельзя делать слишком низким - будет судорожно метаться между целями
-local memory_timeout = 60000		-- время, сколько помнить о появлении врага, миллиссекунд
-local combat_mult_npc = 0.5			-- множитель веса ближней цели неписей
-local combat_mult_monster = 0.3		-- множитель веса ближней цели неписей
+local reprioritize_timeout = 500 	-- РёРЅС‚РµСЂРІР°Р» СЂРµРїСЂРёРѕСЂРµС‚РёР·Р°С†РёРё, РјСЃРµРє - РЅРµР»СЊР·СЏ РґРµР»Р°С‚СЊ СЃР»РёС€РєРѕРј РЅРёР·РєРёРј - Р±СѓРґРµС‚ СЃСѓРґРѕСЂРѕР¶РЅРѕ РјРµС‚Р°С‚СЊСЃСЏ РјРµР¶РґСѓ С†РµР»СЏРјРё
+local memory_timeout = 60000		-- РІСЂРµРјСЏ, СЃРєРѕР»СЊРєРѕ РїРѕРјРЅРёС‚СЊ Рѕ РїРѕСЏРІР»РµРЅРёРё РІСЂР°РіР°, РјРёР»Р»РёСЃСЃРµРєСѓРЅРґ
+local combat_mult_npc = 0.5			-- РјРЅРѕР¶РёС‚РµР»СЊ РІРµСЃР° Р±Р»РёР¶РЅРµР№ С†РµР»Рё РЅРµРїРёСЃРµР№
+local combat_mult_monster = 0.3		-- РјРЅРѕР¶РёС‚РµР»СЊ РІРµСЃР° Р±Р»РёР¶РЅРµР№ С†РµР»Рё РЅРµРїРёСЃРµР№
 
-local target_detect_range             = 180                         -- радиус захвата целей
-local target_max_range                = 150                         -- наибольший радиус сопровождения целей
-local target_min_range                = 4                           -- наименьший радиус сопровождения целей
+local target_detect_range             = 180                         -- СЂР°РґРёСѓСЃ Р·Р°С…РІР°С‚Р° С†РµР»РµР№
+local target_max_range                = 150                         -- РЅР°РёР±РѕР»СЊС€РёР№ СЂР°РґРёСѓСЃ СЃРѕРїСЂРѕРІРѕР¶РґРµРЅРёСЏ С†РµР»РµР№
+local target_min_range                = 4                           -- РЅР°РёРјРµРЅСЊС€РёР№ СЂР°РґРёСѓСЃ СЃРѕРїСЂРѕРІРѕР¶РґРµРЅРёСЏ С†РµР»РµР№
 
 local last_reprioritize		= nil
-local primary_target = nil 			-- кого окучивать будем, id
+local primary_target = nil 			-- РєРѕРіРѕ РѕРєСѓС‡РёРІР°С‚СЊ Р±СѓРґРµРј, id
 local cannon_firing = false
 
-local targets_list = {}		-- список целей
-local last_target = {}				-- последняя цель, [id] = last_time 
-------- структура записи таблицы
+local targets_list = {}		-- СЃРїРёСЃРѕРє С†РµР»РµР№
+local last_target = {}				-- РїРѕСЃР»РµРґРЅСЏСЏ С†РµР»СЊ, [id] = last_time 
+------- СЃС‚СЂСѓРєС‚СѓСЂР° Р·Р°РїРёСЃРё С‚Р°Р±Р»РёС†С‹
 -- targets_list[npc_id] = {
-	-- npc = непись или нет
-	-- range = расстояние
-	-- vis = видим или нет
+	-- npc = РЅРµРїРёСЃСЊ РёР»Рё РЅРµС‚
+	-- range = СЂР°СЃСЃС‚РѕСЏРЅРёРµ
+	-- vis = РІРёРґРёРј РёР»Рё РЅРµС‚
 -- }
 
 function register_target(obj)
@@ -102,17 +102,17 @@ function switch_firing(car, fire)
 	end
 end
 
--- обновление направления пушки
+-- РѕР±РЅРѕРІР»РµРЅРёРµ РЅР°РїСЂР°РІР»РµРЅРёСЏ РїСѓС€РєРё
 function update_car_gun_direction(car)
 	local script_car = car:get_car()
-	if not script_car:HasWeapon() then return end -- у машины нет оружия
+	if not script_car:HasWeapon() then return end -- Сѓ РјР°С€РёРЅС‹ РЅРµС‚ РѕСЂСѓР¶РёСЏ
 	local position
 	local targ_item = targets[current_target_id]
 	local targ
 	if targ_item then
 		targ = targ_item.obj
 	end
-	if not targ or not targ:alive() then -- цель отсутствует, в оффлайне или дохлая
+	if not targ or not targ:alive() then -- С†РµР»СЊ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚, РІ РѕС„С„Р»Р°Р№РЅРµ РёР»Рё РґРѕС…Р»Р°СЏ
 		--log3("~~[update_car_gun_direction] not target for car [%s]", car:name())
 		current_target_id = nil
 		script_car:SetParam(CCar.eWpnToDefaultDir, vector())
@@ -137,7 +137,7 @@ function process_enemy(car, enemy)
 	--log3("Called process_enemy for [%s]", enemy:name())
 	if enemy and enemy:alive() then
 		if enemy:is_stalker() or enemy:is_actor() or enemy:is_monster() then
-			-- человек ты иль монструшка
+			-- С‡РµР»РѕРІРµРє С‚С‹ РёР»СЊ РјРѕРЅСЃС‚СЂСѓС€РєР°
 			register_as_target(car, enemy)
 		else
 			return
@@ -157,7 +157,7 @@ function register_as_target(car, enemy)
 		}
 		enemy_record.npc = ( enemy:is_stalker() or enemy:is_actor() )
 		enemy_record.range = dist
-		enemy_record.vis = script_car:IsObjectVisible(enemy) or enemy:see(car) -- мы видим текущую цель или она видит нас
+		enemy_record.vis = script_car:IsObjectVisible(enemy) or enemy:see(car) -- РјС‹ РІРёРґРёРј С‚РµРєСѓС‰СѓСЋ С†РµР»СЊ РёР»Рё РѕРЅР° РІРёРґРёС‚ РЅР°СЃ
 		enemy_record.weight = 1000
 		if enemy_record.vis == true and enemy_record.npc == true then
 			enemy_record.last_time_seen = time_global()
@@ -169,7 +169,7 @@ function register_as_target(car, enemy)
 end
 
 function get_targets_from_registry(car)
-	-- сбор врагов, вызывается из reprioritize_targets
+	-- СЃР±РѕСЂ РІСЂР°РіРѕРІ, РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· reprioritize_targets
 	for id, target_item in pairs(targets) do
 		local target = target_item.obj --level.object_by_id(id)
 		if target and can_be_target(car, target) then
@@ -183,14 +183,14 @@ function get_targets_from_registry(car)
 end
 
 function refresh_targets_btr(car)
-	-- обновление реестра врагов, вызывается из апдейта
+	-- РѕР±РЅРѕРІР»РµРЅРёРµ СЂРµРµСЃС‚СЂР° РІСЂР°РіРѕРІ, РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· Р°РїРґРµР№С‚Р°
 	--
 	local script_car = car:get_car()
 	for k, v in pairs(targets_list) do
 		local check_target = level.object_by_id(k)
 		if check_target and check_target:alive() then
 			local dist	= car:position():distance_to(check_target:position())
-			local vis	= script_car:IsObjectVisible(check_target) or check_target:see(car) -- мы видим текущую цель или она видит нас
+			local vis	= script_car:IsObjectVisible(check_target) or check_target:see(car) -- РјС‹ РІРёРґРёРј С‚РµРєСѓС‰СѓСЋ С†РµР»СЊ РёР»Рё РѕРЅР° РІРёРґРёС‚ РЅР°СЃ
 			v.range	= dist
 			if vis then
 				v.vis	= true
@@ -265,8 +265,8 @@ function refresh_targets_btr(car)
 end
 
 function reprioritize_targets(car)
-	-- обновление основной цели, вызывается из апдейта
-	-- обновим предварительно реестр целей
+	-- РѕР±РЅРѕРІР»РµРЅРёРµ РѕСЃРЅРѕРІРЅРѕР№ С†РµР»Рё, РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· Р°РїРґРµР№С‚Р°
+	-- РѕР±РЅРѕРІРёРј РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ СЂРµРµСЃС‚СЂ С†РµР»РµР№
 	
 	if last_reprioritize and time_global() < (last_reprioritize+reprioritize_timeout) and primary_target then
 		return
@@ -278,43 +278,43 @@ function reprioritize_targets(car)
 	--
 	--log3("targets_list tbl: %s", targets_list)
 	--
-	-- На дистанциях выше 20 метров приоритет неписям, ближе 20 метров приоритет монстрам. При дистанции ниже 10 метров но выше минимальной объект сразу становится примари_таргет без вариантов. 
-	-- При варианте далее 20 метров проверяем видимость, приоритет видимому.
+	-- РќР° РґРёСЃС‚Р°РЅС†РёСЏС… РІС‹С€Рµ 20 РјРµС‚СЂРѕРІ РїСЂРёРѕСЂРёС‚РµС‚ РЅРµРїРёСЃСЏРј, Р±Р»РёР¶Рµ 20 РјРµС‚СЂРѕРІ РїСЂРёРѕСЂРёС‚РµС‚ РјРѕРЅСЃС‚СЂР°Рј. РџСЂРё РґРёСЃС‚Р°РЅС†РёРё РЅРёР¶Рµ 10 РјРµС‚СЂРѕРІ РЅРѕ РІС‹С€Рµ РјРёРЅРёРјР°Р»СЊРЅРѕР№ РѕР±СЉРµРєС‚ СЃСЂР°Р·Сѓ СЃС‚Р°РЅРѕРІРёС‚СЃСЏ РїСЂРёРјР°СЂРё_С‚Р°СЂРіРµС‚ Р±РµР· РІР°СЂРёР°РЅС‚РѕРІ. 
+	-- РџСЂРё РІР°СЂРёР°РЅС‚Рµ РґР°Р»РµРµ 20 РјРµС‚СЂРѕРІ РїСЂРѕРІРµСЂСЏРµРј РІРёРґРёРјРѕСЃС‚СЊ, РїСЂРёРѕСЂРёС‚РµС‚ РІРёРґРёРјРѕРјСѓ.
 	local last_weight 	= 1000
 	
 	for k, v in pairs(targets_list) do
-		if v.vis == true then -- если цель видит нас
+		if v.vis == true then -- РµСЃР»Рё С†РµР»СЊ РІРёРґРёС‚ РЅР°СЃ
 			local close_combat, far_combat = 20, 100
 			local mult = combat_multiplier(v.npc)
-			if v.npc == true then -- если она непись
-				if v.range >= close_combat and v.range < far_combat then -- и цель на средней дистанции
+			if v.npc == true then -- РµСЃР»Рё РѕРЅР° РЅРµРїРёСЃСЊ
+				if v.range >= close_combat and v.range < far_combat then -- Рё С†РµР»СЊ РЅР° СЃСЂРµРґРЅРµР№ РґРёСЃС‚Р°РЅС†РёРё
 					v.weight = v.range * combat_multiplier(v.npc)
-				elseif v.range < close_combat then -- а если вплотную
+				elseif v.range < close_combat then -- Р° РµСЃР»Рё РІРїР»РѕС‚РЅСѓСЋ
 					v.weight = 0
 				end
-			else -- а если монстр
-				if v.range >= close_combat and v.range < far_combat then -- если не ближний бой
+			else -- Р° РµСЃР»Рё РјРѕРЅСЃС‚СЂ
+				if v.range >= close_combat and v.range < far_combat then -- РµСЃР»Рё РЅРµ Р±Р»РёР¶РЅРёР№ Р±РѕР№
 					v.weight = v.range
-				elseif v.range < close_combat then -- а если ближний
+				elseif v.range < close_combat then -- Р° РµСЃР»Рё Р±Р»РёР¶РЅРёР№
 					v.weight = v.range * combat_multiplier(v.npc)
 				end
 			end
-		else -- если невидима
+		else -- РµСЃР»Рё РЅРµРІРёРґРёРјР°
 			if primary_target == k then
 				last_target[primary_target] = time_global()
 				primary_target = nil
 			end
-			if v.npc == false then -- если она монстр
+			if v.npc == false then -- РµСЃР»Рё РѕРЅР° РјРѕРЅСЃС‚СЂ
 				if v.range < 20 then 
 					v.weight = v.range * 2
 				else
 					v.weight = 1000
 				end
-			else -- а если непись
-				if v.range < 50 then -- если в радиусе "слуха"
+			else -- Р° РµСЃР»Рё РЅРµРїРёСЃСЊ
+				if v.range < 50 then -- РµСЃР»Рё РІ СЂР°РґРёСѓСЃРµ "СЃР»СѓС…Р°"
 					v.weight = v.range * 3
-				elseif v.range < 100 then -- если в радиусе максимального отхода от ГГ
-					if v.last_time_seen and (v.last_time_seen + memory_timeout) > time_global() then -- если видели её не менее минуты назад
+				elseif v.range < 100 then -- РµСЃР»Рё РІ СЂР°РґРёСѓСЃРµ РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ РѕС‚С…РѕРґР° РѕС‚ Р“Р“
+					if v.last_time_seen and (v.last_time_seen + memory_timeout) > time_global() then -- РµСЃР»Рё РІРёРґРµР»Рё РµС‘ РЅРµ РјРµРЅРµРµ РјРёРЅСѓС‚С‹ РЅР°Р·Р°Рґ
 						v.weight = v.range * 4
 					else	
 						v.weight = 1000
@@ -333,7 +333,7 @@ function reprioritize_targets(car)
 			last_target = {}
 
 			--local obj = level.object_by_id(primary_target)
-			--log3("--BTR_SKYNET_COMBAT1: Выбрана цель: [%s]", obj:name())
+			--log3("--BTR_SKYNET_COMBAT1: Р’С‹Р±СЂР°РЅР° С†РµР»СЊ: [%s]", obj:name())
 		end	
 	end
 	
@@ -366,11 +366,11 @@ function update_fire_status(car)
 	local script_car = car:get_car()
 	
 	if current_target_id and can_fire[car:id()] and script_car:GetfHealth() > 0.05 then
-		-- стреляем
+		-- СЃС‚СЂРµР»СЏРµРј
 		local tget = level.object_by_id(current_target_id)
 		switch_firing(car, (script_car:IsObjectVisible(tget) or tget:see(car)))
 	else	
-		-- прекращаем
+		-- РїСЂРµРєСЂР°С‰Р°РµРј
 		switch_firing(car, false)
 	end	
 
@@ -386,10 +386,10 @@ end
 
 function can_be_target(car, object)
 	--log3("[can_be_target] Called for obj [%s]!", object:name())
-	if object:id() == car:id() then return false end -- объект - наша сабственная машина
-	if not is_enemy(car, object) then return false end -- если цель нам не враг, то игнорируем
-	local obj_dist = object:position():distance_to(car:position()) -- расстояние от БТР до объекта
-	if obj_dist > target_detect_range or obj_dist < target_min_range then return false end -- цель вне пределов досягаемости - игнорируем
+	if object:id() == car:id() then return false end -- РѕР±СЉРµРєС‚ - РЅР°С€Р° СЃР°Р±СЃС‚РІРµРЅРЅР°СЏ РјР°С€РёРЅР°
+	if not is_enemy(car, object) then return false end -- РµСЃР»Рё С†РµР»СЊ РЅР°Рј РЅРµ РІСЂР°Рі, С‚Рѕ РёРіРЅРѕСЂРёСЂСѓРµРј
+	local obj_dist = object:position():distance_to(car:position()) -- СЂР°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ Р‘РўР  РґРѕ РѕР±СЉРµРєС‚Р°
+	if obj_dist > target_detect_range or obj_dist < target_min_range then return false end -- С†РµР»СЊ РІРЅРµ РїСЂРµРґРµР»РѕРІ РґРѕСЃСЏРіР°РµРјРѕСЃС‚Рё - РёРіРЅРѕСЂРёСЂСѓРµРј
 	--log3("--[can_be_target] object [%s] can be target!", object:name())
 	return true
 end
@@ -416,8 +416,8 @@ function check_single_object(car, obj)
 	end
 end
 
--- Возвращает угол между проекциями векторов vec1 и vec2 на горизонтальную плоскость
--- положительный угол - доворот vec1 до vec2 по часовой.
+-- Р’РѕР·РІСЂР°С‰Р°РµС‚ СѓРіРѕР» РјРµР¶РґСѓ РїСЂРѕРµРєС†РёСЏРјРё РІРµРєС‚РѕСЂРѕРІ vec1 Рё vec2 РЅР° РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅСѓСЋ РїР»РѕСЃРєРѕСЃС‚СЊ
+-- РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Р№ СѓРіРѕР» - РґРѕРІРѕСЂРѕС‚ vec1 РґРѕ vec2 РїРѕ С‡Р°СЃРѕРІРѕР№.
 function horz_angle(vec1,vec2)
 	local a = vec1:getH() - vec2:getH()
 	if a < -math.pi then return a + 2*math.pi end
@@ -443,7 +443,7 @@ function check_npc_on_fire_line(car, obj)
 			local tgt = ang > -dangerang and ang < dangerang
 			if tgt and check_dist < target_dist then
 				return true
-				-- объект между нами и врагом
+				-- РѕР±СЉРµРєС‚ РјРµР¶РґСѓ РЅР°РјРё Рё РІСЂР°РіРѕРј
 			end			
 		end
 	end

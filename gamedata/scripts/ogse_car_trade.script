@@ -1,13 +1,13 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ------------------------------------------------------------
--- Продажа и спавн всего транспорта в игре (OGSE mod)
--- Тотальная переделка: KamikaZze, 2010 год для OGSE 0692
--- Доработки: Dusty79, для OGSE 0693
+-- РџСЂРѕРґР°Р¶Р° Рё СЃРїР°РІРЅ РІСЃРµРіРѕ С‚СЂР°РЅСЃРїРѕСЂС‚Р° РІ РёРіСЂРµ (OGSE mod)
+-- РўРѕС‚Р°Р»СЊРЅР°СЏ РїРµСЂРµРґРµР»РєР°: KamikaZze, 2010 РіРѕРґ РґР»СЏ OGSE 0692
+-- Р”РѕСЂР°Р±РѕС‚РєРё: Dusty79, РґР»СЏ OGSE 0693
 -- version 1.9 (27/04/2011)--
 ------------------------------------------------------------
 
-function attach(sm) -- для менеджера сигналов
+function attach(sm) -- РґР»СЏ РјРµРЅРµРґР¶РµСЂР° СЃРёРіРЅР°Р»РѕРІ
 	sm:subscribe({signal = "on_spawn",           fun = this.on_spawn})
 	sm:subscribe({signal = "on_storyline_start", fun = this.on_storyline_start})
 end
@@ -23,11 +23,11 @@ function on_storyline_start()
 	transport_spawn_load(object)
 end
 ------------------------------------------------------------
--- Таблица транспорта
+-- РўР°Р±Р»РёС†Р° С‚СЂР°РЅСЃРїРѕСЂС‚Р°
 ------------------------------------------------------------
 
 local trade_cars = {
-	-- Кордон. Сидорович
+	-- РљРѕСЂРґРѕРЅ. РЎРёРґРѕСЂРѕРІРёС‡
 	[1] = { section = "vehicle_uaz2",
 			name = game.translate_string("ogse_car_trade_name_1_text"),
 			disabled = 0,
@@ -46,7 +46,7 @@ local trade_cars = {
 			descript = game.translate_string("ogse_car_trade_desc_1_text")		
 
 			},
-	-- Свалка. Сидорович 
+	-- РЎРІР°Р»РєР°. РЎРёРґРѕСЂРѕРІРёС‡ 
 	[2] = { section = "vehicle_moskvich",
 			name = game.translate_string("ogse_car_trade_name_2_text"),
 			disabled = 0,	
@@ -65,7 +65,7 @@ local trade_cars = {
 			descript = game.translate_string("ogse_car_trade_desc_2_text")			
 
 			},
-	-- Свалка. Сидорович
+	-- РЎРІР°Р»РєР°. РЎРёРґРѕСЂРѕРІРёС‡
 	[3] = { section = "vehicle_uaz",
 			name = game.translate_string("ogse_car_trade_name_3_text"),
 			disabled = 0,	
@@ -84,7 +84,7 @@ local trade_cars = {
 			descript = game.translate_string("ogse_car_trade_desc_3_text")		
 
 			},
-	-- Агропром. Сидорович
+	-- РђРіСЂРѕРїСЂРѕРј. РЎРёРґРѕСЂРѕРІРёС‡
 	[4] = { section = "vehicle_uaz",
 			name = game.translate_string("ogse_car_trade_name_4_text"),
 			disabled = 0,	
@@ -103,7 +103,7 @@ local trade_cars = {
 			descript = game.translate_string("ogse_car_trade_desc_4_text")		
 
 			},
-	-- Агропром. Сидорович
+	-- РђРіСЂРѕРїСЂРѕРј. РЎРёРґРѕСЂРѕРІРёС‡
 	[5] = { section = "vehicle_niva",
 			name = game.translate_string("ogse_car_trade_name_5_text"),
 			disabled = 0,	
@@ -122,7 +122,7 @@ local trade_cars = {
 			descript = game.translate_string("ogse_car_trade_desc_5_text")		
 
 			},
-	-- Тёмная долина. Сидорович
+	-- РўС‘РјРЅР°СЏ РґРѕР»РёРЅР°. РЎРёРґРѕСЂРѕРІРёС‡
 	[6] = { section = "vehicle_uazbuhanka",
 			name = game.translate_string("ogse_car_trade_name_6_text"),
 			disabled = 0,	
@@ -141,7 +141,7 @@ local trade_cars = {
 			descript = game.translate_string("ogse_car_trade_desc_6_text")		
 
 			},
-	-- Бар. Сидорович
+	-- Р‘Р°СЂ. РЎРёРґРѕСЂРѕРІРёС‡
 	[7] = { section = "vehicle_niva",
 			name = game.translate_string("ogse_car_trade_name_7_text"),
 			disabled = 0,	
@@ -160,7 +160,7 @@ local trade_cars = {
 			descript = game.translate_string("ogse_car_trade_desc_7_text")	
 
 			},
-	-- Янтарь. Сидорович
+	-- РЇРЅС‚Р°СЂСЊ. РЎРёРґРѕСЂРѕРІРёС‡
 	[8] = { section = "vehicle_zaz",
 			name = game.translate_string("ogse_car_trade_name_8_text"),
 			disabled = 0,	
@@ -179,7 +179,7 @@ local trade_cars = {
 			descript = game.translate_string("ogse_car_trade_desc_8_text")	
 
 			},
-	-- Армейские склады.
+	-- РђСЂРјРµР№СЃРєРёРµ СЃРєР»Р°РґС‹.
 	[9] = { section = "vehicle_baggi",
 			name = game.translate_string("ogse_car_trade_name_9_text"),
 			disabled = 0,
@@ -198,7 +198,7 @@ local trade_cars = {
 			descript = game.translate_string("ogse_car_trade_desc_9_text")			
 
 			},
-	-- Армейские склады.
+	-- РђСЂРјРµР№СЃРєРёРµ СЃРєР»Р°РґС‹.
 	[10] = { section = "vehicle_moskvich2",
 			name = game.translate_string("ogse_car_trade_name_10_text"),
 			disabled = 0,	
@@ -217,7 +217,7 @@ local trade_cars = {
 			descript = game.translate_string("ogse_car_trade_desc_10_text")		
 
 			},
-	-- Радар. Шуруп
+	-- Р Р°РґР°СЂ. РЁСѓСЂСѓРї
 	[11] = { section = "vehicle_uaz",
 			name = game.translate_string("ogse_car_trade_name_11_text"),
 			disabled = 0,	
@@ -239,7 +239,7 @@ local trade_cars = {
 }
 
 ------------------------------------------------------------
--- Интерфейс покупки транспорта
+-- РРЅС‚РµСЂС„РµР№СЃ РїРѕРєСѓРїРєРё С‚СЂР°РЅСЃРїРѕСЂС‚Р°
 ------------------------------------------------------------
 
 local trader_sect = nil
@@ -326,23 +326,23 @@ function car_trade_dialog:__finalize() end
 
 
 function car_trade_dialog:InitControls()
-	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	-- Р·РґРµСЃСЊ РѕРїСЂРµРґРµР»СЏРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ Р»РµРІРѕРіРѕ РІРµСЂС…РЅРµРіРѕ СѓРіР»Р° Рё С€РёСЂРёРЅСѓ-РІС‹СЃРѕС‚Сѓ
 	self:Init(50,50,550,450)
 
-	-- файл-описатель наших элементов
+	-- С„Р°Р№Р»-РѕРїРёСЃР°С‚РµР»СЊ РЅР°С€РёС… СЌР»РµРјРµРЅС‚РѕРІ
 	local xml = CScriptXmlInit()
 	local ctrl
 	
 	xml:ParseFile("ui_car_trade.xml")
-	-- видео на заднем плане
+	-- РІРёРґРµРѕ РЅР° Р·Р°РґРЅРµРј РїР»Р°РЅРµ
 	xml:InitStatic("back_video", self)
-	-- рамка
+	-- СЂР°РјРєР°
 	xml:InitStatic("background", self)
 
-	-- рамка предмета
+	-- СЂР°РјРєР° РїСЂРµРґРјРµС‚Р°
 	xml:InitStatic("item_frame2", self)
 
-	-- список предметов
+	-- СЃРїРёСЃРѕРє РїСЂРµРґРјРµС‚РѕРІ
 	xml:InitFrame("list_frame", self)
 	xml:InitFrame("desc_frame", self)
 	xml:InitFrame("desc_list", self)
@@ -357,7 +357,7 @@ function car_trade_dialog:InitControls()
 	
 	self:Register(ctrl, "desc_window")
 
-	-- кнопки
+	-- РєРЅРѕРїРєРё
 	self:Register(xml:Init3tButton("window_name", self),"window_name")
 	
 	
@@ -372,7 +372,7 @@ function car_trade_dialog:InitControls()
 	self:Register(self.btn_4, "btn_4")
 	self.btn_4:Enable(false)	
 	
-	-- кнопка выхода
+	-- РєРЅРѕРїРєР° РІС‹С…РѕРґР°
 	self:Register(xml:Init3tButton("btn_quit", self),"btn_quit")
 
 	self.message_box = CUIMessageBoxEx()
@@ -405,7 +405,7 @@ function car_trade_dialog:FillList()
 				local _item_num = "" .. i .. ""
 				local _item_name = trade_cars[i].name
 				local _item_location = trade_cars[i].location
-				-- ogse.logf("Передаём строку в список")
+				-- ogse.logf("РџРµСЂРµРґР°С‘Рј СЃС‚СЂРѕРєСѓ РІ СЃРїРёСЃРѕРє")
 				self:AddItemToList(added, _item_num, _item_name, _item_location)
 			end
 		end
@@ -518,7 +518,7 @@ end
 function car_trade_dialog:OnKeyboard(dik, keyboard_action)
 	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
 	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
--- на выход повесим Esc
+-- РЅР° РІС‹С…РѕРґ РїРѕРІРµСЃРёРј Esc
 		if dik == DIK_keys.DIK_ESCAPE then
 			self:on_quit()
 		end
@@ -680,7 +680,7 @@ end
 
 
 ------------------------------------------------------------
---	Горе :(
+--	Р“РѕСЂРµ :(
 ------------------------------------------------------------
 
 function gore_1(first_speaker, second_speaker)
@@ -695,7 +695,7 @@ function gore_2(actor)
 end
 
 ------------------------------------------------------------
---	ПРЕКОНДИШЕНЫ
+--	РџР Р•РљРћРќР”РРЁР•РќР«
 ------------------------------------------------------------
 
 function military_info()
@@ -703,23 +703,23 @@ function military_info()
 end
 
 ------------------------------------------------------------
---	Спавн транспорта без покупки
+--	РЎРїР°РІРЅ С‚СЂР°РЅСЃРїРѕСЂС‚Р° Р±РµР· РїРѕРєСѓРїРєРё
 ------------------------------------------------------------
 
 function transport_spawn_load()
-	-- На Кордоне.																					--Вынес в all.spawn + дописал стори_айди 099 Призрак
+	-- РќР° РљРѕСЂРґРѕРЅРµ.																					--Р’С‹РЅРµСЃ РІ all.spawn + РґРѕРїРёСЃР°Р» СЃС‚РѕСЂРё_Р°Р№РґРё 099 РџСЂРёР·СЂР°Рє
 	--sim:create( "vehicle_zaz", vector():set(-226.2, -20.3, -158.4), 28485, 48)
 
 	--sim:create( "vehicle_btr", vector():set(-148.15, -30.0, -383), 101494, 15)
 	sim:create( "vehicle_tr13", vector():set(9, 0.5, 280.3), 286415, 181)
 
-	-- На Агропроме. на территории института у гаражей
+	-- РќР° РђРіСЂРѕРїСЂРѕРјРµ. РЅР° С‚РµСЂСЂРёС‚РѕСЂРёРё РёРЅСЃС‚РёС‚СѓС‚Р° Сѓ РіР°СЂР°Р¶РµР№
 	--sim:create("vehicle_moskvich2", vector():set(-143.9, -0.2, -212.7) ,93986, 677)
 
-	-- Территория Бара
+	-- РўРµСЂСЂРёС‚РѕСЂРёСЏ Р‘Р°СЂР°
 	sim:create( "vehicle_uaz2", vector():set(413.73626, 14.3532, -414.77145), 97806, 1289)
 
-	-- На АЭС 2
+	-- РќР° РђР­РЎ 2
 	sim:create("vehicle_uazbuhanka",vector():set(794.17,-0.0,279.42),212718,2643)
 	sim:create("vehicle_uaz2",vector():set(1040.425,0.0,140.485),603417,2755)
 end

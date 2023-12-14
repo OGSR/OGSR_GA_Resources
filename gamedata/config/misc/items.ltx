@@ -3,14 +3,14 @@
 #include "detectors\detectors.ltx"
 #include "hud_items\pda.ltx"
 
-[attch_a]:identity_immunities ;ÚÓ, ˜ÚÓ ÌÂÔËÒË ‰ÂÊ‡Ú ‚ ÛÍ‡ı
+[attch_a]:identity_immunities ;—Ç–æ, —á—Ç–æ –Ω–µ–ø–∏—Å–∏ –¥–µ—Ä–∂–∞—Ç –≤ —Ä—É–∫–∞—Ö
 GroupControlSection	= spawn_group
 discovery_dependency	=
 cform               = skeleton
 class				= II_ATTCH
 auto_attach			= false
 
-[antir_f]:identity_immunities ;ÚÓ, ˜ÚÓ √√ ÏÓÊÂÚ ËÒÔÓÎ¸ÁÓ‚‡Ú¸
+[antir_f]:identity_immunities ;—Ç–æ, —á—Ç–æ –ì–ì –º–æ–∂–µ—Ç –∏—Å–ø–æ–ª—å–∑–æ–≤–∞—Ç—å
 GroupControlSection	= spawn_group
 discovery_dependency	=
 cform               = skeleton
@@ -27,7 +27,7 @@ eat_portions_num 	= 1
 animation_slot  	= 4
 
 ;-------------------------------------------------------
-; ÃÛÁ˚Í‡Î¸Ì˚È ËÌÒÚÛÏÂÌÚ
+; –ú—É–∑—ã–∫–∞–ª—å–Ω—ã–π –∏–Ω—Å—Ç—Ä—É–º–µ–Ω—Ç
 ;-------------------------------------------------------
 [guitar_a]:attch_a
 $spawn				= "food and drugs\guitar_a"
@@ -88,7 +88,7 @@ inv_grid_x				= 11
 inv_grid_y				= 2
 
 ;-------------------------------------------------------
-;	”ÒÚÓÈÒÚ‚‡
+;	–£—Å—Ç—Ä–æ–π—Å—Ç–≤–∞
 ;-------------------------------------------------------
 [binocular_a]:attch_a
 $spawn				= "devices\binocular_a"
@@ -101,11 +101,11 @@ inv_grid_width		= 2
 inv_grid_height		= 1
 inv_grid_x			= 16
 inv_grid_y			= 12
-attach_angle_offset	= 3.080506,-1.493053,-1.202040   ;ÛÒÚ‡Ì‡‚ÎË‚‡ÂÚÒˇ ‚ ‡‰Ë‡Ì‡ı Angle*PI/180
+attach_angle_offset	= 3.080506,-1.493053,-1.202040   ;—É—Å—Ç–∞–Ω–∞–≤–ª–∏–≤–∞–µ—Ç—Å—è –≤ —Ä–∞–¥–∏–∞–Ω–∞—Ö Angle*PI/180
 attach_position_offset	        = 0.080000,0.021273,0.100000
 attach_bone_name	= bip01_r_hand
 
-; –‡ˆËˇ ‰Îˇ Õœ— (‚ ËÌ‚ÂÌÚÓË Ë‰ÂÚ Í‡Í ÒÎÓÏ‡ÌÌ‡ˇ)
+; –†–∞—Ü–∏—è –¥–ª—è –ù–ü–° (–≤ –∏–Ω–≤–µ–Ω—Ç–æ—Ä–∏ –∏–¥–µ—Ç –∫–∞–∫ —Å–ª–æ–º–∞–Ω–Ω–∞—è)
 [hand_radio]:attch_a
 $spawn				= "equipment\hand_radio"
 visual              = equipments\item_fmradio.ogf
@@ -118,11 +118,11 @@ inv_grid_width		= 1
 inv_grid_height		= 1
 inv_grid_x			= 8
 inv_grid_y			= 14
-attach_angle_offset	= -1.5708,0.1919,3.1416    ;ÛÒÚ‡Ì‡‚ÎË‚‡ÂÚÒˇ ‚ ‡‰Ë‡Ì‡ı Angle*PI/180
+attach_angle_offset	= -1.5708,0.1919,3.1416    ;—É—Å—Ç–∞–Ω–∞–≤–ª–∏–≤–∞–µ—Ç—Å—è –≤ —Ä–∞–¥–∏–∞–Ω–∞—Ö Angle*PI/180
 attach_position_offset	= 0.075, 0.066, 0.023
 attach_bone_name	= bip01_l_hand
 
-; –‡ˆËˇ ‰Îˇ √√
+; –†–∞—Ü–∏—è –¥–ª—è –ì–ì
 [hand_radio_f]:antir_f
 $spawn				= "devices\hand_radio_f"
 visual              = equipments\item_fmradio.ogf
@@ -144,7 +144,7 @@ $spawn				= "devices\torch"
 $prefetch 			= 32
 class				= TORCH_S
 cform				= skeleton
-visual				= equipments\light_night.ogf ;ogse\item_fonarik.ogf ÙÓÌ‡ËÍ ÒÓ‚ÂÚÒÍËÈ
+visual				= equipments\light_night.ogf ;ogse\item_fonarik.ogf —Ñ–æ–Ω–∞—Ä–∏–∫ —Å–æ–≤–µ—Ç—Å–∫–∏–π
 description			= enc_equipment_devic_device-torch1
 cost				= 100
 inv_name			= device-torch
@@ -155,19 +155,19 @@ inv_grid_height		= 1
 inv_grid_x			= 16
 inv_grid_y			= 12
 
-;‚Â˘¸˛ ÌÂÎ¸Áˇ ÚÓ„Ó‚‡Ú¸
+;–≤–µ—â—å—é –Ω–µ–ª—å–∑—è —Ç–æ—Ä–≥–æ–≤–∞—Ç—å
 can_trade			= true
 
 default_to_ruck = false
 
 position			= 0.35,0.25,0.0
 light_trace_bone	= cone_bone
-attach_angle_offset	= 0, -3.14, 1.6 ;-0.4, 3.14, 1.6 ÙÓÌ‡ËÍ ÒÓ‚ÂÚÒÍËÈ
-attach_position_offset	=  0.12, 0.0, 0.08 ;-0.1, 0, 0.16 ÙÓÌ‡ËÍ ÒÓ‚ÂÚÒÍËÈ
-attach_bone_name		= bip01_head; bip01_spine2 ÙÓÌ‡ËÍ ÒÓ‚ÂÚÒÍËÈ
+attach_angle_offset	= 0, -3.14, 1.6 ;-0.4, 3.14, 1.6 —Ñ–æ–Ω–∞—Ä–∏–∫ —Å–æ–≤–µ—Ç—Å–∫–∏–π
+attach_position_offset	=  0.12, 0.0, 0.08 ;-0.1, 0, 0.16 —Ñ–æ–Ω–∞—Ä–∏–∫ —Å–æ–≤–µ—Ç—Å–∫–∏–π
+attach_bone_name		= bip01_head; bip01_spine2 —Ñ–æ–Ω–∞—Ä–∏–∫ —Å–æ–≤–µ—Ç—Å–∫–∏–π
 auto_attach			= false
 
-night_vision		= off ;¬˚ÍÎ˛˜‡ÂÏ ‰‚ËÊÍÓ‚˚È œÕ¬, ˜ÚÓ·˚ ËÁ·ÂÊ‡Ú¸ ‰Û·ÎËÓ‚‡ÌËˇ ˝ÙÙÂÍÚÓ‚ ÒÓ ÒÍËÔÚÓ‚˚Ï.
+night_vision		= off ;–í—ã–∫–ª—é—á–∞–µ–º –¥–≤–∏–∂–∫–æ–≤—ã–π –ü–ù–í, —á—Ç–æ–±—ã –∏–∑–±–µ–∂–∞—Ç—å –¥—É–±–ª–∏—Ä–æ–≤–∞–Ω–∏—è —ç—Ñ—Ñ–µ–∫—Ç–æ–≤ —Å–æ —Å–∫—Ä–∏–ø—Ç–æ–≤—ã–º.
 night_vision_texture		= wpn\wpn_night
 night_vision_effector		= postprocess_night
 
@@ -176,16 +176,16 @@ snd_night_vision_off		= weapons\nv_off
 snd_night_vision_idle		= weapons\nv_loop
 snd_night_vision_broken		= weapons\nv_off
 
-night_vision_recharge_time	= 6		;(c) ‚ÂÏˇ Á‡ˇ‰ÍË ‡ÍÍ‡ÏÛÎˇÚÓ‡
-night_vision_recharge_time_min	= 2		;(c) ÏËÌ. ‚ÂÏˇ Á‡ˇ‰ÍË ‡ÍÍ‡ÏÛÎˇÚÓ‡, ÔÓÒÎÂ ÍÓÚÓÓ„Ó ÛÒÚ-‚Ó ÛÊÂ ÏÓÊÂÚ ‡·ÓÚ‡Ú¸
-night_vision_discharge_time	= 20	;(c) ‚ÂÏˇ ‡Áˇ‰ÍË (‡·ÓÚ˚) ÛÒÚÓÈÒÚ‚‡ ÔÓÒÎÂ ÔÓÎÌÓÈ Á‡ˇ‰ÍË
+night_vision_recharge_time	= 6		;(c) –≤—Ä–µ–º—è –∑–∞—Ä—è–¥–∫–∏ –∞–∫–∫–∞–º—É–ª—è—Ç–æ—Ä–∞
+night_vision_recharge_time_min	= 2		;(c) –º–∏–Ω. –≤—Ä–µ–º—è –∑–∞—Ä—è–¥–∫–∏ –∞–∫–∫–∞–º—É–ª—è—Ç–æ—Ä–∞, –ø–æ—Å–ª–µ –∫–æ—Ç–æ—Ä–æ–≥–æ —É—Å—Ç-–≤–æ —É–∂–µ –º–æ–∂–µ—Ç —Ä–∞–±–æ—Ç–∞—Ç—å
+night_vision_discharge_time	= 20	;(c) –≤—Ä–µ–º—è —Ä–∞–∑—Ä—è–¥–∫–∏ (—Ä–∞–±–æ—Ç—ã) —É—Å—Ç—Ä–æ–π—Å—Ç–≤–∞ –ø–æ—Å–ª–µ –ø–æ–ª–Ω–æ–π –∑–∞—Ä—è–¥–∫–∏
 slot				= 9
 disabled_maps			= ai_test,ai_test2, andy_test_
 
 [device_torch_bad]:device_torch
 visual				= equipments\light_night_bad.ogf
 
-; Õ‡˜‡ÎÓ ÓÔËÒ‡ÌËˇ ‰ÂÚÂÍÚÓÓ‚
+; –ù–∞—á–∞–ª–æ –æ–ø–∏—Å–∞–Ω–∏—è –¥–µ—Ç–µ–∫—Ç–æ—Ä–æ–≤
 [detector_simple]:identity_immunities
 GroupControlSection	= spawn_group
 discovery_dependency =
@@ -216,7 +216,7 @@ default_to_ruck		= true
 
 detect_actor_radiation = true
 
-;ÓÔËÒ‡ÌËÂ ‡ÒÔÓÁÌ‡‚‡ÂÏ˚ı ‰ÂÚÂÍÚÓÓÏ ÁÓÌ
+;–æ–ø–∏—Å–∞–Ω–∏–µ —Ä–∞—Å–ø–æ–∑–Ω–∞–≤–∞–µ–º—ã—Ö –¥–µ—Ç–µ–∫—Ç–æ—Ä–æ–º –∑–æ–Ω
 zone_class_1		= zone_mosquito_bald
 zone_sound_1_		= $no_sound
 zone_min_freq_1		= 0.1	;0.5
@@ -283,7 +283,7 @@ attach_bone_name	= bip01_r_hand
 
 auto_attach			= false
 
-;ÓÔËÒ‡ÌËÂ ‡ÒÔÓÁÌ‡‚‡ÂÏ˚ı ‰ÂÚÂÍÚÓÓÏ ÁÓÌ
+;–æ–ø–∏—Å–∞–Ω–∏–µ —Ä–∞—Å–ø–æ–∑–Ω–∞–≤–∞–µ–º—ã—Ö –¥–µ—Ç–µ–∫—Ç–æ—Ä–æ–º –∑–æ–Ω
 
 zone_class_1			= zone_mine_field
 zone_sound_1_			= weapons\mine\mine_find
@@ -318,7 +318,7 @@ belt						= false
 af_actor_properties			= on
 actor_properties			= on
 
-;ÒÍÓÓÒÚË Û‚ÂÎË˜ÂÌËˇ (ÛÏÂÌ¸¯ÂÌËˇ) 
+;—Å–∫–æ—Ä–æ—Å—Ç–∏ —É–≤–µ–ª–∏—á–µ–Ω–∏—è (—É–º–µ–Ω—å—à–µ–Ω–∏—è) 
 health_restore_speed		= 0.0			
 radiation_restore_speed 	= 0.0 
 thirst_restore_speed		= 0.0
@@ -338,7 +338,7 @@ anim_hide					= holster
 anim_show					= draw
 anim_activate				= activate
 
-;ÍÓ˝ÙÙËˆËÂÌÚ˚ ËÏÏÛÌËÚÂÚ‡ 
+;–∫–æ—ç—Ñ—Ñ–∏—Ü–∏–µ–Ω—Ç—ã –∏–º–º—É–Ω–∏—Ç–µ—Ç–∞ 
 [af_bio]
 burn_immunity = 1.0				
 strike_immunity = 1.0
@@ -371,16 +371,16 @@ slot			= 12
 cost 				= 65000
 jump_height			= 0
 
-;ÔÓ‰Ò‚ÂÚÍ‡ ‡Ú‡
+;–ø–æ–¥—Å–≤–µ—Ç–∫–∞ –∞—Ä—Ç–∞
 lights_enabled = false	
 trail_light_color = 2.5, 2.4, 0
 trail_light_range = 1.0
 belt				= false
 default_to_ruck		= true
 
-; ŒÍÓÌ˜‡ÌËÂ ÓÔËÒ‡ÌËˇ ‰ÂÚÂÍÚÓÓ‚
+; –û–∫–æ–Ω—á–∞–Ω–∏–µ –æ–ø–∏—Å–∞–Ω–∏—è –¥–µ—Ç–µ–∫—Ç–æ—Ä–æ–≤
 
-;‡‚ÚÓ‡ÔÚÂ˜Í‡
+;–∞–≤—Ç–æ–∞–ø—Ç–µ—á–∫–∞
 [autodoctor]:bio
 GroupControlSection	= spawn_group
 $spawn				= "devices\autodoctor"
@@ -417,35 +417,35 @@ eat_portions_num 	= 10000
 
 ; params for healing.script
 ; Merc13
-ad_full_charges	= 20	; œÓÎÌÓÂ ÍÓÎË˜ÂÒÚ‚Ó Á‡ˇ‰Ó‚ ÔÂÔ‡‡ÚÓ‚
-ad_health_dlt		= 0.5	; ÿ‡„ ÎÂ˜ÂÌËˇ
-ad_stamina_dlt		= 0.5	; ÿ‡„ ‚ÓÒÒÚ‡ÌÓ‚ÎÂÌËˇ ˝ÌÂ„ËË
-ad_radiation_dlt	= 0.7	; ÿ‡„ ÛÏÂÌ¸¯ÂÌËˇ ‡‰Ë‡ˆËË
+ad_full_charges	= 20	; –ü–æ–ª–Ω–æ–µ –∫–æ–ª–∏—á–µ—Å—Ç–≤–æ –∑–∞—Ä—è–¥–æ–≤ –ø—Ä–µ–ø–∞—Ä–∞—Ç–æ–≤
+ad_health_dlt		= 0.5	; –®–∞–≥ –ª–µ—á–µ–Ω–∏—è
+ad_stamina_dlt		= 0.5	; –®–∞–≥ –≤–æ—Å—Å—Ç–∞–Ω–æ–≤–ª–µ–Ω–∏—è —ç–Ω–µ—Ä–≥–∏–∏
+ad_radiation_dlt	= 0.7	; –®–∞–≥ —É–º–µ–Ω—å—à–µ–Ω–∏—è —Ä–∞–¥–∏–∞—Ü–∏–∏
 
-ad_health_max_charge     = 10.0	; Ã‡ÍÒËÏ‡Î¸Ì˚È Á‡ˇ‰ ÎÂ˜ÂÌËˇ
-ad_power_max_charge      = 10.0	; Ã‡ÍÒËÏ‡Î¸Ì˚È Á‡ˇ‰ ˝ÌÂ„ËË
-ad_antirad_max_charge    = 14.0	; Ã‡ÍÒËÏ‡Î¸Ì˚È Á‡ˇ‰ ‡ÌÚË‡‰‡
+ad_health_max_charge     = 10.0	; –ú–∞–∫—Å–∏–º–∞–ª—å–Ω—ã–π –∑–∞—Ä—è–¥ –ª–µ—á–µ–Ω–∏—è
+ad_power_max_charge      = 10.0	; –ú–∞–∫—Å–∏–º–∞–ª—å–Ω—ã–π –∑–∞—Ä—è–¥ —ç–Ω–µ—Ä–≥–∏–∏
+ad_antirad_max_charge    = 14.0	; –ú–∞–∫—Å–∏–º–∞–ª—å–Ω—ã–π –∑–∞—Ä—è–¥ –∞–Ω—Ç–∏—Ä–∞–¥–∞
 
-; ÒÍÓÓÒÚË ËÁÏÂÌÂÌËˇ Ô‡‡ÏÂÚÓ‚ Á‡‰‡Ì˚ Ò Û˜∏ÚÓÏ Ù‡ÍÚÓ‡ ‚ÂÏÂÌË 6
-; Ú.Â. ÛÏÂÌ¸¯ÂÌ˚ ‚ 6 ‡Á, ˜ÚÓ·˚ ÒÓÓÚ‚ÂÚÒÚ‚Ó‚‡Ú¸ Â‡Î¸ÌÓÏÛ ‚ÂÏÂÌË ÔË Ú‡ÍÓÏ Ù‡ÍÚÓÂ
-; Ú‡ÍÊÂ ÔËÌËÏ‡ÂÚÒˇ, ˜ÚÓ ‚ÂÏˇ ÔÓÎÌÓ„Ó ËÁÎÂ˜ÂÌËˇ - 20 ÒÂÍÛÌ‰ Â‡Î¸ÌÓ„Ó ‚ÂÏÂÌË
-; Ú‡ÍËÏ Ó·‡ÁÓÏ, ÒÍÓÓÒÚ¸ ËÁÏÂÌÂÌËˇ ÒÓÓÚ‚ÂÚÒÚ‚Û˛˘Â„Ó Ô‡‡ÏÂÚ‡ ·Û‰ÂÚ:
+; —Å–∫–æ—Ä–æ—Å—Ç–∏ –∏–∑–º–µ–Ω–µ–Ω–∏—è –ø–∞—Ä–∞–º–µ—Ç—Ä–æ–≤ –∑–∞–¥–∞–Ω—ã —Å —É—á—ë—Ç–æ–º —Ñ–∞–∫—Ç–æ—Ä–∞ –≤—Ä–µ–º–µ–Ω–∏ 6
+; —Ç.–µ. —É–º–µ–Ω—å—à–µ–Ω—ã –≤ 6 —Ä–∞–∑, —á—Ç–æ–±—ã —Å–æ–æ—Ç–≤–µ—Ç—Å—Ç–≤–æ–≤–∞—Ç—å —Ä–µ–∞–ª—å–Ω–æ–º—É –≤—Ä–µ–º–µ–Ω–∏ –ø—Ä–∏ —Ç–∞–∫–æ–º —Ñ–∞–∫—Ç–æ—Ä–µ
+; —Ç–∞–∫–∂–µ –ø—Ä–∏–Ω–∏–º–∞–µ—Ç—Å—è, —á—Ç–æ –≤—Ä–µ–º—è –ø–æ–ª–Ω–æ–≥–æ –∏–∑–ª–µ—á–µ–Ω–∏—è - 20 —Å–µ–∫—É–Ω–¥ —Ä–µ–∞–ª—å–Ω–æ–≥–æ –≤—Ä–µ–º–µ–Ω–∏
+; —Ç–∞–∫–∏–º –æ–±—Ä–∞–∑–æ–º, —Å–∫–æ—Ä–æ—Å—Ç—å –∏–∑–º–µ–Ω–µ–Ω–∏—è —Å–æ–æ—Ç–≤–µ—Ç—Å—Ç–≤—É—é—â–µ–≥–æ –ø–∞—Ä–∞–º–µ—Ç—Ä–∞ –±—É–¥–µ—Ç:
 ; 1.0/(6 * 20.0) == 0.00833
 
-ad_health_restore_rate   = 0.00833	; ÿ‡„ ÎÂ˜ÂÌËˇ (Â‰ËÌËˆ/ÒÂÍ)
-; ÒÍÓÓÒÚ¸ ÛÏÂÌ¸¯ÂÌËˇ ÍÓ‚ÓÚÂ˜ÂÌËˇ ·Û‰ÂÚ ÓÔÂ‰ÂÎˇÚ¸Òˇ Í‡Í (ad_health_restore_rate*ad_bleading_bleeding_rate_k)
-; Ï‡Ò¯Ú‡·ËÛ·˘ËÈ Ù‡ÍÚÓ ‚‚Â‰∏Ì ÔÓÚÓÏÛ, ˜ÚÓ ÍÓ‚ÓÚÂ˜ÂÌËÂ ÌÂ Ó„‡ÌË˜ÂÌÓ Ò‚ÂıÛ Â‰ËÌËˆÓÈ Ë ÏÓÊÂÚ ·˚Ú¸ ÏÌÓ„Ó ·ÓÎ¸¯Â
+ad_health_restore_rate   = 0.00833	; –®–∞–≥ –ª–µ—á–µ–Ω–∏—è (–µ–¥–∏–Ω–∏—Ü/—Å–µ–∫)
+; —Å–∫–æ—Ä–æ—Å—Ç—å —É–º–µ–Ω—å—à–µ–Ω–∏—è –∫—Ä–æ–≤–æ—Ç–µ—á–µ–Ω–∏—è –±—É–¥–µ—Ç –æ–ø—Ä–µ–¥–µ–ª—è—Ç—å—Å—è –∫–∞–∫ (ad_health_restore_rate*ad_bleading_bleeding_rate_k)
+; –º–∞—Å—à—Ç–∞–±–∏—Ä—É–±—â–∏–π —Ñ–∞–∫—Ç–æ—Ä –≤–≤–µ–¥—ë–Ω –ø–æ—Ç–æ–º—É, —á—Ç–æ –∫—Ä–æ–≤–æ—Ç–µ—á–µ–Ω–∏–µ –Ω–µ –æ–≥—Ä–∞–Ω–∏—á–µ–Ω–æ —Å–≤–µ—Ä—Ö—É –µ–¥–∏–Ω–∏—Ü–æ–π –∏ –º–æ–∂–µ—Ç –±—ã—Ç—å –º–Ω–æ–≥–æ –±–æ–ª—å—à–µ
 ad_bleading_bleeding_rate_k = 2.0
-ad_power_restore_rate    = 0.00833	; ÿ‡„ ‚ÓÒÒÚ‡ÌÓ‚ÎÂÌËˇ ˝ÌÂ„ËË (Â‰ËÌËˆ/ÒÂÍ)
-ad_radiation_reduce_rate = 0.00833	; ÿ‡„ ÛÏÂÌ¸¯ÂÌËˇ ‡‰Ë‡ˆËË (Â‰ËÌËˆ/ÒÂÍ)
+ad_power_restore_rate    = 0.00833	; –®–∞–≥ –≤–æ—Å—Å—Ç–∞–Ω–æ–≤–ª–µ–Ω–∏—è —ç–Ω–µ—Ä–≥–∏–∏ (–µ–¥–∏–Ω–∏—Ü/—Å–µ–∫)
+ad_radiation_reduce_rate = 0.00833	; –®–∞–≥ —É–º–µ–Ω—å—à–µ–Ω–∏—è —Ä–∞–¥–∏–∞—Ü–∏–∏ (–µ–¥–∏–Ω–∏—Ü/—Å–µ–∫)
 
-ad_threshold_h		= 0.5	; œÓÓ„ ‚ÍÎ˛˜ÂÌËˇ ÔÓˆÂ‰Û˚ ÎÂ˜ÂÌËˇ
-ad_threshold_s		= 0.15; œÓÓ„ ‚ÍÎ˛˜ÂÌËˇ ÔÓˆÂ‰Û˚ ˝ÌÂ„ÓÌ‡Í‡˜ÍË
-ad_threshold_r		= 0.9	; œÓÓ„ Ò‡·‡Ú˚‚‡ÌËˇ ÔÓˆÂ‰Û˚ ‚‚Ó‰‡ ‡ÌÚË‡‰‡
-ad_threshold_r_min= 0.1	; ÃËÌ. ‰ÓÁ‡ ‡‰Ë‡ˆËË, ÔË ‚ÓÁ‰ÂÈÒÚ‚ËË ÍÓÚÓÓÈ ‰ÓÎ¸¯Â ‚ÂÏÂÌË max_radiated_seconds, »ƒÀ  ‚‚Â‰∏Ú ‡ÌÚË‡‰
-ad_max_rad_seconds= 15	; Ã‡ÍÒ. ‚ÂÏˇ ‚ÓÁ‰ÂÈÒÚ‚Ëˇ ‡‰Ë‡ˆËË, ÔÂ‚˚¯‡˛˘ÂÈ ÁÌ‡˜ÂÌËÂ threshold_r_min, ÌÓ ÏÂÌ¸¯Â ad_threshold_r
+ad_threshold_h		= 0.5	; –ü–æ—Ä–æ–≥ –≤–∫–ª—é—á–µ–Ω–∏—è –ø—Ä–æ—Ü–µ–¥—É—Ä—ã –ª–µ—á–µ–Ω–∏—è
+ad_threshold_s		= 0.15; –ü–æ—Ä–æ–≥ –≤–∫–ª—é—á–µ–Ω–∏—è –ø—Ä–æ—Ü–µ–¥—É—Ä—ã —ç–Ω–µ—Ä–≥–æ–Ω–∞–∫–∞—á–∫–∏
+ad_threshold_r		= 0.9	; –ü–æ—Ä–æ–≥ —Å—Ä–∞–±–∞—Ç—ã–≤–∞–Ω–∏—è –ø—Ä–æ—Ü–µ–¥—É—Ä—ã –≤–≤–æ–¥–∞ –∞–Ω—Ç–∏—Ä–∞–¥–∞
+ad_threshold_r_min= 0.1	; –ú–∏–Ω. –¥–æ–∑–∞ —Ä–∞–¥–∏–∞—Ü–∏–∏, –ø—Ä–∏ –≤–æ–∑–¥–µ–π—Å—Ç–≤–∏–∏ –∫–æ—Ç–æ—Ä–æ–π –¥–æ–ª—å—à–µ –≤—Ä–µ–º–µ–Ω–∏ max_radiated_seconds, –ò–î–õ–ö –≤–≤–µ–¥—ë—Ç –∞–Ω—Ç–∏—Ä–∞–¥
+ad_max_rad_seconds= 15	; –ú–∞–∫—Å. –≤—Ä–µ–º—è –≤–æ–∑–¥–µ–π—Å—Ç–≤–∏—è —Ä–∞–¥–∏–∞—Ü–∏–∏, –ø—Ä–µ–≤—ã—à–∞—é—â–µ–π –∑–Ω–∞—á–µ–Ω–∏–µ threshold_r_min, –Ω–æ –º–µ–Ω—å—à–µ ad_threshold_r
 
-;Í‡ÚË‰Ê ‰Îˇ ‡‚ÚÓ‡ÔÚÂ˜ÍË. «‡ÔÓÎÌˇÂÚ ‚ÒÂ ÚË ÒËÒÚÂÏ˚
+;–∫–∞—Ä—Ç—Ä–∏–¥–∂ –¥–ª—è –∞–≤—Ç–æ–∞–ø—Ç–µ—á–∫–∏. –ó–∞–ø–æ–ª–Ω—è–µ—Ç –≤—Å–µ —Ç—Ä–∏ —Å–∏—Å—Ç–µ–º—ã
 [cartridge_a]:antir_f
 $spawn			= "devices\autodoctor"
 visual			= dynamics\devices\dev_antirad\dev_antirad.ogf
@@ -460,7 +460,7 @@ inv_grid_x		= 25
 inv_grid_y		= 6
 cost			= 10000
 
-;Í‡ÚË‰Ê ‰Îˇ ‡‚ÚÓ‡ÔÚÂ˜ÍË. —Ó‰ÂÊËÚ ÔÂÔ‡‡Ú ÎÂ˜ÂÌËˇ ‡Ì
+;–∫–∞—Ä—Ç—Ä–∏–¥–∂ –¥–ª—è –∞–≤—Ç–æ–∞–ø—Ç–µ—á–∫–∏. –°–æ–¥–µ—Ä–∂–∏—Ç –ø—Ä–µ–ø–∞—Ä–∞—Ç –ª–µ—á–µ–Ω–∏—è —Ä–∞–Ω
 [cartridge_h]:antir_f
 $spawn			= "devices\autodoctor"
 visual			= dynamics\devices\dev_antirad\dev_antirad.ogf
@@ -475,7 +475,7 @@ inv_grid_x		= 25
 inv_grid_y		= 7
 cost			= 5000
 
-;Í‡ÚË‰Ê ‰Îˇ ‡‚ÚÓ‡ÔÚÂ˜ÍË. —Ó‰ÂÊËÚ ÔÂÔ‡‡Ú-˝ÌÂ„ÂÚËÍ
+;–∫–∞—Ä—Ç—Ä–∏–¥–∂ –¥–ª—è –∞–≤—Ç–æ–∞–ø—Ç–µ—á–∫–∏. –°–æ–¥–µ—Ä–∂–∏—Ç –ø—Ä–µ–ø–∞—Ä–∞—Ç-—ç–Ω–µ—Ä–≥–µ—Ç–∏–∫
 [cartridge_s]:antir_f
 $spawn			= "devices\autodoctor"
 visual			= dynamics\equipments\medical\drug_coagulant.ogf
@@ -490,7 +490,7 @@ inv_grid_x		= 25
 inv_grid_y		= 8
 cost			= 750
 
-;Í‡ÚË‰Ê ‰Îˇ ‡‚ÚÓ‡ÔÚÂ˜ÍË. —Ó‰ÂÊËÚ ÔÂÔ‡‡Ú ‚˚‚Ó‰‡ ‡‰Ë‡ˆËË
+;–∫–∞—Ä—Ç—Ä–∏–¥–∂ –¥–ª—è –∞–≤—Ç–æ–∞–ø—Ç–µ—á–∫–∏. –°–æ–¥–µ—Ä–∂–∏—Ç –ø—Ä–µ–ø–∞—Ä–∞—Ç –≤—ã–≤–æ–¥–∞ —Ä–∞–¥–∏–∞—Ü–∏–∏
 [cartridge_r]:antir_f
 $spawn			= "devices\autodoctor"
 visual			= dynamics\devices\dev_antirad\dev_antirad.ogf
@@ -507,7 +507,7 @@ cost			= 2500
 
 
 
-;----------->> —ÓÙÚ ‰Îˇ ·ËÓ‰ÂÚÂÍÚÓ‡
+;----------->> –°–æ—Ñ—Ç –¥–ª—è –±–∏–æ–¥–µ—Ç–µ–∫—Ç–æ—Ä–∞
 
 [firmware_dog]:antir_f
 $spawn			= "devices\bioradar"
@@ -705,9 +705,9 @@ inv_grid_x         = 11
 inv_grid_y         = 28
 cost			= 25000
 
-;-----------<< —ÓÙÚ ‰Îˇ ·ËÓ‰ÂÚÂÍÚÓ‡
+;-----------<< –°–æ—Ñ—Ç –¥–ª—è –±–∏–æ–¥–µ—Ç–µ–∫—Ç–æ—Ä–∞
 
-;KRodin: Ì‡ÙË„‡ ÏÂÚÍ‡ ·˚Î‡ Ò‰ÂÎ‡Ì‡ Ì‡ ÍÎ‡ÒÒÂ Ô‡ÚÓÌÓ‚???
+;KRodin: –Ω–∞—Ñ–∏–≥–∞ –º–µ—Ç–∫–∞ –±—ã–ª–∞ —Å–¥–µ–ª–∞–Ω–∞ –Ω–∞ –∫–ª–∞—Å—Å–µ –ø–∞—Ç—Ä–æ–Ω–æ–≤???
 [amk_metka]:identity_immunities
 GroupControlSection	= spawn_group
 discovery_dependency	= 
@@ -778,7 +778,7 @@ inv_grid_y   = 32
 cost    = 250
 eat_portions_num 	= 1000000
 
-;–ÂÏÍÓÏÔÎÂÍÚ
+;–†–µ–º–∫–æ–º–ø–ª–µ–∫—Ç
 [repair_kit]:antir_f
 $spawn			= "devices\quest_items\repair_kit"
 visual			= equipments\repbox.ogf
@@ -793,7 +793,7 @@ inv_grid_x		= 21
 inv_grid_y		= 12
 cost			= 2500
 
-; –ÂÒÔË‡ÚÓ
+; –†–µ—Å–ø–∏—Ä–∞—Ç–æ—Ä
 [af_maska_1]:bio
 GroupControlSection	= spawn_group
 $spawn 			= "artifacts\af_maska_1"
@@ -818,7 +818,7 @@ slot			= 10
 lights_enabled  = false
 default_to_ruck = true
 
-;ÒÍÓÓÒÚË Û‚ÂÎË˜ÂÌËˇ (ÛÏÂÌ¸¯ÂÌËˇ) 
+;—Å–∫–æ—Ä–æ—Å—Ç–∏ —É–≤–µ–ª–∏—á–µ–Ω–∏—è (—É–º–µ–Ω—å—à–µ–Ω–∏—è) 
 health_restore_speed = 0.0			
 radiation_restore_speed = 0.0
 satiety_restore_speed = 0.0
@@ -827,7 +827,7 @@ bleeding_restore_speed = 0.0
 hit_absorbation_sect = af_maska_1_absorbation
 
 [af_maska_1_absorbation]
-burn_immunity = 1.0				;ÍÓ˝ÙÙËˆËÂÌÚ˚ ËÏÏÛÌËÚÂÚ‡ 
+burn_immunity = 1.0				;–∫–æ—ç—Ñ—Ñ–∏—Ü–∏–µ–Ω—Ç—ã –∏–º–º—É–Ω–∏—Ç–µ—Ç–∞ 
 strike_immunity = 1.0
 shock_immunity = 1.0
 wound_immunity = 1.0		
@@ -837,7 +837,7 @@ chemical_burn_immunity = 0.75
 explosion_immunity = 1.0
 fire_wound_immunity  = 1.0
 
-; œÓÚË‚Ó„‡Á √œ-5
+; –ü—Ä–æ—Ç–∏–≤–æ–≥–∞–∑ –ì–ü-5
 [af_maska_2]:af_maska_1
 $spawn 			= "artifacts\af_maska_2"
 visual			= equipments\gasmask1.ogf
@@ -921,7 +921,7 @@ belt						= false
 ;nightvision_sect            = effector_nightvision_good
 nightvision_sect	= effector_nightvision
 
-;ÒÍÓÓÒÚË Û‚ÂÎË˜ÂÌËˇ (ÛÏÂÌ¸¯ÂÌËˇ) 
+;—Å–∫–æ—Ä–æ—Å—Ç–∏ —É–≤–µ–ª–∏—á–µ–Ω–∏—è (—É–º–µ–Ω—å—à–µ–Ω–∏—è) 
 health_restore_speed = 0.0			
 radiation_restore_speed = 0.0
 thirst_restore_speed = 0.0
@@ -930,7 +930,7 @@ power_restore_speed = 0.0
 bleeding_restore_speed = 0.0
 hit_absorbation_sect = device_pnv_1_absorbation
 
-[device_pnv_1_absorbation];ÍÓ˝ÙÙËˆËÂÌÚ˚ ËÏÏÛÌËÚÂÚ‡ 
+[device_pnv_1_absorbation];–∫–æ—ç—Ñ—Ñ–∏—Ü–∏–µ–Ω—Ç—ã –∏–º–º—É–Ω–∏—Ç–µ—Ç–∞ 
 burn_immunity = 1.0				
 strike_immunity = 1.0
 shock_immunity = 1.0
@@ -979,9 +979,9 @@ nightvision_sect    = effector_nightvision_grey
 ;nightvision_sect    = thermal
 
 ;---------------------------------------------------------------------------------------------
-;—ÂÍˆËË ÃŒÕ“»–”≈ÃŒ√Œ › «Œ ¿– ¿—¿
+;–°–µ–∫—Ü–∏–∏ –ú–û–ù–¢–ò–†–£–ï–ú–û–ì–û –≠–ö–ó–û–ö–ê–†–ö–ê–°–ê
 ;---------------------------------------------------------------------------------------------
-; À®√ ¿ﬂ › «¿
+; –õ–Å–ì–ö–ê–Ø –≠–ö–ó–ê
 ;---------------------------------------------------------------------------------------------
 [exo1]:antir_f
 $spawn			= "devices\exo1"
@@ -1004,7 +1004,7 @@ run_coef_dif			= -0.2
 run_back_coef_dif		= -0.2
 
 ;---------------------------------------------------------------------------------------------
-; › «¿ Ã¿—“≈–¿
+; –≠–ö–ó–ê –ú–ê–°–¢–ï–†–ê
 ;---------------------------------------------------------------------------------------------
 [exo2]:exo1
 $spawn			= "devices\exo2"
@@ -1025,7 +1025,7 @@ run_coef_dif			= -0.1
 run_back_coef_dif		= -0.1
 
 ;---------------------------------------------------------------------------------------------
-; ????? Õ≈ »—œŒÀ‹«”≈“—ﬂ
+; ????? –ù–ï –ò–°–ü–û–õ–¨–ó–£–ï–¢–°–Ø
 ;---------------------------------------------------------------------------------------------
 [exo3]:exo1
 $spawn			= "devices\exo3"
@@ -1186,7 +1186,7 @@ inv_grid_width		= 2
 inv_grid_height		= 2
 inv_grid_x		= 48
 inv_grid_y		= 39
-;KRodin: ‡ Í‡ÍÓÈ ÒÏ˚ÒÎ Â∏ ÔÓÒÚÓˇÌÌÓ Ú‡ÒÍ‡Ú¸ Ò ÒÓ·ÓÈ?
+;KRodin: –∞ –∫–∞–∫–æ–π —Å–º—ã—Å–ª –µ—ë –ø–æ—Å—Ç–æ—è–Ω–Ω–æ —Ç–∞—Å–∫–∞—Ç—å —Å —Å–æ–±–æ–π?
 ;quest_item			= true
 ;can_trade			= false
 

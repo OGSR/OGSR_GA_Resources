@@ -1,4 +1,4 @@
-; -*- mode: conf-windows; coding: windows-1251-dos -*-
+
 
 #include "dsh\weather.ltx"
 
@@ -167,8 +167,8 @@ allow_sector = 10, 190
 [dsh.gulag.override.bar_ecolog_crush] ;Гулаг 4 ученых + Круглов
 on_cleanup = dsh.cleanup_bar_ecologs
 
-[dsh.gulag.override.ros_smart_stalker_killers1] ;Гулаг наемников на стройке на ДТ
-cond = {=gulag_empty(ros_smart_stalker_bandits1) +bar_rescue_research_done}, {=gulag_empty(ros_smart_stalker_bandits1) +bar_rescue_research_fail}
+;[dsh.gulag.override.ros_smart_stalker_killers1] ;Гулаг наемников на стройке на ДТ
+;cond = {=gulag_empty(ros_smart_stalker_bandits1) +bar_rescue_research_done}, {=gulag_empty(ros_smart_stalker_bandits1) +bar_rescue_research_fail}
 
 [dsh.gulag.override.ros_smart_stalker_bandits1] ;Гулаг сталкеров на ДТ перед стройкой если идти со стороны янтаря
 capacity = 10
@@ -185,25 +185,25 @@ preferred_seats = 6447, 6259, 6082, 5724
 cond = {+bar_heli_scene_stay_online}, {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
 [dsh.se_stalker.bar_ecolog_crush_1.smart_terrains]
 bar_ecolog_crush = {-bar_rescue_research_chasing_start -bar_rescue_research_fail}
-ros_smart_stalker_bandits1 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+yan_st_stalker3 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
 
 [dsh.se_stalker.bar_ecolog_crush_2.spawner]
 cond = {+bar_heli_scene_stay_online}, {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
 [dsh.se_stalker.bar_ecolog_crush_2.smart_terrains]
 bar_ecolog_crush = {-bar_rescue_research_chasing_start -bar_rescue_research_fail}
-ros_smart_stalker_bandits1 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+yan_st_stalker3 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
 
 [dsh.se_stalker.bar_ecolog_crush_3.spawner]
 cond = {+bar_heli_scene_stay_online}, {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
 [dsh.se_stalker.bar_ecolog_crush_3.smart_terrains]
 bar_ecolog_crush = {-bar_rescue_research_chasing_start -bar_rescue_research_fail}
-ros_smart_stalker_bandits1 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+yan_st_stalker3 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
 
 [dsh.se_stalker.bar_ecolog_crush_4.spawner]
 cond = {+bar_heli_scene_stay_online}, {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
 [dsh.se_stalker.bar_ecolog_crush_4.smart_terrains]
 bar_ecolog_crush = {-bar_rescue_research_chasing_start -bar_rescue_research_fail}
-ros_smart_stalker_bandits1 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
+yan_st_stalker3 = {+bar_rescue_research_chasing_start}, {+bar_rescue_research_fail}
 ;================================================================
 ;**********************************************************************************
 ;

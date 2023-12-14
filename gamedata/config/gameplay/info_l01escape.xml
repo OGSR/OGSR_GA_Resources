@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding="windows-1251"?>
+<?xml version='1.0' encoding="UTF-8"?>
 
 <game_information_portions>
 	<info_portion id="esc_volk_fuel_done"/>
@@ -43,7 +43,7 @@
 		<task>storyline_eliminate_gunslinger</task>
 		<article>about_enciclopedia</article>
 		<article>sl_beginning</article>
-		<!-- Скриптовый спавн для квестов Жекана -->
+		<!-- РЎРєСЂРёРїС‚РѕРІС‹Р№ СЃРїР°РІРЅ РґР»СЏ РєРІРµСЃС‚РѕРІ Р–РµРєР°РЅР° -->
 		<action>jekan_work.spawn_on_start</action>
 	</info_portion>
 	
@@ -451,7 +451,7 @@
 
 
 	<!-- Jek@n's portions -->
-	<!-- Раненый и Лекарь -->
+	<!-- Р Р°РЅРµРЅС‹Р№ Рё Р›РµРєР°СЂСЊ -->
 	<info_portion id="lekar_af_mincer_meat_out"/>
 	<info_portion id="lekar_goto_af_mincer_meat">
 		<task>lekar_goto_af_mincer_meat</task>
@@ -501,7 +501,7 @@
 		<task>meet_arthunter</task>
 	</info_portion>
 
-	<!-- Музыкант -->
+	<!-- РњСѓР·С‹РєР°РЅС‚ -->
 	<info_portion id="muzik_play_1"/>
 	<info_portion id="muzik_play_2"/>
 	<info_portion id="muzik_play_3"/>
@@ -537,7 +537,7 @@
 	<info_portion id="klondike_activated"/>
 	<info_portion id="klondike_arts_spawned"/>
 
-	<!-- Привидение -->
+	<!-- РџСЂРёРІРёРґРµРЅРёРµ -->
 	<info_portion id="secret_villager_task">
 		<task>secret_villager_task</task>
 		<action>jekan_work.cheb_helptip</action>
@@ -558,7 +558,7 @@
 		<action>soundtrack.secret_villager_ston_1</action>
 	</info_portion>
 
-	<!-- Братья -->
+	<!-- Р‘СЂР°С‚СЊСЏ -->
 	<info_portion id="zona_brother1_dead"/>
 	<info_portion id="zona_brother2_dead"/>
 	<info_portion id="bro2_finish"/>
@@ -590,7 +590,7 @@
 	</info_portion>
 
 
-	<!-- Спасение рядового Шустрого мирным путем -->
+	<!-- РЎРїР°СЃРµРЅРёРµ СЂСЏРґРѕРІРѕРіРѕ РЁСѓСЃС‚СЂРѕРіРѕ РјРёСЂРЅС‹Рј РїСѓС‚РµРј -->
 	<info_portion id="atp_band_hitted"/>
 	<info_portion id="atp_lider_dead"/>
 	<info_portion id="atp_band_access">
@@ -605,9 +605,9 @@
 	</info_portion>
 	<info_portion id="shustriy_in_lager"/>
 	<info_portion id="atp_fail"/>
-	<!-- Это когда нас выкидывают на мороз -->
+	<!-- Р­С‚Рѕ РєРѕРіРґР° РЅР°СЃ РІС‹РєРёРґС‹РІР°СЋС‚ РЅР° РјРѕСЂРѕР· -->
 	<info_portion id="atp_fail1"/>
-	<!-- А это - когда грубим или когда раним бандита -->
+	<!-- Рђ СЌС‚Рѕ - РєРѕРіРґР° РіСЂСѓР±РёРј РёР»Рё РєРѕРіРґР° СЂР°РЅРёРј Р±Р°РЅРґРёС‚Р° -->
 	<info_portion id="atp_na_moroz"/>
 	<info_portion id="rangers_go_home"/>
 	<info_portion id="atp_volk_fail"/>
@@ -620,7 +620,7 @@
 	<info_portion id="test_place1_info"/>
 
 
-	<!-- Болотный Доктор -->
+	<!-- Р‘РѕР»РѕС‚РЅС‹Р№ Р”РѕРєС‚РѕСЂ -->
 	<info_portion id="swamp_doc_start_talk"/>
 	<info_portion id="unic_krovosos_quest">
 		<task>unic_krovosos_quest</task>
@@ -668,7 +668,7 @@
 	<info_portion id="swamp_doc_propeller_quest"/>
 
 
-	<!-- Диггер и Синяк -->
+	<!-- Р”РёРіРіРµСЂ Рё РЎРёРЅСЏРє -->
 	<info_portion id="digger_weapon_quest1">
 		<task>digger_weapon_quest1</task>
 	</info_portion>
@@ -714,7 +714,7 @@
 	</info_portion>
 	<info_portion id="diggers_motor"/>
 
-	<!-- k01jan управление приёмником Сидоровича -->
+	<!-- k01jan СѓРїСЂР°РІР»РµРЅРёРµ РїСЂРёС‘РјРЅРёРєРѕРј РЎРёРґРѕСЂРѕРІРёС‡Р° -->
 	<info_portion id="sidor_receiver_off"></info_portion>
 	<info_portion id="sidor_receiver_broke"></info_portion>
 
@@ -742,7 +742,7 @@
 	
 	<info_portion id="odin_raz_i_hvatit"></info_portion>
 	
-	<!-- Мирное получение Форта-15 у майора Кузнецова по заданию Сидоровича -->
+	<!-- РњРёСЂРЅРѕРµ РїРѕР»СѓС‡РµРЅРёРµ Р¤РѕСЂС‚Р°-15 Сѓ РјР°Р№РѕСЂР° РљСѓР·РЅРµС†РѕРІР° РїРѕ Р·Р°РґР°РЅРёСЋ РЎРёРґРѕСЂРѕРІРёС‡Р° -->
 	<info_portion id="find_fort_m1"></info_portion>
 	
 	<info_portion id="find_af_and_vodka_for_kuzya">
@@ -758,5 +758,5 @@
 	</info_portion>
 	<info_portion id="find_af_and_vodka_for_kuzya_done"></info_portion>
 	<info_portion id="esc_bridge_pass_first"></info_portion>
-	<!-- Мирное получение Форта-15 у майора Кузнецова по заданию Сидоровича -->
+	<!-- РњРёСЂРЅРѕРµ РїРѕР»СѓС‡РµРЅРёРµ Р¤РѕСЂС‚Р°-15 Сѓ РјР°Р№РѕСЂР° РљСѓР·РЅРµС†РѕРІР° РїРѕ Р·Р°РґР°РЅРёСЋ РЎРёРґРѕСЂРѕРІРёС‡Р° -->
 </game_information_portions>

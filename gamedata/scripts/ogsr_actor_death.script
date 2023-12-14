@@ -1,0 +1,67 @@
+--[[ ---------------------------------------------
+ File       : ogsr_actor_death.script
+ Description: Смерть ГГ от первого лица
+ Copyright  : 2011 © Cut X-Ray mod
+ Author     : SkyLoader, modified for OGSR by Kurzdor
+-------------------------------------------------]]
+
+local actor_death_camera_anims = {"camera_effects\\surge_02.anm", "camera_effects\\surge_03.anm"}
+local last_hit_type = false
+
+function attach(sm)
+	sm:subscribe({ signal = "on_actor_before_hit", fun = this.on_actor_before_hit })
+	sm:subscribe({ signal = "on_actor_death", fun = this.on_actor_death })
+end
+
+function on_actor_before_hit(obj, hit_data)
+	last_hit_type = hit_data.hit_type
+end
+
+function on_actor_death()
+	if not get_console():get_bool("g_first_person_death") then return end
+
+	-- Чтобы камера не так сильно двигалась в разные стороны после применения эффектора камеры
+	level.set_cam_inert(0)
+
+	-- Эффектор шатания камеры
+	level.add_cam_effector(actor_death_camera_anims[math.random(#actor_death_camera_anims)], 2532, false, "")
+	-- Затемнение
+	level.add_pp_effector("surge_fade.ppe", 2011, false)
+	-- Покраснение экрана - Misery 2.2.1
+	level.add_pp_effector("rcom_actor_death_quick.ppe", 446, false)
+
+	-- Выбрасываем оружие текущего слота
+	local active_item = db.actor:active_item()
+	if active_item and active_item:is_weapon_magazined() then
+		db.actor:drop_item(active_item)
+	end
+
+	-- Отбираем у игрока управление
+	level.disable_input()
+
+	-- В случае смерти от взрыва форсим затемнение экрана
+	local timeout = 3000
+	if last_hit_type == hit.explosion then
+		timeout = 0
+	end
+
+	dsh.timeout(timeout, function()
+		-- Возвращаем управление, чтобы работал возврат в игровое меню по Space
+		level.enable_input()
+
+    -- Цикл эффекторов для того, чтобы экран был чёрным
+		dsh.exec_periodic(
+			500,
+			function()
+				level.remove_pp_effector(4467)
+				level.add_pp_effector("deadcity_wake.ppe", 4467, false)
+			end
+		)
+	end)
+
+	-- Это нужно было для ogse_actor_conditions_mgr в OGSR, поскольку он добавлял ещё большую лишнюю инерцию для камеры на каждый апдейт её.
+	-- Поэтому это вызывается на каждый апдейт при смерти. Можно убрать если это не OGSR.
+	ogse_signals.get_mgr():subscribe({ signal = "on_update", fun = function()
+		level.set_cam_inert(0)
+	end })
+end

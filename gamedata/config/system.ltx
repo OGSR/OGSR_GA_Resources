@@ -53,7 +53,7 @@ snd_collide_min_volume		= 0.1
 snd_collide_max_volume		= 200
 
 [demo_record]
-show_info = false ;Отключаем красные надписи
+show_info = false ;РћС‚РєР»СЋС‡Р°РµРј РєСЂР°СЃРЅС‹Рµ РЅР°РґРїРёСЃРё
 speed0		= 0.3
 speed1		= 3.0
 speed2		= 15.0
@@ -67,7 +67,7 @@ ang_speed3	= 2.0
 files = ui_icons_map, ui_common, ui_mainmenu, ui_hud, ui_numpad, ui_inventory, ui_iconstotal, ui_icons_npc, ui_npc_monster, ui_npc_unique, ui_asus_intro, aem_ui_npc, ui_npc_regular, ui_vehicles_icons, ui_sleep_dialog, ui_mini_games_textures, ui_mini_games_textures2, ui_autodoc, ui_tower_box, ui_case_password, ui_actor_menu, ui_actor_talk, amk_pda, amk_pda_blank, ui_mobile_changer
 
 [info_portions]
-;список xml файлов, содержащих info_portions
+;СЃРїРёСЃРѕРє xml С„Р°Р№Р»РѕРІ, СЃРѕРґРµСЂР¶Р°С‰РёС… info_portions
 files = info_portions, info_portions_light, info_portions_test, info_lchanger_ico, info_level_tips, info_known_objects, info_l01escape, info_l02garbage, info_l03agroprom, info_l04agroprom_u, info_l05dark_valley, info_l06dark_valley_u, info_l07rostok, info_l08yantar, info_l08deadcity, info_l08rostok_bar, info_l09marshes, info_l09rostok_dolg, info_l10military, info_l11pripyat, info_l11yantar, info_l12yantar_u, info_l13deadcity, info_l14swamp, info_l10radar, info_l16radar_antena, info_l17monolith_control, info_l19stanciya, info_l12u_sarcofag, info_l21generators, info_l22warlab, info_k01darkscape, info_stories, aem_info, info_surge, info_tasks, info_guiders, info_vehicles_trade, debug_info
 
 [encyclopedia]
@@ -77,18 +77,10 @@ files = encyclopedia_infos, storyline_info_to_diary, encyclopedia_mutants, encyc
 files = dialogs_test, dialogs, dialogs_escape, dialogs_garbage, dialogs_agroprom, dialogs_deadcity, dialogs_darkvalley, dialogs_pripyat, dialogs_bar, dialogs_yantar, dialogs_military, dialogs_labx18, dialogs_radar, dialogs_aes, dialogs_transmut, dialogs_repair, random_dialogs, dialogs_tasks, dialogs_guiders, dialogs_darkscape
 
 [profiles]
-;список xml файлов, содержащих профили сталкеров и торговцев
+;СЃРїРёСЃРѕРє xml С„Р°Р№Р»РѕРІ, СЃРѕРґРµСЂР¶Р°С‰РёС… РїСЂРѕС„РёР»Рё СЃС‚Р°Р»РєРµСЂРѕРІ Рё С‚РѕСЂРіРѕРІС†РµРІ
 files =  npc_profile, aem_profile, npc_profile_tasks, guider_profile
-;список xml файлов, содержащих описания конкретных сталкеров и торговцев
+;СЃРїРёСЃРѕРє xml С„Р°Р№Р»РѕРІ, СЃРѕРґРµСЂР¶Р°С‰РёС… РѕРїРёСЃР°РЅРёСЏ РєРѕРЅРєСЂРµС‚РЅС‹С… СЃС‚Р°Р»РєРµСЂРѕРІ Рё С‚РѕСЂРіРѕРІС†РµРІ
 specific_characters_files = character_desc_general, character_desc_simulation,character_desc_escape, character_desc_garbage, character_desc_agroprom, character_desc_darkvalley, character_desc_deadcity, character_desc_bar, character_desc_yantar, character_desc_military, character_desc_radar, character_desc_pripyat, character_desc_aes, character_desc_gens, character_desc_kishka, character_desc_sarcofag, aem_characters, character_desc_trader,  character_desc_for_tasks, character_desc_guider, character_criticals_diehard
-
-[artefacts_tasks]
-;имя скриптовой функции, которая вызывается для создания
-;списка артефактов
-script_func = ;trader_job.artefacts_task_list_text
-
-[game_tasks]
-files = game_tasks
 
 
 [lights_hanging_lamp]
@@ -134,37 +126,37 @@ max_count			= 5
 
 [bloody_marks]
 wallmarks			= wm\wm_blood_1,wm\wm_blood_2,wm\wm_blood_3,wm\wm_blood_4,wm\wm_blood_5,wm\wm_blood_6,wm\wm_blood_7,wm\wm_blood_8,wm\wm_blood_9
-dist				= 3	;2.4	;(м) max расстояние отлета крови
-max_size			= 0.8	;0.3	;(м)радиус пятна при хите силой nominal hit по большому объекту (по маленькому *0.5)
-min_size			= 0.1			;(м)минимальный радиус пятна
-nominal_hit			= 0.3			;величина номинального хита, при котором разлетается максимум крови (max_size)
+dist				= 3	;2.4	;(Рј) max СЂР°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚Р»РµС‚Р° РєСЂРѕРІРё
+max_size			= 0.8	;0.3	;(Рј)СЂР°РґРёСѓСЃ РїСЏС‚РЅР° РїСЂРё С…РёС‚Рµ СЃРёР»РѕР№ nominal hit РїРѕ Р±РѕР»СЊС€РѕРјСѓ РѕР±СЉРµРєС‚Сѓ (РїРѕ РјР°Р»РµРЅСЊРєРѕРјСѓ *0.5)
+min_size			= 0.1			;(Рј)РјРёРЅРёРјР°Р»СЊРЅС‹Р№ СЂР°РґРёСѓСЃ РїСЏС‚РЅР°
+nominal_hit			= 0.3			;РІРµР»РёС‡РёРЅР° РЅРѕРјРёРЅР°Р»СЊРЅРѕРіРѕ С…РёС‚Р°, РїСЂРё РєРѕС‚РѕСЂРѕРј СЂР°Р·Р»РµС‚Р°РµС‚СЃСЏ РјР°РєСЃРёРјСѓРј РєСЂРѕРІРё (max_size)
 
-;капли крови
+;РєР°РїР»Рё РєСЂРѕРІРё
 
 blood_drops			= wm\wm_blood_drop_1,wm\wm_blood_drop_2,wm\wm_blood_drop_3,wm\wm_blood_drop_4
-start_blood_size	= 0.4			;размер раны чтоб начала капать кровь
-stop_blood_size		= 0.025			;размер раны чтоб кровь остановилась (должно быть меньше start_blood_size)
+start_blood_size	= 0.4			;СЂР°Р·РјРµСЂ СЂР°РЅС‹ С‡С‚РѕР± РЅР°С‡Р°Р»Р° РєР°РїР°С‚СЊ РєСЂРѕРІСЊ
+stop_blood_size		= 0.025			;СЂР°Р·РјРµСЂ СЂР°РЅС‹ С‡С‚РѕР± РєСЂРѕРІСЊ РѕСЃС‚Р°РЅРѕРІРёР»Р°СЃСЊ (РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ start_blood_size)
 
 blood_drop_time     = 0.1			;OBSOLETE
 blood_drop_time_min = 0.3			;
 blood_drop_time_max = 2.0			;
-blood_drop_size		= 0.2			;размер капли (м) крови, которая упала
+blood_drop_size		= 0.2			;СЂР°Р·РјРµСЂ РєР°РїР»Рё (Рј) РєСЂРѕРІРё, РєРѕС‚РѕСЂР°СЏ СѓРїР°Р»Р°
 
 
 [entity_fire_particles]
 fire_particles = damage_fx\burn_creatures
-start_burn_size	= 0.0003		;размер ожега после которого начать играть партиклы огня
-stop_burn_size	= 0.0001		;размер ожега после которого остановить партиклы
-min_burn_time	= 10000		;минимальное время отыгрыша партиклов (даже если рана уже зажила)
+start_burn_size	= 0.0003		;СЂР°Р·РјРµСЂ РѕР¶РµРіР° РїРѕСЃР»Рµ РєРѕС‚РѕСЂРѕРіРѕ РЅР°С‡Р°С‚СЊ РёРіСЂР°С‚СЊ РїР°СЂС‚РёРєР»С‹ РѕРіРЅСЏ
+stop_burn_size	= 0.0001		;СЂР°Р·РјРµСЂ РѕР¶РµРіР° РїРѕСЃР»Рµ РєРѕС‚РѕСЂРѕРіРѕ РѕСЃС‚Р°РЅРѕРІРёС‚СЊ РїР°СЂС‚РёРєР»С‹
+min_burn_time	= 10000		;РјРёРЅРёРјР°Р»СЊРЅРѕРµ РІСЂРµРјСЏ РѕС‚С‹РіСЂС‹С€Р° РїР°СЂС‚РёРєР»РѕРІ (РґР°Р¶Рµ РµСЃР»Рё СЂР°РЅР° СѓР¶Рµ Р·Р°Р¶РёР»Р°)
 
 [hud_cursor]
-;все размеры в процентах от длины экрана
-cross_length		= 0.005					;длина "палочки" прицела
-min_radius			= 0.0					;минимальный радиус прицела (при нулевой дисперсии)
-max_radius			= 2.0					;максимальный радиус
-radius_lerp_speed	= 0.08					;скорость интерполяции положений прицела
-cross_color			= 0.7,0.7,0.7,1.0		;цвет прицела
-disp_scale			= 0.08					;масштаб прицела (относительно радиан)
+;РІСЃРµ СЂР°Р·РјРµСЂС‹ РІ РїСЂРѕС†РµРЅС‚Р°С… РѕС‚ РґР»РёРЅС‹ СЌРєСЂР°РЅР°
+cross_length		= 0.005					;РґР»РёРЅР° "РїР°Р»РѕС‡РєРё" РїСЂРёС†РµР»Р°
+min_radius			= 0.0					;РјРёРЅРёРјР°Р»СЊРЅС‹Р№ СЂР°РґРёСѓСЃ РїСЂРёС†РµР»Р° (РїСЂРё РЅСѓР»РµРІРѕР№ РґРёСЃРїРµСЂСЃРёРё)
+max_radius			= 2.0					;РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°РґРёСѓСЃ
+radius_lerp_speed	= 0.08					;СЃРєРѕСЂРѕСЃС‚СЊ РёРЅС‚РµСЂРїРѕР»СЏС†РёРё РїРѕР»РѕР¶РµРЅРёР№ РїСЂРёС†РµР»Р°
+cross_color			= 0.7,0.7,0.7,1.0		;С†РІРµС‚ РїСЂРёС†РµР»Р°
+disp_scale			= 0.08					;РјР°СЃС€С‚Р°Р± РїСЂРёС†РµР»Р° (РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ СЂР°РґРёР°РЅ)
 
 [hud_hitmark]
 hit_mark_texture = ui\ui_hud_hit_mark
@@ -224,7 +216,7 @@ inv_grid_height			= 1
 
 script_binding  		= bind_physic_object.init
 
-ph_heavy = true; Чтоб псевдогигант бтры не раскидывал от удара ногой
+ph_heavy = true; Р§С‚РѕР± РїСЃРµРІРґРѕРіРёРіР°РЅС‚ Р±С‚СЂС‹ РЅРµ СЂР°СЃРєРёРґС‹РІР°Р» РѕС‚ СѓРґР°СЂР° РЅРѕРіРѕР№
 
 [actor_firsteye_cam]
 lim_pitch                = -1.5, 1.5
@@ -312,15 +304,15 @@ $spawn               = "ai\graph point"
 ; Trade
 ;-----------------------------------------------------------------
 [trade]
-;коэффициенты изменения цены при торговле в зависимости от отношения к персонажу
-;линейно апроксимируются между значения
-buy_price_factor_hostile	= 1		;коэффициент покупки при goodwill = -100
-buy_price_factor_friendly	= 1		;коэффициент покупки при goodwill = 100
-sell_price_factor_hostile	= 1		;коэффициент покупки при goodwill = -100
-sell_price_factor_friendly	= 1		;коэффициент покупки при goodwill = 100
+;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РёР·РјРµРЅРµРЅРёСЏ С†РµРЅС‹ РїСЂРё С‚РѕСЂРіРѕРІР»Рµ РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РѕС‚РЅРѕС€РµРЅРёСЏ Рє РїРµСЂСЃРѕРЅР°Р¶Сѓ
+;Р»РёРЅРµР№РЅРѕ Р°РїСЂРѕРєСЃРёРјРёСЂСѓСЋС‚СЃСЏ РјРµР¶РґСѓ Р·РЅР°С‡РµРЅРёСЏ
+buy_price_factor_hostile	= 1		;РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРєСѓРїРєРё РїСЂРё goodwill = -100
+buy_price_factor_friendly	= 1		;РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРєСѓРїРєРё РїСЂРё goodwill = 100
+sell_price_factor_hostile	= 1		;РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРєСѓРїРєРё РїСЂРё goodwill = -100
+sell_price_factor_friendly	= 1		;РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРєСѓРїРєРё РїСЂРё goodwill = 100
 
-; Если у сталкеров не хватает денег купить все, что им предлагает
-; актор, в этом режиме они купят это все за те деньги, что у них есть.
+; Р•СЃР»Рё Сѓ СЃС‚Р°Р»РєРµСЂРѕРІ РЅРµ С…РІР°С‚Р°РµС‚ РґРµРЅРµРі РєСѓРїРёС‚СЊ РІСЃРµ, С‡С‚Рѕ РёРј РїСЂРµРґР»Р°РіР°РµС‚
+; Р°РєС‚РѕСЂ, РІ СЌС‚РѕРј СЂРµР¶РёРјРµ РѕРЅРё РєСѓРїСЏС‚ СЌС‚Рѕ РІСЃРµ Р·Р° С‚Рµ РґРµРЅСЊРіРё, С‡С‚Рѕ Сѓ РЅРёС… РµСЃС‚СЊ.
 others_zero_trade = true
 ;-----------------------------------------------------------------
 
@@ -352,7 +344,7 @@ script_binding	= xr_zones.bind
 object_damage_factor		= 1.2f
 
 ;*****************************************
-; ГЕНЕРАТОРЫ ИМЕН (+250 snames)
+; Р“Р•РќР•Р РђРўРћР Р« РРњР•Рќ (+250 snames)
 ;*****************************************
 [stalker_names_stalker]
 name_cnt		= 102
@@ -393,7 +385,7 @@ Human		     			= off											; option for ALife Simulator
 cform                       = skeleton										; collision class
 class                       = SCRPTOBJ										; AI class
 
-;параметры показывания входящих сообщений PDA в главном меню
+;РїР°СЂР°РјРµС‚СЂС‹ РїРѕРєР°Р·С‹РІР°РЅРёСЏ РІС…РѕРґСЏС‰РёС… СЃРѕРѕР±С‰РµРЅРёР№ PDA РІ РіР»Р°РІРЅРѕРј РјРµРЅСЋ
 [maingame_ui]
 pda_msgs_max_show_time = 20000
 info_msgs_max_show_time = 10000
@@ -472,13 +464,13 @@ stalker_sv_military		= 768,705
 radiation				= 0.1,0.25,0.4,0.55,0.7
 wounds					= 0.01,0.2,0.4,0.6,0.8
 jammed					= 0.5,0.6,0.7,0.8,0.9
-; значения пределов в параметре согласованы с предельными значениями голода
-; light_hunger_limit и critical_hunger_limit из секции [actor_script_condition]
-; первый предел (зелёный цвет)  0.1429 получаем как 1 - light_hunger_limit
-; второй предел (салатный цвет) - посередине между первым и третьим
-; третий предел (жёлтый цвет)   0.4286 получаем как 1 - critical_hunger_limit
-; четвёртый предел (оранжевый цвет) - посередине между третьим и пятым
-; пятый предел  (красный цвет) задаём близко к максимальному пределу 0.9
+; Р·РЅР°С‡РµРЅРёСЏ РїСЂРµРґРµР»РѕРІ РІ РїР°СЂР°РјРµС‚СЂРµ СЃРѕРіР»Р°СЃРѕРІР°РЅС‹ СЃ РїСЂРµРґРµР»СЊРЅС‹РјРё Р·РЅР°С‡РµРЅРёСЏРјРё РіРѕР»РѕРґР°
+; light_hunger_limit Рё critical_hunger_limit РёР· СЃРµРєС†РёРё [actor_script_condition]
+; РїРµСЂРІС‹Р№ РїСЂРµРґРµР» (Р·РµР»С‘РЅС‹Р№ С†РІРµС‚)  0.1429 РїРѕР»СѓС‡Р°РµРј РєР°Рє 1 - light_hunger_limit
+; РІС‚РѕСЂРѕР№ РїСЂРµРґРµР» (СЃР°Р»Р°С‚РЅС‹Р№ С†РІРµС‚) - РїРѕСЃРµСЂРµРґРёРЅРµ РјРµР¶РґСѓ РїРµСЂРІС‹Рј Рё С‚СЂРµС‚СЊРёРј
+; С‚СЂРµС‚РёР№ РїСЂРµРґРµР» (Р¶С‘Р»С‚С‹Р№ С†РІРµС‚)   0.4286 РїРѕР»СѓС‡Р°РµРј РєР°Рє 1 - critical_hunger_limit
+; С‡РµС‚РІС‘СЂС‚С‹Р№ РїСЂРµРґРµР» (РѕСЂР°РЅР¶РµРІС‹Р№ С†РІРµС‚) - РїРѕСЃРµСЂРµРґРёРЅРµ РјРµР¶РґСѓ С‚СЂРµС‚СЊРёРј Рё РїСЏС‚С‹Рј
+; РїСЏС‚С‹Р№ РїСЂРµРґРµР»  (РєСЂР°СЃРЅС‹Р№ С†РІРµС‚) Р·Р°РґР°С‘Рј Р±Р»РёР·РєРѕ Рє РјР°РєСЃРёРјР°Р»СЊРЅРѕРјСѓ РїСЂРµРґРµР»Сѓ 0.9
 thirst  				= 0.2,0.4,0.6,0.8,0.9
 starvation				= 0.1429, 0.28575, 0.4286, 0.6643, 0.9
 fatigue					= 0.3,0.6,0.7,0.8,0.9
@@ -525,7 +517,7 @@ class					= P_SKELET
 remove_time				= 120
 
 ;---------------------------------------------------------------------
-;--[[#~>Для патчей версий 1.0005 и 1.0006<~#]]
+;--[[#~>Р”Р»СЏ РїР°С‚С‡РµР№ РІРµСЂСЃРёР№ 1.0005 Рё 1.0006<~#]]
 ;[script]
 ;current_server_entity_version = 7 ;--/ for path 1.0004 = 6 ; for path 1.0005/6 = 7
 ;---------------------------------------------------------------------
@@ -539,11 +531,11 @@ $spawn				=
 bonce_damage_factor_for_objects = 1.
 
 [details]
-swing_normal_amp1		= 0.07 ;амплитуда - насколько далеко отклонится верхняя точка травы. чем больше, тем дальше отклонится.
+swing_normal_amp1		= 0.07 ;Р°РјРїР»РёС‚СѓРґР° - РЅР°СЃРєРѕР»СЊРєРѕ РґР°Р»РµРєРѕ РѕС‚РєР»РѕРЅРёС‚СЃСЏ РІРµСЂС…РЅСЏСЏ С‚РѕС‡РєР° С‚СЂР°РІС‹. С‡РµРј Р±РѕР»СЊС€Рµ, С‚РµРј РґР°Р»СЊС€Рµ РѕС‚РєР»РѕРЅРёС‚СЃСЏ.
 swing_normal_amp2		= 0.03
-swing_normal_rot1		= 30.0 ;вращение - насколько сильно будет идти вращение вокруг центра. чем меньше, тем быстрей
+swing_normal_rot1		= 30.0 ;РІСЂР°С‰РµРЅРёРµ - РЅР°СЃРєРѕР»СЊРєРѕ СЃРёР»СЊРЅРѕ Р±СѓРґРµС‚ РёРґС‚Рё РІСЂР°С‰РµРЅРёРµ РІРѕРєСЂСѓРі С†РµРЅС‚СЂР°. С‡РµРј РјРµРЅСЊС€Рµ, С‚РµРј Р±С‹СЃС‚СЂРµР№
 swing_normal_rot2		= 15.0
-swing_normal_speed		= 1.0 ;скорость смены колебаний
+swing_normal_speed		= 1.0 ;СЃРєРѕСЂРѕСЃС‚СЊ СЃРјРµРЅС‹ РєРѕР»РµР±Р°РЅРёР№
 // fast
 swing_fast_amp1			= 0.35	;0.25
 swing_fast_amp2			= 0.20	;0.15
@@ -578,7 +570,7 @@ class				= AEM_LAMP
 ;---------------------------------------------------------------------------------------------------------------------------------
 
 [inventory_base]
-take_dist = 2.5 ; не увеличивать, иначе будет глючить окно разговора
+take_dist = 2.5 ; РЅРµ СѓРІРµР»РёС‡РёРІР°С‚СЊ, РёРЅР°С‡Рµ Р±СѓРґРµС‚ РіР»СЋС‡РёС‚СЊ РѕРєРЅРѕ СЂР°Р·РіРѕРІРѕСЂР°
 
 min_belt = 1
 max_belt = 13
@@ -604,7 +596,7 @@ schedule_min		= 1												; milliseconds
 schedule_max		= 1												; milliseconds
 process_time		= 900											; microseconds
 update_monster_factor = 0.1
-normal_time_factor	= 15		; животные в оффлайне перемещаются со скоростью, делённой на этот фактор (чтобы не бегали очень быстро)
+normal_time_factor	= 15		; Р¶РёРІРѕС‚РЅС‹Рµ РІ РѕС„С„Р»Р°Р№РЅРµ РїРµСЂРµРјРµС‰Р°СЋС‚СЃСЏ СЃРѕ СЃРєРѕСЂРѕСЃС‚СЊСЋ, РґРµР»С‘РЅРЅРѕР№ РЅР° СЌС‚РѕС‚ С„Р°РєС‚РѕСЂ (С‡С‚РѕР±С‹ РЅРµ Р±РµРіР°Р»Рё РѕС‡РµРЅСЊ Р±С‹СЃС‚СЂРѕ)
 max_combat_iteration_count	= 5	;10	; maximum combat iteration count
 switch_distance		= 150	;200    ;150	; metres
 switch_factor		= 0.1											; 
@@ -613,7 +605,7 @@ objects_per_update	= 10
 start_game_callback	= _G.start_game_callback					; on starting new game or loading saved one
 
 [string_table_base]
-;список xml файлов, содержащих таблицы символов
+;СЃРїРёСЃРѕРє xml С„Р°Р№Р»РѕРІ, СЃРѕРґРµСЂР¶Р°С‰РёС… С‚Р°Р±Р»РёС†С‹ СЃРёРјРІРѕР»РѕРІ
 files = ui_st_pda, ui_st_inventory, string_table_tutorial, string_table_general, string_table_includes, stable_dialog_manager, stable_dialog_manager_uni, stable_task_manager, stable_treasure_manager, string_table_level_tips, string_table_items, string_table_ui, string_table_enc_zone, string_table_outfit, stable_dialogs, stable_dialogs_escape, stable_dialogs_garbage, stable_dialogs_agroprom, stable_dialogs_deadcity, stable_dialogs_darkvalley, stable_dialogs_pripyat, stable_dialogs_labx18, stable_dialogs_bar, stable_dialogs_military, stable_dialogs_yantar, stable_dialogs_radar, stable_dialogs_aes, ui_st_keybinding, ui_st_mm, stable_stories, ui_st_mapdesc, string_table_enc_social, string_table_enc_mutants, string_table_enc_weapons, string_table_enc_equipment, ui_st_other, stable_game_credits, stable_repair_dialogs, aem_strings, stable_dialogs_new_traders, stable_transmut_dialogs, string_table_enc_transmut,  stable_random_dialogs, string_table_enc_vehicles, stable_dialogs_tasks, st_tasks_items, string_table_guider, stable_dialogs_darkscape, string_table_cheb
 
 [custom_keyboard_action]
@@ -631,59 +623,63 @@ swipe_mask=kSWIPE_MASK
 #include "tuning\ogse_config.ltx"
 
 [user_spots]
-; Переопределить тип метки, используемой для пользовательских меток на карте. По умолчанию используется red_location
+; РџРµСЂРµРѕРїСЂРµРґРµР»РёС‚СЊ С‚РёРї РјРµС‚РєРё, РёСЃРїРѕР»СЊР·СѓРµРјРѕР№ РґР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёС… РјРµС‚РѕРє РЅР° РєР°СЂС‚Рµ. РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ red_location
 spot_type = yellow_flag_location
 
 
 [engine_callbacks]
-; ui_item_info_callback( UIDesc ) вызывается перед заполнением статика
-; описания предмета в инвентаре. UIDesc - это SCrollView, в который
-; можно добавлять свои статики.
+; ui_item_info_callback( UIDesc ) РІС‹Р·С‹РІР°РµС‚СЃСЏ РїРµСЂРµРґ Р·Р°РїРѕР»РЅРµРЅРёРµРј СЃС‚Р°С‚РёРєР°
+; РѕРїРёСЃР°РЅРёСЏ РїСЂРµРґРјРµС‚Р° РІ РёРЅРІРµРЅС‚Р°СЂРµ. UIDesc - СЌС‚Рѕ SCrollView, РІ РєРѕС‚РѕСЂС‹Р№
+; РјРѕР¶РЅРѕ РґРѕР±Р°РІР»СЏС‚СЊ СЃРІРѕРё СЃС‚Р°С‚РёРєРё.
 ;ui_item_info_callback = engine_callbacks.ui_item_info_callback
 
-; ui_actor_info_callback( list, obj ) вызывается при обновлении
-; outfit_info в инвентаре ГГ. list - CUIScrollView (xml
-; outfit_info:scroll_view in inventory_new.xml). obj - текущий костюм
-; ГГ, если нету - nil.
+; ui_actor_info_callback( list, obj ) РІС‹Р·С‹РІР°РµС‚СЃСЏ РїСЂРё РѕР±РЅРѕРІР»РµРЅРёРё
+; outfit_info РІ РёРЅРІРµРЅС‚Р°СЂРµ Р“Р“. list - CUIScrollView (xml
+; outfit_info:scroll_view in inventory_new.xml). obj - С‚РµРєСѓС‰РёР№ РєРѕСЃС‚СЋРј
+; Р“Р“, РµСЃР»Рё РЅРµС‚Сѓ - nil.
 ;ui_actor_info_callback = engine_callbacks.ui_actor_info_callback
 
-; trade_purchase_item_process( npc, sobj ) вызывается для каждого
-; созданного предмета при обновлении ассортимента торговца. npc -
-; trader, sobj - серверный объект предмета. Вариант использования:
-; включать аддоны для оружия и подобное для торгуемых вещей.
+; trade_purchase_item_process( npc, sobj ) РІС‹Р·С‹РІР°РµС‚СЃСЏ РґР»СЏ РєР°Р¶РґРѕРіРѕ
+; СЃРѕР·РґР°РЅРЅРѕРіРѕ РїСЂРµРґРјРµС‚Р° РїСЂРё РѕР±РЅРѕРІР»РµРЅРёРё Р°СЃСЃРѕСЂС‚РёРјРµРЅС‚Р° С‚РѕСЂРіРѕРІС†Р°. npc -
+; trader, sobj - СЃРµСЂРІРµСЂРЅС‹Р№ РѕР±СЉРµРєС‚ РїСЂРµРґРјРµС‚Р°. Р’Р°СЂРёР°РЅС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ:
+; РІРєР»СЋС‡Р°С‚СЊ Р°РґРґРѕРЅС‹ РґР»СЏ РѕСЂСѓР¶РёСЏ Рё РїРѕРґРѕР±РЅРѕРµ РґР»СЏ С‚РѕСЂРіСѓРµРјС‹С… РІРµС‰РµР№.
 ;trade_purchase_item_process = engine_callbacks.trade_purchase_item_process
 
-; trade_get_buy_price для расчета цены покупки и trade_get_sell_price
-; для расчета цены продажи торговцем. По аналогии с коллбеками из
-; ЗП. Позволяют изменять цены динамически, и не плодить постоянно
-; новые секции для sell_condition и buy_condition.
+; trade_get_buy_price РґР»СЏ СЂР°СЃС‡РµС‚Р° С†РµРЅС‹ РїРѕРєСѓРїРєРё Рё trade_get_sell_price
+; РґР»СЏ СЂР°СЃС‡РµС‚Р° С†РµРЅС‹ РїСЂРѕРґР°Р¶Рё С‚РѕСЂРіРѕРІС†РµРј. РџРѕ Р°РЅР°Р»РѕРіРёРё СЃ РєРѕР»Р»Р±РµРєР°РјРё РёР·
+; Р—Рџ. РџРѕР·РІРѕР»СЏСЋС‚ РёР·РјРµРЅСЏС‚СЊ С†РµРЅС‹ РґРёРЅР°РјРёС‡РµСЃРєРё, Рё РЅРµ РїР»РѕРґРёС‚СЊ РїРѕСЃС‚РѕСЏРЅРЅРѕ
+; РЅРѕРІС‹Рµ СЃРµРєС†РёРё РґР»СЏ sell_condition Рё buy_condition.
 ;
-; Сигнатура: (npc, section, result, original, deficit_factor)
+; РЎРёРіРЅР°С‚СѓСЂР°: (npc, section, result, original, deficit_factor)
 ;
-; npc            - объект торговец
-; section        - секция предмета
-; result         - конечная цена которую рассчитал движок
-; original       - цена без учета дефицита
-; deficit_factor - факто дефицита рассчитанный движком, с учетом
-; ограничений min\max
+; npc            - РѕР±СЉРµРєС‚ С‚РѕСЂРіРѕРІРµС†
+; section        - СЃРµРєС†РёСЏ РїСЂРµРґРјРµС‚Р°
+; result         - РєРѕРЅРµС‡РЅР°СЏ С†РµРЅР° РєРѕС‚РѕСЂСѓСЋ СЂР°СЃСЃС‡РёС‚Р°Р» РґРІРёР¶РѕРє
+; original       - С†РµРЅР° Р±РµР· СѓС‡РµС‚Р° РґРµС„РёС†РёС‚Р°
+; deficit_factor - С„Р°РєС‚Рѕ РґРµС„РёС†РёС‚Р° СЂР°СЃСЃС‡РёС‚Р°РЅРЅС‹Р№ РґРІРёР¶РєРѕРј, СЃ СѓС‡РµС‚РѕРј
+; РѕРіСЂР°РЅРёС‡РµРЅРёР№ min\max
 ;trade_get_buy_price  = engine_callbacks.trade_get_buy_price
 ;trade_get_sell_price = engine_callbacks.trade_get_sell_price
 
-; Вызывается движком из CDangerManager::add() и разрешает или
-; запрещает добавлять этот danger. Возвращаемое значение, true/false,
-; показывает, можно или нельзя добавлять этот danger.
+; Р’С‹Р·С‹РІР°РµС‚СЃСЏ РґРІРёР¶РєРѕРј РёР· CDangerManager::add() Рё СЂР°Р·СЂРµС€Р°РµС‚ РёР»Рё
+; Р·Р°РїСЂРµС‰Р°РµС‚ РґРѕР±Р°РІР»СЏС‚СЊ СЌС‚РѕС‚ danger. Р’РѕР·РІСЂР°С‰Р°РµРјРѕРµ Р·РЅР°С‡РµРЅРёРµ, true/false,
+; РїРѕРєР°Р·С‹РІР°РµС‚, РјРѕР¶РЅРѕ РёР»Рё РЅРµР»СЊР·СЏ РґРѕР±Р°РІР»СЏС‚СЊ СЌС‚РѕС‚ danger.
 ;
 ; on_before_add( npc, mem_obj, pos, lvl_time, danger_type, perceive_type )
 ;
 ;danger_on_before_add = dsh_danger.on_before_add
 
-; Вызывается движком из CEnvironment::SelectEnvs() сразу после
-; переключения на новую погодную секцию.
+; Р’С‹Р·С‹РІР°РµС‚СЃСЏ РґРІРёР¶РєРѕРј РёР· CEnvironment::SelectEnvs() СЃСЂР°Р·Сѓ РїРѕСЃР»Рµ
+; РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ РЅР° РЅРѕРІСѓСЋ РїРѕРіРѕРґРЅСѓСЋ СЃРµРєС†РёСЋ.
 on_change_weather = dsh_cop_weather.on_engine_weather_change
 
+; РљРѕР»Р»Р±РµРє РІС‹Р·С‹РІР°РµС‚СЊСЃСЏ РїРµСЂРµРґ РїРѕРґРЅСЏС‚РёРµРј РїСЂРµРґРјРµС‚Р° Р“Р“
+; Р•СЃР»Рё РІРµСЂРЅСѓС‚СЊ false - РґРІРёР¶РѕРє РЅРµ Р±СѓРґРµС‚ РїРѕРґРЅРёРјР°С‚СЊ РїСЂРµРґРјРµС‚
+actor_on_item_before_pickup = ogsr_actor_animation.on_item_before_pickup
 
-; Переопределение секции [capture] из визуалов брони для актора.
-; А то в этих визуалах такой бардак. У некоторых даже и кастомной даты нет.
+
+; РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРёРµ СЃРµРєС†РёРё [capture] РёР· РІРёР·СѓР°Р»РѕРІ Р±СЂРѕРЅРё РґР»СЏ Р°РєС‚РѕСЂР°.
+; Рђ С‚Рѕ РІ СЌС‚РёС… РІРёР·СѓР°Р»Р°С… С‚Р°РєРѕР№ Р±Р°СЂРґР°Рє. РЈ РЅРµРєРѕС‚РѕСЂС‹С… РґР°Р¶Рµ Рё РєР°СЃС‚РѕРјРЅРѕР№ РґР°С‚С‹ РЅРµС‚.
 [actor_capture]
 bone           = bip01_tail ; bone for capture
 distance       = 0.3   ; less this distance between bone and capture taget object is captured
@@ -693,27 +689,27 @@ pull_force_factor = 8  ; force factor that applied to target to pull
 velocity_scale = 1 ;0.022 ; velocity scale for pulling 1- normal
 capture_force  = 6500  ; max force for holding tagett
 
-; Тоже самое для сталкеров
+; РўРѕР¶Рµ СЃР°РјРѕРµ РґР»СЏ СЃС‚Р°Р»РєРµСЂРѕРІ
 [stalker_capture]:actor_capture
 pull_distance  = 2.4 ;5 ; max distance taget can be puled
 pull_force_factor = 10
 
 
-; Чтение patrol_path из ltx файлов напрямую
-; Формат файлов такой же, как выдает acdc при распаковке.
-; При загрузке, пути из файла будут заменять пути из all.spawn с таким же именем.
-; Можно вообще убрать пути из своего all.spawn и все перенести в ltx файлы, для удобства.
-;[engine_custom_spawn]
-;waypoints_file = <name_of_file.ltx> ; путь к файлу в $game_config$
+; Р§С‚РµРЅРёРµ patrol_path РёР· ltx С„Р°Р№Р»РѕРІ РЅР°РїСЂСЏРјСѓСЋ
+; Р¤РѕСЂРјР°С‚ С„Р°Р№Р»РѕРІ С‚Р°РєРѕР№ Р¶Рµ, РєР°Рє РІС‹РґР°РµС‚ acdc РїСЂРё СЂР°СЃРїР°РєРѕРІРєРµ.
+; РџСЂРё Р·Р°РіСЂСѓР·РєРµ, РїСѓС‚Рё РёР· С„Р°Р№Р»Р° Р±СѓРґСѓС‚ Р·Р°РјРµРЅСЏС‚СЊ РїСѓС‚Рё РёР· all.spawn СЃ С‚Р°РєРёРј Р¶Рµ РёРјРµРЅРµРј.
+; РњРѕР¶РЅРѕ РІРѕРѕР±С‰Рµ СѓР±СЂР°С‚СЊ РїСѓС‚Рё РёР· СЃРІРѕРµРіРѕ all.spawn Рё РІСЃРµ РїРµСЂРµРЅРµСЃС‚Рё РІ ltx С„Р°Р№Р»С‹, РґР»СЏ СѓРґРѕР±СЃС‚РІР°.
+[engine_custom_spawn]
+waypoints_file = waypoints.ltx
 
 
-; Замена шейдеров в визуалах
+; Р—Р°РјРµРЅР° С€РµР№РґРµСЂРѕРІ РІ РІРёР·СѓР°Р»Р°С…
 [vis_shaders_replace]
-; шейдер тесселяции: models\model -> models\model_pn
+; С€РµР№РґРµСЂ С‚РµСЃСЃРµР»СЏС†РёРё: models\model -> models\model_pn
 dynamics\weapons\wpn_hand = models\model,models\model_pn, models\weapons,models\model_pn
 actors   = models\model,models\model_pn, models\weapons,models\model_pn, models\artefact,models\model_pn, models\artefact2,models\model_pn
 monsters = models\model,models\model_pn
-gwr\food\kolbasa = ; на колбасе тесселяция работает как то странно
+gwr\food\kolbasa = ; РЅР° РєРѕР»Р±Р°СЃРµ С‚РµСЃСЃРµР»СЏС†РёСЏ СЂР°Р±РѕС‚Р°РµС‚ РєР°Рє С‚Рѕ СЃС‚СЂР°РЅРЅРѕ
 gwr = models\model,models\model_pn, models\weapons,models\model_pn
 
 

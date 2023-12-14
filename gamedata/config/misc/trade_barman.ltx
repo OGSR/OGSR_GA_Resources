@@ -6,7 +6,7 @@ buy_condition = {+caravan_hit_by_actor} caravan_hitted_buy, {+digger_offence} di
 sell_condition = barman_generic_sale
 buy_supplies = {+caravan_hit_by_actor} caravan_hitted_supplies, barman_generic_supplies
 
-;------------------------- ПОКУПКА ЕСЛИ МЫ ОБСТРЕЛЯЛИ КАРАВАН -----------------------
+;------------------------- РџРћРљРЈРџРљРђ Р•РЎР›Р РњР« РћР‘РЎРўР Р•Р›РЇР›Р РљРђР РђР’РђРќ -----------------------
 [caravan_hitted_buy]:unic_buy, weapons_buy_notrade
 /^af_/
 /^grenade_/
@@ -79,39 +79,39 @@ outfit_stalker_m1		;NO TRADE
 outfit_stalker_m2		;NO TRADE
 monolit_outfit_m1		;NO TRADE
 
-;------------------------- ПОКУПКА ЕСЛИ МЫ ОБИДЕЛИ ДИГГЕРА -----------------------
+;------------------------- РџРћРљРЈРџРљРђ Р•РЎР›Р РњР« РћР‘РР”Р•Р›Р Р”РР“Р“Р•Р Рђ -----------------------
 [digger_offence_buy]:unic_buy, weapons_buy_notrade
 /^af_/
 
-;------------------------- ПОКУПКА -----------------------
+;------------------------- РџРћРљРЈРџРљРђ -----------------------
 [barman_generic_buy]:unic_buy, weapons_buy_cheap
-;Броники
-;Новички и сталкеры
+;Р‘СЂРѕРЅРёРєРё
+;РќРѕРІРёС‡РєРё Рё СЃС‚Р°Р»РєРµСЂС‹
 novice_outfit				;NO TRADE
 stalker_outfit				;NO TRADE
 exo_outfit					;NO TRADE
 af_mobkiller		;NO TRADE
-;Бандиты
+;Р‘Р°РЅРґРёС‚С‹
 bandit_plash   	= 0.15,	0.1
 bandit_plash_m1    	= 0.15,	0.1
-;Долг. Бармен долговскую снарягу неберёт, что-бы небыло лишних вопросов
+;Р”РѕР»Рі. Р‘Р°СЂРјРµРЅ РґРѕР»РіРѕРІСЃРєСѓСЋ СЃРЅР°СЂСЏРіСѓ РЅРµР±РµСЂС‘С‚, С‡С‚Рѕ-Р±С‹ РЅРµР±С‹Р»Рѕ Р»РёС€РЅРёС… РІРѕРїСЂРѕСЃРѕРІ
 dolg_outfit					;NO TRADE
-;Свобода
+;РЎРІРѕР±РѕРґР°
 svoboda_heavy_outfit		= 0.15,	0.1
-;Наемники
+;РќР°РµРјРЅРёРєРё
 killer_outfit				= 0.15,	0.1
-;Монолит
+;РњРѕРЅРѕР»РёС‚
 monolit_outfit				= 0.15,	0.1
 monolit_exoskeleton    		= 0.15,	0.1
-;Ученые
+;РЈС‡РµРЅС‹Рµ
 ecolog_outfit				= 0.15,	0.1
 protection_outfit			= 0.15,	0.1
-;Военные. Аналогично долговской снаряге. Просто страховка.
+;Р’РѕРµРЅРЅС‹Рµ. РђРЅР°Р»РѕРіРёС‡РЅРѕ РґРѕР»РіРѕРІСЃРєРѕР№ СЃРЅР°СЂСЏРіРµ. РџСЂРѕСЃС‚Рѕ СЃС‚СЂР°С…РѕРІРєР°.
 soldier_outfit				;NO TRADE
 specops_outfit				;NO TRADE
 military_outfit				;NO TRADE
 
-;Артефакты
+;РђСЂС‚РµС„Р°РєС‚С‹
 af_medusa				= 0.6,	0.4
 af_cristall_flower		= 1.4,	1.1
 af_night_star			= 1.5,	1.3
@@ -147,14 +147,14 @@ af_kaktus				= 1.6,	1.2
 
 af_maska_1              = 0.3,	0.2
 
-;Гранаты
+;Р“СЂР°РЅР°С‚С‹
 /^grenade_/ = 0.4, 0.3
 
-;Оружие. Берёт всё, но за гроши.
+;РћСЂСѓР¶РёРµ. Р‘РµСЂС‘С‚ РІСЃС‘, РЅРѕ Р·Р° РіСЂРѕС€Рё.
 /^wpn_/ = 0.3, 0.1
 /^wpn_addon_/ = 0.5, 0.3
 
-;Детали монстров
+;Р”РµС‚Р°Р»Рё РјРѕРЅСЃС‚СЂРѕРІ
 mutant_flesh_eye		;NO TRADE
 mutant_boar_leg			;NO TRADE
 mutant_dog_tail			;NO TRADE
@@ -171,7 +171,7 @@ mutant_tail_cat		  	;NO TRADE
 mutant_chimera_kogot	= 1.5,	0.6
 mutant_izlom_hand		= 1.4,	0.6
 
-;Еда
+;Р•РґР°
 bread				= 0.3,	0.2
 kolbasa				= 0.3,	0.2
 conserva			= 0.4,	0.2
@@ -181,7 +181,7 @@ kefir 				= 0.5,	0.3
 voda 				= 0.4,	0.2
 pivo		  	    ;NO TRADE
 
-;Предметы
+;РџСЂРµРґРјРµС‚С‹
 detector_simple		= 0.6,	0.2
 interactive_detector_simple	= 0.8,	0.3
 interactive_detector_advanced	= 0.8,	0.3
@@ -199,7 +199,7 @@ repair_kit		    = 0.8,	0.3
 sigaret             = 0.6,	0.2
 amk_metka           = 0.8,	0.3
 
-;Уникальные предметы
+;РЈРЅРёРєР°Р»СЊРЅС‹Рµ РїСЂРµРґРјРµС‚С‹
 outfit_novice_m1		= 1,	0.5
 outfit_bandit_m1		= 1,	0.5
 outfit_dolg_m1			= 1,	0.5
@@ -217,7 +217,7 @@ wpn_colt1911_unic				= 1,	0.5
 wpn_mp5_tact				= 1,	0.5
 wpn_vintorez_tact			;NO TRADE
 
-;------------------------- АССОРТИМЕНТ -----------------------
+;------------------------- РђРЎРЎРћР РўРРњР•РќРў -----------------------
 [barman_generic_supplies]
 stalker_outfit		= 1,	0.9
 
@@ -313,9 +313,9 @@ wpn_knife		= 1,	1
 explosive_mobiltank	= 2, 1
 treasure_item = 3,1
 
-;------------------------- ПРОДАЖА -----------------------
+;------------------------- РџР РћР”РђР–Рђ -----------------------
 [barman_generic_sale]:unic_sale
-;Броники
+;Р‘СЂРѕРЅРёРєРё
 novice_outfit				= 1,	3
 killer_outfit				= 1,	3
 monolit_outfit				;NO TRADE
@@ -335,10 +335,10 @@ bandit_plash_m1    	= 1,	3
 
 af_maska_1                = 1,	2
 
-;Аммуниция
+;РђРјРјСѓРЅРёС†РёСЏ
 /^ammo_/                = 2,    7
 
-;Оружие
+;РћСЂСѓР¶РёРµ
 wpn_abakan		= 1,	5   	   
 wpn_ak74			= 1,	5
 wpn_ak74u			= 1,	5
@@ -378,7 +378,7 @@ wpn_wincheaster1300 = 1, 5
 
 /^wpn_addon_/ = 1, 6
 
-;Медикаменты
+;РњРµРґРёРєР°РјРµРЅС‚С‹
 bandage				= 1,  6
 medkit				= 1,  6
 medkit_scientic		= 1,  8
@@ -386,7 +386,7 @@ medkit_army			= 1,  8
 antirad				= 1,  6
 dix                 = 1,  7
 
-;Еда
+;Р•РґР°
 bread				= 1,	5
 kolbasa				= 1,	5
 conserva			= 1,	5
@@ -395,7 +395,7 @@ energy_drink		= 1,	5
 kefir 				= 1,	5
 voda 				= 1,	5
 
-;Предметы
+;РџСЂРµРґРјРµС‚С‹
 detector_simple		;NO TRADE
 interactive_detector_simple	= 1,	6
 interactive_detector_advanced		= 1,	5
@@ -413,6 +413,6 @@ wpn_knife		    = 1,	3
 treasure_item = 1,3
 
 
-;------------------------- АССОРТИМЕНТ ЕСЛИ ОБСТРЕЛЯЛИ КАРАВАН -----------------------
+;------------------------- РђРЎРЎРћР РўРРњР•РќРў Р•РЎР›Р РћР‘РЎРўР Р•Р›РЇР›Р РљРђР РђР’РђРќ -----------------------
 [caravan_hitted_supplies]
 bread		= 1,	2

@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ---------------Copyright_Quest_2009-------------------
 --------------Edited_by_stalbar_2009------------------
@@ -9,7 +9,7 @@ local zombie_types_1 = {"pri_monolith_respawn_1","pri_monolith_respawn_2", "pri_
 						
 function monolith_rostok_1( actor, npc )
 	--log1("monolith_rostok_1() called")		
-	--'Монолит над тоннелем с жарками
+	--'РњРѕРЅРѕР»РёС‚ РЅР°Рґ С‚РѕРЅРЅРµР»РµРј СЃ Р¶Р°СЂРєР°РјРё
 --SPAWN_V1
 	--ogse.quest_spawn(zombie_types_1[math.random(5)], math.random(6), vector():set(75.3, 2.56, -81.919), 1, 31643, 1404)	
 --SPAWN_V2
@@ -22,7 +22,7 @@ local zombie_types_2 = {"pseudodog_weak","pseudodog_normal", "pseudodog_strong",
 						
 function yantar_dogs1( actor, npc )
 	--log1("dogs1() called")		
-	--'собаки атакуют, в основном, с тыла бара
+	--'СЃРѕР±Р°РєРё Р°С‚Р°РєСѓСЋС‚, РІ РѕСЃРЅРѕРІРЅРѕРј, СЃ С‚С‹Р»Р° Р±Р°СЂР°
 	if has_alife_info("yantar_professor_talk_about_brain") then 
 --SPAWN_V1
 		--ogse.quest_spawn(zombie_types_2[math.random(8)], math.random(5), vector():set(-166, -10.7, -323.54), 1, 33831, 1434)

@@ -9,7 +9,7 @@ combat_ignore = true
 on_info = {+captive_on_agr_mill_base_spawn_heli +captive_on_agr_mill_base_spawn_specnaz} heli_move@idle_speznaz_nii_start
 on_info2 = {+captive_on_agr_mill_base_spawn_heli -captive_on_agr_mill_base_spawn_specnaz} heli_move@idle_captive_nii_start
 
-; 1 вариант - летим за пленником, ждём конвоя, забираем и улетаем
+; 1 РІР°СЂРёР°РЅС‚ - Р»РµС‚РёРј Р·Р° РїР»РµРЅРЅРёРєРѕРј, Р¶РґС‘Рј РєРѕРЅРІРѕСЏ, Р·Р°Р±РёСЂР°РµРј Рё СѓР»РµС‚Р°РµРј
 
 [heli_move@idle_captive_nii_start]
 path_move = captive_on_agr_mill_base_helicopter_go_to_nii
@@ -28,7 +28,7 @@ path_move = captive_on_agr_mill_base_helicopter_end_point
 combat_ignore = true
 on_signal = path_end | {+captive_on_agr_mill_base_final_chance} %+captive_on_agr_mill_base_fail +captive_on_agr_mill_base_delete_heli%, %+captive_on_agr_mill_base_delete_heli%
 
-; 2 вариант - просто летим и спауним десант
+; 2 РІР°СЂРёР°РЅС‚ - РїСЂРѕСЃС‚Рѕ Р»РµС‚РёРј Рё СЃРїР°СѓРЅРёРј РґРµСЃР°РЅС‚
 [heli_move@idle_speznaz_nii_start]
 path_move = captive_on_agr_mill_base_helicopter_spawn_descent_on_nii
 combat_ignore = true

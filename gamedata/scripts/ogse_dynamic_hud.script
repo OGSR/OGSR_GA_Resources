@@ -37,7 +37,7 @@ local function check_my_suit_hud()
 	local outfit = db.actor:item_in_slot(6)
 	if helmet and ( helmet:section() == "af_maska_1" or helmet:section() == "af_maska_2" ) then
 		cmd("r2_visor_refl_control 1")
-		cmd("r2_visor_refl_control 0.2")
+		cmd("r2_visor_refl_intensity 0.2")
 		switch_shader_effects("on")
 	elseif outfit then
 		local outfitname = outfit:section()

@@ -58,45 +58,45 @@ cr_turn_left_0				=	1,	  0.2,	    0.1,   0.65,     0.1
 cr_turn_right_0				=	1,	  0.2,	    0.1,   0.65,     0.1
 
 [stalker_vision_free]
-min_view_distance 		= 0.4				; коэффициент, который множится на eye_range, в зависимости от угла
-max_view_distance 		= 0.8				; коэффициент, который множится на eye_range, в зависимости от угла
-visibility_threshold	= 30 ;120.0				; значение, при достижении суммой которого объект считается видимым
+min_view_distance 		= 0.4				; РєРѕСЌС„С„РёС†РёРµРЅС‚, РєРѕС‚РѕСЂС‹Р№ РјРЅРѕР¶РёС‚СЃСЏ РЅР° eye_range, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СѓРіР»Р°
+max_view_distance 		= 0.8				; РєРѕСЌС„С„РёС†РёРµРЅС‚, РєРѕС‚РѕСЂС‹Р№ РјРЅРѕР¶РёС‚СЃСЏ РЅР° eye_range, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СѓРіР»Р°
+visibility_threshold	= 30 ;120.0				; Р·РЅР°С‡РµРЅРёРµ, РїСЂРё РґРѕСЃС‚РёР¶РµРЅРёРё СЃСѓРјРјРѕР№ РєРѕС‚РѕСЂРѕРіРѕ РѕР±СЉРµРєС‚ СЃС‡РёС‚Р°РµС‚СЃСЏ РІРёРґРёРјС‹Рј
 always_visible_distance = 0.1
 time_quant			    = 0.005
-decrease_value			= 0.1				; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
+decrease_value			= 0.1				; Р·РЅР°С‡РµРЅРёРµ, РЅР° РєРѕС‚РѕСЂРѕРµ СѓРјРµРЅСЊС€Р°РµС‚СЃСЏ РІРµСЃ, РµСЃР»Рё РѕР±СЉРµРєС‚ РїРѕРїР°Р» РІ С„СЂСѓСЃС‚СѓРј, РЅРѕ РѕС‚СЃС‘РєСЃСЏ РїРѕ РєР°РєРёРј-С‚Рѕ РїСЂРёС‡РёРЅР°Рј
 velocity_factor		    = 0.5
-luminocity_factor		= 0.5				; фактор освещения (только для Актёра)
+luminocity_factor		= 0.5				; С„Р°РєС‚РѕСЂ РѕСЃРІРµС‰РµРЅРёСЏ (С‚РѕР»СЊРєРѕ РґР»СЏ РђРєС‚С‘СЂР°)
 transparency_threshold	= 0.6				; 0.75
-; влияние тумана на скорость разглядывания
+; РІР»РёСЏРЅРёРµ С‚СѓРјР°РЅР° РЅР° СЃРєРѕСЂРѕСЃС‚СЊ СЂР°Р·РіР»СЏРґС‹РІР°РЅРёСЏ
 fog_factor = 1.3
-; степень замедления разглядывания, в зависимости от густоты полупрозрачных
-; материалов между неписем и актором. Чем меньше значение, тем медленнее
-; разглядывание. При 1 замедление соответствует степени полупрозрачности
-; материалов. Т.е. если у кустов прозрачность 0.7, то и скорость разглядывания
-; будет умножена на 0.7.
-transparency_factor	= 0.6
+; СЃС‚РµРїРµРЅСЊ Р·Р°РјРµРґР»РµРЅРёСЏ СЂР°Р·РіР»СЏРґС‹РІР°РЅРёСЏ, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РіСѓСЃС‚РѕС‚С‹ РїРѕР»СѓРїСЂРѕР·СЂР°С‡РЅС‹С…
+; РјР°С‚РµСЂРёР°Р»РѕРІ РјРµР¶РґСѓ РЅРµРїРёСЃРµРј Рё Р°РєС‚РѕСЂРѕРј. Р§РµРј РјРµРЅСЊС€Рµ Р·РЅР°С‡РµРЅРёРµ, С‚РµРј РјРµРґР»РµРЅРЅРµРµ
+; СЂР°Р·РіР»СЏРґС‹РІР°РЅРёРµ. РџСЂРё 1 Р·Р°РјРµРґР»РµРЅРёРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ СЃС‚РµРїРµРЅРё РїРѕР»СѓРїСЂРѕР·СЂР°С‡РЅРѕСЃС‚Рё
+; РјР°С‚РµСЂРёР°Р»РѕРІ. Рў.Рµ. РµСЃР»Рё Сѓ РєСѓСЃС‚РѕРІ РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ 0.7, С‚Рѕ Рё СЃРєРѕСЂРѕСЃС‚СЊ СЂР°Р·РіР»СЏРґС‹РІР°РЅРёСЏ
+; Р±СѓРґРµС‚ СѓРјРЅРѕР¶РµРЅР° РЅР° 0.7.
+transparency_factor	= 0.06
 
 [stalker_vision_danger]
-min_view_distance   	= 0.7				; коэффициент, который множится на eye_range, в зависимости от угла
-max_view_distance	 	= 1.0				; коэффициент, который множится на eye_range, в зависимости от угла
-visibility_threshold	= 15 ;100.0				; значение, при достижении суммой которого объект считается видимым
+min_view_distance   	= 0.7				; РєРѕСЌС„С„РёС†РёРµРЅС‚, РєРѕС‚РѕСЂС‹Р№ РјРЅРѕР¶РёС‚СЃСЏ РЅР° eye_range, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СѓРіР»Р°
+max_view_distance	 	= 1.0				; РєРѕСЌС„С„РёС†РёРµРЅС‚, РєРѕС‚РѕСЂС‹Р№ РјРЅРѕР¶РёС‚СЃСЏ РЅР° eye_range, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СѓРіР»Р°
+visibility_threshold	= 15 ;100.0				; Р·РЅР°С‡РµРЅРёРµ, РїСЂРё РґРѕСЃС‚РёР¶РµРЅРёРё СЃСѓРјРјРѕР№ РєРѕС‚РѕСЂРѕРіРѕ РѕР±СЉРµРєС‚ СЃС‡РёС‚Р°РµС‚СЃСЏ РІРёРґРёРјС‹Рј
 always_visible_distance = 0.15
 time_quant			    = 0.001
-decrease_value			= 0.01				; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
+decrease_value			= 0.01				; Р·РЅР°С‡РµРЅРёРµ, РЅР° РєРѕС‚РѕСЂРѕРµ СѓРјРµРЅСЊС€Р°РµС‚СЃСЏ РІРµСЃ, РµСЃР»Рё РѕР±СЉРµРєС‚ РїРѕРїР°Р» РІ С„СЂСѓСЃС‚СѓРј, РЅРѕ РѕС‚СЃС‘РєСЃСЏ РїРѕ РєР°РєРёРј-С‚Рѕ РїСЂРёС‡РёРЅР°Рј
 velocity_factor		    = 0.5
-luminocity_factor		= 0.4				; фактор освещения (только для Актёра)
+luminocity_factor		= 0.4				; С„Р°РєС‚РѕСЂ РѕСЃРІРµС‰РµРЅРёСЏ (С‚РѕР»СЊРєРѕ РґР»СЏ РђРєС‚С‘СЂР°)
 transparency_threshold	= 0.5
-; влияние тумана на скорость разглядывания
-fog_factor = 1.3
-transparency_factor	= 0.06
+; РІР»РёСЏРЅРёРµ С‚СѓРјР°РЅР° РЅР° СЃРєРѕСЂРѕСЃС‚СЊ СЂР°Р·РіР»СЏРґС‹РІР°РЅРёСЏ
+fog_factor = 0.3
+transparency_factor	= 0.6
 
 [stalker_sound_perceive]
 SoundThreshold		 	= 0.6
-	weapon				= 2 ;0.75; коэффициент усиления приоритета\силы звука
-	item				= 0.5 ; коэффициент усиления приоритета\силы звука
-	npc					= 1 ;0.3 ; коэффициент усиления приоритета\силы звука
-	anomaly				= 1.0 ; коэффициент усиления приоритета\силы звука
-	world				= 0.2 ; коэффициент усиления приоритета\силы звука
+	weapon				= 2 ;0.75; РєРѕСЌС„С„РёС†РёРµРЅС‚ СѓСЃРёР»РµРЅРёСЏ РїСЂРёРѕСЂРёС‚РµС‚Р°\СЃРёР»С‹ Р·РІСѓРєР°
+	item				= 0.5 ; РєРѕСЌС„С„РёС†РёРµРЅС‚ СѓСЃРёР»РµРЅРёСЏ РїСЂРёРѕСЂРёС‚РµС‚Р°\СЃРёР»С‹ Р·РІСѓРєР°
+	npc					= 1 ;0.3 ; РєРѕСЌС„С„РёС†РёРµРЅС‚ СѓСЃРёР»РµРЅРёСЏ РїСЂРёРѕСЂРёС‚РµС‚Р°\СЃРёР»С‹ Р·РІСѓРєР°
+	anomaly				= 1.0 ; РєРѕСЌС„С„РёС†РёРµРЅС‚ СѓСЃРёР»РµРЅРёСЏ РїСЂРёРѕСЂРёС‚РµС‚Р°\СЃРёР»С‹ Р·РІСѓРєР°
+	world				= 0.2 ; РєРѕСЌС„С„РёС†РёРµРЅС‚ СѓСЃРёР»РµРЅРёСЏ РїСЂРёРѕСЂРёС‚РµС‚Р°\СЃРёР»С‹ Р·РІСѓРєР°
 
 [stalker_damage]
 default					= 1.0, -1, 1.0
@@ -215,7 +215,7 @@ bip01_r_toe0	 	 	= 0.0, -1, 0.2
 	leg_right				= critical_wound_leg_right_section
   
 [stalker_immunities]
-burn_immunity 				= 1.0				;коэффициенты иммунитета 
+burn_immunity 				= 1.0				;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РёРјРјСѓРЅРёС‚РµС‚Р° 
 strike_immunity 			= 0.8
 shock_immunity 				= 1.0
 wound_immunity				= 0.6
@@ -227,19 +227,19 @@ fire_wound_immunity  		= 1.0
 wound_2_immunity  			= 1.0
 
 [stalker_condition]
-satiety_v					= 0.00001				;скорость уменьшения сытости со временем
-radiation_v					= 0.0001				;скорость уменьшения радиации
-satiety_power_v				= 0.0005				;увеличение силы при уменьшении сытости 
-satiety_health_v			= 0.0 ;0.0001			;увеличение здоровья при уменьшении сытости 
-satiety_critical			= 0.0					;критическое значения сытости (в процентах от 0..1) когда здоровье начианает уменьшаться
-radiation_health_v			= 0.001					;уменьшение здоровья при воздействии радиации
-morale_v					= 0.001				;скорость восстановления морали 						
-health_hit_part				= 1.0					;процент хита, уходящий на отнимание здоровья
-power_hit_part				= 0.0					;процент хита, уходящий на отнимание силы
-psy_health_v				= 0.01					;скорость восстановления psy-здоровья
-health_restore_v            = 0.0001               ;скорость восстановления здоровья
+satiety_v					= 0.00001				;СЃРєРѕСЂРѕСЃС‚СЊ СѓРјРµРЅСЊС€РµРЅРёСЏ СЃС‹С‚РѕСЃС‚Рё СЃРѕ РІСЂРµРјРµРЅРµРј
+radiation_v					= 0.0001				;СЃРєРѕСЂРѕСЃС‚СЊ СѓРјРµРЅСЊС€РµРЅРёСЏ СЂР°РґРёР°С†РёРё
+satiety_power_v				= 0.0005				;СѓРІРµР»РёС‡РµРЅРёРµ СЃРёР»С‹ РїСЂРё СѓРјРµРЅСЊС€РµРЅРёРё СЃС‹С‚РѕСЃС‚Рё 
+satiety_health_v			= 0.0 ;0.0001			;СѓРІРµР»РёС‡РµРЅРёРµ Р·РґРѕСЂРѕРІСЊСЏ РїСЂРё СѓРјРµРЅСЊС€РµРЅРёРё СЃС‹С‚РѕСЃС‚Рё 
+satiety_critical			= 0.0					;РєСЂРёС‚РёС‡РµСЃРєРѕРµ Р·РЅР°С‡РµРЅРёСЏ СЃС‹С‚РѕСЃС‚Рё (РІ РїСЂРѕС†РµРЅС‚Р°С… РѕС‚ 0..1) РєРѕРіРґР° Р·РґРѕСЂРѕРІСЊРµ РЅР°С‡РёР°РЅР°РµС‚ СѓРјРµРЅСЊС€Р°С‚СЊСЃСЏ
+radiation_health_v			= 0.001					;СѓРјРµРЅСЊС€РµРЅРёРµ Р·РґРѕСЂРѕРІСЊСЏ РїСЂРё РІРѕР·РґРµР№СЃС‚РІРёРё СЂР°РґРёР°С†РёРё
+morale_v					= 0.001				;СЃРєРѕСЂРѕСЃС‚СЊ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РјРѕСЂР°Р»Рё 						
+health_hit_part				= 1.0					;РїСЂРѕС†РµРЅС‚ С…РёС‚Р°, СѓС…РѕРґСЏС‰РёР№ РЅР° РѕС‚РЅРёРјР°РЅРёРµ Р·РґРѕСЂРѕРІСЊСЏ
+power_hit_part				= 0.0					;РїСЂРѕС†РµРЅС‚ С…РёС‚Р°, СѓС…РѕРґСЏС‰РёР№ РЅР° РѕС‚РЅРёРјР°РЅРёРµ СЃРёР»С‹
+psy_health_v				= 0.01					;СЃРєРѕСЂРѕСЃС‚СЊ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ psy-Р·РґРѕСЂРѕРІСЊСЏ
+health_restore_v            = 0.0001               ;СЃРєРѕСЂРѕСЃС‚СЊ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ Р·РґРѕСЂРѕРІСЊСЏ
 
-sleep_health				= 1.0					;коэффициенты скоростей изменения параметров во время сна
+sleep_health				= 1.0					;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ СЃРєРѕСЂРѕСЃС‚РµР№ РёР·РјРµРЅРµРЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ РІРѕ РІСЂРµРјСЏ СЃРЅР°
 sleep_power					= 1.0
 sleep_satiety				= 1.0
 sleep_radiation 			= 1.0
@@ -251,27 +251,27 @@ limping_health_begin        = 0.4
 limping_health_end          = 0.5
 limping_threshold			= 0.5
 
-;открытые раны
-bleeding_v				    = 0.001						;потеря крови при номинальной ране в секунду
-wound_incarnation_v			= 0.003					;крутизна кривой заживления (какой процент раны останется после заживления в игровую секунду)
+;РѕС‚РєСЂС‹С‚С‹Рµ СЂР°РЅС‹
+bleeding_v				    = 0.001						;РїРѕС‚РµСЂСЏ РєСЂРѕРІРё РїСЂРё РЅРѕРјРёРЅР°Р»СЊРЅРѕР№ СЂР°РЅРµ РІ СЃРµРєСѓРЅРґСѓ
+wound_incarnation_v			= 0.003					;РєСЂСѓС‚РёР·РЅР° РєСЂРёРІРѕР№ Р·Р°Р¶РёРІР»РµРЅРёСЏ (РєР°РєРѕР№ РїСЂРѕС†РµРЅС‚ СЂР°РЅС‹ РѕСЃС‚Р°РЅРµС‚СЃСЏ РїРѕСЃР»Рµ Р·Р°Р¶РёРІР»РµРЅРёСЏ РІ РёРіСЂРѕРІСѓСЋ СЃРµРєСѓРЅРґСѓ)
 min_wound_size				= 0.0256
 
 [stalker_terrain]
 	255,000,255,255
-	007,001,255,255 ;Разрешено ходить по опасным местам на баре
-	011,001,255,255 ;Разрешено ходить по опасным местам на Милитари
+	007,001,255,255 ;Р Р°Р·СЂРµС€РµРЅРѕ С…РѕРґРёС‚СЊ РїРѕ РѕРїР°СЃРЅС‹Рј РјРµСЃС‚Р°Рј РЅР° Р±Р°СЂРµ
+	011,001,255,255 ;Р Р°Р·СЂРµС€РµРЅРѕ С…РѕРґРёС‚СЊ РїРѕ РѕРїР°СЃРЅС‹Рј РјРµСЃС‚Р°Рј РЅР° РњРёР»РёС‚Р°СЂРё
 	
 [stalker_dolg_terrain]
 	255,000,255,255
-	007,001,255,255 ;Разрешено ходить по опасным местам на баре
+	007,001,255,255 ;Р Р°Р·СЂРµС€РµРЅРѕ С…РѕРґРёС‚СЊ РїРѕ РѕРїР°СЃРЅС‹Рј РјРµСЃС‚Р°Рј РЅР° Р±Р°СЂРµ
 
 [stalker_freedom_terrain]
 	255,000,255,255
-	011,001,255,255 ;Разрешено ходить по опасным местам на Милитари
+	011,001,255,255 ;Р Р°Р·СЂРµС€РµРЅРѕ С…РѕРґРёС‚СЊ РїРѕ РѕРїР°СЃРЅС‹Рј РјРµСЃС‚Р°Рј РЅР° РњРёР»РёС‚Р°СЂРё
 
 [stalker_ecolog_terrain]
 	255,000,255,255
-	007,001,255,255 ;Разрешено ходить по опасным местам на баре
+	007,001,255,255 ;Р Р°Р·СЂРµС€РµРЅРѕ С…РѕРґРёС‚СЊ РїРѕ РѕРїР°СЃРЅС‹Рј РјРµСЃС‚Р°Рј РЅР° Р±Р°СЂРµ
 
 [stalker_bandit_terrain]
 	255,000,255,255
@@ -284,12 +284,12 @@ min_wound_size				= 0.0256
 
 [stalker_zombied_terrain]
 	255,000,255,255
-	009,001,255,255	;Разрешено ходить по опасным местам на янтаре
+	009,001,255,255	;Р Р°Р·СЂРµС€РµРЅРѕ С…РѕРґРёС‚СЊ РїРѕ РѕРїР°СЃРЅС‹Рј РјРµСЃС‚Р°Рј РЅР° СЏРЅС‚Р°СЂРµ
 
 [csky_terrain]
 	255,000,255,255
-	007,001,255,255 ;Разрешено ходить по опасным местам на баре
-	011,001,255,255 ;Разрешено ходить по опасным местам на Милитари
+	007,001,255,255 ;Р Р°Р·СЂРµС€РµРЅРѕ С…РѕРґРёС‚СЊ РїРѕ РѕРїР°СЃРЅС‹Рј РјРµСЃС‚Р°Рј РЅР° Р±Р°СЂРµ
+	011,001,255,255 ;Р Р°Р·СЂРµС€РµРЅРѕ С…РѕРґРёС‚СЊ РїРѕ РѕРїР°СЃРЅС‹Рј РјРµСЃС‚Р°Рј РЅР° РњРёР»РёС‚Р°СЂРё
 	
 [stalker_movement_speeds]
 	; danger
@@ -329,7 +329,7 @@ min_wound_size				= 0.0256
 [stalker]:common_ph_friction_params_on_npc_death
 class							= AI_STL_S						; Class identifier
 
-can_select_items				= off							; ни в коем случае не менять в on! нужно для работы менеджера вооружений и селектора оружия напарников. Этот параметр выключает выбор оружия движком! KamikaZze
+can_select_items				= off							; РЅРё РІ РєРѕРµРј СЃР»СѓС‡Р°Рµ РЅРµ РјРµРЅСЏС‚СЊ РІ on! РЅСѓР¶РЅРѕ РґР»СЏ СЂР°Р±РѕС‚С‹ РјРµРЅРµРґР¶РµСЂР° РІРѕРѕСЂСѓР¶РµРЅРёР№ Рё СЃРµР»РµРєС‚РѕСЂР° РѕСЂСѓР¶РёСЏ РЅР°РїР°СЂРЅРёРєРѕРІ. Р­С‚РѕС‚ РїР°СЂР°РјРµС‚СЂ РІС‹РєР»СЋС‡Р°РµС‚ РІС‹Р±РѕСЂ РѕСЂСѓР¶РёСЏ РґРІРёР¶РєРѕРј! KamikaZze
 
 ;---EVALUATION FUNCTIONS----------------------------------------------
 ef_creature_type				= 17							; option for evaluation functions
@@ -341,12 +341,12 @@ visual							= actors\hero\stalker_novice.ogf; option for Level Editor
 corpse_visual					= equipments\item_rukzak.ogf	;actors\hero\stalker_novice.ogf; option for Level Editor
 ;custom_data						= stalker_custom_data.ltx		; option for Level Editor
 character_profile				= default						; option for Level Editor
-use_single_item_rule			= off							; никогда не включать! KamikaZze
+use_single_item_rule			= off							; РЅРёРєРѕРіРґР° РЅРµ РІРєР»СЋС‡Р°С‚СЊ! KamikaZze
 
 ;---GAME--------------------------------------------------------------
 $prefetch 						= 32							
 cform							= skeleton						; collision class
-;биолог вид существа
+;Р±РёРѕР»РѕРі РІРёРґ СЃСѓС‰РµСЃС‚РІР°
 species							= human
 
 ;---MATERIAL----------------------------------------------------------
@@ -377,7 +377,7 @@ search_speed					= 0.5					; option for ALife Simulator
 going_item_detect_probability	= 1					; option for ALife Simulator
 search_item_detect_probability	= 1					; option for ALife Simulator
 max_item_mass					= 10000.0				; option for ALife Simulator
-inv_max_weight					= 10000.0				; Допустимый вес инвентори
+inv_max_weight					= 10000.0				; Р”РѕРїСѓСЃС‚РёРјС‹Р№ РІРµСЃ РёРЅРІРµРЅС‚РѕСЂРё
 MaxHealthValue					= 120					; option for ALife Simulator, range [0..200]
 smart_terrain_choose_interval	= 00:15:00
 
@@ -413,10 +413,10 @@ selector_retreat = 20.0, -100.0, 1000.0, 1000.0, 0.0, 0.0, 100000.0, 0.0, 000.0
 ;---VISIBILITY--------------------------------------------------------
 vision_danger_section		= stalker_vision_danger
 vision_free_section			= stalker_vision_free
-eye_fov						= 120  ;угол обзора НПС
-eye_range					= 120 ;расстояние зрения НПС	
-far_plane_factor			= 1.0 ; фактор дальности тумана
-fog_density_factor			= 0.1 ; 0.05 ; фактор плотности тумана
+eye_fov						= 120  ;СѓРіРѕР» РѕР±Р·РѕСЂР° РќРџРЎ
+eye_range					= 120 ;СЂР°СЃСЃС‚РѕСЏРЅРёРµ Р·СЂРµРЅРёСЏ РќРџРЎ	
+far_plane_factor			= 1.0 ; С„Р°РєС‚РѕСЂ РґР°Р»СЊРЅРѕСЃС‚Рё С‚СѓРјР°РЅР°
+fog_density_factor			= 0.1 ; 0.05 ; С„Р°РєС‚РѕСЂ РїР»РѕС‚РЅРѕСЃС‚Рё С‚СѓРјР°РЅР°
 
 ;---MEMORY------------------------------------------------------------
 DynamicObjectsCount			= 32
@@ -469,8 +469,8 @@ foot_bones					= stalker_foot_bones
 movement_speeds				= stalker_movement_speeds
 
 ;---SIGHT-------------------------------------------------------------------------
-max_left_torso_angle		= 30 ; максимальный угол поворота налево без доворота тела
-max_right_torso_angle			= 30 ; максимальный угол поворота направо без доворота тела
+max_left_torso_angle		= 30 ; РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СѓРіРѕР» РїРѕРІРѕСЂРѕС‚Р° РЅР°Р»РµРІРѕ Р±РµР· РґРѕРІРѕСЂРѕС‚Р° С‚РµР»Р°
+max_right_torso_angle			= 30 ; РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СѓРіРѕР» РїРѕРІРѕСЂРѕС‚Р° РЅР°РїСЂР°РІРѕ Р±РµР· РґРѕРІРѕСЂРѕС‚Р° С‚РµР»Р°
 
 ;---WEAPON BONES------------------------------------------------------------------
 weapon_bone0				= bip01_r_finger1
@@ -549,39 +549,39 @@ ph_after_death_velocity_factor = 0.75
 ph_skel_shot_up_factor      = 0.25
 
 ;---------------------------------------------------------------------
-ph_character_have_wounded_state = true; имеет ли персонаж состояние раненый
+ph_character_have_wounded_state = true; РёРјРµРµС‚ Р»Рё РїРµСЂСЃРѕРЅР°Р¶ СЃРѕСЃС‚РѕСЏРЅРёРµ СЂР°РЅРµРЅС‹Р№
 ;----------------------------------------------------------------------
 
 
 ;--------------------------------------------------------------------------------------------------------------------
-;--					АНИМАЦИИ ДЛЯ СМЕРТИ
+;--					РђРќРРњРђР¦РР Р”Р›РЇ РЎРњР•Р РўР
 ;--------------------------------------------------------------------------------------------------------------------
 
-;cлучайные
+;cР»СѓС‡Р°Р№РЅС‹Рµ
 ;random_death_animations = ragdol_burst_front_0,ragdol_burst_front_1,ragdol_burst_back_0,ragdol_burst_left_0,ragdol_burst_right_0
 
-;по типам от 0 до 7
-;порядок по направлениям - front/back/left/right
+;РїРѕ С‚РёРїР°Рј РѕС‚ 0 РґРѕ 7
+;РїРѕСЂСЏРґРѕРє РїРѕ РЅР°РїСЂР°РІР»РµРЅРёСЏРј - front/back/left/right
 
-; В голову, когда персонаж бежит на нас.
+; Р’ РіРѕР»РѕРІСѓ, РєРѕРіРґР° РїРµСЂСЃРѕРЅР°Р¶ Р±РµР¶РёС‚ РЅР° РЅР°СЃ.
 kill_enertion           = ragdol_inertion_front_0/ragdol_inertion_front_3/ragdol_inertion_front_2/ragdol_inertion_front_1
 
-; Смерть от автоматной очереди
+; РЎРјРµСЂС‚СЊ РѕС‚ Р°РІС‚РѕРјР°С‚РЅРѕР№ РѕС‡РµСЂРµРґРё
 ;kill_burst				= ragdol_burst_front_0,ragdol_burst_front_1/ragdol_burst_back_0/ragdol_burst_left_0/ragdol_burst_right_0
 
-; Смерть от выстрела из дробовика
+; РЎРјРµСЂС‚СЊ РѕС‚ РІС‹СЃС‚СЂРµР»Р° РёР· РґСЂРѕР±РѕРІРёРєР°
 kill_shortgun	        = ragdol_shotrgun_front_0,ragdol_shotrgun_front_1,ragdol_shotrgun_front_2,ragdol_shotrgun_front_3,ragdol_shotrgun_front_4,ragdol_shotrgun_front_5,ragdol_shotrgun_front_6,ragdol_shotrgun_front_7,ragdol_shotrgun_front_8/ragdol_shotrgun_back_0,ragdol_shotrgun_back_1,ragdol_shotrgun_back_2,ragdol_shotrgun_back_3,ragdol_shotrgun_back_4,ragdol_shotrgun_back_5,ragdol_shotrgun_back_6/ragdol_shotrgun_left_0,ragdol_shotrgun_left_1,ragdol_shotrgun_left_2/ragdol_shotrgun_right_0,ragdol_shotrgun_right_1
 
-; Смерть хедшотом
+; РЎРјРµСЂС‚СЊ С…РµРґС€РѕС‚РѕРј
 kill_headshot			= ragdol_headshot_front_0,ragdol_headshot_front_1,ragdol_headshot_front_2,ragdol_headshot_front_3,ragdol_headshot_front_4,ragdol_headshot_front_5,ragdol_headshot_front_6,ragdol_headshot_front_7,ragdol_headshot_front_8,ragdol_headshot_front_9,ragdol_headshot_front_10/ragdol_headshot_back_0,ragdol_headshot_back_1,ragdol_headshot_back_2,ragdol_headshot_back_3,ragdol_headshot_back_4,ragdol_headshot_back_5/ragdol_headshot_left_0,ragdol_headshot_left_1,ragdol_headshot_left_2,ragdol_headshot_left_3,ragdol_headshot_left_4,ragdol_headshot_left_5,ragdol_headshot_left_6,ragdol_headshot_left_7/ragdol_headshot_right_0,ragdol_headshot_right_1,ragdol_headshot_right_2,ragdol_headshot_right_3,ragdol_headshot_right_4,ragdol_headshot_right_5,ragdol_headshot_right_6
 
-; Смерть хедшотом из снайперки
+; РЎРјРµСЂС‚СЊ С…РµРґС€РѕС‚РѕРј РёР· СЃРЅР°Р№РїРµСЂРєРё
 kill_sniper_headshot	= ragdol_sniper_heashot_front_0,ragdol_sniper_heashot_front_1,ragdol_sniper_heashot_front_2/ragdol_sniper_heashot_back_0/ragdol_sniper_heashot_left_0/ragdol_sniper_heashot_right_0
 
-; Смерть от снайперки в тело
+; РЎРјРµСЂС‚СЊ РѕС‚ СЃРЅР°Р№РїРµСЂРєРё РІ С‚РµР»Рѕ
 kill_sniper_body		= ragdol_sniper_body_front_0,ragdol_sniper_body_front_1,ragdol_sniper_body_front_2/ragdol_sniper_body_back_0,ragdol_sniper_body_back_1,ragdol_sniper_body_back_2,ragdol_sniper_body_back_3/ragdol_sniper_body_left_0/ragdol_sniper_body_right_0
 
-; Смерть от взрывной волны гранаты
+; РЎРјРµСЂС‚СЊ РѕС‚ РІР·СЂС‹РІРЅРѕР№ РІРѕР»РЅС‹ РіСЂР°РЅР°С‚С‹
 kill_grenade            = ragdol_grenade_front_0,ragdol_grenade_front_1,ragdol_grenade_front_2,ragdol_grenade_front_3/ragdol_grenade_back_0,ragdol_grenade_back_1/ragdol_grenade_left_0,ragdol_grenade_left_1/ragdol_grenade_right_0,ragdol_grenade_right_1 ;ragdol_grenade_front_0/ragdol_grenade_back_0/ragdol_grenade_left_0/ragdol_grenade_right_0
 
 
@@ -598,7 +598,7 @@ $spawn							= "stalkers\stalker_sakharov"
 immunities_sect					= stalker_immunities_sakharov
 
 [stalker_immunities_sakharov]
-burn_immunity 				= 0.0				;коэффициенты иммунитета 
+burn_immunity 				= 0.0				;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РёРјРјСѓРЅРёС‚РµС‚Р° 
 strike_immunity 			= 0.0
 shock_immunity 				= 0.0
 wound_immunity				= 0.0
@@ -617,18 +617,18 @@ damage = pri_damage
 immunities_sect = stalker_immunities_diehard
 condition_sect = stalker_condition_diehard
 
-;--коэффициенты иммунитета
+;--РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РёРјРјСѓРЅРёС‚РµС‚Р°
 [stalker_immunities_diehard]
-burn_immunity = 0.01 ;-- от огня
-strike_immunity = 0.01 ;-- от удара
-shock_immunity = 0.01 ;-- от электричества
-wound_immunity = 0.01 ;-- от разрыва
-radiation_immunity = 0.01 ;-- от радиации
-telepatic_immunity = 1.0 ;-- от телепатии
-chemical_burn_immunity = 1.0 ;-- от хим.ожогов
-explosion_immunity = 0.01 ;-- защита от взрыва
-fire_wound_immunity = 0.01 ;-- защита от пуль
-wound_2_immunity = 0.01 ;-- защита от пуль (alt)
+burn_immunity = 0.01 ;-- РѕС‚ РѕРіРЅСЏ
+strike_immunity = 0.01 ;-- РѕС‚ СѓРґР°СЂР°
+shock_immunity = 0.01 ;-- РѕС‚ СЌР»РµРєС‚СЂРёС‡РµСЃС‚РІР°
+wound_immunity = 0.01 ;-- РѕС‚ СЂР°Р·СЂС‹РІР°
+radiation_immunity = 0.01 ;-- РѕС‚ СЂР°РґРёР°С†РёРё
+telepatic_immunity = 1.0 ;-- РѕС‚ С‚РµР»РµРїР°С‚РёРё
+chemical_burn_immunity = 1.0 ;-- РѕС‚ С…РёРј.РѕР¶РѕРіРѕРІ
+explosion_immunity = 0.01 ;-- Р·Р°С‰РёС‚Р° РѕС‚ РІР·СЂС‹РІР°
+fire_wound_immunity = 0.01 ;-- Р·Р°С‰РёС‚Р° РѕС‚ РїСѓР»СЊ
+wound_2_immunity = 0.01 ;-- Р·Р°С‰РёС‚Р° РѕС‚ РїСѓР»СЊ (alt)
 
 [bandit]:stalker
 $spawn = "stalkers\bandit"			; option for Level Editor

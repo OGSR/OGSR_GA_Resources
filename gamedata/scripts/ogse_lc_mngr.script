@@ -1,7 +1,7 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
------------------------ Менеджер level_changer --------------------------
-------------------------- Copyright 20011-20011 OGSE, на основе концепции OGSM. ---------------------------
+
+----------------------- РњРµРЅРµРґР¶РµСЂ level_changer --------------------------
+------------------------- Copyright 20011-20011 OGSE, РЅР° РѕСЃРЅРѕРІРµ РєРѕРЅС†РµРїС†РёРё OGSM. ---------------------------
 function attach(sm)
 	sm:subscribe({signal = "on_storyline_start",	fun = this.on_storyline_start})
 	sm:subscribe({signal = "on_info",				fun = this.on_info})
@@ -11,7 +11,7 @@ end
 
 local spawn_db = ogse_spawn_db.script_spawn_registry.ogse_lc_mngr
 
--- Спавним левел-чейнджер
+-- РЎРїР°РІРЅРёРј Р»РµРІРµР»-С‡РµР№РЅРґР¶РµСЂ
 -- Level Changer Spawn.
 
 local lcmode = {ask = 0, silent = 1,}
@@ -83,57 +83,57 @@ function create_actor_teleporter(destination)
 	)
 end
 
--- перенос актора на заданный уровень в первый доступный там вертекс
+-- РїРµСЂРµРЅРѕСЃ Р°РєС‚РѕСЂР° РЅР° Р·Р°РґР°РЅРЅС‹Р№ СѓСЂРѕРІРµРЅСЊ РІ РїРµСЂРІС‹Р№ РґРѕСЃС‚СѓРїРЅС‹Р№ С‚Р°Рј РІРµСЂС‚РµРєСЃ
 function teleport_actor_to_level(level_name)
 	local lvid, gvid = utils2.get_top_graph_ids(level_name)
 	create_actor_teleporter({pos = {0,0,0}, ["lvid"] = lvid, ["gvid"] = gvid})
 end
 
 
--- ogse.script прошерстить... 
+-- ogse.script РїСЂРѕС€РµСЂСЃС‚РёС‚СЊ... 
 
 -- dialogs_agroprom.xml - 247
 function lc1_agr_esc() 
-	-- Кордон - Агропром
+	-- РљРѕСЂРґРѕРЅ - РђРіСЂРѕРїСЂРѕРј
 --	create_level_changer_ex(spawn_db.esc_agr)
-	-- Агропром - Кордон
+	-- РђРіСЂРѕРїСЂРѕРј - РљРѕСЂРґРѕРЅ
 --	create_level_changer_ex(spawn_db.agr_esc)
 end
 
 -- dialogs_yantar.xml - 985
 function lc2_yan_agr() 
- -- выдаются по инфо ниже
+ -- РІС‹РґР°СЋС‚СЃСЏ РїРѕ РёРЅС„Рѕ РЅРёР¶Рµ
 end
 
 -- dialogs_military.xml - 2899
 function lc3_mil_ros()
-	-- Дикая Т. - Милитари
+	-- Р”РёРєР°СЏ Рў. - РњРёР»РёС‚Р°СЂРё
 --	create_level_changer_ex(spawn_db.ros_mil)
-	--Милитари - Дикая Т.
+	--РњРёР»РёС‚Р°СЂРё - Р”РёРєР°СЏ Рў.
 --	create_level_changer_ex(spawn_db.mil_ros)
 end
 
 -- dialogs_military.xml - 223
 function lc4_mil_val() 
-	-- ТД - Милитари
+	-- РўР” - РњРёР»РёС‚Р°СЂРё
 	--create_level_changer_ex(spawn_db.val_mil)
 	this.lc_val_to_mil_create()
-	-- Милитари - ТД
+	-- РњРёР»РёС‚Р°СЂРё - РўР”
 	--create_level_changer_ex(spawn_db.mil_val)
 	this.lc_mil_to_val_create()
 end
 
 -- dialogs_radar.xml - 255 
 function lc5_yan_val_rad() 
-	-- Янтарь - Радар
+	-- РЇРЅС‚Р°СЂСЊ - Р Р°РґР°СЂ
 	--create_level_changer_ex(spawn_db.yan_rad)
 	this.lc_yan_to_rad_create()
-	-- Радар - Янтарь
+	-- Р Р°РґР°СЂ - РЇРЅС‚Р°СЂСЊ
 	--create_level_changer_ex(spawn_db.rad_yan)
 	this.lc_rad_to_yan_create()
-	-- ТД - Радар
+	-- РўР” - Р Р°РґР°СЂ
 	--create_level_changer_ex(spawn_db.darval_rad)
-	--Радар - ТД
+	--Р Р°РґР°СЂ - РўР”
 	--create_level_changer_ex(spawn_db.rad_darval)
 end
 
@@ -143,13 +143,13 @@ function lc6_esc_dscape()
 	this.lc_esc_to_ds_create()
 end
 
--- К релизу удалить - функция нужна исключительно для теста!
+-- Рљ СЂРµР»РёР·Сѓ СѓРґР°Р»РёС‚СЊ - С„СѓРЅРєС†РёСЏ РЅСѓР¶РЅР° РёСЃРєР»СЋС‡РёС‚РµР»СЊРЅРѕ РґР»СЏ С‚РµСЃС‚Р°!
 function lc7_aes_pripyat()
-	-- ЧАЭС - Припять
+	-- Р§РђР­РЎ - РџСЂРёРїСЏС‚СЊ
 	create_level_changer_ex(spawn_db.aes_pripyat_test1)
-	-- ЧАЭС2 - ЧАЭС
+	-- Р§РђР­РЎ2 - Р§РђР­РЎ
 	create_level_changer_ex(spawn_db.aes_pripyat_test2)
-	-- ЧАЭС - ЧАЭС2
+	-- Р§РђР­РЎ - Р§РђР­РЎ2
 	create_level_changer_ex(spawn_db.aes_pripyat_test3)
 end
 
@@ -340,7 +340,7 @@ function lc_restore_location()
 end
 
 local story_infos = {
-	-- ["test_info"] = this.lc_esc_to_gar_2_create, -- чисто для примера
+	-- ["test_info"] = this.lc_esc_to_gar_2_create, -- С‡РёСЃС‚Рѕ РґР»СЏ РїСЂРёРјРµСЂР°
 	-- ["test_info_2"] = {
 		-- [1] = this.lc_esc_to_gar_2_create,
 		-- [2] = this.lc_esc_to_gar_1_create,
@@ -399,7 +399,7 @@ local story_infos = {
 		[3] = this.lc_cit_to_mil_show,
 	},	
 	
-	["agr_doc_wakeup"] = {	-- при встрече с доктором в Агро
+	["agr_doc_wakeup"] = {	-- РїСЂРё РІСЃС‚СЂРµС‡Рµ СЃ РґРѕРєС‚РѕСЂРѕРј РІ РђРіСЂРѕ
 		[1] = this.lc_yan_to_cit_create,
 		[2] = this.lc_cit_to_yan_show,	
 		[3] = this.lc_yan_to_cit_show,	
@@ -434,7 +434,7 @@ local story_infos = {
 }
 
 function on_info(npc, info_id)
-	if info_id then -- and not has_alife_info(info_id) then -- эту проверку нельзя делать, так как если инфо выдается вещью, то обработка стартует только после того, как будет закрыт инвентарь, и проверка покажет что инфо уже есть
+	if info_id then -- and not has_alife_info(info_id) then -- СЌС‚Сѓ РїСЂРѕРІРµСЂРєСѓ РЅРµР»СЊР·СЏ РґРµР»Р°С‚СЊ, С‚Р°Рє РєР°Рє РµСЃР»Рё РёРЅС„Рѕ РІС‹РґР°РµС‚СЃСЏ РІРµС‰СЊСЋ, С‚Рѕ РѕР±СЂР°Р±РѕС‚РєР° СЃС‚Р°СЂС‚СѓРµС‚ С‚РѕР»СЊРєРѕ РїРѕСЃР»Рµ С‚РѕРіРѕ, РєР°Рє Р±СѓРґРµС‚ Р·Р°РєСЂС‹С‚ РёРЅРІРµРЅС‚Р°СЂСЊ, Рё РїСЂРѕРІРµСЂРєР° РїРѕРєР°Р¶РµС‚ С‡С‚Рѕ РёРЅС„Рѕ СѓР¶Рµ РµСЃС‚СЊ
 		local function_name = story_infos[info_id]
 		if function_name and type(function_name) == "function" then
 			function_name()

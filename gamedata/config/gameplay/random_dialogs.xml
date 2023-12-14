@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <game_dialogs>
 	<!--Voprosy o zone-->
 	<dialog id="talk_about_monsters">
@@ -240,7 +240,7 @@
 		</phrase_list>
 	</dialog>
 	<!--********************************-->
-	<!--****Диалоги с одиночками на Свалке*******-->
+	<!--****Р”РёР°Р»РѕРіРё СЃ РѕРґРёРЅРѕС‡РєР°РјРё РЅР° РЎРІР°Р»РєРµ*******-->
 	<dialog id="stalker_garbage_about_life">
 		<dont_has_info>block_begin_dialog</dont_has_info>
 		<dont_has_info>horror_time</dont_has_info>
@@ -286,7 +286,7 @@
 			</phrase>
 		</phrase_list>
 	</dialog>
-	<!--****Диалоги с Кругловым и Семёновым о Зоне******-->
+	<!--****Р”РёР°Р»РѕРіРё СЃ РљСЂСѓРіР»РѕРІС‹Рј Рё РЎРµРјС‘РЅРѕРІС‹Рј Рѕ Р—РѕРЅРµ******-->
 	<dialog id="talk_about_zone">
 		<precondition>dialogs.is_not_wounded1</precondition>
 		<phrase_list>

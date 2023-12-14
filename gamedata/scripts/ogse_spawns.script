@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 local spawn_db = ogse_spawn_db.script_spawn_registry.ogse_spawns
 
@@ -11,12 +11,12 @@ function sidr_guard_spawn()
     alife():assign_story_id(sobj.id, story_ids.sidr_guard)
 end
 
--- спавним кровососа в тайнике Стрелка после нахождения флешки
+-- СЃРїР°РІРЅРёРј РєСЂРѕРІРѕСЃРѕСЃР° РІ С‚Р°Р№РЅРёРєРµ РЎС‚СЂРµР»РєР° РїРѕСЃР»Рµ РЅР°С…РѕР¶РґРµРЅРёСЏ С„Р»РµС€РєРё
 function agro_undegraund_spawn1()
 	ogse.spawn_object(spawn_db.bloodsucker_normal)
 end
 
--- рандомный спавн контролёров в тонеле
+-- СЂР°РЅРґРѕРјРЅС‹Р№ СЃРїР°РІРЅ РєРѕРЅС‚СЂРѕР»С‘СЂРѕРІ РІ С‚РѕРЅРµР»Рµ
 function agro_undegraund_spawn2()
     if math.random() >0.5 then
 		ogse.spawn_object(spawn_db.m_controller_normal_fat_1)

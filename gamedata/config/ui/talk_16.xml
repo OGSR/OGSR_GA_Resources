@@ -42,14 +42,11 @@
 	<answers_list x="23" y="45" width="464" height="453" right_ident="0" always_show_scroll="0"/>
 
 	<question_item x="0" y="0" width="467" height="20" min_height="13">
-		<num_text x="0" y="0" width="8" height="20">
-			<text font="letterica18" r="245" g="222" b="158"/>
-		</num_text>
-		<content_text x="15" y="0" width="432" height="20">
-		<text font="letterica18" r="255" g="232" b="208" align="l" complex_mode="1"/>
-		<text_color>
-			<t r="231" g="168" b="12"/> <e r="245" g="222" b="158"/> <h r="255" g="255" b="255"/>
-		</text_color>
+		<content_text x="0" y="0" width="432" height="20">
+			<text font="letterica18" r="255" g="232" b="208" align="l" complex_mode="1" vert_align="c" />
+			<text_color>
+				<t r="231" g="168" b="12"/> <e r="245" g="222" b="158"/> <h r="255" g="255" b="255"/>
+			</text_color>
 		</content_text>
 	</question_item>
 	
@@ -59,7 +56,7 @@
 		</name_caption>
 		
 		<content_text x="10" y="15" width="220" height="10" complex_mode="1" stretch="1">
-			<text align="l" font="letterica18" r="216" g="186" b="140"/>
+			<text align="l" font="letterica18" r="216" g="186" b="140" vert_align="c" />
 		</content_text>
 	</other_answer_item>
 
@@ -69,7 +66,7 @@
 		</name_caption>
 
 		<content_text x="230" y="15" width="220" height="10" complex_mode="1" stretch="1">
-			<text align="r" font="letterica18" r="255" g="232" b="208"/>
+			<text align="r" font="letterica18" r="255" g="232" b="208" vert_align="c" />
 		</content_text>
 	</actor_answer_item>	
 	
@@ -77,7 +74,7 @@
 		<name_caption x="0" y="0" width="0" height="0"/>
 		
 		<content_text x="65" y="0" width="220" height="10" complex_mode="1" stretch="1">
-			<text align="l" font="letterica18" r="255" g="255" b="255"/>
+			<text align="l" font="letterica18" r="255" g="255" b="255" vert_align="c" />
 		</content_text>
 		
 		<msg_icon x="10" y="3" width="49" height="29">
@@ -88,7 +85,7 @@
 		<name_caption x="0" y="0" width="0" height="0"/>
 
 		<content_text x="175" y="0" width="220" height="10" complex_mode="1" stretch="1">
-			<text align="r" font="letterica18" r="255" g="255" b="255"/>
+			<text align="r" font="letterica18" r="255" g="255" b="255" vert_align="c" />
 		</content_text>
 		
 		<msg_icon x="405" y="3" width="49" height="29">

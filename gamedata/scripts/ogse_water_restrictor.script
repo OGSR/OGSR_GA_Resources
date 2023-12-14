@@ -1,27 +1,27 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -----------------------------------------------------------------------
 --- water restrictor binder
---- Модуль рестрикторов воды
---- Автор: KamikaZze
+--- РњРѕРґСѓР»СЊ СЂРµСЃС‚СЂРёРєС‚РѕСЂРѕРІ РІРѕРґС‹
+--- РђРІС‚РѕСЂ: KamikaZze
 -----------------------------------------------------------------------
 
 function attach( sm )
   sm:subscribe({ signal = "on_before_actor_conditions_update", fun = this.on_actor_conditions_update })
 end
 
--- звуки
+-- Р·РІСѓРєРё
 local snd_dive = xr_sound.get_safe_sound_object("material\\actor\\step\\n_water_1")
 local snd_underwater = xr_sound.get_safe_sound_object("ogse\\underwater")
 local snd_emersion = xr_sound.get_safe_sound_object("material\\actor\\step\\n_water_2")
 local snd_blow = xr_sound.get_safe_sound_object("material\\actor\\step\\t_water2")
 local snd_breath = xr_sound.get_safe_sound_object("actor\\breath_1")
 local snd_breath_cold = xr_sound.get_safe_sound_object("actor\\breath_cold")
--- уровень громкости звуков
-local snd_fx_volume = 1		-- общий уровень громкости звуков
-local snd_dive_subvolume = 1	-- громкость звука погружения
-local snd_underwater_subvolume = 0.7	-- громкость звука под водой
-local snd_emersion_subvolume = 1		-- громкость звука всплытия
+-- СѓСЂРѕРІРµРЅСЊ РіСЂРѕРјРєРѕСЃС‚Рё Р·РІСѓРєРѕРІ
+local snd_fx_volume = 1		-- РѕР±С‰РёР№ СѓСЂРѕРІРµРЅСЊ РіСЂРѕРјРєРѕСЃС‚Рё Р·РІСѓРєРѕРІ
+local snd_dive_subvolume = 1	-- РіСЂРѕРјРєРѕСЃС‚СЊ Р·РІСѓРєР° РїРѕРіСЂСѓР¶РµРЅРёСЏ
+local snd_underwater_subvolume = 0.7	-- РіСЂРѕРјРєРѕСЃС‚СЊ Р·РІСѓРєР° РїРѕРґ РІРѕРґРѕР№
+local snd_emersion_subvolume = 1		-- РіСЂРѕРјРєРѕСЃС‚СЊ Р·РІСѓРєР° РІСЃРїР»С‹С‚РёСЏ
 
 local underwater = {}
 
@@ -33,7 +33,7 @@ local breather_prefixes = {
 }
 
 
--- вызывается из биндера рестрикторов
+-- РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· Р±РёРЅРґРµСЂР° СЂРµСЃС‚СЂРёРєС‚РѕСЂРѕРІ
 function update(obj)
 	fx_play(obj:id())
 
@@ -63,7 +63,7 @@ local time_submerged = 0
 local o2_amount = 100
 
 function on_actor_conditions_update( ext )
-	if not next(underwater) then return end --Если актор не под водой - ничего не делать
+	if not next(underwater) then return end --Р•СЃР»Рё Р°РєС‚РѕСЂ РЅРµ РїРѕРґ РІРѕРґРѕР№ - РЅРёС‡РµРіРѕ РЅРµ РґРµР»Р°С‚СЊ
 
 	ext.sprint_factor	= ext.sprint_factor - (sprint_factor - (sprint_factor * water_coeff))
 	ext.jump_speed		= ext.jump_speed - (jump_speed - (jump_speed * 0.01))

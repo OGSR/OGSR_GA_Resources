@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --[[-------------------------------------------------------------------------
 -|ogse_night_vision.script
@@ -13,7 +13,7 @@
 function attach(sm)
 	sm:subscribe({ signal = "on_first_update",	fun = this.try_to_restart_nv_fx })
 	sm:subscribe({ signal = "on_key_down",		fun = this.call_pnv })
-	sm:subscribe({ signal = "on_item_to_slot",	fun = this.chek_outfit_double_pnv })
+	sm:subscribe({ signal = "on_item_to_slot",	fun = this.check_outfit_double_pnv })
 	sm:subscribe({ signal = "on_sniper_mode",	fun = this.on_sniper_mode })
 	sm:subscribe({ signal = "off_sniper_mode",	fun = this.off_sniper_mode })
 	sm:subscribe({ signal = "on_sit_down_in_btr", fun = this.on_sit_down_in_btr })
@@ -26,7 +26,7 @@ function attach(sm)
 end
 
 --==========================================================Настройки=================================================================
-local scope_section							-- Секция прицела в строковом виде.
+local scope_section = false					-- Секция прицела в строковом виде.
 
 --флаги
 local nv_scope_fx_autoenable = true			-- Автовключение пнв/подсветки в прицеле.
@@ -116,7 +116,7 @@ end
 
 function on_update()
 	local torch = db.actor:item_in_slot(9)
-	if not torch or not db.actor:active_item() then return end
+	if not torch or not torch:is_torch() or not db.actor:active_item() then return end
 	torch = get_torch_obj(torch)
 
 	local nv_on = torch.nvd_on and not ogse_car_control.in_btr and not night_vision_surge_block
@@ -142,7 +142,7 @@ function call_pnv(key, bind) --Действие при нажатии клави
 				turn_off_nv_fx()
 			end
 		end
-		if ogsr_actor_animation.allow_animation() then
+		if ogsr_actor_animation.allow_animation() and (night_vision_fx_on or get_nightvision_section_for_nv_fx()) then
 			ogsr_actor_animation.nv_switcher(switch_finc) --анимация вкл/выкл прибор ПНВ
 		else
 			switch_finc()
@@ -159,7 +159,7 @@ local function get_active_scope_section( wpn ) --Получить секцию �
 	local scope_status = ogse_wpn_utils.get_scope_flag( wpn )
 	if scope_status then
 		local sect       = wpn:section()
-		local scope_sect = get_string_wq( sect, "scope_name", nil )
+		local scope_sect = get_string_wq( sect, "scope_name" )
 		if scope_sect then return scope_sect end
 	end
 end
@@ -174,7 +174,7 @@ end
 
 function off_sniper_mode() --Вышли из режима прицеливания. Вызывается из ogse_hud_control
 	if night_vision_scope_fx_on then turn_off_nv_scope_fx()	end -- вырубаем пнв в прицеле
-	scope_section = nil --переводим в nil, на всякий случай
+	scope_section = false -- на всякий случай
 	if night_vision_fx_store then --Если запомнили что пнв был включен, значит включаем его.
 		night_vision_fx_store = false
 		if not night_vision_surge_block then
@@ -197,7 +197,7 @@ function chek_drop_pnv(obj) --Проверка выкладывания рабо
 	end
 end
 
-function chek_outfit_double_pnv(obj) --Проверка "двойного" надевания ПНВ при смене костюма
+function check_outfit_double_pnv(obj) --Проверка "двойного" надевания ПНВ при смене костюма
 	local is_nv_obj = sys_ini:line_exist(obj:section(), "nightvision_sect") --Проверка, есть ли в конфиге объекта строка nightvision_sect
 	local is_outfit_nv = obj:is_outfit() and is_nv_obj --проверка, является ли объект костюмом в котором есть встроенный ПНВ
 
@@ -221,22 +221,28 @@ function chek_outfit_double_pnv(obj) --Проверка "двойного" на�
 	end
 end
 
-function nv_fx_on() --Старт/остановка работы прибора ПНВ
-	local nightvision_section = nil
+function get_nightvision_section_for_nv_fx()
+	local nightvision_section
 
 	local nv_in_outfit = db.actor:item_in_slot(6)
 	if nv_in_outfit then
 		local nv_sect = nv_in_outfit:section()
-		nightvision_section = get_string_wq(nv_sect,"nightvision_sect",nil)
+		nightvision_section = get_string_wq(nv_sect,"nightvision_sect")
 	end
 		
 	if not nightvision_section then
 	    local nv_in_slot = db.actor:item_in_slot(11)
 		if nv_in_slot then
 			local nv_sect = nv_in_slot:section()
-			nightvision_section = get_string_wq(nv_sect,"nightvision_sect",nil)
+			nightvision_section = get_string_wq(nv_sect,"nightvision_sect")
 		end
 	end
+
+	return nightvision_section
+end
+
+function nv_fx_on() --Старт/остановка работы прибора ПНВ
+	local nightvision_section = get_nightvision_section_for_nv_fx()
 		
 	if nightvision_section then
 		turn_on_nv_fx(nightvision_section)
@@ -246,7 +252,7 @@ end
 function turn_on_nv_fx(nightvision_section) --Старт ПНВ
 	if night_vision_fx_on then return end
 
-	local nightvision_fx = get_string_wq(nightvision_section,"pp_eff_name",nil)
+	local nightvision_fx = get_string_wq(nightvision_section,"pp_eff_name")
 	level.add_pp_effector("black_nv.ppe", 5282, false)
 	level.add_pp_effector(nightvision_fx, 2997, true)
 	level.set_pp_effector_factor(2997, nv_ppe_factor)
@@ -291,7 +297,7 @@ end
 
 --*********************************** ПНВ БТР *****************************************
 function turn_on_nv_btr_fx() --Старт ПНВ БТР
-	local nightvision_fx = get_string_wq(btr_nightvision_section,"pp_eff_name",nil)
+	local nightvision_fx = get_string_wq(btr_nightvision_section,"pp_eff_name")
 	level.add_pp_effector(nightvision_fx, 2996, true)
 	level.set_pp_effector_factor(2996, nv_btr_ppe_factor)
 	night_vision_btr_fx_on = true
@@ -309,7 +315,7 @@ function nv_scope_fx_on() --Старт работы ПНВ в прицеле, в
 		--В 3Д прицелах шейдерный ПНВ
 		if not db.actor:active_item():get_weapon():UseScopeTexture() then return end
 
-		local nightvision_section = get_string_wq(scope_section, "nightvision_sect",nil) --Читаем параметр nightvision_sect в секции прицела
+		local nightvision_section = get_string_wq(scope_section, "nightvision_sect") --Читаем параметр nightvision_sect в секции прицела
 		if not nightvision_section then return end --если не прочитали, то ничего не делаем.
 
 		turn_on_nv_scope_fx(nightvision_section) --Включаем пнв в прицела
@@ -317,7 +323,7 @@ function nv_scope_fx_on() --Старт работы ПНВ в прицеле, в
 		local act_it = db.actor:active_item() --объект в руках актора
 		if act_it:clsid() ~= clsid.wpn_binocular_s then return end --если объект не является биноклем, то ничего не делаем.
 
-		local nightvision_section = get_string_wq(act_it:section(),"nightvision_sect",nil) --читаем значение строки nightvision_sect в секции ствола.
+		local nightvision_section = get_string_wq(act_it:section(),"nightvision_sect") --читаем значение строки nightvision_sect в секции ствола.
 		if nightvision_section then --если прочитали значение, то:
 			turn_on_nv_scope_fx(nightvision_section, true) --Включаем пнв в бинокле
 		end
@@ -325,7 +331,7 @@ function nv_scope_fx_on() --Старт работы ПНВ в прицеле, в
 end
 
 function turn_on_nv_scope_fx(nightvision_section, isbinoc) --Старт ночника в прицеле
-	local nightvision_fx = get_string_wq(nightvision_section,"pp_eff_name",nil)
+	local nightvision_fx = get_string_wq(nightvision_section,"pp_eff_name")
 	level.add_pp_effector(nightvision_fx, 2998, true)
 	if isbinoc then --Если смотрим в бинокль:
 		level.set_pp_effector_factor(2998, nv_binocular_ppe_factor)

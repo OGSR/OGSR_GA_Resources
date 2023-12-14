@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding="windows-1251"?>
+<?xml version='1.0' encoding="UTF-8"?>
 <xml>
 
 	<!--bar_sinyak-->
@@ -1065,7 +1065,7 @@
 		<name>bar_hunter_name</name>
 		<icon>ui_npc_u_green_stalker_8</icon>
 		<map_icon x="0" y="0"/>
-		<bio>Добродушный весельчак, единственная его проблема это то, что умеет стрелять только из охотничьего ружья. Остальное даже не пробует. Недавно попал в передрягу на Дикой территории и потерял там свое фамильное ружье. Теперь околачивается в баре, надеется, что кто-то вернет ему его ружье.</bio>
+		<bio>Р”РѕР±СЂРѕРґСѓС€РЅС‹Р№ РІРµСЃРµР»СЊС‡Р°Рє, РµРґРёРЅСЃС‚РІРµРЅРЅР°СЏ РµРіРѕ РїСЂРѕР±Р»РµРјР° СЌС‚Рѕ С‚Рѕ, С‡С‚Рѕ СѓРјРµРµС‚ СЃС‚СЂРµР»СЏС‚СЊ С‚РѕР»СЊРєРѕ РёР· РѕС…РѕС‚РЅРёС‡СЊРµРіРѕ СЂСѓР¶СЊСЏ. РћСЃС‚Р°Р»СЊРЅРѕРµ РґР°Р¶Рµ РЅРµ РїСЂРѕР±СѓРµС‚. РќРµРґР°РІРЅРѕ РїРѕРїР°Р» РІ РїРµСЂРµРґСЂСЏРіСѓ РЅР° Р”РёРєРѕР№ С‚РµСЂСЂРёС‚РѕСЂРёРё Рё РїРѕС‚РµСЂСЏР» С‚Р°Рј СЃРІРѕРµ С„Р°РјРёР»СЊРЅРѕРµ СЂСѓР¶СЊРµ. РўРµРїРµСЂСЊ РѕРєРѕР»Р°С‡РёРІР°РµС‚СЃСЏ РІ Р±Р°СЂРµ, РЅР°РґРµРµС‚СЃСЏ, С‡С‚Рѕ РєС‚Рѕ-С‚Рѕ РІРµСЂРЅРµС‚ РµРјСѓ РµРіРѕ СЂСѓР¶СЊРµ.</bio>
 
 		<class>bar_stalker_hunter</class>
 		<community>stalker</community>
@@ -1425,8 +1425,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_val \n
-			ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
 #include "gameplay\character_items.xml" \n
@@ -1440,7 +1440,7 @@
 #include "gameplay\character_dialogs_unic.xml"
 	</specific_character>	
 
-	<!--DOLG Начальник Охраны-->
+	<!--DOLG РќР°С‡Р°Р»СЊРЅРёРє РћС…СЂР°РЅС‹-->
 	<specific_character id="bar_dolg_guard_commander" team_default = "1">
 		<name>bar_plichko_name</name>
 		<icon>ui_npc_u_stalker_do_balon_1</icon>
@@ -1500,8 +1500,8 @@
 
 		<supplies>
 			[spawn] \n
-			wpn_val \n
-			ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			wpn_stechkin \n
 			ammo_9x18_pmm \n
 #include "gameplay\character_items.xml" \n

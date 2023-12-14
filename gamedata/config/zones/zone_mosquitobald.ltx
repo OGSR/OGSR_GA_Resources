@@ -1,4 +1,4 @@
-;----------- Аномалия Комариная плешь -----------------------
+;----------- РђРЅРѕРјР°Р»РёСЏ РљРѕРјР°СЂРёРЅР°СЏ РїР»РµС€СЊ -----------------------
 [zone_mosquito_bald]
 script_binding      = ogse_dbg_anomaly_binder.init
 
@@ -7,7 +7,7 @@ $spawn 			= "zones\mosquito bald"
 $prefetch 		= 16
 class			= ZS_MBALD
 hit_impulse_scale	= 0.3;0.5 ;0.1
-effective_radius	= 0.85 ;размер радиуса в процентах от оригинального, где действует зона
+effective_radius	= 0.85 ;СЂР°Р·РјРµСЂ СЂР°РґРёСѓСЃР° РІ РїСЂРѕС†РµРЅС‚Р°С… РѕС‚ РѕСЂРёРіРёРЅР°Р»СЊРЅРѕРіРѕ, РіРґРµ РґРµР№СЃС‚РІСѓРµС‚ Р·РѕРЅР°
 actor_blowout_radius_percent	= 0.75
 
 ef_anomaly_type			= 1
@@ -27,8 +27,8 @@ attenuation			= 1
 period				= 1
 min_artefact_count	= 0
 max_artefact_count	= 1
-artefact_spawn_idle	= 54  ;насколько часто спонить артефакты в офлайне, в часах
-artefact_spawn_rnd	= 25  ;вероятность заспавнить артефакт в процентах.
+artefact_spawn_idle	= 54  ;РЅР°СЃРєРѕР»СЊРєРѕ С‡Р°СЃС‚Рѕ СЃРїРѕРЅРёС‚СЊ Р°СЂС‚РµС„Р°РєС‚С‹ РІ РѕС„Р»Р°Р№РЅРµ, РІ С‡Р°СЃР°С…
+artefact_spawn_rnd	= 25  ;РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ Р·Р°СЃРїР°РІРЅРёС‚СЊ Р°СЂС‚РµС„Р°РєС‚ РІ РїСЂРѕС†РµРЅС‚Р°С….
 
 idle_particles		= anomaly2\group_items\gravity_idle_leaves ;idle_particles		= _ecp\anomaly_bold_idle
 blowout_particles	= anomaly2\gravity_blast_01
@@ -40,10 +40,10 @@ idle_big_particles			= anomaly2\gravity_damage_02_smoke
 entrance_small_particles	= anomaly2\gravity_entrance_small
 entrance_big_particles		= anomaly2\gravity_entrance_big ;anomaly2\gravity_entrance_big
 
-idle_sound			= $no_sound ;anomaly\gravi_rumble1; ambient\fx2		;постоянный звук
-blowout_sound		= anomaly\anomaly_gravy_blast1; anomaly_gravy_blast01	;во время выброса(удара) в центре аномалии	
-hit_sound			= anomaly\anomaly_gravy_hit1								;на персонаже, когда тот получает хит
-entrance_sound		= anomaly\anomaly_gravy_hit1								;при попадании объекта в аномалию
+idle_sound			= $no_sound ;anomaly\gravi_rumble1; ambient\fx2		;РїРѕСЃС‚РѕСЏРЅРЅС‹Р№ Р·РІСѓРє
+blowout_sound		= anomaly\anomaly_gravy_blast1; anomaly_gravy_blast01	;РІРѕ РІСЂРµРјСЏ РІС‹Р±СЂРѕСЃР°(СѓРґР°СЂР°) РІ С†РµРЅС‚СЂРµ Р°РЅРѕРјР°Р»РёРё	
+hit_sound			= anomaly\anomaly_gravy_hit1								;РЅР° РїРµСЂСЃРѕРЅР°Р¶Рµ, РєРѕРіРґР° С‚РѕС‚ РїРѕР»СѓС‡Р°РµС‚ С…РёС‚
+entrance_sound		= anomaly\anomaly_gravy_hit1								;РїСЂРё РїРѕРїР°РґР°РЅРёРё РѕР±СЉРµРєС‚Р° РІ Р°РЅРѕРјР°Р»РёСЋ
 
 
 awaking_time		= 50;100
@@ -55,9 +55,9 @@ blowout_explosion_time	= 200
 blowout_particles_time	= 200
 blowout_sound_time  	= 100
 
-disable_time		= 5000		;время игнорирования неживого объекта в зоне (-1 если не нужно)
-disable_time_small	= 5000		;время игнорирования маленького неживого объекта в зоне (-1 если не нужно)
-disable_idle_time	= 100		;время отключения idle партиклов
+disable_time		= 5000		;РІСЂРµРјСЏ РёРіРЅРѕСЂРёСЂРѕРІР°РЅРёСЏ РЅРµР¶РёРІРѕРіРѕ РѕР±СЉРµРєС‚Р° РІ Р·РѕРЅРµ (-1 РµСЃР»Рё РЅРµ РЅСѓР¶РЅРѕ)
+disable_time_small	= 5000		;РІСЂРµРјСЏ РёРіРЅРѕСЂРёСЂРѕРІР°РЅРёСЏ РјР°Р»РµРЅСЊРєРѕРіРѕ РЅРµР¶РёРІРѕРіРѕ РѕР±СЉРµРєС‚Р° РІ Р·РѕРЅРµ (-1 РµСЃР»Рё РЅРµ РЅСѓР¶РЅРѕ)
+disable_idle_time	= 100		;РІСЂРµРјСЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ idle РїР°СЂС‚РёРєР»РѕРІ
 
 ignore_nonalive		= false
 ignore_small		= false
@@ -67,7 +67,7 @@ blowout_light		= on
 light_color		    = 0.5,0.4,0.3
 light_range		    = 30.0
 light_time 		    = 0.9;0.35
-light_height		= 1.5			;подъем источника света на высоту
+light_height		= 1.5			;РїРѕРґСЉРµРј РёСЃС‚РѕС‡РЅРёРєР° СЃРІРµС‚Р° РЅР° РІС‹СЃРѕС‚Сѓ
 
 idle_light			= off
 
@@ -75,24 +75,24 @@ visible_by_detector = on
 
 artefacts		= af_medusa, 0.7, af_cristall_flower, 0.4, af_night_star, 0.05
 
-;;во время срабатывания в online
+;;РІРѕ РІСЂРµРјСЏ СЃСЂР°Р±Р°С‚С‹РІР°РЅРёСЏ РІ online
 spawn_blowout_artefacts = off
 
-artefact_spawn_probability = 0.1				;вероятность, что во время срабатывания аномалии будет рожден артефакт
-artefact_spawn_particles = anomaly2\pux_blast	;партиклы, которые отыграются на месте рождения артефакта (опционально)
-artefact_born_sound =  anomaly\pux_blast		;звук, который отыграются на месте рождения артефакта (опционально)
+artefact_spawn_probability = 0.1				;РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ, С‡С‚Рѕ РІРѕ РІСЂРµРјСЏ СЃСЂР°Р±Р°С‚С‹РІР°РЅРёСЏ Р°РЅРѕРјР°Р»РёРё Р±СѓРґРµС‚ СЂРѕР¶РґРµРЅ Р°СЂС‚РµС„Р°РєС‚
+artefact_spawn_particles = anomaly2\pux_blast	;РїР°СЂС‚РёРєР»С‹, РєРѕС‚РѕСЂС‹Рµ РѕС‚С‹РіСЂР°СЋС‚СЃСЏ РЅР° РјРµСЃС‚Рµ СЂРѕР¶РґРµРЅРёСЏ Р°СЂС‚РµС„Р°РєС‚Р° (РѕРїС†РёРѕРЅР°Р»СЊРЅРѕ)
+artefact_born_sound =  anomaly\pux_blast		;Р·РІСѓРє, РєРѕС‚РѕСЂС‹Р№ РѕС‚С‹РіСЂР°СЋС‚СЃСЏ РЅР° РјРµСЃС‚Рµ СЂРѕР¶РґРµРЅРёСЏ Р°СЂС‚РµС„Р°РєС‚Р° (РѕРїС†РёРѕРЅР°Р»СЊРЅРѕ)
 
-throw_out_power = 50			;импульс с которым артефакт будет выброшен из зоны в произвольном направлении
-artefact_spawn_height = 3		;(м) высота на центром зоны где будет рожден артефакт
+throw_out_power = 50			;РёРјРїСѓР»СЊСЃ СЃ РєРѕС‚РѕСЂС‹Рј Р°СЂС‚РµС„Р°РєС‚ Р±СѓРґРµС‚ РІС‹Р±СЂРѕС€РµРЅ РёР· Р·РѕРЅС‹ РІ РїСЂРѕРёР·РІРѕР»СЊРЅРѕРј РЅР°РїСЂР°РІР»РµРЅРёРё
+artefact_spawn_height = 3		;(Рј) РІС‹СЃРѕС‚Р° РЅР° С†РµРЅС‚СЂРѕРј Р·РѕРЅС‹ РіРґРµ Р±СѓРґРµС‚ СЂРѕР¶РґРµРЅ Р°СЂС‚РµС„Р°РєС‚
 
 blowout_wind		= on
 
 blowout_wind_time_start     = 0
 blowout_wind_time_peak      = 300
 blowout_wind_time_end		= 501; 899
-blowout_wind_power			= 0.5			;сила поднимаего ветра (от 0 до 1), в момент blowout_wind_time_peak 
+blowout_wind_power			= 0.5			;СЃРёР»Р° РїРѕРґРЅРёРјР°РµРіРѕ РІРµС‚СЂР° (РѕС‚ 0 РґРѕ 1), РІ РјРѕРјРµРЅС‚ blowout_wind_time_peak 
 
-;----------- Аномалия Комариная плешь слабая -----------------------
+;----------- РђРЅРѕРјР°Р»РёСЏ РљРѕРјР°СЂРёРЅР°СЏ РїР»РµС€СЊ СЃР»Р°Р±Р°СЏ -----------------------
 [zone_mosquito_bald_weak]:zone_mosquito_bald
 $spawn 			= "zones\mosquito bald_weak"
 awaking_time		= 80
@@ -110,7 +110,7 @@ artefact_spawn_rnd	= 20
 
 blowout_wind_power	= 0.2
 
-;----------- Аномалия Комариная плешь средняя -----------------------
+;----------- РђРЅРѕРјР°Р»РёСЏ РљРѕРјР°СЂРёРЅР°СЏ РїР»РµС€СЊ СЃСЂРµРґРЅСЏСЏ -----------------------
 [zone_mosquito_bald_average]:zone_mosquito_bald
 $spawn 			= "zones\mosquito bald_average"
 awaking_time		= 50
@@ -129,7 +129,7 @@ artefact_spawn_probability = 0.15
 
 blowout_wind_power	= 0.5
 
-;----------- Аномалия Комариная плешь сильная -----------------------
+;----------- РђРЅРѕРјР°Р»РёСЏ РљРѕРјР°СЂРёРЅР°СЏ РїР»РµС€СЊ СЃРёР»СЊРЅР°СЏ -----------------------
 [zone_mosquito_bald_strong]:zone_mosquito_bald
 $spawn 			= "zones\mosquito bald_strong"
 awaking_time		= 30
@@ -150,7 +150,7 @@ artefact_spawn_probability = 0.2
 
 blowout_wind_power	= 1
 
-;----------- Не производящая артефактов слабая аномалия Комариная плешь (для all.spawn) -----------------------
+;----------- РќРµ РїСЂРѕРёР·РІРѕРґСЏС‰Р°СЏ Р°СЂС‚РµС„Р°РєС‚РѕРІ СЃР»Р°Р±Р°СЏ Р°РЅРѕРјР°Р»РёСЏ РљРѕРјР°СЂРёРЅР°СЏ РїР»РµС€СЊ (РґР»СЏ all.spawn) -----------------------
 [zone_mosquito_bald_weak_noart]:zone_mosquito_bald_weak
 $spawn 			= "zones\mosquito bald_weak_noart"
 spawn_blowout_artefacts = off
@@ -158,7 +158,7 @@ min_artefact_count	= 0
 max_artefact_count	= 0
 artefact_spawn_idle	= 24
 
-;----------- Не производящая артефактов сильная аномалия Комариная плешь (для all.spawn) -----------------------
+;----------- РќРµ РїСЂРѕРёР·РІРѕРґСЏС‰Р°СЏ Р°СЂС‚РµС„Р°РєС‚РѕРІ СЃРёР»СЊРЅР°СЏ Р°РЅРѕРјР°Р»РёСЏ РљРѕРјР°СЂРёРЅР°СЏ РїР»РµС€СЊ (РґР»СЏ all.spawn) -----------------------
 [zone_mosquito_bald_strong_noart]:zone_mosquito_bald_strong
 $spawn 			= "zones\mosquito_bald_strong_noart"
 spawn_blowout_artefacts = off
@@ -166,7 +166,7 @@ min_artefact_count	= 0
 max_artefact_count	= 0
 artefact_spawn_idle	= 24
 
-;----------- Не производящая артефактов специальная аномалия Комариная плешь (для all.spawn) -----------------------
+;----------- РќРµ РїСЂРѕРёР·РІРѕРґСЏС‰Р°СЏ Р°СЂС‚РµС„Р°РєС‚РѕРІ СЃРїРµС†РёР°Р»СЊРЅР°СЏ Р°РЅРѕРјР°Р»РёСЏ РљРѕРјР°СЂРёРЅР°СЏ РїР»РµС€СЊ (РґР»СЏ all.spawn) -----------------------
 [zone_sarcofag]
 script_binding      = ogse_dbg_anomaly_binder.init
 
@@ -255,7 +255,7 @@ blowout_wind_time_peak      = 300
 blowout_wind_time_end		= 501; 899
 blowout_wind_power			= 0.5
 
-;----------- Аномалия Комариная плешь слабая без артов -----------------------
+;----------- РђРЅРѕРјР°Р»РёСЏ РљРѕРјР°СЂРёРЅР°СЏ РїР»РµС€СЊ СЃР»Р°Р±Р°СЏ Р±РµР· Р°СЂС‚РѕРІ -----------------------
 [noartf_mosquito_bald_weak]:zone_mosquito_bald_weak
 $spawn 				= "zones\mosquito_bald_weak_noartf"
 BirthProbability		= 0
@@ -264,7 +264,7 @@ min_artefact_count		= 0
 max_artefact_count		= 0
 artefact_spawn_rnd		= 0
 
-;----------- Аномалия Комариная плешь средняя без артов -----------------------
+;----------- РђРЅРѕРјР°Р»РёСЏ РљРѕРјР°СЂРёРЅР°СЏ РїР»РµС€СЊ СЃСЂРµРґРЅСЏСЏ Р±РµР· Р°СЂС‚РѕРІ -----------------------
 [noartf_mosquito_bald_average]:zone_mosquito_bald_average
 $spawn 				= "zones\mosquito_bald_average_noartf"
 BirthProbability		= 0
@@ -273,7 +273,7 @@ min_artefact_count		= 0
 max_artefact_count		= 0
 artefact_spawn_rnd		= 0
 
-;----------- Аномалия Комариная плешь сильная без артов -----------------------
+;----------- РђРЅРѕРјР°Р»РёСЏ РљРѕРјР°СЂРёРЅР°СЏ РїР»РµС€СЊ СЃРёР»СЊРЅР°СЏ Р±РµР· Р°СЂС‚РѕРІ -----------------------
 [noartf_mosquito_bald_strong]:zone_mosquito_bald_strong
 $spawn 				= "zones\mosquito_bald_strong_noartf"
 BirthProbability		= 0
@@ -282,17 +282,17 @@ min_artefact_count		= 0
 max_artefact_count		= 0
 artefact_spawn_rnd		= 0
 
-;----------- Рукотворная аномалия без артов -----------------------
+;----------- Р СѓРєРѕС‚РІРѕСЂРЅР°СЏ Р°РЅРѕРјР°Р»РёСЏ Р±РµР· Р°СЂС‚РѕРІ -----------------------
 [handmade_zone_mosquito_bald]:zone_mosquito_bald
 
-;----------- Не производящая артефактов + невидимая на детекторах слабая аномалия --------------
+;----------- РќРµ РїСЂРѕРёР·РІРѕРґСЏС‰Р°СЏ Р°СЂС‚РµС„Р°РєС‚РѕРІ + РЅРµРІРёРґРёРјР°СЏ РЅР° РґРµС‚РµРєС‚РѕСЂР°С… СЃР»Р°Р±Р°СЏ Р°РЅРѕРјР°Р»РёСЏ --------------
 [noartf_nodetect_mosquito_bald_weak]:noartf_mosquito_bald_weak
 visible_by_detector = off
 
-;----------- Не производящая артефактов + невидимая на детекторах средняя аномалия --------------
+;----------- РќРµ РїСЂРѕРёР·РІРѕРґСЏС‰Р°СЏ Р°СЂС‚РµС„Р°РєС‚РѕРІ + РЅРµРІРёРґРёРјР°СЏ РЅР° РґРµС‚РµРєС‚РѕСЂР°С… СЃСЂРµРґРЅСЏСЏ Р°РЅРѕРјР°Р»РёСЏ --------------
 [noartf_nodetect_mosquito_bald_average]:noartf_mosquito_bald_average
 visible_by_detector = off
 
-;----------- Не производящая артефактов + невидимая на детекторах сильная аномалия --------------
+;----------- РќРµ РїСЂРѕРёР·РІРѕРґСЏС‰Р°СЏ Р°СЂС‚РµС„Р°РєС‚РѕРІ + РЅРµРІРёРґРёРјР°СЏ РЅР° РґРµС‚РµРєС‚РѕСЂР°С… СЃРёР»СЊРЅР°СЏ Р°РЅРѕРјР°Р»РёСЏ --------------
 [noartf_nodetect_mosquito_bald_strong]:noartf_mosquito_bald_strong
 visible_by_detector = off

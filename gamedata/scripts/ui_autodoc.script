@@ -1,14 +1,14 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ----------------------------------------------------------------------------------------------------
 -- ui_autodoc.script                                                                              --
--- Модуль автодока, скрипт интерфейса пользователя                                                --
+-- РњРѕРґСѓР»СЊ Р°РІС‚РѕРґРѕРєР°, СЃРєСЂРёРїС‚ РёРЅС‚РµСЂС„РµР№СЃР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ                                                --
 -- OGS Evolution Team                                                                             --
 -- Merc13, Malandrinus                                                                            --
 -- 01.2013                                                                                        --
--- зависит от: ogse_autodoc.script                                                                --
+-- Р·Р°РІРёСЃРёС‚ РѕС‚: ogse_autodoc.script                                                                --
 ----------------------------------------------------------------------------------------------------
-local full_charges = sys_ini:r_s32("autodoctor", "ad_full_charges")	-- Макс. кол-во зарядов в подсистемах ИДЛК
+local full_charges = sys_ini:r_s32("autodoctor", "ad_full_charges")	-- РњР°РєСЃ. РєРѕР»-РІРѕ Р·Р°СЂСЏРґРѕРІ РІ РїРѕРґСЃРёСЃС‚РµРјР°С… РР”Р›Рљ
 local WIDTH_FACTOR  = device().height / device().width / 0.75
 
 function open_autodoc_ui()
@@ -56,7 +56,7 @@ function autodoc:InitLuaXml()
         led.height  = 28
         led.stretch = 1
             local led_texture = led:append('texture')
-            led_texture[1] = "ui_ad_led"
+            led_texture[1] = "ui_ad_led_e"
         -- btn_main_static ------------------------------
         local btn_main_static = luaxml:append('btn_main_static')
         btn_main_static.x       = 136 * WIDTH_FACTOR
@@ -65,7 +65,7 @@ function autodoc:InitLuaXml()
         btn_main_static.height  = 57
         btn_main_static.stretch = 1
             local btn_main_static_texture = btn_main_static:append('texture')
-            btn_main_static_texture[1] = "ui_ad_btn_main"
+            btn_main_static_texture[1] = "ui_ad_btn_main_e"
         -- btn_main ------------------------------
         local btn_main = luaxml:append('btn_main')
         btn_main.x       = 136 * WIDTH_FACTOR
@@ -86,7 +86,7 @@ function autodoc:InitLuaXml()
         btn_h_static.height  = 45
         btn_h_static.stretch = 1
             local btn_h_texture = btn_h_static:append('texture')
-            btn_h_texture[1] = "ui_ad_btn_kind"
+            btn_h_texture[1] = "ui_ad_btn_kind_e"
         -- btn_s ------------------------------
         local btn_s = luaxml:append('btn_s')
         btn_s.x       = 669 * WIDTH_FACTOR
@@ -101,7 +101,7 @@ function autodoc:InitLuaXml()
         btn_s_static.height  = 45
         btn_s_static.stretch = 1
             local btn_s_texture = btn_s_static:append('texture')
-            btn_s_texture[1] = "ui_ad_btn_kind"
+            btn_s_texture[1] = "ui_ad_btn_kind_e"
         -- btn_r ------------------------------
         local btn_r = luaxml:append('btn_r')
         btn_r.x       = 669 * WIDTH_FACTOR
@@ -116,7 +116,7 @@ function autodoc:InitLuaXml()
         btn_r_static.height  = 45
         btn_r_static.stretch = 1
             local btn_r_texture = btn_r_static:append('texture')
-            btn_r_texture[1] = "ui_ad_btn_kind"
+            btn_r_texture[1] = "ui_ad_btn_kind_e"
         -- bar_empty_h ------------------------------
         local bar_empty_h = luaxml:append('bar_empty_h')
         bar_empty_h.x       = 94 * WIDTH_FACTOR
@@ -169,16 +169,16 @@ function autodoc:InitControls()
 	self.xml = CScriptXmlInit()
 	self.xml:ParseFile("ui_dynamic.xml")
 	self.xml:InitWindow("main_wnd", 0, self)
-	self.xml:InitStatic("background", self) -- коробка
-    self.led = self.xml:InitStatic("led", self) -- светодиод. Изображение зависит от вкл/выкл автодока
+	self.xml:InitStatic("background", self) -- РєРѕСЂРѕР±РєР°
+    self.led = self.xml:InitStatic("led", self) -- СЃРІРµС‚РѕРґРёРѕРґ. РР·РѕР±СЂР°Р¶РµРЅРёРµ Р·Р°РІРёСЃРёС‚ РѕС‚ РІРєР»/РІС‹РєР» Р°РІС‚РѕРґРѕРєР°
     self.btn_main_static = self.xml:InitStatic("btn_main_static", self)
-    self.btn_main = self.xml:InitButton("btn_main", self)-- Вкл/выкл автодока
+    self.btn_main = self.xml:InitButton("btn_main", self)-- Р’РєР»/РІС‹РєР» Р°РІС‚РѕРґРѕРєР°
 	self:Register(self.btn_main, "btn_main")
 	
 	local t = {
-		'h', -- вкл/выкл лечилки
-		's', -- вкл/выкл стимулятора
-		'r',-- вкл/выкл антирада
+		'h', -- РІРєР»/РІС‹РєР» Р»РµС‡РёР»РєРё
+		's', -- РІРєР»/РІС‹РєР» СЃС‚РёРјСѓР»СЏС‚РѕСЂР°
+		'r',-- РІРєР»/РІС‹РєР» Р°РЅС‚РёСЂР°РґР°
 	}
 	for _,k in ipairs(t) do
 		local btn_name = "btn_"..k
@@ -205,11 +205,11 @@ function autodoc:InitControls()
 	end
 end
 
-function autodoc:InitCallBacks() --Тут интерактивные элементы, при определенном действии выполняется заданная ф-ия
+function autodoc:InitCallBacks() --РўСѓС‚ РёРЅС‚РµСЂР°РєС‚РёРІРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹, РїСЂРё РѕРїСЂРµРґРµР»РµРЅРЅРѕРј РґРµР№СЃС‚РІРёРё РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ Р·Р°РґР°РЅРЅР°СЏ С„-РёСЏ
 	local function switch(_, v)
 		ogse_autodoc.switch_on[v] = not ogse_autodoc.switch_on[v]
 	end
-	--KRodin: self передаём, чтобы сборщик мусора не удалил объект раньше времени!
+	--KRodin: self РїРµСЂРµРґР°С‘Рј, С‡С‚РѕР±С‹ СЃР±РѕСЂС‰РёРє РјСѓСЃРѕСЂР° РЅРµ СѓРґР°Р»РёР» РѕР±СЉРµРєС‚ СЂР°РЅСЊС€Рµ РІСЂРµРјРµРЅРё!
 	self:Connect("btn_main", ui_events.BUTTON_CLICKED, switch, self, "ad")
 	self:Connect("btn_h",    ui_events.BUTTON_CLICKED, switch, self, "h")
 	self:Connect("btn_s",    ui_events.BUTTON_CLICKED, switch, self, "s")
@@ -217,7 +217,7 @@ function autodoc:InitCallBacks() --Тут интерактивные элементы, при определенном 
 end
 
 function autodoc:Update()
-	CUIScriptWnd.Update(self) -- обязательно вызвать метод базового класса
+	CUIScriptWnd.Update(self) -- РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РІС‹Р·РІР°С‚СЊ РјРµС‚РѕРґ Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР°
     
 	local tex = ogse_autodoc.switch_on.ad and 'ui_ad_btn_main_t' or 'ui_ad_btn_main_e'
 	self.btn_main_static:InitTexture(tex)
@@ -255,7 +255,7 @@ function autodoc:OnKeyboard(dik, keyboard_action)
 	if keyboard_action == ui_events.WINDOW_KEY_PRESSED
 	then
 		if dik == DIK_keys.DIK_ESCAPE then
-			self:on_quit()-- на выход повесим Esc
+			self:on_quit()-- РЅР° РІС‹С…РѕРґ РїРѕРІРµСЃРёРј Esc
 		elseif dik == DIK_keys.DIK_NUMPAD7 then
 			ogse_autodoc.switch_on.ad = not ogse_autodoc.switch_on.ad
 		elseif dik == DIK_keys.DIK_NUMPAD9 then

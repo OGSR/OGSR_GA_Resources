@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function proceed()
 	if level.name() ~= "l01_escape" then return end
@@ -35,7 +35,7 @@ function proceed()
 	end     	
 
 
---' Туториальный труп
+--' РўСѓС‚РѕСЂРёР°Р»СЊРЅС‹Р№ С‚СЂСѓРї
 	if has_alife_info("escape_blockpost_case") and
 	   not has_alife_info("escape_blockpost_case_have") and 
 	   actor:object("quest_case_01") ~= nil
@@ -116,9 +116,9 @@ end
 
 function process_info_portion(info_id)
 
-	--' пометки на карте 
+	--' РїРѕРјРµС‚РєРё РЅР° РєР°СЂС‚Рµ 
 	
-	-- область, указывающаЯ на тайник, котораЯ помечаетсЯ при обыске трупа -10.3,2.5,55.9
+	-- РѕР±Р»Р°СЃС‚СЊ, СѓРєР°Р·С‹РІР°СЋС‰Р°РЇ РЅР° С‚Р°Р№РЅРёРє, РєРѕС‚РѕСЂР°РЇ РїРѕРјРµС‡Р°РµС‚СЃРЇ РїСЂРё РѕР±С‹СЃРєРµ С‚СЂСѓРїР° -10.3,2.5,55.9
 	if info_id == "esc_tutorial_secret_place" then
 		if not has_alife_info("esc_tutorial_secret_place_found") then
 			level_tasks.add_location_by_sid(story_ids.esc_tutorial_secret_place, "crlc_small", "tutorial_secret_place1")
@@ -126,7 +126,7 @@ function process_info_portion(info_id)
 	elseif info_id == "esc_tutorial_secret_place_found" then
 		level_tasks.remove_location_by_sid(story_ids.esc_tutorial_secret_place, "crlc_small")
 		
-	-- область, указывающаЯ на тайник, котораЯ помечаетсЯ при обыске трупа бандита, шатающегосЯ на Ђ’Џ
+	-- РѕР±Р»Р°СЃС‚СЊ, СѓРєР°Р·С‹РІР°СЋС‰Р°РЇ РЅР° С‚Р°Р№РЅРёРє, РєРѕС‚РѕСЂР°РЇ РїРѕРјРµС‡Р°РµС‚СЃРЇ РїСЂРё РѕР±С‹СЃРєРµ С‚СЂСѓРїР° Р±Р°РЅРґРёС‚Р°, С€Р°С‚Р°СЋС‰РµРіРѕСЃРЇ РЅР° Р‚вЂ™РЏ
 	elseif info_id == "esc_kolyan_lost" then
 		if not has_alife_info("esc_kolyan_found") then
 			level_tasks.add_location_by_sid(story_ids.esc_mill, "crlc_big", "esc_mill")
@@ -134,7 +134,7 @@ function process_info_portion(info_id)
 	elseif info_id == "esc_kolyan_found" then
 		level_tasks.remove_location_by_sid(story_ids.esc_mill, "crlc_big")
 		
-	-- снимаетсЯ с мертвого сталкера, лежащего в -87.11,-4.86,-79.12
+	-- СЃРЅРёРјР°РµС‚СЃРЇ СЃ РјРµСЂС‚РІРѕРіРѕ СЃС‚Р°Р»РєРµСЂР°, Р»РµР¶Р°С‰РµРіРѕ РІ -87.11,-4.86,-79.12
 --[[	elseif info_id == "esc_tutorial_secret" then
 		if not has_alife_info("esc_tutorial_secret_find") then
 			level_tasks.add_location_by_sid(story_ids.esc_pm_broken, "crlc_small", "tutorial_secret")
@@ -142,7 +142,7 @@ function process_info_portion(info_id)
 	elseif info_id == "esc_tutorial_secret_find" then
 		level_tasks.remove_location_by_sid(story_ids.esc_pm_broken, "crlc_small")]]
 		
-	-- дает устрый в разговоре
+	-- РґР°РµС‚ ВСѓСЃС‚СЂС‹Р№ РІ СЂР°Р·РіРѕРІРѕСЂРµ
 	elseif info_id == "esc_shustryi_secret" then
 		if not has_alife_info("esc_shustryi_secret_find") then
 			level_tasks.add_location_by_sid(story_ids.esc_toz_broken, "crlc_small", "tutorial_secret_shustryi")
@@ -150,7 +150,7 @@ function process_info_portion(info_id)
 	elseif info_id == "esc_shustryi_secret_find" then
 		level_tasks.remove_location_by_sid(story_ids.esc_toz_broken, "crlc_small")
 		
-	-- по всей видимости, какаЯ-то стараЯ затычка
+	-- РїРѕ РІСЃРµР№ РІРёРґРёРјРѕСЃС‚Рё, РєР°РєР°РЇ-С‚Рѕ СЃС‚Р°СЂР°РЇ Р·Р°С‚С‹С‡РєР°
 	elseif info_id == "tutorial_end" then
 		level_tasks.remove_location_by_sid(story_ids.Escape_bridge_stalkers, "green_location")
 		level_tasks.remove_location_by_sid(story_ids.Escape_novice_lager_volk, "green_location")

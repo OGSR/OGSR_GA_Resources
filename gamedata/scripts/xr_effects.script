@@ -1,7 +1,7 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -- ----------------------------------------------------------------------------------------------------
--- Общие функции
+-- РћР±С‰РёРµ С„СѓРЅРєС†РёРё
 -- ----------------------------------------------------------------------------------------------------
 local spawn_db = ogse_spawn_db.script_spawn_registry.xr_effects
 
@@ -456,15 +456,15 @@ end
 
 
 --[[
-Дать сталкеру небольшой пинок. Например чтоб скинуть его с возвышения.
-параметры: actor, npc, p[direction,bone,power,impulse,reverse=false]
-    1. direction - если строка, то считается, что это имя пути и в сторону
-        первой точки производится толчек. Если же это число, то оно
-        рассматривается как story_id персонажа от которого должен поступить хит.
-    2. bone - строка. Имя кости, по которой наносится удар.
-    3. power - сила удара
-    4. impulse - импульс
-    5. reverse (true/false) - изменение направления удара. по умолчанию false
+Р”Р°С‚СЊ СЃС‚Р°Р»РєРµСЂСѓ РЅРµР±РѕР»СЊС€РѕР№ РїРёРЅРѕРє. РќР°РїСЂРёРјРµСЂ С‡С‚РѕР± СЃРєРёРЅСѓС‚СЊ РµРіРѕ СЃ РІРѕР·РІС‹С€РµРЅРёСЏ.
+РїР°СЂР°РјРµС‚СЂС‹: actor, npc, p[direction,bone,power,impulse,reverse=false]
+    1. direction - РµСЃР»Рё СЃС‚СЂРѕРєР°, С‚Рѕ СЃС‡РёС‚Р°РµС‚СЃСЏ, С‡С‚Рѕ СЌС‚Рѕ РёРјСЏ РїСѓС‚Рё Рё РІ СЃС‚РѕСЂРѕРЅСѓ
+        РїРµСЂРІРѕР№ С‚РѕС‡РєРё РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ С‚РѕР»С‡РµРє. Р•СЃР»Рё Р¶Рµ СЌС‚Рѕ С‡РёСЃР»Рѕ, С‚Рѕ РѕРЅРѕ
+        СЂР°СЃСЃРјР°С‚СЂРёРІР°РµС‚СЃСЏ РєР°Рє story_id РїРµСЂСЃРѕРЅР°Р¶Р° РѕС‚ РєРѕС‚РѕСЂРѕРіРѕ РґРѕР»Р¶РµРЅ РїРѕСЃС‚СѓРїРёС‚СЊ С…РёС‚.
+    2. bone - СЃС‚СЂРѕРєР°. РРјСЏ РєРѕСЃС‚Рё, РїРѕ РєРѕС‚РѕСЂРѕР№ РЅР°РЅРѕСЃРёС‚СЃСЏ СѓРґР°СЂ.
+    3. power - СЃРёР»Р° СѓРґР°СЂР°
+    4. impulse - РёРјРїСѓР»СЊСЃ
+    5. reverse (true/false) - РёР·РјРµРЅРµРЅРёРµ РЅР°РїСЂР°РІР»РµРЅРёСЏ СѓРґР°СЂР°. РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ false
 --]]
 function hit_npc(actor, npc, p)
 	local h = hit()
@@ -495,17 +495,17 @@ function hit_npc(actor, npc, p)
 end
 
 --[[
-Дать обьекту, заданному story_id, хит.
-параметры: actor, npc, p[sid,bone,power,impulse,hit_src=npc:position()]
-    1. sid - story_id обьекта, по которому наносится хит.
-    2. bone - строка. Имя кости, по которой наносится удар.
-    3. power - сила удара
-    4. impulse - импульс
-    5. hit_src - если число, то рассматривается как story_id обьекта, со стороны
-        которого наносится хит (он же является и инициатором хита), иначе это
-        точка (waypoint), из которой по объекту наносится хит.
-        Если не задано, то берется позиция обьекта, из которого была вызвана
-        данная функция.
+Р”Р°С‚СЊ РѕР±СЊРµРєС‚Сѓ, Р·Р°РґР°РЅРЅРѕРјСѓ story_id, С…РёС‚.
+РїР°СЂР°РјРµС‚СЂС‹: actor, npc, p[sid,bone,power,impulse,hit_src=npc:position()]
+    1. sid - story_id РѕР±СЊРµРєС‚Р°, РїРѕ РєРѕС‚РѕСЂРѕРјСѓ РЅР°РЅРѕСЃРёС‚СЃСЏ С…РёС‚.
+    2. bone - СЃС‚СЂРѕРєР°. РРјСЏ РєРѕСЃС‚Рё, РїРѕ РєРѕС‚РѕСЂРѕР№ РЅР°РЅРѕСЃРёС‚СЃСЏ СѓРґР°СЂ.
+    3. power - СЃРёР»Р° СѓРґР°СЂР°
+    4. impulse - РёРјРїСѓР»СЊСЃ
+    5. hit_src - РµСЃР»Рё С‡РёСЃР»Рѕ, С‚Рѕ СЂР°СЃСЃРјР°С‚СЂРёРІР°РµС‚СЃСЏ РєР°Рє story_id РѕР±СЊРµРєС‚Р°, СЃРѕ СЃС‚РѕСЂРѕРЅС‹
+        РєРѕС‚РѕСЂРѕРіРѕ РЅР°РЅРѕСЃРёС‚СЃСЏ С…РёС‚ (РѕРЅ Р¶Рµ СЏРІР»СЏРµС‚СЃСЏ Рё РёРЅРёС†РёР°С‚РѕСЂРѕРј С…РёС‚Р°), РёРЅР°С‡Рµ СЌС‚Рѕ
+        С‚РѕС‡РєР° (waypoint), РёР· РєРѕС‚РѕСЂРѕР№ РїРѕ РѕР±СЉРµРєС‚Сѓ РЅР°РЅРѕСЃРёС‚СЃСЏ С…РёС‚.
+        Р•СЃР»Рё РЅРµ Р·Р°РґР°РЅРѕ, С‚Рѕ Р±РµСЂРµС‚СЃСЏ РїРѕР·РёС†РёСЏ РѕР±СЊРµРєС‚Р°, РёР· РєРѕС‚РѕСЂРѕРіРѕ Р±С‹Р»Р° РІС‹Р·РІР°РЅР°
+        РґР°РЅРЅР°СЏ С„СѓРЅРєС†РёСЏ.
 --]]
 function hit_obj(actor, npc, p)
 	local h = hit()
@@ -542,9 +542,9 @@ function hit_obj(actor, npc, p)
 end
 
 --[[
-Дать сталкеру небольшой пинок после смерти. Аналогично предыдущему, только направление хита теперь
-вычисляется через убийцу. Поэтому параметра direction нет.
-параметры: actor, npc, p[bone,power,impulse]
+Р”Р°С‚СЊ СЃС‚Р°Р»РєРµСЂСѓ РЅРµР±РѕР»СЊС€РѕР№ РїРёРЅРѕРє РїРѕСЃР»Рµ СЃРјРµСЂС‚Рё. РђРЅР°Р»РѕРіРёС‡РЅРѕ РїСЂРµРґС‹РґСѓС‰РµРјСѓ, С‚РѕР»СЊРєРѕ РЅР°РїСЂР°РІР»РµРЅРёРµ С…РёС‚Р° С‚РµРїРµСЂСЊ
+РІС‹С‡РёСЃР»СЏРµС‚СЃСЏ С‡РµСЂРµР· СѓР±РёР№С†Сѓ. РџРѕСЌС‚РѕРјСѓ РїР°СЂР°РјРµС‚СЂР° direction РЅРµС‚.
+РїР°СЂР°РјРµС‚СЂС‹: actor, npc, p[bone,power,impulse]
 FIXME: killer:position() isn't working
 --]]
 function hit_by_killer(actor, npc, p)
@@ -588,7 +588,7 @@ function set_enemies(actor, npc, p)
 	end
 end
 
--- играть звук в голове актёра
+-- РёРіСЂР°С‚СЊ Р·РІСѓРє РІ РіРѕР»РѕРІРµ Р°РєС‚С‘СЂР°
 function play_snd(actor, npc, p)
 	if p[1] then
 		local snd_obj = xr_sound.get_safe_sound_object(p[1])
@@ -599,7 +599,7 @@ function play_snd(actor, npc, p)
 	end
 end
 
--- играть звук от указанного объекта
+-- РёРіСЂР°С‚СЊ Р·РІСѓРє РѕС‚ СѓРєР°Р·Р°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р°
 function play_snd_from_obj(actor, npc, p)
 	if p[1] and p[2] then
 		local snd_obj = xr_sound.get_safe_sound_object(p[2])
@@ -613,7 +613,7 @@ function play_snd_from_obj(actor, npc, p)
 		end
 	end
 end
--- играть звук от указанного объекта. Объект от которого играть задаётся параметром npc
+-- РёРіСЂР°С‚СЊ Р·РІСѓРє РѕС‚ СѓРєР°Р·Р°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р°. РћР±СЉРµРєС‚ РѕС‚ РєРѕС‚РѕСЂРѕРіРѕ РёРіСЂР°С‚СЊ Р·Р°РґР°С‘С‚СЃСЏ РїР°СЂР°РјРµС‚СЂРѕРј npc
 function play_snd_from_obj2(actor, npc, p)
 	ASSERT(p[1], "play_snd_from_obj2: sound is not defined for object '%s'", npc:name())
 	local snd_obj = xr_sound.get_safe_sound_object(p[1])
@@ -621,13 +621,13 @@ function play_snd_from_obj2(actor, npc, p)
 	snd_obj:play_no_feedback(npc, sound_object.s3d, 0, npc:position(), 1.0)
 end
 
--- играть звук от указанного объекта
+-- РёРіСЂР°С‚СЊ Р·РІСѓРє РѕС‚ СѓРєР°Р·Р°РЅРЅРѕРіРѕ РѕР±СЉРµРєС‚Р°
 function play_snd_now(actor, npc, p)
 	xr_sound.set_sound_play(npc, p[1])
 end
 
 
--- прибавить к указанному счётчику актёра 1
+-- РїСЂРёР±Р°РІРёС‚СЊ Рє СѓРєР°Р·Р°РЅРЅРѕРјСѓ СЃС‡С‘С‚С‡РёРєСѓ Р°РєС‚С‘СЂР° 1
 function inc_counter(actor, npc, p)
 	if p[1] then
 		xr_logic.pstor_store(actor, p[1], xr_logic.pstor_retrieve(actor, p[1], 0) + 1)
@@ -641,20 +641,20 @@ function dec_counter(actor, npc, p)
 end
 
 
--- переключает камеру на монстра или на актёра
+-- РїРµСЂРµРєР»СЋС‡Р°РµС‚ РєР°РјРµСЂСѓ РЅР° РјРѕРЅСЃС‚СЂР° РёР»Рё РЅР° Р°РєС‚С‘СЂР°
 function alien_control( actor, npc, p )
 	npc:set_alien_control( p[1] == "true" )
 end
 
--- слелать актёра врагом персонажам, которые в онлайне под указанным смартом
+-- СЃР»РµР»Р°С‚СЊ Р°РєС‚С‘СЂР° РІСЂР°РіРѕРј РїРµСЂСЃРѕРЅР°Р¶Р°Рј, РєРѕС‚РѕСЂС‹Рµ РІ РѕРЅР»Р°Р№РЅРµ РїРѕРґ СѓРєР°Р·Р°РЅРЅС‹Рј СЃРјР°СЂС‚РѕРј
 function set_gulag_enemy_actor( actor, npc, p )
 	if p[1] then
 		xr_gulag.setGulagEnemy(p[1], actor)
 	end
 end
 
--- принудительное обновление смарта. Использовать только в КРАЙНИХ случаях!!!
--- каждое использование согласовывать со мной. Чугай.
+-- РїСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕРµ РѕР±РЅРѕРІР»РµРЅРёРµ СЃРјР°СЂС‚Р°. РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С‚РѕР»СЊРєРѕ РІ РљР РђР™РќРРҐ СЃР»СѓС‡Р°СЏС…!!!
+-- РєР°Р¶РґРѕРµ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЃРѕРіР»Р°СЃРѕРІС‹РІР°С‚СЊ СЃРѕ РјРЅРѕР№. Р§СѓРіР°Р№.
 function smart_terrain_force_update(actor, npc, p)
 
 	if p[1] then
@@ -679,7 +679,7 @@ function play_snd_on_me(actor, npc, p)
 end
 ----------------------------------------------------------------------------------------------------------------
 
--- постпроцесс и влияние удара в морду
+-- РїРѕСЃС‚РїСЂРѕС†РµСЃСЃ Рё РІР»РёСЏРЅРёРµ СѓРґР°СЂР° РІ РјРѕСЂРґСѓ
 function actor_punch(npc)
 	if db.actor:position():distance_to_sqr(npc:position()) > 4 then
 		return
@@ -712,19 +712,19 @@ function actor_punch(npc)
 end
 
 
--- Принудительное усыпание игрока на радаре.
+-- РџСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕРµ СѓСЃС‹РїР°РЅРёРµ РёРіСЂРѕРєР° РЅР° СЂР°РґР°СЂРµ.
 function force_actor_sleep(npc)
 	db.actor:actor_sleep(24, 0)
 end
 
 
--- забывание обиды
+-- Р·Р°Р±С‹РІР°РЅРёРµ РѕР±РёРґС‹
 function clearAbuse(npc)
 	xr_abuse.clear_abuse(npc)
 end
 
 
----Выключение динамической лампочки (hanging_lamp)
+---Р’С‹РєР»СЋС‡РµРЅРёРµ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ Р»Р°РјРїРѕС‡РєРё (hanging_lamp)
 function turn_off(actor, npc, p)
 	local obj = level_object_by_sid(p[1])
 
@@ -749,7 +749,7 @@ function turn_off_object(actor, npc)
 	npc:get_hanging_lamp():turn_off()
 end
 
----Включение динамической лампочки (hanging_lamp)
+---Р’РєР»СЋС‡РµРЅРёРµ РґРёРЅР°РјРёС‡РµСЃРєРѕР№ Р»Р°РјРїРѕС‡РєРё (hanging_lamp)
 function turn_on(actor, npc, p)
 	local obj = level_object_by_sid(p[1])
 
@@ -788,7 +788,7 @@ end
 
 ------------------------------------------------------------------------------------------------
 
--- Кто-то из участников сценки вступил в бой - теперь нужно пообижать всех на всех
+-- РљС‚Рѕ-С‚Рѕ РёР· СѓС‡Р°СЃС‚РЅРёРєРѕРІ СЃС†РµРЅРєРё РІСЃС‚СѓРїРёР» РІ Р±РѕР№ - С‚РµРїРµСЂСЊ РЅСѓР¶РЅРѕ РїРѕРѕР±РёР¶Р°С‚СЊ РІСЃРµС… РЅР° РІСЃРµС…
 function gar_dm_bandits_fight(actor, npc)
   local novice = level_object_by_sid( 104 )
   if not ( novice and novice:alive() ) then return end
@@ -873,7 +873,7 @@ function esc_millitary_near_anomaly_start_timer_delete(actor,npc)
 end
 
 function messege_help_to_scoryi()
- --   news_manager.send_tip(db.actor, "Братья сталкеры, выручайте, в беду попал! Помогите! Я нахожушь недалеко от перехода на Свалку, около разбитого грузовика. Прошу помогите!", 0, "stalker", 20000)
+ --   news_manager.send_tip(db.actor, "Р‘СЂР°С‚СЊСЏ СЃС‚Р°Р»РєРµСЂС‹, РІС‹СЂСѓС‡Р°Р№С‚Рµ, РІ Р±РµРґСѓ РїРѕРїР°Р»! РџРѕРјРѕРіРёС‚Рµ! РЇ РЅР°С…РѕР¶СѓС€СЊ РЅРµРґР°Р»РµРєРѕ РѕС‚ РїРµСЂРµС…РѕРґР° РЅР° РЎРІР°Р»РєСѓ, РѕРєРѕР»Рѕ СЂР°Р·Р±РёС‚РѕРіРѕ РіСЂСѓР·РѕРІРёРєР°. РџСЂРѕС€Сѓ РїРѕРјРѕРіРёС‚Рµ!", 0, "stalker", 20000)
 --SPAWN_V1
 	--local Scoryi = alife():create("esc_scoryi", vector():set(119.39, 2.05, 463.33), 423399, 222)
 --SPAWN_V2
@@ -991,7 +991,7 @@ function give_rostok_quests(actor, npc)
 end
 
 
-function set_neutral(actor, npc) -- Сделаться нейтральным к ГГ
+function set_neutral(actor, npc) -- РЎРґРµР»Р°С‚СЊСЃСЏ РЅРµР№С‚СЂР°Р»СЊРЅС‹Рј Рє Р“Р“
 	npc:set_relation (game_object.neutral, actor)
 	npc:set_goodwill(8000, actor)
 	npc:set_goodwill(8000, actor)
@@ -1004,10 +1004,10 @@ function actor_friend2(actor, npc)
 end
 
 
--- Вызов этой функции отключит обработчик [combat] боя для персонажа.
--- Используется в случаях, когда все необходимые действия, такие как переключение на другую секцию,
--- уже выполнены, и повторно выполнять их во время боя нельзя (а условия секции [combat] проверяются на каждом
--- апдейте, когда персонаж в бою, если, конечно, не отключены вызовом этой функции).
+-- Р’С‹Р·РѕРІ СЌС‚РѕР№ С„СѓРЅРєС†РёРё РѕС‚РєР»СЋС‡РёС‚ РѕР±СЂР°Р±РѕС‚С‡РёРє [combat] Р±РѕСЏ РґР»СЏ РїРµСЂСЃРѕРЅР°Р¶Р°.
+-- РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ СЃР»СѓС‡Р°СЏС…, РєРѕРіРґР° РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґРµР№СЃС‚РІРёСЏ, С‚Р°РєРёРµ РєР°Рє РїРµСЂРµРєР»СЋС‡РµРЅРёРµ РЅР° РґСЂСѓРіСѓСЋ СЃРµРєС†РёСЋ,
+-- СѓР¶Рµ РІС‹РїРѕР»РЅРµРЅС‹, Рё РїРѕРІС‚РѕСЂРЅРѕ РІС‹РїРѕР»РЅСЏС‚СЊ РёС… РІРѕ РІСЂРµРјСЏ Р±РѕСЏ РЅРµР»СЊР·СЏ (Р° СѓСЃР»РѕРІРёСЏ СЃРµРєС†РёРё [combat] РїСЂРѕРІРµСЂСЏСЋС‚СЃСЏ РЅР° РєР°Р¶РґРѕРј
+-- Р°РїРґРµР№С‚Рµ, РєРѕРіРґР° РїРµСЂСЃРѕРЅР°Р¶ РІ Р±РѕСЋ, РµСЃР»Рё, РєРѕРЅРµС‡РЅРѕ, РЅРµ РѕС‚РєР»СЋС‡РµРЅС‹ РІС‹Р·РѕРІРѕРј СЌС‚РѕР№ С„СѓРЅРєС†РёРё).
 function disable_combat_handler(actor, npc)
 	if db.storage[npc:id()].combat then
 		db.storage[npc:id()].combat.enabled = false
@@ -1135,7 +1135,7 @@ function rostok_kruglov_attract_1(actor,npc)
 	xr_sound.set_sound_play(npc, "kruglov_stop_enemy_1")
 	local tips_sound = news_manager.send_tip_nosound(db.actor, "bar_freedom_chase", 0, "ecolog")
 	if tips_sound ~= nil then
-		--' Играем звук забитый
+		--' РРіСЂР°РµРј Р·РІСѓРє Р·Р°Р±РёС‚С‹Р№
 		tips_sound:play(db.actor, 0, sound_object.s2d)
 	end
 end
@@ -1143,7 +1143,7 @@ function rostok_kruglov_attract_2(actor,npc)
 	xr_sound.set_sound_play(npc, "kruglov_stop_enemy_2",3)
 	local tips_sound = news_manager.send_tip_nosound(db.actor, "rostok_kruglov_follow_2",3000, "ecolog")
 	if tips_sound ~= nil then
-		--' Играем звук забитый
+		--' РРіСЂР°РµРј Р·РІСѓРє Р·Р°Р±РёС‚С‹Р№
 		tips_sound:play(db.actor, 0, sound_object.s2d)
 	end
 end
@@ -1151,7 +1151,7 @@ function rostok_kruglov_ambush(actor,npc)
 	xr_sound.set_sound_play(npc, "rostok_kruglov_help_5")
 	local tips_sound = news_manager.send_tip_nosound(db.actor, "rostok_kruglov_follow_3", 0, "ecolog")
 	if tips_sound ~= nil then
-		--' Играем звук забитый
+		--' РРіСЂР°РµРј Р·РІСѓРє Р·Р°Р±РёС‚С‹Р№
 		tips_sound:play(db.actor, 0, sound_object.s2d)
 	end
 end
@@ -1308,12 +1308,12 @@ function bar_arena_teleport_2( actor, npc)
 		local dir = patrol("t_look_2"):point(0):sub(patrol("t_walk_2"):point(0))
 		db.actor:set_actor_direction(-dir:getH())
 	
-		-- удаляем то, что у актора есть
+		-- СѓРґР°Р»СЏРµРј С‚Рѕ, С‡С‚Рѕ Сѓ Р°РєС‚РѕСЂР° РµСЃС‚СЊ
 		db.actor:inventory_for_each(function(item, npc)
 										if not item then return end
 										if not items_no_transfer[item:section()] then ogse.remove_item_from_inventory(item, npc) end
 									end)
-		-- переносим к нему его барахло
+		-- РїРµСЂРµРЅРѕСЃРёРј Рє РЅРµРјСѓ РµРіРѕ Р±Р°СЂР°С…Р»Рѕ
 		ogse.transfer_items_from_box(story_ids.bar_arena_inventory_box_2)
 end
 
@@ -1521,7 +1521,7 @@ end
 
 
 -------------------------------------------------------------------------------------
--- Функции для DarkValley
+-- Р¤СѓРЅРєС†РёРё РґР»СЏ DarkValley
 -------------------------------------------------------------------------------------
 
 function on_timer_orlov_go_to_fab(params_string)
@@ -1530,7 +1530,7 @@ function on_timer_orlov_go_to_fab(params_string)
 	end
 end
 	
---Призрак Quest's
+--РџСЂРёР·СЂР°Рє Quest's
 function val_last_request_start_timer()
 	ogse_st_mgr.start_timer("orlov_go_to_fab", 60, script_name()..".on_timer_orlov_go_to_fab")
 end
@@ -1544,10 +1544,10 @@ local timer_orlov
 function we_are_very_far_from_orlov(actor,npc)
 	if timer_orlov==nil then
 		timer_orlov=game.time()+8000
-		return		--Не будем гонять проверку
+		return		--РќРµ Р±СѓРґРµРј РіРѕРЅСЏС‚СЊ РїСЂРѕРІРµСЂРєСѓ
 	end
 	if timer_orlov<game.time() then
-		news_manager.send_tip(db.actor, "Вы слишком далеко от сталкера", 0, "actor", 3000)
+		news_manager.send_tip(db.actor, "Р’С‹ СЃР»РёС€РєРѕРј РґР°Р»РµРєРѕ РѕС‚ СЃС‚Р°Р»РєРµСЂР°", 0, "actor", 3000)
 		timer_orlov=game.time()+8000
 	end
 end
@@ -1560,13 +1560,13 @@ function launch_dialog()
 end
 
 function show_messeges_shpion_to_orlov1()
-    news_manager.send_tip(db.actor, "Докладывай.", 0, "stalker", 5000)
+    news_manager.send_tip(db.actor, "Р”РѕРєР»Р°РґС‹РІР°Р№.", 0, "stalker", 5000)
 end
 function show_messeges_shpion_to_orlov2()
-    news_manager.send_tip(db.actor, "Всё состоится.", 0, "stalker", 5000)
+    news_manager.send_tip(db.actor, "Р’СЃС‘ СЃРѕСЃС‚РѕРёС‚СЃСЏ.", 0, "stalker", 5000)
 end
 function show_messeges_shpion_to_orlov3()
-	news_manager.send_tip(db.actor, "В какое время?", 0, "stalker", 5000)
+	news_manager.send_tip(db.actor, "Р’ РєР°РєРѕРµ РІСЂРµРјСЏ?", 0, "stalker", 5000)
 end
 
 function on_timer_scene_hit_actor_to_prison2()
@@ -1576,14 +1576,14 @@ function on_timer_scene_hit_actor_to_prison2()
 end
 	
 function show_messeges_shpion_to_orlov4()
-	news_manager.send_tip(db.actor, "Время не изменилось.", 0, "stalker", 5000)
+	news_manager.send_tip(db.actor, "Р’СЂРµРјСЏ РЅРµ РёР·РјРµРЅРёР»РѕСЃСЊ.", 0, "stalker", 5000)
 	ogse_st_mgr.start_timer("scene_hit_actor_to_prison2", 3, script_name()..".on_timer_scene_hit_actor_to_prison2")
 end
 
 function going_to_orlov(actor,npc)
-	news_manager.send_tip(db.actor, "Это что за тип с тобой?", 1, "killer", 5000)
-	news_manager.send_tip(db.actor, "Это мой помощник. Пропусти, у меня есть дело к Боссу.", 3, "default", 5000)
-	news_manager.send_tip(db.actor, "Проходи.", 7, "killer", 5000)
+	news_manager.send_tip(db.actor, "Р­С‚Рѕ С‡С‚Рѕ Р·Р° С‚РёРї СЃ С‚РѕР±РѕР№?", 1, "killer", 5000)
+	news_manager.send_tip(db.actor, "Р­С‚Рѕ РјРѕР№ РїРѕРјРѕС‰РЅРёРє. РџСЂРѕРїСѓСЃС‚Рё, Сѓ РјРµРЅСЏ РµСЃС‚СЊ РґРµР»Рѕ Рє Р‘РѕСЃСЃСѓ.", 3, "default", 5000)
+	news_manager.send_tip(db.actor, "РџСЂРѕС…РѕРґРё.", 7, "killer", 5000)
 end
 
 function actor_look_at_sitnik_hit_to_actor_start()
@@ -1591,7 +1591,7 @@ function actor_look_at_sitnik_hit_to_actor_start()
 end
 --[[
 function val_orlov_send_tip_about_sniperf()
-    news_manager.send_tip(db.actor, "Ах сволочь, предупреждали что снайпер засел на фабрике в ТД, сейчас едва ноги унес, повезло что рядом вагончик стоял. Когда его кто нибудь прикончит!?", 5, "default", 5000)
+    news_manager.send_tip(db.actor, "РђС… СЃРІРѕР»РѕС‡СЊ, РїСЂРµРґСѓРїСЂРµР¶РґР°Р»Рё С‡С‚Рѕ СЃРЅР°Р№РїРµСЂ Р·Р°СЃРµР» РЅР° С„Р°Р±СЂРёРєРµ РІ РўР”, СЃРµР№С‡Р°СЃ РµРґРІР° РЅРѕРіРё СѓРЅРµСЃ, РїРѕРІРµР·Р»Рѕ С‡С‚Рѕ СЂСЏРґРѕРј РІР°РіРѕРЅС‡РёРє СЃС‚РѕСЏР». РљРѕРіРґР° РµРіРѕ РєС‚Рѕ РЅРёР±СѓРґСЊ РїСЂРёРєРѕРЅС‡РёС‚!?", 5, "default", 5000)
 end
 ]]
 function val_escort_guard_death(actor, npc)
@@ -1673,7 +1673,7 @@ end
 
 
 -------------------------------------------------------------------------------------
--- Функции для Агропрома
+-- Р¤СѓРЅРєС†РёРё РґР»СЏ РђРіСЂРѕРїСЂРѕРјР°
 -------------------------------------------------------------------------------------
 
 function kill_plennik(actor,npc)
@@ -1935,7 +1935,7 @@ function sar2_hero_spawn(actor, npc)
 end
 
 -------------------------------------------------------------------------------------
--- Функции для работы с вертолётами
+-- Р¤СѓРЅРєС†РёРё РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РІРµСЂС‚РѕР»С‘С‚Р°РјРё
 -------------------------------------------------------------------------------------
 
 function heli_set_enemy_actor(actor, npc)
@@ -1972,7 +1972,7 @@ end
 
 
 -------------------------------------------------------------------------------------
--- Функции для работы с погодными эффектами
+-- Р¤СѓРЅРєС†РёРё РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РїРѕРіРѕРґРЅС‹РјРё СЌС„С„РµРєС‚Р°РјРё
 -------------------------------------------------------------------------------------
 function start_small_reject (actor, npc)
 	--[[if (level.get_time_hours() >= 5 and level.get_time_hours() <= 20) then
@@ -2090,7 +2090,7 @@ function aes_zombie_hit2 (npc)
     --joint:set_max_force_and_velocity (0.5 + math.random(), 0.1 * 1,  2)
                 --self.dir_x_axis  = self.dir_x_axis * (-1)
                 --self.dir_z_axis = self.dir_z_axis * (-1)
-                --self.time    = device():time_global() + math.random(800, 1000)
+                --self.time    = time_global() + math.random(800, 1000)
         --end
     
     --local element = pshell:get_element_by_bone_name ("foot_right")
@@ -2136,7 +2136,7 @@ function aes_zombie_hit2 (npc)
 	--npc:set_const_force (dir, 2000, 3)
 end
 
--- постпроцесс и влияние удара в морду
+-- РїРѕСЃС‚РїСЂРѕС†РµСЃСЃ Рё РІР»РёСЏРЅРёРµ СѓРґР°СЂР° РІ РјРѕСЂРґСѓ
 function aes_earthshake (npc)
 	if not has_alife_info("pri_what_the_fuck") then
 		local snd_obj = xr_sound.get_safe_sound_object([[ambient\earthquake]])
@@ -2154,7 +2154,7 @@ function vovan_camera_test (npc)
 	level.add_cam_effector("camera_effects\\test.anm", "")	                  
 end
 -------------------------------------------------------------------------------------
--- Функции для Янтаря
+-- Р¤СѓРЅРєС†РёРё РґР»СЏ РЇРЅС‚Р°СЂСЏ
 ----------------------------------------------------------------------------------
 function yan_actor_sleep (actor, npc)
 	db.actor:set_actor_position(patrol("yan_actor_sleep"):point(0))
@@ -2280,7 +2280,7 @@ function aes_final_movie(actor, npc)
 	game.start_tutorial("mov_refuse_osoznanie")
 end
 ------------------------------------------------------------------------------------
--- Функции для Радара
+-- Р¤СѓРЅРєС†РёРё РґР»СЏ Р Р°РґР°СЂР°
 ------------------------------------------------------------------------------------
 function rad_psi_hit (actor, npc)
 	level.add_pp_effector ("radar_psi.ppe", 2006, false)
@@ -2294,7 +2294,7 @@ function end_radar_dream(actor, npc)
 	db.actor:give_info_portion("bun_patrol_start")
 end
 ------------------------------------------------------------------------------------
--- Функции для саркофага
+-- Р¤СѓРЅРєС†РёРё РґР»СЏ СЃР°СЂРєРѕС„Р°РіР°
 ------------------------------------------------------------------------------------
 function destroy_monolith_generator(actor, npc)
     local source = nil
@@ -2321,7 +2321,7 @@ function destroy_monolith_generator(actor, npc)
 end
 
 function sar_monolith_miracle(actor, npc)
-	--' Убил лидеров группировок
+	--' РЈР±РёР» Р»РёРґРµСЂРѕРІ РіСЂСѓРїРїРёСЂРѕРІРѕРє
 	if has_alife_info("mil_lukash_dead") and
 	   has_alife_info("bar_voronin_dead")
 	then
@@ -2329,19 +2329,19 @@ function sar_monolith_miracle(actor, npc)
 		return
 	end
 
-	--' Много денег
+	--' РњРЅРѕРіРѕ РґРµРЅРµРі
 	if db.actor:money() >= 200000 then
 		game.start_tutorial("mov_desire_2")	
 		return
 	end
 
-	--' Хорошая репутация
+	--' РҐРѕСЂРѕС€Р°СЏ СЂРµРїСѓС‚Р°С†РёСЏ
 	if db.actor:character_reputation() >= 1000 then
 		game.start_tutorial("mov_desire_1")	
 		return
 	end
 
-	--' плохая репутация
+	--' РїР»РѕС…Р°СЏ СЂРµРїСѓС‚Р°С†РёСЏ
 	if db.actor:character_reputation() <= -1000 then
 		game.start_tutorial("mov_desire_4")	
 		return
@@ -2384,7 +2384,7 @@ function oso_init_dialod ()
 	-- db.actor:run_talk_dialog(oso)
 end
 
-function add_in_restrictor(actor, npc, p) --Более не использовать!
+function add_in_restrictor(actor, npc, p) --Р‘РѕР»РµРµ РЅРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ!
 end
 
 function add_out_restrictor(actor, npc, p)
@@ -2496,7 +2496,7 @@ function garb_teleport_base(actor, npc)
 	db.actor:disable_info_portion("visit_secret_portal_1_plita")
 	db.actor:disable_info_portion("visit_secret_portal_2_constructions")
 	db.actor:disable_info_portion("visit_secret_portal_3_kust")
-	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	-- РѕС‚РїСЂР°РІРёРј РёРЅС„РѕРїРѕСЂС†РёСЋ Р°РєС‚РѕСЂСѓ, РµСЃР»Рё РѕРЅ Р·Р°С€РµР» РІ С‚РµР»РµРїРѕСЂС‚ РїРѕ РєРІРµСЃС‚Сѓ "РЎС‚СЂР°РЅРЅР°СЏ Р°РЅРѕРјР°Р»РёСЏ"
 	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
 		db.actor:give_info_portion("strange_anomaly_portal_touched")
 	end
@@ -2505,7 +2505,7 @@ end
 function puzir_secret_portal_1_plita(actor, npc)
 	db.actor:set_actor_position(vector():set(75.29,0.60,150.28))
 	db.actor:give_info_portion("visit_secret_portal_1_plita")
-	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	-- РѕС‚РїСЂР°РІРёРј РёРЅС„РѕРїРѕСЂС†РёСЋ Р°РєС‚РѕСЂСѓ, РµСЃР»Рё РѕРЅ Р·Р°С€РµР» РІ С‚РµР»РµРїРѕСЂС‚ РїРѕ РєРІРµСЃС‚Сѓ "РЎС‚СЂР°РЅРЅР°СЏ Р°РЅРѕРјР°Р»РёСЏ"
 	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
 		db.actor:give_info_portion("strange_anomaly_portal_touched")
 	end
@@ -2515,7 +2515,7 @@ end
 function puzir_secret_portal_2_constructions(actor, npc)
 	db.actor:set_actor_position(vector():set(75.29,0.60,150.28))
 	db.actor:give_info_portion("visit_secret_portal_2_constructions")
-	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	-- РѕС‚РїСЂР°РІРёРј РёРЅС„РѕРїРѕСЂС†РёСЋ Р°РєС‚РѕСЂСѓ, РµСЃР»Рё РѕРЅ Р·Р°С€РµР» РІ С‚РµР»РµРїРѕСЂС‚ РїРѕ РєРІРµСЃС‚Сѓ "РЎС‚СЂР°РЅРЅР°СЏ Р°РЅРѕРјР°Р»РёСЏ"
 	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
 		db.actor:give_info_portion("strange_anomaly_portal_touched")
 	end
@@ -2525,7 +2525,7 @@ end
 function puzir_secret_portal_3_kust(actor, npc)
 	db.actor:set_actor_position(vector():set(75.29,0.60,150.28))
 	db.actor:give_info_portion("visit_secret_portal_3_kust")
-	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	-- РѕС‚РїСЂР°РІРёРј РёРЅС„РѕРїРѕСЂС†РёСЋ Р°РєС‚РѕСЂСѓ, РµСЃР»Рё РѕРЅ Р·Р°С€РµР» РІ С‚РµР»РµРїРѕСЂС‚ РїРѕ РєРІРµСЃС‚Сѓ "РЎС‚СЂР°РЅРЅР°СЏ Р°РЅРѕРјР°Р»РёСЏ"
 	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
 		db.actor:give_info_portion("strange_anomaly_portal_touched")
 	end
@@ -2535,7 +2535,7 @@ end
 function puzir_secret_portal_4_serp(actor, npc)
 	db.actor:set_actor_position(vector():set(69.63,5.08,146.92))
 	db.actor:give_info_portion("have_af_puzir")
-	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	-- РѕС‚РїСЂР°РІРёРј РёРЅС„РѕРїРѕСЂС†РёСЋ Р°РєС‚РѕСЂСѓ, РµСЃР»Рё РѕРЅ Р·Р°С€РµР» РІ С‚РµР»РµРїРѕСЂС‚ РїРѕ РєРІРµСЃС‚Сѓ "РЎС‚СЂР°РЅРЅР°СЏ Р°РЅРѕРјР°Р»РёСЏ"
 	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
 		db.actor:give_info_portion("strange_anomaly_portal_touched")
 	end
@@ -2547,7 +2547,7 @@ function puzir_obman_portal_1(actor, npc)
 	db.actor:disable_info_portion("visit_secret_portal_1_plita")
 	db.actor:disable_info_portion("visit_secret_portal_2_constructions")
 	db.actor:disable_info_portion("visit_secret_portal_3_kust")
-	-- отправим инфопорцию актору, если он зашел в телепорт по квесту "Странная аномалия"
+	-- РѕС‚РїСЂР°РІРёРј РёРЅС„РѕРїРѕСЂС†РёСЋ Р°РєС‚РѕСЂСѓ, РµСЃР»Рё РѕРЅ Р·Р°С€РµР» РІ С‚РµР»РµРїРѕСЂС‚ РїРѕ РєРІРµСЃС‚Сѓ "РЎС‚СЂР°РЅРЅР°СЏ Р°РЅРѕРјР°Р»РёСЏ"
 	if db.actor:has_info("arthunter_task") and db.actor:dont_has_info("strange_anomaly_portal_touched") then
 		db.actor:give_info_portion("strange_anomaly_portal_touched")
 	end
@@ -2614,7 +2614,7 @@ jekan_work.kulg_band_ambush()
 end
 
 
--- Сейфы ----------------------------------------------------------------------------------------------------------------------
+-- РЎРµР№С„С‹ ----------------------------------------------------------------------------------------------------------------------
 local function open_safe(info, sid, fun)
     if has_alife_info(info) then
 		local o = alife():story_object(story_ids[sid])
@@ -3115,7 +3115,7 @@ function sidor_radio_volume_control(obj_pos, actor_pos)
 		ASSERT(sobj, "[sidor_radio_volume_control] no 'sidor_radio_sound_zone' object found!")
 		sound_zone = level.object_by_id(sobj.id)
 	end
-	-- если есть рестриктор-зона звучания, и мы в него не попадаем, то громкость нулевая
+	-- РµСЃР»Рё РµСЃС‚СЊ СЂРµСЃС‚СЂРёРєС‚РѕСЂ-Р·РѕРЅР° Р·РІСѓС‡Р°РЅРёСЏ, Рё РјС‹ РІ РЅРµРіРѕ РЅРµ РїРѕРїР°РґР°РµРј, С‚Рѕ РіСЂРѕРјРєРѕСЃС‚СЊ РЅСѓР»РµРІР°СЏ
 	if sound_zone and not sound_zone:inside(actor_pos) then
 		--log1("out of zone")
 		return 0.0
@@ -3243,9 +3243,10 @@ function kosar_place_use()
 jekan_work.kosar_place_use()
 end
 
+--[[ --РїРѕС…РѕРґСѓ РЅРё РѕС‚РєСѓРґР° РЅРµ РІС‹Р·С‹РІР°РµС‚СЃСЏ
 function spawn_generator()
 	jekan_work.spawn_second_generator()
-end
+end]]
 
 function spawn_third_klondaik_flash_to_captain()
 	local capt = level_object_by_sid(story_ids.yan_dz_captain)
@@ -3315,7 +3316,7 @@ function spawn_zombies()
 end
 
 function launch_klondike_ending()
--- артефакты в награду игроку
+-- Р°СЂС‚РµС„Р°РєС‚С‹ РІ РЅР°РіСЂР°РґСѓ РёРіСЂРѕРєСѓ
 	--local num_arts_to_spawn = math.random(7,9)
 	
 	local diff = level.get_game_difficulty()
@@ -3334,11 +3335,11 @@ function launch_klondike_ending()
 		alife():create("af_klondike_"..tostring(art_idx), vector():set(41.942,-1,78.993), 543615, 3616)
 		spawned_idxs[art_idx] = true
 	end
--- удаление "ключа"
+-- СѓРґР°Р»РµРЅРёРµ "РєР»СЋС‡Р°"
 	ogse.remove_item_from_inventory(db.actor:object("klondaik_key"), db.actor)
--- завершаем таск
+-- Р·Р°РІРµСЂС€Р°РµРј С‚Р°СЃРє
 	db.actor:give_info_portion("klondaik_find")
--- спавн зомбей
+-- СЃРїР°РІРЅ Р·РѕРјР±РµР№
 	if db.actor:dont_has_info("kulgband_deadcity_meet") then
 		spawn_zombies()
 	end
@@ -3357,12 +3358,12 @@ function start_sleep_timer()
 	ogse.start_timer("synak_sleeped", 240)
 end
 
---Эта функция используется в логике esc_anomaly_tips_zone
---В этом рестрикторе, похоже, логика никогда не срабатывает.
+--Р­С‚Р° С„СѓРЅРєС†РёСЏ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ Р»РѕРіРёРєРµ esc_anomaly_tips_zone
+--Р’ СЌС‚РѕРј СЂРµСЃС‚СЂРёРєС‚РѕСЂРµ, РїРѕС…РѕР¶Рµ, Р»РѕРіРёРєР° РЅРёРєРѕРіРґР° РЅРµ СЃСЂР°Р±Р°С‚С‹РІР°РµС‚.
 function esc_wolf_thanks()
 end
 
---Объект удалит сам себя, если в логике сделать например on_signal = sound_end | nil %=release%
+--РћР±СЉРµРєС‚ СѓРґР°Р»РёС‚ СЃР°Рј СЃРµР±СЏ, РµСЃР»Рё РІ Р»РѕРіРёРєРµ СЃРґРµР»Р°С‚СЊ РЅР°РїСЂРёРјРµСЂ on_signal = sound_end | nil %=release%
 function release(actor, npc)
 	local sobj = alife():object(npc:id())
 	if sobj then
@@ -3370,7 +3371,7 @@ function release(actor, npc)
 	end
 end
 
-function delme(actor, npc) -- Самоудаление
+function delme(actor, npc) -- РЎР°РјРѕСѓРґР°Р»РµРЅРёРµ
  local npc_id = npc:id()
  if db.creature[npc_id]~=nil then
   alife():set_switch_online  (npc:id(), false)
@@ -3537,7 +3538,7 @@ end
 function dar_bridge_kulgband_man2shoot()
 		local npc1 = level_object_by_sid(story_ids.dar_bridge_kulgband_man2)
 		local npc2 = level_object_by_sid(story_ids.dar_bridge_kulgband_assist1)
-		if not npc2 then return end --Может к примеру погибнуть в аномалии.
+		if not npc2 then return end --РњРѕР¶РµС‚ Рє РїСЂРёРјРµСЂСѓ РїРѕРіРёР±РЅСѓС‚СЊ РІ Р°РЅРѕРјР°Р»РёРё.
 		local bw = rx_utils.get_weapon(npc1)
 		npc1:set_sight(look.fire_point, npc2:position())
 		npc1:set_item(object.fire1, bw, 1, 5000)
@@ -3552,7 +3553,7 @@ end
 function dar_bridge_kulgband_man3shoot()
 		local npc1 = level_object_by_sid(story_ids.dar_bridge_kulgband_man3)
 		local npc2 = level_object_by_sid(story_ids.dar_bridge_kulgband_assist2)
-		if not npc2 then return end --Может к примеру погибнуть в аномалии.
+		if not npc2 then return end --РњРѕР¶РµС‚ Рє РїСЂРёРјРµСЂСѓ РїРѕРіРёР±РЅСѓС‚СЊ РІ Р°РЅРѕРјР°Р»РёРё.
 		local bw = rx_utils.get_weapon(npc1)
 		npc1:set_sight(look.fire_point, npc2:position())
 		npc1:set_item(object.fire1, bw, 1, 5000)
@@ -3573,7 +3574,7 @@ function spawn_kulgband_seif_dead_man()
 	sim:assign_story_id(sobj.id, story_ids.kulgband_seif_dead_man)
 	sobj:on_death()
 	local sobj_id = sobj.id
-	text = "Мародёр"
+	text = "РњР°СЂРѕРґС‘СЂ"
 	level.map_add_object_spot_ser(sobj_id,"blue_location",text)
 	
 	local st = get_hud():GetCustomStatic("kulgband_seif_think") or get_hud():AddCustomStatic("kulgband_seif_think",true)
@@ -3739,20 +3740,20 @@ end
 
 
 
-function spawn_kulgband_informer_shron1()	-- Атакуем Тролля;
+function spawn_kulgband_informer_shron1()	-- РђС‚Р°РєСѓРµРј РўСЂРѕР»Р»СЏ;
 local sobj = alife():create("kulgband_informer_shron1", vector():set (178.95,0.15,-245.11), 380729, 985)
 	local sobj_id = sobj.id
-	text = "Нычка Тролля"
+	text = "РќС‹С‡РєР° РўСЂРѕР»Р»СЏ"
 	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
 	news_manager.send_tip(db.actor, "kulgband_informer_shron_tip", nil, "default", 9000, nil)
 	
 	alife():create("kulgband_informer_assist3", vector():set (179.25, 0.15, -242.81), 380732, 985)
 end
 
-function spawn_kulgband_informer_shron2()	-- Договариваемся с Троллем;
+function spawn_kulgband_informer_shron2()	-- Р”РѕРіРѕРІР°СЂРёРІР°РµРјСЃСЏ СЃ РўСЂРѕР»Р»РµРј;
 local sobj = alife():create("kulgband_informer_shron2", vector():set (178.95,0.15,-245.11), 380729, 985)
 	local sobj_id = sobj.id
-	text = "Нычка Тролля"
+	text = "РќС‹С‡РєР° РўСЂРѕР»Р»СЏ"
 	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
 	
 	alife():create("kulgband_informer_mob", vector():set (179.25, 0.15, -242.81), 380732, 985)
@@ -3933,272 +3934,16 @@ db.actor:set_actor_direction(dir:getH())
 end
 
 function delete_klondike_arts2()
-delete_klondike_art1()
-delete_klondike_art2()
-delete_klondike_art3()
-delete_klondike_art4()
-delete_klondike_art5()
-delete_klondike_art6()
-delete_klondike_art7()
-delete_klondike_art8()
-delete_klondike_art9()
-delete_klondike_art10()
-delete_klondike_art11()
-delete_klondike_art12()
-delete_klondike_art13()
-delete_klondike_art14()
-delete_klondike_art15()
-delete_klondike_art16()
-delete_klondike_art17()
-delete_klondike_art18()
-delete_klondike_art19()
-delete_klondike_art20()
-delete_klondike_art21()
-delete_klondike_art22()
-end
-
-function delete_klondike_art1()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_1") then
-	sim:release(sobj,true)
-	return
+	local t = {}
+	for id, sobj in alife():objects() do
+		if sobj:name():find("^af_klondike_") then
+			table.insert( t, sobj )
+		end
+	end
+	for _, sobj in ipairs( t ) do
+		alife():release( sobj )
 	end
 end
-end
-
-function delete_klondike_art2()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_2") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art3()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_3") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art4()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_4") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art5()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_5") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art6()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_6") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art7()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_7") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art8()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_8") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art9()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_9") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art10()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_10") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art11()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_11") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art12()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_12") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art13()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_13") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art14()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_14") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art15()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_15") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art16()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_16") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art17()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_17") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art18()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_18") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art19()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_19") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art20()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_20") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art21()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_21") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
-function delete_klondike_art22()
-local sim = alife()
-for i=1,65534 do
-local sobj = sim:object(i)
-	if sobj and sobj:name():find("^af_klondike_22") then
-	sim:release(sobj,true)
-	return
-	end
-end
-end
-
 
 function cit_kulgband_snipershot()
 		local npc1 = level_object_by_sid(story_ids.cit_kulgband_sniper)
@@ -4215,7 +3960,7 @@ function cit_kulgband_snipershot()
 end
 
 function klondike_arts_special_spawn()
--- артефакты в награду игроку
+-- Р°СЂС‚РµС„Р°РєС‚С‹ РІ РЅР°РіСЂР°РґСѓ РёРіСЂРѕРєСѓ
 	
 	local diff = level.get_game_difficulty()
 	if diff == 0 then num_arts_to_spawn = 7

@@ -1,7 +1,7 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function attach( sm )
-  --sm:subscribe({ signal = "on_monster_enemy_callback", fun = this.enemy_callback }) --KRodin: ıòî ìíå íå íóæíî.
+  --sm:subscribe({ signal = "on_monster_enemy_callback", fun = this.enemy_callback }) --KRodin: ÑÑ‚Ğ¾ Ğ¼Ğ½Ğµ Ğ½Ğµ Ğ½ÑƒĞ¶Ğ½Ğ¾.
   sm:subscribe({ signal = "on_npc_enemy_callback", fun = this.enemy_callback })
   sm:subscribe({ signal = "on_spawn",              fun = this.on_spawn       })
 end
@@ -41,8 +41,8 @@ function on_spawn()
 end
 
 
--- íåêîòîğûõ ñòàëêåğîâ âîåííûå áóäóò ïğîïóñêàòü ïîä ìîñòîì. À
--- íåêîòîğûõ - íå áóäóò.
+-- Ğ½ĞµĞºĞ¾Ñ‚Ğ¾Ñ€Ñ‹Ñ… ÑÑ‚Ğ°Ğ»ĞºĞµÑ€Ğ¾Ğ² Ğ²Ğ¾ĞµĞ½Ğ½Ñ‹Ğµ Ğ±ÑƒĞ´ÑƒÑ‚ Ğ¿Ñ€Ğ¾Ğ¿ÑƒÑĞºĞ°Ñ‚ÑŒ Ğ¿Ğ¾Ğ´ Ğ¼Ğ¾ÑÑ‚Ğ¾Ğ¼. Ğ
+-- Ğ½ĞµĞºĞ¾Ñ‚Ğ¾Ñ€Ñ‹Ñ… - Ğ½Ğµ Ğ±ÑƒĞ´ÑƒÑ‚.
 local blockpost_pass = { "esc_bridge" }
 function check_military_blockpost( obj )
   if math.random() > 0.6 then return end

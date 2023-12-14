@@ -1,17 +1,17 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --[[------------------------------------------------------------------------------------------------
 Helicoter binding
-Чугай Александр
+Р§СѓРіР°Р№ РђР»РµРєСЃР°РЅРґСЂ
 
-Сделать:
-	- настройки в ltx
+РЎРґРµР»Р°С‚СЊ:
+	- РЅР°СЃС‚СЂРѕР№РєРё РІ ltx
 --------------------------------------------------------------------------------------------------]]
 
 local init_chk = {}
 
 ---------------------------------------------------------------------------------------------
--- Функция для бинда
+-- Р¤СѓРЅРєС†РёСЏ РґР»СЏ Р±РёРЅРґР°
 ---------------------------------------------------------------------------------------------
 
 game_heli = { 
@@ -56,7 +56,7 @@ function bind( obj )
 end
 
 ---------------------------------------------------------------------------------------------
--- Биндер вертолётов
+-- Р‘РёРЅРґРµСЂ РІРµСЂС‚РѕР»С‘С‚РѕРІ
 ---------------------------------------------------------------------------------------------
 class "heli_binder" ( object_binder )
 
@@ -92,7 +92,7 @@ function heli_binder:reinit()
 	self.flame_start_health   = utils.cfg_get_number( sys_ini, "helicopter", "flame_start_health", self.object, true )
 	self.st.flame_start_snd   = xr_sound.get_sound_object("heli_explosion", "random")
 
-	-- на случай загрузки
+	-- РЅР° СЃР»СѓС‡Р°Р№ Р·Р°РіСЂСѓР·РєРё
 	self.st.last_alt       = self.heliObject:GetRealAltitude()
 	self.st.alt_check_time = time_global() + 1000
 end
@@ -203,7 +203,7 @@ end
 ------------------------------ callbacks ---------------------------------
 function heli_binder:on_hit( power, impulse, hit_type, enemy_id )
 	local health_loss = self.st.combat.lasthealth - self.heliObject:GetfHealth()
-	if tonumber(hit_type) == 8 then -- пулевое повреждение с нужным импульсом ( импульс вместо бронебойности, спасибо разрабам)
+	if tonumber(hit_type) == 8 then -- РїСѓР»РµРІРѕРµ РїРѕРІСЂРµР¶РґРµРЅРёРµ СЃ РЅСѓР¶РЅС‹Рј РёРјРїСѓР»СЊСЃРѕРј ( РёРјРїСѓР»СЊСЃ РІРјРµСЃС‚Рѕ Р±СЂРѕРЅРµР±РѕР№РЅРѕСЃС‚Рё, СЃРїР°СЃРёР±Рѕ СЂР°Р·СЂР°Р±Р°Рј)
 		if tonumber(impulse) >= 1 then
 			self.st.combat.lasthealth = self.st.combat.lasthealth - redefine_hit(power, health_loss)
 		end
@@ -214,14 +214,14 @@ function heli_binder:on_hit( power, impulse, hit_type, enemy_id )
 	self.heliObject:SetfHealth(self.st.combat.lasthealth)
 
 	if
-		( enemy_id and enemy_id == bind_statpkm.pkm_captured ) -- если это турель
-		or ( ogse_car_control.current_car and enemy_id == ogse_car_control.current_car:id() ) -- если это Ѓ’ђ, в котором сидит актор
-	then -- то надо заменить на реального виновника, т.е. ѓѓ
+		( enemy_id and enemy_id == bind_statpkm.pkm_captured ) -- РµСЃР»Рё СЌС‚Рѕ С‚СѓСЂРµР»СЊ
+		or ( ogse_car_control.current_car and enemy_id == ogse_car_control.current_car:id() ) -- РµСЃР»Рё СЌС‚Рѕ РѓвЂ™С’, РІ РєРѕС‚РѕСЂРѕРј СЃРёРґРёС‚ Р°РєС‚РѕСЂ
+	then -- С‚Рѕ РЅР°РґРѕ Р·Р°РјРµРЅРёС‚СЊ РЅР° СЂРµР°Р»СЊРЅРѕРіРѕ РІРёРЅРѕРІРЅРёРєР°, С‚.Рµ. С“С“
 		enemy_id = db.actor:id()
 	end
 
 	local enemy = level.object_by_id( enemy_id )
-	-- если обидчик актёр или сталкер, то сделать его своим врагом
+	-- РµСЃР»Рё РѕР±РёРґС‡РёРє Р°РєС‚С‘СЂ РёР»Рё СЃС‚Р°Р»РєРµСЂ, С‚Рѕ СЃРґРµР»Р°С‚СЊ РµРіРѕ СЃРІРѕРёРј РІСЂР°РіРѕРј
 	if enemy:is_actor() or enemy:is_stalker() then
 	
 		if not self.st.combat.enemy_id then
@@ -254,7 +254,7 @@ function heli_binder:on_hit( power, impulse, hit_type, enemy_id )
 			self.flame_started = true
 		end
 	end
-	-- пилоты ругаются по рации
+	-- РїРёР»РѕС‚С‹ СЂСѓРіР°СЋС‚СЃСЏ РїРѕ СЂР°С†РёРё
 	if self.last_hit_snd_timeout < time_global() then
 		heli_snd.play_snd( self.st, "hit", 2 )
 		self.last_hit_snd_timeout = time_global() + math.random( 4000, 8000 )
@@ -271,43 +271,43 @@ end
 function redefine_hit(power,health_loss)
 	local lucky_hit_chance = 0.05
 	local fire_hit_immunity = 0.05
-	local area -- зона, в которую пришлось попадание
-	local hit_chance -- шанс задеть какой-нибудь важный узел
-	local hit_immunity -- часть удара, идущая на разрушение узла
-	local ap_chance = (2.5*power - 1.8)*10 -- вероятность пробития брони данным выстрелом, power <1.1 не пробьет,  power >1.6 пробьет 100% 
+	local area -- Р·РѕРЅР°, РІ РєРѕС‚РѕСЂСѓСЋ РїСЂРёС€Р»РѕСЃСЊ РїРѕРїР°РґР°РЅРёРµ
+	local hit_chance -- С€Р°РЅСЃ Р·Р°РґРµС‚СЊ РєР°РєРѕР№-РЅРёР±СѓРґСЊ РІР°Р¶РЅС‹Р№ СѓР·РµР»
+	local hit_immunity -- С‡Р°СЃС‚СЊ СѓРґР°СЂР°, РёРґСѓС‰Р°СЏ РЅР° СЂР°Р·СЂСѓС€РµРЅРёРµ СѓР·Р»Р°
+	local ap_chance = (2.5*power - 1.8)*10 -- РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РїСЂРѕР±РёС‚РёСЏ Р±СЂРѕРЅРё РґР°РЅРЅС‹Рј РІС‹СЃС‚СЂРµР»РѕРј, power <1.1 РЅРµ РїСЂРѕР±СЊРµС‚,  power >1.6 РїСЂРѕР±СЊРµС‚ 100% 
 
 	local hit = 0
 	if math.abs(0.1*power - health_loss) <= 0.0001*health_loss then 
 		area = "pilot"
-		hit_chance = 0.001 -- считаем, что задеть пилота сквозь броню очень-очень проблематично
-		hit_immunity = 2.5 --  а вот сам пилот не сильно прочный
+		hit_chance = 0.001 -- СЃС‡РёС‚Р°РµРј, С‡С‚Рѕ Р·Р°РґРµС‚СЊ РїРёР»РѕС‚Р° СЃРєРІРѕР·СЊ Р±СЂРѕРЅСЋ РѕС‡РµРЅСЊ-РѕС‡РµРЅСЊ РїСЂРѕР±Р»РµРјР°С‚РёС‡РЅРѕ
+		hit_immunity = 2.5 --  Р° РІРѕС‚ СЃР°Рј РїРёР»РѕС‚ РЅРµ СЃРёР»СЊРЅРѕ РїСЂРѕС‡РЅС‹Р№
 	elseif math.abs(0.2*power - health_loss) <= 0.0001*health_loss then
 		area = "bprop"
-		hit_chance = 1 -- открытый объект, попал - значит попал
-		hit_immunity = 0.8 -- металл все-таки, но броней не прикрыт
+		hit_chance = 1 -- РѕС‚РєСЂС‹С‚С‹Р№ РѕР±СЉРµРєС‚, РїРѕРїР°Р» - Р·РЅР°С‡РёС‚ РїРѕРїР°Р»
+		hit_immunity = 0.8 -- РјРµС‚Р°Р»Р» РІСЃРµ-С‚Р°РєРё, РЅРѕ Р±СЂРѕРЅРµР№ РЅРµ РїСЂРёРєСЂС‹С‚
 	elseif math.abs(0.3*power - health_loss) <= 0.0001*health_loss then 
 		area = "fprop"
-		hit_chance = 1 -- открытый объект, попал - значит попал
-		hit_immunity = 0.8 -- металл все-таки, но броней не прикрыт
+		hit_chance = 1 -- РѕС‚РєСЂС‹С‚С‹Р№ РѕР±СЉРµРєС‚, РїРѕРїР°Р» - Р·РЅР°С‡РёС‚ РїРѕРїР°Р»
+		hit_immunity = 0.8 -- РјРµС‚Р°Р»Р» РІСЃРµ-С‚Р°РєРё, РЅРѕ Р±СЂРѕРЅРµР№ РЅРµ РїСЂРёРєСЂС‹С‚
 	elseif math.abs(0.4*power - health_loss) <= 0.0001*health_loss then 
 		area = "cocpit"
-		hit_chance = 0.15 -- всякие провода, приборы, управление и прочая дрянь занимает достаточно много места
-		hit_immunity = 0.8 -- вся эта дрянь особой прочностью не отличается
+		hit_chance = 0.15 -- РІСЃСЏРєРёРµ РїСЂРѕРІРѕРґР°, РїСЂРёР±РѕСЂС‹, СѓРїСЂР°РІР»РµРЅРёРµ Рё РїСЂРѕС‡Р°СЏ РґСЂСЏРЅСЊ Р·Р°РЅРёРјР°РµС‚ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РјРЅРѕРіРѕ РјРµСЃС‚Р°
+		hit_immunity = 0.8 -- РІСЃСЏ СЌС‚Р° РґСЂСЏРЅСЊ РѕСЃРѕР±РѕР№ РїСЂРѕС‡РЅРѕСЃС‚СЊСЋ РЅРµ РѕС‚Р»РёС‡Р°РµС‚СЃСЏ
 	elseif math.abs(0.5*power - health_loss) <= 0.0001*health_loss then 
 		area = "tail"
-		hit_chance = 0.1 -- только  тяги управления и привод хвостового винта. места занимают очень мало
-		hit_immunity = 0.2 -- прочная сталь, разрушить трудно
+		hit_chance = 0.1 -- С‚РѕР»СЊРєРѕ  С‚СЏРіРё СѓРїСЂР°РІР»РµРЅРёСЏ Рё РїСЂРёРІРѕРґ С…РІРѕСЃС‚РѕРІРѕРіРѕ РІРёРЅС‚Р°. РјРµСЃС‚Р° Р·Р°РЅРёРјР°СЋС‚ РѕС‡РµРЅСЊ РјР°Р»Рѕ
+		hit_immunity = 0.2 -- РїСЂРѕС‡РЅР°СЏ СЃС‚Р°Р»СЊ, СЂР°Р·СЂСѓС€РёС‚СЊ С‚СЂСѓРґРЅРѕ
 	elseif math.abs(0.6*power - health_loss) <= 0.0001*health_loss then 
-		area = "main" -- самая жопа. жизненно важные элементы и до хрена пустого объема.
-		hit_chance = 0.4 -- двигатель занимает много места, но достать его снизу СКВОЗЬ вертолет нереально. 
-		hit_immunity = 0.5 -- самая жизненно важная часть, но все системы дублированы
+		area = "main" -- СЃР°РјР°СЏ Р¶РѕРїР°. Р¶РёР·РЅРµРЅРЅРѕ РІР°Р¶РЅС‹Рµ СЌР»РµРјРµРЅС‚С‹ Рё РґРѕ С…СЂРµРЅР° РїСѓСЃС‚РѕРіРѕ РѕР±СЉРµРјР°.
+		hit_chance = 0.4 -- РґРІРёРіР°С‚РµР»СЊ Р·Р°РЅРёРјР°РµС‚ РјРЅРѕРіРѕ РјРµСЃС‚Р°, РЅРѕ РґРѕСЃС‚Р°С‚СЊ РµРіРѕ СЃРЅРёР·Сѓ РЎРљР’РћР—Р¬ РІРµСЂС‚РѕР»РµС‚ РЅРµСЂРµР°Р»СЊРЅРѕ. 
+		hit_immunity = 0.5 -- СЃР°РјР°СЏ Р¶РёР·РЅРµРЅРЅРѕ РІР°Р¶РЅР°СЏ С‡Р°СЃС‚СЊ, РЅРѕ РІСЃРµ СЃРёСЃС‚РµРјС‹ РґСѓР±Р»РёСЂРѕРІР°РЅС‹
 	else 
-		area = "non_lethal" -- неповреждаемые пулями зоны. Ну, дырочка в крыле, и что?
+		area = "non_lethal" -- РЅРµРїРѕРІСЂРµР¶РґР°РµРјС‹Рµ РїСѓР»СЏРјРё Р·РѕРЅС‹. РќСѓ, РґС‹СЂРѕС‡РєР° РІ РєСЂС‹Р»Рµ, Рё С‡С‚Рѕ?
 		hit_chance = 0
 		hit_immunity = 0
 	end
 
-	if math.random() < ap_chance and math.random() < hit_chance then -- броня пробита и задето что-то важное
+	if math.random() < ap_chance and math.random() < hit_chance then -- Р±СЂРѕРЅСЏ РїСЂРѕР±РёС‚Р° Рё Р·Р°РґРµС‚Рѕ С‡С‚Рѕ-С‚Рѕ РІР°Р¶РЅРѕРµ
 		hit = power * fire_hit_immunity * hit_immunity
 		if math.random() < lucky_hit_chance then
 			hit = hit*15

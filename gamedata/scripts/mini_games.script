@@ -1,59 +1,59 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 
 
 --[[ -----------------------------------------------------------------------------------------------
  File           : mini_games.script
- Description    : ÃËÌË Ë„˚
- Copyright      : 2011 © Stalk15 
+ Description    : –ú–∏–Ω–∏ –∏–≥—Ä—ã
+ Copyright      : 2011 ¬© Stalk15 
  Author         : Stalk15
  Last edit      : 14.04.2012 
 
 --]] -----------------------------------------------------------------------------------------------
 
----///////////////////////////////////////// »„‡ "21 Œ˜ÍÓ"/////////////////////////////////////////---
+---///////////////////////////////////////// –ò–≥—Ä–∞ "21 –û—á–∫–æ"/////////////////////////////////////////---
 local tCards = {
-	[6.001]="card_six_Ò",
+	[6.001]="card_six_—Å",
 	[6.002]="card_six_p",
 	[6.003]="card_six_b",
 	[6.004]="card_six_k",
 
-	[7.001]="card_seven_Ò",
+	[7.001]="card_seven_—Å",
 	[7.002]="card_seven_p",
 	[7.003]="card_seven_b",
 	[7.004]="card_seven_k",
 
-	[8.001]="card_eight_Ò",
+	[8.001]="card_eight_—Å",
 	[8.002]="card_eight_p",
 	[8.003]="card_eight_b",
 	[8.004]="card_eight_k",
 
-	[9.001]="card_nine_Ò",
+	[9.001]="card_nine_—Å",
 	[9.002]="card_nine_p",
 	[9.003]="card_nine_b",
 	[9.004]="card_nine_k",
 
-	[10.001]="card_ten_Ò",
+	[10.001]="card_ten_—Å",
 	[10.002]="card_ten_p",
 	[10.003]="card_ten_b",
 	[10.004]="card_ten_k",
 
-	[2.001]="card_valet_Ò",
+	[2.001]="card_valet_—Å",
 	[2.002]="card_valet_p",
 	[2.003]="card_valet_b",
 	[2.004]="card_valet_k",
 	
-	[3.001]="card_dama_Ò",
+	[3.001]="card_dama_—Å",
 	[3.002]="card_dama_p",
 	[3.003]="card_dama_b",
 	[3.004]="card_dama_k",
 	
-	[4.001]="card_king_Ò",
+	[4.001]="card_king_—Å",
 	[4.002]="card_king_p",
 	[4.003]="card_king_b",
 	[4.004]="card_king_k",
 	
-	[11.001]="card_tuz_Ò",
+	[11.001]="card_tuz_—Å",
 	[11.002]="card_tuz_p",
 	[11.003]="card_tuz_b",
 	[11.004]="card_tuz_k"
@@ -83,7 +83,7 @@ function card_game_21p:InitControls()
     xml:InitStatic("card_game_21p:picture_21p", self)
 	xml:InitStatic("card_game_21p:txt_stavka", self)
 	self.edit_stavka = xml:InitEditBox("card_game_21p:edit_box", self)
-	--/ ÌÓÔÍË
+	--/–ö–Ω–æ–ø–∫–∏
 	self:Register(xml:Init3tButton("card_game_21p:btn_start_game", self), "btn_start_game")
 	self:Register(xml:Init3tButton("card_game_21p:take_card", self), "take_card")	
 	self:Register(xml:Init3tButton("card_game_21p:perevod_hoda", self), "perevod_hoda")
@@ -333,7 +333,7 @@ function game_21p_start()
     level.start_stop_menu(mini_games.card_game_21p(), true)
 end
 
----///////////////////////////////////////// »„‡ "”„‡‰‡È, „‰Â ¯‡ËÍ" /////////////////////////////////////////---
+---///////////////////////////////////////// –ò–≥—Ä–∞ "–£–≥–∞–¥–∞–π, –≥–¥–µ —à–∞—Ä–∏–∫" /////////////////////////////////////////---
 local tPosBall = {
 	[1] = {110, 130},
 	[2] = {240, 130},

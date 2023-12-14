@@ -1,5 +1,3 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
-
 --/ ogse_metka.script /--
 --/ GPS beacon module /--
 --/ OGS Evolution Team 2015 /--
@@ -14,6 +12,7 @@ end
 
 
 dropped_to_box = 0
+local gps_wnd_shown = false
 
 function on_item_drop(obj)
 	if obj:section() == "amk_metka" then
@@ -27,7 +26,7 @@ function on_item_drop(obj)
 				return not obj:parent() or not obj:parent():is_actor()
 			end,
 			function()
-				if not level.main_input_receiver() then
+				if not gps_wnd_shown then
 					level.start_stop_menu(setup_gps_beacon(obj:id()), true) -- ставим метку
 				end
 			end
@@ -54,7 +53,7 @@ function setup_gps_beacon:__init(gps_obj_id) super()
 	self:InitControls()
 	self:InitCallBacks()
 	self:SetWindowName("gps_metka")
-	
+	gps_wnd_shown = true
 	--log1("--setup_gps_beacon:__init")
 end
 
@@ -99,11 +98,10 @@ function setup_gps_beacon:OnKeyboard(dik, keyboard_action)
 	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
 	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
 		if dik == DIK_keys.DIK_ESCAPE then
-			self:set_gps()
-		end
-		if dik == DIK_keys.DIK_RETURN then
+			self:on_quit()
+		elseif dik == DIK_keys.DIK_RETURN or dik == DIK_keys.DIK_NUMPADENTER then
 			if self.edit_box:GetText() ~= "" then
-				self:on_quit()
+				self:set_gps()
 			end
 		end
 	end
@@ -118,4 +116,5 @@ end
 function setup_gps_beacon:on_quit()
 	self:GetHolder():start_stop_menu(self, true)
 	self:ClearCallbacks()
+	gps_wnd_shown = false
 end

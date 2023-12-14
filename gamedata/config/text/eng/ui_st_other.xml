@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <string_table>
 	<string id="st_drink">
 		<text>drink</text>
@@ -109,67 +109,67 @@
 		<text>You exceeded money limit for reward.</text>
 	</string>
 	
-	<!-- стадии загрузки игры -->
-	<!-- Внимание! Символ '–' ниже - это не 'минус', а символ с кодом 150, которому в текстуре шрифта Graffiti19Russian сопоставлен 
-	'укороченный' пробел с шириной, в точности равный ширине символа '*'. Если будете менять соотношение пустого/заполненного
-	в этих строках, то не исполььзуйте ни минусы, ни пробелы, а копастой вставляйте такие же символы-->
+	<!-- СЃС‚Р°РґРёРё Р·Р°РіСЂСѓР·РєРё РёРіСЂС‹ -->
+	<!-- Р’РЅРёРјР°РЅРёРµ! РЎРёРјРІРѕР» 'вЂ“' РЅРёР¶Рµ - СЌС‚Рѕ РЅРµ 'РјРёРЅСѓСЃ', Р° СЃРёРјРІРѕР» СЃ РєРѕРґРѕРј 150, РєРѕС‚РѕСЂРѕРјСѓ РІ С‚РµРєСЃС‚СѓСЂРµ С€СЂРёС„С‚Р° Graffiti19Russian СЃРѕРїРѕСЃС‚Р°РІР»РµРЅ 
+	'СѓРєРѕСЂРѕС‡РµРЅРЅС‹Р№' РїСЂРѕР±РµР» СЃ С€РёСЂРёРЅРѕР№, РІ С‚РѕС‡РЅРѕСЃС‚Рё СЂР°РІРЅС‹Р№ С€РёСЂРёРЅРµ СЃРёРјРІРѕР»Р° '*'. Р•СЃР»Рё Р±СѓРґРµС‚Рµ РјРµРЅСЏС‚СЊ СЃРѕРѕС‚РЅРѕС€РµРЅРёРµ РїСѓСЃС‚РѕРіРѕ/Р·Р°РїРѕР»РЅРµРЅРЅРѕРіРѕ
+	РІ СЌС‚РёС… СЃС‚СЂРѕРєР°С…, С‚Рѕ РЅРµ РёСЃРїРѕР»СЊСЊР·СѓР№С‚Рµ РЅРё РјРёРЅСѓСЃС‹, РЅРё РїСЂРѕР±РµР»С‹, Р° РєРѕРїР°СЃС‚РѕР№ РІСЃС‚Р°РІР»СЏР№С‚Рµ С‚Р°РєРёРµ Р¶Рµ СЃРёРјРІРѕР»С‹-->
 		
 	<string id="st_prefetching_objects">
-		<text>[–––––––––––––––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_server_starting">
-		<text>[*––––––––––––––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_loading_alife_simulator">
-		<text>[**–––––––––––––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_creating_new_game">
-		<text>[*********––––––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_loading_saved_game">
-		<text>[*********––––––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_server_connecting">
-		<text>[*********––––––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_client_connecting_to">
-		<text>[*********––––––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_opening_stream">
-		<text>[*********––––––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_loading_cform">
-		<text>[*********––––––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_loading_shaders">
-		<text>[*************––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_loading_geometry">
-		<text>[*************––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_loading_spatial_db">
-		<text>[*************––––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_loading_details">
-		<text>[***************––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_loading_sectors_portals">
-		<text>[***************––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_loading_ai_objects">
-		<text>[***************––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_client_spawning">
-		<text>[***************––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_loading_textures">
-		<text>[***************––––––]</text>
+		<text>Loading</text>
 	</string>
 	<string id="st_client_synchronising">
-		<text>[*******************––]</text>
+		<text>Loading</text>
 	</string>
 	
-	<!-- стадии загрузки игры (не используются в сингле) -->
+	<!-- СЃС‚Р°РґРёРё Р·Р°РіСЂСѓР·РєРё РёРіСЂС‹ (РЅРµ РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ РІ СЃРёРЅРіР»Рµ) -->
 	
 	<string id="bind_monster_debug1">
 		<text>WARNING! OFFLINE DEATH IS DETECTED! Object: ID: </text>
@@ -517,6 +517,13 @@
 		<text>Third-person view (freelook)</text>
 	</string>
 
+	<string id="kb_hide_hud">
+		<text>Hide HUD</text>
+	</string>
+	<string id="kb_show_hud">
+		<text>Show HUD</text>
+	</string>
+
 	<string id="inventory_item_use_or_drag">
 		<text>Pick up an item ($$ACTION_USE$$) \n Drag an item (SHIFT+$$ACTION_USE$$)</text>
 	</string>
@@ -526,5 +533,13 @@
 
 	<string id="st_press_any_key">
 		<text>Press any key to continue</text>
+	</string>
+
+	<string id="ui_st_money_descr">
+		<text>RU</text>
+	</string>
+
+	<string id="discord_status_mm">
+		<text>In main menu</text>
 	</string>
 </string_table>

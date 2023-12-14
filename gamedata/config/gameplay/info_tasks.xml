@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding="windows-1251"?>
+<?xml version='1.0' encoding="UTF-8"?>
 
 <game_information_portions>
-<!--//////////////////// Проводники ////////////////////-->
+<!--//////////////////// РџСЂРѕРІРѕРґРЅРёРєРё ////////////////////-->
 
 
 <!--////////////////////            ////////////////////-->
 
 
-<!-- Кордон -->
-<!-- Гитара сидора -->
+<!-- РљРѕСЂРґРѕРЅ -->
+<!-- Р“РёС‚Р°СЂР° СЃРёРґРѕСЂР° -->
     <info_portion id="escape_kvest_search_guitar_start">
 	    <task>esc_kvest_search_guitar</task>
 		<dialog>ask_about_guitar_general_dialog</dialog>
@@ -49,7 +49,7 @@
 		<disable>esc_guit_under_boxes</disable>
 		<disable>esc_guit_under_milk_tank</disable>
 	</info_portion>
-<!-- Гитара сидора, инфопорции-маркеры положения -->
+<!-- Р“РёС‚Р°СЂР° СЃРёРґРѕСЂР°, РёРЅС„РѕРїРѕСЂС†РёРё-РјР°СЂРєРµСЂС‹ РїРѕР»РѕР¶РµРЅРёСЏ -->
 	<info_portion id="esc_guit_behind_sofa"/>
 	<info_portion id="esc_guit_behind_table"/>
 	<info_portion id="esc_guit_in_bath"/>
@@ -63,7 +63,7 @@
 	<info_portion id="esc_guit_under_boxes"/>
 	<info_portion id="esc_guit_under_milk_tank"/>
 
-<!-- Сделка с военными -->
+<!-- РЎРґРµР»РєР° СЃ РІРѕРµРЅРЅС‹РјРё -->
 	<info_portion id="esc_kvest_sdelka_with_mils_start">
 	    <task>esc_kvest_sdelka_with_mils</task>
 	</info_portion>
@@ -83,7 +83,7 @@
 	<info_portion id="esc_kvest_sdelka_with_mils_complete"></info_portion>
 	<info_portion id="esc_kvest_sdelka_with_mils_sidr_fail"></info_portion>
 
-<!-- "Спасти сталкера из плена вояк с блокпоста" -->
+<!-- "РЎРїР°СЃС‚Рё СЃС‚Р°Р»РєРµСЂР° РёР· РїР»РµРЅР° РІРѕСЏРє СЃ Р±Р»РѕРєРїРѕСЃС‚Р°" -->
 	<info_portion id="esc_kvest_plennik_of_blockpost_start">
 	    <task>esc_kvest_plennik_of_blockpost</task>
 	</info_portion>
@@ -94,7 +94,7 @@
 	<info_portion id="esc_kvest_plennik_of_blockpost_complete"></info_portion>
 	<info_portion id="esc_kvest_plennik_of_blockpost_fail"></info_portion>
 
-<!-- "Военные у Аномалий" -->
+<!-- "Р’РѕРµРЅРЅС‹Рµ Сѓ РђРЅРѕРјР°Р»РёР№" -->
 	<info_portion id="esc_kvest_know_do_mils_near_anomaly_start">
 	    <task>esc_kvest_know_do_mils_near_anomaly</task>
 	</info_portion>
@@ -126,7 +126,7 @@
 	<info_portion id="af_esc_anomaly_off"></info_portion>
 
 
-<!-- "Наймники на Кордоне -->
+<!-- "РќР°Р№РјРЅРёРєРё РЅР° РљРѕСЂРґРѕРЅРµ -->
 	<info_portion id="esc_kvest_killers_mined_lager_start">
 	    <task>esc_kvest_killers_mined_lager</task>
 	</info_portion>
@@ -155,8 +155,8 @@
 	<info_portion id="esc_kvest_killers_mined_lager_2_fail"></info_portion>
 	<info_portion id="esc_kvest_killers_mined_lager_3_kill_killers_fail"></info_portion>
 
-<!-- Бар -->
-	<!-- Друг Бармена -->
+<!-- Р‘Р°СЂ -->
+	<!-- Р”СЂСѓРі Р‘Р°СЂРјРµРЅР° -->
     <info_portion id="bar_kvest_friend_of_barman_start">
 		<action>tasks_functor.spawn_pda_friend_barman</action>
 	    <task>bar_kvest_friend_of_barman</task>
@@ -204,7 +204,7 @@
 	<info_portion id="bar_kvest_friend_of_barman_val_freedom_death_8"></info_portion>
 	<info_portion id="bar_kvest_friend_of_barman_val_freedom_all_dead"></info_portion>
 
-<!-- Сделка Долговцев с Наемниками -->
+<!-- РЎРґРµР»РєР° Р”РѕР»РіРѕРІС†РµРІ СЃ РќР°РµРјРЅРёРєР°РјРё -->
     <info_portion id="bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start">
 	    <task>bar_kvest_sdelka_dolg_and_killers_talk_with_prapor</task>
 	</info_portion>
@@ -229,7 +229,7 @@
 	<info_portion id="bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_2_complete"></info_portion>
 	<info_portion id="bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_2_fail"></info_portion>
 
-<!-- Пленник на базе Военных -->
+<!-- РџР»РµРЅРЅРёРє РЅР° Р±Р°Р·Рµ Р’РѕРµРЅРЅС‹С… -->
 	<!--- Mixser & Phoenix -->
 	<info_portion id="captive_on_agr_mill_base_start">
 	    <task>captive_on_agr_mill_base_save</task>
@@ -289,7 +289,7 @@
 	<info_portion id="bar_kvest_plennik_on_base_mils_complete"></info_portion>
 	<info_portion id="bar_kvest_plennik_on_base_mils_fail"></info_portion>
 
-<!-- Поиск дочери старика -->
+<!-- РџРѕРёСЃРє РґРѕС‡РµСЂРё СЃС‚Р°СЂРёРєР° -->
     <info_portion id="pri_kvest_search_doch_of_starik_start">
 	    <task>pri_kvest_search_doch_of_starik</task>
 	</info_portion>
@@ -301,7 +301,7 @@
 	</info_portion>
 	<info_portion id="blessing_of_old_man"></info_portion>
 
-<!-- Устроить встречу долга и свободы -->
+<!-- РЈСЃС‚СЂРѕРёС‚СЊ РІСЃС‚СЂРµС‡Сѓ РґРѕР»РіР° Рё СЃРІРѕР±РѕРґС‹ -->
     <info_portion id="bar_kvest_make_meet_dolg_freedom_start">
 	    <task>bar_kvest_make_meet_dolg_freedom</task>
 	</info_portion>
@@ -309,7 +309,7 @@
 	<info_portion id="bar_kvest_make_meet_dolg_freedom_complete"></info_portion>
 	<info_portion id="bar_kvest_make_meet_dolg_freedom_fail"></info_portion>
 
-<!-- Спасти свободовца на радаре -->
+<!-- РЎРїР°СЃС‚Рё СЃРІРѕР±РѕРґРѕРІС†Р° РЅР° СЂР°РґР°СЂРµ -->
     <info_portion id="mil_kvest_spasti_freedomer_on_radar_start">
 	    <task>mil_kvest_spasti_freedomer_on_radar</task>
 	</info_portion>
@@ -322,7 +322,7 @@
 	<info_portion id="mil_kvest_spasti_freedomer_on_radar_complete"></info_portion>
 	<info_portion id="mil_kvest_spasti_freedomer_on_radar_fail"></info_portion>
 
-<!-- Помочь Тетереву -->
+<!-- РџРѕРјРѕС‡СЊ РўРµС‚РµСЂРµРІСѓ -->
     <info_portion id="esc_kvest_help_teterev_start">
 	    <task>esc_kvest_help_teterev</task>
 	</info_portion>
@@ -334,7 +334,7 @@
 	<info_portion id="esc_kvest_help_teterev_complete"></info_portion>
 	<info_portion id="esc_kvest_help_teterev_fail"></info_portion>
 
-<!-- Гость на элеваторе -->
+<!-- Р“РѕСЃС‚СЊ РЅР° СЌР»РµРІР°С‚РѕСЂРµ -->
     <info_portion id="esc_kvest_qest_on_elevator_chek_start">
 	    <task>esc_kvest_qest_on_elevator_chek</task>
 	</info_portion>
@@ -361,7 +361,7 @@
 	<info_portion id="esc_kvest_qest_on_elevator_kill_sniper_fail"></info_portion>
 	<info_portion id="bar_kvest_qest_on_elevator_kill_sniper_complete"></info_portion>
 
-<!-- Секрет Янтаря -->
+<!-- РЎРµРєСЂРµС‚ РЇРЅС‚Р°СЂСЏ -->
     <info_portion id="yan_kvest_help_to_chuk_know_zombied_start">
 	    <task>yan_kvest_help_to_chuk_know_zombied</task>
 	</info_portion>
@@ -403,7 +403,7 @@
 	</info_portion>
 	<info_portion id="yan_kvest_help_to_chuk_bring_zapisi_complete"></info_portion>
 
-<!-- Доброжелатель -->
+<!-- Р”РѕР±СЂРѕР¶РµР»Р°С‚РµР»СЊ -->
 	<info_portion id="yan_kvest_search_case_start">
 	    <task>yan_kvest_search_case</task>
 		<action>tasks_functor.start_kvest_yan_search_case</action>
@@ -440,7 +440,7 @@
 	</info_portion>
 	<info_portion id="rad_kvest_dobrozhelatel_password_enter"></info_portion>
 
-<!-- Последняя просьба -->
+<!-- РџРѕСЃР»РµРґРЅСЏСЏ РїСЂРѕСЃСЊР±Р° -->
 	<info_portion id="esc_kvest_help_to_scoryi_talk_with_him_complete">
 	    <task>esc_kvest_help_to_scoryi_search_sitnik</task>
 	</info_portion>
@@ -521,7 +521,7 @@
 	<action>tasks_functor.killed_orlov_disable_kvests</action>
 </info_portion>
 
-<!-- Исцеление -->
+<!-- РСЃС†РµР»РµРЅРёРµ -->
 	<info_portion id="esc_kvest_iscelenie_enable_about_sidor"></info_portion>
 	<info_portion id="esc_kvest_iscelenie_end_first_dlg"></info_portion>
 	<info_portion id="esc_kvest_iscelenie_talk_with_saharov_start">
@@ -694,7 +694,7 @@
 	<info_portion id="x18_giant_dead"></info_portion>
 	<info_portion id="dead_stalker_little_pseudogigant_complete"></info_portion>
 
-	<!-- Пластинки от музыкального автомата в Баре -->
+	<!-- РџР»Р°СЃС‚РёРЅРєРё РѕС‚ РјСѓР·С‹РєР°Р»СЊРЅРѕРіРѕ Р°РІС‚РѕРјР°С‚Р° РІ Р‘Р°СЂРµ -->
 	<info_portion id="plastinka_1">
 		<article>plastinka_1</article>
 	</info_portion>
@@ -723,7 +723,7 @@
 		<article>plastinka_9</article>
 	</info_portion>
 	
-	<!--Аномальные болты-->
+	<!--РђРЅРѕРјР°Р»СЊРЅС‹Рµ Р±РѕР»С‚С‹-->
 	<info_portion id="bar_anom_bolt_start">
 		<task>anom_bolts_task</task>
 	</info_portion>
@@ -734,7 +734,7 @@
 		<action>jekan_work.money_give_anom_bolt</action>	
 	</info_portion>
 
-	<!--Аномальная кухонная утварь-->
+	<!--РђРЅРѕРјР°Р»СЊРЅР°СЏ РєСѓС…РѕРЅРЅР°СЏ СѓС‚РІР°СЂСЊ-->
 	<info_portion id="yan_anom_house_items_start">
 		<task>anom_house_items_task_start</task>
 	</info_portion>
@@ -748,7 +748,7 @@
 		<!--action>jekan_work.money_give_anom_house_items</action-->	
 	</info_portion>
 
-	<!--Поиск патронов для Крота-->
+	<!--РџРѕРёСЃРє РїР°С‚СЂРѕРЅРѕРІ РґР»СЏ РљСЂРѕС‚Р°-->
 	<info_portion id="agr_help_krot_ammo_box_start">
 		<task>agr_help_krot_ammo_box_start</task>
 	</info_portion>

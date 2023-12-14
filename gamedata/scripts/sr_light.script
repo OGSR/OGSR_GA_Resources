@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function attach( sm )
   sm:subscribe({ signal = "on_destroy",   fun = this.on_destroy   })
@@ -118,7 +118,7 @@ function check_light(stalker)
 		end
 	end
 
-    --' Проверка по лайтзонам
+    --' РџСЂРѕРІРµСЂРєР° РїРѕ Р»Р°Р№С‚Р·РѕРЅР°Рј
     if not forced then
 	    for k,v in pairs(light_zones) do
 			light, forced = v:check_stalker(stalker)
@@ -130,7 +130,7 @@ function check_light(stalker)
 
 	local weather = dsh_cop_weather.monitoring_weather_sect
 	if not forced then
-		--' Проверка по времени суток (ночью всегда включено)
+		--' РџСЂРѕРІРµСЂРєР° РїРѕ РІСЂРµРјРµРЅРё СЃСѓС‚РѕРє (РЅРѕС‡СЊСЋ РІСЃРµРіРґР° РІРєР»СЋС‡РµРЅРѕ)
 		local htime = level.get_time_hours()
 		if htime then
 			if (htime <= 5 or htime >= 20) or (weather and string.find(weather, "storm")) then
@@ -140,7 +140,7 @@ function check_light(stalker)
 			end
 		end
 	
-		--' Проверка на индор-аутдор (внутри всегда включено)
+		--' РџСЂРѕРІРµСЂРєР° РЅР° РёРЅРґРѕСЂ-Р°СѓС‚РґРѕСЂ (РІРЅСѓС‚СЂРё РІСЃРµРіРґР° РІРєР»СЋС‡РµРЅРѕ)
 		if light == false then
 			if isIndoor(level.name()) then
 				light = true
@@ -148,9 +148,9 @@ function check_light(stalker)
 		end
 	end			
 
-	--' Проверка по активному действию
+	--' РџСЂРѕРІРµСЂРєР° РїРѕ Р°РєС‚РёРІРЅРѕРјСѓ РґРµР№СЃС‚РІРёСЋ
 	if not forced and light == true then
-		--' Фонарики должны быть выключены у костра или если непись спит.
+		--' Р¤РѕРЅР°СЂРёРєРё РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РІС‹РєР»СЋС‡РµРЅС‹ Сѓ РєРѕСЃС‚СЂР° РёР»Рё РµСЃР»Рё РЅРµРїРёСЃСЊ СЃРїРёС‚.
 		local scheme = db.storage[stalker:id()].active_scheme
 		if scheme and (scheme == "kamp" or scheme == "camper" or scheme == "sleeper") then
 			light = false
@@ -159,7 +159,7 @@ function check_light(stalker)
 	end
 
 	if not forced and light == true then
-		--' Фонарики должны быть выключены в бою. Но если в бою идет поиск врага - то включены.
+		--' Р¤РѕРЅР°СЂРёРєРё РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РІС‹РєР»СЋС‡РµРЅС‹ РІ Р±РѕСЋ. РќРѕ РµСЃР»Рё РІ Р±РѕСЋ РёРґРµС‚ РїРѕРёСЃРє РІСЂР°РіР° - С‚Рѕ РІРєР»СЋС‡РµРЅС‹.
 		if stalker:alive() and stalker:best_enemy() then
 			light = false
 		end				

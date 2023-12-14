@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 radio_music_ds_hunter = {
 	[[characters_voice\scenario\darkscape\hunter_radio_1]],
@@ -391,7 +391,7 @@ radar_drone = {[[ambient\radar_1]]}
 radar_thunder = {[[ambient\radar_2]]}
 radar_sparks = {[[ambient\radarsparks_1]]}
 aes_teleport = {[[anomaly\teleport_incoming]]}
-yan_antenna = {{[[characters_voice\scenario\yantar\psy_voices_1]]}} -- Стерео
+yan_antenna = {{[[characters_voice\scenario\yantar\psy_voices_1]]}} -- РЎС‚РµСЂРµРѕ
 radar_meh_on = {[[ambient\cooling_run]]}
 radar_meh_off = {[[ambient\cooling_stop]]}
 system_message_1 = {[[characters_voice\scenario\yantar\system_message_1]]}
@@ -454,7 +454,7 @@ x16_switch_1 = {[[ambient\x16\switch_1]]}
 x16_switch_2 = {[[ambient\x16\switch_2]]}
 x18_firedoor = {[[anomaly\fireball_idle]]}
 mon_poltergeist = {[[anomaly\anomaly_gravy_hit1]]}
-psy_voices = {{[[characters_voice\scenario\yantar\psy_voices_1]]}} -- Стерео
+psy_voices = {{[[characters_voice\scenario\yantar\psy_voices_1]]}} -- РЎС‚РµСЂРµРѕ
 heli_explosion = {[[weapons\heli_explosion]]}
 trader_door_open_start = {[[device\door_start]]}
 trader_door_close_start = {[[device\door_closing]]}
@@ -472,14 +472,14 @@ metal_small_close_start = {[[device\metal_small_close_start]]}
 metal_small_close_stop = {[[device\metal_small_close_stop]]}
 -- Other
 little_giant_hello = {[[monsters\giant\giant_idle_0]]}
--- Расстрел шарманки Сидора
+-- Р Р°СЃСЃС‚СЂРµР» С€Р°СЂРјР°РЅРєРё РЎРёРґРѕСЂР°
 sidor_music_broke = {
 	[[characters_voice\scenario\trader\trader_script1b_3]],
 	[[characters_voice\scenario\trader\trader_tutorial_rejection_4]],
 	[[characters_voice\scenario\trader\trader_tutorial_rejection_5]],
 	[[characters_voice\scenario\trader\trader_script1c_15]],
 }
--- Оружейник
+-- РћСЂСѓР¶РµР№РЅРёРє
 gunsrepair_music = {
 	[[characters_voice\scenario\escape\radio\utesov1]],
 	[[characters_voice\scenario\escape\radio\utesov2]],
@@ -489,7 +489,7 @@ gunsrepair_music = {
 	[[characters_voice\scenario\esc\sidor_music_2]],
 	[[characters_voice\scenario\esc\sidor_music_4]],
 }
--- Расстрел шарманки Оружейника
+-- Р Р°СЃСЃС‚СЂРµР» С€Р°СЂРјР°РЅРєРё РћСЂСѓР¶РµР№РЅРёРєР°
 gunsrepair_music_broke = {
 	[[characters_voice\scenario\bar\bar_visitor\bar_visitor_1]],
 	[[characters_voice\scenario\bar\bar_visitor\bar_visitor_2]],

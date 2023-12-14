@@ -1,11 +1,11 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --/ ui_ogse_exo_control.script /--
 --/ Exoskeleton control module /--
 --/ OGS Evolution Team 2010 /--
 --/ version 1.9 (27/03/2011) /--
 
---/ Модуль монтируемых экзоскелетов /--
+--/ РњРѕРґСѓР»СЊ РјРѕРЅС‚РёСЂСѓРµРјС‹С… СЌРєР·РѕСЃРєРµР»РµС‚РѕРІ /--
 
 function attach(sm)
 	sm:subscribe({ signal = "on_spawn",			fun = this.load })
@@ -20,7 +20,7 @@ end
 local exo_condition
 local outfit_condition
 
--- Функции
+-- Р¤СѓРЅРєС†РёРё
 function use_exo(use_object)
 	--if use_object == nil or alife():object(use_object:id()) == nil then return end
 	local use_obj_section = use_object:section()
@@ -34,7 +34,7 @@ function use_exo(use_object)
 			then
 				local outfit_with_exo_section = sys_ini:r_string(outfit_item:section(), exoskeleton_type)
 				if outfit_with_exo_section then
-					-- уф, прошли все проверки - конвертим
+					-- СѓС„, РїСЂРѕС€Р»Рё РІСЃРµ РїСЂРѕРІРµСЂРєРё - РєРѕРЅРІРµСЂС‚РёРј
 					convert_outfit(outfit_item, outfit_with_exo_section)
 					exo_condition = use_object:condition()
 					outfit_condition = outfit_item:condition()
@@ -42,7 +42,7 @@ function use_exo(use_object)
 				end
 			end
 		end
-		-- а если не получается сконвертировать, то вертаем броньку взад
+		-- Р° РµСЃР»Рё РЅРµ РїРѕР»СѓС‡Р°РµС‚СЃСЏ СЃРєРѕРЅРІРµСЂС‚РёСЂРѕРІР°С‚СЊ, С‚Рѕ РІРµСЂС‚Р°РµРј Р±СЂРѕРЅСЊРєСѓ РІР·Р°Рґ
 		ogse.spawn_item_in_inv(use_obj_section)
 		return true
 	end
@@ -59,7 +59,7 @@ local function detach_exo()
 				local s_exo = ogse.spawn_item_in_inv(exo_section)
 				local exo_rusting = outfit_item:condition() / outfit_condition
 				level.client_spawn_manager():add( s_exo.id, -1, function(cond, id, obj)
-					obj:set_condition( cond ) --Учтем, что состояние броньки уже было не идеальное, да ещё мы попортили
+					obj:set_condition( cond ) --РЈС‡С‚РµРј, С‡С‚Рѕ СЃРѕСЃС‚РѕСЏРЅРёРµ Р±СЂРѕРЅСЊРєРё СѓР¶Рµ Р±С‹Р»Рѕ РЅРµ РёРґРµР°Р»СЊРЅРѕРµ, РґР° РµС‰С‘ РјС‹ РїРѕРїРѕСЂС‚РёР»Рё
 				end, exo_condition * exo_rusting )
 				convert_outfit(outfit_item, outfit_without_exo_section)
 			end
@@ -95,14 +95,14 @@ class "exo_control" (CUIScriptWnd)
 function exo_control:__init() super()
 	local xml = CScriptXmlInit()
 	xml:ParseFile("ui_ogse_exo_control.xml")
-	self:Init(791,354,32,32) -- само скриптовое окно размещаем там, где должна быть кнопка
-	self.btn = xml:Init3tButton("ui_ogse_exo_control", self) -- кнопка, ради которой всё и делается
+	self:Init(791,354,32,32) -- СЃР°РјРѕ СЃРєСЂРёРїС‚РѕРІРѕРµ РѕРєРЅРѕ СЂР°Р·РјРµС‰Р°РµРј С‚Р°Рј, РіРґРµ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РєРЅРѕРїРєР°
+	self.btn = xml:Init3tButton("ui_ogse_exo_control", self) -- РєРЅРѕРїРєР°, СЂР°РґРё РєРѕС‚РѕСЂРѕР№ РІСЃС‘ Рё РґРµР»Р°РµС‚СЃСЏ
 	self:Register(self.btn,"btn_exo_control")
 	self:AddCallback("btn_exo_control", ui_events.BUTTON_CLICKED, detach_exo)
-	self:Show(true) -- без этого не увидим
+	self:Show(true) -- Р±РµР· СЌС‚РѕРіРѕ РЅРµ СѓРІРёРґРёРј
 end
 function exo_control:__finalize()
-	self:DetachFromParent() --Это важно!
+	self:DetachFromParent() --Р­С‚Рѕ РІР°Р¶РЅРѕ!
 	--log1("~~exo_control:__finalize")
 end
 
@@ -110,7 +110,7 @@ end
 local rec_wnd
 function on_show()
 	if not rec_wnd then
-		rec_wnd = exo_control() -- создаём один раз
+		rec_wnd = exo_control() -- СЃРѕР·РґР°С‘Рј РѕРґРёРЅ СЂР°Р·
 		level.get_inventory_wnd():AttachChild(rec_wnd)
 	end
 	--

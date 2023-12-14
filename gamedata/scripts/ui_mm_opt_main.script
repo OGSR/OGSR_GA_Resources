@@ -5,8 +5,6 @@
 
 class "options_dialog" (CUIScriptWnd)
 function options_dialog:__init() super()
-	self:SetFont(GetFontMedium())
-
 	self.hint_name = nil
 	self.hint_caption = nil
 	self.current_view = nil

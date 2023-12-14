@@ -1,4 +1,4 @@
-;----------- Радиоактивная зона -----------------------
+;----------- Р Р°РґРёРѕР°РєС‚РёРІРЅР°СЏ Р·РѕРЅР° -----------------------
 [zone_radioactive]
 script_binding      = ogse_dbg_anomaly_binder.init
 
@@ -7,7 +7,7 @@ $spawn 			= "zones\radioactive"
 ;$prefetch 		= 16
 class			= Z_RADIO
 hit_impulse_scale	= 0.01
-effective_radius	= 1.00 ;размер радиуса в процентах от оригинального, где действует зона
+effective_radius	= 1.00 ;СЂР°Р·РјРµСЂ СЂР°РґРёСѓСЃР° РІ РїСЂРѕС†РµРЅС‚Р°С… РѕС‚ РѕСЂРёРіРёРЅР°Р»СЊРЅРѕРіРѕ, РіРґРµ РґРµР№СЃС‚РІСѓРµС‚ Р·РѕРЅР°
 sound			= zone_mosquito_bald
 ;postprocess	= postprocess_rad
 
@@ -26,9 +26,9 @@ max_artefact_count	= 0
 
 hit_type		    = radiation
 
-disable_time		= -1	;время игнорирования неживого объекта в зоне (-1 если не нужно)
-disable_time_small	= -1	;время игнорирования маленького неживого объекта в зоне (-1 если не нужно)
-disable_idle_time	= -1	;время отключения idle партиклов
+disable_time		= -1	;РІСЂРµРјСЏ РёРіРЅРѕСЂРёСЂРѕРІР°РЅРёСЏ РЅРµР¶РёРІРѕРіРѕ РѕР±СЉРµРєС‚Р° РІ Р·РѕРЅРµ (-1 РµСЃР»Рё РЅРµ РЅСѓР¶РЅРѕ)
+disable_time_small	= -1	;РІСЂРµРјСЏ РёРіРЅРѕСЂРёСЂРѕРІР°РЅРёСЏ РјР°Р»РµРЅСЊРєРѕРіРѕ РЅРµР¶РёРІРѕРіРѕ РѕР±СЉРµРєС‚Р° РІ Р·РѕРЅРµ (-1 РµСЃР»Рё РЅРµ РЅСѓР¶РЅРѕ)
+disable_idle_time	= -1	;РІСЂРµРјСЏ РѕС‚РєР»СЋС‡РµРЅРёСЏ idle РїР°СЂС‚РёРєР»РѕРІ
 
 ignore_nonalive		= true;
 ignore_small		= false;
@@ -46,19 +46,19 @@ visible_by_detector = on
 blowout_wind		= off
 spawn_blowout_artefacts = off
 
-;----------- Радиоактивная зона слабая -----------------------
+;----------- Р Р°РґРёРѕР°РєС‚РёРІРЅР°СЏ Р·РѕРЅР° СЃР»Р°Р±Р°СЏ -----------------------
 [zone_radioactive_weak]:zone_radioactive
 $spawn 			= "zones\radioactive_weak"
 min_start_power		= 0.015
 max_start_power		= 0.016
 
-;----------- Радиоактивная зона средняя -----------------------
+;----------- Р Р°РґРёРѕР°РєС‚РёРІРЅР°СЏ Р·РѕРЅР° СЃСЂРµРґРЅСЏСЏ -----------------------
 [zone_radioactive_average]:zone_radioactive
 $spawn 			= "zones\radioactive_average"
 min_start_power		= 0.035
 max_start_power		= 0.036
 
-;----------- Радиоактивная зона сильная -----------------------
+;----------- Р Р°РґРёРѕР°РєС‚РёРІРЅР°СЏ Р·РѕРЅР° СЃРёР»СЊРЅР°СЏ -----------------------
 
 [zone_radioactive_strong]:zone_radioactive
 $spawn 			= "zones\radioactive_strong"
@@ -66,11 +66,11 @@ accamulate_time		= 75
 min_start_power		= 0.065
 max_start_power		= 0.066
 
-;----------- Радиоактивная зона смертельная -----------------------
+;----------- Р Р°РґРёРѕР°РєС‚РёРІРЅР°СЏ Р·РѕРЅР° СЃРјРµСЂС‚РµР»СЊРЅР°СЏ -----------------------
 [zone_radioactive_killing]:zone_radioactive
 $spawn 			= "zones\radioactive_killing"
 accamulate_time		= 50
 
-;----------- Рукотворная аномалия без артов -----------------------
+;----------- Р СѓРєРѕС‚РІРѕСЂРЅР°СЏ Р°РЅРѕРјР°Р»РёСЏ Р±РµР· Р°СЂС‚РѕРІ -----------------------
 [handmade_zone_radioactive]:zone_radioactive
 $spawn 						= "zones\handmade_zone_radioactive"

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding="windows-1251"?>
+<?xml version='1.0' encoding="UTF-8"?>
 
 <xml>
 <!--Unikal'nye profilya-->
@@ -71,9 +71,9 @@
 		<actor_dialog>agr_krot_find_ammo_box_find</actor_dialog>
 		<actor_dialog>agr_krot_find_ammo_box_end</actor_dialog>
 		<actor_dialog>agr_krot_find_ammo_box_give</actor_dialog>
-<!-- Выдача переходов на Топь Кротом, если погиб Дезертир -->
+<!-- Р’С‹РґР°С‡Р° РїРµСЂРµС…РѕРґРѕРІ РЅР° РўРѕРїСЊ РљСЂРѕС‚РѕРј, РµСЃР»Рё РїРѕРіРёР± Р”РµР·РµСЂС‚РёСЂ -->
 		<actor_dialog>agr_krot_give_info_about_lc</actor_dialog>
-<!-- Выдача переходов на Топь Кротом, если погиб Дезертир -->
+<!-- Р’С‹РґР°С‡Р° РїРµСЂРµС…РѕРґРѕРІ РЅР° РўРѕРїСЊ РљСЂРѕС‚РѕРј, РµСЃР»Рё РїРѕРіРёР± Р”РµР·РµСЂС‚РёСЂ -->
 #include "gameplay\character_dialogs_unic.xml"		
 	</specific_character>
 
@@ -962,7 +962,7 @@
 	</specific_character>
 
 
-<!-- Охрана торговца -->
+<!-- РћС…СЂР°РЅР° С‚РѕСЂРіРѕРІС†Р° -->
 <specific_character id="mil_trader_guard" team_default = "1">
 	<name>mil_trader_guard_name</name>
 	<icon>ui_npc_u_stalker_militari_antigas_2</icon>

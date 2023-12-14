@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function allow_break_dialog(first_speaker, second_speaker, id)
 	if second_speaker:profile_name() == "osoznanie" then
@@ -49,7 +49,7 @@ function is_wounded(first_speaker, second_speaker)
 
 	return xr_wounded.is_wounded(first_speaker)
 end
--- Так и не понял с какого перепоя написали функции is_wounded и is_not_wounded, если эти функции проверяют раненность ГГ, пришлось написать проверку на -- -- (не)раненость для соб(утыльника)еседника (Quest)
+-- РўР°Рє Рё РЅРµ РїРѕРЅСЏР» СЃ РєР°РєРѕРіРѕ РїРµСЂРµРїРѕСЏ РЅР°РїРёСЃР°Р»Рё С„СѓРЅРєС†РёРё is_wounded Рё is_not_wounded, РµСЃР»Рё СЌС‚Рё С„СѓРЅРєС†РёРё РїСЂРѕРІРµСЂСЏСЋС‚ СЂР°РЅРµРЅРЅРѕСЃС‚СЊ Р“Р“, РїСЂРёС€Р»РѕСЃСЊ РЅР°РїРёСЃР°С‚СЊ РїСЂРѕРІРµСЂРєСѓ РЅР° -- -- (РЅРµ)СЂР°РЅРµРЅРѕСЃС‚СЊ РґР»СЏ СЃРѕР±(СѓС‚С‹Р»СЊРЅРёРєР°)РµСЃРµРґРЅРёРєР° (Quest)
 function is_wounded1(first_speaker, second_speaker)
 	
 	local hwo_is_wounded_one = 0
@@ -90,7 +90,7 @@ function is_not_wounded(first_speaker, second_speaker)
 	return not this.is_wounded(first_speaker, second_speaker)
 end
 
--- Так и не понял с какого перепоя написали функции is_wounded и is_not_wounded, если эти функции проверяют раненность ГГ, пришлось написать проверку на -- -- (не)раненость для соб(утыльника)еседника (Quest)
+-- РўР°Рє Рё РЅРµ РїРѕРЅСЏР» СЃ РєР°РєРѕРіРѕ РїРµСЂРµРїРѕСЏ РЅР°РїРёСЃР°Р»Рё С„СѓРЅРєС†РёРё is_wounded Рё is_not_wounded, РµСЃР»Рё СЌС‚Рё С„СѓРЅРєС†РёРё РїСЂРѕРІРµСЂСЏСЋС‚ СЂР°РЅРµРЅРЅРѕСЃС‚СЊ Р“Р“, РїСЂРёС€Р»РѕСЃСЊ РЅР°РїРёСЃР°С‚СЊ РїСЂРѕРІРµСЂРєСѓ РЅР° -- -- (РЅРµ)СЂР°РЅРµРЅРѕСЃС‚СЊ РґР»СЏ СЃРѕР±(СѓС‚С‹Р»СЊРЅРёРєР°)РµСЃРµРґРЅРёРєР° (Quest)
 function is_not_wounded1(first_speaker, second_speaker)
 	return not this.is_wounded1(first_speaker, second_speaker)
 end
@@ -109,8 +109,8 @@ function actor_have_medkit_revers(first_speaker, second_speaker)
 		   second_speaker:object("medkit_scientic") ~= nil
 end
 
---KRodin: убрал здесь установку отношений с напарниками. Не понятно, зачем это нужно.
---Если для того, чтобы не воевали - enemy_callback и так им воевать не разрешит.
+--KRodin: СѓР±СЂР°Р» Р·РґРµСЃСЊ СѓСЃС‚Р°РЅРѕРІРєСѓ РѕС‚РЅРѕС€РµРЅРёР№ СЃ РЅР°РїР°СЂРЅРёРєР°РјРё. РќРµ РїРѕРЅСЏС‚РЅРѕ, Р·Р°С‡РµРј СЌС‚Рѕ РЅСѓР¶РЅРѕ.
+--Р•СЃР»Рё РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ РЅРµ РІРѕРµРІР°Р»Рё - enemy_callback Рё С‚Р°Рє РёРј РІРѕРµРІР°С‚СЊ РЅРµ СЂР°Р·СЂРµС€РёС‚.
 function make_relationship_with_actor(relation, npc, actor)
 	if relation == "friend" then
 		npc:set_relation(game_object.friend, actor)
@@ -162,7 +162,7 @@ local actor_to_stalker_comms = {
 	['actor_dolg']      = 'dolg',
 	['actor_freedom']   = 'freedom',
 	['actor_zombied']   = 'zombied',
-	['actor_prebandit'] = 'bandit',
+	['actor_prebandit'] = 'stalker',
 }
 
 function transfer_medkit(first_speaker, second_speaker)
@@ -175,10 +175,10 @@ function transfer_medkit(first_speaker, second_speaker)
 	end
 
 	local obj_community = second_speaker:character_community()
-	--' Тут надо анлочить аптечку для использования.
+	--' РўСѓС‚ РЅР°РґРѕ Р°РЅР»РѕС‡РёС‚СЊ Р°РїС‚РµС‡РєСѓ РґР»СЏ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ.
 	xr_wounded.unlock_medkit(second_speaker)	
 	
-	--' Добрые дела искупают прошлые грехи
+	--' Р”РѕР±СЂС‹Рµ РґРµР»Р° РёСЃРєСѓРїР°СЋС‚ РїСЂРѕС€Р»С‹Рµ РіСЂРµС…Рё
 	local dead_friends = tonumber(ogse.load_variable("dead_fr", 0))
 	if dead_friends > 0 then 
 		dead_friends = dead_friends - 1
@@ -190,10 +190,10 @@ function transfer_medkit(first_speaker, second_speaker)
 		if obj_community == "monolith" then
 			first_speaker:change_character_reputation(-25)
 			if rand < 0.1 then
-				-- друг
+				-- РґСЂСѓРі
 				make_relationship_with_actor("friend", second_speaker, first_speaker)
 			elseif rand >= 0.1 and rand < 0.15 then
-				-- нейтрал
+				-- РЅРµР№С‚СЂР°Р»
 				make_relationship_with_actor("neutral", second_speaker, first_speaker)
 			end
 		elseif obj_community == "zombied" then
@@ -201,10 +201,10 @@ function transfer_medkit(first_speaker, second_speaker)
 		else
 			first_speaker:change_character_reputation(-10)
 			if rand < 0.35 then
-				-- друг
+				-- РґСЂСѓРі
 				make_relationship_with_actor("friend", second_speaker, first_speaker)
 			elseif rand >= 0.35 and rand < 0.55 then
-				-- нейтрал
+				-- РЅРµР№С‚СЂР°Р»
 				make_relationship_with_actor("neutral", second_speaker, first_speaker)		
 			end
 		end
@@ -289,7 +289,7 @@ local quest_section = {
 function relocate_item_section(victim, section, type)
 	if db.actor and victim then
 		if type == "in" then
-			--Трансферить нужно только квестовые предметы.
+			--РўСЂР°РЅСЃС„РµСЂРёС‚СЊ РЅСѓР¶РЅРѕ С‚РѕР»СЊРєРѕ РєРІРµСЃС‚РѕРІС‹Рµ РїСЂРµРґРјРµС‚С‹.
 			if quest_section[section] and victim:object(section) then
 				victim:transfer_item(victim:object(section), db.actor)
 			else
@@ -621,7 +621,7 @@ end
 -----------------------------------------------------------------------------------
 -- TRADE
 -----------------------------------------------------------------------------------
---' Инициализация торговли
+--' РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С‚РѕСЂРіРѕРІР»Рё
 function trade_init(seller, buyer)
 	db.storage[seller:id()].meet.begin_wait_to_see.begin = time_global()/1000
 	xr_position.setPosition(db.storage[seller:id()].meet.Seller, 
@@ -655,17 +655,17 @@ local not_follow_type = 0
 
 function check_following(npc, actor)
 --------------------------
--- Проверка условий отказа
+-- РџСЂРѕРІРµСЂРєР° СѓСЃР»РѕРІРёР№ РѕС‚РєР°Р·Р°
 --------------------------
--- Условия отказа:
--- 1) Это квестовый непись
--- 2) У ГГ хреновая репутация в коммунити
--- 3) Это Толик или кто-то из пленников
--- 4) ГГ ниже опытом чем непись
--- 5) ГГ значительно опытнее непися
--- 6) У ГГ уже есть напарник
--- 7) ГГ из другой группировки
--- 8) с ГГ погибло слишком много народу
+-- РЈСЃР»РѕРІРёСЏ РѕС‚РєР°Р·Р°:
+-- 1) Р­С‚Рѕ РєРІРµСЃС‚РѕРІС‹Р№ РЅРµРїРёСЃСЊ
+-- 2) РЈ Р“Р“ С…СЂРµРЅРѕРІР°СЏ СЂРµРїСѓС‚Р°С†РёСЏ РІ РєРѕРјРјСѓРЅРёС‚Рё
+-- 3) Р­С‚Рѕ РўРѕР»РёРє РёР»Рё РєС‚Рѕ-С‚Рѕ РёР· РїР»РµРЅРЅРёРєРѕРІ
+-- 4) Р“Р“ РЅРёР¶Рµ РѕРїС‹С‚РѕРј С‡РµРј РЅРµРїРёСЃСЊ
+-- 5) Р“Р“ Р·РЅР°С‡РёС‚РµР»СЊРЅРѕ РѕРїС‹С‚РЅРµРµ РЅРµРїРёСЃСЏ
+-- 6) РЈ Р“Р“ СѓР¶Рµ РµСЃС‚СЊ РЅР°РїР°СЂРЅРёРє
+-- 7) Р“Р“ РёР· РґСЂСѓРіРѕР№ РіСЂСѓРїРїРёСЂРѕРІРєРё
+-- 8) СЃ Р“Р“ РїРѕРіРёР±Р»Рѕ СЃР»РёС€РєРѕРј РјРЅРѕРіРѕ РЅР°СЂРѕРґСѓ
 ------------------------------------------
 	not_follow_type = 0
 	
@@ -694,52 +694,52 @@ function check_following(npc, actor)
 	elseif actor_rank >= 900 then actor_rank_level = 4 end	
 	
 	if not st
-	or xr_logic.logic_not_empty( npc, xr_logic.get_customdata_or_ini_file( npc, "<customdata>" ) ) --Сталкерам, которые под логикой, запрещено быть напарниками.
+	or xr_logic.logic_not_empty( npc, xr_logic.get_customdata_or_ini_file( npc, "<customdata>" ) ) --РЎС‚Р°Р»РєРµСЂР°Рј, РєРѕС‚РѕСЂС‹Рµ РїРѕРґ Р»РѕРіРёРєРѕР№, Р·Р°РїСЂРµС‰РµРЅРѕ Р±С‹С‚СЊ РЅР°РїР°СЂРЅРёРєР°РјРё.
 	or ogse.is_quest_npc(npc)
 	or string.find(profile, "sniper")
 	or string.find(profile, "leader")
 	or string.find(profile, "commander")
 	or string.find(name, "val_rob")
 	then
-		-- 1) Это квестовый непись
+		-- 1) Р­С‚Рѕ РєРІРµСЃС‚РѕРІС‹Р№ РЅРµРїРёСЃСЊ
 		not_follow_type = 1
 		return true
 	else
 		if relation_registry.community_goodwill(npc_comm, db.actor:id()) < -30
 		then
-			-- 2) У ГГ хреновая репутация в коммунити или он бандит
+			-- 2) РЈ Р“Р“ С…СЂРµРЅРѕРІР°СЏ СЂРµРїСѓС‚Р°С†РёСЏ РІ РєРѕРјРјСѓРЅРёС‚Рё РёР»Рё РѕРЅ Р±Р°РЅРґРёС‚
 			not_follow_type = 2
 			return true
 		else
 			if name and (string.find(name, "wounded") or string.find(name, "prisoner"))
 			then
-				-- 3) Это Толик или кто-то из пленников
+				-- 3) Р­С‚Рѕ РўРѕР»РёРє РёР»Рё РєС‚Рѕ-С‚Рѕ РёР· РїР»РµРЅРЅРёРєРѕРІ
 				not_follow_type = 3
 				return true			
 			else
 				if npc_rank_level > actor_rank_level then
-					-- 4) ГГ ниже опытом чем непись
+					-- 4) Р“Р“ РЅРёР¶Рµ РѕРїС‹С‚РѕРј С‡РµРј РЅРµРїРёСЃСЊ
 					not_follow_type = 4
 					return true					
 				else
 					local diff = actor_rank_level - npc_rank_level
 					if diff > 1 then
-						-- 5) ГГ значительно опытнее непися
+						-- 5) Р“Р“ Р·РЅР°С‡РёС‚РµР»СЊРЅРѕ РѕРїС‹С‚РЅРµРµ РЅРµРїРёСЃСЏ
 						not_follow_type = 5
 						return true						
 					else
 						if xr_companion.number_of_companions > 2 then
-						-- 6) У ГГ уже есть 3 (или более) напарника
+						-- 6) РЈ Р“Р“ СѓР¶Рµ РµСЃС‚СЊ 3 (РёР»Рё Р±РѕР»РµРµ) РЅР°РїР°СЂРЅРёРєР°
 							not_follow_type = 6
 							return true	
 						else
 							if actor_comm ~= npc_comm then
-							-- 7) ГГ из другой группировки
+							-- 7) Р“Р“ РёР· РґСЂСѓРіРѕР№ РіСЂСѓРїРїРёСЂРѕРІРєРё
 								not_follow_type = 7
 								return true	
 							else
 								if dead_friends >= 4 then
-								-- 8) с ГГ погибло слишком много народу
+								-- 8) СЃ Р“Р“ РїРѕРіРёР±Р»Рѕ СЃР»РёС€РєРѕРј РјРЅРѕРіРѕ РЅР°СЂРѕРґСѓ
 									not_follow_type = 8
 									return true	
 								else
@@ -758,12 +758,12 @@ end
 
 function companion_will_follow(npc, actor)
 ------------------------------------------
--- Проверка на то, согласится ли непись
--- идти вместе с ГГ. Если согласится, то
--- ему присвоится коммунити актора.
--- В итоге схема будет автоматически
--- включаться для неписей с коммунити
--- актора.
+-- РџСЂРѕРІРµСЂРєР° РЅР° С‚Рѕ, СЃРѕРіР»Р°СЃРёС‚СЃСЏ Р»Рё РЅРµРїРёСЃСЊ
+-- РёРґС‚Рё РІРјРµСЃС‚Рµ СЃ Р“Р“. Р•СЃР»Рё СЃРѕРіР»Р°СЃРёС‚СЃСЏ, С‚Рѕ
+-- РµРјСѓ РїСЂРёСЃРІРѕРёС‚СЃСЏ РєРѕРјРјСѓРЅРёС‚Рё Р°РєС‚РѕСЂР°.
+-- Р’ РёС‚РѕРіРµ СЃС…РµРјР° Р±СѓРґРµС‚ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё
+-- РІРєР»СЋС‡Р°С‚СЊСЃСЏ РґР»СЏ РЅРµРїРёСЃРµР№ СЃ РєРѕРјРјСѓРЅРёС‚Рё
+-- Р°РєС‚РѕСЂР°.
 ------------------------------------------
 	if not check_following(npc, actor) then
 		return true
@@ -859,7 +859,7 @@ function companion_start_following(npc, actor)
 		xr_companion.save_var_companion(npc:id(), "friendship_status", npc:relation(db.actor))
 		xr_companion.save_var_companion(npc:id(), "companion_behavior", xr_companion.beh_walk_simple)
 		
-		local time_to_release = game.time() + 30*60*1000*ogse.game_time_factor -- напарника нельзя отпустить раньше чем через полчаса от начала игры с ним
+		local time_to_release = game.time() + 30*60*1000*ogse.game_time_factor -- РЅР°РїР°СЂРЅРёРєР° РЅРµР»СЊР·СЏ РѕС‚РїСѓСЃС‚РёС‚СЊ СЂР°РЅСЊС€Рµ С‡РµРј С‡РµСЂРµР· РїРѕР»С‡Р°СЃР° РѕС‚ РЅР°С‡Р°Р»Р° РёРіСЂС‹ СЃ РЅРёРј
 		xr_companion.save_var_companion(npc:id(), "release_time", time_to_release)
 		
 		npc:set_character_community(npc_com, 0, 0)
@@ -873,19 +873,19 @@ function companion_start_following(npc, actor)
 
 		xr_companion.subscribe(npc:id())
 		
-		npc:remove_all_restrictions() --Удалять все рестрикшены необходимо именно здесь!
+		npc:remove_all_restrictions() --РЈРґР°Р»СЏС‚СЊ РІСЃРµ СЂРµСЃС‚СЂРёРєС€РµРЅС‹ РЅРµРѕР±С…РѕРґРёРјРѕ РёРјРµРЅРЅРѕ Р·РґРµСЃСЊ!
 
-		sobj:visible_for_map(true) --на всякий случай
-		npc:restore_max_ignore_monster_distance() --на всякий случай
-		npc:restore_ignore_monster_threshold() --на всякий случай
+		sobj:visible_for_map(true) --РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№
+		npc:restore_max_ignore_monster_distance() --РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№
+		npc:restore_ignore_monster_threshold() --РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№
 	end	
 end
 
 function companion_stop_following(npc, actor)
 ---------------------------------------------
--- При выключении схемы вернём компаньону
--- его изначальное коммунити. Дернем его из
--- визуала непися.
+-- РџСЂРё РІС‹РєР»СЋС‡РµРЅРёРё СЃС…РµРјС‹ РІРµСЂРЅС‘Рј РєРѕРјРїР°РЅСЊРѕРЅСѓ
+-- РµРіРѕ РёР·РЅР°С‡Р°Р»СЊРЅРѕРµ РєРѕРјРјСѓРЅРёС‚Рё. Р”РµСЂРЅРµРј РµРіРѕ РёР·
+-- РІРёР·СѓР°Р»Р° РЅРµРїРёСЃСЏ.
 ---------------------------------------------
 	xr_companion.post_work[npc:id()] = true
 	db.storage[npc:id()].companion.enabled = false
@@ -915,9 +915,9 @@ end
 
 function quest_companion_stop_following(npc, actor)
 ---------------------------------------------
--- При выключении схемы вернём компаньону
--- его изначальное коммунити. Дернем его из
--- визуала непися.
+-- РџСЂРё РІС‹РєР»СЋС‡РµРЅРёРё СЃС…РµРјС‹ РІРµСЂРЅС‘Рј РєРѕРјРїР°РЅСЊРѕРЅСѓ
+-- РµРіРѕ РёР·РЅР°С‡Р°Р»СЊРЅРѕРµ РєРѕРјРјСѓРЅРёС‚Рё. Р”РµСЂРЅРµРј РµРіРѕ РёР·
+-- РІРёР·СѓР°Р»Р° РЅРµРїРёСЃСЏ.
 ---------------------------------------------
 	xr_companion.post_work[npc:id()] = true
 	db.storage[npc:id()].companion.enabled = false
@@ -970,7 +970,7 @@ function can_be_free(actor, npc)
 	if not st.companion.enabled then
 		return false
 	end
-	-- проверяем, что в напарниках не квестовые Дезертир или Псих
+	-- РїСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РІ РЅР°РїР°СЂРЅРёРєР°С… РЅРµ РєРІРµСЃС‚РѕРІС‹Рµ Р”РµР·РµСЂС‚РёСЂ РёР»Рё РџСЃРёС…
 	local sid = npc:story_id()
 	if sid == story_ids.agr_deserter or sid == story_ids.Mil_Crazy then
 		return false
@@ -985,14 +985,14 @@ function can_be_free(actor, npc)
 end
 
 function not_is_companion(actor, npc)
----/// Схема включена. Для включения удалите этот кусок кода --
+---/// РЎС…РµРјР° РІРєР»СЋС‡РµРЅР°. Р”Р»СЏ РІРєР»СЋС‡РµРЅРёСЏ СѓРґР°Р»РёС‚Рµ СЌС‚РѕС‚ РєСѓСЃРѕРє РєРѕРґР° --
 	-- local disabled = true
 	-- if disabled then return false end
----/// Схема включена. Для включения удалите этот кусок кода --
+---/// РЎС…РµРјР° РІРєР»СЋС‡РµРЅР°. Р”Р»СЏ РІРєР»СЋС‡РµРЅРёСЏ СѓРґР°Р»РёС‚Рµ СЌС‚РѕС‚ РєСѓСЃРѕРє РєРѕРґР° --
 	if ogse.is_quest_npc(npc) and not (string.find(npc:name(), "esc_wolf") and level.name() == "l07_military") then
 		return false
 	end
-	if not has_alife_info("agroprom_military_case") then -- Взятие напарников происходит только после взятия у Сидоровича особого задания - взять кейс на Агропроме
+	if not has_alife_info("agroprom_military_case") then -- Р’Р·СЏС‚РёРµ РЅР°РїР°СЂРЅРёРєРѕРІ РїСЂРѕРёСЃС…РѕРґРёС‚ С‚РѕР»СЊРєРѕ РїРѕСЃР»Рµ РІР·СЏС‚РёСЏ Сѓ РЎРёРґРѕСЂРѕРІРёС‡Р° РѕСЃРѕР±РѕРіРѕ Р·Р°РґР°РЅРёСЏ - РІР·СЏС‚СЊ РєРµР№СЃ РЅР° РђРіСЂРѕРїСЂРѕРјРµ
 		return false
 	end
 	if xr_wounded.is_wounded(npc) then
@@ -1007,7 +1007,7 @@ function not_is_companion(actor, npc)
 	return true
 end
 
----///--------------- прекондишены
+---///--------------- РїСЂРµРєРѕРЅРґРёС€РµРЅС‹
 
 function is_stalker_companion(actor, npc)
 	local npc_comm = npc:character_community()
@@ -1034,7 +1034,7 @@ function is_zombie_companion(actor, npc)
 	if npc_comm == "zombied" then return true else return false end
 end
 
---///---------------- прекондишены
+--///---------------- РїСЂРµРєРѕРЅРґРёС€РµРЅС‹
 
 function companion_beh_walk_simple(actor, npc)
 	local st = db.storage[npc:id()]

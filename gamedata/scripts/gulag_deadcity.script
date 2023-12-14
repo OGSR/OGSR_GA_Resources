@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 
 --'--------------------------------------------------------------------------
@@ -9,15 +9,15 @@ local t = {}
 
 function load_job( sj, gname, type, squad, groups )
 
-	-------------- Лагерь сталкеров
-	-- - 1 - охранник в каморке у дверей (строго указанный человек, один)
-	-- - 2 - посетитель за столом, смотрит на двери (рандом)
-	-- - 3 - игрок в нарды (строго указанный человек, один)
-	-- - 4 - бармен (строго указанный человек, один)
-	-- - 5 - охранник около бармена (рандом)
-	-- 6 - отдыхающий на диванчике (рандом)
-	-- - 7 - бильярдист (строго указанный человек, один)
-	-- 8 - спящий в подсобке (рандом)
+	-------------- Р›Р°РіРµСЂСЊ СЃС‚Р°Р»РєРµСЂРѕРІ
+	-- - 1 - РѕС…СЂР°РЅРЅРёРє РІ РєР°РјРѕСЂРєРµ Сѓ РґРІРµСЂРµР№ (СЃС‚СЂРѕРіРѕ СѓРєР°Р·Р°РЅРЅС‹Р№ С‡РµР»РѕРІРµРє, РѕРґРёРЅ)
+	-- - 2 - РїРѕСЃРµС‚РёС‚РµР»СЊ Р·Р° СЃС‚РѕР»РѕРј, СЃРјРѕС‚СЂРёС‚ РЅР° РґРІРµСЂРё (СЂР°РЅРґРѕРј)
+	-- - 3 - РёРіСЂРѕРє РІ РЅР°СЂРґС‹ (СЃС‚СЂРѕРіРѕ СѓРєР°Р·Р°РЅРЅС‹Р№ С‡РµР»РѕРІРµРє, РѕРґРёРЅ)
+	-- - 4 - Р±Р°СЂРјРµРЅ (СЃС‚СЂРѕРіРѕ СѓРєР°Р·Р°РЅРЅС‹Р№ С‡РµР»РѕРІРµРє, РѕРґРёРЅ)
+	-- - 5 - РѕС…СЂР°РЅРЅРёРє РѕРєРѕР»Рѕ Р±Р°СЂРјРµРЅР° (СЂР°РЅРґРѕРј)
+	-- 6 - РѕС‚РґС‹С…Р°СЋС‰РёР№ РЅР° РґРёРІР°РЅС‡РёРєРµ (СЂР°РЅРґРѕРј)
+	-- - 7 - Р±РёР»СЊСЏСЂРґРёСЃС‚ (СЃС‚СЂРѕРіРѕ СѓРєР°Р·Р°РЅРЅС‹Р№ С‡РµР»РѕРІРµРє, РѕРґРёРЅ)
+	-- 8 - СЃРїСЏС‰РёР№ РІ РїРѕРґСЃРѕР±РєРµ (СЂР°РЅРґРѕРј)
 	
 	
 	if type == "deadcity_bar" then
@@ -517,8 +517,8 @@ function load_job( sj, gname, type, squad, groups )
 --
 	else
 --
-		if type == "deadcity_zombies_3" then --Центральное здание МГ
-			for i = 1, 6 do --6 человек у костра на первом этаже
+		if type == "deadcity_zombies_3" then --Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРµ Р·РґР°РЅРёРµ РњР“
+			for i = 1, 6 do --6 С‡РµР»РѕРІРµРє Сѓ РєРѕСЃС‚СЂР° РЅР° РїРµСЂРІРѕРј СЌС‚Р°Р¶Рµ
 				t = {
 					section = "logic@deadcity_zombies_3_kamp1",
 					idle = 0,
@@ -528,7 +528,7 @@ function load_job( sj, gname, type, squad, groups )
 				}
 				table.insert(sj, t)
 			end
-			for i = 1, 3 do --3 человека у первого костра на втором этаже
+			for i = 1, 3 do --3 С‡РµР»РѕРІРµРєР° Сѓ РїРµСЂРІРѕРіРѕ РєРѕСЃС‚СЂР° РЅР° РІС‚РѕСЂРѕРј СЌС‚Р°Р¶Рµ
 				t = {
 					section = "logic@deadcity_zombies_3_kamp4",
 					idle = 0,
@@ -538,7 +538,7 @@ function load_job( sj, gname, type, squad, groups )
 				}
 				table.insert(sj, t)
 			end
-			for i = 1, 3 do --3 человека у второго костра на втором этаже
+			for i = 1, 3 do --3 С‡РµР»РѕРІРµРєР° Сѓ РІС‚РѕСЂРѕРіРѕ РєРѕСЃС‚СЂР° РЅР° РІС‚РѕСЂРѕРј СЌС‚Р°Р¶Рµ
 				t = {
 					section = "logic@deadcity_zombies_3_kamp5",
 					idle = 0,
@@ -548,7 +548,7 @@ function load_job( sj, gname, type, squad, groups )
 				}
 				table.insert(sj, t)
 			end
-			t = { --первый волкер
+			t = { --РїРµСЂРІС‹Р№ РІРѕР»РєРµСЂ
 				section = "logic@deadcity_zombies_3_walker",
 				idle = 0, 
 				prior = 8,
@@ -557,8 +557,8 @@ function load_job( sj, gname, type, squad, groups )
 				out_rest = ""
 			}	
 			table.insert(sj, t)	
-		elseif type == "deadcity_zombies_6" then --Деревня напротив бара, за двумя пятиэтажками
-			for i = 1, 6 do --6 человек у костра
+		elseif type == "deadcity_zombies_6" then --Р”РµСЂРµРІРЅСЏ РЅР°РїСЂРѕС‚РёРІ Р±Р°СЂР°, Р·Р° РґРІСѓРјСЏ РїСЏС‚РёСЌС‚Р°Р¶РєР°РјРё
+			for i = 1, 6 do --6 С‡РµР»РѕРІРµРє Сѓ РєРѕСЃС‚СЂР°
 				t = {
 					section = "logic@deadcity_zombies_6_kamp4",
 					idle = 0,
@@ -568,7 +568,7 @@ function load_job( sj, gname, type, squad, groups )
 				}
 				table.insert(sj, t)
 			end
-			t = { --волкер
+			t = { --РІРѕР»РєРµСЂ
 				section = "logic@deadcity_zombies_6_walker",
 				idle = 0, 
 				prior = 8,
@@ -577,8 +577,8 @@ function load_job( sj, gname, type, squad, groups )
 				out_rest = ""
 			}	
 			table.insert(sj, t)	
-		elseif type == "deadcity_zombies_4" then --Костер рядом с 5-этажкой возле забора, перед мостом.
-			for i = 1, 6 do --6 человек у костра
+		elseif type == "deadcity_zombies_4" then --РљРѕСЃС‚РµСЂ СЂСЏРґРѕРј СЃ 5-СЌС‚Р°Р¶РєРѕР№ РІРѕР·Р»Рµ Р·Р°Р±РѕСЂР°, РїРµСЂРµРґ РјРѕСЃС‚РѕРј.
+			for i = 1, 6 do --6 С‡РµР»РѕРІРµРє Сѓ РєРѕСЃС‚СЂР°
 				t = {
 					section = "logic@deadcity_zombies_4_kamp2",
 					idle = 0,
@@ -588,7 +588,7 @@ function load_job( sj, gname, type, squad, groups )
 				}
 				table.insert(sj, t)
 			end
-			t = { --первый волкер
+			t = { --РїРµСЂРІС‹Р№ РІРѕР»РєРµСЂ
 				section = "logic@deadcity_zombies_4_walker",
 				idle = 0, 
 				prior = 7,
@@ -597,7 +597,7 @@ function load_job( sj, gname, type, squad, groups )
 				out_rest = ""
 			}	
 			table.insert(sj, t)	
-			t = { --второй волкер
+			t = { --РІС‚РѕСЂРѕР№ РІРѕР»РєРµСЂ
 				section = "logic@deadcity_zombies_4_walker2",
 				idle = 0, 
 				prior = 8,
@@ -606,8 +606,8 @@ function load_job( sj, gname, type, squad, groups )
 				out_rest = ""
 			}
 			table.insert(sj, t)	
-		elseif type == "deadcity_zombies_2" then --пустое здание типа гаража, в левой части МГ
-			for i = 1, 6 do --6 человек у костра
+		elseif type == "deadcity_zombies_2" then --РїСѓСЃС‚РѕРµ Р·РґР°РЅРёРµ С‚РёРїР° РіР°СЂР°Р¶Р°, РІ Р»РµРІРѕР№ С‡Р°СЃС‚Рё РњР“
+			for i = 1, 6 do --6 С‡РµР»РѕРІРµРє Сѓ РєРѕСЃС‚СЂР°
 				t = {
 					section = "logic@deadcity_zombies_2_kamp3",
 					idle = 0,
@@ -617,7 +617,7 @@ function load_job( sj, gname, type, squad, groups )
 				}
 				table.insert(sj, t)
 			end
-			t = { --первый волкер
+			t = { --РїРµСЂРІС‹Р№ РІРѕР»РєРµСЂ
 				section = "logic@deadcity_zombies_2_walker",
 				idle = 0, 
 				prior = 7,
@@ -626,7 +626,7 @@ function load_job( sj, gname, type, squad, groups )
 				out_rest = ""
 			}	
 			table.insert(sj, t)	
-			t = { --второй волкер
+			t = { --РІС‚РѕСЂРѕР№ РІРѕР»РєРµСЂ
 				section = "logic@deadcity_zombies_2_walker2",
 				idle = 0, 
 				prior = 8,
@@ -635,8 +635,8 @@ function load_job( sj, gname, type, squad, groups )
 				out_rest = ""
 			}
 			table.insert(sj, t)	
-		elseif type == "deadcity_zombies_1" then --домики в левой нижней части МГ.
-			for i = 1, 6 do --6 человек у костра
+		elseif type == "deadcity_zombies_1" then --РґРѕРјРёРєРё РІ Р»РµРІРѕР№ РЅРёР¶РЅРµР№ С‡Р°СЃС‚Рё РњР“.
+			for i = 1, 6 do --6 С‡РµР»РѕРІРµРє Сѓ РєРѕСЃС‚СЂР°
 				t = {
 					section = "logic@deadcity_zombies_1_kamp1",
 					idle = 0,
@@ -646,7 +646,7 @@ function load_job( sj, gname, type, squad, groups )
 				}
 				table.insert(sj, t)
 			end
-			t = { --первый волкер
+			t = { --РїРµСЂРІС‹Р№ РІРѕР»РєРµСЂ
 				section = "logic@deadcity_zombies_1_walker",
 				idle = 0, 
 				prior = 7,
@@ -655,7 +655,7 @@ function load_job( sj, gname, type, squad, groups )
 				out_rest = ""
 			}	
 			table.insert(sj, t)	
-			t = { --второй волкер
+			t = { --РІС‚РѕСЂРѕР№ РІРѕР»РєРµСЂ
 				section = "logic@deadcity_zombies_1_walker2",
 				idle = 0, 
 				prior = 8,
@@ -664,8 +664,8 @@ function load_job( sj, gname, type, squad, groups )
 				out_rest = ""
 			}
 			table.insert(sj, t)	
-		elseif type == "deadcity_zombies_5" then --первое здание справа при въезде в МГ с Янтаря
-			for i = 1, 6 do --6 человек у костра
+		elseif type == "deadcity_zombies_5" then --РїРµСЂРІРѕРµ Р·РґР°РЅРёРµ СЃРїСЂР°РІР° РїСЂРё РІСЉРµР·РґРµ РІ РњР“ СЃ РЇРЅС‚Р°СЂСЏ
+			for i = 1, 6 do --6 С‡РµР»РѕРІРµРє Сѓ РєРѕСЃС‚СЂР°
 				t = {
 					section = "logic@deadcity_zombies_5_kamp1",
 					idle = 0,
@@ -686,7 +686,7 @@ for i = 1, 6 do
 	zombie_gulags["deadcity_zombies_"..i] = true
 end
 
-function load_states( gname, type ) --TODO: добавить стейты при плохой погоде
+function load_states( gname, type ) --TODO: РґРѕР±Р°РІРёС‚СЊ СЃС‚РµР№С‚С‹ РїСЂРё РїР»РѕС…РѕР№ РїРѕРіРѕРґРµ
 	if type == "deadcity_bar" or zombie_gulags[type] then
 		return function( gulag )
 			return 0

@@ -1,6 +1,6 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
----------------------- Квестовые функции для OGSM 2.x -------------------------
+
+---------------------- РљРІРµСЃС‚РѕРІС‹Рµ С„СѓРЅРєС†РёРё РґР»СЏ OGSM 2.x -------------------------
 ------------------------- Copyright 2007-2008 DEXXX ---------------------------
 
 function attach(sm)
@@ -45,12 +45,12 @@ local blood = 0
 local bl_sound = sound_object([[heart\2]])
 
 
--- ГГ получает доступ в арсенал "Свободы"
+-- Р“Р“ РїРѕР»СѓС‡Р°РµС‚ РґРѕСЃС‚СѓРї РІ Р°СЂСЃРµРЅР°Р» "РЎРІРѕР±РѕРґС‹"
 function allow_arsenal()
 db.actor:give_info_portion("mil_leader_attach_community2")
 end
 
--- Функция проверка, жив ли Боров
+-- Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєР°, Р¶РёРІ Р»Рё Р‘РѕСЂРѕРІ
 function borov_alive(sid)
 	local borov_sobj = alife():story_object(story_ids.val_borov)
 	if borov_sobj and borov_sobj:alive() then
@@ -60,7 +60,7 @@ function borov_alive(sid)
 	end
 end 
 
--- Функция проверка, жив ли Фраер
+-- Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєР°, Р¶РёРІ Р»Рё Р¤СЂР°РµСЂ
 function fraer_alive(sid)
 	local fraer_sobj = alife():story_object(story_ids.val_fraer)
 	if fraer_sobj and fraer_sobj:alive() then
@@ -70,12 +70,12 @@ function fraer_alive(sid)
 	end
 end 
 
--- Функция проверка, мёртв ли Фраер
+-- Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєР°, РјС‘СЂС‚РІ Р»Рё Р¤СЂР°РµСЂ
 function fraer_dead(sid)
 	return not fraer_alive(sid)
 end 
 
--- Устанавливаем нейтральность для Круглова если актор к нему враждебен
+-- РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅРµР№С‚СЂР°Р»СЊРЅРѕСЃС‚СЊ РґР»СЏ РљСЂСѓРіР»РѕРІР° РµСЃР»Рё Р°РєС‚РѕСЂ Рє РЅРµРјСѓ РІСЂР°Р¶РґРµР±РµРЅ
 function kruglov_neutral()
 	if has_alife_info("actor_set_bandit") or has_alife_info("actor_set_zombied") then
 		local npc = level_object_by_sid(story_ids.bar_ecolog_professor)
@@ -85,12 +85,12 @@ function kruglov_neutral()
 	end
 end
 
--- Проверка помощи Круглову
+-- РџСЂРѕРІРµСЂРєР° РїРѕРјРѕС‰Рё РљСЂСѓРіР»РѕРІСѓ
 function kruglov_help_chek()
 	if has_alife_info("bar_rescue_research_start") and not has_alife_info("bar_kruglov_follow_actor") and not has_alife_info("bar_rescue_research_fail") then
 		if level.name() ~= "l06_rostok" then
 			db.actor:give_info_portion("bar_rescue_research_fail")
---------------Убиваем круглова------------
+--------------РЈР±РёРІР°РµРј РєСЂСѓРіР»РѕРІР°------------
 			local kruglov = alife():story_object(story_ids.bar_ecolog_professor)
 			ogse.kill_offline_npc(kruglov)
 ------------------------------------------
@@ -98,12 +98,12 @@ function kruglov_help_chek()
 	end
 end
 
--- Функция передача экзоскелета от Борова за убийство Фраера
+-- Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРґР°С‡Р° СЌРєР·РѕСЃРєРµР»РµС‚Р° РѕС‚ Р‘РѕСЂРѕРІР° Р·Р° СѓР±РёР№СЃС‚РІРѕ Р¤СЂР°РµСЂР°
 function kill_fraer_complete(first_speaker, second_speaker) 
 	dialogs.relocate_item_section(second_speaker, "outfit_bandit_m1_exo1", "in")
 end
 
--- Функция проверка, жив ли долговец Пуля
+-- Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєР°, Р¶РёРІ Р»Рё РґРѕР»РіРѕРІРµС† РџСѓР»СЏ
 function pula_alive(sid)
 	local pulya_sobj = alife():story_object(story_ids.val_escort_nap1)
 	if pulya_sobj and pulya_sobj:alive() then
@@ -113,18 +113,18 @@ function pula_alive(sid)
 	end
 end 
 
--- Функция проверка, мёртв ли долговец Пуля
+-- Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєР°, РјС‘СЂС‚РІ Р»Рё РґРѕР»РіРѕРІРµС† РџСѓР»СЏ
 function pula_dead(sid)
 	return not pula_alive(sid)
 end 
 
--- Проверка, нашёл ли СВД Черепа
+-- РџСЂРѕРІРµСЂРєР°, РЅР°С€С‘Р» Р»Рё РЎР’Р” Р§РµСЂРµРїР°
 function has_cherep_svd()
 if db.actor:object("cherep_svd")  then return true end
 return false
 end
 
--- Функции квеста с рукой зомби
+-- Р¤СѓРЅРєС†РёРё РєРІРµСЃС‚Р° СЃ СЂСѓРєРѕР№ Р·РѕРјР±Рё
 function has_zombie_hand()
 if db.actor:object("af_zombie_hand") and not has_alife_info("zombie_hand_sold") then return true end
 return false
@@ -144,13 +144,13 @@ dialogs.relocate_item_section(first_speaker, "ammo_9x39_pab9", "in")
 dialogs.relocate_item_section(first_speaker, "ammo_9x39_pab9", "in")
 end
 
--- Проверка, пьян ли актор
+-- РџСЂРѕРІРµСЂРєР°, РїСЊСЏРЅ Р»Рё Р°РєС‚РѕСЂ
 function drunk()
 	return db.actor.alcohol > 0.01
 end
 
 
--- Наложение постэффекта зомбирования актора
+-- РќР°Р»РѕР¶РµРЅРёРµ РїРѕСЃС‚СЌС„С„РµРєС‚Р° Р·РѕРјР±РёСЂРѕРІР°РЅРёСЏ Р°РєС‚РѕСЂР°
 local zombied_fx_flag = false
 local zombied_fx_strong_flag = false
 local zombied_fx_fatal_flag = false
@@ -284,7 +284,7 @@ function actor_zombied_fx()
 end
 
 
--- Проверка наличия 10 бутылок для повара
+-- РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ 10 Р±СѓС‚С‹Р»РѕРє РґР»СЏ РїРѕРІР°СЂР°
 function has_ten_vodkas()
 if has_alife_info("povar_vodka_asked") then 
 	vdk_cnt = 0
@@ -299,7 +299,7 @@ else
 end
 end
 
--- Проверка наличия бутылки для Толика
+-- РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ Р±СѓС‚С‹Р»РєРё РґР»СЏ РўРѕР»РёРєР°
 function has_five_vodkas(task, objective)
 if db.actor ~= nil then 
 return db.actor:object("vodka") ~= nil
@@ -307,14 +307,14 @@ end
 return false
 end
 
--- А вдруг Толик погиб, пока мы искали водку?
+-- Рђ РІРґСЂСѓРі РўРѕР»РёРє РїРѕРіРёР±, РїРѕРєР° РјС‹ РёСЃРєР°Р»Рё РІРѕРґРєСѓ?
 function tolik_death()
 if has_alife_info("tutorial_wounded_die") or has_alife_info("tutorial_wounded_death") then return true else return false end
 end
 
 function tolik_give_vodka(first_speaker, second_speaker) 
-	-- НЕ ТРОГАТЬ! Работает!!! 23/06/09 KamikaZze
-	-- Изменена награда с арбалетных болтов на 2 пачки 9х18
+	-- РќР• РўР РћР“РђРўР¬! Р Р°Р±РѕС‚Р°РµС‚!!! 23/06/09 KamikaZze
+	-- РР·РјРµРЅРµРЅР° РЅР°РіСЂР°РґР° СЃ Р°СЂР±Р°Р»РµС‚РЅС‹С… Р±РѕР»С‚РѕРІ РЅР° 2 РїР°С‡РєРё 9С…18
 	dialogs.relocate_item_section(second_speaker, "vodka", "out")
 	dialogs.relocate_item_section(second_speaker, "ammo_9x18_fmj", "in")
 	dialogs.relocate_item_section(second_speaker, "ammo_9x18_fmj", "in")
@@ -350,7 +350,7 @@ end
 
 
 
--- Подсчет водки
+-- РџРѕРґСЃС‡РµС‚ РІРѕРґРєРё
 function count_vodka(npc, item)
 if item == nil or alife():object(item:id()) == nil then return end
 local section = item:section()
@@ -359,7 +359,7 @@ if section == "vodka" then
 end
 end
 
--- Удаление водки
+-- РЈРґР°Р»РµРЅРёРµ РІРѕРґРєРё
 function del_vodka(npc, item)
 if item == nil or alife():object(item:id()) == nil then return end
 local section = item:section()
@@ -376,7 +376,7 @@ else
 end
 end
 
--- Обмен с поваром
+-- РћР±РјРµРЅ СЃ РїРѕРІР°СЂРѕРј
 function transfer_povar_items(first_speaker, second_speaker)
 vdk_cnt = 10
 db.actor:iterate_inventory(del_vodka, db.actor)
@@ -385,13 +385,13 @@ for i=1,5 do
 end
 end
 
--- Функции квеста с секретным складом монолита
+-- Р¤СѓРЅРєС†РёРё РєРІРµСЃС‚Р° СЃ СЃРµРєСЂРµС‚РЅС‹Рј СЃРєР»Р°РґРѕРј РјРѕРЅРѕР»РёС‚Р°
 function spawn_fn2000()
 	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.ogsm_quests.spawn_fn2000_1)
 	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.ogsm_quests.spawn_fn2000_2)
 end
 
--- Помощь раненому
+-- РџРѕРјРѕС‰СЊ СЂР°РЅРµРЅРѕРјСѓ
 function help_wounded(npc)
 local snd
 	if npc:name()~="esc_vagon_wounded" then
@@ -413,7 +413,7 @@ local snd
 
 end
 
--- Эффект от критического ранения
+-- Р­С„С„РµРєС‚ РѕС‚ РєСЂРёС‚РёС‡РµСЃРєРѕРіРѕ СЂР°РЅРµРЅРёСЏ
 function wounded_pp()
 if not has_alife_info("actor_set_zombied") then 
 wounded_pp_normal()
@@ -461,7 +461,7 @@ function wounded_pp_zombied()
 end
 
 
--- Функции квестов Темного дилера
+-- Р¤СѓРЅРєС†РёРё РєРІРµСЃС‚РѕРІ РўРµРјРЅРѕРіРѕ РґРёР»РµСЂР°
 function kill_arny_precondition()
 	if has_alife_info("pri_trader_first_talk") and not has_alife_info("pri_trader_arny_task") and
 	   not has_alife_info("aem_arny_dead") and not has_alife_info("aem_arny_spread_out") then

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding="windows-1251"?>
+<?xml version='1.0' encoding="UTF-8"?>
 
 <xml>
 
@@ -1110,9 +1110,9 @@
 		<crouch_type>-1</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_svd \n
+			wpn_vintorez \n
+			ammo_9x39_ap \n
 			wpn_addon_scope_pka \n
-			ammo_7.62x54_ap \n
 			wpn_bm16 \n
 			ammo_12x76_zhekan \n
 #include "gameplay\character_drugs.xml" \n
@@ -1175,9 +1175,9 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-            wpn_svd \n
+			wpn_vintorez \n
+			ammo_9x39_ap \n
 			wpn_addon_scope_kashtan \n
-			ammo_7.62x54_7h1 \n
 			wpn_gsh18 \n
 			ammo_9x19_fmj \n
 #include "gameplay\character_drugs.xml" \n
@@ -1519,9 +1519,9 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_svd \n
+			wpn_vintorez \n
+			ammo_9x39_ap \n
 			wpn_addon_scope_pso \n
-			ammo_7.62x54_ap \n
 			wpn_pb = 1, silencer \n
 			ammo_9x18_fmj \n
 #include "gameplay\character_items.xml" \n
@@ -1581,9 +1581,9 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_svd \n
+			wpn_vintorez \n
+			ammo_9x39_ap \n
 			wpn_addon_scope_pka \n
-			ammo_7.62x54_ap \n
 			wpn_pb = 1, silencer \n
 			ammo_9x18_fmj \n
 #include "gameplay\character_items.xml" \n
@@ -2138,8 +2138,8 @@
 		<crouch_type>0</crouch_type>
         <supplies>
             [spawn] \n
-			wpn_val \n
-			ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
         </supplies>
@@ -2166,8 +2166,8 @@
 		<crouch_type>0</crouch_type>
         <supplies>
             [spawn] \n
-			wpn_val \n
-			ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			device_torch \n
 #include "gameplay\character_drugs.xml"
         </supplies>
@@ -2215,7 +2215,7 @@
 		<name>GENERATE_NAME_stalker</name>
 		<icon>ui_npc_u_stalker_ecolog</icon>
 		<map_icon x="0" y="6"></map_icon>
-		<bio>Охрана мобильного научного лагеря. Детальная информация отсутствует.</bio>
+		<bio>РћС…СЂР°РЅР° РјРѕР±РёР»СЊРЅРѕРіРѕ РЅР°СѓС‡РЅРѕРіРѕ Р»Р°РіРµСЂСЏ. Р”РµС‚Р°Р»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚.</bio>
 
 		<class>sim_Ecolog</class>
 		<community>ecolog</community> <terrain_sect>stalker_ecolog_terrain</terrain_sect>
@@ -2247,7 +2247,7 @@
 		<name>GENERATE_NAME_stalker</name>
 		<icon>ui_npc_u_stalker_ecolog_military</icon>
 		<map_icon x="1" y="6"></map_icon>
-		<bio>Научный работник. Детальная информация отсутствует.</bio>
+		<bio>РќР°СѓС‡РЅС‹Р№ СЂР°Р±РѕС‚РЅРёРє. Р”РµС‚Р°Р»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚.</bio>
 		
 		<class>sim_Ecolog</class>
 		<community>ecolog</community> <terrain_sect>stalker_ecolog_terrain</terrain_sect>
@@ -3096,7 +3096,7 @@
 		<name>GENERATE_NAME_sergeant</name>
 		<icon>ui_npc_u_soldier_obichniy</icon>
 		<map_icon x="1" y="2"></map_icon>
-		<bio>Рядовой солдат. Детальная информация отсутствует.</bio>
+		<bio>Р СЏРґРѕРІРѕР№ СЃРѕР»РґР°С‚. Р”РµС‚Р°Р»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚.</bio>
 
 		<class>sim_Soldier_sniper</class>
 		<community>military</community> <terrain_sect>stalker_military_terrain</terrain_sect>
@@ -3109,9 +3109,9 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_svd \n
+			wpn_vintorez \n
+			ammo_9x39_ap \n
 			wpn_addon_scope_pso \n
-			ammo_7.62x54_ap \n
 			wpn_pb = 1, silencer \n
 			ammo_9x18_fmj \n
 #include "gameplay\character_items.xml" \n
@@ -3195,7 +3195,7 @@
 		<name>GENERATE_NAME_sergeant</name>
 		<icon>ui_npc_u_soldier_obichniy</icon>
 		<map_icon x="1" y="2"></map_icon>
-		<bio>Рядовой солдат. Детальная информация отсутствует.</bio>
+		<bio>Р СЏРґРѕРІРѕР№ СЃРѕР»РґР°С‚. Р”РµС‚Р°Р»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚.</bio>
 
 		<class>sim_Soldier_sniper</class>
 		<community>military</community> <terrain_sect>stalker_military_terrain</terrain_sect>
@@ -3208,9 +3208,9 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_svd \n
+			wpn_vintorez \n
+			ammo_9x39_ap \n
 			wpn_addon_scope_pso \n
-			ammo_7.62x54_ap \n
 			wpn_pb = 1, silencer \n
 			ammo_9x18_fmj \n
 #include "gameplay\character_items.xml" \n
@@ -3332,7 +3332,7 @@
 
 
 ;--Stalkers Quest Profiles--
-<!--Олег "Демон" Гусаров-->
+<!--РћР»РµРі "Р”РµРјРѕРЅ" Р“СѓСЃР°СЂРѕРІ-->
 	<specific_character id="sim_stalker_veteran_gusarov" team_default = "1">
 		<name>sim_stalker_veteran_gusarov_name</name>
 		<icon>ui_npc_u_stalker_2_gas</icon>
@@ -3365,7 +3365,7 @@
 	</specific_character>
 
 
-<!--"Леший"-->
+<!--"Р›РµС€РёР№"-->
 <specific_character id="sim_Svoboda_specnaz_leshii" team_default = "1">
 		<name>sim_Svoboda_specnaz_leshii_name</name>
 		<icon>ui_npc_u_stalker_sv_hood_9</icon>
@@ -3401,7 +3401,7 @@
 </specific_character>
 
 
-<!--"Чучело"-->
+<!--"Р§СѓС‡РµР»Рѕ"-->
 	<specific_character id="sim_stalker_master_chuchelo" team_default = "1">
 		<name>sim_stalker_master_chuchelo_name</name>
 		<icon>ui_npc_u_stalker_neytral_exoskeleton</icon>
@@ -3433,7 +3433,7 @@
 	</specific_character>
 
 
-<!--"Упырь"-->
+<!--"РЈРїС‹СЂСЊ"-->
 	<specific_character id="sim_stalker_general_upir" team_default = "1">
 		<name>sim_stalker_general_upir_name</name>
 		<icon>ui_npc_u_stalker_neytral_hood_uzor</icon>
@@ -3463,7 +3463,7 @@
 	</specific_character>
 	
 
-<!--"отец" Диадор-->
+<!--"РѕС‚РµС†" Р”РёР°РґРѕСЂ-->
 	<specific_character id="sim_stalker_master_diador" team_default = "1">
 		<name>sim_stalker_master_diador_name</name>
 		<icon>ui_npc_u_stalker_neytral_exoskeleton</icon>
@@ -3497,7 +3497,7 @@
 	</specific_character>	
 	
 
-<!--"Зоб"-->	
+<!--"Р—РѕР±"-->	
 	<specific_character id="sim_ecolog_zob" team_default = "1">
 		<name>sim_ecolog_zob_name</name>
 		<icon>ui_npc_u_stalker_ecolog</icon>
@@ -3529,7 +3529,7 @@
 	</specific_character>
 	
 
-<!--"Неумеха"-->	
+<!--"РќРµСѓРјРµС…Р°"-->	
 <specific_character id="sim_stalker_novice_neumeha" team_default = "1">
 		<name>sim_stalker_novice_neumeha_name</name>
 		<icon>ui_npc_u_green_stalker_9</icon>
@@ -3555,7 +3555,7 @@
 	</specific_character>
 
 	
-<!--"Кочерга"-->
+<!--"РљРѕС‡РµСЂРіР°"-->
 	<specific_character id="sim_bandit_master_kocherga" team_default = "1">
 		<name>sim_bandit_master_kocherga_name</name>
 		<icon>ui_npc_u_stalker_bandit_master</icon>
@@ -3588,7 +3588,7 @@
 	</specific_character>	
 	
 
-<!--"Барин"-->
+<!--"Р‘Р°СЂРёРЅ"-->
 	<specific_character id="sim_dolg_veteran_barin" team_default = "1">
 		<name>sim_dolg_veteran_barin_name</name>
 		<icon>ui_npc_u_stalker_do_antigas</icon>
@@ -3621,7 +3621,7 @@
 	</specific_character>	
 
 
-<!--"Воробей"-->
+<!--"Р’РѕСЂРѕР±РµР№"-->
 	<specific_character id="sim_stalker_veteran_vorobey" team_default = "1">
 		<name>sim_stalker_veteran_vorobey_name</name>
 		<icon>ui_npc_u_stalker_3_gas</icon>
@@ -3653,7 +3653,7 @@
 	</specific_character>	
 
 
-<!--"Мастер"-->
+<!--"РњР°СЃС‚РµСЂ"-->
 	<specific_character id="sim_stalker_master_master" team_default = "1">
 		<name>sim_stalker_master_master_name</name>
 		<icon>ui_npc_u_stalker_neytral_exoskeleton</icon>
@@ -3685,7 +3685,7 @@
 	</specific_character>	
 
 
-<!--"Прапор"-->
+<!--"РџСЂР°РїРѕСЂ"-->
 	<specific_character id="sim_dolg_veteran_prapor" team_default = "1">
 		<name>sim_dolg_veteran_prapor_name</name>
 		<icon>ui_npc_u_stalker_do_antigas</icon>
@@ -3717,7 +3717,7 @@
 	</specific_character>
 	
 	
-<!--"Плут"-->
+<!--"РџР»СѓС‚"-->
 <specific_character id="sim_svoboda_specnaz_prut" team_default = "1">
 		<name>sim_svoboda_specnaz_prut_name</name>
 		<icon>ui_npc_u_stalker_sv_hood_9</icon>
@@ -3750,7 +3750,7 @@
 </specific_character>	
 
 	
-<!--"Умник"-->
+<!--"РЈРјРЅРёРє"-->
 	<specific_character id="sim_stalker_veteran_umnik" team_default = "1">
 		<name>sim_stalker_veteran_umnik_name</name>
 		<icon>ui_npc_u_stalker_4_gas</icon>
@@ -3783,7 +3783,7 @@
 	</specific_character>	
 
 
-<!--"Фраер"-->
+<!--"Р¤СЂР°РµСЂ"-->
 	<specific_character id="sim_bandit_master_fraer" team_default = "1">
 		<name>sim_bandit_master_fraer_name</name>
 		<icon>ui_npc_u_stalker_bandit_master</icon>
@@ -3818,7 +3818,7 @@
 	</specific_character>	
 
 
-<!--"Полкан"-->
+<!--"РџРѕР»РєР°РЅ"-->
 	<specific_character id="sim_stalker_master_polkan" team_default = "1">
 		<name>sim_stalker_master_polkan_name</name>
 		<icon>ui_npc_u_stalker_neytral_exoskeleton</icon>

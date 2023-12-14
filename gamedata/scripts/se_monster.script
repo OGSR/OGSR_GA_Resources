@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 
 class "se_monster" (cse_alife_monster_base)
@@ -13,15 +13,15 @@ function se_monster:__init (section) super (section)
 	self.check_distance = false
 	self.min_distance   = 150
 
-	-- этот флаг берётся из работы смарта
-	-- true     = всегда в онлайне
-	-- false    = всегда в офлайне
-	-- condlist = условие, которое отпределяет true или false
-	-- nil      = смарту всё равно
+	-- СЌС‚РѕС‚ С„Р»Р°Рі Р±РµСЂС‘С‚СЃСЏ РёР· СЂР°Р±РѕС‚С‹ СЃРјР°СЂС‚Р°
+	-- true     = РІСЃРµРіРґР° РІ РѕРЅР»Р°Р№РЅРµ
+	-- false    = РІСЃРµРіРґР° РІ РѕС„Р»Р°Р№РЅРµ
+	-- condlist = СѓСЃР»РѕРІРёРµ, РєРѕС‚РѕСЂРѕРµ РѕС‚РїСЂРµРґРµР»СЏРµС‚ true РёР»Рё false
+	-- nil      = СЃРјР°СЂС‚Сѓ РІСЃС‘ СЂР°РІРЅРѕ
 	self.job_online          = nil
 	self.job_online_condlist = nil
 	
-	--' Флаг смерти в оффлайне
+	--' Р¤Р»Р°Рі СЃРјРµСЂС‚Рё РІ РѕС„С„Р»Р°Р№РЅРµ
 	self.offline_dead = 0
 end
 --------------------
@@ -70,26 +70,26 @@ function se_monster:can_switch_online()
 		return self:get_job_online()
 	end
 
-    --стандартная проверка у родителя, если нет спавнера или игрок помер
+    --СЃС‚Р°РЅРґР°СЂС‚РЅР°СЏ РїСЂРѕРІРµСЂРєР° Сѓ СЂРѕРґРёС‚РµР»СЏ, РµСЃР»Рё РЅРµС‚ СЃРїР°РІРЅРµСЂР° РёР»Рё РёРіСЂРѕРє РїРѕРјРµСЂ
 	if self.ini == nil or self.spawner_present == false then --or (db.actor_proxy.online and not db.actor:alive())
 	--if self.ini == nil or self.spawner_present == false or not db.actor_proxy.online
 	    return cse_alife_monster_base.can_switch_online (self)
 	end
 
 	if self.online == false then
-   	    -- если игрока нет, то в оффлайн
+   	    -- РµСЃР»Рё РёРіСЂРѕРєР° РЅРµС‚, С‚Рѕ РІ РѕС„С„Р»Р°Р№РЅ
         if not db.actor_proxy.online or not db.actor:alive() then return false end
 
-        --если задана дистанция проверки, то проверим.
+        --РµСЃР»Рё Р·Р°РґР°РЅР° РґРёСЃС‚Р°РЅС†РёСЏ РїСЂРѕРІРµСЂРєРё, С‚Рѕ РїСЂРѕРІРµСЂРёРј.
         if self.check_distance == true then
-           --получим позицию.
+           --РїРѕР»СѓС‡РёРј РїРѕР·РёС†РёСЋ.
            local pos = level.vertex_position (self.m_level_vertex_id)
-            -- проверим дистанцию до игрока. если меньше требуемой, то от винта
+            -- РїСЂРѕРІРµСЂРёРј РґРёСЃС‚Р°РЅС†РёСЋ РґРѕ РёРіСЂРѕРєР°. РµСЃР»Рё РјРµРЅСЊС€Рµ С‚СЂРµР±СѓРµРјРѕР№, С‚Рѕ РѕС‚ РІРёРЅС‚Р°
             if pos:distance_to (db.actor:position ()) < self.min_distance then
                return false
             end
         end
-        --все проверки прошли - финал, вызов спавнера
+        --РІСЃРµ РїСЂРѕРІРµСЂРєРё РїСЂРѕС€Р»Рё - С„РёРЅР°Р», РІС‹Р·РѕРІ СЃРїР°РІРЅРµСЂР°
 	    return xr_spawner.check_spawn (self) and cse_alife_monster_base.can_switch_online (self)
     else
         if not db.actor_proxy.online or not db.actor:alive() then return true end
@@ -98,7 +98,7 @@ function se_monster:can_switch_online()
         end
         if self.check_distance == true then
            local pos = level.vertex_position (self.m_level_vertex_id)
-           -- проверим дистанцию до игрока. если больше требуемой, то от винта
+           -- РїСЂРѕРІРµСЂРёРј РґРёСЃС‚Р°РЅС†РёСЋ РґРѕ РёРіСЂРѕРєР°. РµСЃР»Рё Р±РѕР»СЊС€Рµ С‚СЂРµР±СѓРµРјРѕР№, С‚Рѕ РѕС‚ РІРёРЅС‚Р°
            if pos:distance_to (db.actor:position ()) > self.min_distance then
               return false
            end
@@ -121,8 +121,8 @@ function se_monster:STATE_Write(packet)
 		packet:w_stringZ(self.job_online_condlist)
 	end
 
-	--KRodin: вот это важное условие! Если его убрать, не спавнятся некоторые вечные трупы, в т.ч. квестовые, например труп Призрака в X-16
-	--На монстров оно тоже может влиять, значит.
+	--KRodin: РІРѕС‚ СЌС‚Рѕ РІР°Р¶РЅРѕРµ СѓСЃР»РѕРІРёРµ! Р•СЃР»Рё РµРіРѕ СѓР±СЂР°С‚СЊ, РЅРµ СЃРїР°РІРЅСЏС‚СЃСЏ РЅРµРєРѕС‚РѕСЂС‹Рµ РІРµС‡РЅС‹Рµ С‚СЂСѓРїС‹, РІ С‚.С‡. РєРІРµСЃС‚РѕРІС‹Рµ, РЅР°РїСЂРёРјРµСЂ С‚СЂСѓРї РџСЂРёР·СЂР°РєР° РІ X-16
+	--РќР° РјРѕРЅСЃС‚СЂРѕРІ РѕРЅРѕ С‚РѕР¶Рµ РјРѕР¶РµС‚ РІР»РёСЏС‚СЊ, Р·РЅР°С‡РёС‚.
 	if self.id ~= 65535 then
 		--log3("~~[se_stalker:STATE_Write] id of [%s] is [%s]", self:name(), self.id)
 		packet:w_u32(self.offline_dead)
@@ -147,8 +147,8 @@ function se_monster:STATE_Read(packet, size)
 		self.job_online = xr_logic.parse_condlist(nil, "se_monster:STATE_Read", "job_online", self.job_online_condlist)
 	end
 
-	--KRodin: вот это важное условие! Если его убрать, не спавнятся некоторые вечные трупы, в т.ч. квестовые, например труп Призрака в X-16
-	--На монстров оно тоже может влиять, значит.
+	--KRodin: РІРѕС‚ СЌС‚Рѕ РІР°Р¶РЅРѕРµ СѓСЃР»РѕРІРёРµ! Р•СЃР»Рё РµРіРѕ СѓР±СЂР°С‚СЊ, РЅРµ СЃРїР°РІРЅСЏС‚СЃСЏ РЅРµРєРѕС‚РѕСЂС‹Рµ РІРµС‡РЅС‹Рµ С‚СЂСѓРїС‹, РІ С‚.С‡. РєРІРµСЃС‚РѕРІС‹Рµ, РЅР°РїСЂРёРјРµСЂ С‚СЂСѓРї РџСЂРёР·СЂР°РєР° РІ X-16
+	--РќР° РјРѕРЅСЃС‚СЂРѕРІ РѕРЅРѕ С‚РѕР¶Рµ РјРѕР¶РµС‚ РІР»РёСЏС‚СЊ, Р·РЅР°С‡РёС‚.
 	if self.id ~= 65535 then
 		--log3("~~[se_monster:STATE_Read] id of [%s] is [%s]", self:name(), self.id)
 		self.offline_dead = packet:r_u32()
@@ -170,7 +170,7 @@ function se_monster:on_before_register()
 	ogse_signals.get_mgr():call( "se_monster_on_before_register", self )
 	self:fill_exclusives()
 	if not self.has_none_true then
-		self.has_none_true = not self:alive() or self:clsid() == clsid.psy_dog_phantom_s --Мертвых и фантомов не проверять смартами
+		self.has_none_true = not self:alive() or self:clsid() == clsid.psy_dog_phantom_s --РњРµСЂС‚РІС‹С… Рё С„Р°РЅС‚РѕРјРѕРІ РЅРµ РїСЂРѕРІРµСЂСЏС‚СЊ СЃРјР°СЂС‚Р°РјРё
 	end
 	if self.has_none_true then
 		self:brain():can_choose_alife_tasks( false )
@@ -198,7 +198,7 @@ end
 function se_monster:on_death(killer)
 	cse_alife_monster_base.on_death(self, killer)
 
-	-- почистим отношения
+	-- РїРѕС‡РёСЃС‚РёРј РѕС‚РЅРѕС€РµРЅРёСЏ
 	ogse_signals.get_mgr():call("on_release_npc", self.id)
 end
 --------------------

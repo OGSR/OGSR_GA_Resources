@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -- By Charsi
 -- edited by Jek@n-Lim0n
@@ -59,7 +59,7 @@ function on_item_use(item)
 	--if item == nil or alife():object(item:id()) == nil then return end
 	local section = item:section()
 
-	if section == "turret_pkm" then -- если это турель
+	if section == "turret_pkm" then -- РµСЃР»Рё СЌС‚Рѕ С‚СѓСЂРµР»СЊ
 		create_stat_pkm_on_actor()
 		soundtrack.pkm_activate()
 		local wnd = level.get_inventory_wnd()
@@ -74,7 +74,7 @@ end
 
 pkm_captured = false
 
--- таблица соответствий команд и слотов, которые ими активируются
+-- С‚Р°Р±Р»РёС†Р° СЃРѕРѕС‚РІРµС‚СЃС‚РІРёР№ РєРѕРјР°РЅРґ Рё СЃР»РѕС‚РѕРІ, РєРѕС‚РѕСЂС‹Рµ РёРјРё Р°РєС‚РёРІРёСЂСѓСЋС‚СЃСЏ
 local activation_cmds = {
 	[key_bindings.kWPN_1] = 0,
 	[key_bindings.kWPN_2] = 1,
@@ -83,7 +83,7 @@ local activation_cmds = {
 	[key_bindings.kWPN_5] = 4,
 	[key_bindings.kWPN_6] = 5,
 }
--- таймер, который ждЮт активации оружиЯ, чтобы переключить активный слот на заданный
+-- С‚Р°Р№РјРµСЂ, РєРѕС‚РѕСЂС‹Р№ Р¶РґР®С‚ Р°РєС‚РёРІР°С†РёРё РѕСЂСѓР¶РёРЇ, С‡С‚РѕР±С‹ РїРµСЂРµРєР»СЋС‡РёС‚СЊ Р°РєС‚РёРІРЅС‹Р№ СЃР»РѕС‚ РЅР° Р·Р°РґР°РЅРЅС‹Р№
 class "activate_slot_after_wpn_restore" (ogse_qt.quick_timer)
 function activate_slot_after_wpn_restore:__init(slot_num)
 	self.slot_num = slot_num
@@ -95,9 +95,9 @@ function activate_slot_after_wpn_restore:condition()
 	db.actor:activate_slot(self.slot_num)
 	return true
 end
--- специальный управлЯющий таймер. ЂктивируетсЯ при использовании пулемЮта,
--- после чего подписываетсЯ на событиЯ нажатиЯ клавиш, что использует длЯ включени/выключениЯ огнЯ
--- событие проверки выхода также использует для контролЯ направлениЯ ствола
+-- СЃРїРµС†РёР°Р»СЊРЅС‹Р№ СѓРїСЂР°РІР»РЇСЋС‰РёР№ С‚Р°Р№РјРµСЂ. Р‚РєС‚РёРІРёСЂСѓРµС‚СЃРЇ РїСЂРё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё РїСѓР»РµРјР®С‚Р°,
+-- РїРѕСЃР»Рµ С‡РµРіРѕ РїРѕРґРїРёСЃС‹РІР°РµС‚СЃРЇ РЅР° СЃРѕР±С‹С‚РёРЇ РЅР°Р¶Р°С‚РёРЇ РєР»Р°РІРёС€, С‡С‚Рѕ РёСЃРїРѕР»СЊР·СѓРµС‚ РґР»РЇ РІРєР»СЋС‡РµРЅРё/РІС‹РєР»СЋС‡РµРЅРёРЇ РѕРіРЅРЇ
+-- СЃРѕР±С‹С‚РёРµ РїСЂРѕРІРµСЂРєРё РІС‹С…РѕРґР° С‚Р°РєР¶Рµ РёСЃРїРѕР»СЊР·СѓРµС‚ РґР»СЏ РєРѕРЅС‚СЂРѕР»РЇ РЅР°РїСЂР°РІР»РµРЅРёРЇ СЃС‚РІРѕР»Р°
 class "turret_control" (ogse_qt.quick_timer)
 function turret_control:__init(turret_binder)
 	self.binder = turret_binder
@@ -113,19 +113,19 @@ function turret_control:__init(turret_binder)
 	self.key_up_desc = {signal = "on_key_up", self = self, fun = self.on_key_up}
 	ogse_signals.get_mgr():subscribe(self.key_up_desc)
 end
--- проверка условиЯ окончаниЯ использованиЯ
+-- РїСЂРѕРІРµСЂРєР° СѓСЃР»РѕРІРёРЇ РѕРєРѕРЅС‡Р°РЅРёРЇ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРЇ
 function turret_control:condition()
-	-- если актор сошЮл с места, где стоЯл
+	-- РµСЃР»Рё Р°РєС‚РѕСЂ СЃРѕС€Р®Р» СЃ РјРµСЃС‚Р°, РіРґРµ СЃС‚РѕРЇР»
 	if db.actor:position():distance_to(self.initial_actor_pos) > 0.1 then
 		return true
-	elseif self.stop_using then -- если нажал клавишу переключениЯ слотов
+	elseif self.stop_using then -- РµСЃР»Рё РЅР°Р¶Р°Р» РєР»Р°РІРёС€Сѓ РїРµСЂРµРєР»СЋС‡РµРЅРёРЇ СЃР»РѕС‚РѕРІ
 		return true
-	elseif not self.binder.alive then -- если турель загнулась
+	elseif not self.binder.alive then -- РµСЃР»Рё С‚СѓСЂРµР»СЊ Р·Р°РіРЅСѓР»Р°СЃСЊ
 		return true
-	elseif not db.actor:alive() then -- если сам актор помре
+	elseif not db.actor:alive() then -- РµСЃР»Рё СЃР°Рј Р°РєС‚РѕСЂ РїРѕРјСЂРµ
 		return true
 	end
-	-- продолжаем использовать, синхронизируем направление ствола и взглЯда актора
+	-- РїСЂРѕРґРѕР»Р¶Р°РµРј РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ, СЃРёРЅС…СЂРѕРЅРёР·РёСЂСѓРµРј РЅР°РїСЂР°РІР»РµРЅРёРµ СЃС‚РІРѕР»Р° Рё РІР·РіР»РЇРґР° Р°РєС‚РѕСЂР°
 	local dev = device()
 	local dist = math.min(math.max(3, level.get_target_dist()), 50)
 	local target_pos = dev.cam_pos:mad(dev.cam_dir,dist)
@@ -141,36 +141,36 @@ function turret_control:stop_fire()
 end
 function turret_control:on_key_down(key, bind)
 	if level.main_input_receiver() then return end
-	if bind == key_bindings.kWPN_FIRE then -- начинаем стрельбу
+	if bind == key_bindings.kWPN_FIRE then -- РЅР°С‡РёРЅР°РµРј СЃС‚СЂРµР»СЊР±Сѓ
 		self:start_fire()
-	elseif activation_cmds[bind] then -- переключаемсЯ на своЮ оружие
+	elseif activation_cmds[bind] then -- РїРµСЂРµРєР»СЋС‡Р°РµРјСЃРЇ РЅР° СЃРІРѕР® РѕСЂСѓР¶РёРµ
 		activate_slot_after_wpn_restore(activation_cmds[bind]):start()
 		self.stop_using = true
 	end
 end
 function turret_control:on_key_up(key, bind)
 	if level.main_input_receiver() then return end
-	if bind == key_bindings.kWPN_FIRE then -- заканчиваем стрельбу
+	if bind == key_bindings.kWPN_FIRE then -- Р·Р°РєР°РЅС‡РёРІР°РµРј СЃС‚СЂРµР»СЊР±Сѓ
 		self:stop_fire()
 	end
 end
--- обработка действий окончаниЯ использованиЯ пулемЮта
+-- РѕР±СЂР°Р±РѕС‚РєР° РґРµР№СЃС‚РІРёР№ РѕРєРѕРЅС‡Р°РЅРёРЇ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРЇ РїСѓР»РµРјР®С‚Р°
 function turret_control:action()
-	-- заканчиваем стрельбу
+	-- Р·Р°РєР°РЅС‡РёРІР°РµРј СЃС‚СЂРµР»СЊР±Сѓ
 	self:stop_fire()
-	-- отписываемсЯ от сигналов клавиш
+	-- РѕС‚РїРёСЃС‹РІР°РµРјСЃРЇ РѕС‚ СЃРёРіРЅР°Р»РѕРІ РєР»Р°РІРёС€
 	ogse_signals.get_mgr():unsubscribe(self.key_down_desc)
 	ogse_signals.get_mgr():unsubscribe(self.key_up_desc)
 	self.key_down_desc = nil
 	self.key_up_desc = nil
-	-- возвращаем актора в исходное состоЯние
+	-- РІРѕР·РІСЂР°С‰Р°РµРј Р°РєС‚РѕСЂР° РІ РёСЃС…РѕРґРЅРѕРµ СЃРѕСЃС‚РѕРЇРЅРёРµ
 	bind_stalker.restore_weapon()
-	-- возвращаем турель в исходное состоЯние
+	-- РІРѕР·РІСЂР°С‰Р°РµРј С‚СѓСЂРµР»СЊ РІ РёСЃС…РѕРґРЅРѕРµ СЃРѕСЃС‚РѕРЇРЅРёРµ
 	pkm_captured = false
 	self.turret:set_tip_text("tip_pkm_use")
 end
 
--- биндер турели
+-- Р±РёРЅРґРµСЂ С‚СѓСЂРµР»Рё
 function bind(obj)
 	obj:bind_object(pkm_binder(obj))
 end
@@ -202,19 +202,19 @@ end
 function pkm_binder:update(delta)
 	self:check_health()
 end
--- событие использованиЯ
+-- СЃРѕР±С‹С‚РёРµ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРЇ
 function pkm_binder:on_use(obj,who)
-	if pkm_captured then -- если используем сейчас, 
-		return -- то ничего не делаем
-	elseif GetShift() then -- если при нажатом Shift
-		alife():release(self.se_obj, true) -- то сворачиваем обратно в инвентарь
+	if pkm_captured then -- РµСЃР»Рё РёСЃРїРѕР»СЊР·СѓРµРј СЃРµР№С‡Р°СЃ, 
+		return -- С‚Рѕ РЅРёС‡РµРіРѕ РЅРµ РґРµР»Р°РµРј
+	elseif GetShift() then -- РµСЃР»Рё РїСЂРё РЅР°Р¶Р°С‚РѕРј Shift
+		alife():release(self.se_obj, true) -- С‚Рѕ СЃРІРѕСЂР°С‡РёРІР°РµРј РѕР±СЂР°С‚РЅРѕ РІ РёРЅРІРµРЅС‚Р°СЂСЊ
 		ogse.spawn_item_in_inv("turret_pkm") 
 		soundtrack.pkm_activate()
 		ogse.autohiding_msg("pkm_dismounting", 5000)
 		turret_mount_delay(5000):start()
 		--
-	else -- стандартный случай, просто нажали 'F'
-		turret_control(self):start() -- переключаемсЯ в режим использованиЯ
+	else -- СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ СЃР»СѓС‡Р°Р№, РїСЂРѕСЃС‚Рѕ РЅР°Р¶Р°Р»Рё 'F'
+		turret_control(self):start() -- РїРµСЂРµРєР»СЋС‡Р°РµРјСЃРЇ РІ СЂРµР¶РёРј РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРЇ
 	end
 end
 
@@ -234,7 +234,7 @@ function release_pkm(id)
 	end
 end
 
-function create_stat_pkm_on_actor()   ----  это длЯ переносной турели
+function create_stat_pkm_on_actor()   ----  СЌС‚Рѕ РґР»РЇ РїРµСЂРµРЅРѕСЃРЅРѕР№ С‚СѓСЂРµР»Рё
 	local level_vertex_id = db.actor:level_vertex_id()
 	local game_vertex_id = db.actor:game_vertex_id()
 	local position = db.actor:position()
@@ -250,7 +250,7 @@ function create_stat_pkm_on_actor()   ----  это длЯ переносной турели
 end
 
 
-function create_stat_pkm(level_name, position)     ----------   а это для постоянных
+function create_stat_pkm(level_name, position)     ----------   Р° СЌС‚Рѕ РґР»СЏ РїРѕСЃС‚РѕСЏРЅРЅС‹С…
 	local level_vertex_id, game_vertex_id = utils2.get_top_graph_ids(level_name)
 	local se_obj = alife():create("stationary_pkm", position:add(vector():set(0,1.05,0)), level_vertex_id, game_vertex_id)
 	local pk = get_netpk(se_obj, 1)

@@ -1,6 +1,6 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
--- Здесь будут находиться вспомогательные функции для квестов --------------------------------------
+
+-- Р—РґРµСЃСЊ Р±СѓРґСѓС‚ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ С„СѓРЅРєС†РёРё РґР»СЏ РєРІРµСЃС‚РѕРІ --------------------------------------
 -- 03.02.2012 --------------------------------------------------------------------------------------
 
 function attach(sm)
@@ -13,7 +13,7 @@ function attach(sm)
 	--
 	sm:subscribe({signal = "on_first_update", fun = this.check_subscribe_bind_avail_six_anom_house_items})
 	sm:subscribe({signal = "on_info", fun = this.info_check_subscribe_bind_avail_six_anom_house_items})
-	-- KRodin: ниже костыль от очень редкого бага с квестом, пусть будет.
+	-- KRodin: РЅРёР¶Рµ РєРѕСЃС‚С‹Р»СЊ РѕС‚ РѕС‡РµРЅСЊ СЂРµРґРєРѕРіРѕ Р±Р°РіР° СЃ РєРІРµСЃС‚РѕРј, РїСѓСЃС‚СЊ Р±СѓРґРµС‚.
 	if not has_alife_info("klondaik_flashes_collected") then
 		sm:subscribe({signal = "on_update", fun = function() this.check_klondaik_flashes(); sm:reschedule(math.random(3000, 5000)) end, queued = true})
 	end
@@ -21,8 +21,8 @@ end
 
 local spawn_db = ogse_spawn_db.script_spawn_registry.jekan_quests
 
--- То, что должно быть заспавнено в начале игры ----------------------------------------------------
-function spawn_on_start() --Вызывается из конфигов
+-- РўРѕ, С‡С‚Рѕ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ Р·Р°СЃРїР°РІРЅРµРЅРѕ РІ РЅР°С‡Р°Р»Рµ РёРіСЂС‹ ----------------------------------------------------
+function spawn_on_start() --Р’С‹Р·С‹РІР°РµС‚СЃСЏ РёР· РєРѕРЅС„РёРіРѕРІ
 	set_ds_hunter_invulnerable()
 	set_bratstvo_orujeinik_invulnerable()
 	set_bratstvo_vrach_invulnerable()
@@ -32,7 +32,7 @@ function spawn_on_start() --Вызывается из конфигов
 	spawn_turrets()
 	set_zona_bro1_invulnerable()
 	set_zona_bro2_invulnerable()
-	--spawn_swamp_doctor() спавнится по инфо agr_doc_wakeup
+	--spawn_swamp_doctor() СЃРїР°РІРЅРёС‚СЃСЏ РїРѕ РёРЅС„Рѕ agr_doc_wakeup
 	--spawn_catgirl()
 	--spawn_human_pervert()
 	--spawn_kosar_place()
@@ -49,7 +49,7 @@ end
 function set_zona_bro2_invulnerable()
 end
 
-function companion_goodbye()  --  посылаем напарника в вольное плавание
+function companion_goodbye()  --  РїРѕСЃС‹Р»Р°РµРј РЅР°РїР°СЂРЅРёРєР° РІ РІРѕР»СЊРЅРѕРµ РїР»Р°РІР°РЅРёРµ
 	if xr_companion.is_companion(obj:id()) then
 		dialogs.companion_stop_following(npc, actor)
 	end
@@ -72,13 +72,13 @@ function spawn_second_neutral()
 	ogse.kill_offline_npc(sobj)
 end
 
--- Спавним деревенского Музыканта ------------------------------------------------------------------
+-- РЎРїР°РІРЅРёРј РґРµСЂРµРІРµРЅСЃРєРѕРіРѕ РњСѓР·С‹РєР°РЅС‚Р° ------------------------------------------------------------------
 
 function spawn_hohol()
 	ogse.spawn_object(spawn_db.hohol)
 end
 
--- Спавним Искателей и бандитов в Лощине -----------------------------------------------------------
+-- РЎРїР°РІРЅРёРј РСЃРєР°С‚РµР»РµР№ Рё Р±Р°РЅРґРёС‚РѕРІ РІ Р›РѕС‰РёРЅРµ -----------------------------------------------------------
 
 function spawn_iskatel_shaman()
 	ogse.spawn_object(spawn_db.iskatel_shaman)
@@ -135,7 +135,7 @@ end
 function set_ds_bloha_invulnerable()
 end
 
--- Спавним бандитов на хуторке ---------------------------------------------------------------------
+-- РЎРїР°РІРЅРёРј Р±Р°РЅРґРёС‚РѕРІ РЅР° С…СѓС‚РѕСЂРєРµ ---------------------------------------------------------------------
 
 function spawn_ds_glavar()
 	ogse.spawn_object(spawn_db.ds_glavar)
@@ -157,7 +157,7 @@ function spawn_ds_patruln()
 	ogse.spawn_object(spawn_db.ds_patruln)
 end
 
--- Спавним лесника Захарыча ------------------------------------------------------------------------
+-- РЎРїР°РІРЅРёРј Р»РµСЃРЅРёРєР° Р—Р°С…Р°СЂС‹С‡Р° ------------------------------------------------------------------------
 
 function spawn_ds_hunter()
 	ogse.spawn_object(spawn_db.ds_hunter)
@@ -166,7 +166,7 @@ end
 function set_ds_hunter_invulnerable()
 end
 
--- Спавним тайное братство -------------------------------------------------------------------------
+-- РЎРїР°РІРЅРёРј С‚Р°Р№РЅРѕРµ Р±СЂР°С‚СЃС‚РІРѕ -------------------------------------------------------------------------
 
 function spawn_bratstvo_lider()
 	ogse.spawn_object(spawn_db.bratstvo_lider)
@@ -196,7 +196,7 @@ end
 function set_bratstvo_cleaner_invulnerable()
 end
 
--- Лекарь и Бывалый в подвальчике ------------------------------------------------------------------
+-- Р›РµРєР°СЂСЊ Рё Р‘С‹РІР°Р»С‹Р№ РІ РїРѕРґРІР°Р»СЊС‡РёРєРµ ------------------------------------------------------------------
 
 function spawn_lekar_af_mincer_meat()
 	ogse.spawn_object(spawn_db.af_mincer_meat)
@@ -250,7 +250,7 @@ function teleport_lekar()
 	end
 end
 
--- Спавним Эскейповского Диггера-барыгу ------------------------------------------------------------
+-- РЎРїР°РІРЅРёРј Р­СЃРєРµР№РїРѕРІСЃРєРѕРіРѕ Р”РёРіРіРµСЂР°-Р±Р°СЂС‹РіСѓ ------------------------------------------------------------
 
 function spawn_esc_digger()
 	ogse.spawn_object(spawn_db.esc_digger)
@@ -264,7 +264,7 @@ function spawn_flash_5()
 	alife():create("klondaik_flash_5", filin.position, filin.m_level_vertex_id, filin.m_game_vertex_id, filin.id)
 end
 
---Охотник задает загадки и выдает тайники-----------------------------------------------------------
+--РћС…РѕС‚РЅРёРє Р·Р°РґР°РµС‚ Р·Р°РіР°РґРєРё Рё РІС‹РґР°РµС‚ С‚Р°Р№РЅРёРєРё-----------------------------------------------------------
 
 function give_zagadka_portion()
 	local rnd = math.random(1, 20)
@@ -305,7 +305,7 @@ end
 for i = 1, 20 do
 	this["spawn_hunter_shron_"..i] = function()
 		local data = spawn_db["hunter_shron_"..i]
-		dsh_rukzak.create_rukzak_by_section(data.sec, vector():set(unpack(data.pos)), data.lvid, data.gvid, "crlc_mdl", "Тайник Захарыча")
+		dsh_rukzak.create_rukzak_by_section(data.sec, vector():set(unpack(data.pos)), data.lvid, data.gvid, "crlc_mdl", "РўР°Р№РЅРёРє Р—Р°С…Р°СЂС‹С‡Р°")
 	end
 end
 ----------------------------------------------------------------------------------------------------
@@ -328,7 +328,7 @@ function smert_zona_effect()
 	end
 end
 
---Бандиты и искатели на Лесопилке-------------------------------------------------------------------
+--Р‘Р°РЅРґРёС‚С‹ Рё РёСЃРєР°С‚РµР»Рё РЅР° Р›РµСЃРѕРїРёР»РєРµ-------------------------------------------------------------------
 
 function kill_lesop_bandits()
 	return has_alife_info("ds_nalet_band_1_dead") and
@@ -591,7 +591,7 @@ end
 function fleshka_4_find()
 	if db.actor:object("klondaik_flash_4") ~= nil then
 		db.actor:give_info_portion ("fleshka_4_find")
-		--удаляем порталы
+		--СѓРґР°Р»СЏРµРј РїРѕСЂС‚Р°Р»С‹
 --[[		bind_mteleport.delete_teleports_with_section("smert_zone_port_1")
 		bind_mteleport.delete_teleports_with_section("smert_zone_port_2")
 		bind_mteleport.delete_teleports_with_section("smert_zone_port_3")
@@ -618,7 +618,7 @@ function second_neutal_zapiska_find()
 	end
 end
 
--- Агент банды в Баре ------------------------------------------------------------------------------
+-- РђРіРµРЅС‚ Р±Р°РЅРґС‹ РІ Р‘Р°СЂРµ ------------------------------------------------------------------------------
 
 function kulg_agent_release()
 	local obj = alife():object( "bar_kulg_agent" )
@@ -631,7 +631,7 @@ function kulg_band_agent_tip()
 	news_manager.send_tip(db.actor, "kulg_band_agent_tip", nil)
 end
 
---Тайна старого дома--------------------------------------------------------------------------------
+--РўР°Р№РЅР° СЃС‚Р°СЂРѕРіРѕ РґРѕРјР°--------------------------------------------------------------------------------
 
 function hawe_muzikant_items(first_speaker, second_speaker)
     return db.actor:object("vodka") ~= nil
@@ -709,7 +709,7 @@ end
 
 class "go_offline_set_online" (ogse_qt.quick_timer)
 function go_offline_set_online:__init(treasure_id) super()
-   self.treasure_id = treasure_id -- запоминаем в таймере id непися
+   self.treasure_id = treasure_id -- Р·Р°РїРѕРјРёРЅР°РµРј РІ С‚Р°Р№РјРµСЂРµ id РЅРµРїРёСЃСЏ
 end
 
 function go_offline_set_online:condition()
@@ -740,7 +740,7 @@ local my_table = {["villager_bone_4"] = 1}
 spawn_items_in_treasure_box(story_ids.secret_villager_place_4, my_table)
 end
 
--- Шпилим в кости со сталкерами --------------------------------------------------------------------
+-- РЁРїРёР»РёРј РІ РєРѕСЃС‚Рё СЃРѕ СЃС‚Р°Р»РєРµСЂР°РјРё --------------------------------------------------------------------
 
 function igra_na_200(first_speaker, second_speaker)
 
@@ -1063,7 +1063,7 @@ function has_1000(actor, npc)
     return actor:money() >= 1000
 end
 
---Артефакт Пузырь и новичок------------------------------------------------------------------------
+--РђСЂС‚РµС„Р°РєС‚ РџСѓР·С‹СЂСЊ Рё РЅРѕРІРёС‡РѕРє------------------------------------------------------------------------
 
 function spawn_newbie_arthunter()
 	ogse.spawn_object(spawn_db.newbie_arthunter)
@@ -1094,7 +1094,7 @@ function arthunter_obmen(npc, actor)
 	bind_mteleport.delete_teleports_with_section("garb_fake_port_1")
 end
 
---Компания следопытов на Радаре--------------------------------------------------------------------
+--РљРѕРјРїР°РЅРёСЏ СЃР»РµРґРѕРїС‹С‚РѕРІ РЅР° Р Р°РґР°СЂРµ--------------------------------------------------------------------
 
 function zomb_company_tip()
 	news_manager.send_tip(db.actor, "zomb_company_tip", nil)
@@ -1211,7 +1211,7 @@ function actor_has_scalp(first_speaker, second_speaker)
 	return db.actor:object("af_skull") ~= nil
 end
 
--- Грабим нашего несчастного Меченого --------------------------------------------------------------
+-- Р“СЂР°Р±РёРј РЅР°С€РµРіРѕ РЅРµСЃС‡Р°СЃС‚РЅРѕРіРѕ РњРµС‡РµРЅРѕРіРѕ --------------------------------------------------------------
 function set_barman_box_online()
     rx_utils.switch_online(alife():story_object(story_ids.barman_seif))
 end
@@ -1404,7 +1404,7 @@ function kulg_band_ambush1()
 	end
 end
 
--- Доктор и больные на задворках Бара, а также наемники и прочая нечисть ---------------------------
+-- Р”РѕРєС‚РѕСЂ Рё Р±РѕР»СЊРЅС‹Рµ РЅР° Р·Р°РґРІРѕСЂРєР°С… Р‘Р°СЂР°, Р° С‚Р°РєР¶Рµ РЅР°РµРјРЅРёРєРё Рё РїСЂРѕС‡Р°СЏ РЅРµС‡РёСЃС‚СЊ ---------------------------
 
 function bar_doctor_signal()
 	news_manager.send_tip(db.actor, "bar_doctor_signal", nil)
@@ -1574,7 +1574,7 @@ function btr_signal_to_stop()
 	end
 end
 
-function btr_hit() -- отключено, результата нет. Проклятая консервная банка продолжает тупить.
+function btr_hit() -- РѕС‚РєР»СЋС‡РµРЅРѕ, СЂРµР·СѓР»СЊС‚Р°С‚Р° РЅРµС‚. РџСЂРѕРєР»СЏС‚Р°СЏ РєРѕРЅСЃРµСЂРІРЅР°СЏ Р±Р°РЅРєР° РїСЂРѕРґРѕР»Р¶Р°РµС‚ С‚СѓРїРёС‚СЊ.
 	local blow = hit()
 	blow.direction = vector():set(0,0,0)
 	blow.impulse = 0.001
@@ -1637,7 +1637,7 @@ end
 
 function spawn_rpg1()
 	local rpg_sobj = alife():create("wpn_rpg7", vector():set(-105.93, -2.5, -491.782), 274706, 3077)
-	dsh.clear_useful_for_ai( rpg_sobj ) --Чтобы наёмники гранатомёт не подобрали
+	dsh.clear_useful_for_ai( rpg_sobj ) --Р§С‚РѕР±С‹ РЅР°С‘РјРЅРёРєРё РіСЂР°РЅР°С‚РѕРјС‘С‚ РЅРµ РїРѕРґРѕР±СЂР°Р»Рё
 	alife():create("ammo_og-7b", vector():set(-105.93, -2.5, -491.782), 274706, 3077)
 end
 
@@ -1844,7 +1844,7 @@ function spawn_uley_robber()
 	ogse.kill_offline_npc(sobj)
 end
 
--- Воскрешение Бродяги Дика ------------------------------------------------------------------------
+-- Р’РѕСЃРєСЂРµС€РµРЅРёРµ Р‘СЂРѕРґСЏРіРё Р”РёРєР° ------------------------------------------------------------------------
 
 function set_drifter_invulnerable()
 end
@@ -1937,7 +1937,7 @@ function spawn_dik_the_monster()
 end
 
 
--- Пес-поводырь -----------------------------------------------------------------------------------
+-- РџРµСЃ-РїРѕРІРѕРґС‹СЂСЊ -----------------------------------------------------------------------------------
 
 function spawn_drifter_dog()
 	ogse.spawn_object(spawn_db.dog_friend)
@@ -1978,7 +1978,7 @@ function dik_and_dog_release_tip()
 	news_manager.send_tip(db.actor, "dik_and_dog_release_tip", nil, "drifter", 8000, nil)
 end
 
--- Аномальный очаг --------------------------------------------------------------------------------
+-- РђРЅРѕРјР°Р»СЊРЅС‹Р№ РѕС‡Р°Рі --------------------------------------------------------------------------------
 
 function mark_af_light()
 	level_tasks.add_location_by_sid(story_ids.af_light_place,"crlc_small","anomaly_ochyag")
@@ -2190,7 +2190,7 @@ function petrenko_case_reward2(first_speaker, second_speaker)
 		dialogs.relocate_item_section(first_speaker, "ammo_vog-25p", "in")
 	end
 end
--- Выходим на след тайного братства ----------------------------------------------------------------
+-- Р’С‹С…РѕРґРёРј РЅР° СЃР»РµРґ С‚Р°Р№РЅРѕРіРѕ Р±СЂР°С‚СЃС‚РІР° ----------------------------------------------------------------
 
 function give_zapravka_port_task()
 	if db.actor:dont_has_info("zapravka_port_task") then
@@ -2583,7 +2583,7 @@ function check_kaligula()
 	return db.actor:has_info("kaligula_dead")
 end
 
--- Мужик-излом -------------------------------------------------------------------------------------
+-- РњСѓР¶РёРє-РёР·Р»РѕРј -------------------------------------------------------------------------------------
 
 function spawn_human_pervert()
 	ogse.spawn_object(spawn_db.human_pervert)
@@ -2657,7 +2657,7 @@ function delete_izlom_pervert()
 	-- end
 end
 
--- Женщина-кошка(чёрт побери, попахивает Голливудом! Надо с этим закругляться) ---------------------
+-- Р–РµРЅС‰РёРЅР°-РєРѕС€РєР°(С‡С‘СЂС‚ РїРѕР±РµСЂРё, РїРѕРїР°С…РёРІР°РµС‚ Р“РѕР»Р»РёРІСѓРґРѕРј! РќР°РґРѕ СЃ СЌС‚РёРј Р·Р°РєСЂСѓРіР»СЏС‚СЊСЃСЏ) ---------------------
 
 function spawn_catgirl()
 	-- ogse.spawn_object(spawn_db.girl_pervert)
@@ -2726,7 +2726,7 @@ function delete_cat_queen()
     -- end
 end
 
--- Спавним управляемые турели в некоторых местах ---------------------------------------------------
+-- РЎРїР°РІРЅРёРј СѓРїСЂР°РІР»СЏРµРјС‹Рµ С‚СѓСЂРµР»Рё РІ РЅРµРєРѕС‚РѕСЂС‹С… РјРµСЃС‚Р°С… ---------------------------------------------------
 
 function spawn_turrets()
 	-- bind_statpkm.create_stat_pkm("l01_escape", vector():set (-263.58,-17.87,-164.02))
@@ -2736,7 +2736,7 @@ function spawn_turrets()
 	-- bind_statpkm.create_stat_pkm("l08_yantar", vector():set (34.84,-5.94,-272.17))
 end
 
--- Квест в башне -----------------------------------------------------------------------------------
+-- РљРІРµСЃС‚ РІ Р±Р°С€РЅРµ -----------------------------------------------------------------------------------
 
 function spawn_major_wounded()
 	ogse.spawn_object(spawn_db.major_wounded)
@@ -2893,7 +2893,7 @@ function af_candle_in(first_speaker, second_speaker)
     dialogs.relocate_item_section(second_speaker, "af_candle", "in")
 end
 
--- Братья-новички и холодильник --------------------------------------------------------------------
+-- Р‘СЂР°С‚СЊСЏ-РЅРѕРІРёС‡РєРё Рё С…РѕР»РѕРґРёР»СЊРЅРёРє --------------------------------------------------------------------
 
 function spawn_freezer()
 	ogse.spawn_object(spawn_db.esc_freezer)
@@ -2930,7 +2930,7 @@ function is_near_freezer()
 	return db.actor:position():distance_to(sobj.position) < 3
 end
 
--- Чебурашка ---------------------------------------------------------------------------------------
+-- Р§РµР±СѓСЂР°С€РєР° ---------------------------------------------------------------------------------------
 
 function on_timer_cheb4(params_string)
 	db.actor:give_info_portion("brother2_reward")
@@ -3099,7 +3099,7 @@ function actor_has_no_cheb()
 	return not actor_has_cheb()
 end
 
--- Земляничные поля навсегда -----------------------------------------------------------------------
+-- Р—РµРјР»СЏРЅРёС‡РЅС‹Рµ РїРѕР»СЏ РЅР°РІСЃРµРіРґР° -----------------------------------------------------------------------
 
 snd = xr_sound.get_safe_sound_object([[anomaly\bfuzz_blowout]])
 
@@ -3200,8 +3200,8 @@ function yan_sold_paralyze_actor()
 	--
 	local _sobj = alife():create("wpn_montirovka_weak", vector():set(72.144,2.139,-134.179), 90691, 1492)
 	local sobj = alife():object(_sobj.id)
-	dsh.clear_useful_for_ai( sobj ) --На всякий случай
-	alife():use_ai_locations( sobj, false ) --Может поможет от проваливания
+	dsh.clear_useful_for_ai( sobj ) --РќР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№
+	alife():use_ai_locations( sobj, false ) --РњРѕР¶РµС‚ РїРѕРјРѕР¶РµС‚ РѕС‚ РїСЂРѕРІР°Р»РёРІР°РЅРёСЏ
 end
 
 function blow_generator()
@@ -3272,7 +3272,7 @@ function delete_yan_party()
 			tasks_functor.delete_when_offline(sold2.id):start()
 		end
 		--
-		local yantar_strange_zone = alife():object("strange_zone5") --KRodin: Удаляем странную аномалию с Янтаря
+		local yantar_strange_zone = alife():object("strange_zone5") --KRodin: РЈРґР°Р»СЏРµРј СЃС‚СЂР°РЅРЅСѓСЋ Р°РЅРѕРјР°Р»РёСЋ СЃ РЇРЅС‚Р°СЂСЏ
 		if yantar_strange_zone then
 			tasks_functor.delete_when_offline(yantar_strange_zone.id):start()
 		end
@@ -3282,7 +3282,7 @@ function delete_yan_party()
 end
 
 function remove_darkzone()
-	-- если актор успел
+	-- РµСЃР»Рё Р°РєС‚РѕСЂ СѓСЃРїРµР»
 	if (db.actor:has_info("yan_sold_hitted") and db.actor:dont_has_info("yan_sold_actor_wait_too_long")) or db.actor:has_info("yan_soldier_dead") then
 		set_up_yan_party()
 	else
@@ -3291,12 +3291,12 @@ function remove_darkzone()
 end
 
 function remove_ros_soldier()
--- удаляем радиста на ДТ
+-- СѓРґР°Р»СЏРµРј СЂР°РґРёСЃС‚Р° РЅР° Р”Рў
 	local sold = alife():story_object(story_ids.ros_soldier)
 	if sold then
 		tasks_functor.delete_when_offline(sold.id):start()
 	end
---спавним нового радиста на Янтаре
+--СЃРїР°РІРЅРёРј РЅРѕРІРѕРіРѕ СЂР°РґРёСЃС‚Р° РЅР° РЇРЅС‚Р°СЂРµ
 	ogse.spawn_object(spawn_db.yan_soldier_new)
 end
 
@@ -3544,9 +3544,9 @@ function afscanner_impulse7()
 end
 
 
--- Радист на Янтаре --------------------------------------------------------------------------------
+-- Р Р°РґРёСЃС‚ РЅР° РЇРЅС‚Р°СЂРµ --------------------------------------------------------------------------------
 
-function spawn_yan_soldier()    -- отключено, перенесено в алл.спавн
+function spawn_yan_soldier()    -- РѕС‚РєР»СЋС‡РµРЅРѕ, РїРµСЂРµРЅРµСЃРµРЅРѕ РІ Р°Р»Р».СЃРїР°РІРЅ
 	ogse.spawn_object(spawn_db.yan_soldier)
 end
 
@@ -3728,12 +3728,12 @@ end
 
 ----------------------------------------------------------------------------------------------------
 
-function init_dialod()                                              -- пашет!
+function init_dialod()                                              -- РїР°С€РµС‚!
 	local npc = level_object_by_sid(story_ids.zona_brother1)
 	db.actor:run_talk_dialog(npc)
 end
 
--- Спасение рядового Шустрилы ----------------------------------------------------------------------
+-- РЎРїР°СЃРµРЅРёРµ СЂСЏРґРѕРІРѕРіРѕ РЁСѓСЃС‚СЂРёР»С‹ ----------------------------------------------------------------------
 
 function can_talk_with_atp_leader()
 	return xr_conditions.actor_in_zone(nil,nil,{"esc_fabrika_bandit_space_restrictor"}) and db.actor:object("petruha_zapis") ~= nil
@@ -3855,7 +3855,7 @@ function test_stalker_spawn()
 	ogse.spawn_object(spawn_db.test_stalker)
 end
 
--- Магнит ------------------------------------------------------------------------------------------
+-- РњР°РіРЅРёС‚ ------------------------------------------------------------------------------------------
 
 function teleport_to_magnit(af_minus, af_minus_ser)
 	local sobj = alife():story_object(story_ids.magnit_part)
@@ -3863,7 +3863,7 @@ function teleport_to_magnit(af_minus, af_minus_ser)
 	local sobjlvl = alife():level_name(game_graph():vertex(sobj.m_game_vertex_id):level_id())
 	local actorlvl = level.name()
 
-	if actorlvl == sobjlvl and not ogse_car_control.current_car then -- Сработало
+	if actorlvl == sobjlvl and not ogse_car_control.current_car then -- РЎСЂР°Р±РѕС‚Р°Р»Рѕ
 		news_manager.send_tip(db.actor, "af_magnit_is_full", nil, "anomal", 4000, nil)
 		ogse.spawn_item_in_inv("magnit_full")
 		alife():release(af_minus_ser)
@@ -3871,13 +3871,13 @@ function teleport_to_magnit(af_minus, af_minus_ser)
 		soundtrack.magnit_portal()
 		delete_magnit_part()
 		db.actor:set_actor_position(pos)
-	elseif actorlvl ~= sobjlvl then -- Не сработало
+	elseif actorlvl ~= sobjlvl then -- РќРµ СЃСЂР°Р±РѕС‚Р°Р»Рѕ
 		dsh.exec_on_update(function()
 			db.actor:move_to_ruck(af_minus);
 			update_inventory_window()
 			news_manager.send_tip(db.actor, "magnit_part_too_far", nil, "anomal", 6000, nil)
 		end)
-	elseif ogse_car_control.current_car then -- Мы в танке
+	elseif ogse_car_control.current_car then -- РњС‹ РІ С‚Р°РЅРєРµ
 		dsh.exec_on_update(function()
 			db.actor:move_to_ruck(af_minus);
 			update_inventory_window()
@@ -3905,11 +3905,11 @@ end
 
 ----------------------------------------------------------------------------------------------------
 
-function spawn_swamp_doctor() -- Болотный доктор
+function spawn_swamp_doctor() -- Р‘РѕР»РѕС‚РЅС‹Р№ РґРѕРєС‚РѕСЂ
 	ogse.spawn_object(spawn_db.swamp_doctor)
 end
 
--- Тащим кровососа к Доктору Айболиту --------------------------------------------------------------
+-- РўР°С‰РёРј РєСЂРѕРІРѕСЃРѕСЃР° Рє Р”РѕРєС‚РѕСЂСѓ РђР№Р±РѕР»РёС‚Сѓ --------------------------------------------------------------
 
 function spawn_krovosos_unic()
 	ogse.spawn_object(spawn_db.bloodsucker_unic)
@@ -4131,23 +4131,23 @@ function swamp_doc_give_raditems(first_speaker, second_speaker)
     dialogs.relocate_item_section(second_speaker, "antirad", "in")
 end
 
--- Скриптовые камеры -------------------------------------------------------------------------------
+-- РЎРєСЂРёРїС‚РѕРІС‹Рµ РєР°РјРµСЂС‹ -------------------------------------------------------------------------------
 
-function cam_flight_to_deadzone() -- летим от Лесника к Смерть зоне
+function cam_flight_to_deadzone() -- Р»РµС‚РёРј РѕС‚ Р›РµСЃРЅРёРєР° Рє РЎРјРµСЂС‚СЊ Р·РѕРЅРµ
 	spawn_restrictor("scripts\\jek@n\\restrictions\\cam_flight_deadzone.ltx", 4)
 end
 
-function cam_flight_to_dark_mercs() -- подлет к наемникам
+function cam_flight_to_dark_mercs() -- РїРѕРґР»РµС‚ Рє РЅР°РµРјРЅРёРєР°Рј
 	spawn_restrictor("scripts\\jek@n\\restrictions\\cam_flight_to_dark_mercs.ltx", 4)
 end
 
--- Диггер, Синяк и другое --------------------------------------------------------------------------
+-- Р”РёРіРіРµСЂ, РЎРёРЅСЏРє Рё РґСЂСѓРіРѕРµ --------------------------------------------------------------------------
 
 function spawn_bar_sinyak()
 	ogse.spawn_object(spawn_db.bar_sinyak)
 end
 
-function spawn_sinyak_flare_place() -- рестриктор в каморке, включающий фонарик
+function spawn_sinyak_flare_place() -- СЂРµСЃС‚СЂРёРєС‚РѕСЂ РІ РєР°РјРѕСЂРєРµ, РІРєР»СЋС‡Р°СЋС‰РёР№ С„РѕРЅР°СЂРёРє
 	spawn_restrictor("scripts\\jek@n\\restrictions\\bar_sinyak_flare_on.ltx", 2, spawn_db.bar_sinyak_flare_on)
 end
 
@@ -4168,7 +4168,7 @@ function digger_real_weapon_in(first_speaker, second_speaker)
 end
 
 function spawn_pkm_in_sinyak()
-	local npc = level_object_by_sid(story_ids.bar_sinyak) --??? нужен для указания parent`а?
+	local npc = level_object_by_sid(story_ids.bar_sinyak) --??? РЅСѓР¶РµРЅ РґР»СЏ СѓРєР°Р·Р°РЅРёСЏ parent`Р°?
 	ogse.spawn_object(spawn_db.digger_pkm)
 end
 
@@ -4231,11 +4231,11 @@ function spawn_engine_restrictor()
 	ogse.save_var("engine_id", sobj.id, "u16")
 end
 
--- Торговый караван --------------------------------------------------------------------------------
+-- РўРѕСЂРіРѕРІС‹Р№ РєР°СЂР°РІР°РЅ --------------------------------------------------------------------------------
 
 function spawn_caravan_loader()
 	ogse.spawn_object(spawn_db.caravan_loader)
-	set_caravan_loader_invulnerable() --??? так не работает же - в онлайн выходит через какое-то время
+	set_caravan_loader_invulnerable() --??? С‚Р°Рє РЅРµ СЂР°Р±РѕС‚Р°РµС‚ Р¶Рµ - РІ РѕРЅР»Р°Р№РЅ РІС‹С…РѕРґРёС‚ С‡РµСЂРµР· РєР°РєРѕРµ-С‚Рѕ РІСЂРµРјСЏ
 end
 
 function set_caravan_loader_invulnerable()
@@ -4280,7 +4280,7 @@ function have_loader_box(stalker, player)
     return db.actor:object("loader_box") ~= nil
 end
 
--- Платим Сталину за вход в бункер -----------------------------------------------------------------
+-- РџР»Р°С‚РёРј РЎС‚Р°Р»РёРЅСѓ Р·Р° РІС…РѕРґ РІ Р±СѓРЅРєРµСЂ -----------------------------------------------------------------
 
 function has_300(actor, npc)
     return actor:money() >= 300
@@ -4298,7 +4298,7 @@ function actor_rank_stalker()
 	end
 end
 
--- Собираем части НЛО и самогонный аппарат ---------------------------------------------------------
+-- РЎРѕР±РёСЂР°РµРј С‡Р°СЃС‚Рё РќР›Рћ Рё СЃР°РјРѕРіРѕРЅРЅС‹Р№ Р°РїРїР°СЂР°С‚ ---------------------------------------------------------
 
 function have_ufo_part(stalker, player)
     return db.actor:object("ufo_part") ~= nil
@@ -4394,21 +4394,21 @@ end
 function spawn_cit_tow_box_keys1()
 	local sobj = alife():create("cit_tow_box_keys", vector():set (-83.34,11.81,512.33), 358018, 3265)
 	local sobj_id = sobj.id
-	text = "Потерянный ключ"
+	text = "РџРѕС‚РµСЂСЏРЅРЅС‹Р№ РєР»СЋС‡"
 	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
 end
 
 function spawn_cit_tow_box_keys2()
 	local sobj = alife():create("cit_tow_box_keys", vector():set (-92.76,11.60,504.86), 342361, 3266)
 	local sobj_id = sobj.id
-	text = "Потерянный ключ"
+	text = "РџРѕС‚РµСЂСЏРЅРЅС‹Р№ РєР»СЋС‡"
 	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
 end
 
 function spawn_cit_tow_box_keys3()
 	local sobj = alife():create("cit_tow_box_keys", vector():set (-100.57,11.92,511.71), 328649, 3265)
 	local sobj_id = sobj.id
-	text = "Потерянный ключ"
+	text = "РџРѕС‚РµСЂСЏРЅРЅС‹Р№ РєР»СЋС‡"
 	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
 end
 
@@ -4550,7 +4550,7 @@ end
 
 
 
--- А это просто пасхалка ---------------------------------------------------------------------------
+-- Рђ СЌС‚Рѕ РїСЂРѕСЃС‚Рѕ РїР°СЃС…Р°Р»РєР° ---------------------------------------------------------------------------
 
 function spawn_kosar_place()
 	ogse.spawn_object(spawn_db.kosar_place)
@@ -4572,7 +4572,7 @@ function release_potsik()
 	rx_utils.switch_offline(id_by_sid(story_ids.potsik))
 end
 
--- Аномальные болты --------------------------------------------------------------------------------
+-- РђРЅРѕРјР°Р»СЊРЅС‹Рµ Р±РѕР»С‚С‹ --------------------------------------------------------------------------------
 
 function spawn_anomal_bolts()
 	ogse.spawn_objects(spawn_db.anomal_bolts)
@@ -4622,7 +4622,7 @@ function re_anom_bolts()
 	end
 end
 
--- Аномальные вещи в МГ ----------------------------------------------------------------------------
+-- РђРЅРѕРјР°Р»СЊРЅС‹Рµ РІРµС‰Рё РІ РњР“ ----------------------------------------------------------------------------
 
 function spawn_city_house_items()
 	ogse.spawn_objects(spawn_db.city_house_items)
@@ -4689,7 +4689,7 @@ function check_avail_six_anom_house_items()
 end
 
 function check_anom_house_items()
-	if db.actor:dont_has_info("deadcity_first_enter") then return 0 end --до первого входа в МГ проверка не имеет смысла
+	if db.actor:dont_has_info("deadcity_first_enter") then return 0 end --РґРѕ РїРµСЂРІРѕРіРѕ РІС…РѕРґР° РІ РњР“ РїСЂРѕРІРµСЂРєР° РЅРµ РёРјРµРµС‚ СЃРјС‹СЃР»Р°
 
 	local n = 0
 	db.actor:iterate_inventory(function(dummy, item) 
@@ -4834,7 +4834,7 @@ end
 
 
 
--- Квесты за банду Кульгавого: ----------------------------------------------------------------------------
+-- РљРІРµСЃС‚С‹ Р·Р° Р±Р°РЅРґСѓ РљСѓР»СЊРіР°РІРѕРіРѕ: ----------------------------------------------------------------------------
 
 function have_some_klondike_flashes()
 	return db.actor:object("klondaik_flash_1") ~= nil
@@ -4864,7 +4864,7 @@ function kulg_band_water_out(actor, npc)
 end
 
 function ds_glavar_flash_off()
-	-- Удаляем флешки из инвентаря:
+	-- РЈРґР°Р»СЏРµРј С„Р»РµС€РєРё РёР· РёРЅРІРµРЅС‚Р°СЂСЏ:
 	ogse.remove_item_from_inventory(db.actor:object("klondaik_flash_1"),actor)
 	ogse.remove_item_from_inventory(db.actor:object("klondaik_flash_2"),actor)
 	ogse.remove_item_from_inventory(db.actor:object("klondaik_flash_3"),actor)
@@ -4873,7 +4873,7 @@ function ds_glavar_flash_off()
 	ogse.remove_item_from_inventory(db.actor:object("klondaik_key"),actor)
 	ogse.remove_item_from_inventory(db.actor:object("first_neutral_planshet"),actor)
 	
-	-- Удаляем мёртвых и живых:
+	-- РЈРґР°Р»СЏРµРј РјС‘СЂС‚РІС‹С… Рё Р¶РёРІС‹С…:
 	release_ros_soldier()
 	release_fourth_neutral()
 	release_yan_soldier()
@@ -4882,11 +4882,11 @@ function ds_glavar_flash_off()
 	release_bridge_lekar()
 	
 	
-	-- Проваливаем квесты:
+	-- РџСЂРѕРІР°Р»РёРІР°РµРј РєРІРµСЃС‚С‹:
 	db.actor:give_info_portion ("bridge_lekar_dead")
 	db.actor:give_info_portion ("bar_kulg_agent_flash_lost")
 	
-	-- Удаляем схрон Филина:
+	-- РЈРґР°Р»СЏРµРј СЃС…СЂРѕРЅ Р¤РёР»РёРЅР°:
 	release_filin_flash_hideout()
 	
 end
@@ -5010,7 +5010,7 @@ end
 function spawn_kulgband_looser_habar()
 local sobj = alife():create("kulgband_looser_habar", vector():set (481.13,9.98,-327.49), 1027338, 3230)
 	local sobj_id = sobj.id
-	text = "Хабар Чухана"
+	text = "РҐР°Р±Р°СЂ Р§СѓС…Р°РЅР°"
 	level.map_add_object_spot_ser(sobj_id,"crlc_mdl",text)
 	news_manager.send_tip(db.actor, "kulgband_looser_habar_tip", nil, "default", 9000, nil)
 end
@@ -5115,7 +5115,7 @@ if outfit ~= nil and db.actor:alive() then
 	ogse.remove_item(outfit)
 end
 
-release_all_outfits_around_actor()	-- для гарантии;
+release_all_outfits_around_actor()	-- РґР»СЏ РіР°СЂР°РЅС‚РёРё;
 end
 
 function actor100000out(first_speaker, second_speaker)
@@ -5203,7 +5203,7 @@ function dar_drozd_company_respawn()
 	local sobj = sim:create("kulgband_trader2", vector():set (254.55,0.01,-195.28), 699647, 3027)
 	sim:assign_story_id(sobj.id, story_ids.kulgband_trader2)
 	local sobj_id = sobj.id
-	text = "Торговец Дрозд"
+	text = "РўРѕСЂРіРѕРІРµС† Р”СЂРѕР·Рґ"
 	level.map_add_object_spot_ser(sobj_id,"blue_location",text)
 	
 	alife():create("kulgband_trader_guard1", vector():set (253.61, -0.52, -189.02), 697860, 3027)
@@ -5640,7 +5640,7 @@ end
 
 
 
--- Проверка на наличие НПС в игре и на то, жив ли он: ------------------------------------------------------
+-- РџСЂРѕРІРµСЂРєР° РЅР° РЅР°Р»РёС‡РёРµ РќРџРЎ РІ РёРіСЂРµ Рё РЅР° С‚Рѕ, Р¶РёРІ Р»Рё РѕРЅ: ------------------------------------------------------
 
 function is_npc_aaa_alive()
 local sobj = alife():story_object(story_ids.aaaaaaa)
@@ -5665,7 +5665,7 @@ end
 end
 -------------------------------------------------------------------------------------------------------------
 
-function hit_mobs_around_actor()	-- для эффекта от артефакта "Лапа браконьера";
+function hit_mobs_around_actor()	-- РґР»СЏ СЌС„С„РµРєС‚Р° РѕС‚ Р°СЂС‚РµС„Р°РєС‚Р° "Р›Р°РїР° Р±СЂР°РєРѕРЅСЊРµСЂР°";
     for k, v in pairs (db.storage) do
     local mob = level.object_by_id(k)
 	if mob and IsMonster(mob) and mob:alive() and mob:position():distance_to(db.actor:position()) < 20 then
@@ -5685,7 +5685,7 @@ function hit_mobs_around_actor()	-- для эффекта от артефакта "Лапа браконьера";
 end
 end
 
--- Функция переноса всего оружия, ножа, монтировки и гранат в указанный ящик по SID:
+-- Р¤СѓРЅРєС†РёСЏ РїРµСЂРµРЅРѕСЃР° РІСЃРµРіРѕ РѕСЂСѓР¶РёСЏ, РЅРѕР¶Р°, РјРѕРЅС‚РёСЂРѕРІРєРё Рё РіСЂР°РЅР°С‚ РІ СѓРєР°Р·Р°РЅРЅС‹Р№ СЏС‰РёРє РїРѕ SID:
 
 function transfer_weapons_to_box(npc, box_sid)
     local box = level_object_by_sid(box_sid)

@@ -639,14 +639,16 @@ function weapon_manager:update_weapon_list(skip_ammo)
 						if sec == self.prefer_weapon then
 							prm = prm*1000
 						end
-						if prm > __bb and ( not xr_companion.is_companion(self.npc:id()) or ( xr_companion.is_companion(self.npc:id()) and xr_companion.check_weapon(item, self.npc:id()) ) ) then
+						if prm > __bb and ( not xr_companion.is_companion(self.npc:id()) or xr_companion.check_weapon(item, self.npc:id()) ) then
 							self.blaster_weapon = {sec = sec,id = id,prm = item,typ = weapon_params[sec].typ}
 							__bb = prm
 						end
 					end
-				elseif not xr_companion.is_companion(self.npc:id()) or ( xr_companion.is_companion(self.npc:id()) and xr_companion.check_weapon(item, self.npc:id()) ) then
+				elseif not xr_companion.is_companion(self.npc:id()) or xr_companion.check_weapon(item, self.npc:id()) then
 					__weapons[#__weapons+1] = {sec = sec,id = id,prm = item,typ = weapon_params[sec].typ}
-					--log3("~~weapon_iterator[%s]:add [%s], weapons: %s",self.npc:name(),sec,__weapons)
+					--if xr_companion.is_companion(self.npc:id()) then
+					--	log3("~~weapon_iterator[%s]:add [%s], weapons: %s",self.npc:name(),sec,__weapons)
+					--end
 				end
 			end
 		elseif prstor ~= true and not skip_ammo and rx_utils.item_is_ammo(nil,cls) then
@@ -824,6 +826,11 @@ function weapon_manager:update_weapon_list(skip_ammo)
 		self.weapon_id = nil											-- если в новом списке нет выбранного оружия - нужно обновить
 	end
 	self.weapons = __weapons
+	
+	--if xr_companion.is_companion(self.npc:id()) then
+	--	log3("--weapon_iterator end [%s] weapons: %s",self.npc:name(),__weapons)
+	--end
+
 	--self.process_list = __full
 	--do_process = true
 end
@@ -1713,10 +1720,16 @@ function weapon_manager:weapon_is_ready(wpn)
 end
 
 function weapon_manager:get_weapon()
-	if self.disabled then
-		return self.npc:best_weapon()
+	local obj = self.disabled and self.npc:best_weapon() or (self.weapon_id and level.object_by_id(self.weapon_id))
+	if xr_companion.is_companion(self.npc:id()) then
+		--Иногда когда у напарника в наличии много разного оружия почему то self.weapon_id == nil,
+		--хотя в таблице self.weapons нужное оружие есть. Лень разбираться, в этой ситуации просто будем брать оружие из этой таблицы.
+		if not obj and self.weapons[1] then
+			obj = level.object_by_id(self.weapons[1].id)
+		end
+		--log3("~~weapon_manager:get_weapon[%s]: return weapon [%s]",self.npc:name(), obj and obj:section() or "nullptr")
 	end
-	return self.weapon_id and level.object_by_id(self.weapon_id)
+	return obj
 end
 
 function weapon_manager:get_weapon_by_type(t)

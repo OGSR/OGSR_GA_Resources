@@ -1,4 +1,4 @@
-<!--Финальный игровой таск-->
+<!--Р¤РёРЅР°Р»СЊРЅС‹Р№ РёРіСЂРѕРІРѕР№ С‚Р°СЃРє-->
 <game_task id="what_the_fuck_quest">
 	<title>what_the_fuck_quest_text</title>
 	<objective>
@@ -23,7 +23,7 @@
 	</objective>	
 </game_task>
 
-<!-- Сбор войска для штурма final_assemble_force -->
+<!-- РЎР±РѕСЂ РІРѕР№СЃРєР° РґР»СЏ С€С‚СѓСЂРјР° final_assemble_force -->
 <game_task id="final_assemble_force">
 	<title>final_assemble_force_text</title>
 	<objective>
@@ -73,7 +73,7 @@
 	</objective>	
 </game_task>
 
-<!--БТР для Барьера-->
+<!--Р‘РўР  РґР»СЏ Р‘Р°СЂСЊРµСЂР°-->
 <game_task id="ds_get_btr_for_freedom_quest">
 	<title>ds_get_btr_for_freedom_quest_text</title>
 	<objective>
@@ -87,27 +87,27 @@
 		 <article>ds_get_btr_for_freedom_quest_info</article>
 	</objective>
 
-	<objective>	<!--Готово-->
+	<objective>	<!--Р“РѕС‚РѕРІРѕ-->
 		<text>ds_get_btr_for_freedom_talk_shurup_text</text>
 		<map_location_type hint="mil_Svoboda_engineer_name">green_location</map_location_type>
 		<object_story_id>Mil_Engineer</object_story_id>
 		<infoportion_complete>btr_talk_shurup</infoportion_complete>
     </objective>	
 	
-	<objective> <!--Готово-->
+	<objective> <!--Р“РѕС‚РѕРІРѕ-->
 		<text>ds_get_btr_for_freedom_find_btr_text</text>
 		<function_complete>ogse_quests.btr_is_nearby</function_complete>
 		<infoportion_complete>btr_found</infoportion_complete>
     </objective>
 
-	<objective> <!--Готово-->
+	<objective> <!--Р“РѕС‚РѕРІРѕ-->
 		<text>ds_get_btr_for_freedom_drive_to_barrier_text</text>
 		<map_location_type hint="mil_Svoboda_blockpost_leader_name">green_location</map_location_type>
 		<object_story_id>Mil_Kap</object_story_id>
 		<infoportion_complete>btr_own_freedom</infoportion_complete>
     </objective>	
 	
-	<objective> <!--Готово-->
+	<objective> <!--Р“РѕС‚РѕРІРѕ-->
 		<text>ds_get_btr_for_freedom_quest_end_text</text>
 		 <map_location_type hint="svoboda_leader_name">green_location</map_location_type>
 		 <object_story_id>Mil_Lukash</object_story_id>
@@ -304,7 +304,7 @@
 	</objective>	
 </game_task>
 
-<!--Хозяин Мертвого Города-->
+<!--РҐРѕР·СЏРёРЅ РњРµСЂС‚РІРѕРіРѕ Р“РѕСЂРѕРґР°-->
 
 <game_task id="deadcity_master_quest">
 	<title>deadcity_master_name_quest_str</title>
@@ -506,7 +506,7 @@
 	</objective>	
 </game_task>
 
-<!--//////////////////// Проводники ////////////////////-->
+<!--//////////////////// РџСЂРѕРІРѕРґРЅРёРєРё ////////////////////-->
     <game_task id="bar_kvest_with_guider">
 	    <title>bar_kvest_with_guider_text_task</title>
 	<objective>
@@ -527,7 +527,7 @@
 	</objective>
 </game_task>
 
-	<!--Найти гитару-->
+	<!--РќР°Р№С‚Рё РіРёС‚Р°СЂСѓ-->
     <game_task id="esc_kvest_search_guitar">
 	    <title>esc_kvest_search_guitar</title>
 		<objective>
@@ -552,7 +552,7 @@
 		</objective>
 	</game_task>
 
-<!--Сделка с военными-->
+<!--РЎРґРµР»РєР° СЃ РІРѕРµРЅРЅС‹РјРё-->
 
     <game_task id="esc_kvest_sdelka_with_mils">
 	    <title>esc_kvest_sdelka_with_mils_text_task</title>
@@ -623,7 +623,7 @@
 		<infoportion_complete>esc_kvest_sdelka_with_mils_get_car_done</infoportion_complete>
     </objective>
 </game_task>
-<!--Спасение пленного-->
+<!--РЎРїР°СЃРµРЅРёРµ РїР»РµРЅРЅРѕРіРѕ-->
 
     <game_task id="esc_kvest_plennik_of_blockpost">
 	    <title>esc_kvest_plennik_of_blockpost_text_task</title>
@@ -738,7 +738,7 @@
 		<infoportion_fail>esc_kvest_know_do_mils_near_anomaly_2_fail</infoportion_fail>
 	</objective>
 </game_task>
-<!--Наемники на Кордоне-->
+<!--РќР°РµРјРЅРёРєРё РЅР° РљРѕСЂРґРѕРЅРµ-->
 
    <game_task id="esc_kvest_killers_mined_lager">
 	    <title>esc_kvest_killers_mined_lager_text_task</title>
@@ -828,7 +828,7 @@
 	</objective>
 </game_task>
 
-	<!--Друг Бармена-->
+	<!--Р”СЂСѓРі Р‘Р°СЂРјРµРЅР°-->
     <game_task id="bar_kvest_friend_of_barman">
 		<title>bar_kvest_friend_of_barman</title>
 		<objective>
@@ -961,7 +961,7 @@
 	</objective>
 </game_task>
 
-	<!-- Спасаем пленника -->
+	<!-- РЎРїР°СЃР°РµРј РїР»РµРЅРЅРёРєР° -->
 	<game_task id="captive_on_agr_mill_base_save">
 		<title>captive_on_agr_mill_base_save_title</title>
 		<objective>
@@ -989,7 +989,7 @@
 			<infoportion_complete>captive_on_agr_mill_base_complete</infoportion_complete>
 		</objective>
 	</game_task>
-	<!-- Выводим пленника в спасательную зону -->
+	<!-- Р’С‹РІРѕРґРёРј РїР»РµРЅРЅРёРєР° РІ СЃРїР°СЃР°С‚РµР»СЊРЅСѓСЋ Р·РѕРЅСѓ -->
 	<game_task id="captive_on_agr_mill_base_go_to_rescue_point">
 		<title>captive_on_agr_mill_base_go_to_rescue_point_title</title>
 		<objective>
@@ -1013,7 +1013,7 @@
 			<infoportion_complete>captive_on_agr_mill_base_saved</infoportion_complete>
 		</objective>
 	</game_task>
-<!--Дочь Старика-->
+<!--Р”РѕС‡СЊ РЎС‚Р°СЂРёРєР°-->
 
 <game_task id="pri_kvest_search_doch_of_starik">
 	    <title>pri_kvest_search_doch_of_starik_text_task</title>
@@ -1043,7 +1043,7 @@
 	</objective>
 </game_task>
 
-<!--Встреча Долга и Свободы-->
+<!--Р’СЃС‚СЂРµС‡Р° Р”РѕР»РіР° Рё РЎРІРѕР±РѕРґС‹-->
 
 <game_task id="bar_kvest_make_meet_dolg_freedom">
 	    <title>bar_kvest_make_meet_dolg_freedom_text_task</title>
@@ -1071,7 +1071,7 @@
 	</objective>
 </game_task>
 
-<!--Спасти Свободовца-->
+<!--РЎРїР°СЃС‚Рё РЎРІРѕР±РѕРґРѕРІС†Р°-->
 
 <game_task id="mil_kvest_spasti_freedomer_on_radar">
 	    <title>mil_kvest_spasti_freedomer_on_radar_text_task</title>
@@ -1103,7 +1103,7 @@
 	</objective>
 </game_task>
 
-<!--Помочь Тетереву-->
+<!--РџРѕРјРѕС‡СЊ РўРµС‚РµСЂРµРІСѓ-->
 
     <game_task id="esc_kvest_help_teterev">
 	    <title>esc_kvest_help_teterev_text_task</title>
@@ -1217,7 +1217,7 @@
 	</objective>
 </game_task>
 
-<!--Секрет Янтаря: Поговорить с Сахаровым-->
+<!--РЎРµРєСЂРµС‚ РЇРЅС‚Р°СЂСЏ: РџРѕРіРѕРІРѕСЂРёС‚СЊ СЃ РЎР°С…Р°СЂРѕРІС‹Рј-->
 
     <game_task id="yan_kvest_help_to_chuk_know_zombied">
 	    <title>scary_mistery_of_the_yantar_text_task</title>
@@ -1422,7 +1422,7 @@
 		<infoportion_complete>yan_kvest_help_to_chuk_bring_zapisi_complete</infoportion_complete>
 	</objective>
 </game_task>
-<!--Доброжелатель: Взять кейс-->
+<!--Р”РѕР±СЂРѕР¶РµР»Р°С‚РµР»СЊ: Р’Р·СЏС‚СЊ РєРµР№СЃ-->
 
     <game_task id="yan_kvest_search_case">
 	    <title>radar_boomsurprise_defuse_text_task</title>
@@ -1509,7 +1509,7 @@
 		</objective>
 	</game_task>
 
-<!--Последняя просьба: last_wish_quest_text2_task-->
+<!--РџРѕСЃР»РµРґРЅСЏСЏ РїСЂРѕСЃСЊР±Р°: last_wish_quest_text2_task-->
     <game_task id="esc_kvest_help_to_scoryi_search_sitnik">
 	    <title>last_wish_quest_text_task</title>
 	<objective>
@@ -1626,11 +1626,11 @@
 	</objective>
 </game_task>
     <!--<game_task id="esc_kvest_help_to_scoryi_say_mils_info_2">
-	    <title>Последняя просьба: Оповестить военных о готовящейся диверсии</title>
+	    <title>РџРѕСЃР»РµРґРЅСЏСЏ РїСЂРѕСЃСЊР±Р°: РћРїРѕРІРµСЃС‚РёС‚СЊ РІРѕРµРЅРЅС‹С… Рѕ РіРѕС‚РѕРІСЏС‰РµР№СЃСЏ РґРёРІРµСЂСЃРёРё</title>
 	<objective>
 		 <icon>ui_iconsTotal_find_item</icon>
-		 <text>Оповестить военных о готовящейся диверсии</text>
-		<map_location_type hint="Майор Печкин">blue_location</map_location_type>
+		 <text>РћРїРѕРІРµСЃС‚РёС‚СЊ РІРѕРµРЅРЅС‹С… Рѕ РіРѕС‚РѕРІСЏС‰РµР№СЃСЏ РґРёРІРµСЂСЃРёРё</text>
+		<map_location_type hint="РњР°Р№РѕСЂ РџРµС‡РєРёРЅ">blue_location</map_location_type>
 		<object_story_id>esc_pechkin</object_story_id>
 		 <infoportion_complete>esc_kvest_help_to_scoryi_say_mils_info_complete</infoportion_complete>
 		 <infoportion_fail>esc_kvest_help_to_scoryi_say_mils_info_2_fail</infoportion_fail>
@@ -1638,8 +1638,8 @@
 		 <article>esc_kvest_help_to_scoryi_say_mils_info_2_info</article>
 	</objective>
     <objective>
-		<text>Оповестить военных о готовящейся диверсии</text>
-		<map_location_type hint="Майор Печкин">blue_location</map_location_type>
+		<text>РћРїРѕРІРµСЃС‚РёС‚СЊ РІРѕРµРЅРЅС‹С… Рѕ РіРѕС‚РѕРІСЏС‰РµР№СЃСЏ РґРёРІРµСЂСЃРёРё</text>
+		<map_location_type hint="РњР°Р№РѕСЂ РџРµС‡РєРёРЅ">blue_location</map_location_type>
 		<object_story_id>esc_pechkin</object_story_id>
 		<infoportion_complete>esc_kvest_help_to_scoryi_say_mils_info_complete</infoportion_complete>
 		<infoportion_fail>esc_kvest_help_to_scoryi_say_mils_info_2_fail</infoportion_fail>
@@ -2089,7 +2089,7 @@
 	</objective>
 </game_task>
 
-<!--Аномальные болты Собрать аномальные болты для Осведомителя, чем больше - тем лучше, но не менее 20-ти штук -->
+<!--РђРЅРѕРјР°Р»СЊРЅС‹Рµ Р±РѕР»С‚С‹ РЎРѕР±СЂР°С‚СЊ Р°РЅРѕРјР°Р»СЊРЅС‹Рµ Р±РѕР»С‚С‹ РґР»СЏ РћСЃРІРµРґРѕРјРёС‚РµР»СЏ, С‡РµРј Р±РѕР»СЊС€Рµ - С‚РµРј Р»СѓС‡С€Рµ, РЅРѕ РЅРµ РјРµРЅРµРµ 20-С‚Рё С€С‚СѓРє -->
 <game_task id="anom_bolts_task">
 	<title>anom_bolt_task_text</title> 
 	<objective>
@@ -2104,7 +2104,7 @@
 	</objective>	
 </game_task>
 
-	<!--Аномальная кухонная утварь начало-->
+	<!--РђРЅРѕРјР°Р»СЊРЅР°СЏ РєСѓС…РѕРЅРЅР°СЏ СѓС‚РІР°СЂСЊ РЅР°С‡Р°Р»Рѕ-->
 <game_task id="anom_house_items_task_start">
 	<title>anom_house_items_task_start_text</title> 
 	<objective>
@@ -2119,7 +2119,7 @@
 	</objective>
 </game_task>
 
-	<!--Аномальная кухонная утварь поиск-->
+	<!--РђРЅРѕРјР°Р»СЊРЅР°СЏ РєСѓС…РѕРЅРЅР°СЏ СѓС‚РІР°СЂСЊ РїРѕРёСЃРє-->
 <game_task id="anom_house_items_task_find">
 	<title>anom_house_items_task_find_text</title> 
 	<objective>
@@ -2134,7 +2134,7 @@
 	</objective>
 </game_task>
 
-	<!--Аномальная кухонная утварь конец-->
+	<!--РђРЅРѕРјР°Р»СЊРЅР°СЏ РєСѓС…РѕРЅРЅР°СЏ СѓС‚РІР°СЂСЊ РєРѕРЅРµС†-->
 <game_task id="anom_house_items_task_end">
 	<title>anom_house_items_task_end_text</title> 
 	<objective>
@@ -2149,7 +2149,7 @@
 	</objective>
 </game_task>
 
-	<!--Поиск патронов для Крота начало-->
+	<!--РџРѕРёСЃРє РїР°С‚СЂРѕРЅРѕРІ РґР»СЏ РљСЂРѕС‚Р° РЅР°С‡Р°Р»Рѕ-->
 <game_task id="agr_help_krot_ammo_box_start">
 	<title>agr_help_krot_ammo_box_start_text</title> 
 	<objective>
@@ -2166,7 +2166,7 @@
 	</objective>
 </game_task>
 
-	<!--Поиск патронов для Крота сбор ящиков-->
+	<!--РџРѕРёСЃРє РїР°С‚СЂРѕРЅРѕРІ РґР»СЏ РљСЂРѕС‚Р° СЃР±РѕСЂ СЏС‰РёРєРѕРІ-->
 <game_task id="agr_help_krot_ammo_box_find">
 	<title>agr_help_krot_ammo_box_find_text</title> 
 	<objective>
@@ -2184,7 +2184,7 @@
 	</objective>
 </game_task>
 
-	<!--Поиск патронов для Крота конец-->
+	<!--РџРѕРёСЃРє РїР°С‚СЂРѕРЅРѕРІ РґР»СЏ РљСЂРѕС‚Р° РєРѕРЅРµС†-->
 <game_task id="agr_help_krot_ammo_box_end">
 	<title>agr_help_krot_ammo_box_end_text</title> 
 	<objective>

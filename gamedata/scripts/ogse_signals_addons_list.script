@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 -- список явно подключаемых модулей
 
 addons = {
@@ -92,6 +92,9 @@ addons = {
 	"ogsr_actor_animation",
 	"ogsr_quick_info",
 	"ogsr_body_states",
+	"ogsr_actor_death",
+	"ogsr_exo_step_sound",
+	"jr_rain_footsteps",
 	"inventory", --должен быть последним!
 }
 

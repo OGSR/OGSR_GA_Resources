@@ -1,14 +1,14 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
--- Игнорирование врагов
--- Чугай Александр
+
+-- РРіРЅРѕСЂРёСЂРѕРІР°РЅРёРµ РІСЂР°РіРѕРІ
+-- Р§СѓРіР°Р№ РђР»РµРєСЃР°РЅРґСЂ
 
 function attach( sm )
   sm:subscribe({ signal = "on_npc_enemy_callback", fun = this.enemy_callback })
 end
 
 
--- bak  - информация для скриптов: включено ли игнорирование врага
+-- bak  - РёРЅС„РѕСЂРјР°С†РёСЏ РґР»СЏ СЃРєСЂРёРїС‚РѕРІ: РІРєР»СЋС‡РµРЅРѕ Р»Рё РёРіРЅРѕСЂРёСЂРѕРІР°РЅРёРµ РІСЂР°РіР°
 function is_ignored(obj,enemy)
 	local st = db.storage[obj:id()].combat_ignore
 	if st and st.enabled and st.ignore[enemy:id()] then
@@ -21,10 +21,10 @@ end
 function enemy_callback( obj, enemy, result )
   if obj:critically_wounded() then return end
 
-  if xr_companion.is_companion(obj:id()) then --Если напарник хочет атаковать кого-то, делаем проверку, может ли этот кто-то атаковать актора. Если нет - запрещаем атаку.
+  if xr_companion.is_companion(obj:id()) then --Р•СЃР»Рё РЅР°РїР°СЂРЅРёРє С…РѕС‡РµС‚ Р°С‚Р°РєРѕРІР°С‚СЊ РєРѕРіРѕ-С‚Рѕ, РґРµР»Р°РµРј РїСЂРѕРІРµСЂРєСѓ, РјРѕР¶РµС‚ Р»Рё СЌС‚РѕС‚ РєС‚Рѕ-С‚Рѕ Р°С‚Р°РєРѕРІР°С‚СЊ Р°РєС‚РѕСЂР°. Р•СЃР»Рё РЅРµС‚ - Р·Р°РїСЂРµС‰Р°РµРј Р°С‚Р°РєСѓ.
 	obj = enemy
 	enemy = db.actor
-  elseif xr_companion.is_companion(enemy:id()) then --Кто-то хочет атаковать напарника, делаем проверку, может ли этот кто-то атаковать актора. Если нет - запрещаем атаку.
+  elseif xr_companion.is_companion(enemy:id()) then --РљС‚Рѕ-С‚Рѕ С…РѕС‡РµС‚ Р°С‚Р°РєРѕРІР°С‚СЊ РЅР°РїР°СЂРЅРёРєР°, РґРµР»Р°РµРј РїСЂРѕРІРµСЂРєСѓ, РјРѕР¶РµС‚ Р»Рё СЌС‚РѕС‚ РєС‚Рѕ-С‚Рѕ Р°С‚Р°РєРѕРІР°С‚СЊ Р°РєС‚РѕСЂР°. Р•СЃР»Рё РЅРµС‚ - Р·Р°РїСЂРµС‰Р°РµРј Р°С‚Р°РєСѓ.
 	enemy = db.actor
   end
 
@@ -40,7 +40,7 @@ function enemy_callback( obj, enemy, result )
       db.actor, obj, overrides.combat_ignore.condlist
     ) ~= nil
   then
-    st.ignore[enemy:id()] = true -- сохранение результата проверки врага на игнор
+    st.ignore[enemy:id()] = true -- СЃРѕС…СЂР°РЅРµРЅРёРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° РїСЂРѕРІРµСЂРєРё РІСЂР°РіР° РЅР° РёРіРЅРѕСЂ
     table.insert( result, false )
     return true
   end
@@ -72,7 +72,7 @@ end
 
 function action_process_enemy:hit_callback(obj, amount, local_direction, who, bone_index)
 	if not who then	return end
-	--if amount == 0 then return end --Кто-то стрельнул в воздух
+	--if amount == 0 then return end --РљС‚Рѕ-С‚Рѕ СЃС‚СЂРµР»СЊРЅСѓР» РІ РІРѕР·РґСѓС…
 
 	if who:is_actor() then
 		local overrides = xr_logic.generic_scheme_overrides( obj )
@@ -93,15 +93,15 @@ function set_combat_ignore_checker( npc, ini, scheme, section )
 	st.enabled = true
 	st.ignore = {}
 
-	xr_logic.subscribe_action_for_events( npc, st, st.action ) --Подписываемся на hit callback-и
+	xr_logic.subscribe_action_for_events( npc, st, st.action ) --РџРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РЅР° hit callback-Рё
 end
 
 function disable_scheme( npc, scheme )
-	-- Отписываемся от hit callback. Это делать обязательно, потому что иначе при переключении на другой набор
-	-- схем, в котором нет перехвата боя, продолжится вызываться callback в старом подписанном action-е.
+	-- РћС‚РїРёСЃС‹РІР°РµРјСЃСЏ РѕС‚ hit callback. Р­С‚Рѕ РґРµР»Р°С‚СЊ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ, РїРѕС‚РѕРјСѓ С‡С‚Рѕ РёРЅР°С‡Рµ РїСЂРё РїРµСЂРµРєР»СЋС‡РµРЅРёРё РЅР° РґСЂСѓРіРѕР№ РЅР°Р±РѕСЂ
+	-- СЃС…РµРј, РІ РєРѕС‚РѕСЂРѕРј РЅРµС‚ РїРµСЂРµС…РІР°С‚Р° Р±РѕСЏ, РїСЂРѕРґРѕР»Р¶РёС‚СЃСЏ РІС‹Р·С‹РІР°С‚СЊСЃСЏ callback РІ СЃС‚Р°СЂРѕРј РїРѕРґРїРёСЃР°РЅРЅРѕРј action-Рµ.
 	local st = db.storage[npc:id()][scheme]
 	if st then
-		st.enabled = false		-- нужно убирать за собой
+		st.enabled = false		-- РЅСѓР¶РЅРѕ СѓР±РёСЂР°С‚СЊ Р·Р° СЃРѕР±РѕР№
 		st.ignore = nil
 		xr_logic.unsubscribe_action_from_events(npc, st, st.action)
 	end

@@ -1,12 +1,12 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -----------------------------------------------------------------------
 --- ogse_random_treasure.script                                       
---- Модуль рандомного наполнения тайников                      
+--- РњРѕРґСѓР»СЊ СЂР°РЅРґРѕРјРЅРѕРіРѕ РЅР°РїРѕР»РЅРµРЅРёСЏ С‚Р°Р№РЅРёРєРѕРІ                      
 --- Mixser (c) OGS Evolution Team                                      
 --- version 1.8 (14/01/2012)                                             
 -----------------------------------------------------------------------
--- Количество предметов для выдачи
+-- РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРµРґРјРµС‚РѕРІ РґР»СЏ РІС‹РґР°С‡Рё
 
 local prob_checking_table = 
 {
@@ -32,10 +32,10 @@ local checking_table =
 	device_treasure = "devices",
 }
 
--- Шаблоны для тайников
+-- РЁР°Р±Р»РѕРЅС‹ РґР»СЏ С‚Р°Р№РЅРёРєРѕРІ
 local treasure_scheme = {"arts", "weapons", "outfits", "ammo", "devices", "other"}
 
--- Нестандартные награды 
+-- РќРµСЃС‚Р°РЅРґР°СЂС‚РЅС‹Рµ РЅР°РіСЂР°РґС‹ 
 local st = {"unrandom_treasure", "weapon_treasure", "art_treasure", "ammo_treasure", "device_treasure", "outfit_treasure"}
 
 function get_special_treasure()
@@ -57,31 +57,31 @@ function get_special_treasure()
 	return time_array
 end
 
--- Табличка для специальных тайников
+-- РўР°Р±Р»РёС‡РєР° РґР»СЏ СЃРїРµС†РёР°Р»СЊРЅС‹С… С‚Р°Р№РЅРёРєРѕРІ
 local special_treasure = get_special_treasure()
 
-local item_timeout = 5 -- через сколько тайников предмет снова может быть положен в тайник
+local item_timeout = 5 -- С‡РµСЂРµР· СЃРєРѕР»СЊРєРѕ С‚Р°Р№РЅРёРєРѕРІ РїСЂРµРґРјРµС‚ СЃРЅРѕРІР° РјРѕР¶РµС‚ Р±С‹С‚СЊ РїРѕР»РѕР¶РµРЅ РІ С‚Р°Р№РЅРёРє
 	
 class "random_treasure"
 
 function random_treasure:__init(treasure_name, treasure_id) 
 
-	self.current_reward = {} -- Табличка для награды
+	self.current_reward = {} -- РўР°Р±Р»РёС‡РєР° РґР»СЏ РЅР°РіСЂР°РґС‹
 
 	if treasure_name ~= "none" then
 		self.treasure_name = treasure_name
 		self.treasure_id = tostring(treasure_id)
-		self.level_reward = {} -- Табличка для наград на уровне
-		self.order = {} -- Табличка для шаблонов тайника
+		self.level_reward = {} -- РўР°Р±Р»РёС‡РєР° РґР»СЏ РЅР°РіСЂР°Рґ РЅР° СѓСЂРѕРІРЅРµ
+		self.order = {} -- РўР°Р±Р»РёС‡РєР° РґР»СЏ С€Р°Р±Р»РѕРЅРѕРІ С‚Р°Р№РЅРёРєР°
 
-		self.treasure_placement = self:get_level_by_name(self.treasure_name) -- фактическом местопроживание тайника
-		self.treasure_level = self:get_treasure_level() -- получение уровня тайника (к какому уровню он будет принадлежать)			  
-		self.level_chance = {} -- Табличка шансов выпада каждой схемы для уровня
+		self.treasure_placement = self:get_level_by_name(self.treasure_name) -- С„Р°РєС‚РёС‡РµСЃРєРѕРј РјРµСЃС‚РѕРїСЂРѕР¶РёРІР°РЅРёРµ С‚Р°Р№РЅРёРєР°
+		self.treasure_level = self:get_treasure_level() -- РїРѕР»СѓС‡РµРЅРёРµ СѓСЂРѕРІРЅСЏ С‚Р°Р№РЅРёРєР° (Рє РєР°РєРѕРјСѓ СѓСЂРѕРІРЅСЋ РѕРЅ Р±СѓРґРµС‚ РїСЂРёРЅР°РґР»РµР¶Р°С‚СЊ)			  
+		self.level_chance = {} -- РўР°Р±Р»РёС‡РєР° С€Р°РЅСЃРѕРІ РІС‹РїР°РґР° РєР°Р¶РґРѕР№ СЃС…РµРјС‹ РґР»СЏ СѓСЂРѕРІРЅСЏ
 		self.level_chance = self:get_level_chance(self.treasure_level)
 
-		self.current_template = "" -- Шаблон для награды
+		self.current_template = "" -- РЁР°Р±Р»РѕРЅ РґР»СЏ РЅР°РіСЂР°РґС‹
 		
-		-- Берём из хранилища данные о наполнении предыдущих тайников
+		-- Р‘РµСЂС‘Рј РёР· С…СЂР°РЅРёР»РёС‰Р° РґР°РЅРЅС‹Рµ Рѕ РЅР°РїРѕР»РЅРµРЅРёРё РїСЂРµРґС‹РґСѓС‰РёС… С‚Р°Р№РЅРёРєРѕРІ
 		self.item_data = ogse.var_exists("random_treasure_item_data") and ogse.load_var("random_treasure_item_data") or {}
 	end
 end
@@ -91,7 +91,7 @@ function random_treasure:get_treasure_level()
 	return (self:get_price_by_level(current_level) > self:get_price_by_level(self.treasure_placement)) and current_level or self.treasure_placement
 end
 
--- Функция получение шансов выпадения того или иного шаблона для каждого уровня
+-- Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёРµ С€Р°РЅСЃРѕРІ РІС‹РїР°РґРµРЅРёСЏ С‚РѕРіРѕ РёР»Рё РёРЅРѕРіРѕ С€Р°Р±Р»РѕРЅР° РґР»СЏ РєР°Р¶РґРѕРіРѕ СѓСЂРѕРІРЅСЏ
 function random_treasure:get_level_chance(level)
 	local time_array = {}
 			
@@ -105,30 +105,30 @@ function random_treasure:get_level_chance(level)
 	return time_array
 end
 
--- Функция генерирования содержимого тайника
+-- Р¤СѓРЅРєС†РёСЏ РіРµРЅРµСЂРёСЂРѕРІР°РЅРёСЏ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ С‚Р°Р№РЅРёРєР°
 function random_treasure:generate_treasure_reward()
-	-- Проверим, не находится ли наш тайник в специальном списке.
+	-- РџСЂРѕРІРµСЂРёРј, РЅРµ РЅР°С…РѕРґРёС‚СЃСЏ Р»Рё РЅР°С€ С‚Р°Р№РЅРёРє РІ СЃРїРµС†РёР°Р»СЊРЅРѕРј СЃРїРёСЃРєРµ.
 	local checking = self:check_special_treasure()
 	if checking ~= "unrandom_treasure" then
-		-- Рандомно выбираем схему-шаблон исходя из уровня	
+		-- Р Р°РЅРґРѕРјРЅРѕ РІС‹Р±РёСЂР°РµРј СЃС…РµРјСѓ-С€Р°Р±Р»РѕРЅ РёСЃС…РѕРґСЏ РёР· СѓСЂРѕРІРЅСЏ	
 		self.current_template = checking_table[checking] or self:get_level_tempalate(self.treasure_level)
 		
-		self.level_reward = self:get_level_reward(self.treasure_level) -- Загрузка вещей для данного уровня
+		self.level_reward = self:get_level_reward(self.treasure_level) -- Р—Р°РіСЂСѓР·РєР° РІРµС‰РµР№ РґР»СЏ РґР°РЅРЅРѕРіРѕ СѓСЂРѕРІРЅСЏ
 			
-		-- Табличка для очерёдностей вещей
+		-- РўР°Р±Р»РёС‡РєР° РґР»СЏ РѕС‡РµСЂС‘РґРЅРѕСЃС‚РµР№ РІРµС‰РµР№
 		self.order = self:get_reward_order(self.current_template) 
 					
 		for k,v in pairs(self.order) do table.insert(self.current_reward, self:get_item(v)) end
 		
-		self:decrease_item_timeout() -- уменьшаем таймаут предмета
+		self:decrease_item_timeout() -- СѓРјРµРЅСЊС€Р°РµРј С‚Р°Р№РјР°СѓС‚ РїСЂРµРґРјРµС‚Р°
 		
-		-- Запоминание награды
+		-- Р—Р°РїРѕРјРёРЅР°РЅРёРµ РЅР°РіСЂР°РґС‹
 		if self.current_template == "arts" or self.current_template == "weapons" or self.current_template == "outfits"  or self.current_template == "devices" then
 			if not self.item_data[self.treasure_placement] then self.item_data[self.treasure_placement] = {} end
 			
 			local working_table = {}
-			working_table.tr_type = self.current_template -- записываем тип текущего тайника
-			working_table.tr_item = {} -- сюда запишем предметы вместе с таймаутами
+			working_table.tr_type = self.current_template -- Р·Р°РїРёСЃС‹РІР°РµРј С‚РёРї С‚РµРєСѓС‰РµРіРѕ С‚Р°Р№РЅРёРєР°
+			working_table.tr_item = {} -- СЃСЋРґР° Р·Р°РїРёС€РµРј РїСЂРµРґРјРµС‚С‹ РІРјРµСЃС‚Рµ СЃ С‚Р°Р№РјР°СѓС‚Р°РјРё
 			
 			for i = 1, #self.current_reward do
 				if i == 1 or (i > 1 and self.current_template == "arts") then working_table.tr_item[self.current_reward[i].section] = item_timeout end
@@ -138,13 +138,13 @@ function random_treasure:generate_treasure_reward()
 		end	
 		
 		--log3("[%s] Saving self.item_data: %s", script_name(), self.item_data)
-		ogse.save_var("random_treasure_item_data", self.item_data, "table") -- сохраняем данные в табличку
+		ogse.save_var("random_treasure_item_data", self.item_data, "table") -- СЃРѕС…СЂР°РЅСЏРµРј РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС‡РєСѓ
 	else
-		self.current_reward = nil  -- Ничего менять не надо, поэтому в treasure_manager'е подхватим nil и выставим дефолтный тайник
+		self.current_reward = nil  -- РќРёС‡РµРіРѕ РјРµРЅСЏС‚СЊ РЅРµ РЅР°РґРѕ, РїРѕСЌС‚РѕРјСѓ РІ treasure_manager'Рµ РїРѕРґС…РІР°С‚РёРј nil Рё РІС‹СЃС‚Р°РІРёРј РґРµС„РѕР»С‚РЅС‹Р№ С‚Р°Р№РЅРёРє
 	end
 end
 
--- Функция проверки тайника на специальные условия (нерандомность или специальное заполнение)
+-- Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєРё С‚Р°Р№РЅРёРєР° РЅР° СЃРїРµС†РёР°Р»СЊРЅС‹Рµ СѓСЃР»РѕРІРёСЏ (РЅРµСЂР°РЅРґРѕРјРЅРѕСЃС‚СЊ РёР»Рё СЃРїРµС†РёР°Р»СЊРЅРѕРµ Р·Р°РїРѕР»РЅРµРЅРёРµ)
 function random_treasure:check_special_treasure()
 	for k,v in pairs(special_treasure) do
 		for k1,v1 in pairs(v) do
@@ -157,7 +157,7 @@ function random_treasure:check_special_treasure()
 	return true
 end
 
--- Функция получения уровня тайника
+-- Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ СѓСЂРѕРІРЅСЏ С‚Р°Р№РЅРёРєР°
 function random_treasure:get_level_by_name(name)
 	return name:find("esc") and "l01_escape" or
 	name:find("gar") and "l02_garbage" or
@@ -175,12 +175,12 @@ function random_treasure:get_level_by_name(name)
 	nil
 end
 
--- Функция получения "цены" тайника по уровню
+-- Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ "С†РµРЅС‹" С‚Р°Р№РЅРёРєР° РїРѕ СѓСЂРѕРІРЅСЋ
 function random_treasure:get_price_by_level(level)
 	return sys_ini:r_u32("level_price", level)
 end
 
--- Функция получения шаблона по уровню
+-- Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ С€Р°Р±Р»РѕРЅР° РїРѕ СѓСЂРѕРІРЅСЋ
 function random_treasure:get_level_tempalate(level)
 	local dice = math.random(100)
 	
@@ -189,7 +189,7 @@ function random_treasure:get_level_tempalate(level)
 	end
 end
 
--- Функция получения списка наград
+-- Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃРїРёСЃРєР° РЅР°РіСЂР°Рґ
 function random_treasure:get_reward_order(template)
 	local count = 0
 	local time_array = {}
@@ -231,7 +231,7 @@ function random_treasure:get_reward_order(template)
 	end
 end
 
--- Функция получения вещей для текущего уровня
+-- Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ РІРµС‰РµР№ РґР»СЏ С‚РµРєСѓС‰РµРіРѕ СѓСЂРѕРІРЅСЏ
 function random_treasure:get_level_reward(level)
 	local time_array = {}
 	
@@ -242,20 +242,20 @@ function random_treasure:get_level_reward(level)
 	return time_array
 end
 
--- Функция получения массива из string'а из постороннего файла
+-- Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ РјР°СЃСЃРёРІР° РёР· string'Р° РёР· РїРѕСЃС‚РѕСЂРѕРЅРЅРµРіРѕ С„Р°Р№Р»Р°
 function random_treasure:get_mas(sec1, sec2)
 	local tbl = {}
-	local list = sys_ini:r_string(sec1, sec2) -- где,что
+	local list = sys_ini:r_string(sec1, sec2) -- РіРґРµ,С‡С‚Рѕ
 	local num = nil
 		
 	if sys_ini:r_string(sec1,sec2) then 
 		for num in string.gmatch(list,"([%w_%-.\\]+)%p*") do 
 			if not (self.current_template == "arts" or self.current_template == "weapons" or self.current_template == "outfits" or self.current_template == "devices") then table.insert(tbl, num) 
-			else if self:include_item_in_treasure_items(num) == false then table.insert(tbl, num) end -- проверяем присуствие предметов в прошлых тайниках
+			else if self:include_item_in_treasure_items(num) == false then table.insert(tbl, num) end -- РїСЂРѕРІРµСЂСЏРµРј РїСЂРёСЃСѓСЃС‚РІРёРµ РїСЂРµРґРјРµС‚РѕРІ РІ РїСЂРѕС€Р»С‹С… С‚Р°Р№РЅРёРєР°С…
 			end
 		end 
 		if #tbl < 1 then
-			-- Восстановим все позиции, ибо нужно обновить список
+			-- Р’РѕСЃСЃС‚Р°РЅРѕРІРёРј РІСЃРµ РїРѕР·РёС†РёРё, РёР±Рѕ РЅСѓР¶РЅРѕ РѕР±РЅРѕРІРёС‚СЊ СЃРїРёСЃРѕРє
 			self:restore_items_in_treasure_items()
 			for num in string.gmatch(list,"([%w_%-.\\]+)%p*") do table.insert(tbl, num) end
 		end
@@ -264,7 +264,7 @@ function random_treasure:get_mas(sec1, sec2)
 	return tbl	
 end
 
--- Функция получения предмета для тайника
+-- Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ РїСЂРµРґРјРµС‚Р° РґР»СЏ С‚Р°Р№РЅРёРєР°
 function random_treasure:get_item(item)
 	local time_array = {}
 		if self.order[1] == "weapons" and (item == "addons" or item == "ammo") then
@@ -297,7 +297,7 @@ function random_treasure:get_prob(section)
 	return 3
 end
 
--- Функция получения аддона к оружию
+-- Р¤СѓРЅРєС†РёСЏ РїРѕР»СѓС‡РµРЅРёСЏ Р°РґРґРѕРЅР° Рє РѕСЂСѓР¶РёСЋ
 function random_treasure:get_addon_to_weapon()
 	local weapon = self.current_reward[1].section
 	local addons = {}
@@ -317,7 +317,7 @@ function random_treasure:get_addon_to_weapon()
 	if #addons > 0 then
 		return addons[math.random(#addons)]
 	else
-		return "medkit" -- вернём аптечку, если нет аддона к орудию в принципе
+		return "medkit" -- РІРµСЂРЅС‘Рј Р°РїС‚РµС‡РєСѓ, РµСЃР»Рё РЅРµС‚ Р°РґРґРѕРЅР° Рє РѕСЂСѓРґРёСЋ РІ РїСЂРёРЅС†РёРїРµ
 	end
 end
 
@@ -326,13 +326,13 @@ function random_treasure:get_ammo_to_weapon()
 	return ammo_list[math.random(#ammo_list)]
 end
 
--- Функция выдачи содержимого тайника
+-- Р¤СѓРЅРєС†РёСЏ РІС‹РґР°С‡Рё СЃРѕРґРµСЂР¶РёРјРѕРіРѕ С‚Р°Р№РЅРёРєР°
 function random_treasure:set_random_reward()
 	self:generate_treasure_reward()
 	return self.current_reward
 end
 
--- Функция проверки нахождения предмета в тайниках на одной локации
+-- Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєРё РЅР°С…РѕР¶РґРµРЅРёСЏ РїСЂРµРґРјРµС‚Р° РІ С‚Р°Р№РЅРёРєР°С… РЅР° РѕРґРЅРѕР№ Р»РѕРєР°С†РёРё
 function random_treasure:include_item_in_treasure_items(item)
 	if self.item_data[self.treasure_placement] then
 		for k,v in pairs(self.item_data[self.treasure_placement]) do
@@ -352,7 +352,7 @@ function random_treasure:include_item_in_treasure_items(item)
 	return false
 end
 
--- Функция обнуления таймаута предметов (вызывается в ситуации, когда уже нечего выдавать)
+-- Р¤СѓРЅРєС†РёСЏ РѕР±РЅСѓР»РµРЅРёСЏ С‚Р°Р№РјР°СѓС‚Р° РїСЂРµРґРјРµС‚РѕРІ (РІС‹Р·С‹РІР°РµС‚СЃСЏ РІ СЃРёС‚СѓР°С†РёРё, РєРѕРіРґР° СѓР¶Рµ РЅРµС‡РµРіРѕ РІС‹РґР°РІР°С‚СЊ)
 function random_treasure:restore_items_in_treasure_items()
 	if self.item_data[self.treasure_placement] then
 		for k,v in pairs(self.item_data[self.treasure_placement]) do
@@ -363,7 +363,7 @@ function random_treasure:restore_items_in_treasure_items()
 	end
 end
 
--- Функция уменьшения таймаута предмета, а так же дезактивации тайника
+-- Р¤СѓРЅРєС†РёСЏ СѓРјРµРЅСЊС€РµРЅРёСЏ С‚Р°Р№РјР°СѓС‚Р° РїСЂРµРґРјРµС‚Р°, Р° С‚Р°Рє Р¶Рµ РґРµР·Р°РєС‚РёРІР°С†РёРё С‚Р°Р№РЅРёРєР°
 function random_treasure:decrease_item_timeout()
 	--log1("===")
 	--log1("treasure_level = "..self.treasure_placement)
@@ -374,7 +374,7 @@ function random_treasure:decrease_item_timeout()
 					--log1("decrease "..k)
 					for k1,v1 in pairs(v.tr_item) do
 						v.tr_item[k1] = v.tr_item[k1] - 1
-						if v.tr_item[k1] == 0 then self.item_data[self.treasure_placement][k] = nil end -- удаляем упоминание об уже ненужном тайнике
+						if v.tr_item[k1] == 0 then self.item_data[self.treasure_placement][k] = nil end -- СѓРґР°Р»СЏРµРј СѓРїРѕРјРёРЅР°РЅРёРµ РѕР± СѓР¶Рµ РЅРµРЅСѓР¶РЅРѕРј С‚Р°Р№РЅРёРєРµ
 						--log1(k1.." "..v1)
 					end
 				end

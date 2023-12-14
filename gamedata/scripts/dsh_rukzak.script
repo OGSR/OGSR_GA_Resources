@@ -1,11 +1,11 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function attach( sm )
   --sm:subscribe({ signal = "on_drop", fun = this.on_drop })
   sm:subscribe({ signal = "on_use",  fun = this.on_use })
   sm:subscribe({ signal = "on_rukzak_use", fun = this.on_rukzak_use })
   --
-  sm:subscribe({ signal = "on_car_trunk_open", fun = this.on_rukzak_use }) --KRodin: багажник для машин теперь создаётся здесь, а удаляется в se_car:on_unregister()
+  sm:subscribe({ signal = "on_car_trunk_open", fun = this.on_rukzak_use }) --KRodin: Р±Р°РіР°Р¶РЅРёРє РґР»СЏ РјР°С€РёРЅ С‚РµРїРµСЂСЊ СЃРѕР·РґР°С‘С‚СЃСЏ Р·РґРµСЃСЊ, Р° СѓРґР°Р»СЏРµС‚СЃСЏ РІ se_car:on_unregister()
 end
 
 
@@ -60,6 +60,7 @@ local override_game_types = {
 	[ "hand_radio_f" ] = "",
 	[ "matras" ] = "",
 	[ "turret_pkm" ] = "",
+	[ "dar_road_detonator" ] = "",
 	[ "autodoctor" ] = "medkit",
 	[ "dix" ] = "medkit",
 	[ "bipsizon" ] = "medkit",
@@ -73,24 +74,26 @@ function override_game_type( sect )
     local gtype = override_game_types[ sect ]
     if gtype then
       gtype = gtype == "other" and "" or gtype
-    elseif string.find( sect, "^fake_wpn_" ) then --фейк-предметы
+    elseif string.find( sect, "^fake_wpn_" ) then --С„РµР№Рє-РїСЂРµРґРјРµС‚С‹
       gtype = "knife"
-    elseif string.find( sect, "^mutant_" ) then --части монстров
+    elseif string.find( sect, "^mutant_" ) then --С‡Р°СЃС‚Рё РјРѕРЅСЃС‚СЂРѕРІ
       gtype = "mutant_part"
-    elseif string.find( sect, "^af_maska_" ) --противогазы
-	  or string.find( sect, "exo" ) --экзоскелеты
+    elseif string.find( sect, "^af_maska_" ) --РїСЂРѕС‚РёРІРѕРіР°Р·С‹
+	  or string.find( sect, "exo" ) --СЌРєР·РѕСЃРєРµР»РµС‚С‹
 	then
 	  gtype = "outfit"
-    elseif string.find( sect, "^cartridge_" ) then --картриджи для автодоктора
+    elseif string.find( sect, "^cartridge_" ) then --РєР°СЂС‚СЂРёРґР¶Рё РґР»СЏ Р°РІС‚РѕРґРѕРєС‚РѕСЂР°
 	  gtype = "medkit"
-    elseif string.find( sect, "^wpn_addon_" ) then --аддоны для оружия
+    elseif string.find( sect, "^wpn_addon_" ) then --Р°РґРґРѕРЅС‹ РґР»СЏ РѕСЂСѓР¶РёСЏ
 	  gtype = "gl"
     elseif string.find( sect, "^wpn_binoc" )
-      or string.find( sect, "detector" ) --детекторы артефактов, мин и тд.
-      or string.find( sect, "^firmware_" ) --прошивки для биорадара
-      or string.find( sect, "^device_pnv_" ) --ПНВ
-      or string.find( sect, "^book_" ) --Книжки
-      or string.find( sect, "^sigaret" ) --сигареты
+      or string.find( sect, "detector" ) --РґРµС‚РµРєС‚РѕСЂС‹ Р°СЂС‚РµС„Р°РєС‚РѕРІ, РјРёРЅ Рё С‚Рґ.
+      or string.find( sect, "^firmware_" ) --РїСЂРѕС€РёРІРєРё РґР»СЏ Р±РёРѕСЂР°РґР°СЂР°
+      or string.find( sect, "^device_pnv_" ) --РџРќР’
+      or string.find( sect, "^book_" ) --РљРЅРёР¶РєРё
+      or string.find( sect, "^sigaret" ) --СЃРёРіР°СЂРµС‚С‹
+      or string.find( sect, "_planshet" ) --РєРІРµСЃС‚РѕРІС‹Рµ РїР»Р°РЅС€РµС‚С‹,
+      or string.find( sect, "_pda" ) --РїРґР°
     then
       gtype = ""
     end
@@ -189,7 +192,7 @@ function save_rukzak( id, data )
   end
 end
 
-function delete_rukzak_data( id ) --вызывается ещё и из se_car:on_unregister()
+function delete_rukzak_data( id ) --РІС‹Р·С‹РІР°РµС‚СЃСЏ РµС‰С‘ Рё РёР· se_car:on_unregister()
   local prefix = "dsh_rukzak." .. id
   ogse.delete_var( prefix .. ".all_types" )
   ogse.delete_var( prefix .. ".conds"     )
@@ -277,7 +280,7 @@ function get_wpn_info( wpn )
   table.insert( info, gl_status       )
   table.insert( info, silencer_status )
   --
-  --KRodin: добавил сохранение кастомдаты. Нужно для подствольного дробовика.
+  --KRodin: РґРѕР±Р°РІРёР» СЃРѕС…СЂР°РЅРµРЅРёРµ РєР°СЃС‚РѕРјРґР°С‚С‹. РќСѓР¶РЅРѕ РґР»СЏ РїРѕРґСЃС‚РІРѕР»СЊРЅРѕРіРѕ РґСЂРѕР±РѕРІРёРєР°.
   local sobj = alife():object( wpn:id() )
   if sobj and sobj.custom_data then
     --log3("--saved customdata: %s", sobj.custom_data)
@@ -425,9 +428,9 @@ function can_include_into_actor_items( item )
 end
 
 
---KRodin: заменил здесь проверки obj:is_*() на проверки по классу, указаному в секции.
---Чтобы можно было определять тип объекта, когда есть только его секция.
---Подглядел список классов в исходниках, вроде бы ничего не забыл.
+--KRodin: Р·Р°РјРµРЅРёР» Р·РґРµСЃСЊ РїСЂРѕРІРµСЂРєРё obj:is_*() РЅР° РїСЂРѕРІРµСЂРєРё РїРѕ РєР»Р°СЃСЃСѓ, СѓРєР°Р·Р°РЅРѕРјСѓ РІ СЃРµРєС†РёРё.
+--Р§С‚РѕР±С‹ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ РѕРїСЂРµРґРµР»СЏС‚СЊ С‚РёРї РѕР±СЉРµРєС‚Р°, РєРѕРіРґР° РµСЃС‚СЊ С‚РѕР»СЊРєРѕ РµРіРѕ СЃРµРєС†РёСЏ.
+--РџРѕРґРіР»СЏРґРµР» СЃРїРёСЃРѕРє РєР»Р°СЃСЃРѕРІ РІ РёСЃС…РѕРґРЅРёРєР°С…, РІСЂРѕРґРµ Р±С‹ РЅРёС‡РµРіРѕ РЅРµ Р·Р°Р±С‹Р».
 local wpn_magazined_clsids = {
 	[clsid.wpn_wmagaz] = true,
 	[clsid.wpn_wmaggl] = true,
@@ -465,7 +468,7 @@ local wpn_magazined_clsids = {
 	[clsid.wpn_usp45_s] = true,
 	[clsid.wpn_val_s] = true,
 	[clsid.wpn_vintorez_s] = true,
-	--[clsid.wpn_walther_s] = true, --В ОГСЕ вырезан в class_registrator'e
+	--[clsid.wpn_walther_s] = true, --Р’ РћР“РЎР• РІС‹СЂРµР·Р°РЅ РІ class_registrator'e
 }
 local artefact_clsids = {
 	[clsid.art_mercury_ball] = true,
@@ -773,7 +776,7 @@ function ui_rukzak:__init( obj ) super()
   self.index_other = {}
   self.index_our = {}
   self.owner_id = obj:id()
-  self.is_car = obj:is_car() --KRodin: сделал для поддержки багажников в машинах
+  self.is_car = obj:is_car() --KRodin: СЃРґРµР»Р°Р» РґР»СЏ РїРѕРґРґРµСЂР¶РєРё Р±Р°РіР°Р¶РЅРёРєРѕРІ РІ РјР°С€РёРЅР°С…
   self.xml_fname = "ui_dsh_rukzak.xml"
   self:InitControls()
   self:InitCallBacks()
@@ -1236,10 +1239,10 @@ end
 
 
 function ui_rukzak:search_items( items )
-  local term = string.lower( self.edit_filter:GetText() )
+  local term = string.lowerW( self.edit_filter:GetText() )
   if term ~= "" then
     items = self:grep_items_by( items, function( item )
-      return string.find( string.lower( item.name ), term, 1, true )
+      return string.find( string.lowerW( item.name ), term, 1, true )
     end )
   end
   return items
@@ -1270,11 +1273,11 @@ function ui_rukzak:sort_items( items )
   local sort_func
   if     sort_idx == 1 then
     sort_func = function( a, b )
-      return dsh.remove_quotes( string.lower( a.name ) ) < dsh.remove_quotes( string.lower( b.name ) )
+      return dsh.remove_quotes( string.lowerW( a.name ) ) < dsh.remove_quotes( string.lowerW( b.name ) )
     end
   elseif sort_idx == 2 then
     sort_func = function( a, b )
-      return dsh.remove_quotes( string.lower( a.name ) ) > dsh.remove_quotes( string.lower( b.name ) )
+      return dsh.remove_quotes( string.lowerW( a.name ) ) > dsh.remove_quotes( string.lowerW( b.name ) )
     end
   elseif sort_idx == 3 then
     sort_func = function( a, b )
@@ -1319,19 +1322,19 @@ function ui_rukzak:show_filtered_items( keep_search )
   local filtered_our   = self.filtered_our
   if not ( filtered_other and filtered_our ) then
     local by_type;
-    if     show_idx == 1 then   -- оружие
+    if     show_idx == 1 then   -- РѕСЂСѓР¶РёРµ
       by_type = function( item )
         return item.game_type == "weapon" or item.game_type == "knife"
       end
-    elseif show_idx == 2 then   -- патроны
+    elseif show_idx == 2 then   -- РїР°С‚СЂРѕРЅС‹
       by_type = function( item )
         return item.game_type == "ammo"
       end
-    elseif show_idx == 3 then   -- гранаты
+    elseif show_idx == 3 then   -- РіСЂР°РЅР°С‚С‹
       by_type = function( item )
         return item.game_type == "grenade"
       end
-    elseif show_idx == 4 then   -- обвесы на оружие
+    elseif show_idx == 4 then   -- РѕР±РІРµСЃС‹ РЅР° РѕСЂСѓР¶РёРµ
       by_type = function( item )
         return
           item.game_type == "scope"
@@ -1340,25 +1343,25 @@ function ui_rukzak:show_filtered_items( keep_search )
           or
           item.game_type == "gl"
       end
-    elseif show_idx == 5 then   -- броня
+    elseif show_idx == 5 then   -- Р±СЂРѕРЅСЏ
       by_type = function( item )
         return item.game_type == "outfit"
       end
-    elseif show_idx == 6 then   -- артефакты
+    elseif show_idx == 6 then   -- Р°СЂС‚РµС„Р°РєС‚С‹
       by_type = function( item )
         return item.game_type == "artefact"
       end
-    elseif show_idx == 7 then   -- еда
+    elseif show_idx == 7 then   -- РµРґР°
       by_type = function( item )
         return
              item.game_type == "food"
           or item.game_type == "bottle"
       end
-    elseif show_idx == 8 then   -- медицина
+    elseif show_idx == 8 then   -- РјРµРґРёС†РёРЅР°
       by_type = function( item )
         return item.game_type == "medkit" or item.game_type == "antirad"
       end
-    elseif show_idx == 9 then   -- части мутантов
+    elseif show_idx == 9 then   -- С‡Р°СЃС‚Рё РјСѓС‚Р°РЅС‚РѕРІ
       by_type = function( item )
         return item.game_type == "mutant_part"
       end
@@ -1468,7 +1471,7 @@ end
 
 
 function spawn_item_in_rukzak( rukzak_id, sect, num )
-	ASSERT(rukzak_id and sect, "") --на всякий случай
+	ASSERT(rukzak_id and sect, "") --РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№
 	local items    = load_rukzak( rukzak_id )
 	local class    = get_class( sect )
 	local item     = {}
@@ -1483,7 +1486,7 @@ function spawn_item_in_rukzak( rukzak_id, sect, num )
 end
 
 function is_item_in_rukzak(rukzak_id, section)
-	ASSERT(rukzak_id and section, "") --на всякий случай
+	ASSERT(rukzak_id and section, "") --РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№
 	local items = load_rukzak( rukzak_id )
 	for i=1, #items do
 		local item = items[i]
@@ -1495,9 +1498,9 @@ function is_item_in_rukzak(rukzak_id, section)
 end
 
 function remove_item_from_rukzak(rukzak_id, section)
-	ASSERT(rukzak_id and section, "") --на всякий случай
+	ASSERT(rukzak_id and section, "") --РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№
 	local items = load_rukzak( rukzak_id )
-	for i = #items, 1 , -1 do --Цикл в обратном порядке, чтобы корректно работал table.remove. Ну, на всякий случай.
+	for i = #items, 1 , -1 do --Р¦РёРєР» РІ РѕР±СЂР°С‚РЅРѕРј РїРѕСЂСЏРґРєРµ, С‡С‚РѕР±С‹ РєРѕСЂСЂРµРєС‚РЅРѕ СЂР°Р±РѕС‚Р°Р» table.remove. РќСѓ, РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№.
 		local item = items[i]
 		if item.section == section then
 			item.count = ammo_clsids[get_class(section)] and item.count - get_u32(section, "box_size") or item.count - 1
@@ -1512,8 +1515,8 @@ end
 
 
 --[=[
-Универсальная функция для создания тайников.
-Пример использования:
+РЈРЅРёРІРµСЂСЃР°Р»СЊРЅР°СЏ С„СѓРЅРєС†РёСЏ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ С‚Р°Р№РЅРёРєРѕРІ.
+РџСЂРёРјРµСЂ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ:
 	local items = {
 		["wpn_svd"] = 1,
 		["ammo_7.62x54_7h14"] = 5,
@@ -1551,15 +1554,15 @@ end
 
 
 --[=[
-Специальная функция для упрощённого перевода старых тайников на новую систему.
-Например, конструкцию вида:
+РЎРїРµС†РёР°Р»СЊРЅР°СЏ С„СѓРЅРєС†РёСЏ РґР»СЏ СѓРїСЂРѕС‰С‘РЅРЅРѕРіРѕ РїРµСЂРµРІРѕРґР° СЃС‚Р°СЂС‹С… С‚Р°Р№РЅРёРєРѕРІ РЅР° РЅРѕРІСѓСЋ СЃРёСЃС‚РµРјСѓ.
+РќР°РїСЂРёРјРµСЂ, РєРѕРЅСЃС‚СЂСѓРєС†РёСЋ РІРёРґР°:
 alife():create("a_inventory_box12",vector():set(1146.6,-0.78,-30.55),477896,2280)
-Можно просто заменить на:
+РњРѕР¶РЅРѕ РїСЂРѕСЃС‚Рѕ Р·Р°РјРµРЅРёС‚СЊ РЅР°:
 dsh_rukzak.create_rukzak_by_section("a_inventory_box12",vector():set(1146.6,-0.78,-30.55),477896,2280)
-После этого вместо обычного рюкзака будет заспавнен волшебный.
+РџРѕСЃР»Рµ СЌС‚РѕРіРѕ РІРјРµСЃС‚Рѕ РѕР±С‹С‡РЅРѕРіРѕ СЂСЋРєР·Р°РєР° Р±СѓРґРµС‚ Р·Р°СЃРїР°РІРЅРµРЅ РІРѕР»С€РµР±РЅС‹Р№.
 --]=]
 function create_rukzak_by_section( sect, pos, lv, gv, mapspot, hint )
-	ASSERT(sect, "") --на всякий случай
+	ASSERT(sect, "") --РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№
 	local path = get_string(sect, "custom_data")
 	ASSERT(path, "Can't find custom_data in section [%s]", sect)
 	local ini = ini_file(path)

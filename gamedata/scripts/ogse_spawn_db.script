@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 script_spawn_registry = {
 	dark_valley_u_spawn = {
@@ -143,7 +143,7 @@ script_spawn_registry = {
 		spawn_fn2000_2 = {sec = "ammo_9x39_ap", cnt = 5, pos = {305.05, -39.38, -25.8}, lvid = 68435, gvid = 1997},
 	},
 	ogse_quests = {
-		agr_btr_comp = {sec = "btr_control_module", pos = {-149.497, 1.163, -200.012}, lvid = 90284, gvid = 628}, -- проверять надо не только координаты, но и модель для спавна. данный комп "полуутоплен", поэтому он или выдавливается или проваливается под уровень, если спавнить в 0 координате. Потом, закоим хером комп валяется на земле в сарае, если его логичней положить на рабочий стол с инструментами в главном здании?!
+		agr_btr_comp = {sec = "btr_control_module", pos = {-149.497, 1.163, -200.012}, lvid = 90284, gvid = 628},
 		gar_btr_accum = {sec = "accum_depleted", pos = {-94.053, -0.720, -222.987}, lvid = 118967, gvid = 278},
 		art_sp = {sec = "af_blood_tutorial", pos = {-247.6, -14.3, -22}, lvid = 12560, gvid = 65},
 		esc_dynamite_sp_1 = {sec = "dynamite", pos = {132.52, -7.6829, -4.026}, lvid = 434111, gvid = 132},

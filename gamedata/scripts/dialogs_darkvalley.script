@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -------------------------------------------------------------------------
 --	purpose:	dialog support for Dark Valley
@@ -23,7 +23,7 @@ function val_escort_reward(npc, actor)
 end
 
 
---Украсть документы бармена для Борова
+--РЈРєСЂР°СЃС‚СЊ РґРѕРєСѓРјРµРЅС‚С‹ Р±Р°СЂРјРµРЅР° РґР»СЏ Р‘РѕСЂРѕРІР°
 function barman_document_have(task, objective)
 if db.actor ~= nil then 
 return db.actor:object("borov_document") ~= nil

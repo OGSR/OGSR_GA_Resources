@@ -1,26 +1,26 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ----------------------------------------------------------------------------------------------------
 -- Companion
 ----------------------------------------------------------------------------------------------------
--- Разработчик: Serhiy Vynnychenko (narrator@gsc-game.kiev.ua)
--- Доработки: Andrey Fidrya (Zmey) af@svitonline.com
+-- Р Р°Р·СЂР°Р±РѕС‚С‡РёРє: Serhiy Vynnychenko (narrator@gsc-game.kiev.ua)
+-- Р”РѕСЂР°Р±РѕС‚РєРё: Andrey Fidrya (Zmey) af@svitonline.com
 ----------------------------------------------------------------------------------------------------
--- Реанимация схемы для применения в релизной версии, доработка: KamikaZze kamikazze-ru@yandex.ru
--- Идея системы телепортации: Malandrinus
+-- Р РµР°РЅРёРјР°С†РёСЏ СЃС…РµРјС‹ РґР»СЏ РїСЂРёРјРµРЅРµРЅРёСЏ РІ СЂРµР»РёР·РЅРѕР№ РІРµСЂСЃРёРё, РґРѕСЂР°Р±РѕС‚РєР°: KamikaZze kamikazze-ru@yandex.ru
+-- РРґРµСЏ СЃРёСЃС‚РµРјС‹ С‚РµР»РµРїРѕСЂС‚Р°С†РёРё: Malandrinus
 ----------------------------------------------------------------------------------------------------
--- Версия 2.25 -- боевка сделана отдельной схемой и вынесена полностью в отдельный скрипт
+-- Р’РµСЂСЃРёСЏ 2.25 -- Р±РѕРµРІРєР° СЃРґРµР»Р°РЅР° РѕС‚РґРµР»СЊРЅРѕР№ СЃС…РµРјРѕР№ Рё РІС‹РЅРµСЃРµРЅР° РїРѕР»РЅРѕСЃС‚СЊСЋ РІ РѕС‚РґРµР»СЊРЅС‹Р№ СЃРєСЂРёРїС‚
 ----------------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------------
--- Возможные коммунити актора:
--- actor			- одиночка
--- actor_dolg		- долговец
--- actor_freedom	- свободовец
--- actor_zombied	- зомбированный
--- actor_prebandit	- помощник бандитов
--- bandit			- бандит
--- mil_stalker		- военсталкер
+-- Р’РѕР·РјРѕР¶РЅС‹Рµ РєРѕРјРјСѓРЅРёС‚Рё Р°РєС‚РѕСЂР°:
+-- actor			- РѕРґРёРЅРѕС‡РєР°
+-- actor_dolg		- РґРѕР»РіРѕРІРµС†
+-- actor_freedom	- СЃРІРѕР±РѕРґРѕРІРµС†
+-- actor_zombied	- Р·РѕРјР±РёСЂРѕРІР°РЅРЅС‹Р№
+-- actor_prebandit	- РїРѕРјРѕС‰РЅРёРє Р±Р°РЅРґРёС‚РѕРІ
+-- bandit			- Р±Р°РЅРґРёС‚
+-- mil_stalker		- РІРѕРµРЅСЃС‚Р°Р»РєРµСЂ
 ----------------------------------------------------------------------------------------------------
 
 local sm = ogse_signals.get_mgr()
@@ -71,9 +71,9 @@ local prohibit_rpg_7 = false
 
 local desired_distance = 3
 local min_distance = 1.5
-local max_distance = 25 -- дальше этого расстояния напарник будет бежать к вам забыв про врагов
+local max_distance = 25 -- РґР°Р»СЊС€Рµ СЌС‚РѕРіРѕ СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РЅР°РїР°СЂРЅРёРє Р±СѓРґРµС‚ Р±РµР¶Р°С‚СЊ Рє РІР°Рј Р·Р°Р±С‹РІ РїСЂРѕ РІСЂР°РіРѕРІ
 
-local keep_state_min_time = 1000 -- переключившись в состояние (бег, ходьба, спринт), не переключаться в другое N ms
+local keep_state_min_time = 1000 -- РїРµСЂРµРєР»СЋС‡РёРІС€РёСЃСЊ РІ СЃРѕСЃС‚РѕСЏРЅРёРµ (Р±РµРі, С…РѕРґСЊР±Р°, СЃРїСЂРёРЅС‚), РЅРµ РїРµСЂРµРєР»СЋС‡Р°С‚СЊСЃСЏ РІ РґСЂСѓРіРѕРµ N ms
 
 local dist_walk = 5 -- < dist_run
 local dist_run = 15
@@ -81,12 +81,12 @@ local dist_run = 15
 
 local sound_wait = {
 	"weather,state",
-	-- если когда-то появятся ещё звуковые темы, их можно поставить сюда
+	-- РµСЃР»Рё РєРѕРіРґР°-С‚Рѕ РїРѕСЏРІСЏС‚СЃСЏ РµС‰С‘ Р·РІСѓРєРѕРІС‹Рµ С‚РµРјС‹, РёС… РјРѕР¶РЅРѕ РїРѕСЃС‚Р°РІРёС‚СЊ СЃСЋРґР°
 }
 local sound_prob = 0.2
 local testing_sound = false
 
--- Модели поведения:
+-- РњРѕРґРµР»Рё РїРѕРІРµРґРµРЅРёСЏ:
 beh_walk_simple = 0
 beh_walk_low_aggr = 8
 beh_walk_ignore = 2
@@ -117,15 +117,15 @@ local mt_sprint = 3
 local keep_state_until = time_global()
 local last_state = {}
 local assist_point = {}
-local locked_vertexes 		= {}		-- занятые вертексы
+local locked_vertexes 		= {}		-- Р·Р°РЅСЏС‚С‹Рµ РІРµСЂС‚РµРєСЃС‹
 local talking_time = 5000
 local talking_npc = {}
 
-being_attacked = false --KRodin: хм, а при нескольких напарниках оно нормально работает? Если будут проблемы - завести массив и там этот флаг хранить для каждого.
---actor_attacked = false --нигде не меняется
+being_attacked = false --KRodin: С…Рј, Р° РїСЂРё РЅРµСЃРєРѕР»СЊРєРёС… РЅР°РїР°СЂРЅРёРєР°С… РѕРЅРѕ РЅРѕСЂРјР°Р»СЊРЅРѕ СЂР°Р±РѕС‚Р°РµС‚? Р•СЃР»Рё Р±СѓРґСѓС‚ РїСЂРѕР±Р»РµРјС‹ - Р·Р°РІРµСЃС‚Рё РјР°СЃСЃРёРІ Рё С‚Р°Рј СЌС‚РѕС‚ С„Р»Р°Рі С…СЂР°РЅРёС‚СЊ РґР»СЏ РєР°Р¶РґРѕРіРѕ.
+--actor_attacked = false --РЅРёРіРґРµ РЅРµ РјРµРЅСЏРµС‚СЃСЏ
 
 -----------------------------------------------------
---- каких групп бывают напарники
+--- РєР°РєРёС… РіСЂСѓРїРї Р±С‹РІР°СЋС‚ РЅР°РїР°СЂРЅРёРєРё
 -----------------------------------------------------
 local suitable_communities = {
 	["stalker"] = true,
@@ -139,9 +139,9 @@ local suitable_communities = {
 }
 
 -----------------------------------------------------
--- Классы оружия
--- первая цифра тип патрона
--- вторая цифра флаг наличия авт. режима огня
+-- РљР»Р°СЃСЃС‹ РѕСЂСѓР¶РёСЏ
+-- РїРµСЂРІР°СЏ С†РёС„СЂР° С‚РёРї РїР°С‚СЂРѕРЅР°
+-- РІС‚РѕСЂР°СЏ С†РёС„СЂР° С„Р»Р°Рі РЅР°Р»РёС‡РёСЏ Р°РІС‚. СЂРµР¶РёРјР° РѕРіРЅСЏ
 -----------------------------------------------------
 local weapon_class = {
 [10] = "pistol",
@@ -158,31 +158,33 @@ local weapon_class = {
 }
 
 -----------------------------------------------------
--- Получение оружия по параметрам
+-- РџРѕР»СѓС‡РµРЅРёРµ РѕСЂСѓР¶РёСЏ РїРѕ РїР°СЂР°РјРµС‚СЂР°Рј
 -----------------------------------------------------
 local function get_parameters_from_table(wpn)
-	if wpn:is_pistol() then
-		return 10
-	elseif wpn:clsid() == clsid.wpn_rpg7_s then
+	if wpn:clsid() == clsid.wpn_rpg7_s then
 		return 50
 	elseif xr_combat_companion.IsSniperRifle(wpn) then
 		return 40
 	elseif xr_combat_companion.IsShotgun(wpn) then
 		return 20
+	elseif xr_combat_companion.IsHighRecoilRapidFire(wpn) then
+		return 41
+	elseif wpn:is_pistol() then
+		return 10
 	else
 		return 31
 	end
 end
 -----------------------------------------------------
--- в этой табличке хранится выбранный тип оружия для напарника в виде companion_weapon[npc:id()] = "выбранный_тип"
--- разрешение использовать любое оружие == "anything"
+-- РІ СЌС‚РѕР№ С‚Р°Р±Р»РёС‡РєРµ С…СЂР°РЅРёС‚СЃСЏ РІС‹Р±СЂР°РЅРЅС‹Р№ С‚РёРї РѕСЂСѓР¶РёСЏ РґР»СЏ РЅР°РїР°СЂРЅРёРєР° РІ РІРёРґРµ companion_weapon[npc:id()] = "РІС‹Р±СЂР°РЅРЅС‹Р№_С‚РёРї"
+-- СЂР°Р·СЂРµС€РµРЅРёРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р»СЋР±РѕРµ РѕСЂСѓР¶РёРµ == "anything"
 -----------------------------------------------------
 local companion_weapon = {}
 -----------------------------------------------------
--- в этой табличке хранится список типов оружия которые есть у напарника
--- структура:
+-- РІ СЌС‚РѕР№ С‚Р°Р±Р»РёС‡РєРµ С…СЂР°РЅРёС‚СЃСЏ СЃРїРёСЃРѕРє С‚РёРїРѕРІ РѕСЂСѓР¶РёСЏ РєРѕС‚РѕСЂС‹Рµ РµСЃС‚СЊ Сѓ РЅР°РїР°СЂРЅРёРєР°
+-- СЃС‚СЂСѓРєС‚СѓСЂР°:
 -- companion_has = {
-	-- [ид_компаньона] = {
+	-- [РёРґ_РєРѕРјРїР°РЅСЊРѕРЅР°] = {
 		-- pistol = true,
 		-- submashinegun = true,
 		-- shotgun = true,
@@ -198,10 +200,10 @@ local companion_weapon = {}
 -----------------------------------------------------
 local companion_has = {}
 -----------------------------------------------------
--- Селектор вооружения (будет работать только с менеджером вооружений)
+-- РЎРµР»РµРєС‚РѕСЂ РІРѕРѕСЂСѓР¶РµРЅРёСЏ (Р±СѓРґРµС‚ СЂР°Р±РѕС‚Р°С‚СЊ С‚РѕР»СЊРєРѕ СЃ РјРµРЅРµРґР¶РµСЂРѕРј РІРѕРѕСЂСѓР¶РµРЅРёР№)
 -----------------------------------------------------
 function check_weapon(wpn, npc_id)
-	if not companion_weapon[npc_id] or (companion_weapon[npc_id] and companion_weapon[npc_id] == "anything") then
+	if not companion_weapon[npc_id] or companion_weapon[npc_id] == "anything" then
 		return true
 	end
 	if wpn:is_grenade() or wpn:is_knife() then
@@ -223,7 +225,7 @@ function check_weapon(wpn, npc_id)
 end
 
 -----------------------------------------------------
--- Заполнение типов оружия которые есть в наличии
+-- Р—Р°РїРѕР»РЅРµРЅРёРµ С‚РёРїРѕРІ РѕСЂСѓР¶РёСЏ РєРѕС‚РѕСЂС‹Рµ РµСЃС‚СЊ РІ РЅР°Р»РёС‡РёРё
 -----------------------------------------------------
 function no_best_enemy(actor, npc)
 	-- local enemy = npc:best_enemy()
@@ -256,7 +258,7 @@ function search_for_weapons(actor, npc)
 	end
 end
 -----------------------------------------------------
--- Итератор поиска
+-- РС‚РµСЂР°С‚РѕСЂ РїРѕРёСЃРєР°
 -----------------------------------------------------
 function search_weapon(npc, item)
 	if npc and item and item:is_weapon_magazined() then
@@ -308,10 +310,10 @@ function search_weapon(npc, item)
 	end
 end
 -----------------------------------------------------
--- Приказы на смену оружия
+-- РџСЂРёРєР°Р·С‹ РЅР° СЃРјРµРЅСѓ РѕСЂСѓР¶РёСЏ
 -----------------------------------------------------
 ----------------------------------
-local function update_wmgr(npc) --Принудительное обновление оружейного менеджера
+local function update_wmgr(npc) --РџСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕРµ РѕР±РЅРѕРІР»РµРЅРёРµ РѕСЂСѓР¶РµР№РЅРѕРіРѕ РјРµРЅРµРґР¶РµСЂР°
 	local st = rx_ai.get_storage( npc:id() )
 	if st and st.wm then
 		st.wm.do_update_list = true
@@ -396,7 +398,7 @@ function set_weapon_flamethrower(actor, npc)
 	end
 end
 -----------------------------------------------------
--- Прекондишены оружейных фраз
+-- РџСЂРµРєРѕРЅРґРёС€РµРЅС‹ РѕСЂСѓР¶РµР№РЅС‹С… С„СЂР°Р·
 -----------------------------------------------------
 function has_pistol(actor, npc)
 	if companion_has[npc:id()] and companion_has[npc:id()].pistol == true then
@@ -500,25 +502,25 @@ function has_flamethrower(actor, npc)
 end
 
 -----------------------------------------------------
--- Система телепортации
+-- РЎРёСЃС‚РµРјР° С‚РµР»РµРїРѕСЂС‚Р°С†РёРё
 -----------------------------------------------------
--- Принцип работы:
--- 1) Актор на уровне, схема "следуй за мной" -- запретить уход в оффлайн
--- 2) Актор на уровне, схема "жди тут" -- не принимать задания алайфа, стоять на месте
--- 3) Актор на уровне, в машине, схема "следуй за мной" -- выводим в офф и телепортируем за актором
--- 4) Актор на другом уровне, схема "следуй за мной" -- телепортируем за актором
--- 5) Актор на другом уровне, схема "жди тут" -- не принимать задания алайфа, стоять на месте
+-- РџСЂРёРЅС†РёРї СЂР°Р±РѕС‚С‹:
+-- 1) РђРєС‚РѕСЂ РЅР° СѓСЂРѕРІРЅРµ, СЃС…РµРјР° "СЃР»РµРґСѓР№ Р·Р° РјРЅРѕР№" -- Р·Р°РїСЂРµС‚РёС‚СЊ СѓС…РѕРґ РІ РѕС„С„Р»Р°Р№РЅ
+-- 2) РђРєС‚РѕСЂ РЅР° СѓСЂРѕРІРЅРµ, СЃС…РµРјР° "Р¶РґРё С‚СѓС‚" -- РЅРµ РїСЂРёРЅРёРјР°С‚СЊ Р·Р°РґР°РЅРёСЏ Р°Р»Р°Р№С„Р°, СЃС‚РѕСЏС‚СЊ РЅР° РјРµСЃС‚Рµ
+-- 3) РђРєС‚РѕСЂ РЅР° СѓСЂРѕРІРЅРµ, РІ РјР°С€РёРЅРµ, СЃС…РµРјР° "СЃР»РµРґСѓР№ Р·Р° РјРЅРѕР№" -- РІС‹РІРѕРґРёРј РІ РѕС„С„ Рё С‚РµР»РµРїРѕСЂС‚РёСЂСѓРµРј Р·Р° Р°РєС‚РѕСЂРѕРј
+-- 4) РђРєС‚РѕСЂ РЅР° РґСЂСѓРіРѕРј СѓСЂРѕРІРЅРµ, СЃС…РµРјР° "СЃР»РµРґСѓР№ Р·Р° РјРЅРѕР№" -- С‚РµР»РµРїРѕСЂС‚РёСЂСѓРµРј Р·Р° Р°РєС‚РѕСЂРѕРј
+-- 5) РђРєС‚РѕСЂ РЅР° РґСЂСѓРіРѕРј СѓСЂРѕРІРЅРµ, СЃС…РµРјР° "Р¶РґРё С‚СѓС‚" -- РЅРµ РїСЂРёРЅРёРјР°С‚СЊ Р·Р°РґР°РЅРёСЏ Р°Р»Р°Р№С„Р°, СЃС‚РѕСЏС‚СЊ РЅР° РјРµСЃС‚Рµ
 -----------------------------------------------------
--- teleport_on_actor_level - Телепортация напарника на другую локацию, использует добавленную в движок teleport_object (точнее она там была, и её восстановили)
+-- teleport_on_actor_level - РўРµР»РµРїРѕСЂС‚Р°С†РёСЏ РЅР°РїР°СЂРЅРёРєР° РЅР° РґСЂСѓРіСѓСЋ Р»РѕРєР°С†РёСЋ, РёСЃРїРѕР»СЊР·СѓРµС‚ РґРѕР±Р°РІР»РµРЅРЅСѓСЋ РІ РґРІРёР¶РѕРє teleport_object (С‚РѕС‡РЅРµРµ РѕРЅР° С‚Р°Рј Р±С‹Р»Р°, Рё РµС‘ РІРѕСЃСЃС‚Р°РЅРѕРІРёР»Рё)
 -----------------------------------------------------
--- check_in_car - проверка в машине ли ГГ
+-- check_in_car - РїСЂРѕРІРµСЂРєР° РІ РјР°С€РёРЅРµ Р»Рё Р“Р“
 -----------------------------------------------------
--- Функция для перехода с локации на локацию
+-- Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїРµСЂРµС…РѕРґР° СЃ Р»РѕРєР°С†РёРё РЅР° Р»РѕРєР°С†РёСЋ
 -----------------------------------------------------
 function teleport_on_actor_level(npc_id, s_npc)
 	if level.name() ~= object_level_name(s_npc) then
 		local actor = db.actor
-		-- недурно бы телепортнуться
+		-- РЅРµРґСѓСЂРЅРѕ Р±С‹ С‚РµР»РµРїРѕСЂС‚РЅСѓС‚СЊСЃСЏ
 		local gvid = alife():actor().m_game_vertex_id 
 		local lvid = alife():actor().m_level_vertex_id
 		local pos = alife():actor().position
@@ -528,11 +530,11 @@ function teleport_on_actor_level(npc_id, s_npc)
 	end
 end
 -----------------------------------------------------
--- Проверка на сидение в машине
+-- РџСЂРѕРІРµСЂРєР° РЅР° СЃРёРґРµРЅРёРµ РІ РјР°С€РёРЅРµ
 -----------------------------------------------------
 function is_inside_my_car()
 	local car = ogse_car_control.current_car
-	if car then -- если ГГ уже в машине
+	if car then -- РµСЃР»Рё Р“Р“ СѓР¶Рµ РІ РјР°С€РёРЅРµ
 		local is_inside = 0
 		for id, _ in pairs(companions) do
 			local inside = load_var_companion(id,"in_car","false")
@@ -557,7 +559,7 @@ function check_in_car()
 
 	local car = ogse_car_control.current_car
 	if car then
-		-- выводим в оффлайн
+		-- РІС‹РІРѕРґРёРј РІ РѕС„С„Р»Р°Р№РЅ
 		for id, _ in pairs(companions) do
 				local w_level = load_var_companion(id,"w_lvl",nil)
 				local icon = load_var_companion(id,"last_car",nil)
@@ -566,13 +568,13 @@ function check_in_car()
 					if npc and car then
 						local s_npc = alife():object(id)
 						if s_npc then
-							teleport_on_actor_level(id, s_npc) --Если напарник на другой локации, телепортируем его
+							teleport_on_actor_level(id, s_npc) --Р•СЃР»Рё РЅР°РїР°СЂРЅРёРє РЅР° РґСЂСѓРіРѕР№ Р»РѕРєР°С†РёРё, С‚РµР»РµРїРѕСЂС‚РёСЂСѓРµРј РµРіРѕ
 							local distance = npc:position():distance_to(car:position())  
 							local inside = load_var_companion(id,"in_car","false")
 							if distance > 7 and inside == "false" then
 								return
 							end
-							-- вывели
+							-- РІС‹РІРµР»Рё
 							s_npc.force_offline = true
 							if not icon then
 								s_npc:visible_for_map(false)
@@ -589,13 +591,13 @@ function check_in_car()
 				end
 		end
 	else
-		-- обратно в онлайн
+		-- РѕР±СЂР°С‚РЅРѕ РІ РѕРЅР»Р°Р№РЅ
 		for id, _ in pairs(companions) do
 			if not level.object_by_id(id) then
 				local w_level = load_var_companion(id,"w_lvl",nil)
 				local s_npc = alife():object(id)
 				if s_npc and (not w_level or w_level == "" or w_level == "nil") then
-					teleport_on_actor_level(id, s_npc) --Если напарник на другой локации, телепортируем его
+					teleport_on_actor_level(id, s_npc) --Р•СЃР»Рё РЅР°РїР°СЂРЅРёРє РЅР° РґСЂСѓРіРѕР№ Р»РѕРєР°С†РёРё, С‚РµР»РµРїРѕСЂС‚РёСЂСѓРµРј РµРіРѕ
 					local pos = alife():actor().position
 					local last_car = tonumber(load_var_companion(id,"last_car",0))
 					pos.x = pos.x + 4
@@ -618,17 +620,17 @@ function check_in_car()
 	end
 end
 -----------------------------------------------------
--- Функции сохранения и выгрузки из хранилища
+-- Р¤СѓРЅРєС†РёРё СЃРѕС…СЂР°РЅРµРЅРёСЏ Рё РІС‹РіСЂСѓР·РєРё РёР· С…СЂР°РЅРёР»РёС‰Р°
 -----------------------------------------------------
--- Переменные напарника в хранилища
+-- РџРµСЂРµРјРµРЅРЅС‹Рµ РЅР°РїР°СЂРЅРёРєР° РІ С…СЂР°РЅРёР»РёС‰Р°
 -----------------------------------------------------
--- is_companion - компаньон ли сейчас
--- companion_behavior - номер модели поведения
--- actor_level - текущий уровень актора
--- orig_community - родное коммунити
--- friendship_status - родное отношение к ГГ
--- actor_rep - репа актора (на будущее)
--- actor_debt - долг актора (на будущее)
+-- is_companion - РєРѕРјРїР°РЅСЊРѕРЅ Р»Рё СЃРµР№С‡Р°СЃ
+-- companion_behavior - РЅРѕРјРµСЂ РјРѕРґРµР»Рё РїРѕРІРµРґРµРЅРёСЏ
+-- actor_level - С‚РµРєСѓС‰РёР№ СѓСЂРѕРІРµРЅСЊ Р°РєС‚РѕСЂР°
+-- orig_community - СЂРѕРґРЅРѕРµ РєРѕРјРјСѓРЅРёС‚Рё
+-- friendship_status - СЂРѕРґРЅРѕРµ РѕС‚РЅРѕС€РµРЅРёРµ Рє Р“Р“
+-- actor_rep - СЂРµРїР° Р°РєС‚РѕСЂР° (РЅР° Р±СѓРґСѓС‰РµРµ)
+-- actor_debt - РґРѕР»Рі Р°РєС‚РѕСЂР° (РЅР° Р±СѓРґСѓС‰РµРµ)
 -----------------------------------------------------
 
 function community_by_actor(actor_comm)
@@ -645,7 +647,7 @@ function community_by_actor(actor_comm)
 		elseif actor_comm == "bandit" then
 			return_community = "bandit"		
 		elseif actor_comm == "actor_prebandit" then
-			return_community = "actor_prebandit"	
+			return_community = "stalker" --"actor_prebandit"
 		elseif actor_comm == "actor_zombied" then
 			return_community = "zombied"	
 		elseif actor_comm == "mil_stalker" then
@@ -659,8 +661,8 @@ end
 
 function set_community_by_actor()
 	for id, _ in pairs(companions) do
-		ASSERT(alife():object(id), "") --Такого быть не должно
-		level.client_spawn_manager():add( id, -1, function(id, obj) --Вместо сохраняемого таймера лучше сделать так, если даже не сработает - вроде как не страшно. Напарник даже если враг - атаковать актора всё равно не должен.
+		ASSERT(alife():object(id), "") --РўР°РєРѕРіРѕ Р±С‹С‚СЊ РЅРµ РґРѕР»Р¶РЅРѕ
+		level.client_spawn_manager():add( id, -1, function(id, obj) --Р’РјРµСЃС‚Рѕ СЃРѕС…СЂР°РЅСЏРµРјРѕРіРѕ С‚Р°Р№РјРµСЂР° Р»СѓС‡С€Рµ СЃРґРµР»Р°С‚СЊ С‚Р°Рє, РµСЃР»Рё РґР°Р¶Рµ РЅРµ СЃСЂР°Р±РѕС‚Р°РµС‚ - РІСЂРѕРґРµ РєР°Рє РЅРµ СЃС‚СЂР°С€РЅРѕ. РќР°РїР°СЂРЅРёРє РґР°Р¶Рµ РµСЃР»Рё РІСЂР°Рі - Р°С‚Р°РєРѕРІР°С‚СЊ Р°РєС‚РѕСЂР° РІСЃС‘ СЂР°РІРЅРѕ РЅРµ РґРѕР»Р¶РµРЅ.
 			obj:set_character_community(community_by_actor(db.actor:character_community()), 0, 0)
 		end )
 	end
@@ -809,35 +811,35 @@ function check_lost_weapon(npc)
 	local act_item = npc:active_item()
 	if act_item and act_item:is_weapon() then
 		if not last_weapon[npc:id()] then
-			-- запуск - ещё нет никакого оружия
+			-- Р·Р°РїСѓСЃРє - РµС‰С‘ РЅРµС‚ РЅРёРєР°РєРѕРіРѕ РѕСЂСѓР¶РёСЏ
 			last_weapon[npc:id()] = act_item:id()
 		else
-			-- уже сохранено значение оружия
+			-- СѓР¶Рµ СЃРѕС…СЂР°РЅРµРЅРѕ Р·РЅР°С‡РµРЅРёРµ РѕСЂСѓР¶РёСЏ
 			local last_weapon_obj = level.object_by_id(last_weapon[npc:id()])
 			if last_weapon_obj then
-				-- последнее оружие существует
+				-- РїРѕСЃР»РµРґРЅРµРµ РѕСЂСѓР¶РёРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
 				if act_item:id() == last_weapon[npc:id()] then
-					-- и оно у нас в руках
+					-- Рё РѕРЅРѕ Сѓ РЅР°СЃ РІ СЂСѓРєР°С…
 					return false, nil, nil
 				end				
 				local parent = last_weapon_obj:parent()
 				if parent then
 					if parent:id() == npc:id() then
-						-- оружие наше, просто не в руках банально
+						-- РѕСЂСѓР¶РёРµ РЅР°С€Рµ, РїСЂРѕСЃС‚Рѕ РЅРµ РІ СЂСѓРєР°С… Р±Р°РЅР°Р»СЊРЅРѕ
 						last_weapon[npc:id()] = act_item:id()
 						return false, nil, nil
 					else
-						-- кто-то забрал его уже, бесполезно трепыхаться
+						-- РєС‚Рѕ-С‚Рѕ Р·Р°Р±СЂР°Р» РµРіРѕ СѓР¶Рµ, Р±РµСЃРїРѕР»РµР·РЅРѕ С‚СЂРµРїС‹С…Р°С‚СЊСЃСЏ
 						last_weapon[npc:id()] = nil
 						return false, nil, nil					
 					end
 				else
-					-- проебали, надо подобрать
+					-- РїСЂРѕРµР±Р°Р»Рё, РЅР°РґРѕ РїРѕРґРѕР±СЂР°С‚СЊ
 					-- log1("!!XR_COMP_LOST_WEAPON_1")
 					return true, last_weapon_obj:level_vertex_id(), last_weapon_obj:id()
 				end			
 			else
-				-- последнее оружие уже НЕ существует
+				-- РїРѕСЃР»РµРґРЅРµРµ РѕСЂСѓР¶РёРµ СѓР¶Рµ РќР• СЃСѓС‰РµСЃС‚РІСѓРµС‚
 				last_weapon[npc:id()] = nil
 				return false, nil, nil
 			end		
@@ -849,20 +851,20 @@ function check_lost_weapon(npc)
 				local parent = last_weapon_obj:parent()
 				if parent then
 					if parent:id() == npc:id() then
-						-- оружие наше, просто не в руках банально
+						-- РѕСЂСѓР¶РёРµ РЅР°С€Рµ, РїСЂРѕСЃС‚Рѕ РЅРµ РІ СЂСѓРєР°С… Р±Р°РЅР°Р»СЊРЅРѕ
 						return false, nil, nil
 					else
-						-- кто-то забрал его уже, бесполезно трепыхаться
+						-- РєС‚Рѕ-С‚Рѕ Р·Р°Р±СЂР°Р» РµРіРѕ СѓР¶Рµ, Р±РµСЃРїРѕР»РµР·РЅРѕ С‚СЂРµРїС‹С…Р°С‚СЊСЃСЏ
 						last_weapon[npc:id()] = nil
 						return false, nil, nil					
 					end
 				else
-					-- проебали, надо подобрать
+					-- РїСЂРѕРµР±Р°Р»Рё, РЅР°РґРѕ РїРѕРґРѕР±СЂР°С‚СЊ
 					-- log1("!!XR_COMP_LOST_WEAPON_2")
 					return true, last_weapon_obj:level_vertex_id(), last_weapon_obj:id()
 				end	
 			else
-				-- последнее оружие уже НЕ существует
+				-- РїРѕСЃР»РµРґРЅРµРµ РѕСЂСѓР¶РёРµ СѓР¶Рµ РќР• СЃСѓС‰РµСЃС‚РІСѓРµС‚
 				last_weapon[npc:id()] = nil
 				return false, nil, nil
 			end		
@@ -908,7 +910,7 @@ if db.actor:dont_has_info("dar_samogon_trance") then
 	local ang = horz_angle(device().cam_dir, npc:position():sub(device().cam_pos))
 	local tgt = ang > -dangerang and ang < dangerang
 	if tgt then
-		-- ГГ смотрит на напарника
+		-- Р“Р“ СЃРјРѕС‚СЂРёС‚ РЅР° РЅР°РїР°СЂРЅРёРєР°
 		flag_actor_behind = true
 	end	
 	
@@ -942,7 +944,7 @@ if db.actor:dont_has_info("dar_samogon_trance") then
 		end
 	end		
 	
-	-- 1. Если мы находимся за большим радиусом - необходимо выбрать новую точку
+	-- 1. Р•СЃР»Рё РјС‹ РЅР°С…РѕРґРёРјСЃСЏ Р·Р° Р±РѕР»СЊС€РёРј СЂР°РґРёСѓСЃРѕРј - РЅРµРѕР±С…РѕРґРёРјРѕ РІС‹Р±СЂР°С‚СЊ РЅРѕРІСѓСЋ С‚РѕС‡РєСѓ
 	if select_new_pt then
 		assist_point[npc:id()] = select_position(npc, stor)
 		if not assist_point[npc:id()] then
@@ -956,7 +958,7 @@ if db.actor:dont_has_info("dar_samogon_trance") then
 		locked_vertexes[npc:id()] = assist_point[npc:id()]
 	end
 
-	-- 2. Двигаемся на точку: если точка далеко - бежим, иначе идем
+	-- 2. Р”РІРёРіР°РµРјСЃСЏ РЅР° С‚РѕС‡РєСѓ: РµСЃР»Рё С‚РѕС‡РєР° РґР°Р»РµРєРѕ - Р±РµР¶РёРј, РёРЅР°С‡Рµ РёРґРµРј
 
 	npc:set_detail_path_type(move.curve)
 	npc:set_path_type(game_object.level_path)
@@ -967,8 +969,8 @@ if db.actor:dont_has_info("dar_samogon_trance") then
 	local new_state
 
 	if npc:level_vertex_id() == assist_point[npc:id()] then
-		-- Уже пришли на точку отхода, разрешить еще раз начать отход
-		-- (случай, когда игрок подошел слишком близко к ассистенту)
+		-- РЈР¶Рµ РїСЂРёС€Р»Рё РЅР° С‚РѕС‡РєСѓ РѕС‚С…РѕРґР°, СЂР°Р·СЂРµС€РёС‚СЊ РµС‰Рµ СЂР°Р· РЅР°С‡Р°С‚СЊ РѕС‚С…РѕРґ
+		-- (СЃР»СѓС‡Р°Р№, РєРѕРіРґР° РёРіСЂРѕРє РїРѕРґРѕС€РµР» СЃР»РёС€РєРѕРј Р±Р»РёР·РєРѕ Рє Р°СЃСЃРёСЃС‚РµРЅС‚Сѓ)
 		if (mode == "simple" or mode == "simple_la") then
 			new_state = "guard"
 		elseif mode == "ignore" then
@@ -1024,7 +1026,7 @@ if db.actor:dont_has_info("dar_samogon_trance") then
 		state_mgr.set_state( script_name(), npc, last_state[npc:id()])
 	end 
 
-	-- 4. Если стоим на точке - петь песенки и прочую херню
+	-- 4. Р•СЃР»Рё СЃС‚РѕРёРј РЅР° С‚РѕС‡РєРµ - РїРµС‚СЊ РїРµСЃРµРЅРєРё Рё РїСЂРѕС‡СѓСЋ С…РµСЂРЅСЋ
 	if (mode == "simple" or mode == "ignore" or mode == "simple_la") then
 		local silence_interval = math.random(30000,55000)
 		if testing_sound then
@@ -1085,7 +1087,7 @@ function beh_wait(mode, npc)
 		state_mgr.set_state( script_name(), npc, last_state[npc:id()])
 	end 
 
-	-- 4. Если стоим на точке - петь песенки и прочую херню
+	-- 4. Р•СЃР»Рё СЃС‚РѕРёРј РЅР° С‚РѕС‡РєРµ - РїРµС‚СЊ РїРµСЃРµРЅРєРё Рё РїСЂРѕС‡СѓСЋ С…РµСЂРЅСЋ
 	if (mode == "simple" or mode == "ignore" or mode == "simple_la") then
 		if math.random() < sound_prob then
 			local silence_interval = math.random(30000,65000)
@@ -1114,8 +1116,8 @@ function beh_wait(mode, npc)
 	end	
 end
 ----------------------------------------------------------------------------------------------------------------------
-local count_update 			= 0	-- Счетчик апдейтов. Нельзя чтобы схема стартовала включенной сразу же, иначе 
-local engage_after_update 	= 3 -- будут глюки на переключении схем и выборе оружия
+local count_update 			= 0	-- РЎС‡РµС‚С‡РёРє Р°РїРґРµР№С‚РѕРІ. РќРµР»СЊР·СЏ С‡С‚РѕР±С‹ СЃС…РµРјР° СЃС‚Р°СЂС‚РѕРІР°Р»Р° РІРєР»СЋС‡РµРЅРЅРѕР№ СЃСЂР°Р·Сѓ Р¶Рµ, РёРЅР°С‡Рµ 
+local engage_after_update 	= 3 -- Р±СѓРґСѓС‚ РіР»СЋРєРё РЅР° РїРµСЂРµРєР»СЋС‡РµРЅРёРё СЃС…РµРј Рё РІС‹Р±РѕСЂРµ РѕСЂСѓР¶РёСЏ
 post_work					= {}
 local post_timer			= nil
 ----------------------------------------------------------------------------------------------------------------------
@@ -1226,7 +1228,7 @@ function action_companion_activity:execute()
 	local act = beh[beh_model]
 	--log1("COMP_MDL "..tostring(npc:name()).." ACT "..tostring(beh_model))
 	if act then act[1](act[2], npc) end
-	--  Проверка на враждебность
+	--  РџСЂРѕРІРµСЂРєР° РЅР° РІСЂР°Р¶РґРµР±РЅРѕСЃС‚СЊ
 	if self.object:relation(db.actor) == game_object.enemy then
 		db.actor:give_game_news(self.object:character_name().." "..game.translate_string("companion_became_your_enemy_string"), "ui\\ui_iconsTotal", Frect():set(0,235,83,47), 0, 15000)
 		db.storage[self.object:id()].companion.enabled = false
@@ -1251,15 +1253,15 @@ function action_companion_activity:finalize()
 	action_base.finalize(self)
 end
 
--- Возвращает угол между проекциями векторов vec1 и vec2 на горизонтальную плоскость
--- положительный угол - доворот vec1 до vec2 по часовой.
+-- Р’РѕР·РІСЂР°С‰Р°РµС‚ СѓРіРѕР» РјРµР¶РґСѓ РїСЂРѕРµРєС†РёСЏРјРё РІРµРєС‚РѕСЂРѕРІ vec1 Рё vec2 РЅР° РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅСѓСЋ РїР»РѕСЃРєРѕСЃС‚СЊ
+-- РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Р№ СѓРіРѕР» - РґРѕРІРѕСЂРѕС‚ vec1 РґРѕ vec2 РїРѕ С‡Р°СЃРѕРІРѕР№.
 function horz_angle(vec1,vec2)
   local x=vec2.x*vec1.x+vec2.z*vec1.z
-  local y=-vec2.z*vec1.x+vec2.x*vec1.z -- повернули систему координат     
-  return math.atan2(y,x) -- угол доворота от -pi до pi
+  local y=-vec2.z*vec1.x+vec2.x*vec1.z -- РїРѕРІРµСЂРЅСѓР»Рё СЃРёСЃС‚РµРјСѓ РєРѕРѕСЂРґРёРЅР°С‚     
+  return math.atan2(y,x) -- СѓРіРѕР» РґРѕРІРѕСЂРѕС‚Р° РѕС‚ -pi РґРѕ pi
 end
 
---' Выбор новой позиции
+--' Р’С‹Р±РѕСЂ РЅРѕРІРѕР№ РїРѕР·РёС†РёРё
 function select_position(npc, st)
 	local node_1_vertex_id = nil
 	local node_1_distance = nil
@@ -1275,7 +1277,7 @@ function select_position(npc, st)
 		end
 	end
 
-	-- проверяем точку слева от актера
+	-- РїСЂРѕРІРµСЂСЏРµРј С‚РѕС‡РєСѓ СЃР»РµРІР° РѕС‚ Р°РєС‚РµСЂР°
 	desired_direction = vector_rotate_y(actor:direction(), math.random(40,90) )
 	node_1_vertex_id = level.vertex_in_direction(actor:level_vertex_id(),
 		desired_direction,
@@ -1283,7 +1285,7 @@ function select_position(npc, st)
 	if npc:accessible(node_1_vertex_id) ~= true or node_1_vertex_id == actor:level_vertex_id() or forbidden[node_1_vertex_id] then			
 		node_1_vertex_id = nil
 	end
-	-- проверяем точку справа от актера
+	-- РїСЂРѕРІРµСЂСЏРµРј С‚РѕС‡РєСѓ СЃРїСЂР°РІР° РѕС‚ Р°РєС‚РµСЂР°
 	desired_direction = vector_rotate_y(actor:direction(), -math.random(40,90) )
 	node_2_vertex_id = level.vertex_in_direction (  actor:level_vertex_id(),
 		desired_direction,
@@ -1292,7 +1294,7 @@ function select_position(npc, st)
 		node_2_vertex_id = nil
 	end
 	
-	-- Проверяем растояния до точек
+	-- РџСЂРѕРІРµСЂСЏРµРј СЂР°СЃС‚РѕСЏРЅРёСЏ РґРѕ С‚РѕС‡РµРє
 	if node_1_vertex_id ~= nil then
 		node_1_distance = npc:position():distance_to_sqr(level.vertex_position(node_1_vertex_id))
 	else
@@ -1304,9 +1306,9 @@ function select_position(npc, st)
 		node_2_distance = -1
 	end
 	
-	-- Выбираем ближайшую из существующих
+	-- Р’С‹Р±РёСЂР°РµРј Р±Р»РёР¶Р°Р№С€СѓСЋ РёР· СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС…
 	if node_1_distance == -1 and node_2_distance == -1 then
-		--' Не смогли найти точку, ругаться
+		--' РќРµ СЃРјРѕРіР»Рё РЅР°Р№С‚Рё С‚РѕС‡РєСѓ, СЂСѓРіР°С‚СЊСЃСЏ
 		return db.actor:level_vertex_id()
 	end
 	if node_1_distance == -1 then
@@ -1338,7 +1340,7 @@ function select_position_get_away(npc, st)
 		end
 	end	
 
-	-- проверяем точку слева от актера
+	-- РїСЂРѕРІРµСЂСЏРµРј С‚РѕС‡РєСѓ СЃР»РµРІР° РѕС‚ Р°РєС‚РµСЂР°
 	desired_direction = actor:direction()
 	node_1_vertex_id = level.vertex_in_direction(actor:level_vertex_id(),
 		desired_direction,
@@ -1346,7 +1348,7 @@ function select_position_get_away(npc, st)
 	if npc:accessible(node_1_vertex_id) ~= true or node_1_vertex_id == actor:level_vertex_id() or forbidden[node_1_vertex_id] then			
 		node_1_vertex_id = nil
 	end
-	-- проверяем точку справа от актера
+	-- РїСЂРѕРІРµСЂСЏРµРј С‚РѕС‡РєСѓ СЃРїСЂР°РІР° РѕС‚ Р°РєС‚РµСЂР°
 	desired_direction = actor:direction()
 	node_2_vertex_id = level.vertex_in_direction (  actor:level_vertex_id(),
 		desired_direction,
@@ -1355,7 +1357,7 @@ function select_position_get_away(npc, st)
 		node_2_vertex_id = nil
 	end
 	
-	-- Проверяем растояния до точек
+	-- РџСЂРѕРІРµСЂСЏРµРј СЂР°СЃС‚РѕСЏРЅРёСЏ РґРѕ С‚РѕС‡РµРє
 	if node_1_vertex_id ~= nil then
 		node_1_distance = npc:position():distance_to_sqr(level.vertex_position(node_1_vertex_id))
 	else
@@ -1367,9 +1369,9 @@ function select_position_get_away(npc, st)
 		node_2_distance = -1
 	end
 	
-	-- Выбираем ближайшую из существующих
+	-- Р’С‹Р±РёСЂР°РµРј Р±Р»РёР¶Р°Р№С€СѓСЋ РёР· СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС…
 	if node_1_distance == -1 and node_2_distance == -1 then
-		--' Не смогли найти точку, ругаться
+		--' РќРµ СЃРјРѕРіР»Рё РЅР°Р№С‚Рё С‚РѕС‡РєСѓ, СЂСѓРіР°С‚СЊСЃСЏ
 		return db.actor:level_vertex_id()
 	end
 	if node_1_distance == -1 then
@@ -1400,7 +1402,7 @@ act_base = 79950
 act_companion_activity = act_base + 1
 act_companion_run = act_base + 2
 
--- Добавляем в планировщик нашу схему
+-- Р”РѕР±Р°РІР»СЏРµРј РІ РїР»Р°РЅРёСЂРѕРІС‰РёРє РЅР°С€Сѓ СЃС…РµРјСѓ
 function add_to_binder(object, char_ini, scheme, section, st)
 if db.actor:dont_has_info("dar_samogon_trance") then
 
@@ -1474,7 +1476,7 @@ if db.actor:dont_has_info("dar_samogon_trance") then
 end
 end
 
--- Функции включения/выключения схемы
+-- Р¤СѓРЅРєС†РёРё РІРєР»СЋС‡РµРЅРёСЏ/РІС‹РєР»СЋС‡РµРЅРёСЏ СЃС…РµРјС‹
 function enable_scheme(npc, ini)
 
 	reset_npc_logic(npc)

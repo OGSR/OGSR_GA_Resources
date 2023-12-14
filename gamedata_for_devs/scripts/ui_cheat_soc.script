@@ -96,13 +96,13 @@ function cheat_menu:InitControls()
 	ctrl = xml:Init3tButton("main_dialog:button_search", dialog)
 	self:Register(ctrl, "btn_search")
 
-	-- Ïîèñê ïî èìåíè
+	-- ÐŸÐ¾Ð¸ÑÐº Ð¿Ð¾ Ð¸Ð¼ÐµÐ½Ð¸
 	self.edit_box = xml:InitEditBox("main_dialog:edit_box", dialog)
 	self.edit_box:SetAutoDelete(true)
 
 	self.section_name = xml:InitStatic("main_dialog:sect_wnd", dialog)
 
-	-- Îïèñàíèå
+	-- ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ
 	self.descWnd = xml:InitFrame("description", self)
 	self.scroll_v = xml:InitScrollView("description:scroll_v", self.descWnd)
 
@@ -148,7 +148,7 @@ function cheat_menu:OnBtnDelItem()
 	local sect = itm.sct:GetText()
 	local obj = db.actor:object(sect)
 	if obj then
-		news_manager.send_tip(db.actor, "Óäàëèëè èç èíâåíòàðÿ:%c[255,0,255,0] "..itm.nm:GetText())
+		news_manager.send_tip(db.actor, "Ð£Ð´Ð°Ð»Ð¸Ð»Ð¸ Ð¸Ð· Ð¸Ð½Ð²ÐµÐ½Ñ‚Ð°Ñ€Ñ:%c[255,0,255,0] "..itm.nm:GetText())
 		alife():release(alife():object(obj:id()))
 		get_console():execute('main_menu off')
 	end
@@ -210,8 +210,8 @@ function cheat_menu:ShowDescription(index)
 	local wght = sys_ini:r_float_ex(sect, "inv_weight")
 
 	self.descr:SetTextST(description)
-	self.cost:SetText(cst and string.format("Öåíà: %d ðóá.", cst) or "")
-	self.weight:SetText(wght and string.format("Âåñ: %.2f êã.", wght) or "")
+	self.cost:SetText(cst and string.format("Ð¦ÐµÐ½Ð°: %d Ñ€ÑƒÐ±.", cst) or "")
+	self.weight:SetText(wght and string.format("Ð’ÐµÑ: %.2f ÐºÐ³.", wght) or "")
 	self.scroll_v:ScrollToBegin()
 	self.section_name:SetText(sect)
 end
@@ -226,14 +226,13 @@ function cheat_menu:SearchItem()
 	local size = self.list:GetSize()
 	if size==0 then return end
 
-	search_text = string.lower(string.gsub(search_text, "[%p¨¸]", " "))
+	search_text = string.lowerW(search_text)
 
 	local res = false
 	local item, item_text
 	for i=0,size-1 do
 		item = self.list:GetItem(i)
-		item_text = string.lower(item.nm:GetText())
-		item_text = string.gsub(item_text,"[%p¨¸]"," ")
+		item_text = string.lowerW(item.nm:GetText())
 		if #item_text>=#search_text and string.find(item_text,search_text,1,true) then
 			if self.was_found < i then
 				self.was_found = i

@@ -1,8 +1,8 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -------------------------------------------------------------------------------
 -- ogse_misc_item_usage.script
--- использование различный предметов, включая звуки из "Script by Barin from Dezowave Team"
+-- РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ СЂР°Р·Р»РёС‡РЅС‹Р№ РїСЂРµРґРјРµС‚РѕРІ, РІРєР»СЋС‡Р°СЏ Р·РІСѓРєРё РёР· "Script by Barin from Dezowave Team"
 -- OGS Evolution Team 2015
 -------------------------------------------------------------------------------
 
@@ -11,14 +11,14 @@ function attach(sm)
 end
 
 local instruments_music = {
-	harmonica_f = {-- губнаЯ гармошка
+	harmonica_f = {-- РіСѓР±РЅР°РЇ РіР°СЂРјРѕС€РєР°
 		"characters_voice\\music\\harmonica_1","characters_voice\\music\\harmonica_2",
 		"characters_voice\\music\\harmonica_3","characters_voice\\music\\harmonica_4",
 		"characters_voice\\music\\harmonica_5","characters_voice\\music\\harmonica_6",
 		"characters_voice\\music\\harmonica_7","characters_voice\\music\\harmonica_8",
 		"characters_voice\\music\\harmonica_9","characters_voice\\music\\harmonica_10",
 	},
-	guitar_f = {-- гитара
+	guitar_f = {-- РіРёС‚Р°СЂР°
 		"music\\guitar_1","music\\guitar_2","music\\guitar_3","music\\guitar_4",
 		"music\\guitar_5","music\\guitar_6","music\\guitar_7","music\\guitar_8",
 		"music\\guitar_9","music\\guitar_10","music\\guitar_11",
@@ -48,23 +48,23 @@ class "play_timer" (ogse_st_mgr.savable_timer)
 function play_timer:__init(timer_id) super(timer_id)
 	self.class = script_name()..".play_timer"
 end
--- проверка того, что руки занЯты в недопустимой степени длЯ выбранного музыкального инструмента
--- здесь можно задать так, чтобы скажем на гармошке можно было играть и держать в другой руке пистолет
--- сейчас сделано просто: держишь что-то в руках - играть нельзЯ
+-- РїСЂРѕРІРµСЂРєР° С‚РѕРіРѕ, С‡С‚Рѕ СЂСѓРєРё Р·Р°РЅРЇС‚С‹ РІ РЅРµРґРѕРїСѓСЃС‚РёРјРѕР№ СЃС‚РµРїРµРЅРё РґР»РЇ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РјСѓР·С‹РєР°Р»СЊРЅРѕРіРѕ РёРЅСЃС‚СЂСѓРјРµРЅС‚Р°
+-- Р·РґРµСЃСЊ РјРѕР¶РЅРѕ Р·Р°РґР°С‚СЊ С‚Р°Рє, С‡С‚РѕР±С‹ СЃРєР°Р¶РµРј РЅР° РіР°СЂРјРѕС€РєРµ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ РёРіСЂР°С‚СЊ Рё РґРµСЂР¶Р°С‚СЊ РІ РґСЂСѓРіРѕР№ СЂСѓРєРµ РїРёСЃС‚РѕР»РµС‚
+-- СЃРµР№С‡Р°СЃ СЃРґРµР»Р°РЅРѕ РїСЂРѕСЃС‚Рѕ: РґРµСЂР¶РёС€СЊ С‡С‚Рѕ-С‚Рѕ РІ СЂСѓРєР°С… - РёРіСЂР°С‚СЊ РЅРµР»СЊР·РЇ
 local function cannot_play_instrument(section)
 	local active_item = db.actor:active_item()
-	if active_item then -- взЯли что-то в руки
+	if active_item then -- РІР·РЇР»Рё С‡С‚Рѕ-С‚Рѕ РІ СЂСѓРєРё
 		return true
 		--[[
 		if section == "guitar_f" then
-			-- на гитаре играем двумЯ руками, останавливаемсЯ вне зависимости от того, что взЯли в руки
+			-- РЅР° РіРёС‚Р°СЂРµ РёРіСЂР°РµРј РґРІСѓРјРЇ СЂСѓРєР°РјРё, РѕСЃС‚Р°РЅР°РІР»РёРІР°РµРјСЃРЇ РІРЅРµ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ С‚РѕРіРѕ, С‡С‚Рѕ РІР·РЇР»Рё РІ СЂСѓРєРё
 			return true
 		elseif section == "harmonica_f" then
-			-- на гармошке можно играть одной рукой
+			-- РЅР° РіР°СЂРјРѕС€РєРµ РјРѕР¶РЅРѕ РёРіСЂР°С‚СЊ РѕРґРЅРѕР№ СЂСѓРєРѕР№
 			if not get_bool(active_item:section(), "single_handed") then
 				return true
 			end
-		else -- на будушее
+		else -- РЅР° Р±СѓРґСѓС€РµРµ
 		end
 		]]
 	end
@@ -77,13 +77,13 @@ end
 function play_timer:init(item_section)
 	self.item_section = item_section
 	self.actor_pos = db.actor:position()
-	-- скрываем окно инвентарЯ
+	-- СЃРєСЂС‹РІР°РµРј РѕРєРЅРѕ РёРЅРІРµРЅС‚Р°СЂРЇ
 	local active_wnd = level.main_input_receiver()
 	if active_wnd then
 		level.start_stop_menu(active_wnd, true)
 	end
-	if cannot_play_instrument() then -- если руки недопустимо занЯты длЯ выбранного инструмента
-		-- то скрываем активный предмет
+	if cannot_play_instrument() then -- РµСЃР»Рё СЂСѓРєРё РЅРµРґРѕРїСѓСЃС‚РёРјРѕ Р·Р°РЅРЇС‚С‹ РґР»РЇ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РёРЅСЃС‚СЂСѓРјРµРЅС‚Р°
+		-- С‚Рѕ СЃРєСЂС‹РІР°РµРј Р°РєС‚РёРІРЅС‹Р№ РїСЂРµРґРјРµС‚
 		local item = db.actor:active_item()
 		if item then
 			db.actor:move_to_ruck(item)
@@ -93,13 +93,13 @@ function play_timer:init(item_section)
 	else
 		self:start_musec_aux(item_section)
 	end
-	return self -- длЯ вызова цепочкой
+	return self -- РґР»РЇ РІС‹Р·РѕРІР° С†РµРїРѕС‡РєРѕР№
 end
--- перегруженные методы загрузки/сохранениЯ пользовательских данных
+-- РїРµСЂРµРіСЂСѓР¶РµРЅРЅС‹Рµ РјРµС‚РѕРґС‹ Р·Р°РіСЂСѓР·РєРё/СЃРѕС…СЂР°РЅРµРЅРёРЇ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёС… РґР°РЅРЅС‹С…
 function play_timer:load(t)
-	-- здесь намеренно сохранЯетсЯ только секциЯ предмета и не сохранЯетсЯ играемаЯ музыка
-	-- после загрузки игры никто не вспомнит, что сохранЯлсЯ, играЯ на чЮм-то,
-	-- поэтому надо просто тихо вернуть в инвентарь предмет
+	-- Р·РґРµСЃСЊ РЅР°РјРµСЂРµРЅРЅРѕ СЃРѕС…СЂР°РЅРЇРµС‚СЃРЇ С‚РѕР»СЊРєРѕ СЃРµРєС†РёРЇ РїСЂРµРґРјРµС‚Р° Рё РЅРµ СЃРѕС…СЂР°РЅРЇРµС‚СЃРЇ РёРіСЂР°РµРјР°РЇ РјСѓР·С‹РєР°
+	-- РїРѕСЃР»Рµ Р·Р°РіСЂСѓР·РєРё РёРіСЂС‹ РЅРёРєС‚Рѕ РЅРµ РІСЃРїРѕРјРЅРёС‚, С‡С‚Рѕ СЃРѕС…СЂР°РЅРЇР»СЃРЇ, РёРіСЂР°РЇ РЅР° С‡Р®Рј-С‚Рѕ,
+	-- РїРѕСЌС‚РѕРјСѓ РЅР°РґРѕ РїСЂРѕСЃС‚Рѕ С‚РёС…Рѕ РІРµСЂРЅСѓС‚СЊ РІ РёРЅРІРµРЅС‚Р°СЂСЊ РїСЂРµРґРјРµС‚
 	self.item_section = table.remove( t, 1 )
 end
 function play_timer:save(t, template)
@@ -108,32 +108,32 @@ function play_timer:save(t, template)
 	return template
 end
 function play_timer:condition()
-	-- проверЯем ситуацию, когда всЮ ещЮ идЮт скрывание активного предмета
+	-- РїСЂРѕРІРµСЂРЇРµРј СЃРёС‚СѓР°С†РёСЋ, РєРѕРіРґР° РІСЃР® РµС‰Р® РёРґР®С‚ СЃРєСЂС‹РІР°РЅРёРµ Р°РєС‚РёРІРЅРѕРіРѕ РїСЂРµРґРјРµС‚Р°
 	if self.deferred_play then
 		if not db.actor:active_item() then
 			self:start_musec_aux(self.item_section)
 			self.deferred_play = false
 		end
 	else
-		if not self.sound then return true end -- после загрузки
-		if not self.sound:playing() then return true end -- закончилсЯ звук
-		if cannot_play_instrument(self.item_section) then return true end -- занЯты руки
+		if not self.sound then return true end -- РїРѕСЃР»Рµ Р·Р°РіСЂСѓР·РєРё
+		if not self.sound:playing() then return true end -- Р·Р°РєРѕРЅС‡РёР»СЃРЇ Р·РІСѓРє
+		if cannot_play_instrument(self.item_section) then return true end -- Р·Р°РЅРЇС‚С‹ СЂСѓРєРё
 	end
-	if level.main_input_receiver() then return true end -- открыли любое окно
-	-- если побежали куда-то
+	if level.main_input_receiver() then return true end -- РѕС‚РєСЂС‹Р»Рё Р»СЋР±РѕРµ РѕРєРЅРѕ
+	-- РµСЃР»Рё РїРѕР±РµР¶Р°Р»Рё РєСѓРґР°-С‚Рѕ
 	if --[[self.item_section == "guitar_f" and]] db.actor:position():distance_to(self.actor_pos) > 0.1 then 
-		-- не расхаживаем, играЯ на инструменте
+		-- РЅРµ СЂР°СЃС…Р°Р¶РёРІР°РµРј, РёРіСЂР°РЇ РЅР° РёРЅСЃС‚СЂСѓРјРµРЅС‚Рµ
 		return true
 	end
 	return false
 end
--- действие по окончанию игры
+-- РґРµР№СЃС‚РІРёРµ РїРѕ РѕРєРѕРЅС‡Р°РЅРёСЋ РёРіСЂС‹
 function play_timer:action()
-	-- если играем
+	-- РµСЃР»Рё РёРіСЂР°РµРј
 	if self.sound and self.sound:playing() then
-		self.sound:stop() -- то прерываемсЯ
+		self.sound:stop() -- С‚Рѕ РїСЂРµСЂС‹РІР°РµРјСЃРЇ
 	end
-	-- вертаем взад предмет
+	-- РІРµСЂС‚Р°РµРј РІР·Р°Рґ РїСЂРµРґРјРµС‚
 	ogse.spawn_item_in_inv(self.item_section)
 end
 

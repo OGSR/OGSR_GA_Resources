@@ -1,8 +1,8 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -----------------------------------------------------------------------
 --- ogse_critical_hit.script                                       
---- Модуль постэффектов критических попаданий
+--- РњРѕРґСѓР»СЊ РїРѕСЃС‚СЌС„С„РµРєС‚РѕРІ РєСЂРёС‚РёС‡РµСЃРєРёС… РїРѕРїР°РґР°РЅРёР№
 --- KamikaZze (c) OGS Evolution Team                                      
 --- version 1.3 (22/05/2014)                                             
 -----------------------------------------------------------------------
@@ -16,16 +16,16 @@ function check_critical(amount, bone_index, who)
 	if amount > 0.2 and bone_index and bone_index > 0 and db.actor:alive() then
 		local str = " "
 		if bone_index < 5 then
-			str = " попадание в левую ногу "
+			str = " РїРѕРїР°РґР°РЅРёРµ РІ Р»РµРІСѓСЋ РЅРѕРіСѓ "
 			level.add_cam_effector("camera_effects\\hit_back_left.anm", 100, false, "")
 		elseif (bone_index >= 5 and bone_index < 9) then
-			str = " попадание в правую ногу "
+			str = " РїРѕРїР°РґР°РЅРёРµ РІ РїСЂР°РІСѓСЋ РЅРѕРіСѓ "
 			level.add_cam_effector("camera_effects\\hit_back_right.anm", 100, false, "")
 		elseif (bone_index >= 9 and bone_index < 11) then
-			str = " попадание в туловище "
+			str = " РїРѕРїР°РґР°РЅРёРµ РІ С‚СѓР»РѕРІРёС‰Рµ "
 			level.add_cam_effector("camera_effects\\hit_front.anm", 100, false, "")
 		elseif (bone_index >= 11 and bone_index < 18) then	
-			str = " попадание в голову "
+			str = " РїРѕРїР°РґР°РЅРёРµ РІ РіРѕР»РѕРІСѓ "
 			if who:is_stalker() then
 				if enabled == 2 then
 					if db.actor.health < 0.3 and not ( ogse_autodoc.ad_on_belt and ogse_autodoc.switch_on.ad ) then
@@ -45,20 +45,20 @@ function check_critical(amount, bone_index, who)
 				level.add_cam_effector("camera_effects\\hit_front.anm", 100, false, "")
 			end
 		elseif (bone_index >= 18 and bone_index < 31) then	
-			str = " попадание в левую руку "
+			str = " РїРѕРїР°РґР°РЅРёРµ РІ Р»РµРІСѓСЋ СЂСѓРєСѓ "
 			level.add_cam_effector("camera_effects\\hit_front_left.anm", 100, false, "")
 		elseif (bone_index >= 31 and bone_index < 40) then	
-			str = " попадание в правую руку "
+			str = " РїРѕРїР°РґР°РЅРёРµ РІ РїСЂР°РІСѓСЋ СЂСѓРєСѓ "
 			level.add_cam_effector("camera_effects\\hit_front_right.anm", 100, false, "")
 			local r = -1
 			local need_drop = false
 			if (bone_index == 33) then
-				-- попадание в предплечье
+				-- РїРѕРїР°РґР°РЅРёРµ РІ РїСЂРµРґРїР»РµС‡СЊРµ
 				r = math.random()*100
 				need_drop = (r<50)
 			end
 			if ((bone_index >= 34) and (bone_index <= 38)) then
-				-- по кисти или пальцам
+				-- РїРѕ РєРёСЃС‚Рё РёР»Рё РїР°Р»СЊС†Р°Рј
 				r = math.random()*100
 				need_drop = (r<70)
 			end

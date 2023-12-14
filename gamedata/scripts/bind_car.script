@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function init(obj)
    obj:bind_object(car_binder(obj))
@@ -25,7 +25,7 @@ function car_binder:use_callback( obj, who )
 	if not who:is_actor() then return end
 	--
 	dsh.exec_on_update(function()
-		if ogse_car_control.get_actor_car() then --KRodin: Если вызывать без таймаута - проверка всегда возвращает false.
+		if ogse_car_control.get_actor_car() then --KRodin: Р•СЃР»Рё РІС‹Р·С‹РІР°С‚СЊ Р±РµР· С‚Р°Р№РјР°СѓС‚Р° - РїСЂРѕРІРµСЂРєР° РІСЃРµРіРґР° РІРѕР·РІСЂР°С‰Р°РµС‚ false.
 			self.sm:call("on_attach_vehicle", obj, sobj)
 		else
 			self.sm:call("on_use_vehicle", obj, sobj)
@@ -92,12 +92,10 @@ function read_door_definition(obj, line)
 end
 
 function car_binder:update()
-	if not self.ph_shell then --Надо делать именно на апдейте. При спавне - рано.
+	if not self.ph_shell then --РќР°РґРѕ РґРµР»Р°С‚СЊ РёРјРµРЅРЅРѕ РЅР° Р°РїРґРµР№С‚Рµ. РџСЂРё СЃРїР°РІРЅРµ - СЂР°РЅРѕ.
 		self.ph_shell = self.object:get_physics_shell()
 		if self.ph_shell then
-			-- даём пинок, чтобы опустить на землю
-			self.ph_shell:apply_force( 0, -self.object:mass(), 0 )
-			-- закрываем багажник
+			-- Р·Р°РєСЂС‹РІР°РµРј Р±Р°РіР°Р¶РЅРёРє
 			self.trunk_door_def = read_door_definition(self.object, "trunk_door")
 			if self.trunk_door_def then
 				close_door(self.trunk_door_def)
@@ -106,7 +104,7 @@ function car_binder:update()
 			if self.engine_door_def then
 				close_door(self.engine_door_def)
 			end
-			-- подписываемся на сигнал открывания/закрывания дверей
+			-- РїРѕРґРїРёСЃС‹РІР°РµРјСЃСЏ РЅР° СЃРёРіРЅР°Р» РѕС‚РєСЂС‹РІР°РЅРёСЏ/Р·Р°РєСЂС‹РІР°РЅРёСЏ РґРІРµСЂРµР№
 			self._open_trunk_door_desc = {signal = "on_car_trunk_open", self = self, fun = self.on_trunk_open}
 			self.sm:subscribe(self._open_trunk_door_desc)
 			self._open_engine_door_desc = {signal = "on_car_engine_open", self = self, fun = self.on_engine_open}
@@ -131,10 +129,10 @@ function car_binder:update()
 		end
 	end
 
---[=[ --KRodin: выключил, не вижу в этом нужды.
-	--Обработки туториального запора в деревне новичков
+--[=[ --KRodin: РІС‹РєР»СЋС‡РёР», РЅРµ РІРёР¶Сѓ РІ СЌС‚РѕРј РЅСѓР¶РґС‹.
+	--РћР±СЂР°Р±РѕС‚РєРё С‚СѓС‚РѕСЂРёР°Р»СЊРЅРѕРіРѕ Р·Р°РїРѕСЂР° РІ РґРµСЂРµРІРЅРµ РЅРѕРІРёС‡РєРѕРІ
 	if string.find(self.object:name(), "esc_vehicle_zaz_in_novice_lager") then
-		-- сделаем запор неубиваемым, пока игрок не закончит квест с военными
+		-- СЃРґРµР»Р°РµРј Р·Р°РїРѕСЂ РЅРµСѓР±РёРІР°РµРјС‹Рј, РїРѕРєР° РёРіСЂРѕРє РЅРµ Р·Р°РєРѕРЅС‡РёС‚ РєРІРµСЃС‚ СЃ РІРѕРµРЅРЅС‹РјРё
 		if db.actor:dont_has_info("esc_kvest_sdelka_with_mils_complete") and db.actor:dont_has_info("esc_kvest_sdelka_with_mils_fail") then
 			local car = self.object:get_car()
 			car:SetfHealth(1.0)
@@ -187,13 +185,13 @@ function car_binder:save(packet)
 end
 
 function car_binder:death_callback(victim, who)
-	db.del_car(self.object) -- удаляем машину из глобальной базы
+	db.del_car(self.object) -- СѓРґР°Р»СЏРµРј РјР°С€РёРЅСѓ РёР· РіР»РѕР±Р°Р»СЊРЅРѕР№ Р±Р°Р·С‹
 
 	self.sm:call( "on_car_death", self.object, who )
 
 	local s_car = alife():object(self.object:id())
 	if s_car then
-		alife():release(s_car, true) --Удаляем машину
+		alife():release(s_car, true) --РЈРґР°Р»СЏРµРј РјР°С€РёРЅСѓ
 	end
 end
 
@@ -201,7 +199,7 @@ function car_binder:net_destroy()
 	self.object:set_callback( callback.death, nil )
 	self.object:set_callback( callback.use_object, nil )
 
-	if self.subscribed then --Проверка, прошел ли хоть один апдейт и успели ли мы подписаться на сигналы
+	if self.subscribed then --РџСЂРѕРІРµСЂРєР°, РїСЂРѕС€РµР» Р»Рё С…РѕС‚СЊ РѕРґРёРЅ Р°РїРґРµР№С‚ Рё СѓСЃРїРµР»Рё Р»Рё РјС‹ РїРѕРґРїРёСЃР°С‚СЊСЃСЏ РЅР° СЃРёРіРЅР°Р»С‹
 		self.sm:unsubscribe(self._open_trunk_door_desc)
 		self.sm:unsubscribe(self._open_engine_door_desc)
 		self._open_trunk_door_desc = nil

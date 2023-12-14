@@ -1,6 +1,6 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
---- психованный фов
+
+--- РїСЃРёС…РѕРІР°РЅРЅС‹Р№ С„РѕРІ
 local fov_vol
 local max_alarm_fov_vol = 90
 local min_alarm_fov_vol = 30
@@ -59,11 +59,11 @@ end
 local up_or_down = nil
 
 function on_actor_update()
-	-- балуемся с фовом
+	-- Р±Р°Р»СѓРµРјСЃСЏ СЃ С„РѕРІРѕРј
 	if has_alife_info("fov_play_start") then
 		if not up_or_down then
-			-- начинаем веселямбу
-			up_or_down = 1 -- понижаем, 2 - повышаем
+			-- РЅР°С‡РёРЅР°РµРј РІРµСЃРµР»СЏРјР±Сѓ
+			up_or_down = 1 -- РїРѕРЅРёР¶Р°РµРј, 2 - РїРѕРІС‹С€Р°РµРј
 			local current_fov = db.actor:get_camera_fov()
 			if current_fov > min_alarm_fov_vol then
 				current_fov = current_fov - 1
@@ -97,7 +97,7 @@ function on_actor_update()
 				current_fov = current_fov - 1
 				db.actor:set_camera_fov(current_fov)					
 			elseif current_fov == fov_vol then	
-				unsubscribe() --отписываемся от менеджера сигналов
+				unsubscribe() --РѕС‚РїРёСЃС‹РІР°РµРјСЃСЏ РѕС‚ РјРµРЅРµРґР¶РµСЂР° СЃРёРіРЅР°Р»РѕРІ
 				up_or_down = nil
 			end
 		end	

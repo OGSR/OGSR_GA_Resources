@@ -1,7 +1,7 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 -----------------------------------------------------------------------
 --- ogse.script
---- Óòèëèòàðíàÿ áàçà OGSE 0.6.9.3
+--- Ð£Ñ‚Ð¸Ð»Ð¸Ñ‚Ð°Ñ€Ð½Ð°Ñ Ð±Ð°Ð·Ð° OGSE 0.6.9.3
 --- 2007-2008 (c) xStream, DEXXX
 --- 2009-2013 (c) OGS Evolution Team
 -----------------------------------------------------------------------
@@ -71,7 +71,7 @@ local loc_levels = {
 ["l22_marsh"] = 5
 }
 
--- Ïåðåìåííûå äëÿ òèïñîâ
+-- ÐŸÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ñ‹Ðµ Ð´Ð»Ñ Ñ‚Ð¸Ð¿ÑÐ¾Ð²
 tips_variable = {
 	["pda_news"] = ([[device\pda\pda_news]]),
 	["pda_tips"] = ([[device\pda\pda_tip]]),
@@ -106,24 +106,24 @@ function kill_living_npc(npc_id)
    s_npc.force_offline = true
    go_offline_kill_timer(npc_id):start()
 end
--- ñëóæåáíûé òàéìåð, æäóùèé óõîäà â îôôëàéí
+-- ÑÐ»ÑƒÐ¶ÐµÐ±Ð½Ñ‹Ð¹ Ñ‚Ð°Ð¹Ð¼ÐµÑ€, Ð¶Ð´ÑƒÑ‰Ð¸Ð¹ ÑƒÑ…Ð¾Ð´Ð° Ð² Ð¾Ñ„Ñ„Ð»Ð°Ð¹Ð½
 class "go_offline_kill_timer" (ogse_qt.quick_timer)
 function go_offline_kill_timer:__init(npc_id) super()
-   self.npc_id = npc_id -- çàïîìèíàåì â òàéìåðå id íåïèñÿ
+   self.npc_id = npc_id -- Ð·Ð°Ð¿Ð¾Ð¼Ð¸Ð½Ð°ÐµÐ¼ Ð² Ñ‚Ð°Ð¹Ð¼ÐµÑ€Ðµ id Ð½ÐµÐ¿Ð¸ÑÑ
 end
 function go_offline_kill_timer:condition()
-   return (not level.object_by_id(self.npc_id)) -- æä¸ì èñ÷åçíîâåíèÿ êëèåíòñêîãî îáúåêòà
+   return (not level.object_by_id(self.npc_id)) -- Ð¶Ð´Ñ‘Ð¼ Ð¸ÑÑ‡ÐµÐ·Ð½Ð¾Ð²ÐµÐ½Ð¸Ñ ÐºÐ»Ð¸ÐµÐ½Ñ‚ÑÐºÐ¾Ð³Ð¾ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°
 end
 function go_offline_kill_timer:action()
    local sobj = alife():object(self.npc_id)
    if sobj then
       alife():release(sobj, true)
    --else
-      --send_tip("Something wrong!") -- òàêîå âîçìîæíî ïðè óäàëåíèè îáúåêòà
+      --send_tip("Something wrong!") -- Ñ‚Ð°ÐºÐ¾Ðµ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ Ð¿Ñ€Ð¸ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ð¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°
    end
 end
 
---- Ïåðåçàïóñê ëîãèêè NPC
+--- ÐŸÐµÑ€ÐµÐ·Ð°Ð¿ÑƒÑÐº Ð»Ð¾Ð³Ð¸ÐºÐ¸ NPC
 function reset_npc_logic(obj)
 	if obj then
 		local npc_id = obj:id()
@@ -134,7 +134,7 @@ function reset_npc_logic(obj)
 	end
 end
 
--- Ïðîâåðêà óðîâíÿ àðòåôàêòà ïî èìåíè ëåâåëà
+-- ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° ÑƒÑ€Ð¾Ð²Ð½Ñ Ð°Ñ€Ñ‚ÐµÑ„Ð°ÐºÑ‚Ð° Ð¿Ð¾ Ð¸Ð¼ÐµÐ½Ð¸ Ð»ÐµÐ²ÐµÐ»Ð°
 function art_accesible(item)
 	local section = item:section()
 	local level_name = level.name()
@@ -148,7 +148,7 @@ function art_accesible(item)
 	return false
 end
 
--- Ïðîâåðêà íàõîæäåíèÿ àêòîðà â îñîáîé çîíå
+-- ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð°Ñ…Ð¾Ð¶Ð´ÐµÐ½Ð¸Ñ Ð°ÐºÑ‚Ð¾Ñ€Ð° Ð² Ð¾ÑÐ¾Ð±Ð¾Ð¹ Ð·Ð¾Ð½Ðµ
 function actor_in_zone(pos_psy_x,pos_psy_y,size_psy_x,size_psy_y,z1,z2)
 	local pos = db.actor:position()
 	local x1, x2, y1, y2 = pos_psy_x, pos_psy_y, size_psy_x, size_psy_y
@@ -156,7 +156,7 @@ function actor_in_zone(pos_psy_x,pos_psy_y,size_psy_x,size_psy_y,z1,z2)
 	return ( (pos.x >= x1 and pos.x <= x2) and (pos.z >= y1 and pos.z <= y2) and (pos.y >= z1) and (pos.y <= z2) ) and 1 or 0
 end
 
--- Ïðîâåðêà íàõîæäåíèÿ ÍÏÑ â îñîáîé çîíå
+-- ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð°Ñ…Ð¾Ð¶Ð´ÐµÐ½Ð¸Ñ ÐÐŸÐ¡ Ð² Ð¾ÑÐ¾Ð±Ð¾Ð¹ Ð·Ð¾Ð½Ðµ
 function npc_in_zone(obj,lev,pos_psy_x,pos_psy_y,size_psy_x,size_psy_y,z1,z2)
 local level_name = level.name()
 if level_name ~= lev then
@@ -203,8 +203,6 @@ local quest_profiles = {
 	["esc_specotryad_leader"] = true,
 	["esc_specotryad_npc"] = true,
 	["esc_plennik_on_blockpost"] = true,
-	["esc_anmaly_military_leader"] = true,
-	["esc_anmaly_military_solder"] = true,
 	["esc_killer_mined_lager"] = true,
 	["val_freedom_enemy"] = true,
 	["val_freedom_enemy_commander"] = true,
@@ -318,13 +316,11 @@ local quest_profiles = {
 	["stalker_hvost"] = true,
 	["stalker_kolya"] = true,
 	["uley_robber"] = true,
-	["deadcity_bar_nardyman"]	= true,
 	["deadcity_bar_billiardman"]	= true,
 	["deadcity_bar_restsofa"]	= true,
 	["deadcity_bar_sleeper"]	= true,
 	["deadcity_bar_zasranets"]	= true,
 	["deadcity_bar_drinkman"]	= true,
-	["deadcity_bar_barman"]	= true,
 	["deadcity_bar_guard1"]	= true,
 	["deadcity_bar_guard2"]	= true,
 	["hohol"]						=	true,
@@ -368,7 +364,7 @@ local quest_profiles = {
 	["kulgband_informer"]			=	true,
 }
 
---- Âîçâðàùàåò true åñëè ïàðàìåòðîì ïåðåäàí êâåñòîâûé íåïèñü
+--- Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ true ÐµÑÐ»Ð¸ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¾Ð¼ Ð¿ÐµÑ€ÐµÐ´Ð°Ð½ ÐºÐ²ÐµÑÑ‚Ð¾Ð²Ñ‹Ð¹ Ð½ÐµÐ¿Ð¸ÑÑŒ
 function is_quest_npc(npc)
 	if not npc then return false end
 	--
@@ -388,35 +384,35 @@ function is_quest_npc(npc)
 	return story ~= 4294967295
 end
 
--- òåëåïîðòàöèÿ NPC â ïðåäåëàõ óðîâíÿ
--- ñàìà ôóíêöèÿ òîëüêî ñòàâèò ôëàæîê íà âûïèõèâàíèå â îôôëàéí è çàïóñêàåò æäóùèé òàéìåð
--- âñÿ ðàáîòà áóäåò ñäåëàíà â ýêøèíå òàéìåðà
+-- Ñ‚ÐµÐ»ÐµÐ¿Ð¾Ñ€Ñ‚Ð°Ñ†Ð¸Ñ NPC Ð² Ð¿Ñ€ÐµÐ´ÐµÐ»Ð°Ñ… ÑƒÑ€Ð¾Ð²Ð½Ñ
+-- ÑÐ°Ð¼Ð° Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ ÑÑ‚Ð°Ð²Ð¸Ñ‚ Ñ„Ð»Ð°Ð¶Ð¾Ðº Ð½Ð° Ð²Ñ‹Ð¿Ð¸Ñ…Ð¸Ð²Ð°Ð½Ð¸Ðµ Ð² Ð¾Ñ„Ñ„Ð»Ð°Ð¹Ð½ Ð¸ Ð·Ð°Ð¿ÑƒÑÐºÐ°ÐµÑ‚ Ð¶Ð´ÑƒÑ‰Ð¸Ð¹ Ñ‚Ð°Ð¹Ð¼ÐµÑ€
+-- Ð²ÑÑ Ñ€Ð°Ð±Ð¾Ñ‚Ð° Ð±ÑƒÐ´ÐµÑ‚ ÑÐ´ÐµÐ»Ð°Ð½Ð° Ð² ÑÐºÑˆÐ¸Ð½Ðµ Ñ‚Ð°Ð¹Ð¼ÐµÑ€Ð°
 function teleport_npc(npc_id, pos)
    local s_npc = alife():object(npc_id)
    s_npc.force_offline = true
-   go_offline_watch_timer(npc_id, pos):start() -- òàéìåð "âûñòðåëèë-çàáûë"
+   go_offline_watch_timer(npc_id, pos):start() -- Ñ‚Ð°Ð¹Ð¼ÐµÑ€ "Ð²Ñ‹ÑÑ‚Ñ€ÐµÐ»Ð¸Ð»-Ð·Ð°Ð±Ñ‹Ð»"
 end
--- ñëóæåáíûé òàéìåð, æäóùèé óõîäà â îôôëàéí
+-- ÑÐ»ÑƒÐ¶ÐµÐ±Ð½Ñ‹Ð¹ Ñ‚Ð°Ð¹Ð¼ÐµÑ€, Ð¶Ð´ÑƒÑ‰Ð¸Ð¹ ÑƒÑ…Ð¾Ð´Ð° Ð² Ð¾Ñ„Ñ„Ð»Ð°Ð¹Ð½
 class "go_offline_watch_timer" (ogse_qt.quick_timer)
 function go_offline_watch_timer:__init(npc_id, pos) super()
-   self.npc_id = npc_id -- çàïîìèíàåì â òàéìåðå id íåïèñÿ
-   self.pos    = pos -- çàïîìèíàåì ïîçèöèþ, êóäà áóäåì ïåðåìåùàòü
+   self.npc_id = npc_id -- Ð·Ð°Ð¿Ð¾Ð¼Ð¸Ð½Ð°ÐµÐ¼ Ð² Ñ‚Ð°Ð¹Ð¼ÐµÑ€Ðµ id Ð½ÐµÐ¿Ð¸ÑÑ
+   self.pos    = pos -- Ð·Ð°Ð¿Ð¾Ð¼Ð¸Ð½Ð°ÐµÐ¼ Ð¿Ð¾Ð·Ð¸Ñ†Ð¸ÑŽ, ÐºÑƒÐ´Ð° Ð±ÑƒÐ´ÐµÐ¼ Ð¿ÐµÑ€ÐµÐ¼ÐµÑ‰Ð°Ñ‚ÑŒ
 end
 function go_offline_watch_timer:condition()
-   return not level.object_by_id(self.npc_id) -- æä¸ì èñ÷åçíîâåíèÿ êëèåíòñêîãî îáúåêòà
+   return not level.object_by_id(self.npc_id) -- Ð¶Ð´Ñ‘Ð¼ Ð¸ÑÑ‡ÐµÐ·Ð½Ð¾Ð²ÐµÐ½Ð¸Ñ ÐºÐ»Ð¸ÐµÐ½Ñ‚ÑÐºÐ¾Ð³Ð¾ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°
 end
 function go_offline_watch_timer:action()
    local s_npc = alife():object(self.npc_id)
    if s_npc then
-      s_npc.position = self.pos -- êàñòóåì çëîå êîëäóíñòâî
-      s_npc.force_offline = nil -- îòïðàâëÿåì îáðàòíî â îíëàéí
+      s_npc.position = self.pos -- ÐºÐ°ÑÑ‚ÑƒÐµÐ¼ Ð·Ð»Ð¾Ðµ ÐºÐ¾Ð»Ð´ÑƒÐ½ÑÑ‚Ð²Ð¾
+      s_npc.force_offline = nil -- Ð¾Ñ‚Ð¿Ñ€Ð°Ð²Ð»ÑÐµÐ¼ Ð¾Ð±Ñ€Ð°Ñ‚Ð½Ð¾ Ð² Ð¾Ð½Ð»Ð°Ð¹Ð½
    --else
-      --log1("Something wrong!") -- òàêîå âîçìîæíî ïðè óäàëåíèè îáúåêòà
+      --log1("Something wrong!") -- Ñ‚Ð°ÐºÐ¾Ðµ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ Ð¿Ñ€Ð¸ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ð¸ Ð¾Ð±ÑŠÐµÐºÑ‚Ð°
    end
 end
 
---- Âîçâðàùàåò êëàññ çàùèòû íàäåòîé íà ÃÃ áðîíè îò âûáðîñà. Â obj ïåðåäàâàòü db:actor
---- Ñ íåïèñÿìè ÍÅ ðàáîòàåò! Ïîëüçóéòå armor_type(npc)
+--- Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ ÐºÐ»Ð°ÑÑ Ð·Ð°Ñ‰Ð¸Ñ‚Ñ‹ Ð½Ð°Ð´ÐµÑ‚Ð¾Ð¹ Ð½Ð° Ð“Ð“ Ð±Ñ€Ð¾Ð½Ð¸ Ð¾Ñ‚ Ð²Ñ‹Ð±Ñ€Ð¾ÑÐ°. Ð’ obj Ð¿ÐµÑ€ÐµÐ´Ð°Ð²Ð°Ñ‚ÑŒ db:actor
+--- Ð¡ Ð½ÐµÐ¿Ð¸ÑÑÐ¼Ð¸ ÐÐ• Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚! ÐŸÐ¾Ð»ÑŒÐ·ÑƒÐ¹Ñ‚Ðµ armor_type(npc)
 function armor_class(obj)
 	if not obj then return end
 
@@ -442,7 +438,7 @@ function armor_class(obj)
 		or 4
 end
 
---- Âîçâðàùàåò âåëè÷èíó óðîíà óäàðíîé âîëíîé â çàâèñèìîñòè îò ëîêàöèè
+--- Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ Ð²ÐµÐ»Ð¸Ñ‡Ð¸Ð½Ñƒ ÑƒÑ€Ð¾Ð½Ð° ÑƒÐ´Ð°Ñ€Ð½Ð¾Ð¹ Ð²Ð¾Ð»Ð½Ð¾Ð¹ Ð² Ð·Ð°Ð²Ð¸ÑÐ¸Ð¼Ð¾ÑÑ‚Ð¸ Ð¾Ñ‚ Ð»Ð¾ÐºÐ°Ñ†Ð¸Ð¸
 function level_blow_damage()
 	local level_name = level.name()
 
@@ -455,7 +451,7 @@ function level_blow_damage()
 end
 
 local armor_type_npc = { ["novice"] = 4, ["experienced"] = 3, ["veteran"] = 2, ["master"] = 1 }
---- Âîçâðàùàåò êëàññ çàùèòû íåïèñÿ
+--- Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ ÐºÐ»Ð°ÑÑ Ð·Ð°Ñ‰Ð¸Ñ‚Ñ‹ Ð½ÐµÐ¿Ð¸ÑÑ
 function armor_type(npc)
 	if not npc then return end
 
@@ -465,7 +461,7 @@ function armor_type(npc)
 	end
 end
 
--- Ïîêàç òèïñà
+-- ÐŸÐ¾ÐºÐ°Ð· Ñ‚Ð¸Ð¿ÑÐ°
 function send_tip(news_text, header, timeout, showtime, sender, sound)
 	if not news_text then return end
 
@@ -477,7 +473,7 @@ function send_tip(news_text, header, timeout, showtime, sender, sound)
 	local y = tips_icons[sender][2]
 	local player = xr_sound.get_safe_sound_object( tips_variable[sound] or tips_variable["pda_tips"] )
 
-	player:play(db.actor, timeout, sound_object.s2d) --Èãðàåì äåôîëòíûé çâóê
+	player:play(db.actor, timeout, sound_object.s2d) --Ð˜Ð³Ñ€Ð°ÐµÐ¼ Ð´ÐµÑ„Ð¾Ð»Ñ‚Ð½Ñ‹Ð¹ Ð·Ð²ÑƒÐº
 
 	local news_text = "%c[255,160,160,160]"..header.."\\n".."%c[default]"..news_text
 	db.actor:give_game_news(news_text, "ui\\ui_iconsTotal", Frect():set(x,y,83,47), timeout*1000, showtime*1000)
@@ -485,10 +481,10 @@ function send_tip(news_text, header, timeout, showtime, sender, sound)
 	return true
 end
 
---****************************************ÒÀÉÌÅÐÛ - ÍÀ×ÀËÎ.*************************************************
---KRodin: ïåðåâ¸ë ýòè äåðüìîòàéìåðû íà ñèñòåìó ogse_st_mgr.script
---Ïî-õîðîøåìó, íàäî áû îò íèõ èçáàâèòüñÿ, íî òóò ñëèøêîì ìíîãî ðàáîòû.
---ÍÈ Â ÊÎÅÌ ÑËÓ×ÀÅ ÍÅ ÏÎËÜÇÓÉÒÅÑÜ ÝÒÈÌÈ ÒÀÉÌÅÐÀÌÈ Â ÁÓÄÓÙÅÌ!
+--****************************************Ð¢ÐÐ™ÐœÐ•Ð Ð« - ÐÐÐ§ÐÐ›Ðž.*************************************************
+--KRodin: Ð¿ÐµÑ€ÐµÐ²Ñ‘Ð» ÑÑ‚Ð¸ Ð´ÐµÑ€ÑŒÐ¼Ð¾Ñ‚Ð°Ð¹Ð¼ÐµÑ€Ñ‹ Ð½Ð° ÑÐ¸ÑÑ‚ÐµÐ¼Ñƒ ogse_st_mgr.script
+--ÐŸÐ¾-Ñ…Ð¾Ñ€Ð¾ÑˆÐµÐ¼Ñƒ, Ð½Ð°Ð´Ð¾ Ð±Ñ‹ Ð¾Ñ‚ Ð½Ð¸Ñ… Ð¸Ð·Ð±Ð°Ð²Ð¸Ñ‚ÑŒÑÑ, Ð½Ð¾ Ñ‚ÑƒÑ‚ ÑÐ»Ð¸ÑˆÐºÐ¾Ð¼ Ð¼Ð½Ð¾Ð³Ð¾ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹.
+--ÐÐ˜ Ð’ ÐšÐžÐ•Ðœ Ð¡Ð›Ð£Ð§ÐÐ• ÐÐ• ÐŸÐžÐ›Ð¬Ð—Ð£Ð™Ð¢Ð•Ð¡Ð¬ Ð­Ð¢Ð˜ÐœÐ˜ Ð¢ÐÐ™ÐœÐ•Ð ÐÐœÐ˜ Ð’ Ð‘Ð£Ð”Ð£Ð©Ð•Ðœ!
 function start_timer(name, delay, action)
 	if not delay then return end
 	if not action then action = "" end
@@ -512,7 +508,7 @@ function g_start_timer(name, delay_d, delay_h, delay_m, action)
 end
 
 local selector = {
---[=[ --KRodin: íå íàøåë ãäå ýòî èñïîëüçóåòñÿ, íî îñòàâèë, íà âñÿêèé ñëó÷àé.
+--[=[ --KRodin: Ð½Ðµ Ð½Ð°ÑˆÐµÐ» Ð³Ð´Ðµ ÑÑ‚Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ, Ð½Ð¾ Ð¾ÑÑ‚Ð°Ð²Ð¸Ð», Ð½Ð° Ð²ÑÑÐºÐ¸Ð¹ ÑÐ»ÑƒÑ‡Ð°Ð¹.
 	["kol"] = function(params_string)
 		local h = hit ()
 		h.direction = vector():set(0, 0, 0)
@@ -961,11 +957,11 @@ function __do_timer_action(select_string, params_string)
 		action(params_string)
 	end
 end
---****************************************ÒÀÉÌÅÐÛ - ÊÎÍÅÖ.*************************************************
+--****************************************Ð¢ÐÐ™ÐœÐ•Ð Ð« - ÐšÐžÐÐ•Ð¦.*************************************************
 
 -----------------------------------------------------------------------------------------------------------
---Ñïàâíèì ïðåäìåòû â èíâåíòàðü àêòîðà, ÍÏÑ, ìîíñòðîâ, ÿùèêîâ (ïîääåðæèâàþòñÿ è êëèåíòñêèå, è ñåðâåðíûå îáúåêòû)
---ÄËß ÑÏÀÂÍÀ ÏÀÒÐÎÍÎÂ ÈÑÏÎËÜÇÎÂÀÒÜ ÎÒÄÅËÜÍÓÞ ÔÓÍÊÖÈÞ!!!
+--Ð¡Ð¿Ð°Ð²Ð½Ð¸Ð¼ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ñ‹ Ð² Ð¸Ð½Ð²ÐµÐ½Ñ‚Ð°Ñ€ÑŒ Ð°ÐºÑ‚Ð¾Ñ€Ð°, ÐÐŸÐ¡, Ð¼Ð¾Ð½ÑÑ‚Ñ€Ð¾Ð², ÑÑ‰Ð¸ÐºÐ¾Ð² (Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶Ð¸Ð²Ð°ÑŽÑ‚ÑÑ Ð¸ ÐºÐ»Ð¸ÐµÐ½Ñ‚ÑÐºÐ¸Ðµ, Ð¸ ÑÐµÑ€Ð²ÐµÑ€Ð½Ñ‹Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹)
+--Ð”Ð›Ð¯ Ð¡ÐŸÐÐ’ÐÐ ÐŸÐÐ¢Ð ÐžÐÐžÐ’ Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐ¢Ð¬ ÐžÐ¢Ð”Ð•Ð›Ð¬ÐÐ£Ð® Ð¤Ð£ÐÐšÐ¦Ð˜Ð®!!!
 function spawn_item_in_inv(section, npc, num)
 	local npc = npc or db.actor
 	local num = num or 1
@@ -982,7 +978,7 @@ function spawn_item_in_inv(section, npc, num)
 	for i = 1, num do
 		sobj = alife():create(section, pos, lvi, gvi, pid)
 		if not is_actor and game_obj then
-			level.client_spawn_manager():add(sobj.id, -1, fix_spawn_item_in_inv, game_obj) --Ôèêñ ïðîïàäàíèÿ äîñïàâíåííîãî ïðåäìåòà ïðè ñåéâ/ëîàäå
+			level.client_spawn_manager():add(sobj.id, -1, fix_spawn_item_in_inv, game_obj) --Ð¤Ð¸ÐºÑ Ð¿Ñ€Ð¾Ð¿Ð°Ð´Ð°Ð½Ð¸Ñ Ð´Ð¾ÑÐ¿Ð°Ð²Ð½ÐµÐ½Ð½Ð¾Ð³Ð¾ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ð° Ð¿Ñ€Ð¸ ÑÐµÐ¹Ð²/Ð»Ð¾Ð°Ð´Ðµ
 		end
 	end
 	if num == 1 then
@@ -990,7 +986,7 @@ function spawn_item_in_inv(section, npc, num)
 	end
 end
 
---Ñïàâíèì ïàòðîíû â èíâåíòàðü àêòîðà, ÍÏÑ, ìîíñòðîâ, ÿùèêîâ (ïîääåðæèâàþòñÿ è êëèåíòñêèå, è ñåðâåðíûå îáúåêòû)
+--Ð¡Ð¿Ð°Ð²Ð½Ð¸Ð¼ Ð¿Ð°Ñ‚Ñ€Ð¾Ð½Ñ‹ Ð² Ð¸Ð½Ð²ÐµÐ½Ñ‚Ð°Ñ€ÑŒ Ð°ÐºÑ‚Ð¾Ñ€Ð°, ÐÐŸÐ¡, Ð¼Ð¾Ð½ÑÑ‚Ñ€Ð¾Ð², ÑÑ‰Ð¸ÐºÐ¾Ð² (Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶Ð¸Ð²Ð°ÑŽÑ‚ÑÑ Ð¸ ÐºÐ»Ð¸ÐµÐ½Ñ‚ÑÐºÐ¸Ðµ, Ð¸ ÑÐµÑ€Ð²ÐµÑ€Ð½Ñ‹Ðµ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹)
 function spawn_ammo_in_inv(section, num, npc)
 	if num < 1 then return end
 
@@ -1009,18 +1005,18 @@ function spawn_ammo_in_inv(section, num, npc)
 	while num > num_in_box or num > 0 do
 		local sitem = alife():create_ammo(section, pos, lvi, gvi, pid, num < num_in_box and num or num_in_box)
 		if not is_actor and game_obj then
-			level.client_spawn_manager():add(sitem.id, -1, fix_spawn_item_in_inv, game_obj) --Ôèêñ ïðîïàäàíèÿ äîñïàâíåííîãî ïðåäìåòà ïðè ñåéâ/ëîàäå
+			level.client_spawn_manager():add(sitem.id, -1, fix_spawn_item_in_inv, game_obj) --Ð¤Ð¸ÐºÑ Ð¿Ñ€Ð¾Ð¿Ð°Ð´Ð°Ð½Ð¸Ñ Ð´Ð¾ÑÐ¿Ð°Ð²Ð½ÐµÐ½Ð½Ð¾Ð³Ð¾ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ð° Ð¿Ñ€Ð¸ ÑÐµÐ¹Ð²/Ð»Ð¾Ð°Ð´Ðµ
 		end
 		num = num - num_in_box
 	end
 end
 
-function fix_spawn_item_in_inv(obj, item_id, item_obj) --Ôèêñ ïðîïàäàíèÿ äîñïàâíåííîãî ïðåäìåòà ïðè ñåéâ/ëîàäå
+function fix_spawn_item_in_inv(obj, item_id, item_obj) --Ð¤Ð¸ÐºÑ Ð¿Ñ€Ð¾Ð¿Ð°Ð´Ð°Ð½Ð¸Ñ Ð´Ð¾ÑÐ¿Ð°Ð²Ð½ÐµÐ½Ð½Ð¾Ð³Ð¾ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ð° Ð¿Ñ€Ð¸ ÑÐµÐ¹Ð²/Ð»Ð¾Ð°Ð´Ðµ
     obj:transfer_item(item_obj, obj)
 end
 -----------------------------------------------------------------------------------------------------------
 
--- Óäàëÿåì îáúåêò èç èãðû
+-- Ð£Ð´Ð°Ð»ÑÐµÐ¼ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¸Ð· Ð¸Ð³Ñ€Ñ‹
 function remove_item(item_to_remove)
 	if item_to_remove then
 		local sobj = alife():object(item_to_remove:id())
@@ -1034,7 +1030,7 @@ function remove_item(item_to_remove)
 	return false
 end
 
---/Óäàëåíèå èòåìîâ èç èíâåíòàðÿ ÃÃ
+--/Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ Ð¸Ñ‚ÐµÐ¼Ð¾Ð² Ð¸Ð· Ð¸Ð½Ð²ÐµÐ½Ñ‚Ð°Ñ€Ñ Ð“Ð“
 function remove_inv_items_by_section(sec, items_to_remove)
 	local items_removed = 0
 	for i = 0, db.actor:object_count() - 1 do
@@ -1050,19 +1046,19 @@ function remove_inv_items_by_section(sec, items_to_remove)
 	end 
 end
 
--- Âûáðàñûâàåì îáúåêò èç èíâåíòàðÿ, ïðèìåíèìî ê ÃÃ
+-- Ð’Ñ‹Ð±Ñ€Ð°ÑÑ‹Ð²Ð°ÐµÐ¼ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¸Ð· Ð¸Ð½Ð²ÐµÐ½Ñ‚Ð°Ñ€Ñ, Ð¿Ñ€Ð¸Ð¼ÐµÐ½Ð¸Ð¼Ð¾ Ðº Ð“Ð“
 function drop_item(npc, item)
 	if item then
 	    npc:mark_item_dropped(item)
 	end
 end
 
--- Óáèâàåì íåïèñÿ
+-- Ð£Ð±Ð¸Ð²Ð°ÐµÐ¼ Ð½ÐµÐ¿Ð¸ÑÑ
 function make_suicide(npc)
 	npc:kill(npc)
 end
 
--- Óçíàåì îòíîøåíèå îäíîãî íåïèñÿ ê äðóãîìó
+-- Ð£Ð·Ð½Ð°ÐµÐ¼ Ð¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ðµ Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ð½ÐµÐ¿Ð¸ÑÑ Ðº Ð´Ñ€ÑƒÐ³Ð¾Ð¼Ñƒ
 function get_npc_relation(obj,target)
 	local rel = obj:relation(target)
 	if rel then
@@ -1072,7 +1068,7 @@ function get_npc_relation(obj,target)
 	end
 end
 
--- Çàäàåì îòíîøåíèå îäíîãî íåïèñÿ ê äðóãîìó
+-- Ð—Ð°Ð´Ð°ÐµÐ¼ Ð¾Ñ‚Ð½Ð¾ÑˆÐµÐ½Ð¸Ðµ Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ð½ÐµÐ¿Ð¸ÑÑ Ðº Ð´Ñ€ÑƒÐ³Ð¾Ð¼Ñƒ
 function set_npc_relation(obj,target,relation)
 	ASSERT(relation, "[ogse.set_npc_relation] variable relation == nil!")
 	if relation=="neutral" then
@@ -1088,13 +1084,13 @@ function set_npc_relation(obj,target,relation)
 	return true
 end
 
--- Âûñòàâëÿåì ãðóïïèðîâêó íåïèñÿ, ìîæíî ÃÃ
+-- Ð’Ñ‹ÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼ Ð³Ñ€ÑƒÐ¿Ð¿Ð¸Ñ€Ð¾Ð²ÐºÑƒ Ð½ÐµÐ¿Ð¸ÑÑ, Ð¼Ð¾Ð¶Ð½Ð¾ Ð“Ð“
 function set_npc_community(npc,community_string)
-	--çíà÷åíèÿ äëÿ community_string ìîæíî óçíàòü â config\creatures\game_relations.ltx
+	--Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ Ð´Ð»Ñ community_string Ð¼Ð¾Ð¶Ð½Ð¾ ÑƒÐ·Ð½Ð°Ñ‚ÑŒ Ð² config\creatures\game_relations.ltx
 	return npc:set_character_community(community_string, 0, 0)
 end
 
--- Óäàëÿåì ïðåäìåò èç èíâåíòàðÿ ïî èìåíè
+-- Ð£Ð´Ð°Ð»ÑÐµÐ¼ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚ Ð¸Ð· Ð¸Ð½Ð²ÐµÐ½Ñ‚Ð°Ñ€Ñ Ð¿Ð¾ Ð¸Ð¼ÐµÐ½Ð¸
 function remove_item_from_inventory_by_name(remove_item_name,npc)
 	return remove_item_from_inventory(npc:object(remove_item_name),npc)
 end
@@ -1111,7 +1107,7 @@ function remove_item_from_inventory(remove_item, npc)
 	return false
 end
 
--- Î÷èùàåì èíâåíòàðü íåïèñÿ, ìîæíî ÃÃ
+-- ÐžÑ‡Ð¸Ñ‰Ð°ÐµÐ¼ Ð¸Ð½Ð²ÐµÐ½Ñ‚Ð°Ñ€ÑŒ Ð½ÐµÐ¿Ð¸ÑÑ, Ð¼Ð¾Ð¶Ð½Ð¾ Ð“Ð“
 function clear_npc_inventory(npc)
     npc:iterate_inventory(function(_, item)
 		local section = item:section()
@@ -1127,14 +1123,14 @@ function clear_npc_inventory(npc)
 	end)
 end
 
--- Ïðîâåðêà, çàïóùåíà ëè èãðà
+-- ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ°, Ð·Ð°Ð¿ÑƒÑ‰ÐµÐ½Ð° Ð»Ð¸ Ð¸Ð³Ñ€Ð°
 function check_game()
 	return level.present() and db.actor and db.actor:alive() and device().precache_frame < 1
 end
 
 --**********************************************************************************************************
---KRodin ïåðåâ¸ë âñå ôóíêöèè íà ñèñòåìó ogse_unist.script.
---Â áóäóùåì ýòè ôóíêöèè ÍÅ ÈÑÏÎËÜÇÎÂÀÒÜ! À èñïîëüçîâàòü ÒÎËÜÊÎ ogse_unist.script!!! Ïîäðîáíîñòè ÷èòàòü òàì.
+--KRodin Ð¿ÐµÑ€ÐµÐ²Ñ‘Ð» Ð²ÑÐµ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ Ð½Ð° ÑÐ¸ÑÑ‚ÐµÐ¼Ñƒ ogse_unist.script.
+--Ð’ Ð±ÑƒÐ´ÑƒÑ‰ÐµÐ¼ ÑÑ‚Ð¸ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸ ÐÐ• Ð˜Ð¡ÐŸÐžÐ›Ð¬Ð—ÐžÐ’ÐÐ¢Ð¬! Ð Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ Ð¢ÐžÐ›Ð¬ÐšÐž ogse_unist.script!!! ÐŸÐ¾Ð´Ñ€Ð¾Ð±Ð½Ð¾ÑÑ‚Ð¸ Ñ‡Ð¸Ñ‚Ð°Ñ‚ÑŒ Ñ‚Ð°Ð¼.
 function save_variable(variable_name, value)
 	save_var("ogse."..variable_name, value)
 end
@@ -1154,7 +1150,7 @@ function del_variable(variable_name)
 end
 --***********************************************************************************************************
 
--- Îïðåäåëÿåì íàõîäèòñÿ ëè ÃÃ â îïðåäåëåííîé çîíå
+-- ÐžÐ¿Ñ€ÐµÐ´ÐµÐ»ÑÐµÐ¼ Ð½Ð°Ñ…Ð¾Ð´Ð¸Ñ‚ÑÑ Ð»Ð¸ Ð“Ð“ Ð² Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ð½Ð¾Ð¹ Ð·Ð¾Ð½Ðµ
 function check_npc_in_box(npc, p1,p2)
 	local pos=npc:position()
 	return is_point_inside_interval(pos.x,p1.x,p2.x) and
@@ -1170,7 +1166,7 @@ function is_point_inside_interval(x,p1,p2)
 end
 
 
--- Êîëáýê íà ïîÿâëåíèå ïðåäìåòà â èíâåíòàðå ÃÃ
+-- ÐšÐ¾Ð»Ð±ÑÐº Ð½Ð° Ð¿Ð¾ÑÐ²Ð»ÐµÐ½Ð¸Ðµ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ð° Ð² Ð¸Ð½Ð²ÐµÐ½Ñ‚Ð°Ñ€Ðµ Ð“Ð“
 function on_item_take(obj)
 	if obj:section() == "wpn_montirovka" and db.actor:dont_has_info("player_have_crowbar") and level.name() == "l06_rostok" then
 		soundtrack.rostok_gordon()
@@ -1196,7 +1192,7 @@ function on_storyline_start()
 	db.actor:give_info_portion("encyclopedy_tutorial_relation")
 	db.actor:give_info_portion("encyclopedy_tutorial_wound")
 
-	dsh.create_free_mob("rad_zombie_rusty", vector():set(359, -45, -111), 1, 1940) --Çîìáè íà Ðàäàðå ñ ðóêîé-àðòåôàêòîì
+	dsh.create_free_mob("rad_zombie_rusty", vector():set(359, -45, -111), 1, 1940) --Ð—Ð¾Ð¼Ð±Ð¸ Ð½Ð° Ð Ð°Ð´Ð°Ñ€Ðµ Ñ Ñ€ÑƒÐºÐ¾Ð¹-Ð°Ñ€Ñ‚ÐµÑ„Ð°ÐºÑ‚Ð¾Ð¼
 end
 
 function kill_offline_npc(obj)
@@ -1213,7 +1209,7 @@ function kill_offline_npc(obj)
 	smart_terrain.on_death( obj.id )
 end
 
--- âîçâðàùàåò óðîâåíü çäîðîâüÿ ÍÏÑ, äëÿ ïðîâåðêè â îôôëàéíå æèâ/ì¸ðòâ ÍÏÑ
+-- Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÑ‚ ÑƒÑ€Ð¾Ð²ÐµÐ½ÑŒ Ð·Ð´Ð¾Ñ€Ð¾Ð²ÑŒÑ ÐÐŸÐ¡, Ð´Ð»Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ¸ Ð² Ð¾Ñ„Ñ„Ð»Ð°Ð¹Ð½Ðµ Ð¶Ð¸Ð²/Ð¼Ñ‘Ñ€Ñ‚Ð² ÐÐŸÐ¡
 function check_offline_npc(obj)
 	if not obj then return end
 	ASSERT( IsStalker(obj) or IsMonster(obj), "" )
@@ -1227,8 +1223,8 @@ function check_offline_npc(obj)
 end
 
 
--------------------Âûâîäèì âðåìÿ íà HUD-------------------
-function after_time_change() --Ïðèíóäèòåëüíîå îáíîâëåíèå âðåìåíè ïîñëå ïåðåâîäà ñòðåëîê.
+-------------------Ð’Ñ‹Ð²Ð¾Ð´Ð¸Ð¼ Ð²Ñ€ÐµÐ¼Ñ Ð½Ð° HUD-------------------
+function after_time_change() --ÐŸÑ€Ð¸Ð½ÑƒÐ´Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ Ð²Ñ€ÐµÐ¼ÐµÐ½Ð¸ Ð¿Ð¾ÑÐ»Ðµ Ð¿ÐµÑ€ÐµÐ²Ð¾Ð´Ð° ÑÑ‚Ñ€ÐµÐ»Ð¾Ðº.
 	show_time(true)
 end
 
@@ -1252,8 +1248,8 @@ end
 -----------------------------------------------------------
 
 
--- âñïîìîãàòåëüíàÿ ôóíêöèÿ, ñîçäàíèå îäíîãî èëè íåñêîëüêèõ îáúåêòîâ â çàäàííîé òî÷êå
--- íàçíà÷åíèå: óáðàòü ïîâòîðíûé êîä èç ôóíêöèé äàëåå ïî òåêñòó
+-- Ð²ÑÐ¿Ð¾Ð¼Ð¾Ð³Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð°Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ, ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ð¸Ð»Ð¸ Ð½ÐµÑÐºÐ¾Ð»ÑŒÐºÐ¸Ñ… Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð² Ð² Ð·Ð°Ð´Ð°Ð½Ð½Ð¾Ð¹ Ñ‚Ð¾Ñ‡ÐºÐµ
+-- Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ: ÑƒÐ±Ñ€Ð°Ñ‚ÑŒ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ñ‹Ð¹ ÐºÐ¾Ð´ Ð¸Ð· Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¹ Ð´Ð°Ð»ÐµÐµ Ð¿Ð¾ Ñ‚ÐµÐºÑÑ‚Ñƒ
 local function spawn_single_object_internal(res, spawn_item)
 	ASSERT(spawn_item.sec, "[spawn_single_object_internal] section not defined")
 	ASSERT(spawn_item.pos, "[spawn_single_object_internal] position not defined, sec = '%s'", spawn_item.sec)
@@ -1272,10 +1268,10 @@ local function spawn_single_object_internal(res, spawn_item)
 	local sim = alife()
 	for i=1,count do
 		local sobj_abstract = sim:create(spawn_item.sec, vector():set(unpack(spawn_item.pos)), spawn_item.lvid, spawn_item.gvid)
-		-- ïîëó÷àåì îáúåêò ïðàâèëüíãî òèïà
+		-- Ð¿Ð¾Ð»ÑƒÑ‡Ð°ÐµÐ¼ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¿Ñ€Ð°Ð²Ð¸Ð»ÑŒÐ½Ð³Ð¾ Ñ‚Ð¸Ð¿Ð°
 		local sobj = sim:object(sobj_abstract.id)
-		-- íà ñàìîì äåëå â ýòîé ïðîâåðêå íåò ñìûñëà. Ñèòóàöèè, êîãäà îáúåêò ñîçäàòü íå óäàëîñü, à âûïîëíåíèå ïðîäîëæèëîñü,
-		-- ïðîñòî íå áûâàåò. Â ýòèõ ñëó÷àÿõ âñåãäà èä¸ò âûëåò. Íî ïóñòü áóäåò
+		-- Ð½Ð° ÑÐ°Ð¼Ð¾Ð¼ Ð´ÐµÐ»Ðµ Ð² ÑÑ‚Ð¾Ð¹ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐµ Ð½ÐµÑ‚ ÑÐ¼Ñ‹ÑÐ»Ð°. Ð¡Ð¸Ñ‚ÑƒÐ°Ñ†Ð¸Ð¸, ÐºÐ¾Ð³Ð´Ð° Ð¾Ð±ÑŠÐµÐºÑ‚ ÑÐ¾Ð·Ð´Ð°Ñ‚ÑŒ Ð½Ðµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ, Ð° Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ Ð¿Ñ€Ð¾Ð´Ð¾Ð»Ð¶Ð¸Ð»Ð¾ÑÑŒ,
+		-- Ð¿Ñ€Ð¾ÑÑ‚Ð¾ Ð½Ðµ Ð±Ñ‹Ð²Ð°ÐµÑ‚. Ð’ ÑÑ‚Ð¸Ñ… ÑÐ»ÑƒÑ‡Ð°ÑÑ… Ð²ÑÐµÐ³Ð´Ð° Ð¸Ð´Ñ‘Ñ‚ Ð²Ñ‹Ð»ÐµÑ‚. ÐÐ¾ Ð¿ÑƒÑÑ‚ÑŒ Ð±ÑƒÐ´ÐµÑ‚
 		ASSERT(sobj, "[spawn_single_object_internal] cannot create object, sec = '%s'", spawn_item.sec)
 		if spawn_item.use_ai_locations == false then
 			alife():use_ai_locations(sobj, false)
@@ -1295,14 +1291,14 @@ local function spawn_single_object_internal(res, spawn_item)
 	end
 end
 
--- ñïàâíèò îäèí èëè íåñêîëüêî îäèíàêîâûõ ïðåäìåòîâ â çàäàííîé òî÷êå
--- ôàêòè÷åñêè ïðîñòî îá¸ðòêà íàä spawn_single_object_internal
+-- ÑÐ¿Ð°Ð²Ð½Ð¸Ñ‚ Ð¾Ð´Ð¸Ð½ Ð¸Ð»Ð¸ Ð½ÐµÑÐºÐ¾Ð»ÑŒÐºÐ¾ Ð¾Ð´Ð¸Ð½Ð°ÐºÐ¾Ð²Ñ‹Ñ… Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ð¾Ð² Ð² Ð·Ð°Ð´Ð°Ð½Ð½Ð¾Ð¹ Ñ‚Ð¾Ñ‡ÐºÐµ
+-- Ñ„Ð°ÐºÑ‚Ð¸Ñ‡ÐµÑÐºÐ¸ Ð¿Ñ€Ð¾ÑÑ‚Ð¾ Ð¾Ð±Ñ‘Ñ€Ñ‚ÐºÐ° Ð½Ð°Ð´ spawn_single_object_internal
 function spawn_object(spawn_item)
 	local res = {}
 	spawn_single_object_internal(res, spawn_item)
 	return unpack(res)
 end
--- ñïàâíèò íåñêîëüêî ïðåäìåòîâ, çàäàííûõ òàáëèöåé
+-- ÑÐ¿Ð°Ð²Ð½Ð¸Ñ‚ Ð½ÐµÑÐºÐ¾Ð»ÑŒÐºÐ¾ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ð¾Ð², Ð·Ð°Ð´Ð°Ð½Ð½Ñ‹Ñ… Ñ‚Ð°Ð±Ð»Ð¸Ñ†ÐµÐ¹
 function spawn_objects(spawn_items)
 	local res = {}
 	for idx,spawn_item in ipairs(spawn_items) do
@@ -1310,7 +1306,7 @@ function spawn_objects(spawn_items)
 	end
 	return res
 end
--- ñïàâíèò ðàíäîìíî îäèí èç ïðåäìåòîâ, çàäàííûõ òàáëèöåé
+-- ÑÐ¿Ð°Ð²Ð½Ð¸Ñ‚ Ñ€Ð°Ð½Ð´Ð¾Ð¼Ð½Ð¾ Ð¾Ð´Ð¸Ð½ Ð¸Ð· Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ð¾Ð², Ð·Ð°Ð´Ð°Ð½Ð½Ñ‹Ñ… Ñ‚Ð°Ð±Ð»Ð¸Ñ†ÐµÐ¹
 function spawn_object_rand(spawn_items)
 	local spawn_item = spawn_items[math.random(#spawn_items)]
 	local res = {}
@@ -1409,16 +1405,16 @@ function has_info(info)
 end
 
 
--- ôóíêöèÿ ñîçäàíèÿ îêíà ñîîáùåíèÿ, êîòîðîå çàêðîåòñÿ ñàìî ÷åðåç îïðåäåë¸ííîå âðåìÿ
+-- Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ñ Ð¾ÐºÐ½Ð° ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ, ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ðµ Ð·Ð°ÐºÑ€Ð¾ÐµÑ‚ÑÑ ÑÐ°Ð¼Ð¾ Ñ‡ÐµÑ€ÐµÐ· Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»Ñ‘Ð½Ð½Ð¾Ðµ Ð²Ñ€ÐµÐ¼Ñ
 function autohiding_msg(txt, delay)
 	local dlg = MonologueMsg(txt)
 	level.start_stop_menu(dlg, true)
 	autohide_dlg_timer(delay, dlg):start()
 end
 
--- îêíî "ìîíîëîãîâîãî" òèïà. Ïðîñòî ñîîáùåíèå â ðàìêå.
--- Çàêðûòü ìîæíî ïî ESC. Òàêæå ìîæíî èñïîëüçîâàòü â êîìáèíàöèè ñ
--- òàéìåðîì àâòîçàêðûòèÿ (ñì. MonologueMsg è ô-þ autohiding_msg)
+-- Ð¾ÐºÐ½Ð¾ "Ð¼Ð¾Ð½Ð¾Ð»Ð¾Ð³Ð¾Ð²Ð¾Ð³Ð¾" Ñ‚Ð¸Ð¿Ð°. ÐŸÑ€Ð¾ÑÑ‚Ð¾ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ Ð² Ñ€Ð°Ð¼ÐºÐµ.
+-- Ð—Ð°ÐºÑ€Ñ‹Ñ‚ÑŒ Ð¼Ð¾Ð¶Ð½Ð¾ Ð¿Ð¾ ESC. Ð¢Ð°ÐºÐ¶Ðµ Ð¼Ð¾Ð¶Ð½Ð¾ Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ Ð² ÐºÐ¾Ð¼Ð±Ð¸Ð½Ð°Ñ†Ð¸Ð¸ Ñ
+-- Ñ‚Ð°Ð¹Ð¼ÐµÑ€Ð¾Ð¼ Ð°Ð²Ñ‚Ð¾Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ñ (ÑÐ¼. MonologueMsg Ð¸ Ñ„-ÑŽ autohiding_msg)
 class "MonologueMsg" (CUIScriptWnd)
 function MonologueMsg:__init(txt) super()
 	local xml = CScriptXmlInit()
@@ -1442,7 +1438,7 @@ function MonologueMsg:OnKeyboard(dik, key_act) CUIScriptWnd.OnKeyboard(self,dik,
 	return true
 end
 
--- ñëóæåáíûé òàéìåð äëÿ àâòîìàòè÷åñêîãî çàêðûòèÿ äèàëîãà ÷åðåç çàäàííîå âðåìÿ
+-- ÑÐ»ÑƒÐ¶ÐµÐ±Ð½Ñ‹Ð¹ Ñ‚Ð°Ð¹Ð¼ÐµÑ€ Ð´Ð»Ñ Ð°Ð²Ñ‚Ð¾Ð¼Ð°Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ð³Ð¾ Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¸Ñ Ð´Ð¸Ð°Ð»Ð¾Ð³Ð° Ñ‡ÐµÑ€ÐµÐ· Ð·Ð°Ð´Ð°Ð½Ð½Ð¾Ðµ Ð²Ñ€ÐµÐ¼Ñ
 class "autohide_dlg_timer" (ogse_qt.quick_timer)
 function autohide_dlg_timer:__init(delay, dlg) super(delay)
 	self.dlg = dlg
@@ -1454,7 +1450,7 @@ function autohide_dlg_timer:taction()
 end
 
 
---/* Óìåíüøåíèÿ ðåïóòàöèè íà .. åäåíèö ãëàâíîìó ãåðîþ..
+--/* Ð£Ð¼ÐµÐ½ÑŒÑˆÐµÐ½Ð¸Ñ Ñ€ÐµÐ¿ÑƒÑ‚Ð°Ñ†Ð¸Ð¸ Ð½Ð° .. ÐµÐ´ÐµÐ½Ð¸Ñ† Ð³Ð»Ð°Ð²Ð½Ð¾Ð¼Ñƒ Ð³ÐµÑ€Ð¾ÑŽ..
 function reputation_down_20(stalker, player)
 	db.actor:change_character_reputation(-20)
 end
@@ -1478,20 +1474,20 @@ function transfer_items_to_box(box_sid, remove_quest_items, exclude_sections, ex
 	local cnt = db.actor:object_count()
 	for i=0, cnt-1 do
 		local obj = db.actor:object(i)
-		-- åñòü ëè îáúåêò
+		-- ÐµÑÑ‚ÑŒ Ð»Ð¸ Ð¾Ð±ÑŠÐµÐºÑ‚
 		if obj then
 		local sect = obj:section()
-		-- ôèëüòð ïî çàïðåùåííûì class id
+		-- Ñ„Ð¸Ð»ÑŒÑ‚Ñ€ Ð¿Ð¾ Ð·Ð°Ð¿Ñ€ÐµÑ‰ÐµÐ½Ð½Ñ‹Ð¼ class id
 		if not exclude_clsids or not exclude_clsids[obj:clsid()] then
-		-- ôèëüòð ïî çàïðåùåííûì ñåêöèÿì
+		-- Ñ„Ð¸Ð»ÑŒÑ‚Ñ€ Ð¿Ð¾ Ð·Ð°Ð¿Ñ€ÐµÑ‰ÐµÐ½Ð½Ñ‹Ð¼ ÑÐµÐºÑ†Ð¸ÑÐ¼
 		if not exclude_sections or not exclude_sections[sect] then
-		-- ôèëüòð ïî êâåñòîâûì âåùàì
+		-- Ñ„Ð¸Ð»ÑŒÑ‚Ñ€ Ð¿Ð¾ ÐºÐ²ÐµÑÑ‚Ð¾Ð²Ñ‹Ð¼ Ð²ÐµÑ‰Ð°Ð¼
 		if remove_quest_items or not (sys_ini:line_exist(sect, "quest_item") and sys_ini:r_bool(sect, "quest_item")) then
-			-- îñîáàÿ îáðàáîòêà ìåòêè
+			-- Ð¾ÑÐ¾Ð±Ð°Ñ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ° Ð¼ÐµÑ‚ÐºÐ¸
 			if sect == "amk_metka" then
 				ogse_metka.dropped_to_box = ogse_metka.dropped_to_box + 1
 			end
-			-- ïåðåäàåì ïðåäìåò
+			-- Ð¿ÐµÑ€ÐµÐ´Ð°ÐµÐ¼ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚
 			db.actor:transfer_item(obj, box)
 		end
 		end
@@ -1507,10 +1503,10 @@ function transfer_items_from_box(box_sid)
 	local cnt = box:inv_box_count()
 	for i=0, cnt-1 do
 		local obj = box:object_from_inv_box(i)
-		-- åñòü ëè îáúåêò
+		-- ÐµÑÑ‚ÑŒ Ð»Ð¸ Ð¾Ð±ÑŠÐµÐºÑ‚
 		if obj then
 			local sect = obj:section()
-			-- ïåðåäàåì ïðåäìåò
+			-- Ð¿ÐµÑ€ÐµÐ´Ð°ÐµÐ¼ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚
 			box:transfer_item(obj, db.actor)
 		end
 	end
@@ -1523,16 +1519,16 @@ function transfer_weapons_to_box(box_sid, remove_quest_items, exclude_sections, 
 	local cnt = db.actor:object_count()
 	for i=0, cnt-1 do
 		local obj = db.actor:object(i)
-		-- åñòü ëè îáúåêò
+		-- ÐµÑÑ‚ÑŒ Ð»Ð¸ Ð¾Ð±ÑŠÐµÐºÑ‚
 		if obj then
 		local sect = obj:section()
-		-- ôèëüòð ïî çàïðåùåííûì class id
+		-- Ñ„Ð¸Ð»ÑŒÑ‚Ñ€ Ð¿Ð¾ Ð·Ð°Ð¿Ñ€ÐµÑ‰ÐµÐ½Ð½Ñ‹Ð¼ class id
 		if not exclude_clsids or not exclude_clsids[obj:clsid()] then
-		-- ôèëüòð ïî çàïðåùåííûì ñåêöèÿì
+		-- Ñ„Ð¸Ð»ÑŒÑ‚Ñ€ Ð¿Ð¾ Ð·Ð°Ð¿Ñ€ÐµÑ‰ÐµÐ½Ð½Ñ‹Ð¼ ÑÐµÐºÑ†Ð¸ÑÐ¼
 		if not exclude_sections or not exclude_sections[sect] then
-		-- ôèëüòð ïî êâåñòîâûì âåùàì
+		-- Ñ„Ð¸Ð»ÑŒÑ‚Ñ€ Ð¿Ð¾ ÐºÐ²ÐµÑÑ‚Ð¾Ð²Ñ‹Ð¼ Ð²ÐµÑ‰Ð°Ð¼
 		if remove_quest_items or not (sys_ini:line_exist(sect, "quest_item") and sys_ini:r_bool(sect, "quest_item")) then
-			-- ïåðåäàåì ïðåäìåò
+			-- Ð¿ÐµÑ€ÐµÐ´Ð°ÐµÐ¼ Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚
 			if obj:is_weapon() or obj:is_knife() then
 				db.actor:transfer_item(obj, box)
 			end
@@ -1556,7 +1552,7 @@ function on_spawn()
       cmd( k, "off" )
     end
     --
-    cmd( "hud_draw", "on" )
+    --cmd( "hud_draw", "on" )
     --
     for _, k in ipairs({
       --"hud_adjust_mode", "show_wnd_rect", "show_wnd_rect_all"
@@ -1566,7 +1562,7 @@ function on_spawn()
     --
     for _, k in ipairs({
       --[["g_god", "g_unlimitedammo", "g_zones_dbg", "g_vertex_dbg",]] "g_crosshair_dbg", "g_ammunition_on_belt",
-      "hud_draw",
+      --"hud_draw",
       --[["hud_adjust_mode", "show_wnd_rect", "show_wnd_rect_all",]]
       --[["demo_record",]] "jump_to_level", "time_factor", "set_weather"
     }) do

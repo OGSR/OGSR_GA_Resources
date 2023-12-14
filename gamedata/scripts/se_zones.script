@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 
 class "se_zone_anom" (cse_anomalous_zone)
@@ -9,7 +9,7 @@ class "se_zone_visual" (cse_zone_visual)
 function se_zone_visual:__init (section) super (section)
 end
 
---Рестрикторы
+--Р РµСЃС‚СЂРёРєС‚РѕСЂС‹
 class "se_restrictor" (cse_alife_space_restrictor)
 function se_restrictor:__init (section) super (section)
 end

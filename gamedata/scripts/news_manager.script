@@ -1,7 +1,7 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
--- за счёт отложенной загрузки звуков экономится примерно 4.5 Мб памяти.
-local news_showtime = sys_ini:r_s32("options","news_showtime") -- стандартное время показа сообщения
+
+-- Р·Р° СЃС‡С‘С‚ РѕС‚Р»РѕР¶РµРЅРЅРѕР№ Р·Р°РіСЂСѓР·РєРё Р·РІСѓРєРѕРІ СЌРєРѕРЅРѕРјРёС‚СЃСЏ РїСЂРёРјРµСЂРЅРѕ 4.5 РњР± РїР°РјСЏС‚Рё.
+local news_showtime = sys_ini:r_s32("options","news_showtime") -- СЃС‚Р°РЅРґР°СЂС‚РЅРѕРµ РІСЂРµРјСЏ РїРѕРєР°Р·Р° СЃРѕРѕР±С‰РµРЅРёСЏ
 local snds = {
 	tips_esc_trader_about_anomalies	= [[characters_voice\scenario\trader\trader_tutorial_anomalies_1]],
 	gar_dolg_warning				= [[characters_voice\scenario\duty\duty_warning1]],
@@ -143,16 +143,16 @@ function send_tip(actor, news_id, timeout, sender, showtime, sender_id)
 	if timeout == nil then timeout = 0 end
 	if showtime == nil then showtime = news_showtime end
 
-	--' Играем дефолтный звук
+	--' РРіСЂР°РµРј РґРµС„РѕР»С‚РЅС‹Р№ Р·РІСѓРє
 	if pda_tips then
 		pda_tips:play(db.actor, timeout, sound_object.s2d)
 	end
 	local news_snd = get_snd(news_id)
 	if news_snd then
-		--' Играем звук забитый
+		--' РРіСЂР°РµРј Р·РІСѓРє Р·Р°Р±РёС‚С‹Р№
 		news_snd:play(db.actor, timeout+1, sound_object.s2d)
 
-		--' Необходимо поставить время показа по длине сцены
+		--' РќРµРѕР±С…РѕРґРёРјРѕ РїРѕСЃС‚Р°РІРёС‚СЊ РІСЂРµРјСЏ РїРѕРєР°Р·Р° РїРѕ РґР»РёРЅРµ СЃС†РµРЅС‹
 		local length = news_snd:length()
 		if length > showtime then
 			showtime = length
@@ -175,7 +175,7 @@ function send_tip_nosound(actor, news_id, timeout, sender)
 
 	timeout = 0
 
-	--' Играем дефолтный звук
+	--' РРіСЂР°РµРј РґРµС„РѕР»С‚РЅС‹Р№ Р·РІСѓРє
 	if pda_tips then
 		pda_tips:play(db.actor, timeout, sound_object.s2d)
 	end
@@ -226,15 +226,15 @@ end
 function send_task(actor, type, task, objective)
     if not db.actor then return false end
      
-	--' Берем координаты из текстуры таска
+	--' Р‘РµСЂРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РёР· С‚РµРєСЃС‚СѓСЂС‹ С‚Р°СЃРєР°
     local task_texture, task_rect = get_texture_info("ui_iconsTotal_"..task:get_id(), "ui_iconsTotal_locations")
         
-	--' Играем дефолтный звук
+	--' РРіСЂР°РµРј РґРµС„РѕР»С‚РЅС‹Р№ Р·РІСѓРє
 	if pda_task then
 		pda_task:play(db.actor, 0, sound_object.s2d)
 	end
 
-	-- цвет сообщения
+	-- С†РІРµС‚ СЃРѕРѕР±С‰РµРЅРёСЏ
 	local text_color
 	if type == "fail" then
 		text_color = "%c[255,255,0,0]"
@@ -255,7 +255,7 @@ function send_task(actor, type, task, objective)
 		db.actor:give_game_news(news_text, task_texture, task_rect, 0, 3000)
 	end
 
-	if type == "new" or type == "update" then --Выдать новое подзадание
+	if type == "new" or type == "update" then --Р’С‹РґР°С‚СЊ РЅРѕРІРѕРµ РїРѕРґР·Р°РґР°РЅРёРµ
 		if task:get_objectives_cnt() == objective:get_idx()+1 then
 			return
 		end
@@ -268,15 +268,15 @@ function send_task(actor, type, task, objective)
 	if task_time then
 		task_title = task_title:sub(1, task_time - 1)
 	end
-	-- автосохранение только при получении и сдаче задания. циклические задания игнорируются.
+	-- Р°РІС‚РѕСЃРѕС…СЂР°РЅРµРЅРёРµ С‚РѕР»СЊРєРѕ РїСЂРё РїРѕР»СѓС‡РµРЅРёРё Рё СЃРґР°С‡Рµ Р·Р°РґР°РЅРёСЏ. С†РёРєР»РёС‡РµСЃРєРёРµ Р·Р°РґР°РЅРёСЏ РёРіРЅРѕСЂРёСЂСѓСЋС‚СЃСЏ.
 	if not cycle_task[task_title] then
 		local news_text_save = game.translate_string( task_title )
 		if type == "complete" then
 			news_text_save = news_text_save.." - "..game.translate_string(action_descr_by_type[type])
 		end
-		-- удаляем предыдущий таймер на сохранение при сдаче/получении
-		-- нескольких квестов в одном диалоге
-		-- сохраняем только самый последний автосейв по завершении диалога
+		-- СѓРґР°Р»СЏРµРј РїСЂРµРґС‹РґСѓС‰РёР№ С‚Р°Р№РјРµСЂ РЅР° СЃРѕС…СЂР°РЅРµРЅРёРµ РїСЂРё СЃРґР°С‡Рµ/РїРѕР»СѓС‡РµРЅРёРё
+		-- РЅРµСЃРєРѕР»СЊРєРёС… РєРІРµСЃС‚РѕРІ РІ РѕРґРЅРѕРј РґРёР°Р»РѕРіРµ
+		-- СЃРѕС…СЂР°РЅСЏРµРј С‚РѕР»СЊРєРѕ СЃР°РјС‹Р№ РїРѕСЃР»РµРґРЅРёР№ Р°РІС‚РѕСЃРµР№РІ РїРѕ Р·Р°РІРµСЂС€РµРЅРёРё РґРёР°Р»РѕРіР°
 		if type == "new" or type == "complete" then
 			if autosave_t then autosave_t:stop() end
 			autosave_t = dsh.wait_condition(
@@ -299,7 +299,7 @@ function send_encyclopedy(type, title)
 			pda_news:play(db.actor, 0, sound_object.s2d)
 		end
 
-		--' Берем координаты из текстуры таска
+		--' Р‘РµСЂРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РёР· С‚РµРєСЃС‚СѓСЂС‹ С‚Р°СЃРєР°
 		local task_texture, task_rect = get_texture_info("ui_iconsTotal_locations", "ui_iconsTotal_locations")
 		local news_text = "%c[255,0,38,255]"..game.translate_string("st_found_new_pda").."\\n".."%c[default]"..game.translate_string(title)
 		
@@ -346,7 +346,7 @@ end
 function relocate_item(actor, type, item)
 	if not db.actor then return false end
 
-	--' Играем дефолтный звук
+	--' РРіСЂР°РµРј РґРµС„РѕР»С‚РЅС‹Р№ Р·РІСѓРє
 	if type == "in" then
 		local task_texture, task_rect = get_texture_info("ui_iconsTotal_found_thing")
 		local news_text = "%c[255,0,255,38]"..game.translate_string("general_in_item").."\\n".."%c[default]"..game.translate_string(get_inv_name(item))		
@@ -369,7 +369,7 @@ end
 function relocate_money(actor, type, amount)
 	if not db.actor then return false end
 
-	--' Играем дефолтный звук
+	--' РРіСЂР°РµРј РґРµС„РѕР»С‚РЅС‹Р№ Р·РІСѓРє
 	if type == "in" then
 		local task_texture, task_rect = get_texture_info("ui_iconsTotal_found_money")
 		local news_text = "%c[255,0,255,38]"..game.translate_string("general_in_money").."\\n".."%c[default]"..game.translate_string(tostring(amount))

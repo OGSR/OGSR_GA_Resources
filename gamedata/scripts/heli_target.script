@@ -1,12 +1,12 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ---------------------------------------
---- ВЕРТОЛЕТЫ ---
+--- Р’Р•Р РўРћР›Р•РўР« ---
 ---------------------------------------
 
--- ЦЕЛЕУКАЗАНИЕ
+-- Р¦Р•Р›Р•РЈРљРђР—РђРќРР•
 
--- получение всех боеспособных членов данного гулага
+-- РїРѕР»СѓС‡РµРЅРёРµ РІСЃРµС… Р±РѕРµСЃРїРѕСЃРѕР±РЅС‹С… С‡Р»РµРЅРѕРІ РґР°РЅРЅРѕРіРѕ РіСѓР»Р°РіР°
 function get_gulag_members(gname)
 	local gulag_members = {}
 	local gulag = xr_gulag.get_gulag_by_name(gname)
@@ -38,17 +38,17 @@ local valid_communities = {
 	["killer"] = true,
 }
 
--- определение всех целей в заданной окружности
+-- РѕРїСЂРµРґРµР»РµРЅРёРµ РІСЃРµС… С†РµР»РµР№ РІ Р·Р°РґР°РЅРЅРѕР№ РѕРєСЂСѓР¶РЅРѕСЃС‚Рё
 function get_target_area(area_data)
 	local targets = {}
 	local br1_pos = string.find(area_data,"(",1,true) + 1
 	local br2_pos = string.find(area_data,")",1,true) - 1
 	local area_string = string.sub(area_data,br1_pos,br2_pos)
 	local area = split_comma_separated_list(area_string)
-	local area_x = tonumber(area[1]) --координаты центра зоны
+	local area_x = tonumber(area[1]) --РєРѕРѕСЂРґРёРЅР°С‚С‹ С†РµРЅС‚СЂР° Р·РѕРЅС‹
 	local area_z = tonumber(area[2])
-	local area_r = tonumber(area[3]) or 150 -- радиус зоны, 150 м по умолчанию.
-	local target_type = area[4] or "all" -- тип целей, по умолчанию - все без разбора
+	local area_r = tonumber(area[3]) or 150 -- СЂР°РґРёСѓСЃ Р·РѕРЅС‹, 150 Рј РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ.
+	local target_type = area[4] or "all" -- С‚РёРї С†РµР»РµР№, РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ - РІСЃРµ Р±РµР· СЂР°Р·Р±РѕСЂР°
 	local center = vector():set(area_x,0,area_z)
 	--local xtime = os.clock()
 	for k, v in pairs(db.creature) do
@@ -114,13 +114,13 @@ function get_target_area(area_data)
 	return targets
 end
 
---определение приоритета цели
+--РѕРїСЂРµРґРµР»РµРЅРёРµ РїСЂРёРѕСЂРёС‚РµС‚Р° С†РµР»Рё
 function get_target_priority(obj)
 	if not obj then return 0 end
 	local prior = 1
 	if obj:is_monster() then
 		prior = 1
-	elseif ( obj:is_stalker() or obj:is_actor() ) then -- максимум - 5
+	elseif ( obj:is_stalker() or obj:is_actor() ) then -- РјР°РєСЃРёРјСѓРј - 5
 		local act_slot = obj:active_slot()
 		if act_slot ~= 255 then
 		local wpn = obj:item_in_slot(act_slot)
@@ -128,22 +128,22 @@ function get_target_priority(obj)
 			local ammo, fm
 			if sys_ini:line_exist(wpn:section(), "ammo_class") then
 				ammo = sys_ini:r_string(wpn:section(), "ammo_class")
-				if (string.find(ammo, "9x18") -- пистолетные патроны
+				if (string.find(ammo, "9x18") -- РїРёСЃС‚РѕР»РµС‚РЅС‹Рµ РїР°С‚СЂРѕРЅС‹
 					or string.find(ammo, "9x19")
 					or string.find(ammo, "7.62x25")
 					or string.find(ammo, "11.43x23")
-					or string.find(ammo, "bolt") --  + арбалетные болты
-					or string.find(ammo, "flame") --  + огнесмесь
-					or string.find(ammo, "12x7")) --  + патроны для дробовиков
+					or string.find(ammo, "bolt") --  + Р°СЂР±Р°Р»РµС‚РЅС‹Рµ Р±РѕР»С‚С‹
+					or string.find(ammo, "flame") --  + РѕРіРЅРµСЃРјРµСЃСЊ
+					or string.find(ammo, "12x7")) --  + РїР°С‚СЂРѕРЅС‹ РґР»СЏ РґСЂРѕР±РѕРІРёРєРѕРІ
 					then
 					prior = prior + 1
-				elseif (string.find(ammo, "5.45x39") -- промежуточные патроны
+				elseif (string.find(ammo, "5.45x39") -- РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹Рµ РїР°С‚СЂРѕРЅС‹
 					or string.find(ammo, "5.56x45") 
 					or string.find(ammo, "7.62x39")
 					or string.find(ammo, "9x39"))
 					then
 					prior = prior + 2
-				elseif (string.find(ammo, "7.62x51") -- винтовочные патроны
+				elseif (string.find(ammo, "7.62x51") -- РІРёРЅС‚РѕРІРѕС‡РЅС‹Рµ РїР°С‚СЂРѕРЅС‹
 					or string.find(ammo, "7.62x54"))
 					then
 					prior = prior + 3
@@ -154,7 +154,7 @@ function get_target_priority(obj)
 			if sys_ini:line_exist(wpn:section(), "fire_modes") then
 				fm = sys_ini:r_string(wpn:section(), "fire_modes")
 				if string.sub(fm,-2,-1) == "-1" then
-					prior = prior + 1 -- автоматическое оружие - приоритет цели выше на 1
+					prior = prior + 1 -- Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРѕРµ РѕСЂСѓР¶РёРµ - РїСЂРёРѕСЂРёС‚РµС‚ С†РµР»Рё РІС‹С€Рµ РЅР° 1
 				end
 			end
 		end

@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ----------------------------------------------------------------------
 --	created:	2005/02/09
@@ -7,13 +7,13 @@
 --	file path:	x:\gamedata\scripts
 --	file base:	xr_attendant
 --	file ext:	script
---	author:		Тундук Владимир aka Sidorovich
+--	author:		РўСѓРЅРґСѓРє Р’Р»Р°РґРёРјРёСЂ aka Sidorovich
 --	
---	purpose:	схема сопровождающего.
+--	purpose:	СЃС…РµРјР° СЃРѕРїСЂРѕРІРѕР¶РґР°СЋС‰РµРіРѕ.
 ----------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------
--- Эвалуатор ожидания лидера
+-- Р­РІР°Р»СѓР°С‚РѕСЂ РѕР¶РёРґР°РЅРёСЏ Р»РёРґРµСЂР°
 class "evaluator_leader" (property_evaluator)
 --------
 function evaluator_leader:__init (name, storage) super (nil, name)
@@ -22,14 +22,14 @@ function evaluator_leader:__init (name, storage) super (nil, name)
 end
 --------
 function evaluator_leader:evaluate ()
-    -- Лидер уже есть
+    -- Р›РёРґРµСЂ СѓР¶Рµ РµСЃС‚СЊ
     if self.st.leader_id ~= nil then 
 		ogse_debug.add_active_eval( self.object, script_name(), "has_leader" )
 		return true 
 	end
 
-    -- Если задан story id лидера, то будем его щупать. 
-    -- В результате должны получить его id
+    -- Р•СЃР»Рё Р·Р°РґР°РЅ story id Р»РёРґРµСЂР°, С‚Рѕ Р±СѓРґРµРј РµРіРѕ С‰СѓРїР°С‚СЊ. 
+    -- Р’ СЂРµР·СѓР»СЊС‚Р°С‚Рµ РґРѕР»Р¶РЅС‹ РїРѕР»СѓС‡РёС‚СЊ РµРіРѕ id
     if self.st.leader ~= nil then 
        local sim = alife ()
        if sim then
@@ -46,7 +46,7 @@ function evaluator_leader:evaluate ()
     end         
     abort ("Don't use followers as patrol soldier in gulag system. Use XR_PATROL scheme")
 --[[    
-    -- В противном случае будем требовать лидера из гулага
+    -- Р’ РїСЂРѕС‚РёРІРЅРѕРј СЃР»СѓС‡Р°Рµ Р±СѓРґРµРј С‚СЂРµР±РѕРІР°С‚СЊ Р»РёРґРµСЂР° РёР· РіСѓР»Р°РіР°
     local gulag = xr_gulag.get_npc_gulag (self.object)
     if gulag == nil then return false end
     
@@ -60,9 +60,9 @@ function evaluator_leader:evaluate ()
     end
     
     if self.time == 0 then 
-       self.time = device ():time_global () 
+       self.time = time_global() 
     else
-       if device ():time_global () - self.time > 10000 then
+       if time_global() - self.time > 10000 then
           if t ~= nil and t.dependent ~= nil then 
           else
           end    
@@ -78,7 +78,7 @@ end
 
 
 -----------------------------------------------------------------------------------
--- Эвалуатор следования за лидером
+-- Р­РІР°Р»СѓР°С‚РѕСЂ СЃР»РµРґРѕРІР°РЅРёСЏ Р·Р° Р»РёРґРµСЂРѕРј
 class "evaluator_follow" (property_evaluator)
 --------
 function evaluator_follow:__init (name, storage) super (nil, name)
@@ -96,7 +96,7 @@ end
 -----------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------
--- Экшен ожидания лидера
+-- Р­РєС€РµРЅ РѕР¶РёРґР°РЅРёСЏ Р»РёРґРµСЂР°
 class "action_wait" (action_base)
 --------
 function action_wait:__init (name, storage) super (nil, name)
@@ -136,7 +136,7 @@ end
 
 
 -----------------------------------------------------------------------------------
--- Экшен движения за лидером
+-- Р­РєС€РµРЅ РґРІРёР¶РµРЅРёСЏ Р·Р° Р»РёРґРµСЂРѕРј
 class "action_follow" (action_base)
 --------
 function action_follow:__init (name, storage) super (nil, name)
@@ -164,7 +164,7 @@ function action_follow:execute ()
     -- FIXME !!! 
     --xr_sound.set_sound(self.object, self.st.sound_theme)
     --local pos = self.object:position ()
-    -- проверим, а жив ли еще старшОй.
+    -- РїСЂРѕРІРµСЂРёРј, Р° Р¶РёРІ Р»Рё РµС‰Рµ СЃС‚Р°СЂС€РћР№.
     local leader = level.object_by_id(self.st.leader_id)
     if leader == nil then
        self:free ()
@@ -179,7 +179,7 @@ function action_follow:execute ()
        end 
     end   
     
-    -- проверим нахождение нас в списке
+    -- РїСЂРѕРІРµСЂРёРј РЅР°С…РѕР¶РґРµРЅРёРµ РЅР°СЃ РІ СЃРїРёСЃРєРµ
     self:check_list ()
     
     if self.st.leader_section == nil then
@@ -199,7 +199,7 @@ function action_follow:execute ()
     end    
     
     
-    --получим целевую точку, дистанцию до нее и позицию.
+    --РїРѕР»СѓС‡РёРј С†РµР»РµРІСѓСЋ С‚РѕС‡РєСѓ, РґРёСЃС‚Р°РЅС†РёСЋ РґРѕ РЅРµРµ Рё РїРѕР·РёС†РёСЋ.
     local vid, vdist, vpos = self:calculate_position ()
     if self.state == 0 then
        if vdist > 1 then 
@@ -260,11 +260,11 @@ function action_follow:finalize ()
 end
 --------
 function action_follow:calculate_position ()
-    -- получим от лидера ноду и направление
+    -- РїРѕР»СѓС‡РёРј РѕС‚ Р»РёРґРµСЂР° РЅРѕРґСѓ Рё РЅР°РїСЂР°РІР»РµРЅРёРµ
     local leader = level.object_by_id(self.st.leader_id)
     local l_vid = leader:level_vertex_id ()
     local l_dir = leader:direction ()
-    -- а также количество народу.
+    -- Р° С‚Р°РєР¶Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РЅР°СЂРѕРґСѓ.
 	local size = 1
 	if db.storage[self.st.leader_id] and db.storage[self.st.leader_id].followers then
 		size = table.getn (db.storage[self.st.leader_id].followers)
@@ -272,7 +272,7 @@ function action_follow:calculate_position ()
     
     local dir = vector ():set (0, 0, 0)
     local dist = self.st.distance
-    -- если идем цепью, то одно, если обычным образом, то другое
+    -- РµСЃР»Рё РёРґРµРј С†РµРїСЊСЋ, С‚Рѕ РѕРґРЅРѕ, РµСЃР»Рё РѕР±С‹С‡РЅС‹Рј РѕР±СЂР°Р·РѕРј, С‚Рѕ РґСЂСѓРіРѕРµ
     if self.st.formation == true then
        dir = vector_rotate_y (l_dir, 90.0)
        dir.y = 0
@@ -323,12 +323,12 @@ function action_follow:calculate_position ()
 end
 --------
 function action_follow:check_list ()
-    -- возьмем хранилище лидера
+    -- РІРѕР·СЊРјРµРј С…СЂР°РЅРёР»РёС‰Рµ Р»РёРґРµСЂР°
     local storage = db.storage[self.st.leader_id]
-    -- и наш айдишник
+    -- Рё РЅР°С€ Р°Р№РґРёС€РЅРёРє
     local id = self.object:id ()
-    -- если у лидера нет таблицы сопровождающих, то создадим ее 
-    -- и занесем туда себя любимого под номером 1
+    -- РµСЃР»Рё Сѓ Р»РёРґРµСЂР° РЅРµС‚ С‚Р°Р±Р»РёС†С‹ СЃРѕРїСЂРѕРІРѕР¶РґР°СЋС‰РёС…, С‚Рѕ СЃРѕР·РґР°РґРёРј РµРµ 
+    -- Рё Р·Р°РЅРµСЃРµРј С‚СѓРґР° СЃРµР±СЏ Р»СЋР±РёРјРѕРіРѕ РїРѕРґ РЅРѕРјРµСЂРѕРј 1
     if storage and storage.followers == nil then
        storage.followers = {}
        table.insert (storage.followers, self.object:id ())
@@ -337,20 +337,20 @@ function action_follow:check_list ()
 	elseif not storage then 
 	   return
     end
-    -- иначе шаримся в таблице и ищем себя
+    -- РёРЅР°С‡Рµ С€Р°СЂРёРјСЃСЏ РІ С‚Р°Р±Р»РёС†Рµ Рё РёС‰РµРј СЃРµР±СЏ
     for a = 1, table.getn (storage.followers), 1 do
         if storage.followers[a] == id then
            self.index = a
            return 
         end
     end
-    -- не нашли... добавим.
+    -- РЅРµ РЅР°С€Р»Рё... РґРѕР±Р°РІРёРј.
     table.insert (storage.followers, self.object:id ())
     self.index = table.getn (storage.followers)
 end
 --------
 function action_follow:free ()
-    -- если мы под гулагом, то запросим другую работу, иначе прямая дорога в logic
+    -- РµСЃР»Рё РјС‹ РїРѕРґ РіСѓР»Р°РіРѕРј, С‚Рѕ Р·Р°РїСЂРѕСЃРёРј РґСЂСѓРіСѓСЋ СЂР°Р±РѕС‚Сѓ, РёРЅР°С‡Рµ РїСЂСЏРјР°СЏ РґРѕСЂРѕРіР° РІ logic
     local gulag = xr_gulag.get_npc_gulag (self.object)
 
     if gulag ~= nil then
@@ -366,7 +366,7 @@ function action_follow:reset_scheme ()
     self.was_reset = true
     self.vertex_id = nil
     self.index = nil
-    self.state = 0 -- 0 - идем, 1 - стоим
+    self.state = 0 -- 0 - РёРґРµРј, 1 - СЃС‚РѕРёРј
     self.st.signals = {}
     self.st.signals["leader_section_changed"] = false
     self.st.signals["leader_dead"] = false

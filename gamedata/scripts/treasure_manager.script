@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 
 function attach( sm )
@@ -18,7 +18,7 @@ function on_npc_use( obj )
 	if obj:alive() then return end
 	--
 	local sobj = alife():object( obj:id() )
-	if not sobj.treasure_processed and not GetShift() then -- Проверка на шифт сделана, чтоб не срабатывало при попытке перетащить труп.
+	if not sobj.treasure_processed and not GetShift() then -- РџСЂРѕРІРµСЂРєР° РЅР° С€РёС„С‚ СЃРґРµР»Р°РЅР°, С‡С‚РѕР± РЅРµ СЃСЂР°Р±Р°С‚С‹РІР°Р»Рѕ РїСЂРё РїРѕРїС‹С‚РєРµ РїРµСЂРµС‚Р°С‰РёС‚СЊ С‚СЂСѓРї.
 		get_treasure_manager():use( obj )
 		--
 		give_money( obj )
@@ -79,9 +79,9 @@ end
 local treasure_manager = nil
 
 local opt = {
-	option_random_treasure = sys_ini:r_s32("options","option_random_treasure"), -- Включение/выключение рандомных тайников тайников (true/false)
-	tr_v = sys_ini:r_s32("options","treasure_dropout"), -- Частота выпада тайников при выполненом condlist. Чем меньше, тем больше вероятность. (70)
-	need_text = sys_ini:r_s32("options","treasure_need_text") --Вывод содержимого в нычку
+	option_random_treasure = sys_ini:r_s32("options","option_random_treasure"), -- Р’РєР»СЋС‡РµРЅРёРµ/РІС‹РєР»СЋС‡РµРЅРёРµ СЂР°РЅРґРѕРјРЅС‹С… С‚Р°Р№РЅРёРєРѕРІ С‚Р°Р№РЅРёРєРѕРІ (true/false)
+	tr_v = sys_ini:r_s32("options","treasure_dropout"), -- Р§Р°СЃС‚РѕС‚Р° РІС‹РїР°РґР° С‚Р°Р№РЅРёРєРѕРІ РїСЂРё РІС‹РїРѕР»РЅРµРЅРѕРј condlist. Р§РµРј РјРµРЅСЊС€Рµ, С‚РµРј Р±РѕР»СЊС€Рµ РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ. (70)
+	need_text = sys_ini:r_s32("options","treasure_need_text") --Р’С‹РІРѕРґ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РІ РЅС‹С‡РєСѓ
 }
 
 function parse_spawns(line)
@@ -89,7 +89,7 @@ function parse_spawns(line)
 		return {}
 	end
 
-	--' если default-ов больше, чем значений в ini, то забить недостающие последним значением из ini
+	--' РµСЃР»Рё default-РѕРІ Р±РѕР»СЊС€Рµ, С‡РµРј Р·РЅР°С‡РµРЅРёР№ РІ ini, С‚Рѕ Р·Р°Р±РёС‚СЊ РЅРµРґРѕСЃС‚Р°СЋС‰РёРµ РїРѕСЃР»РµРґРЅРёРј Р·РЅР°С‡РµРЅРёРµРј РёР· ini
 	local t = parse_names(line)
 	local n = table.getn(t)
 
@@ -99,16 +99,16 @@ function parse_spawns(line)
 	while k <= n do
 		local spawn = {}
 		spawn.section = t[k]
-		-- Проверяем что это не последняя запись
+		-- РџСЂРѕРІРµСЂСЏРµРј С‡С‚Рѕ СЌС‚Рѕ РЅРµ РїРѕСЃР»РµРґРЅСЏСЏ Р·Р°РїРёСЃСЊ
 		if t[k+1] ~= nil then
 			local p = tonumber(t[k+1])
-			-- проверяем что вторым числом задана вероятность, а не другая секция спавну
+			-- РїСЂРѕРІРµСЂСЏРµРј С‡С‚Рѕ РІС‚РѕСЂС‹Рј С‡РёСЃР»РѕРј Р·Р°РґР°РЅР° РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ, Р° РЅРµ РґСЂСѓРіР°СЏ СЃРµРєС†РёСЏ СЃРїР°РІРЅСѓ
 			if p then
-				-- забиваем число
+				-- Р·Р°Р±РёРІР°РµРј С‡РёСЃР»Рѕ
 				spawn.prob = p
 				k = k + 2
 			else
-				-- забиваем дефолт 1
+				-- Р·Р°Р±РёРІР°РµРј РґРµС„РѕР»С‚ 1
 				spawn.prob = 1
 				k = k + 1
 			end
@@ -127,9 +127,9 @@ function CTreasure:__init()
 	ASSERT( sys_ini:section_exist("treasure_list"), "There is no section [treasure_list] in treasure_manager.ltx" )
 	local n = sys_ini:line_count("treasure_list")
 	local id, value = "", ""
-	self.treasure_info = {} --Начальная установка
+	self.treasure_info = {} --РќР°С‡Р°Р»СЊРЅР°СЏ СѓСЃС‚Р°РЅРѕРІРєР°
 
-	for i=0, n-1 do --Итерируемся по всем настройкам фраз
+	for i=0, n-1 do --РС‚РµСЂРёСЂСѓРµРјСЃСЏ РїРѕ РІСЃРµРј РЅР°СЃС‚СЂРѕР№РєР°Рј С„СЂР°Р·
 		result, id, value = sys_ini:r_line("treasure_list",i)
 
 		self.treasure_info[id] = {}
@@ -151,21 +151,21 @@ function CTreasure:__init()
 
 		self.treasure_info[id].condlist = xr_logic.parse_condlist(db.actor_proxy, "treasure_manager", "condlist", utils.cfg_get_string(sys_ini, id, "condlist", nil, false, "", ""))
 
-		--' Отметим тайник как новый
+		--' РћС‚РјРµС‚РёРј С‚Р°Р№РЅРёРє РєР°Рє РЅРѕРІС‹Р№
 		self.treasure_info[id].active = false
 		self.treasure_info[id].done = false
 	end
 
-	--' Вспомогательные таблицы для облегчения поиска
+	--' Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ С‚Р°Р±Р»РёС†С‹ РґР»СЏ РѕР±Р»РµРіС‡РµРЅРёСЏ РїРѕРёСЃРєР°
 	self.treasure_by_target = {}
 	for k,v in pairs(self.treasure_info) do
 		self.treasure_by_target[v.target] = k	
 	end
 end
 
---' Юзание инициатора (возможность выдать тайник)
+--' Р®Р·Р°РЅРёРµ РёРЅРёС†РёР°С‚РѕСЂР° (РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РІС‹РґР°С‚СЊ С‚Р°Р№РЅРёРє)
 function CTreasure:use(npc)	
-	--' Нужно рандомно выбрать один из тайников.
+	--' РќСѓР¶РЅРѕ СЂР°РЅРґРѕРјРЅРѕ РІС‹Р±СЂР°С‚СЊ РѕРґРёРЅ РёР· С‚Р°Р№РЅРёРєРѕРІ.
 	local avail = {}
 	local tr_sum = 0
 	for k,v in pairs(self.treasure_info) do
@@ -200,15 +200,15 @@ function CTreasure:use(npc)
 	end
 end
 
---' Сохранение
+--' РЎРѕС…СЂР°РЅРµРЅРёРµ
 function CTreasure:check()
 	for k,v in pairs(self.treasure_info) do
-		--' Выдать тайник
+		--' Р’С‹РґР°С‚СЊ С‚Р°Р№РЅРёРє
 		self:give_treasure(k)
 	end
 end
 
---Выдача тайника
+--Р’С‹РґР°С‡Р° С‚Р°Р№РЅРёРєР°
 function CTreasure:give_treasure(k)
 	local v = self.treasure_info[k]
 	--log3("~~[CTreasure:give_treasure] treasure_info of [%s] is %s", k, v)
@@ -218,7 +218,7 @@ function CTreasure:give_treasure(k)
 		and "%c[255,238,155,23]"..game.translate_string(v.name).."\\n".."%c[default]"..game.translate_string(v.description)
 		or  "%c[255,238,155,23]"..game.translate_string(v.name).."\\n".."%c[default]"..game.translate_string(v.description).."\\n".."%c[255,225,0,0]"..game.translate_string("stash_manager_string").."\\n"
 
--------Рандомные награды-------
+-------Р Р°РЅРґРѕРјРЅС‹Рµ РЅР°РіСЂР°РґС‹-------
 	if opt.option_random_treasure == 1 then
 		local new_treasure = ogse_random_treasure.random_treasure(v.name, v.target)
 		local new_items = new_treasure:set_random_reward()
@@ -226,7 +226,7 @@ function CTreasure:give_treasure(k)
 			--log3("~~[CTreasure:give_treasure] treasure_info.items use random items: %s", new_items)
 			v.items = new_items
 		end
-		new_treasure = nil --Чистим неиспользуемое
+		new_treasure = nil --Р§РёСЃС‚РёРј РЅРµРёСЃРїРѕР»СЊР·СѓРµРјРѕРµ
 	end
 -------------------------------
 
@@ -249,12 +249,12 @@ function CTreasure:give_treasure(k)
 	news_manager.send_treasure(v.name)
 	level_tasks.add_location_by_id(sobj.id, "treasure", text)
 
-	--Пометим тайник как выданный
+	--РџРѕРјРµС‚РёРј С‚Р°Р№РЅРёРє РєР°Рє РІС‹РґР°РЅРЅС‹Р№
 	self.treasure_info[k].active = true
 	self.treasure_info[k].done = true
 end
 
---' Снимаем отметку с тайника
+--' РЎРЅРёРјР°РµРј РѕС‚РјРµС‚РєСѓ СЃ С‚Р°Р№РЅРёРєР°
 function CTreasure:treasure_empty(box, box_story_id)
 	local k = self.treasure_by_target[box_story_id]
 
@@ -266,7 +266,7 @@ function CTreasure:treasure_empty(box, box_story_id)
 	level_tasks.remove_location_by_id(box:id(), "treasure")
 end
 
---Сохранение
+--РЎРѕС…СЂР°РЅРµРЅРёРµ
 function CTreasure:save()
 	local treasures = {}
 	for k,v in pairs(self.treasure_info) do
@@ -279,7 +279,7 @@ function CTreasure:save()
 	--log3("[%s] saved treasures: %s", script_name(), treasures)
 end
 
---Загрузка
+--Р—Р°РіСЂСѓР·РєР°
 function CTreasure:load( p )
 	local treasures = ogse.load_var_safe( script_name() .. ".treasures" )
 	--log3("[%s] loaded treasures: %s", script_name(), treasures)

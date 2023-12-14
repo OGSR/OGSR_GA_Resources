@@ -27,7 +27,7 @@ def_state_moving3 = run
 meet = no_meet
 on_signal = killactor | {-val_orlov_last_request_set_orlov_bandit} %+val_orlov_last_request_set_orlov_bandit =set_community(bandit)%
 on_actor_dist_ge_nvis = 80 | %=we_are_very_far_from_orlov%
-on_info = {+val_orlov_last_request_teleport_to_the_prison} remark@wait_actor		;на всякий пожарный
+on_info = {+val_orlov_last_request_teleport_to_the_prison} remark@wait_actor		;РЅР° РІСЃСЏРєРёР№ РїРѕР¶Р°СЂРЅС‹Р№
 on_signal2 = path_end | %+orlov_meet_unknown_quest_last_request% remark
 on_signal3 = give_task | {-val_orlov_hear_what_orlov_will_say} %+val_orlov_hear_what_orlov_will_say%
 

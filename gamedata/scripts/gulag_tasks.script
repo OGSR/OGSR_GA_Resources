@@ -1,7 +1,7 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
 
--- кэш для динамических ltx
+
+-- РєСЌС€ РґР»СЏ РґРёРЅР°РјРёС‡РµСЃРєРёС… ltx
 local dynamic_ltx = {}
 
 function loadJob( ... )
@@ -21,8 +21,8 @@ function loadStates( ... )
 	abort("ERROR: unrecognized gulag's type '%s'", type)
 end
 
--- загрузка динамических ltx
--- их имена: "*имя_смарттерейна*тип_гулага"
+-- Р·Р°РіСЂСѓР·РєР° РґРёРЅР°РјРёС‡РµСЃРєРёС… ltx
+-- РёС… РёРјРµРЅР°: "*РёРјСЏ_СЃРјР°СЂС‚С‚РµСЂРµР№РЅР°*С‚РёРї_РіСѓР»Р°РіР°"
 function loadLtx(name, type)
 	local h    = "*"..name.."*"..type
 	local dltx = dynamic_ltx[h]

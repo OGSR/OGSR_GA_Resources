@@ -1,33 +1,33 @@
 
--- äëÿ ïîëó÷åíèÿ ğåæèìà ïîäñòâîëüíèêà
+-- Ğ´Ğ»Ñ Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ñ Ñ€ĞµĞ¶Ğ¸Ğ¼Ğ° Ğ¿Ğ¾Ğ´ÑÑ‚Ğ²Ğ¾Ğ»ÑŒĞ½Ğ¸ĞºĞ°
 function get_gl_mode(wpn) return wpn:get_gl_mode() end
 
 
--- äëÿ ïîëó÷åíèÿ ñòàòóñà óñòàíîâëåííûõ àääîíîâ
--- ïğèöåë
+-- Ğ´Ğ»Ñ Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ñ ÑÑ‚Ğ°Ñ‚ÑƒÑĞ° ÑƒÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ½Ñ‹Ñ… Ğ°Ğ´Ğ´Ğ¾Ğ½Ğ¾Ğ²
+-- Ğ¿Ñ€Ğ¸Ñ†ĞµĞ»
 function get_scope_status(wpn) return get_u32(wpn:section(), "scope_status") end
--- ãëóøèòåëü
+-- Ğ³Ğ»ÑƒÑˆĞ¸Ñ‚ĞµĞ»ÑŒ
 function get_silencer_status(wpn) return get_u32(wpn:section(), "silencer_status") end
--- ïîäñòâîëüíèê
+-- Ğ¿Ğ¾Ğ´ÑÑ‚Ğ²Ğ¾Ğ»ÑŒĞ½Ğ¸Ğº
 function get_grenade_launcher_status(wpn) return get_u32(wpn:section(), "grenade_launcher_status") end
 
 
--- ôëàãè àääîíîâ
-addons_flags = { --Ïî óìó íàäî ıòî ÷èòàòü èç äâèæêà
+-- Ñ„Ğ»Ğ°Ğ³Ğ¸ Ğ°Ğ´Ğ´Ğ¾Ğ½Ğ¾Ğ²
+addons_flags = { --ĞŸĞ¾ ÑƒĞ¼Ñƒ Ğ½Ğ°Ğ´Ğ¾ ÑÑ‚Ğ¾ Ñ‡Ğ¸Ñ‚Ğ°Ñ‚ÑŒ Ğ¸Ğ· Ğ´Ğ²Ğ¸Ğ¶ĞºĞ°
 	["scope"]    = 1,
 	["gl"]       = 2,
 	["silencer"] = 4,
 }
 
 
--- äëÿ ïîëó÷åíèÿ ôëàãîâ óñòàíîâëåííûõ àääîíîâ
--- ïğèöåë
+-- Ğ´Ğ»Ñ Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ñ Ñ„Ğ»Ğ°Ğ³Ğ¾Ğ² ÑƒÑÑ‚Ğ°Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ½Ñ‹Ñ… Ğ°Ğ´Ğ´Ğ¾Ğ½Ğ¾Ğ²
+-- Ğ¿Ñ€Ğ¸Ñ†ĞµĞ»
 function get_scope_flag(wpn) return bit_and(wpn:get_addon_flags(), addons_flags.scope) ~= 0 end
--- ïîäñòâîëüíèê
+-- Ğ¿Ğ¾Ğ´ÑÑ‚Ğ²Ğ¾Ğ»ÑŒĞ½Ğ¸Ğº
 function get_grenade_launcher_flag(wpn) return bit_and(wpn:get_addon_flags(), addons_flags.gl) ~= 0 end
--- ãëóøèòåëü
+-- Ğ³Ğ»ÑƒÑˆĞ¸Ñ‚ĞµĞ»ÑŒ
 function get_silencer_flag(wpn) return bit_and(wpn:get_addon_flags(), addons_flags.silencer) ~= 0 end
 
 
--- ïîëó÷åíèå ñîñòîÿíèÿ ïğèöåëèâàíèÿ
+-- Ğ¿Ğ¾Ğ»ÑƒÑ‡ĞµĞ½Ğ¸Ğµ ÑĞ¾ÑÑ‚Ğ¾ÑĞ½Ğ¸Ñ Ğ¿Ñ€Ğ¸Ñ†ĞµĞ»Ğ¸Ğ²Ğ°Ğ½Ğ¸Ñ
 function is_aiming_complete(wpn) return wpn:get_weapon().zoom_rotation_factor >= 1 end

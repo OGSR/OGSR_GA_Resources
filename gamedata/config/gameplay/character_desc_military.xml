@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding="windows-1251"?>
+<?xml version='1.0' encoding="UTF-8"?>
 
 <xml>
 <!--SVOBODA PROFILES-->
@@ -853,8 +853,8 @@
 			<visual>actors\neytral\stalker_4_gas</visual>
             <supplies>
 			[spawn] \n
-			wpn_val \n
-			ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
 #include "gameplay\character_items.xml" \n
@@ -916,8 +916,8 @@
     <visual>actors\monolit\stalker_mo_exo</visual>
     <supplies>
       [spawn] \n
-			wpn_val \n
-			ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			wpn_beretta \n
 			ammo_9x19_pbp \n
 			grenade_f1 = 2 \n

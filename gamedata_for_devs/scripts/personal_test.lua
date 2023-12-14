@@ -253,3 +253,14 @@ for _, dir in ipairs(sounds_dirs) do
 	end )
 end
 --]===]
+
+--[==[
+log3("--math.random() is : [%s]", math.random())
+log3("--math.random(1) is : [%s]", math.random(1))
+log3("--math.random(100) is : [%s]", math.random(100))
+log3("--math.random(100.6575) is : [%s]", math.random(100.6575))
+log3("--math.random(10, 20) is : [%s]", math.random(10, 20))
+log3("--math.random(-10, -20) is : [%s]", math.random(-10, -20))
+log3("--math.random(9999, 999999999) is : [%s]", math.random(9999, 999999999))
+log3("--math.random(-10.1234, 20.9876) is : [%s]", math.random(-10.1234, 20.9876))
+--]==]

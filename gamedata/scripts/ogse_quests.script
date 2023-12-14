@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ------------------------- Copyright 2008-2010 OGSE Team -----------------------
 
@@ -166,6 +166,11 @@ function give_cpu_actor(first_speaker, second_speaker)
 	dialogs.relocate_item_section(db.actor, "btr_control_module", "in")
 end
 
+function give_upgrade_actor(first_speaker, second_speaker)
+	dialogs.relocate_money(db.actor, 10000, "out")
+	dialogs.relocate_item_section(db.actor, "btr_control_module_upgrade", "in")
+end
+
 function not_enough_money(first,second)
 	return db.actor:money() < 25000
 end
@@ -176,6 +181,10 @@ end
 
 function enough_money_for_all(first,second)
 	return db.actor:money() >= 35000
+end
+
+function enough_money_for_upgrade(first,second)
+	return db.actor:money() >= 10000
 end
 
 function spawn_btr_comp()

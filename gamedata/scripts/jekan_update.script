@@ -1,6 +1,6 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
---Здесь будут находиться функции с постоянной проверкой в биндере-----------------------------------
+
+--Р—РґРµСЃСЊ Р±СѓРґСѓС‚ РЅР°С…РѕРґРёС‚СЊСЃСЏ С„СѓРЅРєС†РёРё СЃ РїРѕСЃС‚РѕСЏРЅРЅРѕР№ РїСЂРѕРІРµСЂРєРѕР№ РІ Р±РёРЅРґРµСЂРµ-----------------------------------
 --03.02.2012----------------------------------------------------------------------------------------
 
 function attach(sm)
@@ -23,31 +23,31 @@ function attach(sm)
 	sm:subscribe({ signal = "on_update",	fun = this.dar_samogon_bonus })
 end
 
--- Список используемых из инвентаря квестовых предметов
--- Работает следующим образом:
--- Ключ таблицы это секция предмета
--- значением элемента таблицы может быть два типа:
--- Первый - это строка. Если элемент строчный, то ГГ при использовании
--- этого предмета выдастся инфопоршен этой строкой.
--- Оформлять такие строки следует так:
--- ["секция_вашего_предмета"] 			= "инфопоршен_который_надо_выдать",
--- Второй - это функция. Тогда при использовании этого предмета вызовется содержимое этой функции.
--- Оформлять такие функции следует так:
--- ["секция_вашего_предмета"] 			= function () 
-	-- вызов_вашей_функции1()
-	-- вызов_вашей_функции2()
+-- РЎРїРёСЃРѕРє РёСЃРїРѕР»СЊР·СѓРµРјС‹С… РёР· РёРЅРІРµРЅС‚Р°СЂСЏ РєРІРµСЃС‚РѕРІС‹С… РїСЂРµРґРјРµС‚РѕРІ
+-- Р Р°Р±РѕС‚Р°РµС‚ СЃР»РµРґСѓСЋС‰РёРј РѕР±СЂР°Р·РѕРј:
+-- РљР»СЋС‡ С‚Р°Р±Р»РёС†С‹ СЌС‚Рѕ СЃРµРєС†РёСЏ РїСЂРµРґРјРµС‚Р°
+-- Р·РЅР°С‡РµРЅРёРµРј СЌР»РµРјРµРЅС‚Р° С‚Р°Р±Р»РёС†С‹ РјРѕР¶РµС‚ Р±С‹С‚СЊ РґРІР° С‚РёРїР°:
+-- РџРµСЂРІС‹Р№ - СЌС‚Рѕ СЃС‚СЂРѕРєР°. Р•СЃР»Рё СЌР»РµРјРµРЅС‚ СЃС‚СЂРѕС‡РЅС‹Р№, С‚Рѕ Р“Р“ РїСЂРё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё
+-- СЌС‚РѕРіРѕ РїСЂРµРґРјРµС‚Р° РІС‹РґР°СЃС‚СЃСЏ РёРЅС„РѕРїРѕСЂС€РµРЅ СЌС‚РѕР№ СЃС‚СЂРѕРєРѕР№.
+-- РћС„РѕСЂРјР»СЏС‚СЊ С‚Р°РєРёРµ СЃС‚СЂРѕРєРё СЃР»РµРґСѓРµС‚ С‚Р°Рє:
+-- ["СЃРµРєС†РёСЏ_РІР°С€РµРіРѕ_РїСЂРµРґРјРµС‚Р°"] 			= "РёРЅС„РѕРїРѕСЂС€РµРЅ_РєРѕС‚РѕСЂС‹Р№_РЅР°РґРѕ_РІС‹РґР°С‚СЊ",
+-- Р’С‚РѕСЂРѕР№ - СЌС‚Рѕ С„СѓРЅРєС†РёСЏ. РўРѕРіРґР° РїСЂРё РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё СЌС‚РѕРіРѕ РїСЂРµРґРјРµС‚Р° РІС‹Р·РѕРІРµС‚СЃСЏ СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕР№ С„СѓРЅРєС†РёРё.
+-- РћС„РѕСЂРјР»СЏС‚СЊ С‚Р°РєРёРµ С„СѓРЅРєС†РёРё СЃР»РµРґСѓРµС‚ С‚Р°Рє:
+-- ["СЃРµРєС†РёСЏ_РІР°С€РµРіРѕ_РїСЂРµРґРјРµС‚Р°"] 			= function () 
+	-- РІС‹Р·РѕРІ_РІР°С€РµР№_С„СѓРЅРєС†РёРё1()
+	-- РІС‹Р·РѕРІ_РІР°С€РµР№_С„СѓРЅРєС†РёРё2()
 -- end,
 
 local pda =
 {
 	
-	-- Ключи сержанта из МГ:	
+	-- РљР»СЋС‡Рё СЃРµСЂР¶Р°РЅС‚Р° РёР· РњР“:	
 	["cit_tow_box_keys"] 		= function ()
 		jekan_work.use_cit_tow_box_keys()
 		soundtrack.keys()
 	end,
 
-	-- "Маятник (целый)":	
+	-- "РњР°СЏС‚РЅРёРє (С†РµР»С‹Р№)":	
 	["magnit_full"] 		= function ()
 		jekan_work.spawn_magnit_part()
 		jekan_work.mark_magnit_part()
@@ -55,7 +55,7 @@ local pda =
 		ogse.spawn_item_in_inv("af_magnit_part1")
 	end,
 
-	-- Дипломат командира:
+	-- Р”РёРїР»РѕРјР°С‚ РєРѕРјР°РЅРґРёСЂР°:
 	["kommander_diplomat"] 			= function () 
 		ogse.spawn_item_in_inv("kommander_key")
 		db.actor:give_money(10000)
@@ -64,7 +64,7 @@ local pda =
 		soundtrack.diplomat_open()
 	end,
 
-	-- "Чебурашка":	
+	-- "Р§РµР±СѓСЂР°С€РєР°":	
 	["cheb"] = function ()
 		if db.actor:dont_has_info("cheb_task1") then
 			soundtrack.cheb_open()
@@ -82,19 +82,19 @@ local pda =
 		end
 	end,
 
-	-- ПДА Диггера юры:
+	-- РџР”Рђ Р”РёРіРіРµСЂР° СЋСЂС‹:
 	["diggers_pda"] 			= function () 
 			db.actor:give_info_portion("diggers_pda_info")
 	end,
 	
-	-- ПДА Князя:
+	-- РџР”Рђ РљРЅСЏР·СЏ:
 	["knyaz_pda"] 			= function () 
 		if not has_alife_info("knyaz_pda_info") then
 			db.actor:give_info_portion("knyaz_pda_info")
 			news_manager.send_tip(db.actor, "knyaz_pda_info", nil)   
 		end	
 	end,
-	-- ПДА Проныры:	
+	-- РџР”Рђ РџСЂРѕРЅС‹СЂС‹:	
 	["robber_pda"] 			= function () 
 		if not has_alife_info("robber_pda_info") then
 			db.actor:give_info_portion("robber_pda_info")
@@ -102,19 +102,19 @@ local pda =
 		end	
 	end,
 	
-	-- ПДА Жеки:	
+	-- РџР”Рђ Р–РµРєРё:	
 	["bratstvo_agent_pda"] 			= "zapravka_pda_off",
 	
-	-- Детонатор наемников:
+	-- Р”РµС‚РѕРЅР°С‚РѕСЂ РЅР°РµРјРЅРёРєРѕРІ:
 	["dar_road_detonator"] 			= function () 
 		ogse.start_timer("road_bomb_expl",2)
 		jekan_work.dar_road_bomb_expl()
 	end,
 	
-	-- Планшет наемников:
+	-- РџР»Р°РЅС€РµС‚ РЅР°РµРјРЅРёРєРѕРІ:
 	["dar_merc_planshet"] 			= "dar_merc_planshet_info",
 	
-	-- ПДА Щукина:
+	-- РџР”Рђ Р©СѓРєРёРЅР°:
 	["zona_bro2_pda"] 			= "zona_bro2_pda_info",
 	
 	
@@ -284,7 +284,7 @@ function dolg_zahvat(obj)
 		jekan_work.actor_dolg_zahvat()
 
 		local wnd = level.get_car_body_wnd()
-		if wnd then --Закроем окно обыска
+		if wnd then --Р—Р°РєСЂРѕРµРј РѕРєРЅРѕ РѕР±С‹СЃРєР°
 			level.start_stop_menu(wnd, true)
 		end
 
@@ -345,7 +345,7 @@ function af_light_destroy(obj)
 end
 
 
--- Эффекты от артефакта "Улей" ---------------------------------------------------------------------
+-- Р­С„С„РµРєС‚С‹ РѕС‚ Р°СЂС‚РµС„Р°РєС‚Р° "РЈР»РµР№" ---------------------------------------------------------------------
 function uley_timer_1()
 	if db.actor:dont_has_info("izgoy_doctor_reward") then
 		ogse.start_timer("uley_2",50)
@@ -368,6 +368,11 @@ function uley_pain()
 	end
 end
 
+local scientvisuals = {
+	["scientific_outfit"] = true,
+	["ecolog_outfit"] = true,
+	["protection_outfit"] = true
+}
 function af_uley_effect(obj)
 	if	obj:section() ~= "af_container_full"
 		or has_alife_info("izgoy_doctor_reward")
@@ -377,11 +382,11 @@ function af_uley_effect(obj)
 		return
 	end
 
-	local scientvisuals = {
-		["scientific_outfit"] = true,
-		["ecolog_outfit"] = true,
-		["protection_outfit"] = true
-	}
+	if device().precache_frame > 1 then --РЅР° РјРѕРјРµРЅС‚ СЃСЂР°Р±Р°С‚С‹РІР°РЅРёСЏ РєР°Р»Р»Р±РµРєР° РїСЂРё Р·Р°РіСЂСѓР·РєРµ РёРіСЂС‹, РєРѕСЃС‚СЋРјР° Р°РєС‚РѕСЂР° РјРѕР¶РµС‚ РµС‰С‘ РЅРµ Р±С‹С‚СЊ РІ РѕРЅР»Р°Р№РЅРµ, РїРѕСЌС‚РѕРјСѓ РїРµСЂРµРЅРѕСЃРёРј РѕР±СЂР°Р±РѕС‚РєСѓ РЅР° РїРѕРїРѕР·Р¶Рµ
+		dsh.timeout( 2000, af_uley_effect, obj)
+		return true
+	end
+
 	if not db.actor:item_in_slot(6) or not scientvisuals[db.actor:item_in_slot(6):section()] then
 		level.add_pp_effector("monolith_off.ppe", 999, false)
 		level.add_cam_effector("camera_effects\\head_shot.anm", 999, false, "")
@@ -393,7 +398,7 @@ function af_uley_effect(obj)
 	return true
 end
 
--- Упаковываем "Улей" в контейнер ------------------------------------------------------------------
+-- РЈРїР°РєРѕРІС‹РІР°РµРј "РЈР»РµР№" РІ РєРѕРЅС‚РµР№РЅРµСЂ ------------------------------------------------------------------
 
 function af_uley_packed(obj)
 	if obj:section() == "af_uley" then
@@ -408,7 +413,7 @@ end
 
 ----------------------------------------------------------------------------------------------------
 
-function shustriy_atp_relations()			-- не пашет, но оставим на всякий пожарный
+function shustriy_atp_relations()			-- РЅРµ РїР°С€РµС‚, РЅРѕ РѕСЃС‚Р°РІРёРј РЅР° РІСЃСЏРєРёР№ РїРѕР¶Р°СЂРЅС‹Р№
 	if db.actor:dont_has_info("atp_band_hitted") then
 		jekan_work.shustriy_atp_friend()
 	end
@@ -417,7 +422,7 @@ function shustriy_atp_relations()			-- не пашет, но оставим на всякий пожарный
 	end
 end
 
--- Артефакт Погодник -------------------------------------------------------------------------------
+-- РђСЂС‚РµС„Р°РєС‚ РџРѕРіРѕРґРЅРёРє -------------------------------------------------------------------------------
 local thunderbird_subscribed
 
 function thunderbird_subscribe()
@@ -475,7 +480,7 @@ function thunderbird_visual_effect()
 end
 
 
--- Эффект самогона от Захарыча: ----------------------------------------------------------------------
+-- Р­С„С„РµРєС‚ СЃР°РјРѕРіРѕРЅР° РѕС‚ Р—Р°С…Р°СЂС‹С‡Р°: ----------------------------------------------------------------------
 
 function dar_samogon_bonus()
 if db.actor and has_alife_info("dar_samogon_bonus") and db.actor:alive() then
@@ -492,7 +497,7 @@ function disable_dar_samogon_info()
 end
 
 
--- Ржавчина ----------------------------------------------------------------------------------------
+-- Р Р¶Р°РІС‡РёРЅР° ----------------------------------------------------------------------------------------
 function check_subscribe_strange_zone_effects()
 	for n = 1, 7 do
 		local zone = db.zone_by_name["strange_zone"..n]
@@ -576,7 +581,7 @@ function wpn_hit(wpn)
 	wpn:hit(h)
 end
 
--- периодическое срабатывание странных аномалий
+-- РїРµСЂРёРѕРґРёС‡РµСЃРєРѕРµ СЃСЂР°Р±Р°С‚С‹РІР°РЅРёРµ СЃС‚СЂР°РЅРЅС‹С… Р°РЅРѕРјР°Р»РёР№
 function strange_zone_actor_particle()
 	local pos = db.actor:position()
 	-- local fx_particle_name = "anomaly\\a-03-growing-sparks_old00"
@@ -616,10 +621,10 @@ function update_little_pseudogiant_sound(giant)
 	end
 end]]
 
--- Первач Лесника
+-- РџРµСЂРІР°С‡ Р›РµСЃРЅРёРєР°
 function pervach_use()
 	local level_name = level.name()
-		-- до выполнения квеста:
+		-- РґРѕ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРІРµСЃС‚Р°:
 		if db.actor:dont_has_info("dar_samogon_task_end") then
 			if level_name == "k01_darkscape_ogse" then
 				if db.actor:dont_has_info("dar_samogon_trance_start") then
@@ -629,7 +634,7 @@ function pervach_use()
 			elseif level_name ~= "k01_darkscape_ogse" then
 				soundtrack.actor_no()
 			end
-		-- после выполнения квеста:
+		-- РїРѕСЃР»Рµ РІС‹РїРѕР»РЅРµРЅРёСЏ РєРІРµСЃС‚Р°:
 		elseif db.actor:has_info("dar_samogon_task_end") then
 			if db.actor:dont_has_info("dar_samogon_bonus") then
 				db.actor:give_info_portion ("dar_samogon_bonus")

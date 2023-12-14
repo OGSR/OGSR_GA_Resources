@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -- nv 071007 remove unused tests	
 function proceed()
@@ -58,7 +58,7 @@ function mil_task_rg6_have (task_id, subtask)
 	return false
 end
 
--- удаляем метку на огнемет, которая сама почему-то не удаляется
+-- СѓРґР°Р»СЏРµРј РјРµС‚РєСѓ РЅР° РѕРіРЅРµРјРµС‚, РєРѕС‚РѕСЂР°СЏ СЃР°РјР° РїРѕС‡РµРјСѓ-С‚Рѕ РЅРµ СѓРґР°Р»СЏРµС‚СЃСЏ
 function delete_spot_rg6 (task_id, subtask)
 	level_tasks.remove_location_by_sid(story_ids.Mil_RG6, "green_location")
 end

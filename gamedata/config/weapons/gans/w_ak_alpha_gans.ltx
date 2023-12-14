@@ -50,9 +50,9 @@ misfire_start_prob	     	= 0.003
 ;шанс осечки при изношености больше чем misfireEndCondition
 misfire_end_prob	     	= 0.033
 ;увеличение изношености при одиночном выстреле
-condition_shot_dec      	= 0.00002
+condition_shot_dec      	= 0.000115
 ;увеличение изношености при выстреле очередью
-condition_queue_shot_dec	= 0.000023
+condition_queue_shot_dec	= 0.000115
 
 ammo_elapsed         = 30           ; obsolete
 ammo_mag_size        = 30           ; clip (magazine) size
@@ -210,18 +210,8 @@ snd_fire_modes          = weapons\vss\vss_firemode
 snd_reload_grenade      = weapons\ak74\ak74_gl_reload
 snd_switch              = weapons\ak74\ak74_gl_activate
 snd_silncer_shot        = weapons\akm\akm_shoot_sil, 3.5
-snd_aim_start           = weapons\vss\vss_aim_start
-snd_aim_end             = weapons\vss\vss_aim_end
 snd_sprint_start        = weapons\detector_prepare
 snd_sprint_end          = weapons\pistol_sprint_end
-snd_laser_on	        = weapons\vss\vss_firemode
-snd_laser_off	        = weapons\vss\vss_firemode
-snd_torch_on	        = weapons\vss\vss_firemode
-snd_torch_off	        = weapons\vss\vss_firemode
-snd_headlamp_on         = weapons\headflash_on
-snd_headlamp_off        = weapons\headflash_off
-snd_nv_on               = weapons\nv_act
-snd_nv_off              = weapons\nv_deact
 
 silencer_light_color    = 0.6,0.5,0.3
 silencer_light_range    = 0.01

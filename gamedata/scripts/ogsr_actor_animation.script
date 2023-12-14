@@ -1,4 +1,3 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
 function attach( sm )
   sm:subscribe({ signal = "on_key_down", fun = this.on_key_down })
@@ -158,3 +157,101 @@ function rain_drops_restart()
 	cmd("r2_rain_drops_control off")
 	dsh.timeout( 10, function() cmd("r2_rain_drops_control on") end )
 end
+
+
+
+-------------------------------[Код для анимации подбора]------------------------------------
+local pickup_anm_sect = "anim_pickup"
+local pickup_anm_name = "anm_take"
+local blend_anm_name = "camera_effects\\weapon\\two_handed_weapon_effect.anm"
+local snd_pickup = sound_object('weapons\\pickup')
+
+local pickup_anim_plays = false
+local force_crouch_subscribed = false
+
+local transfered = false --костыль чтоб при поднятии по нескольку раз подряд не срабатывали take/drop каллбеки предмета из-за нескольких вызовов transfer_item подряд для одного и того же предмета.
+local function multipickup(dist, radius)
+	local pos = device().cam_pos
+	local dir = device().cam_dir
+	pos = pos:add(dir:mul(dist))
+	level.iterate_nearest(pos, dist, function(obj)
+		if not transfered[obj:id()] and obj:get_inventory_item() and pos:distance_to(obj:position()) <= radius then
+			db.actor:transfer_item(obj, db.actor)
+			transfered[obj:id()] = true
+		end
+	end)
+end
+
+local function take_delay(obj)
+	transfered = {}
+	db.actor:transfer_item(obj, db.actor)
+	transfered[obj:id()] = true
+	multipickup(1.5, 0.75)
+	multipickup(1, 0.5)
+	multipickup(0.5, 0.25)
+	transfered = false
+
+	snd_pickup:play(db.actor, 0, sound_object.s2d)
+	animation_off()
+	pickup_anim_plays = false
+end
+
+local function toggle_force_crouch()
+    if force_crouch_subscribed then
+        ogse_signals.get_mgr():unsubscribe( force_crouch_subscribed )
+        force_crouch_subscribed = false
+        get_actor_obj():release_action(key_bindings.kCROUCH)
+    else
+        get_actor_obj():press_action(key_bindings.kCROUCH)
+        force_crouch_subscribed = {
+            signal = "on_update", fun = function() get_actor_obj():hold_action(key_bindings.kCROUCH) end
+        }
+        ogse_signals.get_mgr():subscribe( force_crouch_subscribed )
+    end
+end
+
+-- каллбек биндится в конфигах в секции [engine_callbacks]
+function on_item_before_pickup(obj)
+	if not pickup_anim_plays and allow_animation() then
+		--Костыль для ситуации когда в руках есть детектор и какой-то предмет в правой руке, анимации в правой руке колбасит. Поэтому детектор будем прятать. Решение так себе, но пока пусть так будет, потому что причина такого поведения не ясна.
+		local bugfix_detector = false
+		local det = db.actor:item_in_slot(8)
+		local act_it = db.actor:active_item()
+		local long_weapon = false
+		if act_it and get_actor_obj():IsDetectorActive() then
+			if det then
+				local act_it_slot = get_u32(act_it:section(), "slot", 0)
+				long_weapon = act_it_slot ~= 0 and act_it_slot ~= 1 and act_it_slot ~= 5
+				db.actor:move_to_ruck(det)
+				bugfix_detector = true
+			end
+		end
+
+		animation_on()
+		local pickup_anm_time = game.play_hud_motion(1, pickup_anm_sect, pickup_anm_name, true, 1.4)
+		game.play_hud_anm(blend_anm_name, 0, 1.4, 1, false)
+
+		local cam_pos = device().cam_pos
+		local cam_pos_y = cam_pos.y - 0.7
+		local obj_pos = obj:position()
+		if obj_pos.y <= cam_pos_y then
+			toggle_force_crouch()
+			dsh.timeout( pickup_anm_time - 100, toggle_force_crouch )
+		end
+
+		dsh.timeout( pickup_anm_time - 300, take_delay, obj )
+
+		if bugfix_detector then --возвращаем детектор обратно
+			dsh.timeout(pickup_anm_time + 500, function()
+				db.actor:move_to_slot(det)
+				if not long_weapon then --если в руках большое оружие, не надо возвращать детектор, т.к. в этом случае оружие уберется. Детектор вообще запрещено с таким оружием юзать, но есть способ обойти этот запрет, поэтому такую ситуацию надо тут учитывать.
+					get_actor_obj():press_action(key_bindings.kWPN_8)
+				end
+			end)
+		end
+		pickup_anim_plays = true
+	end
+
+	return false
+end
+----------------------------------------------------------------------------------------------

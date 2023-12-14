@@ -1,16 +1,16 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --[[------------------------------------------------------------------------------------------------
-Универсальная боевая схема вертолёта
-Чугай Александр
+РЈРЅРёРІРµСЂСЃР°Р»СЊРЅР°СЏ Р±РѕРµРІР°СЏ СЃС…РµРјР° РІРµСЂС‚РѕР»С‘С‚Р°
+Р§СѓРіР°Р№ РђР»РµРєСЃР°РЅРґСЂ
 
-В отличие от сталкеров боевая схема не является отдельным действием, а вызывается из других схем.
+Р’ РѕС‚Р»РёС‡РёРµ РѕС‚ СЃС‚Р°Р»РєРµСЂРѕРІ Р±РѕРµРІР°СЏ СЃС…РµРјР° РЅРµ СЏРІР»СЏРµС‚СЃСЏ РѕС‚РґРµР»СЊРЅС‹Рј РґРµР№СЃС‚РІРёРµРј, Р° РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· РґСЂСѓРіРёС… СЃС…РµРј.
 --------------------------------------------------------------------------------------------------]]
 
-local combat_type_flyby   = 0   -- атака пролётами над целью
-local combat_type_round   = 1   -- кружение вокруг позиции, атака кружась вокруг цели
-local combat_type_search  = 2   -- поиск врага, кружение вокруг точки, где последний раз видел, атака кружась вокруг цели
-local combat_type_retreat = 3   -- улёт за пределы уровня
+local combat_type_flyby   = 0   -- Р°С‚Р°РєР° РїСЂРѕР»С‘С‚Р°РјРё РЅР°Рґ С†РµР»СЊСЋ
+local combat_type_round   = 1   -- РєСЂСѓР¶РµРЅРёРµ РІРѕРєСЂСѓРі РїРѕР·РёС†РёРё, Р°С‚Р°РєР° РєСЂСѓР¶Р°СЃСЊ РІРѕРєСЂСѓРі С†РµР»Рё
+local combat_type_search  = 2   -- РїРѕРёСЃРє РІСЂР°РіР°, РєСЂСѓР¶РµРЅРёРµ РІРѕРєСЂСѓРі С‚РѕС‡РєРё, РіРґРµ РїРѕСЃР»РµРґРЅРёР№ СЂР°Р· РІРёРґРµР», Р°С‚Р°РєР° РєСЂСѓР¶Р°СЃСЊ РІРѕРєСЂСѓРі С†РµР»Рё
+local combat_type_retreat = 3   -- СѓР»С‘С‚ Р·Р° РїСЂРµРґРµР»С‹ СѓСЂРѕРІРЅСЏ
 
 local flyby_state_to_attack_dist = 0
 local flyby_state_to_enemy       = 1
@@ -37,9 +37,9 @@ function distance_2d( a, b )
 	return math.sqrt( (b.x-a.x)^2 + (b.z-a.z)^2 )
 end
 
--- пересечение луча и круга.
--- p - точка начала луча, v - направление луча (орт), o - центр круга, r - радиус круга
--- точка p должна быть внутри круга
+-- РїРµСЂРµСЃРµС‡РµРЅРёРµ Р»СѓС‡Р° Рё РєСЂСѓРіР°.
+-- p - С‚РѕС‡РєР° РЅР°С‡Р°Р»Р° Р»СѓС‡Р°, v - РЅР°РїСЂР°РІР»РµРЅРёРµ Р»СѓС‡Р° (РѕСЂС‚), o - С†РµРЅС‚СЂ РєСЂСѓРіР°, r - СЂР°РґРёСѓСЃ РєСЂСѓРіР°
+-- С‚РѕС‡РєР° p РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РІРЅСѓС‚СЂРё РєСЂСѓРіР°
 function cross_ray_circle( p, v, o, r )
 	local po = vector():set( o ):sub( p )
 	local vperp = vector():set( -v.z, 0, v.x )
@@ -120,16 +120,16 @@ function heli_combat:read_custom_data( ini, section )
 	self.section_changed   = true
 end
 
--- установка врага по custom data
--- если враг установился этой функцией, то он не будет забываться при длительной потере видимости!
--- если установился новый враг, то combat будет переинициализирован
+-- СѓСЃС‚Р°РЅРѕРІРєР° РІСЂР°РіР° РїРѕ custom data
+-- РµСЃР»Рё РІСЂР°Рі СѓСЃС‚Р°РЅРѕРІРёР»СЃСЏ СЌС‚РѕР№ С„СѓРЅРєС†РёРµР№, С‚Рѕ РѕРЅ РЅРµ Р±СѓРґРµС‚ Р·Р°Р±С‹РІР°С‚СЊСЃСЏ РїСЂРё РґР»РёС‚РµР»СЊРЅРѕР№ РїРѕС‚РµСЂРµ РІРёРґРёРјРѕСЃС‚Рё!
+-- РµСЃР»Рё СѓСЃС‚Р°РЅРѕРІРёР»СЃСЏ РЅРѕРІС‹Р№ РІСЂР°Рі, С‚Рѕ combat Р±СѓРґРµС‚ РїРµСЂРµРёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ
 function heli_combat:set_enemy_from_custom_data( combat_enemy )
 local tid1, tid2
 	if combat_enemy == nil then
 		self.enemy_forgetable = true
 		return
 	end
-	if self.status == 0 then -- старый механизм только для одиночных вертолетов.
+	if self.status == 0 then -- СЃС‚Р°СЂС‹Р№ РјРµС…Р°РЅРёР·Рј С‚РѕР»СЊРєРѕ РґР»СЏ РѕРґРёРЅРѕС‡РЅС‹С… РІРµСЂС‚РѕР»РµС‚РѕРІ.
 		if combat_enemy == "actor" then
 			if db.actor then
 				self.enemy_id = db.actor:id()
@@ -140,7 +140,7 @@ local tid1, tid2
 			end
 		elseif combat_enemy == "nil" then
 			self:forget_enemy()
-		elseif tonumber( combat_enemy ) ~= nil then -- combat_enemy - число
+		elseif tonumber( combat_enemy ) ~= nil then -- combat_enemy - С‡РёСЃР»Рѕ
 			self.enemy_id = id_by_sid( tonumber( combat_enemy ) )
 			tid1 = id_by_sid( tonumber( combat_enemy ) )
 			tid2 = id_by_sid( tonumber( combat_enemy ) )
@@ -174,14 +174,14 @@ function heli_combat:update_targets()
 end
 
 function heli_combat:read_pair_data()
-	self.status = 0 -- обновляем его статус
+	self.status = 0 -- РѕР±РЅРѕРІР»СЏРµРј РµРіРѕ СЃС‚Р°С‚СѓСЃ
 end
 ------------------------------------------------------------------------
 --[=[
-KRodin: три функции ниже конвертируют строку вида: "area(-215,170,55,stalker), area(-117,170,55,stalker), ..."
-В массив вида: { "area(-215,170,55,stalker)", "area(-117,170,55,stalker)", ... }
-Сюда перенесено из _G, т.к. кроме как здесь, нигде не нужно.
-Переделать бы этот ужас, но лень...
+KRodin: С‚СЂРё С„СѓРЅРєС†РёРё РЅРёР¶Рµ РєРѕРЅРІРµСЂС‚РёСЂСѓСЋС‚ СЃС‚СЂРѕРєСѓ РІРёРґР°: "area(-215,170,55,stalker), area(-117,170,55,stalker), ..."
+Р’ РјР°СЃСЃРёРІ РІРёРґР°: { "area(-215,170,55,stalker)", "area(-117,170,55,stalker)", ... }
+РЎСЋРґР° РїРµСЂРµРЅРµСЃРµРЅРѕ РёР· _G, С‚.Рє. РєСЂРѕРјРµ РєР°Рє Р·РґРµСЃСЊ, РЅРёРіРґРµ РЅРµ РЅСѓР¶РЅРѕ.
+РџРµСЂРµРґРµР»Р°С‚СЊ Р±С‹ СЌС‚РѕС‚ СѓР¶Р°СЃ, РЅРѕ Р»РµРЅСЊ...
 --]=]
 local function find_split_pos(str)
 	local split_pos = string.find(str,",")
@@ -224,15 +224,15 @@ local function parse_data(str)
 end
 ------------------------------------------------------------------------
 function heli_combat:get_target()
-	local temp_trg = {} -- все возможные цели
-	local pr_1 = {} -- видимые цели 1 приоритета: мутанты
-	local pr_2 = {} -- видимые цели 2 приоритета: сталкеры с пистолетами или гладкостволками
-	local pr_3 = {} -- видимые цели 3 приоритета: сталкеры с пистолет-пулеметами или винтовками под промежуточный патрон
-	local pr_4 = {} -- видимые цели 4 приоритета: сталкеры с автоматами или винтовками под винтовочный патрон
-	local pr_5 = {} -- видимые цели 5 приоритета: сталкеры с пулеметами или гранатометами
-	local pr_6 = {} -- видимые цели 6 приоритета: БТРы
-	local pr_7 = {} -- видимые цели 7 приоритета: вертолеты
-	local vis_trg = {} -- видимые цели
+	local temp_trg = {} -- РІСЃРµ РІРѕР·РјРѕР¶РЅС‹Рµ С†РµР»Рё
+	local pr_1 = {} -- РІРёРґРёРјС‹Рµ С†РµР»Рё 1 РїСЂРёРѕСЂРёС‚РµС‚Р°: РјСѓС‚Р°РЅС‚С‹
+	local pr_2 = {} -- РІРёРґРёРјС‹Рµ С†РµР»Рё 2 РїСЂРёРѕСЂРёС‚РµС‚Р°: СЃС‚Р°Р»РєРµСЂС‹ СЃ РїРёСЃС‚РѕР»РµС‚Р°РјРё РёР»Рё РіР»Р°РґРєРѕСЃС‚РІРѕР»РєР°РјРё
+	local pr_3 = {} -- РІРёРґРёРјС‹Рµ С†РµР»Рё 3 РїСЂРёРѕСЂРёС‚РµС‚Р°: СЃС‚Р°Р»РєРµСЂС‹ СЃ РїРёСЃС‚РѕР»РµС‚-РїСѓР»РµРјРµС‚Р°РјРё РёР»Рё РІРёРЅС‚РѕРІРєР°РјРё РїРѕРґ РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹Р№ РїР°С‚СЂРѕРЅ
+	local pr_4 = {} -- РІРёРґРёРјС‹Рµ С†РµР»Рё 4 РїСЂРёРѕСЂРёС‚РµС‚Р°: СЃС‚Р°Р»РєРµСЂС‹ СЃ Р°РІС‚РѕРјР°С‚Р°РјРё РёР»Рё РІРёРЅС‚РѕРІРєР°РјРё РїРѕРґ РІРёРЅС‚РѕРІРѕС‡РЅС‹Р№ РїР°С‚СЂРѕРЅ
+	local pr_5 = {} -- РІРёРґРёРјС‹Рµ С†РµР»Рё 5 РїСЂРёРѕСЂРёС‚РµС‚Р°: СЃС‚Р°Р»РєРµСЂС‹ СЃ РїСѓР»РµРјРµС‚Р°РјРё РёР»Рё РіСЂР°РЅР°С‚РѕРјРµС‚Р°РјРё
+	local pr_6 = {} -- РІРёРґРёРјС‹Рµ С†РµР»Рё 6 РїСЂРёРѕСЂРёС‚РµС‚Р°: Р‘РўР С‹
+	local pr_7 = {} -- РІРёРґРёРјС‹Рµ С†РµР»Рё 7 РїСЂРёРѕСЂРёС‚РµС‚Р°: РІРµСЂС‚РѕР»РµС‚С‹
+	local vis_trg = {} -- РІРёРґРёРјС‹Рµ С†РµР»Рё
 	local targets = parse_data(self.combat_enemy)
 --log3("[%s] self.combat_enemy = %s, parsed: %s", script_name(), self.combat_enemy, targets)
 	for k,v in pairs(targets) do
@@ -240,7 +240,7 @@ function heli_combat:get_target()
 			if db.actor then
 				table.insert(temp_trg, db.actor:id())
 			end
-		elseif tonumber(v) ~= nil then -- combat_enemy - число
+		elseif tonumber(v) ~= nil then -- combat_enemy - С‡РёСЃР»Рѕ
 			table.insert(temp_trg, id_by_sid(tonumber(v)))
 		elseif string.sub(v,1,4) == "area" then
 			local targets = heli_target.get_target_area(v)
@@ -261,9 +261,9 @@ function heli_combat:get_target()
 	
 	for k,v in pairs(temp_trg) do
 		local target = level.object_by_id(v)
-		if target and self.heliObject:isVisible(target) then --если цель в онлайне и видна с вертолета
+		if target and self.heliObject:isVisible(target) then --РµСЃР»Рё С†РµР»СЊ РІ РѕРЅР»Р°Р№РЅРµ Рё РІРёРґРЅР° СЃ РІРµСЂС‚РѕР»РµС‚Р°
 			local prior = heli_target.get_target_priority(target)
-			if v ~= self.lid and v ~= self.wid and is_hostile(self.st.community,target) then -- вертолеты собственной пары целями не считаются
+			if v ~= self.lid and v ~= self.wid and is_hostile(self.st.community,target) then -- РІРµСЂС‚РѕР»РµС‚С‹ СЃРѕР±СЃС‚РІРµРЅРЅРѕР№ РїР°СЂС‹ С†РµР»СЏРјРё РЅРµ СЃС‡РёС‚Р°СЋС‚СЃСЏ
 				if prior == 1 then table.insert(pr_1, v)
 				elseif prior == 2 then table.insert(pr_2, v)
 				elseif prior == 3 then table.insert(pr_3, v)
@@ -314,7 +314,7 @@ end
 
 local hostile_treshold = get_float("game_relations", "attitude_neutal_threshold")
 function is_hostile(comm,target)
-	if target:is_monster() then -- мутанты враги всем
+	if target:is_monster() then -- РјСѓС‚Р°РЅС‚С‹ РІСЂР°РіРё РІСЃРµРј
 		return true
 	end
 
@@ -340,15 +340,15 @@ function check_rocket(target_id)
 	local target = level.object_by_id(target_id)
 	local prior = heli_target.get_target_priority(target)
 	if prior == 7 then
-		use_rocket = false -- Против вертушек бесполезны, просто не попасть
+		use_rocket = false -- РџСЂРѕС‚РёРІ РІРµСЂС‚СѓС€РµРє Р±РµСЃРїРѕР»РµР·РЅС‹, РїСЂРѕСЃС‚Рѕ РЅРµ РїРѕРїР°СЃС‚СЊ
 	elseif prior == 6 then
-		use_rocket = true -- По БТР - самое оно
+		use_rocket = true -- РџРѕ Р‘РўР  - СЃР°РјРѕРµ РѕРЅРѕ
 	elseif prior == 5 and math.random() < 0.8 then
-		use_rocket = true -- По пулеметчикам - очень часто, они самые опасные
+		use_rocket = true -- РџРѕ РїСѓР»РµРјРµС‚С‡РёРєР°Рј - РѕС‡РµРЅСЊ С‡Р°СЃС‚Рѕ, РѕРЅРё СЃР°РјС‹Рµ РѕРїР°СЃРЅС‹Рµ
 	elseif prior == 4 and math.random() < 0.2 then
-		use_rocket = true -- С 20% вероятностью - по автоматчикам и сталкерам с винтовками
+		use_rocket = true -- РЎ 20% РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊСЋ - РїРѕ Р°РІС‚РѕРјР°С‚С‡РёРєР°Рј Рё СЃС‚Р°Р»РєРµСЂР°Рј СЃ РІРёРЅС‚РѕРІРєР°РјРё
 	else
-		use_rocket = false -- На мутантов и слабо вооруженных сталкеров ракеты не переводим, пулемета выше крыши
+		use_rocket = false -- РќР° РјСѓС‚Р°РЅС‚РѕРІ Рё СЃР»Р°Р±Рѕ РІРѕРѕСЂСѓР¶РµРЅРЅС‹С… СЃС‚Р°Р»РєРµСЂРѕРІ СЂР°РєРµС‚С‹ РЅРµ РїРµСЂРµРІРѕРґРёРј, РїСѓР»РµРјРµС‚Р° РІС‹С€Рµ РєСЂС‹С€Рё
 	end
 	return use_rocket
 end
@@ -446,7 +446,7 @@ function heli_combat:load( packet )
 			self.flyby_states_for_one_pass = packet:r_s16()
 		end
 	
-		self.initialized      = false -- переинициализируем бой. Иначе заходы делает, но и только
+		self.initialized      = false -- РїРµСЂРµРёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј Р±РѕР№. РРЅР°С‡Рµ Р·Р°С…РѕРґС‹ РґРµР»Р°РµС‚, РЅРѕ Рё С‚РѕР»СЊРєРѕ
 	end
 end
 
@@ -459,8 +459,8 @@ function heli_combat:waypoint_callback()
 	end
 end
 
--- Обновление параметров вертолёта, задаваемых в custom data.
--- Нужно делать на каждом обновлении на случай, если во время боя логика переключилась на другую секцию.
+-- РћР±РЅРѕРІР»РµРЅРёРµ РїР°СЂР°РјРµС‚СЂРѕРІ РІРµСЂС‚РѕР»С‘С‚Р°, Р·Р°РґР°РІР°РµРјС‹С… РІ custom data.
+-- РќСѓР¶РЅРѕ РґРµР»Р°С‚СЊ РЅР° РєР°Р¶РґРѕРј РѕР±РЅРѕРІР»РµРЅРёРё РЅР° СЃР»СѓС‡Р°Р№, РµСЃР»Рё РІРѕ РІСЂРµРјСЏ Р±РѕСЏ Р»РѕРіРёРєР° РїРµСЂРµРєР»СЋС‡РёР»Р°СЃСЊ РЅР° РґСЂСѓРіСѓСЋ СЃРµРєС†РёСЋ.
 function heli_combat:update_custom_data_settings()
 	if self.section_changed then
 		self.heliObject.m_use_rocket_on_attack = self.combat_use_rocket
@@ -503,7 +503,7 @@ function heli_combat:update_forgetting()
 		self:forget_enemy()
 	end
 	
-	if ( self.enemy and ( self.enemy_forgetable and self.can_forget_enemy ) and  -- та же строка в оригинале
+	if ( self.enemy and ( self.enemy_forgetable and self.can_forget_enemy ) and  -- С‚Р° Р¶Рµ СЃС‚СЂРѕРєР° РІ РѕСЂРёРіРёРЅР°Р»Рµ
 	   ( time_global() - self.enemy_last_seen_time > self.forget_timeout ) )
 	then
 		self:forget_enemy()
@@ -525,8 +525,8 @@ function heli_combat:update_combat_type( see_enemy )
 
 	if self.combat_type == combat_type_flyby then
 
-	if bind_heli.get_heli_health( self.heliObject, self.st ) < self.flame_start_health then -- если машина сильно повреждена,
-		ct = combat_type_retreat -- бесславно валим с поля боя
+	if bind_heli.get_heli_health( self.heliObject, self.st ) < self.flame_start_health then -- РµСЃР»Рё РјР°С€РёРЅР° СЃРёР»СЊРЅРѕ РїРѕРІСЂРµР¶РґРµРЅР°,
+		ct = combat_type_retreat -- Р±РµСЃСЃР»Р°РІРЅРѕ РІР°Р»РёРј СЃ РїРѕР»СЏ Р±РѕСЏ
 	end
 		
 	elseif self.combat_type == combat_type_retreat then
@@ -573,13 +573,13 @@ function heli_combat:update_combat_type( see_enemy )
 	self:set_combat_type( ct )
 end
 
--- нужно ли игнорировать врага
+-- РЅСѓР¶РЅРѕ Р»Рё РёРіРЅРѕСЂРёСЂРѕРІР°С‚СЊ РІСЂР°РіР°
 function heli_combat:combat_ignore_check()
 	return self.combat_ignore ~= nil and xr_logic.pick_section_from_condlist( db.actor, self.object, self.combat_ignore ) ~= nil
 end
 
--- частое обновление.
--- нужно для отслеживания видимости врага
+-- С‡Р°СЃС‚РѕРµ РѕР±РЅРѕРІР»РµРЅРёРµ.
+-- РЅСѓР¶РЅРѕ РґР»СЏ РѕС‚СЃР»РµР¶РёРІР°РЅРёСЏ РІРёРґРёРјРѕСЃС‚Рё РІСЂР°РіР°
 function heli_combat:fastcall()
 	if self.initialized then
 		if self.vis_next_time < time_global() then
@@ -607,8 +607,8 @@ function heli_combat:fastcall()
 	end
 end
 
--- Обновление боевой схемы. Вызывается из обновлений схем логики вертолёта.
--- возвращает true, если бой активен (то есть нету combat_ignore и есть враг)
+-- РћР±РЅРѕРІР»РµРЅРёРµ Р±РѕРµРІРѕР№ СЃС…РµРјС‹. Р’С‹Р·С‹РІР°РµС‚СЃСЏ РёР· РѕР±РЅРѕРІР»РµРЅРёР№ СЃС…РµРј Р»РѕРіРёРєРё РІРµСЂС‚РѕР»С‘С‚Р°.
+-- РІРѕР·РІСЂР°С‰Р°РµС‚ true, РµСЃР»Рё Р±РѕР№ Р°РєС‚РёРІРµРЅ (С‚Рѕ РµСЃС‚СЊ РЅРµС‚Сѓ combat_ignore Рё РµСЃС‚СЊ РІСЂР°Рі)
 function heli_combat:update()
 
 	self:update_targets()
@@ -623,14 +623,14 @@ function heli_combat:update()
 		return false
 	end
 
-	if self.enemy_id then -- Если ИД врага назначен
-		self.enemy = level.object_by_id( self.enemy_id ) -- пытаемся получить объект 
-		if not self.enemy then --если объекта нет или он уже мертв or not self.enemy:alive()
-			self:forget_enemy() --сброс
-			return false	-- выход
+	if self.enemy_id then -- Р•СЃР»Рё РР” РІСЂР°РіР° РЅР°Р·РЅР°С‡РµРЅ
+		self.enemy = level.object_by_id( self.enemy_id ) -- РїС‹С‚Р°РµРјСЃСЏ РїРѕР»СѓС‡РёС‚СЊ РѕР±СЉРµРєС‚ 
+		if not self.enemy then --РµСЃР»Рё РѕР±СЉРµРєС‚Р° РЅРµС‚ РёР»Рё РѕРЅ СѓР¶Рµ РјРµСЂС‚РІ or not self.enemy:alive()
+			self:forget_enemy() --СЃР±СЂРѕСЃ
+			return false	-- РІС‹С…РѕРґ
 		end
-	else	--если враг даже не назначен
-		return false	--тем более выход
+	else	--РµСЃР»Рё РІСЂР°Рі РґР°Р¶Рµ РЅРµ РЅР°Р·РЅР°С‡РµРЅ
+		return false	--С‚РµРј Р±РѕР»РµРµ РІС‹С…РѕРґ
 	end
 
 	if self:combat_ignore_check() then
@@ -664,7 +664,7 @@ function heli_combat:update()
 	return true
 end
 
--- посчитать точку на заданном радиусе от последней видимой позиции врага в текущем направлении скорости вертолёта
+-- РїРѕСЃС‡РёС‚Р°С‚СЊ С‚РѕС‡РєСѓ РЅР° Р·Р°РґР°РЅРЅРѕРј СЂР°РґРёСѓСЃРµ РѕС‚ РїРѕСЃР»РµРґРЅРµР№ РІРёРґРёРјРѕР№ РїРѕР·РёС†РёРё РІСЂР°РіР° РІ С‚РµРєСѓС‰РµРј РЅР°РїСЂР°РІР»РµРЅРёРё СЃРєРѕСЂРѕСЃС‚Рё РІРµСЂС‚РѕР»С‘С‚Р°
 function heli_combat:calc_position_in_radius( r )
 	local p = self.object:position()
 	p.y = 0
@@ -684,7 +684,7 @@ function heli_combat:calc_position_in_radius( r )
 end
 
 ----------------------------------------------------------------------------------------------
--- Фунциии кружащего боя
+-- Р¤СѓРЅС†РёРёРё РєСЂСѓР¶Р°С‰РµРіРѕ Р±РѕСЏ
 ----------------------------------------------------------------------------------------------
 function heli_combat:round_initialize()
 	self.change_dir_time            = 0
@@ -729,7 +729,7 @@ function heli_combat:round_update_shooting( see_enemy )
 end
 
 function heli_combat:round_update_flight( see_enemy )
-	-- менять время от времени направление облёта
+	-- РјРµРЅСЏС‚СЊ РІСЂРµРјСЏ РѕС‚ РІСЂРµРјРµРЅРё РЅР°РїСЂР°РІР»РµРЅРёРµ РѕР±Р»С‘С‚Р°
 --[[	if self.change_dir_time < time_global() then
 		local t
 
@@ -748,7 +748,7 @@ function heli_combat:round_update_flight( see_enemy )
 		return
 	end
 ]]
-	-- периодически проверть, не переместился ли враг и достаточно ли у вертолёта здоровья
+	-- РїРµСЂРёРѕРґРёС‡РµСЃРєРё РїСЂРѕРІРµСЂС‚СЊ, РЅРµ РїРµСЂРµРјРµСЃС‚РёР»СЃСЏ Р»Рё РІСЂР°Рі Рё РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ Р»Рё Сѓ РІРµСЂС‚РѕР»С‘С‚Р° Р·РґРѕСЂРѕРІСЊСЏ
 	if self.change_pos_time < time_global() then
 		self.change_pos_time = time_global() + 2000
 
@@ -776,7 +776,7 @@ function heli_combat:round_update( see_enemy )
 end
 
 ----------------------------------------------------------------------------------------------
--- Фунциии для поиска врага (скопировано с кружащего боя)
+-- Р¤СѓРЅС†РёРёРё РґР»СЏ РїРѕРёСЃРєР° РІСЂР°РіР° (СЃРєРѕРїРёСЂРѕРІР°РЅРѕ СЃ РєСЂСѓР¶Р°С‰РµРіРѕ Р±РѕСЏ)
 ----------------------------------------------------------------------------------------------
 function heli_combat:search_initialize()
 	self.change_speed_time          = time_global() + math.random( 5000, 7000 ) --+ 1000000
@@ -831,7 +831,7 @@ function heli_combat:search_update_shooting( see_enemy )
 end
 
 function heli_combat:search_update_flight( see_enemy )
-	-- останавливаться и возобновлять движение время от времени
+	-- РѕСЃС‚Р°РЅР°РІР»РёРІР°С‚СЊСЃСЏ Рё РІРѕР·РѕР±РЅРѕРІР»СЏС‚СЊ РґРІРёР¶РµРЅРёРµ РІСЂРµРјСЏ РѕС‚ РІСЂРµРјРµРЅРё
 	if self.change_speed_time < time_global() then
 		local t
 		t = math.random( 8000, 12000 )
@@ -845,7 +845,7 @@ function heli_combat:search_update_flight( see_enemy )
 		return
 	end
 
-	-- периодически проверть, не переместился ли враг и достаточно ли у вертолёта здоровья
+	-- РїРµСЂРёРѕРґРёС‡РµСЃРєРё РїСЂРѕРІРµСЂС‚СЊ, РЅРµ РїРµСЂРµРјРµСЃС‚РёР»СЃСЏ Р»Рё РІСЂР°Рі Рё РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ Р»Рё Сѓ РІРµСЂС‚РѕР»С‘С‚Р° Р·РґРѕСЂРѕРІСЊСЏ
 	if self.change_pos_time < time_global() then
 		self.change_pos_time = time_global() + 2000
 
@@ -873,7 +873,7 @@ function heli_combat:search_update( see_enemy )
 end
 
 ----------------------------------------------------------------------------------------------
--- Фунциии для боя с пролётами над целью
+-- Р¤СѓРЅС†РёРёРё РґР»СЏ Р±РѕСЏ СЃ РїСЂРѕР»С‘С‚Р°РјРё РЅР°Рґ С†РµР»СЊСЋ
 ----------------------------------------------------------------------------------------------
 function heli_combat:flyby_initialize()
 	self:flyby_set_initial_state()
@@ -957,7 +957,7 @@ function heli_combat:flyby_update_shooting( see_enemy )
 		self.heliObject.m_use_rocket_on_attack = self.combat_use_rocket
 		self.heliObject.m_use_mgun_on_attack = self.combat_use_mgun
 	else
-		if math.random() > 0.03 then -- с этой вероятностью может шарахнуть ракетой наугад, не видя цели
+		if math.random() > 0.03 then -- СЃ СЌС‚РѕР№ РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊСЋ РјРѕР¶РµС‚ С€Р°СЂР°С…РЅСѓС‚СЊ СЂР°РєРµС‚РѕР№ РЅР°СѓРіР°Рґ, РЅРµ РІРёРґСЏ С†РµР»Рё
 			self.heliObject:ClearEnemy()
 			self.heliObject.m_use_rocket_on_attack = self.combat_use_rocket
 			self.heliObject.m_use_mgun_on_attack = self.combat_use_mgun
@@ -982,26 +982,26 @@ end
 function heli_combat:lead_target(see_enemy)
 	local current_pos, last_pos, next_pos, self_pos
 	if see_enemy then
-		current_pos = self.enemy:position() -- позиция цели на данном апдейте
+		current_pos = self.enemy:position() -- РїРѕР·РёС†РёСЏ С†РµР»Рё РЅР° РґР°РЅРЅРѕРј Р°РїРґРµР№С‚Рµ
 		if self.enemy_last_seen_pos then
-			last_pos = self.enemy_last_seen_pos --позиция цели на прошлом апдейте
+			last_pos = self.enemy_last_seen_pos --РїРѕР·РёС†РёСЏ С†РµР»Рё РЅР° РїСЂРѕС€Р»РѕРј Р°РїРґРµР№С‚Рµ
 		else
 			last_pos = current_pos
 		end
-		next_pos = vector():set(2*current_pos.x - last_pos.x, 2*current_pos.y - last_pos.y, 2*current_pos.z - last_pos.z) --предполагаем на следующем апдейте при тех же скорости и времени между апдейтами
+		next_pos = vector():set(2*current_pos.x - last_pos.x, 2*current_pos.y - last_pos.y, 2*current_pos.z - last_pos.z) --РїСЂРµРґРїРѕР»Р°РіР°РµРј РЅР° СЃР»РµРґСѓСЋС‰РµРј Р°РїРґРµР№С‚Рµ РїСЂРё С‚РµС… Р¶Рµ СЃРєРѕСЂРѕСЃС‚Рё Рё РІСЂРµРјРµРЅРё РјРµР¶РґСѓ Р°РїРґРµР№С‚Р°РјРё
 --		self_pos = self.object:position()
 	--return next_pos
 	return db.actor:position()
 	end
 end
 ----------------------------------------------------------------------------------------------
--- Фунциии для улетания за пределы уровня
+-- Р¤СѓРЅС†РёРёРё РґР»СЏ СѓР»РµС‚Р°РЅРёСЏ Р·Р° РїСЂРµРґРµР»С‹ СѓСЂРѕРІРЅСЏ
 ----------------------------------------------------------------------------------------------
 function heli_combat:retreat_initialize()
 	self.retreat_initialized = true
 	self.can_forget_enemy = false
 
-	self.heliObject:SetMaxVelocity( self.max_velocity/(1+math.random())) --подбитый вертолет теряет до половины скорости
+	self.heliObject:SetMaxVelocity( self.max_velocity/(1+math.random())) --РїРѕРґР±РёС‚С‹Р№ РІРµСЂС‚РѕР»РµС‚ С‚РµСЂСЏРµС‚ РґРѕ РїРѕР»РѕРІРёРЅС‹ СЃРєРѕСЂРѕСЃС‚Рё
 	self.heliObject:SetSpeedInDestPoint( self.max_velocity/(1+math.random()))
 
 	self.heliObject:LookAtPoint( dummy_vector, false )

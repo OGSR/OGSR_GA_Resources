@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 
 function attach( sm )
@@ -49,7 +49,7 @@ function on_update( obj, delta )
           h.impulse   = 0
           h.draftsman = v.target
           h.direction = v.dir
-          h:bone( get_string( v.target:section(), "bone_torso", "bip01_spine" ) ) -- чтобы учитывалась броня
+          h:bone( get_string( v.target:section(), "bone_torso", "bip01_spine" ) ) -- С‡С‚РѕР±С‹ СѓС‡РёС‚С‹РІР°Р»Р°СЃСЊ Р±СЂРѕРЅСЏ
           h.power     = math.random( 10, 50 ) / 100
           h.type      = hit.strike
           v.target:hit( h )
@@ -148,7 +148,7 @@ end
 
 function amk_particle:__finalize()
 --log1("amk_particle:__finalize() - start")
-  --self.particle:stop() --KRodin: а оно тут надо?
+  --self.particle:stop() --KRodin: Р° РѕРЅРѕ С‚СѓС‚ РЅР°РґРѕ?
 --log1("amk_particle:__finalize() - end")
 end
 

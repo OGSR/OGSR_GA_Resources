@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding="UTF-8"?>
 <window>
-<!-- Æóðíàë -->
+<!-- Ð–ÑƒÑ€Ð½Ð°Ð» -->
 	<main_wnd x="30" y="100" width="913" height="592"> 
 		<left_frame x="0" y="0" width="350" height="592" a="90">
 			<texture>ui\amk_pda_frame_sub</texture>
@@ -17,11 +17,7 @@
 
 			<left_frame_header x="8" y="17" width="283" height="27">
 				<texture>amk_blank_01</texture>
-				
-				<anim_static x="250" y="-3" width="32" height="32" frames="16" duration="1000" columns="8" frame_width="32" frame_height="32" cyclic="1" autoplay="1">
-					<texture>ui\ui_pda_anims_01</texture>
-				</anim_static>
-								
+
 				<filter_tab x="0" y="6" width = "252" height="12">
 					<button x="10" y="0" width="70" height="12"  hint="pda_btn_journal_hint">
 						<text  align="l" x="0" y="0" font="letterica18" r="255" g="255" b="255" complex_mode="0">pda_btn_journal</text>
@@ -46,7 +42,7 @@
 			</left_frame_header>
 			
 			<work_area x="8" y="24" width="290" height="580">
-				<src_list x="20" y="10" width="265" height="414" right_ident="15" item_height="20"  always_show_scroll="0" scroll_profile="pda">
+				<src_list x="20" y="20" width="320" height="545" right_ident="15" item_height="20"  always_show_scroll="0" scroll_profile="pda">
 					<font font="letterica18" r="225" g="225" b="250"/>
 					<tree_root_font font="letterica18" r="225" g="225" b="250">Encyclopedia</tree_root_font>
 					<tree_item_font font="letterica16" r="255" g="255" b="255">Encyclopedia</tree_item_font>
@@ -69,8 +65,8 @@
 				
 			</right_frame_header>
 			
-			<work_area x="8" y="0" width="390" height="580">
-				<scroll_view  x="25" y="8" width="390" height="580" always_show_scroll="1" scroll_profile="pda"/>
+			<work_area x="2" y="0" width="410" height="590">
+				<scroll_view x="2" y="0" width="400" height="590" always_show_scroll="0" scroll_profile="pda"/>
 			</work_area>
 		</right_frame>
 	

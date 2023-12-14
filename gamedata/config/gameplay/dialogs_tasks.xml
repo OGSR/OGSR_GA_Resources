@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <game_dialogs>
-	<!--//////////////////// Проводники ////////////////////-->
+	<!--//////////////////// РџСЂРѕРІРѕРґРЅРёРєРё ////////////////////-->
 	<!--////////////////////            ////////////////////-->
 	<dialog id="tm_start_kvests_u_sidora_dialog">
 		<has_info>esc_serious_talk</has_info>
@@ -125,11 +125,11 @@
 			<phrase id="0">
 				<text/>
 				<next>1</next>
-				<!-- Либо нас посылают за артом, либо посылают вообще-->
+				<!-- Р›РёР±Рѕ РЅР°СЃ РїРѕСЃС‹Р»Р°СЋС‚ Р·Р° Р°СЂС‚РѕРј, Р»РёР±Рѕ РїРѕСЃС‹Р»Р°СЋС‚ РІРѕРѕР±С‰Рµ-->
 				<next>2</next>
-				<!-- Отдаём артефакт -->
+				<!-- РћС‚РґР°С‘Рј Р°СЂС‚РµС„Р°РєС‚ -->
 				<next>3</next>
-				<!-- Грубо посылаем -->
+				<!-- Р“СЂСѓР±Рѕ РїРѕСЃС‹Р»Р°РµРј -->
 			</phrase>
 			<phrase id="1">
 				<text/>
@@ -256,15 +256,15 @@
 			<phrase id="0">
 				<text/>
 				<next>1</next>
-				<!-- просим о помощи, пытаемся получить оружие -->
+				<!-- РїСЂРѕСЃРёРј Рѕ РїРѕРјРѕС‰Рё, РїС‹С‚Р°РµРјСЃСЏ РїРѕР»СѓС‡РёС‚СЊ РѕСЂСѓР¶РёРµ -->
 				<next>2</next>
-				<!-- продолжаем клянчить оружие -->
+				<!-- РїСЂРѕРґРѕР»Р¶Р°РµРј РєР»СЏРЅС‡РёС‚СЊ РѕСЂСѓР¶РёРµ -->
 				<!--<next>3</next> -->
-				<!-- оружие получили/нам отказали, штурм не начался-->
+				<!-- РѕСЂСѓР¶РёРµ РїРѕР»СѓС‡РёР»Рё/РЅР°Рј РѕС‚РєР°Р·Р°Р»Рё, С€С‚СѓСЂРј РЅРµ РЅР°С‡Р°Р»СЃСЏ-->
 				<next>4</next>
-				<!-- штурм закончился, благодарим, даем ССИ о окончании подтаска-->
+				<!-- С€С‚СѓСЂРј Р·Р°РєРѕРЅС‡РёР»СЃСЏ, Р±Р»Р°РіРѕРґР°СЂРёРј, РґР°РµРј РЎРЎР Рѕ РѕРєРѕРЅС‡Р°РЅРёРё РїРѕРґС‚Р°СЃРєР°-->
 				<next>5</next>
-				<!-- штурм закончился, ССИ о спасении выдано, просто треплемся! -->
+				<!-- С€С‚СѓСЂРј Р·Р°РєРѕРЅС‡РёР»СЃСЏ, РЎРЎР Рѕ СЃРїР°СЃРµРЅРёРё РІС‹РґР°РЅРѕ, РїСЂРѕСЃС‚Рѕ С‚СЂРµРїР»РµРјСЃСЏ! -->
 			</phrase>
 			<phrase id="1">
 				<text/>
@@ -440,13 +440,13 @@
 			<phrase id="0">
 				<text/>
 				<next>1</next>
-				<!-- Самый первый диалог - просит спасения -->
+				<!-- РЎР°РјС‹Р№ РїРµСЂРІС‹Р№ РґРёР°Р»РѕРі - РїСЂРѕСЃРёС‚ СЃРїР°СЃРµРЅРёСЏ -->
 				<next>2</next>
-				<!-- Согласились его спасть -->
+				<!-- РЎРѕРіР»Р°СЃРёР»РёСЃСЊ РµРіРѕ СЃРїР°СЃС‚СЊ -->
 				<next>3</next>
-				<!-- Дошли до места, говорим спасибы и всё такое-->
+				<!-- Р”РѕС€Р»Рё РґРѕ РјРµСЃС‚Р°, РіРѕРІРѕСЂРёРј СЃРїР°СЃРёР±С‹ Рё РІСЃС‘ С‚Р°РєРѕРµ-->
 				<next>4</next>
-				<!-- Обычное обращение к игроку-->
+				<!-- РћР±С‹С‡РЅРѕРµ РѕР±СЂР°С‰РµРЅРёРµ Рє РёРіСЂРѕРєСѓ-->
 			</phrase>
 			<phrase id="1">
 				<text/>
@@ -457,9 +457,9 @@
 			<phrase id="11">
 				<text>agr_kvest_plennik_on_base_mils_talk_0</text>
 				<next>111</next>
-				<!-- Соглашаемся спасать -->
+				<!-- РЎРѕРіР»Р°С€Р°РµРјСЃСЏ СЃРїР°СЃР°С‚СЊ -->
 				<next>112</next>
-				<!-- Сообщаем, что хотим убить -->
+				<!-- РЎРѕРѕР±С‰Р°РµРј, С‡С‚Рѕ С…РѕС‚РёРј СѓР±РёС‚СЊ -->
 			</phrase>
 			<phrase id="111">
 				<text>agr_kvest_plennik_on_base_mils_talk_1</text>
@@ -515,17 +515,17 @@
 			<phrase id="0">
 				<text/>
 				<next>1</next>
-				<!-- Пришли впервый раз к командиру -->
+				<!-- РџСЂРёС€Р»Рё РІРїРµСЂРІС‹Р№ СЂР°Р· Рє РєРѕРјР°РЅРґРёСЂСѓ -->
 				<next>2a</next>
-				<!-- Идем во второй раз - пленник далеко -->
+				<!-- РРґРµРј РІРѕ РІС‚РѕСЂРѕР№ СЂР°Р· - РїР»РµРЅРЅРёРє РґР°Р»РµРєРѕ -->
 				<next>2b</next>
-				<!-- Идем во второй раз - пленник близ -->
+				<!-- РРґРµРј РІРѕ РІС‚РѕСЂРѕР№ СЂР°Р· - РїР»РµРЅРЅРёРє Р±Р»РёР· -->
 				<next>3</next>
-				<!-- Успешно сдали, просто разговариваем -->
+				<!-- РЈСЃРїРµС€РЅРѕ СЃРґР°Р»Рё, РїСЂРѕСЃС‚Рѕ СЂР°Р·РіРѕРІР°СЂРёРІР°РµРј -->
 				<next>4a</next>
-				<!-- Связиста убили, не разговаривали с командором вообще -->
+				<!-- РЎРІСЏР·РёСЃС‚Р° СѓР±РёР»Рё, РЅРµ СЂР°Р·РіРѕРІР°СЂРёРІР°Р»Рё СЃ РєРѕРјР°РЅРґРѕСЂРѕРј РІРѕРѕР±С‰Рµ -->
 				<next>4b</next>
-				<!-- Связиста убили, но с командиром мы разговаривали -->
+				<!-- РЎРІСЏР·РёСЃС‚Р° СѓР±РёР»Рё, РЅРѕ СЃ РєРѕРјР°РЅРґРёСЂРѕРј РјС‹ СЂР°Р·РіРѕРІР°СЂРёРІР°Р»Рё -->
 			</phrase>
 			<phrase id="1">
 				<text/>
@@ -541,9 +541,9 @@
 			<phrase id="11">
 				<text>captive_on_agr_mill_base_dolg_guard_commander_dialog_11</text>
 				<next>12a</next>
-				<!-- Связист в 15 метрах от нас -->
+				<!-- РЎРІСЏР·РёСЃС‚ РІ 15 РјРµС‚СЂР°С… РѕС‚ РЅР°СЃ -->
 				<next>12b</next>
-				<!-- Связист не в 15 метрах от нас -->
+				<!-- РЎРІСЏР·РёСЃС‚ РЅРµ РІ 15 РјРµС‚СЂР°С… РѕС‚ РЅР°СЃ -->
 			</phrase>
 			<phrase id="12a">
 				<precondition>tasks_functor.captive_on_agr_mill_base_is_captive_near</precondition>
@@ -898,13 +898,13 @@
 			<phrase id="0">
 				<text/>
 				<next>1</next>
-				<!-- Только встретили -->
+				<!-- РўРѕР»СЊРєРѕ РІСЃС‚СЂРµС‚РёР»Рё -->
 				<next>2</next>
-				<!-- Идем к точке -->
+				<!-- РРґРµРј Рє С‚РѕС‡РєРµ -->
 				<next>3</next>
-				<!-- Прощаемся -->
+				<!-- РџСЂРѕС‰Р°РµРјСЃСЏ -->
 				<next>4</next>
-				<!-- Разговор после прощания -->
+				<!-- Р Р°Р·РіРѕРІРѕСЂ РїРѕСЃР»Рµ РїСЂРѕС‰Р°РЅРёСЏ -->
 			</phrase>
 			<phrase id="1">
 				<dont_has_info>rad_kvest_dobrozhelatel_help_to_svyaznoy_spawn_mon</dont_has_info>
@@ -1575,14 +1575,14 @@
 		<dont_has_info>freeplay</dont_has_info>
 		<phrase_list>
 			<phrase id="13_2">
-				<!-- Прекондишен - НЕ хватило очков -->
+				<!-- РџСЂРµРєРѕРЅРґРёС€РµРЅ - РќР• С…РІР°С‚РёР»Рѕ РѕС‡РєРѕРІ -->
 				<precondition>ogse_quests.actor_doesnt_have_needed_points_dolg</precondition>
 				<give_info>final_battle_dolg_talk</give_info>
 				<give_info>final_battle_dolg_refuse</give_info>
 				<text>final_battle_dolg_dialog_13_2</text>
 			</phrase>
 			<phrase id="13_1">
-				<!-- Прекондишен - хватило очков -->
+				<!-- РџСЂРµРєРѕРЅРґРёС€РµРЅ - С…РІР°С‚РёР»Рѕ РѕС‡РєРѕРІ -->
 				<precondition>ogse_quests.actor_have_needed_points_dolg</precondition>
 				<give_info>final_battle_dolg_talk</give_info>
 				<give_info>final_battle_dolg_help</give_info>
@@ -1601,7 +1601,7 @@
 				<next>13_3</next>
 				<action>ogse_quests.add_actor_points_dolg</action>
 				<text>final_battle_dolg_dialog_12_2</text>
-				<!-- Начислить очки на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="12_1">
 				<next>13_3</next>
@@ -1620,7 +1620,7 @@
 				<next>12</next>
 				<action>ogse_quests.add_actor_points_dolg</action>
 				<text>final_battle_dolg_dialog_11_1</text>
-				<!-- Начислить очки на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="11">
 				<next>11_2</next>
@@ -1635,7 +1635,7 @@
 				<next>11</next>
 				<action>ogse_quests.add_actor_points_dolg</action>
 				<text>final_battle_dolg_dialog_10_1</text>
-				<!-- Начислить очки на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="10">
 				<next>10_2</next>
@@ -1650,7 +1650,7 @@
 				<next>10</next>
 				<action>ogse_quests.add_actor_points_dolg</action>
 				<text>final_battle_dolg_dialog_9_1</text>
-				<!-- Начислить очки на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="9">
 				<next>9_2</next>
@@ -1661,7 +1661,7 @@
 				<next>9</next>
 				<action>ogse_quests.add_actor_points_dolg</action>
 				<text>final_battle_dolg_dialog_8_2</text>
-				<!-- Начислить очки на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="8_1">
 				<next>9</next>
@@ -1676,7 +1676,7 @@
 				<next>7</next>
 				<action>ogse_quests.count_actor_points_dolg_quests</action>
 				<text>final_battle_dolg_dialog_6</text>
-				<!-- Начислить очки за квесты на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё Р·Р° РєРІРµСЃС‚С‹ РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="1">
 				<next>6</next>
@@ -1684,7 +1684,7 @@
 			</phrase>
 			<phrase id="0">
 				<next>1</next>
-				<!-- Обнуляем счетчик очков на этой фразе -->
+				<!-- РћР±РЅСѓР»СЏРµРј СЃС‡РµС‚С‡РёРє РѕС‡РєРѕРІ РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 				<action>ogse_quests.init_actor_points_dolg</action>
 				<text>final_battle_dolg_dialog_0</text>
 			</phrase>
@@ -1696,14 +1696,14 @@
 		<dont_has_info>freeplay</dont_has_info>
 		<phrase_list>
 			<phrase id="13_2">
-				<!-- Прекондишен - НЕ хватило очков -->
+				<!-- РџСЂРµРєРѕРЅРґРёС€РµРЅ - РќР• С…РІР°С‚РёР»Рѕ РѕС‡РєРѕРІ -->
 				<precondition>ogse_quests.actor_doesnt_have_needed_points_freedom</precondition>
 				<give_info>final_battle_freedom_talk</give_info>
 				<give_info>final_battle_freedom_refuse</give_info>
 				<text>final_battle_freedom_dialog_13_2</text>
 			</phrase>
 			<phrase id="13_1">
-				<!-- Прекондишен - хватило очков -->
+				<!-- РџСЂРµРєРѕРЅРґРёС€РµРЅ - С…РІР°С‚РёР»Рѕ РѕС‡РєРѕРІ -->
 				<precondition>ogse_quests.actor_have_needed_points_freedom</precondition>
 				<give_info>final_battle_freedom_talk</give_info>
 				<give_info>final_battle_freedom_help</give_info>
@@ -1726,7 +1726,7 @@
 				<next>13_3</next>
 				<action>ogse_quests.add_actor_points_freedom</action>
 				<text>final_battle_freedom_dialog_12_1</text>
-				<!-- Начислить очки на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="12">
 				<next>12_2</next>
@@ -1737,7 +1737,7 @@
 				<next>12</next>
 				<action>ogse_quests.add_actor_points_freedom</action>
 				<text>final_battle_freedom_dialog_11_2</text>
-				<!-- Начислить очки на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="11_1">
 				<next>12</next>
@@ -1752,7 +1752,7 @@
 				<next>11</next>
 				<action>ogse_quests.add_actor_points_freedom</action>
 				<text>final_battle_freedom_dialog_10_2</text>
-				<!-- Начислить очки на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="10_2">
 				<next>11</next>
@@ -1771,7 +1771,7 @@
 				<next>10</next>
 				<action>ogse_quests.add_actor_points_freedom</action>
 				<text>final_battle_freedom_dialog_9_1</text>
-				<!-- Начислить очки на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="9">
 				<next>9_2</next>
@@ -1786,7 +1786,7 @@
 				<next>9</next>
 				<action>ogse_quests.add_actor_points_freedom</action>
 				<text>final_battle_freedom_dialog_8_1</text>
-				<!-- Начислить очки на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="7">
 				<next>8_2</next>
@@ -1797,7 +1797,7 @@
 				<next>7</next>
 				<action>ogse_quests.count_actor_points_freedom_quests</action>
 				<text>final_battle_freedom_dialog_6</text>
-				<!-- Начислить очки за квесты на этой фразе -->
+				<!-- РќР°С‡РёСЃР»РёС‚СЊ РѕС‡РєРё Р·Р° РєРІРµСЃС‚С‹ РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 			</phrase>
 			<phrase id="1">
 				<next>6</next>
@@ -1805,7 +1805,7 @@
 			</phrase>
 			<phrase id="0">
 				<next>1</next>
-				<!-- Обнуляем счетчик очков на этой фразе -->
+				<!-- РћР±РЅСѓР»СЏРµРј СЃС‡РµС‚С‡РёРє РѕС‡РєРѕРІ РЅР° СЌС‚РѕР№ С„СЂР°Р·Рµ -->
 				<action>ogse_quests.init_actor_points_freedom</action>
 				<text>final_battle_freedom_dialog_0</text>
 			</phrase>

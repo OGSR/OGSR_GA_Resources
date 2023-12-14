@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 class "snd_source"
 function snd_source:__init (obj, storage)
@@ -59,7 +59,7 @@ function snd_source:update(delta)
 		return
 	end
 
-    if self.st.pause_time - device ():time_global () > 0 then
+    if self.st.pause_time - time_global() > 0 then
         return
     end
        
@@ -79,7 +79,7 @@ function snd_source:update(delta)
 
 		if self.played_sound ~= nil then
 			local flags = sound_object.s3d
-			if self.st.looped then
+			if self.st.looped and self.st.snd_object then --Зациклить звук можно только если он один. А при `looped = true` в секции логики предполагается что xr_sound.get_sound_object должен выбирать звуки из таблицы последовательно (их может быть много)
 				flags = flags + sound_object.looped
 			end
 			self.played_sound:play_at_pos( self.object, self.object:position(), 0, flags )
@@ -94,9 +94,9 @@ function snd_source:update(delta)
 	end
        
     if self.last_update == 0 then
-       self.last_update = device ():time_global ()
+       self.last_update = time_global()
     else
-       if device ():time_global () - self.last_update > 50 then
+       if time_global() - self.last_update > 50 then
           self.last_update = 0
        else
           return     
@@ -112,7 +112,7 @@ function snd_source:update(delta)
 			self.st.sound_set = true
 			if self.st.pause_min ~= 0 or self.st.pause_max ~= 0 then
 				local time = math.random (self.st.pause_min, self.st.pause_max)
-				self.st.pause_time = device ():time_global () + time
+				self.st.pause_time = time_global() + time
 			end 
 			self.first_sound = false
 		else
@@ -143,7 +143,7 @@ end
 
 function add_to_binder (npc, ini, scheme, section, storage)
 	local new_action = snd_source (npc, storage)
-	-- ���������������� ��� actions, � ������� ������ ���� ������ ����� reset_scheme ��� ��������� �������� �����:
+	-- Зарегистрировать все actions, в которых должен быть вызван метод reset_scheme при изменении настроек схемы:
 	xr_logic.subscribe_action_for_events(npc, storage, new_action)
 	
 end

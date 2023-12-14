@@ -1,24 +1,24 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -----------------------------------------------------------------------
 --- ogse_yan_random_quest.script                                       
---- Модуль рандомных заданий для Сахарова (артефакты/части монстров)                      
+--- РњРѕРґСѓР»СЊ СЂР°РЅРґРѕРјРЅС‹С… Р·Р°РґР°РЅРёР№ РґР»СЏ РЎР°С…Р°СЂРѕРІР° (Р°СЂС‚РµС„Р°РєС‚С‹/С‡Р°СЃС‚Рё РјРѕРЅСЃС‚СЂРѕРІ)                      
 --- Mixser (c) OGS Evolution Team                                      
 --- version 1.0 (27/07/2011)                                             
 -----------------------------------------------------------------------
 
--- Вещи, которые будет выдавать Сахаров
+-- Р’РµС‰Рё, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґРµС‚ РІС‹РґР°РІР°С‚СЊ РЎР°С…Р°СЂРѕРІ
 local item_list = {}
 
--- Вспомогательные переменные
+-- Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ
 local difficult = {"easy", "normal", "hard"}
 local item = {"art", "monster_part"}
 local current_item = ""
-local order_length = 5 -- количество заранее определённых комлектов
+local order_length = 5 -- РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°СЂР°РЅРµРµ РѕРїСЂРµРґРµР»С‘РЅРЅС‹С… РєРѕРјР»РµРєС‚РѕРІ
 
--- Генерация предметов --
+-- Р“РµРЅРµСЂР°С†РёСЏ РїСЂРµРґРјРµС‚РѕРІ --
 
--- Распределяем арты и запчасти монстров
+-- Р Р°СЃРїСЂРµРґРµР»СЏРµРј Р°СЂС‚С‹ Рё Р·Р°РїС‡Р°СЃС‚Рё РјРѕРЅСЃС‚СЂРѕРІ
 function insert_item_range()
 	local time_array, a = {}
 	
@@ -32,7 +32,7 @@ function insert_item_range()
 	end	
 end
 
--- Получить массив из строки
+-- РџРѕР»СѓС‡РёС‚СЊ РјР°СЃСЃРёРІ РёР· СЃС‚СЂРѕРєРё
 function get_array_from_string(s)
 	local num = nil
 	local c = {}
@@ -42,38 +42,38 @@ function get_array_from_string(s)
 	return c
 end
 
--- Инициализация списков комплектов (вызывать только один раз!)
+-- РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРїРёСЃРєРѕРІ РєРѕРјРїР»РµРєС‚РѕРІ (РІС‹Р·С‹РІР°С‚СЊ С‚РѕР»СЊРєРѕ РѕРґРёРЅ СЂР°Р·!)
 function init_item_lists()
-	init_order_array() -- Инициализация очереди комплектов
+	init_order_array() -- РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РѕС‡РµСЂРµРґРё РєРѕРјРїР»РµРєС‚РѕРІ
 	for i=1, order_length do
-		set_new_item_list(i) -- Установка нового комплекта наград
+		set_new_item_list(i) -- РЈСЃС‚Р°РЅРѕРІРєР° РЅРѕРІРѕРіРѕ РєРѕРјРїР»РµРєС‚Р° РЅР°РіСЂР°Рґ
 	end
-	set_item_list_as_default(1) -- Устанавливаем первый комплект как текущий
-	show_item_list_as_tip() -- Вывод сообщения о текущем комплекте
+	set_item_list_as_default(1) -- РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРµСЂРІС‹Р№ РєРѕРјРїР»РµРєС‚ РєР°Рє С‚РµРєСѓС‰РёР№
+	show_item_list_as_tip() -- Р’С‹РІРѕРґ СЃРѕРѕР±С‰РµРЅРёСЏ Рѕ С‚РµРєСѓС‰РµРј РєРѕРјРїР»РµРєС‚Рµ
 end
 
--- Создание нового списка вещей (Вызывать в последующие разы)
+-- РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ СЃРїРёСЃРєР° РІРµС‰РµР№ (Р’С‹Р·С‹РІР°С‚СЊ РІ РїРѕСЃР»РµРґСѓСЋС‰РёРµ СЂР°Р·С‹)
 function reinit_item_list()
-	if db.actor:has_info("yan_rq_permission") then -- если мы у Сахарова брали заказы
-		local order = get_order_array() -- получаем очередь комплектов (индексы)
-		set_new_item_list(order[1]) -- получаем новый комплект взамен старого
-		set_order_array(order[1]) -- устанавливаем новую очередь (сдвигаем элементы влево)
+	if db.actor:has_info("yan_rq_permission") then -- РµСЃР»Рё РјС‹ Сѓ РЎР°С…Р°СЂРѕРІР° Р±СЂР°Р»Рё Р·Р°РєР°Р·С‹
+		local order = get_order_array() -- РїРѕР»СѓС‡Р°РµРј РѕС‡РµСЂРµРґСЊ РєРѕРјРїР»РµРєС‚РѕРІ (РёРЅРґРµРєСЃС‹)
+		set_new_item_list(order[1]) -- РїРѕР»СѓС‡Р°РµРј РЅРѕРІС‹Р№ РєРѕРјРїР»РµРєС‚ РІР·Р°РјРµРЅ СЃС‚Р°СЂРѕРіРѕ
+		set_order_array(order[1]) -- СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅРѕРІСѓСЋ РѕС‡РµСЂРµРґСЊ (СЃРґРІРёРіР°РµРј СЌР»РµРјРµРЅС‚С‹ РІР»РµРІРѕ)
 	
-		local order = get_order_array() -- получаем очередь комплектов (индексы)
+		local order = get_order_array() -- РїРѕР»СѓС‡Р°РµРј РѕС‡РµСЂРµРґСЊ РєРѕРјРїР»РµРєС‚РѕРІ (РёРЅРґРµРєСЃС‹)
 		log1("order_index new = "..order[1])
-		set_item_list_as_default(order[1]) -- устанавливаем новый комплект как текущий
-		show_item_list_as_tip() -- Вывод сообщения о новом текущем комплекте
+		set_item_list_as_default(order[1]) -- СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅРѕРІС‹Р№ РєРѕРјРїР»РµРєС‚ РєР°Рє С‚РµРєСѓС‰РёР№
+		show_item_list_as_tip() -- Р’С‹РІРѕРґ СЃРѕРѕР±С‰РµРЅРёСЏ Рѕ РЅРѕРІРѕРј С‚РµРєСѓС‰РµРј РєРѕРјРїР»РµРєС‚Рµ
 	end
 end
 
--- Инициализация очереди комплектов
+-- РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РѕС‡РµСЂРµРґРё РєРѕРјРїР»РµРєС‚РѕРІ
 function init_order_array()
 	for i=1, order_length do
 		ogse.save_variable("yan_random_quest_order_array"..tostring(i), i)
 	end
 end
 
--- Получение очереди комплектов
+-- РџРѕР»СѓС‡РµРЅРёРµ РѕС‡РµСЂРµРґРё РєРѕРјРїР»РµРєС‚РѕРІ
 function get_order_array()
 	local time_array = {}
 	
@@ -85,47 +85,47 @@ function get_order_array()
 	return time_array
 end
 
--- Установка новой очереди комплектов
+-- РЈСЃС‚Р°РЅРѕРІРєР° РЅРѕРІРѕР№ РѕС‡РµСЂРµРґРё РєРѕРјРїР»РµРєС‚РѕРІ
 function set_order_array(index)
 	local time_array = get_order_array()
 	
-	table.insert(time_array, index) -- вставим искомый элемент в конец очереди
-	table.remove(time_array, 1) -- удалим из очереди первый элемент
+	table.insert(time_array, index) -- РІСЃС‚Р°РІРёРј РёСЃРєРѕРјС‹Р№ СЌР»РµРјРµРЅС‚ РІ РєРѕРЅРµС† РѕС‡РµСЂРµРґРё
+	table.remove(time_array, 1) -- СѓРґР°Р»РёРј РёР· РѕС‡РµСЂРµРґРё РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚
 	
 	for i=1, order_length do
 		ogse.save_variable("yan_random_quest_order_array"..tostring(i), time_array[i])
 	end
 end
 
--- Установка нового комплекта наград
+-- РЈСЃС‚Р°РЅРѕРІРєР° РЅРѕРІРѕРіРѕ РєРѕРјРїР»РµРєС‚Р° РЅР°РіСЂР°Рґ
 function set_new_item_list(index)
-	insert_item_range() -- -- заполним item_list
+	insert_item_range() -- -- Р·Р°РїРѕР»РЅРёРј item_list
 	for k,v in pairs(difficult) do
 		if index == 1 then
-			if ogse.load_variable("yan_random_quest_easy_art", nil) then -- если есть какие-то записи в основном комплекте вещей, то будем отталкиваться от него
-				local a = item_list["art"][v][math.random(table.getn(item_list["art"][v]))] -- артефакт
-				local b = item_list["monster_part"][v][math.random(table.getn(item_list["monster_part"][v]))] -- запчасть монстра
+			if ogse.load_variable("yan_random_quest_easy_art", nil) then -- РµСЃР»Рё РµСЃС‚СЊ РєР°РєРёРµ-С‚Рѕ Р·Р°РїРёСЃРё РІ РѕСЃРЅРѕРІРЅРѕРј РєРѕРјРїР»РµРєС‚Рµ РІРµС‰РµР№, С‚Рѕ Р±СѓРґРµРј РѕС‚С‚Р°Р»РєРёРІР°С‚СЊСЃСЏ РѕС‚ РЅРµРіРѕ
+				local a = item_list["art"][v][math.random(table.getn(item_list["art"][v]))] -- Р°СЂС‚РµС„Р°РєС‚
+				local b = item_list["monster_part"][v][math.random(table.getn(item_list["monster_part"][v]))] -- Р·Р°РїС‡Р°СЃС‚СЊ РјРѕРЅСЃС‚СЂР°
 				ogse.save_variable("yan_random_quest_"..v.."_".."art"..tostring(index), a)
 				ogse.save_variable("yan_random_quest_"..v.."_".."monster_part"..tostring(index), b)
 			else
-				-- Артефакт
+				-- РђСЂС‚РµС„Р°РєС‚
 				local a = ogse.load_variable("yan_random_quest_"..v.."_".."art", "")
 				local a1 = a
 				while a1 == a do a1 = item_list["art"][v][math.random(table.getn(item_list["art"][v]))] end
 				ogse.save_variable("yan_random_quest_"..v.."_".."art"..tostring(index), a1)
-				-- Запчасть монстра
+				-- Р—Р°РїС‡Р°СЃС‚СЊ РјРѕРЅСЃС‚СЂР°
 				local b = ogse.load_variable("yan_random_quest_"..v.."_".."monster_part", "")
 				local b1 = b
 				while b1 == b do b1 = item_list["monster_part"][v][math.random(table.getn(item_list["monster_part"][v]))] end
 				ogse.save_variable("yan_random_quest_"..v.."_".."monster_part"..tostring(index), b1)
 				end
 		else
-			-- Артефакт
+			-- РђСЂС‚РµС„Р°РєС‚
 			local a = ogse.load_variable("yan_random_quest_"..v.."_".."art"..tostring(index-1), "")
 			local a1 = a
 			while a1 == a do a1 = item_list["art"][v][math.random(table.getn(item_list["art"][v]))] end
 			ogse.save_variable("yan_random_quest_"..v.."_".."art"..tostring(index), a1)
-			-- Запчасть монстра
+			-- Р—Р°РїС‡Р°СЃС‚СЊ РјРѕРЅСЃС‚СЂР°
 			local b = ogse.load_variable("yan_random_quest_"..v.."_".."monster_part"..tostring(index-1), "")
 			local b1 = b
 			while b1 == b do b1 = item_list["monster_part"][v][math.random(table.getn(item_list["monster_part"][v]))] end
@@ -134,7 +134,7 @@ function set_new_item_list(index)
 	end
 end
 
--- Установка комплекта как текущего (именно к текущему мы и будем обращаться при создании диалога и меню)
+-- РЈСЃС‚Р°РЅРѕРІРєР° РєРѕРјРїР»РµРєС‚Р° РєР°Рє С‚РµРєСѓС‰РµРіРѕ (РёРјРµРЅРЅРѕ Рє С‚РµРєСѓС‰РµРјСѓ РјС‹ Рё Р±СѓРґРµРј РѕР±СЂР°С‰Р°С‚СЊСЃСЏ РїСЂРё СЃРѕР·РґР°РЅРёРё РґРёР°Р»РѕРіР° Рё РјРµРЅСЋ)
 function set_item_list_as_default(index)
 	for k,v in pairs(difficult) do
 		ogse.save_variable("yan_random_quest_"..v.."_".."art", ogse.load_variable("yan_random_quest_"..v.."_".."art"..tostring(index), ""))
@@ -142,7 +142,7 @@ function set_item_list_as_default(index)
 	end
 end
 
--- Вывод списка вещей в виде tips'а на экран
+-- Р’С‹РІРѕРґ СЃРїРёСЃРєР° РІРµС‰РµР№ РІ РІРёРґРµ tips'Р° РЅР° СЌРєСЂР°РЅ
 function show_item_list_as_tip()
 	local s = game.translate_string("ogse_yan_rand_part_1_text")
 	for k,v in pairs(difficult) do
@@ -162,7 +162,7 @@ function show_item_list_as_tip()
 	ogse.send_tip(s, game.translate_string("yan_saharov_name"), 10, 15, "saharov", "news")
 end
 --[[
--- Вывод всей информации
+-- Р’С‹РІРѕРґ РІСЃРµР№ РёРЅС„РѕСЂРјР°С†РёРё
 function print_information()
 	log1("Some information about order:")
 	local a = get_order_array()
@@ -191,9 +191,9 @@ function print_information()
 end
 --]]
 
--- Диалог у Сахарова --
+-- Р”РёР°Р»РѕРі Сѓ РЎР°С…Р°СЂРѕРІР° --
 
--- Создание диалога
+-- РЎРѕР·РґР°РЅРёРµ РґРёР°Р»РѕРіР°
 function show_quest_items(dlg)
 	local phr = dlg:AddPhrase("yan_random_quest_give_item_list", "0", "", -10000)
 	local phrase_script = phr:GetPhraseScript()
@@ -209,7 +209,7 @@ function show_quest_items(dlg)
 	phr = dlg:AddPhrase("yan_random_quest_job_abandon", "3", "1", -10000)
 end
 
--- Отображение списка предметов на экране
+-- РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРїРёСЃРєР° РїСЂРµРґРјРµС‚РѕРІ РЅР° СЌРєСЂР°РЅРµ
 function action_quest_show(npc, actor)
 	for k,v in pairs(difficult) do
 		local a = ogse.load_variable("yan_random_quest_"..v.."_".."art", "")
@@ -226,7 +226,7 @@ function action_quest_show(npc, actor)
 	end
 end
 
--- Вызов меню выбора вещей, которые мы будем отдавать Сахарову
+-- Р’С‹Р·РѕРІ РјРµРЅСЋ РІС‹Р±РѕСЂР° РІРµС‰РµР№, РєРѕС‚РѕСЂС‹Рµ РјС‹ Р±СѓРґРµРј РѕС‚РґР°РІР°С‚СЊ РЎР°С…Р°СЂРѕРІСѓ
 function action_show_select_menu(npc, actor)
 	ui_yan_random_quest_wnd.open_yan_random_quest_wnd(npc)
 end

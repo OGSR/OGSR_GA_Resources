@@ -1,6 +1,6 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
--- Џереключение боевых схем
+
+-- РЏРµСЂРµРєР»СЋС‡РµРЅРёРµ Р±РѕРµРІС‹С… СЃС…РµРј
 
 local forbidden_combat_types = {
 	["nil"] = true,
@@ -9,7 +9,7 @@ local forbidden_combat_types = {
 }
 
 function set_combat_type( npc, actor, t )
-	-- это нужно длЯ функций в xr_conditions.script
+	-- СЌС‚Рѕ РЅСѓР¶РЅРѕ РґР»РЇ С„СѓРЅРєС†РёР№ РІ xr_conditions.script
 	local be = npc:best_enemy()
 	if be and ( be:is_monster() or ( be:is_stalker() or be:is_actor() ) ) and be:alive() then
 		db.storage[npc:id()].enemy = be
@@ -27,7 +27,7 @@ function set_combat_type( npc, actor, t )
 end
 
 ----------------------------------------------------------------------------------------------------------------------
--- Эвалуатор переключения между скриптовым и движковым боем
+-- Р­РІР°Р»СѓР°С‚РѕСЂ РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ РјРµР¶РґСѓ СЃРєСЂРёРїС‚РѕРІС‹Рј Рё РґРІРёР¶РєРѕРІС‹Рј Р±РѕРµРј
 -- false - engine combat, true - script combat
 ----------------------------------------------------------------------------------------------------------------------
 class "evaluator_check_combat" (property_evaluator)
@@ -51,7 +51,7 @@ function evaluator_check_combat:evaluate()
 			end
 
 			if not xr_logic.try_switch_to_another_section(self.object, self.st, actor) then
-				-- взять из overrides, иначе из секции on_combat
+				-- РІР·СЏС‚СЊ РёР· overrides, РёРЅР°С‡Рµ РёР· СЃРµРєС†РёРё on_combat
 				if overrides and overrides.combat_type then
 					if set_combat_type( self.object, actor, overrides ) then
 						ogse_debug.add_active_eval( self.object, script_name(), "evaluator_check_combat_1" )
@@ -69,7 +69,7 @@ function evaluator_check_combat:evaluate()
 				end
 			end
 		else
-			-- если нет активной секции, то тип боя взять из секции on_combat
+			-- РµСЃР»Рё РЅРµС‚ Р°РєС‚РёРІРЅРѕР№ СЃРµРєС†РёРё, С‚Рѕ С‚РёРї Р±РѕСЏ РІР·СЏС‚СЊ РёР· СЃРµРєС†РёРё on_combat
 			if self.st.combat_type ~= nil and set_combat_type( self.object, actor, self.st ) then
 				ogse_debug.add_active_eval( self.object, script_name(), "evaluator_check_combat_3" )
 				return true
@@ -82,7 +82,7 @@ function evaluator_check_combat:evaluate()
 end
 
 ----------------------------------------------------------------------------------------------------------------------
--- Дублирующий эвалуатор врагов для планировщика скриптового боя
+-- Р”СѓР±Р»РёСЂСѓСЋС‰РёР№ СЌРІР°Р»СѓР°С‚РѕСЂ РІСЂР°РіРѕРІ РґР»СЏ РїР»Р°РЅРёСЂРѕРІС‰РёРєР° СЃРєСЂРёРїС‚РѕРІРѕРіРѕ Р±РѕСЏ
 ----------------------------------------------------------------------------------------------------------------------
 class "evaluator_enemy" (property_evaluator)
 
@@ -139,7 +139,7 @@ function set_combat_checker(npc, ini, scheme, section)
 
 		st.combat_type = xr_logic.cfg_get_condlist(ini, section, "combat_type", npc)
 
-		-- зомбированные сражаются по умолчанию на зомбированной боевой схеме
+		-- Р·РѕРјР±РёСЂРѕРІР°РЅРЅС‹Рµ СЃСЂР°Р¶Р°СЋС‚СЃСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РЅР° Р·РѕРјР±РёСЂРѕРІР°РЅРЅРѕР№ Р±РѕРµРІРѕР№ СЃС…РµРјРµ
 		if not st.combat_type and is_zombied then
 			st.combat_type = { condlist = xr_logic.parse_condlist(npc, section, "", "zombied") }
 		end

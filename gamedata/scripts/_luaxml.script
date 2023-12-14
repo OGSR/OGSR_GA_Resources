@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 --[[ ----------------------------------------------------------------------------------------------
  File       : _luaxml.lua
  Copyright  : 2015 © Prosectors Mod
@@ -29,6 +29,7 @@ _G.xml = xml
 -- symbolic name for tag index, this allows accessing the tag by var[xml.TAG]
 xml.TAG = 0
 
+--[==[ --Не понятно зачем это надо было, с UTF8 строками оно всё ломает
 local symbols = {
     ['\000'] = '\000',
     ['\001'] = '\001',
@@ -298,6 +299,11 @@ function xml.encode(str)
         end)
     end
 end
+--]==]
+function xml.encode(str)
+    assert(type(str) == "string", "[xml.encode] str is not string!")
+    return str
+end
 
 function xml.eval(str)
     assert(type(str) == "string", "[xml.eval] str is not string!")
@@ -447,7 +453,7 @@ function xml.save(var, filename)
 
 		local file = io.open(filename, 'w')
 		assert(file, "[xml.save] Can't create file: "..filename)
-		file:write("<?xml version=\"1.0\" encoding=\"windows-1251\"?>\n\n")
+		file:write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n")
 		file:write(xml.str(var))
 		file:flush()
 		file:close()

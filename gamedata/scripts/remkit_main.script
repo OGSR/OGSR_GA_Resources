@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --[[----------------------------------------------------------------------------
 -|remkit_main.script
@@ -393,12 +393,11 @@ function repair_dialog:FillList()
 		local name_to_cut = game.translate_string(get_inv_name_short(s_item_section))
 		local _item_name = shorten_name(name_to_cut)
 		
-		local len_point = 29
-		
+		--[=[local len_point = 29
 		if string.len(_item_name)>len_point then
 			_item_name=string.sub(_item_name,1,len_point)
 			_item_name=_item_name.."..."
-		end
+		end--]=]
 		
 		if s_item:id() == item_in_slot_1 
 		or s_item:id() == item_in_slot_2 then
@@ -554,11 +553,11 @@ function repair_dialog:DrawCurItemName(item, x, y)
 	end
 	w:SetFont(GetFontLetterica16Russian())
 	w:SetTextColor (255,216,186,140)
-	local len_point = 25
+	--[=[local len_point = 25
 	if string.len(item)>len_point then
 		item=string.sub(item,1,len_point)
 		item=item.."..."
-	end	
+	end--]=]
 	w:SetText(item)
 	w:Init(x-100,y,200,10)
 end
@@ -705,11 +704,11 @@ function repair_dialog:DrawCurRemItemName(de_item, x, y)
 	end
 	w:SetFont(GetFontLetterica16Russian())
 	w:SetTextColor (255,216,186,140)
-	local len_point = 25
+	--[=[local len_point = 25
 	if string.len(de_item)>len_point then
 		de_item=string.sub(de_item,1,len_point)
 		de_item=de_item.."..."
-	end		
+	end]=]
 	w:SetText(de_item)
 	w:Init(x-100,y,200,10)
 end

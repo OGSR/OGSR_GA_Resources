@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ---------------Copyright_Quest_2009-------------------
 --------------Edited_by_stalbar_2009------------------
@@ -20,7 +20,7 @@ function zombied501( actor, npc )
 end
 
 function zombied502( actor, npc )
-	--'Зомбированные сталкеры у входа на Янтарь
+	--'Р—РѕРјР±РёСЂРѕРІР°РЅРЅС‹Рµ СЃС‚Р°Р»РєРµСЂС‹ Сѓ РІС…РѕРґР° РЅР° РЇРЅС‚Р°СЂСЊ
 	--log1("zombied502() called")
 --SPAWN_V1
 	--- ogse.quest_spawn(zombie_types_1[math.random(3)], 4, vector():set(255.32, 5.75, -281.0), 3, 139751, 1528)

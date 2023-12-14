@@ -1,36 +1,36 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
-local WIDTH_FACTOR  = device().height / device().width / 0.75 -- коэффициент сжатия на выбранном разрешении
-local BASE_HEIGHT   = 720                 -- высота окна сейфа !!! Это базовый размер !!! Изменяя его,
-                                          -- пропорционально изменяться размеры как окна, так и его элементов
-local SIZE_FACTOR   = BASE_HEIGHT/720     -- Коэффициент изменения размеров окна
+
+local WIDTH_FACTOR  = device().height / device().width / 0.75 -- РєРѕСЌС„С„РёС†РёРµРЅС‚ СЃР¶Р°С‚РёСЏ РЅР° РІС‹Р±СЂР°РЅРЅРѕРј СЂР°Р·СЂРµС€РµРЅРёРё
+local BASE_HEIGHT   = 720                 -- РІС‹СЃРѕС‚Р° РѕРєРЅР° СЃРµР№С„Р° !!! Р­С‚Рѕ Р±Р°Р·РѕРІС‹Р№ СЂР°Р·РјРµСЂ !!! РР·РјРµРЅСЏСЏ РµРіРѕ,
+                                          -- РїСЂРѕРїРѕСЂС†РёРѕРЅР°Р»СЊРЅРѕ РёР·РјРµРЅСЏС‚СЊСЃСЏ СЂР°Р·РјРµСЂС‹ РєР°Рє РѕРєРЅР°, С‚Р°Рє Рё РµРіРѕ СЌР»РµРјРµРЅС‚РѕРІ
+local SIZE_FACTOR   = BASE_HEIGHT/720     -- РљРѕСЌС„С„РёС†РёРµРЅС‚ РёР·РјРµРЅРµРЅРёСЏ СЂР°Р·РјРµСЂРѕРІ РѕРєРЅР°
 
 class "ui_safe" (CUIScriptWnd)
 
 function ui_safe:__init(code, sid, tip, info) super()
-    self.sid          = sid   -- таблица с данными спавна нового ящика
-    self.info         = info  -- инфопорция, выдаваемая при вскрытии
-    self.code         = code  -- код ящика
-    self.tip          = tip   -- название текстуры с подсказкой
-    self.upcode       = ''    -- сюда записываются выбранные числа
-    self.current_num  = 0     -- текущее число на диске, стоящее вверху (напротив метки)
-    self.evt_weel_btn = false -- защита от нажатия на не подсвеченной кнопке. Пока не придумал что-то лучшее. Туплю.
+    self.sid          = sid   -- С‚Р°Р±Р»РёС†Р° СЃ РґР°РЅРЅС‹РјРё СЃРїР°РІРЅР° РЅРѕРІРѕРіРѕ СЏС‰РёРєР°
+    self.info         = info  -- РёРЅС„РѕРїРѕСЂС†РёСЏ, РІС‹РґР°РІР°РµРјР°СЏ РїСЂРё РІСЃРєСЂС‹С‚РёРё
+    self.code         = code  -- РєРѕРґ СЏС‰РёРєР°
+    self.tip          = tip   -- РЅР°Р·РІР°РЅРёРµ С‚РµРєСЃС‚СѓСЂС‹ СЃ РїРѕРґСЃРєР°Р·РєРѕР№
+    self.upcode       = ''    -- СЃСЋРґР° Р·Р°РїРёСЃС‹РІР°СЋС‚СЃСЏ РІС‹Р±СЂР°РЅРЅС‹Рµ С‡РёСЃР»Р°
+    self.current_num  = 0     -- С‚РµРєСѓС‰РµРµ С‡РёСЃР»Рѕ РЅР° РґРёСЃРєРµ, СЃС‚РѕСЏС‰РµРµ РІРІРµСЂС…Сѓ (РЅР°РїСЂРѕС‚РёРІ РјРµС‚РєРё)
+    self.evt_weel_btn = false -- Р·Р°С‰РёС‚Р° РѕС‚ РЅР°Р¶Р°С‚РёСЏ РЅР° РЅРµ РїРѕРґСЃРІРµС‡РµРЅРЅРѕР№ РєРЅРѕРїРєРµ. РџРѕРєР° РЅРµ РїСЂРёРґСѓРјР°Р» С‡С‚Рѕ-С‚Рѕ Р»СѓС‡С€РµРµ. РўСѓРїР»СЋ.
     -- weel ------------------------------------------------------------
-    self.weel_spin          = false -- крутиться ли колесо?
-    self.weel_spin_angle    = 4     -- (1,2,3,4,6,9,18,36...) угол поворота (градусы) колеса за апдейт
-    self.weel_sound_period  = 2     -- (1,2,3,4,6,9,18,36...) -- коэффициент отыгрывания звука колеса. 1 - с каждым углом поворота, 2 - один раз на два поворота, 3 - один раз на три поворота и т.д.
-    self.weel_sound_counter = 1     -- счетчик для отыгрывания звука поворота колеса
-    -------- self.weel_angle_limit       -- на сколько градусов нужно повернуть колесо
-    -------- self.weel_add_angle         -- прибавлять или вычитать self.weel_spin_angle
+    self.weel_spin          = false -- РєСЂСѓС‚РёС‚СЊСЃСЏ Р»Рё РєРѕР»РµСЃРѕ?
+    self.weel_spin_angle    = 4     -- (1,2,3,4,6,9,18,36...) СѓРіРѕР» РїРѕРІРѕСЂРѕС‚Р° (РіСЂР°РґСѓСЃС‹) РєРѕР»РµСЃР° Р·Р° Р°РїРґРµР№С‚
+    self.weel_sound_period  = 2     -- (1,2,3,4,6,9,18,36...) -- РєРѕСЌС„С„РёС†РёРµРЅС‚ РѕС‚С‹РіСЂС‹РІР°РЅРёСЏ Р·РІСѓРєР° РєРѕР»РµСЃР°. 1 - СЃ РєР°Р¶РґС‹Рј СѓРіР»РѕРј РїРѕРІРѕСЂРѕС‚Р°, 2 - РѕРґРёРЅ СЂР°Р· РЅР° РґРІР° РїРѕРІРѕСЂРѕС‚Р°, 3 - РѕРґРёРЅ СЂР°Р· РЅР° С‚СЂРё РїРѕРІРѕСЂРѕС‚Р° Рё С‚.Рґ.
+    self.weel_sound_counter = 1     -- СЃС‡РµС‚С‡РёРє РґР»СЏ РѕС‚С‹РіСЂС‹РІР°РЅРёСЏ Р·РІСѓРєР° РїРѕРІРѕСЂРѕС‚Р° РєРѕР»РµСЃР°
+    -------- self.weel_angle_limit       -- РЅР° СЃРєРѕР»СЊРєРѕ РіСЂР°РґСѓСЃРѕРІ РЅСѓР¶РЅРѕ РїРѕРІРµСЂРЅСѓС‚СЊ РєРѕР»РµСЃРѕ
+    -------- self.weel_add_angle         -- РїСЂРёР±Р°РІР»СЏС‚СЊ РёР»Рё РІС‹С‡РёС‚Р°С‚СЊ self.weel_spin_angle
     -- handle ----------------------------------------------------------
-    self.handle_spin          = false -- крутиться ли ручка?
-    self.handle_spin_angle    = 4     -- (1,2,3,4,6,9,18) угол поворота (градусы) ручки за апдейт
-    self.handle_open_limit    = 90    -- на сколько градусов нужно повернуть ручку
-    self.handle_close_angle   = 4     --  угол поворота (градусы) ручки за апдейт при не правильном коде
-    self.handle_close_limit   = 16    -- угод поворота при неверном коде
+    self.handle_spin          = false -- РєСЂСѓС‚РёС‚СЊСЃСЏ Р»Рё СЂСѓС‡РєР°?
+    self.handle_spin_angle    = 4     -- (1,2,3,4,6,9,18) СѓРіРѕР» РїРѕРІРѕСЂРѕС‚Р° (РіСЂР°РґСѓСЃС‹) СЂСѓС‡РєРё Р·Р° Р°РїРґРµР№С‚
+    self.handle_open_limit    = 90    -- РЅР° СЃРєРѕР»СЊРєРѕ РіСЂР°РґСѓСЃРѕРІ РЅСѓР¶РЅРѕ РїРѕРІРµСЂРЅСѓС‚СЊ СЂСѓС‡РєСѓ
+    self.handle_close_angle   = 4     --  СѓРіРѕР» РїРѕРІРѕСЂРѕС‚Р° (РіСЂР°РґСѓСЃС‹) СЂСѓС‡РєРё Р·Р° Р°РїРґРµР№С‚ РїСЂРё РЅРµ РїСЂР°РІРёР»СЊРЅРѕРј РєРѕРґРµ
+    self.handle_close_limit   = 16    -- СѓРіРѕРґ РїРѕРІРѕСЂРѕС‚Р° РїСЂРё РЅРµРІРµСЂРЅРѕРј РєРѕРґРµ
     self.handle_close_counter = self.handle_close_limit
     self.handle_close_reverse = self.handle_close_limit * 2
-    self.handle_snd_opening   = true  -- триггер проигрывания звука поворота ручки
+    self.handle_snd_opening   = true  -- С‚СЂРёРіРіРµСЂ РїСЂРѕРёРіСЂС‹РІР°РЅРёСЏ Р·РІСѓРєР° РїРѕРІРѕСЂРѕС‚Р° СЂСѓС‡РєРё
     
     self:InitLuaXml()
     self:InitApp   ()
@@ -45,8 +45,8 @@ function ui_safe:InitLuaXml()
         local main = luaxml:append('main')
         main.width  = 498 * SIZE_FACTOR
         main.height = BASE_HEIGHT
-        main.x      = 263 --/ WIDTH_FACTOR--(1024 - main.width) / 2 -- располагать по центру ...
-        main.y      = 768 - main.height       -- ... и внизу
+        main.x      = 263 --/ WIDTH_FACTOR--(1024 - main.width) / 2 -- СЂР°СЃРїРѕР»Р°РіР°С‚СЊ РїРѕ С†РµРЅС‚СЂСѓ ...
+        main.y      = 768 - main.height       -- ... Рё РІРЅРёР·Сѓ
         -- Background Static ------------------------------
         local bg_static = luaxml:append('bg_static')
         bg_static.x       = 0
@@ -147,12 +147,12 @@ function ui_safe:InitApp()
     self:Connect(name, ui_events.STATIC_FOCUS_LOST    , self.OnHandleButtonLost    , self)
 end
 
--- пописать апдейт
+-- РїРѕРїРёСЃР°С‚СЊ Р°РїРґРµР№С‚
 function ui_safe:Bind()
     self.sm_update = {signal = "on_update", ['self'] = self, fun = self.onUpdate}
     ogse_signals.get_mgr():subscribe(self.sm_update)
 end
--- отписать апдейт
+-- РѕС‚РїРёСЃР°С‚СЊ Р°РїРґРµР№С‚
 function ui_safe:unBind()
     ogse_signals.get_mgr():unsubscribe(self.sm_update)
 	self.sm_update = nil
@@ -161,7 +161,7 @@ end
 
 function ui_safe:onUpdate()
     if self.weel_spin then 
-        if self.weel_angle_limit >= self.weel_spin_angle then  -- если ещё остался угол до верха
+        if self.weel_angle_limit >= self.weel_spin_angle then  -- РµСЃР»Рё РµС‰С‘ РѕСЃС‚Р°Р»СЃСЏ СѓРіРѕР» РґРѕ РІРµСЂС…Р°
             self.weel_angle_limit = self.weel_angle_limit - self.weel_spin_angle
             self.weel:SetHeading(self.weel:GetHeading() + math.rad(self.weel_add_angle))
             if self.weel_sound_counter == self.weel_sound_period then
@@ -176,7 +176,7 @@ function ui_safe:onUpdate()
         end
     elseif self.handle_spin then
         if self.upcode == self.code then
-            if self.handle_open_limit >= self.handle_spin_angle then  -- если ещё остался угол до верха
+            if self.handle_open_limit >= self.handle_spin_angle then  -- РµСЃР»Рё РµС‰С‘ РѕСЃС‚Р°Р»СЃСЏ СѓРіРѕР» РґРѕ РІРµСЂС…Р°
                 self.handle_open_limit = self.handle_open_limit - self.handle_spin_angle
                 self.handle:SetHeading(self.handle:GetHeading() - math.rad(self.handle_spin_angle))
                 if self.handle_snd_opening then
@@ -205,7 +205,7 @@ function ui_safe:onUpdate()
 
                 if self.handle_close_angle > 0 then 
                     self.handle_spin = false
-                    self.upcode = '' -- при не верном коде - очистить строку набранных чисел
+                    self.upcode = '' -- РїСЂРё РЅРµ РІРµСЂРЅРѕРј РєРѕРґРµ - РѕС‡РёСЃС‚РёС‚СЊ СЃС‚СЂРѕРєСѓ РЅР°Р±СЂР°РЅРЅС‹С… С‡РёСЃРµР»
                 end
             end
         end
@@ -213,24 +213,24 @@ function ui_safe:onUpdate()
 end
 
 function ui_safe:OnWeelButtonClicked(btn, id)
-    if self.evt_weel_btn then                 -- не реагировать, пока не покинем зону статика и снова не зайдём
+    if self.evt_weel_btn then                 -- РЅРµ СЂРµР°РіРёСЂРѕРІР°С‚СЊ, РїРѕРєР° РЅРµ РїРѕРєРёРЅРµРј Р·РѕРЅСѓ СЃС‚Р°С‚РёРєР° Рё СЃРЅРѕРІР° РЅРµ Р·Р°Р№РґС‘Рј
         local old_num   = self.current_num
         local new_num   = (old_num + id) % 10
-        local circle    = old_num == new_num   -- если клацаем по верхней кнопке - крутим полный круг
-        local clockwise = id > 5               -- определить направление вращения. по часовой - true
+        local circle    = old_num == new_num   -- РµСЃР»Рё РєР»Р°С†Р°РµРј РїРѕ РІРµСЂС…РЅРµР№ РєРЅРѕРїРєРµ - РєСЂСѓС‚РёРј РїРѕР»РЅС‹Р№ РєСЂСѓРі
+        local clockwise = id > 5               -- РѕРїСЂРµРґРµР»РёС‚СЊ РЅР°РїСЂР°РІР»РµРЅРёРµ РІСЂР°С‰РµРЅРёСЏ. РїРѕ С‡Р°СЃРѕРІРѕР№ - true
         
-        self.current_num  = new_num              -- записать новое значение
-        self.weel_add_angle    = clockwise and -self.weel_spin_angle or self.weel_spin_angle -- прибавлять или вычитать self.weel_spin_angle
-        self.upcode       = self.upcode..new_num -- добавить к коду новое значение
+        self.current_num  = new_num              -- Р·Р°РїРёСЃР°С‚СЊ РЅРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ
+        self.weel_add_angle    = clockwise and -self.weel_spin_angle or self.weel_spin_angle -- РїСЂРёР±Р°РІР»СЏС‚СЊ РёР»Рё РІС‹С‡РёС‚Р°С‚СЊ self.weel_spin_angle
+        self.upcode       = self.upcode..new_num -- РґРѕР±Р°РІРёС‚СЊ Рє РєРѕРґСѓ РЅРѕРІРѕРµ Р·РЅР°С‡РµРЅРёРµ
         self.weel_angle_limit  = ((clockwise or circle) and 10 - id or  id)*36 
-        self:OnWeelButtonLost(btn)               -- фиктивный выход курсора из статика кнопки (потушить нажатую)
-        self.weel_spin    = true                 -- запустить поворот колеса
+        self:OnWeelButtonLost(btn)               -- С„РёРєС‚РёРІРЅС‹Р№ РІС‹С…РѕРґ РєСѓСЂСЃРѕСЂР° РёР· СЃС‚Р°С‚РёРєР° РєРЅРѕРїРєРё (РїРѕС‚СѓС€РёС‚СЊ РЅР°Р¶Р°С‚СѓСЋ)
+        self.weel_spin    = true                 -- Р·Р°РїСѓСЃС‚РёС‚СЊ РїРѕРІРѕСЂРѕС‚ РєРѕР»РµСЃР°
         self.evt_weel_btn = false 
     end
 end
 
 function ui_safe:OnWeelButtonReceived(btn)
-    if not self.handle_spin and not self.weel_spin then -- если крутиться колесо или ручка - не обрабатывать
+    if not self.handle_spin and not self.weel_spin then -- РµСЃР»Рё РєСЂСѓС‚РёС‚СЊСЃСЏ РєРѕР»РµСЃРѕ РёР»Рё СЂСѓС‡РєР° - РЅРµ РѕР±СЂР°Р±Р°С‚С‹РІР°С‚СЊ
         self.evt_weel_btn = true
         btn:SetColor(GetARGB(255,255,255,255))
     end

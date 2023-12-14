@@ -1,4 +1,4 @@
-﻿<?xml version='1.0' encoding="windows-1251"?>
+<?xml version='1.0' encoding="UTF-8"?>
 
 <xml>
 
@@ -53,8 +53,8 @@
 		<crouch_type>0</crouch_type>
 		<supplies>
 			[spawn] \n
-			wpn_val \n
-			ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
 #include "gameplay\character_items.xml" \n
@@ -266,16 +266,10 @@
 		<crouch_type>-1</crouch_type>
 
 		<visual>actors\bandit\stalker_bandit_3</visual>
-<!--		<supplies>
-		[spawn] \n
-			wpn_groza \n
-			ammo_9x39_ap \n
-			device_torch \n
-		</supplies> -->
 		<supplies>
 		[spawn] \n
-			wpn_val \n
-			ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			device_torch \n
 		</supplies>
 		<start_dialog>kulg_band_zasada_boets_dialog</start_dialog>
@@ -1073,7 +1067,8 @@
 		<visual>actors\bandit\stalker_bandit_exoskeleton</visual>
 		<supplies>
 		[spawn] \n
-			wpn_val \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 #include "gameplay\character_items.xml"\n
 #include "gameplay\character_food.xml" \n
 #include "gameplay\character_drugs.xml"

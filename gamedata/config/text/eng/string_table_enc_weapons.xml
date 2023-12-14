@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <string_table>
 	<string id="gunsl_ammo_11.43x23_fmj">
 		<text>.45 ACP rounds</text>
@@ -111,13 +111,13 @@
 	</string>
 
 	<string id="gunsl_ammo_7.62x54_7h1">
-		<text>7.62х54mmR 7N1 rounds</text>
+		<text>7.62С…54mmR 7N1 rounds</text>
 	</string>
 	<string id="gunsl_ammo_7.62x54_7h1_short">
-		<text>7.62х54mmR 7N1</text>
+		<text>7.62С…54mmR 7N1</text>
 	</string>
 	<string id="gunsl_ammo_7.62x54_7h1_descr">
-		<text>7.62х54mmR rifle cartridge was developed in 1891 as a munition for the Mosin rifle. After modernization in 1930 the cartridge received the M1908/30 designation. When the SVD was developed the cartridge was modernized to improve accuracy and power at which it was designated 7N1. Full-metal jacket with no specific coloring.</text>
+		<text>7.62С…54mmR rifle cartridge was developed in 1891 as a munition for the Mosin rifle. After modernization in 1930 the cartridge received the M1908/30 designation. When the SVD was developed the cartridge was modernized to improve accuracy and power at which it was designated 7N1. Full-metal jacket with no specific coloring.</text>
 	</string>
 
 	<string id="gunsl_ammo_7.62x54_7h14">
@@ -127,7 +127,7 @@
 		<text>7.62x54mmR 7N14</text>
 	</string>
 	<string id="gunsl_ammo_7.62x54_7h14_descr">
-		<text>7.62х54mmR 7N14 AP armor-piercing sniper rifle cartridge. In 1990 there was a modernization program for 7.62x54mmR cartridges. One of the goals was to improve piercing ability for bullet. 7N14 sniper rifle cartridge has improved piercing ability and accuracy.</text>
+		<text>7.62С…54mmR 7N14 AP armor-piercing sniper rifle cartridge. In 1990 there was a modernization program for 7.62x54mmR cartridges. One of the goals was to improve piercing ability for bullet. 7N14 sniper rifle cartridge has improved piercing ability and accuracy.</text>
 	</string>
 
 	<string id="gunsl_ammo_7.62x54_ap">
@@ -141,13 +141,13 @@
 	</string>
 
 	<string id="gunsl_ammo_9x18_fmj">
-		<text>9х18mm PM rounds</text>
+		<text>9С…18mm PM rounds</text>
 	</string>
 	<string id="gunsl_ammo_9x18_fmj_short">
-		<text>9х18mm PM</text>
+		<text>9С…18mm PM</text>
 	</string>
 	<string id="gunsl_ammo_9x18_fmj_descr">
-		<text>9х18mm PM - Simple full metal jacket bullet with a steel core. Weak armor penetration. Probably the most widespread type of ammunition in the Zone.</text>
+		<text>9С…18mm PM - Simple full metal jacket bullet with a steel core. Weak armor penetration. Probably the most widespread type of ammunition in the Zone.</text>
 	</string>
 
 	<string id="gunsl_ammo_9x18_pmm">
@@ -187,7 +187,7 @@
 		<text>9x39mm SP-6</text>
 	</string>
 	<string id="gunsl_ammo_9x39_ap_descr">
-		<text>9х39mm SP-6 - Armor-piercing variant of the Russian subsonic rifle round. The heavy bullet produces no supersonic shockwave during flight, making it noiseless. The SP-6 round can penetrate body armor up to 350 meters away.</text>
+		<text>9С…39mm SP-6 - Armor-piercing variant of the Russian subsonic rifle round. The heavy bullet produces no supersonic shockwave during flight, making it noiseless. The SP-6 round can penetrate body armor up to 350 meters away.</text>
 	</string>
 
 	<string id="gunsl_ammo_9x39_pab9">
@@ -834,15 +834,15 @@
 	</string>
 	
 	<string id="gunsl_wpn_ak_alfa">
-    	<text>АК-Alpha</text>
+    	<text>РђРљ-Alpha</text>
   	</string>
 	
 	<string id="gunsl_wpn_ak_alfa_tact">
-    	<text>Modified АК-Alpha</text>
+    	<text>Modified РђРљ-Alpha</text>
   	</string>
 	
   	<string id="gunsl_wpn_ak_alfa_descr">
-		<text>The AK-Alpha was developed in Israel by Command Arms and Accessories. It was was first shown to the public in 2009. Its designers intended to improve the ergonomics of the Kalashnikov assault rifle while maintaining its main advantages – high reliability and ease of maintenance.</text>
+		<text>The AK-Alpha was developed in Israel by Command Arms and Accessories. It was was first shown to the public in 2009. Its designers intended to improve the ergonomics of the Kalashnikov assault rifle while maintaining its main advantages вЂ“ high reliability and ease of maintenance.</text>
   	</string>
 	
 	<string id="gunsl_wpn_m4">
@@ -858,6 +858,13 @@
   	</string>
 
 <!-- Heavy -->
+	<string id="gunsl_wpn_pk">
+		<text>PK</text>
+	</string>
+	<string id="gunsl_wpn_pk_descr">
+		<text>The PK (Pulemyot Kalashnikova, or "Kalashnikov's machine gun"), is a belt-fed general-purpose machine gun, chambered for the 7.62?54mmR rimmed cartridge. Designed in the Soviet Union and currently in production in Russia, the original PK machine gun was introduced in 1961 and the improved PKM variant was introduced in 1969. The PK was designed to replace the SGM and RP-46 machine guns that were previously in Soviet service. The weapon remains in use as a front-line infantry and vehicle-mounted weapon with Russia's armed forces and has also been exported extensively and produced in several other countries under license.</text>
+	</string>
+
 	<string id="gunsl_wpn_pkm">
 		<text>PKM</text>
 	</string>

@@ -1,14 +1,14 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ----------------------------------------------------------------------------------------------------
--- Боевая схема напарника
+-- Р‘РѕРµРІР°СЏ СЃС…РµРјР° РЅР°РїР°СЂРЅРёРєР°
 ----------------------------------------------------------------------------------------------------
--- Разработчик: KamikaZze kamikazze-ru@yandex.ru
+-- Р Р°Р·СЂР°Р±РѕС‚С‡РёРє: KamikaZze kamikazze-ru@yandex.ru
 ----------------------------------------------------------------------------------------------------
--- Версия 1.95 (09/02/2015)
+-- Р’РµСЂСЃРёСЏ 1.95 (09/02/2015)
 ----------------------------------------------------------------------------------------------------
 
-function attach( sm ) --Нужно для того, чтобы не было вылетов после перехода НПС в оффлайн/онлайн.
+function attach( sm ) --РќСѓР¶РЅРѕ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ РЅРµ Р±С‹Р»Рѕ РІС‹Р»РµС‚РѕРІ РїРѕСЃР»Рµ РїРµСЂРµС…РѕРґР° РќРџРЎ РІ РѕС„С„Р»Р°Р№РЅ/РѕРЅР»Р°Р№РЅ.
   sm:subscribe({ signal = "on_npc_spawn",		fun = this.on_npc_spawn })
   sm:subscribe({ signal = "on_npc_net_destroy",	fun = this.on_npc_net_destroy })
 end
@@ -101,8 +101,8 @@ end
 
 function on_npc_enemy_callback( obj, enemy, result )
   if
-   ( xr_companion.is_companion(obj:id()) and enemy:relation(db.actor) ~= game_object.enemy ) --Если объект - напарник, проверяем отношение его врага к актору. Если это не враг актора, то и напарник не будет атаковать его.
-	or ( xr_companion.is_companion(enemy:id()) and obj:relation(db.actor) ~= game_object.enemy ) --Запрещаем атаковать напарника актора, если атакующий не является врагом актора.
+   ( xr_companion.is_companion(obj:id()) and enemy:relation(db.actor) ~= game_object.enemy ) --Р•СЃР»Рё РѕР±СЉРµРєС‚ - РЅР°РїР°СЂРЅРёРє, РїСЂРѕРІРµСЂСЏРµРј РѕС‚РЅРѕС€РµРЅРёРµ РµРіРѕ РІСЂР°РіР° Рє Р°РєС‚РѕСЂСѓ. Р•СЃР»Рё СЌС‚Рѕ РЅРµ РІСЂР°Рі Р°РєС‚РѕСЂР°, С‚Рѕ Рё РЅР°РїР°СЂРЅРёРє РЅРµ Р±СѓРґРµС‚ Р°С‚Р°РєРѕРІР°С‚СЊ РµРіРѕ.
+	or ( xr_companion.is_companion(enemy:id()) and obj:relation(db.actor) ~= game_object.enemy ) --Р—Р°РїСЂРµС‰Р°РµРј Р°С‚Р°РєРѕРІР°С‚СЊ РЅР°РїР°СЂРЅРёРєР° Р°РєС‚РѕСЂР°, РµСЃР»Рё Р°С‚Р°РєСѓСЋС‰РёР№ РЅРµ СЏРІР»СЏРµС‚СЃСЏ РІСЂР°РіРѕРј Р°РєС‚РѕСЂР°.
   then
     table.insert( result, false )
     return true
@@ -124,7 +124,7 @@ function IsSniperRifle( object )
   return false
 end
 
--- локации где можно атаковать БТР и вертолеты
+-- Р»РѕРєР°С†РёРё РіРґРµ РјРѕР¶РЅРѕ Р°С‚Р°РєРѕРІР°С‚СЊ Р‘РўР  Рё РІРµСЂС‚РѕР»РµС‚С‹
 local armor_allowed_locations = { [ "l13_generators_ogse" ] = true }
 
 function is_armor( target )
@@ -141,24 +141,24 @@ end
 
 
 ----------------------------------------------------------------------------------------------------
--- Настройки схемы
+-- РќР°СЃС‚СЂРѕР№РєРё СЃС…РµРјС‹
 ----------------------------------------------------------------------------------------------------
-local desired_combat_distance = 35	-- максимальный радиус отхода от ГГ
-local close_combat_distance = 25	-- дистанция ближнего боя
-local desired_offence_distance = 15 -- дистанция рассчетного расстояния поиска укрытия при атаке
-local desired_defence_distance = 5	-- дистанция рассчетного расстояния поиска укрытия при обороне
-local evade_distance = 10			-- радиус поиска точки для уклонения от выстрелов
-local help_actor = 10				-- радиус следования за ГГ
-local reprioritize_timeout = 1500 	-- интервал реприоретизации, мсек - нельзя делать слишком низким - будет судорожно метаться между целями
-local time_to_change = 500			-- время переключения между врагами, мсек - нельзя делать слишком низким - будет проворачиваться через себя
-local sound_prob = 0.03				-- вероятность сказать фразу
-local time_to_hide = 7000			-- время, сколько примерно сидеть в укрытии, миллиссекунд
-local time_to_maneuver = 2000		-- время, сколько бежать к точке маневрирования, миллиссекунд
-local memory_timeout = 60000		-- время, сколько помнить о появлении врага, миллиссекунд
-local remember_enemy = 6000			-- сколько помнить о последнем основном враге (нужно для предотвращения выхода из боя слишком рано), для неписей умножается на 3
+local desired_combat_distance = 35	-- РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°РґРёСѓСЃ РѕС‚С…РѕРґР° РѕС‚ Р“Р“
+local close_combat_distance = 25	-- РґРёСЃС‚Р°РЅС†РёСЏ Р±Р»РёР¶РЅРµРіРѕ Р±РѕСЏ
+local desired_offence_distance = 15 -- РґРёСЃС‚Р°РЅС†РёСЏ СЂР°СЃСЃС‡РµС‚РЅРѕРіРѕ СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РїРѕРёСЃРєР° СѓРєСЂС‹С‚РёСЏ РїСЂРё Р°С‚Р°РєРµ
+local desired_defence_distance = 5	-- РґРёСЃС‚Р°РЅС†РёСЏ СЂР°СЃСЃС‡РµС‚РЅРѕРіРѕ СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РїРѕРёСЃРєР° СѓРєСЂС‹С‚РёСЏ РїСЂРё РѕР±РѕСЂРѕРЅРµ
+local evade_distance = 10			-- СЂР°РґРёСѓСЃ РїРѕРёСЃРєР° С‚РѕС‡РєРё РґР»СЏ СѓРєР»РѕРЅРµРЅРёСЏ РѕС‚ РІС‹СЃС‚СЂРµР»РѕРІ
+local help_actor = 10				-- СЂР°РґРёСѓСЃ СЃР»РµРґРѕРІР°РЅРёСЏ Р·Р° Р“Р“
+local reprioritize_timeout = 1500 	-- РёРЅС‚РµСЂРІР°Р» СЂРµРїСЂРёРѕСЂРµС‚РёР·Р°С†РёРё, РјСЃРµРє - РЅРµР»СЊР·СЏ РґРµР»Р°С‚СЊ СЃР»РёС€РєРѕРј РЅРёР·РєРёРј - Р±СѓРґРµС‚ СЃСѓРґРѕСЂРѕР¶РЅРѕ РјРµС‚Р°С‚СЊСЃСЏ РјРµР¶РґСѓ С†РµР»СЏРјРё
+local time_to_change = 500			-- РІСЂРµРјСЏ РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ РјРµР¶РґСѓ РІСЂР°РіР°РјРё, РјСЃРµРє - РЅРµР»СЊР·СЏ РґРµР»Р°С‚СЊ СЃР»РёС€РєРѕРј РЅРёР·РєРёРј - Р±СѓРґРµС‚ РїСЂРѕРІРѕСЂР°С‡РёРІР°С‚СЊСЃСЏ С‡РµСЂРµР· СЃРµР±СЏ
+local sound_prob = 0.03				-- РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ СЃРєР°Р·Р°С‚СЊ С„СЂР°Р·Сѓ
+local time_to_hide = 7000			-- РІСЂРµРјСЏ, СЃРєРѕР»СЊРєРѕ РїСЂРёРјРµСЂРЅРѕ СЃРёРґРµС‚СЊ РІ СѓРєСЂС‹С‚РёРё, РјРёР»Р»РёСЃСЃРµРєСѓРЅРґ
+local time_to_maneuver = 2000		-- РІСЂРµРјСЏ, СЃРєРѕР»СЊРєРѕ Р±РµР¶Р°С‚СЊ Рє С‚РѕС‡РєРµ РјР°РЅРµРІСЂРёСЂРѕРІР°РЅРёСЏ, РјРёР»Р»РёСЃСЃРµРєСѓРЅРґ
+local memory_timeout = 60000		-- РІСЂРµРјСЏ, СЃРєРѕР»СЊРєРѕ РїРѕРјРЅРёС‚СЊ Рѕ РїРѕСЏРІР»РµРЅРёРё РІСЂР°РіР°, РјРёР»Р»РёСЃСЃРµРєСѓРЅРґ
+local remember_enemy = 6000			-- СЃРєРѕР»СЊРєРѕ РїРѕРјРЅРёС‚СЊ Рѕ РїРѕСЃР»РµРґРЅРµРј РѕСЃРЅРѕРІРЅРѕРј РІСЂР°РіРµ (РЅСѓР¶РЅРѕ РґР»СЏ РїСЂРµРґРѕС‚РІСЂР°С‰РµРЅРёСЏ РІС‹С…РѕРґР° РёР· Р±РѕСЏ СЃР»РёС€РєРѕРј СЂР°РЅРѕ), РґР»СЏ РЅРµРїРёСЃРµР№ СѓРјРЅРѕР¶Р°РµС‚СЃСЏ РЅР° 3
 
-local combat_mult_npc = 0.5			-- множитель веса ближней цели неписей
-local combat_mult_monster = 0.3		-- множитель веса ближней цели неписей
+local combat_mult_npc = 0.5			-- РјРЅРѕР¶РёС‚РµР»СЊ РІРµСЃР° Р±Р»РёР¶РЅРµР№ С†РµР»Рё РЅРµРїРёСЃРµР№
+local combat_mult_monster = 0.3		-- РјРЅРѕР¶РёС‚РµР»СЊ РІРµСЃР° Р±Р»РёР¶РЅРµР№ С†РµР»Рё РЅРµРїРёСЃРµР№
 
 local low_range_npc_aggr = 30
 local far_range_mon_aggr = 25
@@ -179,42 +179,42 @@ local max_invisible_range_mon = 5
 
 local use_raytrace = true
 ----------------------------------------------------------------------------------------------------
--- Служебные переменные
+-- РЎР»СѓР¶РµР±РЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ
 ----------------------------------------------------------------------------------------------------
-local last_reprioritize = nil 		-- время последней реприоретизации
-local primary_target = nil 			-- кого окучивать будем, id
-local last_target = {}				-- последняя цель, [id] = last_time 
-local last_enemy_id = nil			-- ид последнего врага
-local change_time = time_global()	-- последнее время смены целей
-local last_time_send = nil			-- когда последний раз меняли точку
-local last_enemy = nil				-- имя последнего врага, чисто для отладочных сообщений
-local last_mode = 0					-- имя последнего режима, чисто для отладочных сообщений
-local assist_point = nil			-- последняя точка маневрирования
-local last_hideout = nil			-- последнее укрытие
-dont_touch_us = true				-- флаг для неагрессивной схемы поведения, если выставлен в тру и схема неагрессивная - не трогаем никого... по хит коллбэку непися или актора выставляется в фалсе, взводится обратно основной схемой
+local last_reprioritize = nil 		-- РІСЂРµРјСЏ РїРѕСЃР»РµРґРЅРµР№ СЂРµРїСЂРёРѕСЂРµС‚РёР·Р°С†РёРё
+local primary_target = nil 			-- РєРѕРіРѕ РѕРєСѓС‡РёРІР°С‚СЊ Р±СѓРґРµРј, id
+local last_target = {}				-- РїРѕСЃР»РµРґРЅСЏСЏ С†РµР»СЊ, [id] = last_time 
+local last_enemy_id = nil			-- РёРґ РїРѕСЃР»РµРґРЅРµРіРѕ РІСЂР°РіР°
+local change_time = time_global()	-- РїРѕСЃР»РµРґРЅРµРµ РІСЂРµРјСЏ СЃРјРµРЅС‹ С†РµР»РµР№
+local last_time_send = nil			-- РєРѕРіРґР° РїРѕСЃР»РµРґРЅРёР№ СЂР°Р· РјРµРЅСЏР»Рё С‚РѕС‡РєСѓ
+local last_enemy = nil				-- РёРјСЏ РїРѕСЃР»РµРґРЅРµРіРѕ РІСЂР°РіР°, С‡РёСЃС‚Рѕ РґР»СЏ РѕС‚Р»Р°РґРѕС‡РЅС‹С… СЃРѕРѕР±С‰РµРЅРёР№
+local last_mode = 0					-- РёРјСЏ РїРѕСЃР»РµРґРЅРµРіРѕ СЂРµР¶РёРјР°, С‡РёСЃС‚Рѕ РґР»СЏ РѕС‚Р»Р°РґРѕС‡РЅС‹С… СЃРѕРѕР±С‰РµРЅРёР№
+local assist_point = nil			-- РїРѕСЃР»РµРґРЅСЏСЏ С‚РѕС‡РєР° РјР°РЅРµРІСЂРёСЂРѕРІР°РЅРёСЏ
+local last_hideout = nil			-- РїРѕСЃР»РµРґРЅРµРµ СѓРєСЂС‹С‚РёРµ
+dont_touch_us = true				-- С„Р»Р°Рі РґР»СЏ РЅРµР°РіСЂРµСЃСЃРёРІРЅРѕР№ СЃС…РµРјС‹ РїРѕРІРµРґРµРЅРёСЏ, РµСЃР»Рё РІС‹СЃС‚Р°РІР»РµРЅ РІ С‚СЂСѓ Рё СЃС…РµРјР° РЅРµР°РіСЂРµСЃСЃРёРІРЅР°СЏ - РЅРµ С‚СЂРѕРіР°РµРј РЅРёРєРѕРіРѕ... РїРѕ С…РёС‚ РєРѕР»Р»Р±СЌРєСѓ РЅРµРїРёСЃСЏ РёР»Рё Р°РєС‚РѕСЂР° РІС‹СЃС‚Р°РІР»СЏРµС‚СЃСЏ РІ С„Р°Р»СЃРµ, РІР·РІРѕРґРёС‚СЃСЏ РѕР±СЂР°С‚РЅРѕ РѕСЃРЅРѕРІРЅРѕР№ СЃС…РµРјРѕР№
 local hit_memory 		= {}
 local fighting_wounded 	= {}
-local locked_actor_vertex = nil		-- занятые вертексы
+local locked_actor_vertex = nil		-- Р·Р°РЅСЏС‚С‹Рµ РІРµСЂС‚РµРєСЃС‹
 
 --------------------------------------------------------------------------------------------------------------
--- Служебные таблички
+-- РЎР»СѓР¶РµР±РЅС‹Рµ С‚Р°Р±Р»РёС‡РєРё
 --------------------------------------------------------------------------------------------------------------
-local disabled_objects = {	-- заблокированные постоянно или временно объекты
+local disabled_objects = {	-- Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅРЅС‹Рµ РїРѕСЃС‚РѕСЏРЅРЅРѕ РёР»Рё РІСЂРµРјРµРЅРЅРѕ РѕР±СЉРµРєС‚С‹
 
 }
-local targets_list = {		-- список целей
+local targets_list = {		-- СЃРїРёСЃРѕРє С†РµР»РµР№
 
 }
-------- структура записи таблицы
+------- СЃС‚СЂСѓРєС‚СѓСЂР° Р·Р°РїРёСЃРё С‚Р°Р±Р»РёС†С‹
 -- targets_list[npc_id] = {
-	-- npc = непись или нет
-	-- range = расстояние
-	-- vis = видим или нет
+	-- npc = РЅРµРїРёСЃСЊ РёР»Рё РЅРµС‚
+	-- range = СЂР°СЃСЃС‚РѕСЏРЅРёРµ
+	-- vis = РІРёРґРёРј РёР»Рё РЅРµС‚
 -- }
 ----------------------------------------------------------------------------------------------------
--- Служебные функции для ведения реестра врагов
+-- РЎР»СѓР¶РµР±РЅС‹Рµ С„СѓРЅРєС†РёРё РґР»СЏ РІРµРґРµРЅРёСЏ СЂРµРµСЃС‚СЂР° РІСЂР°РіРѕРІ
 ----------------------------------------------------------------------------------------------------
-function disable_object(companion, enemy) -- забыть объект
+function disable_object(companion, enemy) -- Р·Р°Р±С‹С‚СЊ РѕР±СЉРµРєС‚
 	if companion and enemy then
 		local id = enemy:id()
 		if not disabled_objects[id] then
@@ -225,7 +225,7 @@ function disable_object(companion, enemy) -- забыть объект
 	end
 end
 
-function enable_object(companion, enemy) -- вспомнить объект
+function enable_object(companion, enemy) -- РІСЃРїРѕРјРЅРёС‚СЊ РѕР±СЉРµРєС‚
 	if companion and enemy then
 		local id = enemy:id()
 		if disabled_objects[id] then
@@ -245,8 +245,8 @@ function get_target(npc)
 end
 
 function hit_callback(companion, enemy, amount)
-	-- если объект был ранее забыт - очухиваем его, если нету в табличке - записываем в табличку
-	-- данная функция помещается в xr_motivator.hit_callback
+	-- РµСЃР»Рё РѕР±СЉРµРєС‚ Р±С‹Р» СЂР°РЅРµРµ Р·Р°Р±С‹С‚ - РѕС‡СѓС…РёРІР°РµРј РµРіРѕ, РµСЃР»Рё РЅРµС‚Сѓ РІ С‚Р°Р±Р»РёС‡РєРµ - Р·Р°РїРёСЃС‹РІР°РµРј РІ С‚Р°Р±Р»РёС‡РєСѓ
+	-- РґР°РЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРѕРјРµС‰Р°РµС‚СЃСЏ РІ xr_motivator.hit_callback
 	if --[[amount and amount > 0.02 and]] not enemy:is_actor() then
 		xr_companion.being_attacked = true
 		dont_touch_us = false
@@ -264,11 +264,11 @@ function hit_callback(companion, enemy, amount)
 end
 
 function process_enemy(npc, enemy)
-	-- проверка выбора врагом напарника или ГГ
-	-- данная функция помещается в апдейты монстров и неписей
+	-- РїСЂРѕРІРµСЂРєР° РІС‹Р±РѕСЂР° РІСЂР°РіРѕРј РЅР°РїР°СЂРЅРёРєР° РёР»Рё Р“Р“
+	-- РґР°РЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РїРѕРјРµС‰Р°РµС‚СЃСЏ РІ Р°РїРґРµР№С‚С‹ РјРѕРЅСЃС‚СЂРѕРІ Рё РЅРµРїРёСЃРµР№
 	if enemy and enemy.clsid and (IsStalker(enemy) or IsMonster(enemy)) and enemy:alive() and not xr_companion.is_companion(enemy:id()) then
 		if we_are_under_attack(enemy) then
-			-- человек ты иль монструшка
+			-- С‡РµР»РѕРІРµРє С‚С‹ РёР»СЊ РјРѕРЅСЃС‚СЂСѓС€РєР°
 			register_as_target(enemy)
 		else
 			return
@@ -365,7 +365,7 @@ end
 
 function get_targets_from_memory(npc)
 	if not npc then return end
-	-- сбор врагов, вызывается из reprioritize_targets
+	-- СЃР±РѕСЂ РІСЂР°РіРѕРІ, РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· reprioritize_targets
 	for o in npc:memory_visible_objects() do
 		process_enemy(npc, o:object())
 	end	
@@ -383,8 +383,8 @@ function get_targets_from_memory(npc)
 end
 
 function reprioritize_targets(companion)
-	-- обновление основной цели, вызывается из апдейта напарника
-	-- обновим предварительно реестр целей
+	-- РѕР±РЅРѕРІР»РµРЅРёРµ РѕСЃРЅРѕРІРЅРѕР№ С†РµР»Рё, РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· Р°РїРґРµР№С‚Р° РЅР°РїР°СЂРЅРёРєР°
+	-- РѕР±РЅРѕРІРёРј РїСЂРµРґРІР°СЂРёС‚РµР»СЊРЅРѕ СЂРµРµСЃС‚СЂ С†РµР»РµР№
 	if db.actor then 
 		locked_actor_vertex = db.actor:level_vertex_id()
 	end
@@ -396,43 +396,43 @@ function reprioritize_targets(companion)
 	get_targets_from_memory(companion)
 	refresh_targets(companion)
 	
-	-- На дистанциях выше 10 метров приоритет неписям, ближе 10 метров приоритет монстрам. При дистанции ниже пары метров объект сразу становится примари_таргет без вариантов. 
-	-- При варианте далее 10 метров проверяем видимость, приоритет видимому.
+	-- РќР° РґРёСЃС‚Р°РЅС†РёСЏС… РІС‹С€Рµ 10 РјРµС‚СЂРѕРІ РїСЂРёРѕСЂРёС‚РµС‚ РЅРµРїРёСЃСЏРј, Р±Р»РёР¶Рµ 10 РјРµС‚СЂРѕРІ РїСЂРёРѕСЂРёС‚РµС‚ РјРѕРЅСЃС‚СЂР°Рј. РџСЂРё РґРёСЃС‚Р°РЅС†РёРё РЅРёР¶Рµ РїР°СЂС‹ РјРµС‚СЂРѕРІ РѕР±СЉРµРєС‚ СЃСЂР°Р·Сѓ СЃС‚Р°РЅРѕРІРёС‚СЃСЏ РїСЂРёРјР°СЂРё_С‚Р°СЂРіРµС‚ Р±РµР· РІР°СЂРёР°РЅС‚РѕРІ. 
+	-- РџСЂРё РІР°СЂРёР°РЅС‚Рµ РґР°Р»РµРµ 10 РјРµС‚СЂРѕРІ РїСЂРѕРІРµСЂСЏРµРј РІРёРґРёРјРѕСЃС‚СЊ, РїСЂРёРѕСЂРёС‚РµС‚ РІРёРґРёРјРѕРјСѓ.
 	local last_weight 	= 1000
 	
 	for k, v in pairs(targets_list) do
-		if v.vis == true then -- если цель видит нас
+		if v.vis == true then -- РµСЃР»Рё С†РµР»СЊ РІРёРґРёС‚ РЅР°СЃ
 			local close_combat, far_combat = combat_ranges(companion, v.npc)
 			local mult = combat_multiplier(v.npc)
-			if v.npc == false then -- если она монстр
-				if v.range >= close_combat and v.range < far_combat then -- и цель на средней дистанции
+			if v.npc == false then -- РµСЃР»Рё РѕРЅР° РјРѕРЅСЃС‚СЂ
+				if v.range >= close_combat and v.range < far_combat then -- Рё С†РµР»СЊ РЅР° СЃСЂРµРґРЅРµР№ РґРёСЃС‚Р°РЅС†РёРё
 					v.weight = v.range * combat_multiplier(v.npc)
-				elseif v.range < close_combat then -- а если вплотную
+				elseif v.range < close_combat then -- Р° РµСЃР»Рё РІРїР»РѕС‚РЅСѓСЋ
 					v.weight = 0
 				end
-			else -- а если непись
-				if v.range >= close_combat and v.range < far_combat then -- если не ближний бой
+			else -- Р° РµСЃР»Рё РЅРµРїРёСЃСЊ
+				if v.range >= close_combat and v.range < far_combat then -- РµСЃР»Рё РЅРµ Р±Р»РёР¶РЅРёР№ Р±РѕР№
 					v.weight = v.range
-				elseif v.range < close_combat then -- а если ближний
+				elseif v.range < close_combat then -- Р° РµСЃР»Рё Р±Р»РёР¶РЅРёР№
 					v.weight = v.range * combat_multiplier(v.npc)
 				end
 			end
-		else -- если невидима
+		else -- РµСЃР»Рё РЅРµРІРёРґРёРјР°
 			if primary_target == k then
 				last_target[primary_target] = time_global()
 				primary_target = nil
 			end
-			if v.npc == false then -- если она монстр
+			if v.npc == false then -- РµСЃР»Рё РѕРЅР° РјРѕРЅСЃС‚СЂ
 				if v.range < max_invisible_range_mon then 
 					v.weight = v.range * 2
 				else
 					v.weight = 1000
 				end
-			else -- а если непись
-				if v.range < max_invisible_range_npc then -- если в радиусе "слуха"
+			else -- Р° РµСЃР»Рё РЅРµРїРёСЃСЊ
+				if v.range < max_invisible_range_npc then -- РµСЃР»Рё РІ СЂР°РґРёСѓСЃРµ "СЃР»СѓС…Р°"
 					v.weight = v.range * 3
-				elseif v.range < desired_combat_distance then -- если в радиусе максимального отхода от ГГ
-					if v.last_time_seen and (v.last_time_seen + memory_timeout) > time_global() then -- если видели её не менее минуты назад
+				elseif v.range < desired_combat_distance then -- РµСЃР»Рё РІ СЂР°РґРёСѓСЃРµ РјР°РєСЃРёРјР°Р»СЊРЅРѕРіРѕ РѕС‚С…РѕРґР° РѕС‚ Р“Р“
+					if v.last_time_seen and (v.last_time_seen + memory_timeout) > time_global() then -- РµСЃР»Рё РІРёРґРµР»Рё РµС‘ РЅРµ РјРµРЅРµРµ РјРёРЅСѓС‚С‹ РЅР°Р·Р°Рґ
 						v.weight = v.range * 4
 					else	
 						v.weight = 1000
@@ -465,7 +465,7 @@ function reprioritize_targets(companion)
 			primary_target = nil
 			assist_point = nil
 			last_target = {}
-			-- НЕ ЗАКОММЕНТИРОВАТЬ НИ В КОЕМ СЛУЧАЕ!
+			-- РќР• Р—РђРљРћРњРњР•РќРўРР РћР’РђРўР¬ РќР Р’ РљРћР•Рњ РЎР›РЈР§РђР•!
 			xr_companion.being_attacked = false
 		end
 	end
@@ -473,7 +473,7 @@ function reprioritize_targets(companion)
 end
 
 function refresh_targets(companion)
-	-- обновление реестра врагов, вызывается из апдейта напарника
+	-- РѕР±РЅРѕРІР»РµРЅРёРµ СЂРµРµСЃС‚СЂР° РІСЂР°РіРѕРІ, РІС‹Р·С‹РІР°РµС‚СЃСЏ РёР· Р°РїРґРµР№С‚Р° РЅР°РїР°СЂРЅРёРєР°
 	local enemy_by_engine = companion:best_enemy()
 	if enemy_by_engine and enemy_by_engine:alive() and not (xr_wounded.is_wounded(enemy_by_engine) and not fighting_wounded[enemy_by_engine:id()]) then
 		if not targets_list[enemy_by_engine:id()] and (check_is_enemy_of_me_or_actor(companion, enemy_by_engine) or 
@@ -551,7 +551,7 @@ function refresh_targets(companion)
 end
 
 function get_max_weapon_range(companion)
-	-- служебная для проверки достанет ли оружие
+	-- СЃР»СѓР¶РµР±РЅР°СЏ РґР»СЏ РїСЂРѕРІРµСЂРєРё РґРѕСЃС‚Р°РЅРµС‚ Р»Рё РѕСЂСѓР¶РёРµ
 	if companion then
 		local act_item = nil
 		if companion:active_slot() ~= 255 then
@@ -575,8 +575,11 @@ function get_max_weapon_range(companion)
 end
 
 
-function IsHighRecoilRapidFire(obj) --TODO: Прописать сюда пулемёты если они появятся
-	return false
+function IsHighRecoilRapidFire( object )
+  if object then
+    return get_u32( object:section(), "ef_weapon_type" ) == 10
+  end
+  return false
 end
 
 
@@ -585,14 +588,14 @@ function combat_ranges(npc, enemy_is_npc)
 		local wpn_check_max_range = get_max_weapon_range(npc)
 		if no_aggression(npc) then
 			if dont_touch_us then
-				-- не воюем пока не стукнули
+				-- РЅРµ РІРѕСЋРµРј РїРѕРєР° РЅРµ СЃС‚СѓРєРЅСѓР»Рё
 				if enemy_is_npc then
 					return low_range_npc_noaggr, far_range_npc_noaggr
 				else
 					return low_range_mon_noaggr, far_range_mon_noaggr
 				end
 			else
-					-- берем всех
+					-- Р±РµСЂРµРј РІСЃРµС…
 				if enemy_is_npc then
 					return low_range_npc_aggr, wpn_check_max_range
 				else
@@ -601,14 +604,14 @@ function combat_ranges(npc, enemy_is_npc)
 			end		
 		elseif low_aggression(npc) then
 			if dont_touch_us then
-				-- берем ближние цели
+				-- Р±РµСЂРµРј Р±Р»РёР¶РЅРёРµ С†РµР»Рё
 				if enemy_is_npc then
 					return low_range_npc_lowaggr, far_range_npc_lowaggr
 				else
 					return low_range_mon_lowaggr, far_range_mon_lowaggr
 				end
 			else
-				-- берем всех
+				-- Р±РµСЂРµРј РІСЃРµС…
 				if enemy_is_npc then
 					return low_range_npc_aggr, wpn_check_max_range
 				else
@@ -616,7 +619,7 @@ function combat_ranges(npc, enemy_is_npc)
 				end
 			end
 		else
-		-- берем всех
+		-- Р±РµСЂРµРј РІСЃРµС…
 			if enemy_is_npc then
 				return low_range_npc_aggr, wpn_check_max_range
 			else
@@ -695,7 +698,7 @@ function set_weapons_fire(npc, enemy, weapon)
 				end
 				
 			else	
-				-- если рейтрейс не вернул результат
+				-- РµСЃР»Рё СЂРµР№С‚СЂРµР№СЃ РЅРµ РІРµСЂРЅСѓР» СЂРµР·СѓР»СЊС‚Р°С‚
 				type_of_fire = object.fire1
 			end			
 	
@@ -737,18 +740,18 @@ function set_combat_state(npc, enemy, transfer_flag, speed_flag, sneak_flag)
 	if transfer_flag then
 		if speed_flag then
 			if sneak_flag then
-			-- быстрый, трансфер, ползком
+			-- Р±С‹СЃС‚СЂС‹Р№, С‚СЂР°РЅСЃС„РµСЂ, РїРѕР»Р·РєРѕРј
 				state_mgr.set_state( script_name(),  npc, "sneak_run_fire", nil, nil, look, {animation = true} )			
 			else
-			-- быстрый, трансфер, пешком
+			-- Р±С‹СЃС‚СЂС‹Р№, С‚СЂР°РЅСЃС„РµСЂ, РїРµС€РєРѕРј
 				state_mgr.set_state( script_name(),  npc, "raid_fire", nil, nil, look, {animation = true} )
 			end		
 		else
 			if sneak_flag then
-			-- медленный, трансфер, ползком
+			-- РјРµРґР»РµРЅРЅС‹Р№, С‚СЂР°РЅСЃС„РµСЂ, РїРѕР»Р·РєРѕРј
 				state_mgr.set_state( script_name(),  npc, "sneak_fire", nil, nil, look, {animation = true} )
 			else
-			-- медленный, трансфер, пешком
+			-- РјРµРґР»РµРЅРЅС‹Р№, С‚СЂР°РЅСЃС„РµСЂ, РїРµС€РєРѕРј
 				state_mgr.set_state( script_name(),  npc, "raid_fire", nil, nil, look, {animation = true} )
 			end			
 		end
@@ -759,10 +762,10 @@ function set_combat_state(npc, enemy, transfer_flag, speed_flag, sneak_flag)
 		end
 		if speed_flag then
 			if sneak_flag then
-			-- быстрый, нормально, ползком
+			-- Р±С‹СЃС‚СЂС‹Р№, РЅРѕСЂРјР°Р»СЊРЅРѕ, РїРѕР»Р·РєРѕРј
 				state_mgr.set_state( script_name(),  npc, "sneak_run_fire", nil, nil, look )
 			else
-			-- быстрый, нормально, пешком
+			-- Р±С‹СЃС‚СЂС‹Р№, РЅРѕСЂРјР°Р»СЊРЅРѕ, РїРµС€РєРѕРј
 				if in_hideout(npc) then
 					state_mgr.set_state( script_name(),  npc, "sneak_run_fire", nil, nil, look )
 				else
@@ -771,10 +774,10 @@ function set_combat_state(npc, enemy, transfer_flag, speed_flag, sneak_flag)
 			end			
 		else
 			if sneak_flag then
-			-- медленный, нормально, ползком
+			-- РјРµРґР»РµРЅРЅС‹Р№, РЅРѕСЂРјР°Р»СЊРЅРѕ, РїРѕР»Р·РєРѕРј
 				state_mgr.set_state( script_name(),  npc, "sneak_fire", nil, nil, look )
 			else
-			-- медленный, нормально, пешком
+			-- РјРµРґР»РµРЅРЅС‹Р№, РЅРѕСЂРјР°Р»СЊРЅРѕ, РїРµС€РєРѕРј
 				if in_hideout(npc) then
 					state_mgr.set_state( script_name(),  npc, "sneak_fire", nil, nil, look )
 				else
@@ -854,13 +857,13 @@ function set_combat_sight(npc, enemy, weapon)
   end
 end
 ----------------------------------------------------------------------------------------------------
--- Служебные функции для маневрирования
+-- РЎР»СѓР¶РµР±РЅС‹Рµ С„СѓРЅРєС†РёРё РґР»СЏ РјР°РЅРµРІСЂРёСЂРѕРІР°РЅРёСЏ
 ----------------------------------------------------------------------------------------------------
 function select_position(npc, target, stay_flag)
 
-	-- по умолчанию (ничего не указано) пляшем от актора
-	-- если указан stay_flag, и не указан target то от себя
-	-- если указан target то от target
+	-- РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ (РЅРёС‡РµРіРѕ РЅРµ СѓРєР°Р·Р°РЅРѕ) РїР»СЏС€РµРј РѕС‚ Р°РєС‚РѕСЂР°
+	-- РµСЃР»Рё СѓРєР°Р·Р°РЅ stay_flag, Рё РЅРµ СѓРєР°Р·Р°РЅ target С‚Рѕ РѕС‚ СЃРµР±СЏ
+	-- РµСЃР»Рё СѓРєР°Р·Р°РЅ target С‚Рѕ РѕС‚ target
 	
 	if last_time_send and last_time_send > time_global() then
 		return
@@ -881,7 +884,7 @@ function select_position(npc, target, stay_flag)
 	local node_2_vertex_id = nil
 	local node_2_distance = nil
 
-	-- проверяем точку слева
+	-- РїСЂРѕРІРµСЂСЏРµРј С‚РѕС‡РєСѓ СЃР»РµРІР°
 	desired_direction = vector_rotate_y(around_object:direction(), math.random(50,60) )
 	node_1_vertex_id = level.vertex_in_direction(around_object:level_vertex_id(),
 		desired_direction,
@@ -889,7 +892,7 @@ function select_position(npc, target, stay_flag)
 	if npc:accessible(node_1_vertex_id) ~= true or node_1_vertex_id == around_object:level_vertex_id() or (locked_actor_vertex and node_1_vertex_id == locked_actor_vertex) then			
 		node_1_vertex_id = nil
 	end
-	-- проверяем точку справа
+	-- РїСЂРѕРІРµСЂСЏРµРј С‚РѕС‡РєСѓ СЃРїСЂР°РІР°
 	desired_direction = vector_rotate_y(around_object:direction(), -math.random(50,60) )
 	node_2_vertex_id = level.vertex_in_direction (  around_object:level_vertex_id(),
 		desired_direction,
@@ -898,7 +901,7 @@ function select_position(npc, target, stay_flag)
 		node_2_vertex_id = nil
 	end
 	
-	-- Проверяем растояния до точек
+	-- РџСЂРѕРІРµСЂСЏРµРј СЂР°СЃС‚РѕСЏРЅРёСЏ РґРѕ С‚РѕС‡РµРє
 	if node_1_vertex_id ~= nil then
 		node_1_distance = npc:position():distance_to_sqr(level.vertex_position(node_1_vertex_id))
 	else
@@ -910,9 +913,9 @@ function select_position(npc, target, stay_flag)
 		node_2_distance = -1
 	end
 	
-	-- Выбираем ближайшую из существующих
+	-- Р’С‹Р±РёСЂР°РµРј Р±Р»РёР¶Р°Р№С€СѓСЋ РёР· СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС…
 	if node_1_distance == -1 and node_2_distance == -1 then
-		--' Не смогли найти точку, ругаться
+		--' РќРµ СЃРјРѕРіР»Рё РЅР°Р№С‚Рё С‚РѕС‡РєСѓ, СЂСѓРіР°С‚СЊСЃСЏ
 		return nil
 	end
 	if node_1_distance == -1 then
@@ -934,27 +937,27 @@ end
 
 function find_cover(npc, enemy, mode)
 
-	-- список режимов:
+	-- СЃРїРёСЃРѕРє СЂРµР¶РёРјРѕРІ:
 	
-	-- mode = 1 - атака
-	-- mode = 0 - оборона (удержание позиции)
+	-- mode = 1 - Р°С‚Р°РєР°
+	-- mode = 0 - РѕР±РѕСЂРѕРЅР° (СѓРґРµСЂР¶Р°РЅРёРµ РїРѕР·РёС†РёРё)
 	
-	-- cover_point* best_cover(vector self_position, vector enemy_position, float radius, float min_enemy_distance, float max_enemy_distance) – возвращает лучшую точку прикрытия от врага в заданном радиусе от своей позиции и на нужном расстояниии от врага
-	-- cover_point* safe_cover(const vector& self_position, float radius, float min_distance) – возвращает лучшую точку прикрытия в заданном радиусе от своей позиции и не ближе min_distance. Прикрытость учитывается со всех направлений.	
+	-- cover_point* best_cover(vector self_position, vector enemy_position, float radius, float min_enemy_distance, float max_enemy_distance) вЂ“ РІРѕР·РІСЂР°С‰Р°РµС‚ Р»СѓС‡С€СѓСЋ С‚РѕС‡РєСѓ РїСЂРёРєСЂС‹С‚РёСЏ РѕС‚ РІСЂР°РіР° РІ Р·Р°РґР°РЅРЅРѕРј СЂР°РґРёСѓСЃРµ РѕС‚ СЃРІРѕРµР№ РїРѕР·РёС†РёРё Рё РЅР° РЅСѓР¶РЅРѕРј СЂР°СЃСЃС‚РѕСЏРЅРёРёРё РѕС‚ РІСЂР°РіР°
+	-- cover_point* safe_cover(const vector& self_position, float radius, float min_distance) вЂ“ РІРѕР·РІСЂР°С‰Р°РµС‚ Р»СѓС‡С€СѓСЋ С‚РѕС‡РєСѓ РїСЂРёРєСЂС‹С‚РёСЏ РІ Р·Р°РґР°РЅРЅРѕРј СЂР°РґРёСѓСЃРµ РѕС‚ СЃРІРѕРµР№ РїРѕР·РёС†РёРё Рё РЅРµ Р±Р»РёР¶Рµ min_distance. РџСЂРёРєСЂС‹С‚РѕСЃС‚СЊ СѓС‡РёС‚С‹РІР°РµС‚СЃСЏ СЃРѕ РІСЃРµС… РЅР°РїСЂР°РІР»РµРЅРёР№.	
 	
 	-- C++ class cover_point {
 		-- function level_vertex_id() const;
 		-- function position() const;
 	-- };
 	
-	-- если НЕТ точки или НЕТ последнего времени посыла, либо время есть но меньше чем time_global - ИЩЕМ укрытие
-	-- если ЕСТЬ точка И ЕСТЬ последнее время посыла И оно больше чем time_global - не ищем
+	-- РµСЃР»Рё РќР•Рў С‚РѕС‡РєРё РёР»Рё РќР•Рў РїРѕСЃР»РµРґРЅРµРіРѕ РІСЂРµРјРµРЅРё РїРѕСЃС‹Р»Р°, Р»РёР±Рѕ РІСЂРµРјСЏ РµСЃС‚СЊ РЅРѕ РјРµРЅСЊС€Рµ С‡РµРј time_global - РР©Р•Рњ СѓРєСЂС‹С‚РёРµ
+	-- РµСЃР»Рё Р•РЎРўР¬ С‚РѕС‡РєР° Р Р•РЎРўР¬ РїРѕСЃР»РµРґРЅРµРµ РІСЂРµРјСЏ РїРѕСЃС‹Р»Р° Р РѕРЅРѕ Р±РѕР»СЊС€Рµ С‡РµРј time_global - РЅРµ РёС‰РµРј
 
 	if last_time_send and last_time_send > time_global() then
 		return
 	end
 	
-	if must_stay(npc) then -- оставленный непись всегда обороняется
+	if must_stay(npc) then -- РѕСЃС‚Р°РІР»РµРЅРЅС‹Р№ РЅРµРїРёСЃСЊ РІСЃРµРіРґР° РѕР±РѕСЂРѕРЅСЏРµС‚СЃСЏ
 		mode = 0
 	end	
 
@@ -1137,18 +1140,18 @@ function have_fresh_deadman()
 	return target
 end
 ----------------------------------------------------------------------------------------------------
--- Эвалуаторы и свойства
+-- Р­РІР°Р»СѓР°С‚РѕСЂС‹ Рё СЃРІРѕР№СЃС‚РІР°
 ----------------------------------------------------------------------------------------------------
--- evaluator_combat_activity	- продолжаем вооруженное общение до умиротворения объекта
+-- evaluator_combat_activity	- РїСЂРѕРґРѕР»Р¶Р°РµРј РІРѕРѕСЂСѓР¶РµРЅРЅРѕРµ РѕР±С‰РµРЅРёРµ РґРѕ СѓРјРёСЂРѕС‚РІРѕСЂРµРЅРёСЏ РѕР±СЉРµРєС‚Р°
 ----------------------------------------------------------------------------------------------------
--- Экшены и свойства
+-- Р­РєС€РµРЅС‹ Рё СЃРІРѕР№СЃС‚РІР°
 ----------------------------------------------------------------------------------------------------
--- action_combat_activity		- выставляем стрельбу по врагу - точку, состояние зависимо от режима поведения. Маневрируем.
+-- action_combat_activity		- РІС‹СЃС‚Р°РІР»СЏРµРј СЃС‚СЂРµР»СЊР±Сѓ РїРѕ РІСЂР°РіСѓ - С‚РѕС‡РєСѓ, СЃРѕСЃС‚РѕСЏРЅРёРµ Р·Р°РІРёСЃРёРјРѕ РѕС‚ СЂРµР¶РёРјР° РїРѕРІРµРґРµРЅРёСЏ. РњР°РЅРµРІСЂРёСЂСѓРµРј.
 ----------------------------------------------------------------------------------------------------
-local count_update 			= 0	-- Счетчик апдейтов. Нельзя чтобы схема стартовала включенной сразу же, иначе 
-local engage_after_update 	= 3 -- будут глюки на переключении схем и выборе оружия
+local count_update 			= 0	-- РЎС‡РµС‚С‡РёРє Р°РїРґРµР№С‚РѕРІ. РќРµР»СЊР·СЏ С‡С‚РѕР±С‹ СЃС…РµРјР° СЃС‚Р°СЂС‚РѕРІР°Р»Р° РІРєР»СЋС‡РµРЅРЅРѕР№ СЃСЂР°Р·Сѓ Р¶Рµ, РёРЅР°С‡Рµ 
+local engage_after_update 	= 3 -- Р±СѓРґСѓС‚ РіР»СЋРєРё РЅР° РїРµСЂРµРєР»СЋС‡РµРЅРёРё СЃС…РµРј Рё РІС‹Р±РѕСЂРµ РѕСЂСѓР¶РёСЏ
 --------------------------------------------------------------------------------------------------------------
-class "evaluator_combat_activity" ( property_evaluator ) -- продолжаем вооруженное общение до умиротворения объекта
+class "evaluator_combat_activity" ( property_evaluator ) -- РїСЂРѕРґРѕР»Р¶Р°РµРј РІРѕРѕСЂСѓР¶РµРЅРЅРѕРµ РѕР±С‰РµРЅРёРµ РґРѕ СѓРјРёСЂРѕС‚РІРѕСЂРµРЅРёСЏ РѕР±СЉРµРєС‚Р°
 
 function evaluator_combat_activity:__init( name, storage ) super ( nil, name )
 	self.st = storage
@@ -1195,7 +1198,7 @@ function evaluator_combat_activity:evaluate()
 	end
 end
 --------------------------------------------------------------------------------------------------------------
-class "action_combat_activity" ( action_base ) -- выставляем стрельбу по врагу - точку, состояние зависимо от режима поведения. Маневрируем.
+class "action_combat_activity" ( action_base ) -- РІС‹СЃС‚Р°РІР»СЏРµРј СЃС‚СЂРµР»СЊР±Сѓ РїРѕ РІСЂР°РіСѓ - С‚РѕС‡РєСѓ, СЃРѕСЃС‚РѕСЏРЅРёРµ Р·Р°РІРёСЃРёРјРѕ РѕС‚ СЂРµР¶РёРјР° РїРѕРІРµРґРµРЅРёСЏ. РњР°РЅРµРІСЂРёСЂСѓРµРј.
 
 function action_combat_activity:__init( name, storage )  super ( nil, name )
 	self.st = storage
@@ -1211,7 +1214,7 @@ end
 function action_combat_activity:execute()
 	action_base.execute( self )
 	
-	if xr_wounded.is_wounded(self.object) then -- если ранен, то обнулим все переменные для перезапуска схемы
+	if xr_wounded.is_wounded(self.object) then -- РµСЃР»Рё СЂР°РЅРµРЅ, С‚Рѕ РѕР±РЅСѓР»РёРј РІСЃРµ РїРµСЂРµРјРµРЅРЅС‹Рµ РґР»СЏ РїРµСЂРµР·Р°РїСѓСЃРєР° СЃС…РµРјС‹
 		last_time_send = nil
 		last_enemy = nil
 		last_enemy_id = nil
@@ -1227,13 +1230,13 @@ function action_combat_activity:execute()
 	self.object:set_detail_path_type ( move.curve )
 	self.object:set_path_type        ( game_object.level_path )	
 	
-	local enemy = nil 				-- текущий враг
-	local change_flag = false		-- флаг смены цели
+	local enemy = nil 				-- С‚РµРєСѓС‰РёР№ РІСЂР°Рі
+	local change_flag = false		-- С„Р»Р°Рі СЃРјРµРЅС‹ С†РµР»Рё
 	
 	local deadman = have_fresh_deadman()
 	
-	if primary_target ~= nil then	-- если есть целеуказание от селектора
-		enemy = level.object_by_id(primary_target)	-- получим объект цели
+	if primary_target ~= nil then	-- РµСЃР»Рё РµСЃС‚СЊ С†РµР»РµСѓРєР°Р·Р°РЅРёРµ РѕС‚ СЃРµР»РµРєС‚РѕСЂР°
+		enemy = level.object_by_id(primary_target)	-- РїРѕР»СѓС‡РёРј РѕР±СЉРµРєС‚ С†РµР»Рё
 	end
 	if not enemy and deadman == false then
 		last_time_send = nil
@@ -1246,7 +1249,7 @@ function action_combat_activity:execute()
 		return
 	end
 	
-	-- получим текущее оружие
+	-- РїРѕР»СѓС‡РёРј С‚РµРєСѓС‰РµРµ РѕСЂСѓР¶РёРµ
 	local weap_lost, vtx, lost_id = xr_companion.check_lost_weapon(self.object)
 	if weap_lost then
 		assist_point = vtx
@@ -1288,7 +1291,7 @@ function action_combat_activity:execute()
 	
 	local stay = must_stay(self.object)
 	
-	-- если ещё свежий труп
+	-- РµСЃР»Рё РµС‰С‘ СЃРІРµР¶РёР№ С‚СЂСѓРї
 	if primary_target == nil and deadman ~= false then
 		local deadman_target = level.object_by_id(deadman)
 		if deadman_target then
@@ -1310,7 +1313,7 @@ function action_combat_activity:execute()
 		end
 	end
 	
-	-- инициализация боя
+	-- РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р±РѕСЏ
 	
 	if enemy and (not last_enemy_id or enemy:id() ~= last_enemy_id) then
 	
@@ -1337,7 +1340,7 @@ function action_combat_activity:execute()
 		self.object:set_item(object.aim2, bw)
 	end
 	
-	-- переключение между целями
+	-- РїРµСЂРµРєР»СЋС‡РµРЅРёРµ РјРµР¶РґСѓ С†РµР»СЏРјРё
 	
 	if change_flag or change_time > time_global() then
 	
@@ -1354,19 +1357,19 @@ function action_combat_activity:execute()
 		return
 	end
 	
-	-- если бой инициализирован, продолжаем
-	local see_enemy = self.object:see(enemy)	-- видим ли цель
-	local have_seen = enemy:see(self.object)	-- видит ли нас цель	
+	-- РµСЃР»Рё Р±РѕР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ, РїСЂРѕРґРѕР»Р¶Р°РµРј
+	local see_enemy = self.object:see(enemy)	-- РІРёРґРёРј Р»Рё С†РµР»СЊ
+	local have_seen = enemy:see(self.object)	-- РІРёРґРёС‚ Р»Рё РЅР°СЃ С†РµР»СЊ	
 	
-	-- боевка
+	-- Р±РѕРµРІРєР°
 	if see_enemy then
-		-- если видим врага
+		-- РµСЃР»Рё РІРёРґРёРј РІСЂР°РіР°
 		if have_seen then
 			local mode = 0
 			if math.random() < sound_prob and not in_ambush(self.object) then
 				xr_sound.set_sound(self.object, "fight_enemy")
 			end
-			-- и он нас видит - мочим и отходим
+			-- Рё РѕРЅ РЅР°СЃ РІРёРґРёС‚ - РјРѕС‡РёРј Рё РѕС‚С…РѕРґРёРј
 			set_combat_state(self.object, enemy, false, true, in_ambush(self.object))
 			if ( enemy:is_stalker() or enemy:is_actor() ) and math.random() > 0.5 then
 				assist_point = find_cover(self.object, enemy, 1)
@@ -1381,7 +1384,7 @@ function action_combat_activity:execute()
 			if math.random() < sound_prob and not in_ambush(self.object) then
 				xr_sound.set_sound(self.object, "fight_attack")
 			end		
-			-- и он нас не видит - мочим гада
+			-- Рё РѕРЅ РЅР°СЃ РЅРµ РІРёРґРёС‚ - РјРѕС‡РёРј РіР°РґР°
 			set_combat_state(self.object, enemy, false, false, in_ambush(self.object))
 			if ( enemy:is_stalker() or enemy:is_actor() ) then
 				assist_point = self.object:level_vertex_id()
@@ -1394,13 +1397,13 @@ function action_combat_activity:execute()
 			combat_send(self.object, assist_point)
 		end	
 	else
-		-- если не видим врага
+		-- РµСЃР»Рё РЅРµ РІРёРґРёРј РІСЂР°РіР°
 		if have_seen then
 			local mode = 2
 			if math.random() < sound_prob and not in_ambush(self.object) then
 				xr_sound.set_sound(self.object, "fight_enemy")
 			end			
-			-- и он нас видит - пугающе постреливаем и уходим
+			-- Рё РѕРЅ РЅР°СЃ РІРёРґРёС‚ - РїСѓРіР°СЋС‰Рµ РїРѕСЃС‚СЂРµР»РёРІР°РµРј Рё СѓС…РѕРґРёРј
 			set_combat_state(self.object, enemy, false, false, in_ambush(self.object))
 			if ( enemy:is_stalker() or enemy:is_actor() ) and math.random() > 0.5 then
 				assist_point = find_cover(self.object, enemy, 0)
@@ -1415,7 +1418,7 @@ function action_combat_activity:execute()
 			if math.random() < sound_prob and not in_ambush(self.object) then
 				xr_sound.set_sound(self.object, "fight_search")
 			end			
-			-- и он нас не видит - поступаем по настройкам агрессивности
+			-- Рё РѕРЅ РЅР°СЃ РЅРµ РІРёРґРёС‚ - РїРѕСЃС‚СѓРїР°РµРј РїРѕ РЅР°СЃС‚СЂРѕР№РєР°Рј Р°РіСЂРµСЃСЃРёРІРЅРѕСЃС‚Рё
 			set_combat_state(self.object, enemy, false, true, in_ambush(self.object))
 			set_combat_sight(self.object, enemy, bw)
 			self.object:set_item(object.aim1,bw)
@@ -1435,7 +1438,7 @@ function action_combat_activity:finalize()
 	xr_sound.set_sound(self.object, nil)
 end
 --------------------------------------------------------------------------------------------------------------
-class "action_join_actor" ( action_base ) -- направляем поближе к ГГ если чего-то далековато
+class "action_join_actor" ( action_base ) -- РЅР°РїСЂР°РІР»СЏРµРј РїРѕР±Р»РёР¶Рµ Рє Р“Р“ РµСЃР»Рё С‡РµРіРѕ-С‚Рѕ РґР°Р»РµРєРѕРІР°С‚Рѕ
 
 function action_join_actor:__init( name, storage )  super ( nil, name )
 	self.st = storage
@@ -1480,7 +1483,7 @@ function action_join_actor:finalize()
 end
 
 --------------------------------------------------------------------------------------------------------------
--- Идентификаторы эвалуаторов схемы
+-- РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ СЌРІР°Р»СѓР°С‚РѕСЂРѕРІ СЃС…РµРјС‹
 --------------------------------------------------------------------------------------------------------------
 local base = 87450
 prop_enable 		= base + 0
@@ -1491,7 +1494,7 @@ local base_act = 87490
 act_combat			= base_act + 1
 act_join			= base_act + 2
 --------------------------------------------------------------------------------------------------------------
--- Многострадальный биндер
+-- РњРЅРѕРіРѕСЃС‚СЂР°РґР°Р»СЊРЅС‹Р№ Р±РёРЅРґРµСЂ
 --------------------------------------------------------------------------------------------------------------
 function add_to_binder( object, char_ini, scheme, section, st )
 
@@ -1546,7 +1549,7 @@ function add_to_binder( object, char_ini, scheme, section, st )
 	
 end
 
--- Функции включения/выключения схемы
+-- Р¤СѓРЅРєС†РёРё РІРєР»СЋС‡РµРЅРёСЏ/РІС‹РєР»СЋС‡РµРЅРёСЏ СЃС…РµРјС‹
 function enable_scheme(npc, ini)
 	local st = xr_logic.assign_storage_and_bind(npc, ini, "companion_combat")
 	local flag = xr_companion.load_var_companion(npc:id(), "is_companion", 0)

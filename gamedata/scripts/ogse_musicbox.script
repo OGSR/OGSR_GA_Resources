@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --[[--------------------------------------------------
 ScriptName : musicbox.script
@@ -15,7 +15,7 @@ function attach(sm)
     sm:subscribe({signal = "on_storyline_start", fun = this.on_storyline_start})
 end
 
-function on_storyline_start() --Спавн пластинок
+function on_storyline_start() --РЎРїР°РІРЅ РїР»Р°СЃС‚РёРЅРѕРє
 	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_1)
 	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_2)
 	ogse.spawn_object(ogse_spawn_db.script_spawn_registry.spawn_plastinki.plastinka_3)	
@@ -306,19 +306,19 @@ function musicbox_base:onUpdate()
 			self.time_1000 = current_time + 1000
 			---------------------------
 		elseif self.checkedPlayAll then
-			if not self.play_all or (coroutine.status(self.play_all) == 'dead') then --Если вдруг, self.play_all == nil или подпрограмма перестала работать (ОЧЕНЬ редкие баги)
+			if not self.play_all or (coroutine.status(self.play_all) == 'dead') then --Р•СЃР»Рё РІРґСЂСѓРі, self.play_all == nil РёР»Рё РїРѕРґРїСЂРѕРіСЂР°РјРјР° РїРµСЂРµСЃС‚Р°Р»Р° СЂР°Р±РѕС‚Р°С‚СЊ (РћР§Р•РќР¬ СЂРµРґРєРёРµ Р±Р°РіРё)
 				log1("!!! MBOX: self.play_all is nil or coroutine is dead!!!")
-				ogse.send_tip("Произошла ошибка, необходимо перезапустить проигрывание музыки!", "МУЗЫКАЛЬНЫЙ АВТОМАТ", nil, 40) --Сообщим об ошибке
-				self.checkedPlayAll = false --Запрещаем "Играть Все"
-				self:onStop() --Останавливаем всё, что можно остановить и отписываем onUpdate от менеджера сигналов
+				ogse.send_tip("РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°, РЅРµРѕР±С…РѕРґРёРјРѕ РїРµСЂРµР·Р°РїСѓСЃС‚РёС‚СЊ РїСЂРѕРёРіСЂС‹РІР°РЅРёРµ РјСѓР·С‹РєРё!", "РњРЈР—Р«РљРђР›Р¬РќР«Р™ РђР’РўРћРњРђРў", nil, 40) --РЎРѕРѕР±С‰РёРј РѕР± РѕС€РёР±РєРµ
+				self.checkedPlayAll = false --Р—Р°РїСЂРµС‰Р°РµРј "РРіСЂР°С‚СЊ Р’СЃРµ"
+				self:onStop() --РћСЃС‚Р°РЅР°РІР»РёРІР°РµРј РІСЃС‘, С‡С‚Рѕ РјРѕР¶РЅРѕ РѕСЃС‚Р°РЅРѕРІРёС‚СЊ Рё РѕС‚РїРёСЃС‹РІР°РµРј onUpdate РѕС‚ РјРµРЅРµРґР¶РµСЂР° СЃРёРіРЅР°Р»РѕРІ
 			else
 				coroutine.resume(self.play_all, self)
 			end
 		else
 			self:onStop()
 		end
-	elseif self.checkedPlayAll then --Если музыка по какой-то причине не играет, и  при этом кнопка "Играть Все" нажата, то
-		self.checkedPlayAll = false --запрещаем "Играть Все".
+	elseif self.checkedPlayAll then --Р•СЃР»Рё РјСѓР·С‹РєР° РїРѕ РєР°РєРѕР№-С‚Рѕ РїСЂРёС‡РёРЅРµ РЅРµ РёРіСЂР°РµС‚, Рё  РїСЂРё СЌС‚РѕРј РєРЅРѕРїРєР° "РРіСЂР°С‚СЊ Р’СЃРµ" РЅР°Р¶Р°С‚Р°, С‚Рѕ
+		self.checkedPlayAll = false --Р·Р°РїСЂРµС‰Р°РµРј "РРіСЂР°С‚СЊ Р’СЃРµ".
 	end
 end
 
@@ -447,7 +447,7 @@ function musicbox_base:InitLuaXml()
         timer_frame.x       = 0
         timer_frame.y       = img_frame.height + 35
         timer_frame.width   = logo_static.width
-        timer_frame.height  = 45 / WIDTH_FACTOR
+        timer_frame.height  = 45
         local timer_frame_texture = timer_frame:append('texture')
             timer_frame_texture[1] = 'ui_stroketextbox'
         -- Logo Timer Static ----------------------------------
@@ -458,6 +458,7 @@ function musicbox_base:InitLuaXml()
         timer_static.height  = timer_frame.height - 4
         local timer_static_text = timer_static:append('text')
             timer_static_text.align = 'c'
+            timer_static_text.vert_align = 'c'
             timer_static_text.font  = 'graffiti50'
             timer_static_text.r     = 204
             timer_static_text.g     = 102
@@ -602,7 +603,7 @@ function musicbox_base:onStop()
     self.checkedTrack = 0
     self.snd_obj      = nil
 
-    if self.isClosed and ( not self.play_all or coroutine.status(self.play_all) == 'dead' or not self.checkedPlayAll ) then --Проверки, находящиеся в скобках, должны быть ТОЛЬКО в таком порядке, иначе будут проблемы!!!
+    if self.isClosed and ( not self.play_all or coroutine.status(self.play_all) == 'dead' or not self.checkedPlayAll ) then --РџСЂРѕРІРµСЂРєРё, РЅР°С…РѕРґСЏС‰РёРµСЃСЏ РІ СЃРєРѕР±РєР°С…, РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РўРћР›Р¬РљРћ РІ С‚Р°РєРѕРј РїРѕСЂСЏРґРєРµ, РёРЅР°С‡Рµ Р±СѓРґСѓС‚ РїСЂРѕР±Р»РµРјС‹!!!
 		self:unBind()
     end
 end
@@ -620,7 +621,7 @@ end
 
 function musicbox_base:UpdateBoxName()
     local current_time = time_global()
-    if self.time_50 <= current_time then -- это в качестве ограничителя. на разных машинах апдейт производится с разной частотой
+    if self.time_50 <= current_time then -- СЌС‚Рѕ РІ РєР°С‡РµСЃС‚РІРµ РѕРіСЂР°РЅРёС‡РёС‚РµР»СЏ. РЅР° СЂР°Р·РЅС‹С… РјР°С€РёРЅР°С… Р°РїРґРµР№С‚ РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ СЃ СЂР°Р·РЅРѕР№ С‡Р°СЃС‚РѕС‚РѕР№
         self.bg_static:SetTextColor(unpack(self.upd_color))
         ------------------------------------------------------------
         local new_a = self.upd_color[1] + self.matrix[self.matrix_pos][1]
@@ -696,6 +697,7 @@ function musicbox_base:UpdateBtnPlayAll()
 end
 
 function musicbox_base:UpdateLogoImg()
+    self.img_static:ResetOriginalRect()
     local checked = self.checkedPlate
     if checked == 0 then
         self.img_static:InitTexture('ui\\mbox\\mbox_logo_start')

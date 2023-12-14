@@ -1,7 +1,7 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
---—истильщик ID длЯ OGSE
---Ђвторы: Stalbar, KamikaZze
+
+--вЂ”РёСЃС‚РёР»СЊС‰РёРє ID РґР»РЇ OGSE
+--Р‚РІС‚РѕСЂС‹: Stalbar, KamikaZze
 
 function attach(sm)
 	sm:subscribe({signal = "on_spawn", fun = this.check_ids})
@@ -34,8 +34,8 @@ function check_inv()
 			if IsStalker(obj) and obj.id ~= 0 then
 				local obj_sect = obj:section_name()
 				local obj_name = obj:name()
-				local posobj = obj.position  --- получим позицию неписЯ
-				local actorpos = db.actor:position()  --- получим позицию актора
+				local posobj = obj.position  --- РїРѕР»СѓС‡РёРј РїРѕР·РёС†РёСЋ РЅРµРїРёСЃРЇ
+				local actorpos = db.actor:position()  --- РїРѕР»СѓС‡РёРј РїРѕР·РёС†РёСЋ Р°РєС‚РѕСЂР°
 				if not ogse.is_quest_npc(obj) and obj.online then
 					if posobj:distance_to(actorpos) > 5 then
 						-- log1("DEBUG: Cleaning up items of "..obj:name())
@@ -58,7 +58,7 @@ function check_inv()
 	end
 end
 
--- „обавление в таблицу
+-- вЂћРѕР±Р°РІР»РµРЅРёРµ РІ С‚Р°Р±Р»РёС†Сѓ
 function insert_to_table(tbl, section)
 	if tbl[section] == nil then
 		tbl[section] = 1

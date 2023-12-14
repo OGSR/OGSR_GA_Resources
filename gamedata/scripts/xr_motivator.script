@@ -1,9 +1,9 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --[[-----------------------------
-автор: Диденко Руслан (Stohe)
+Р°РІС‚РѕСЂ: Р”РёРґРµРЅРєРѕ Р СѓСЃР»Р°РЅ (Stohe)
 
-порядок вызова методов биндера:
+РїРѕСЂСЏРґРѕРє РІС‹Р·РѕРІР° РјРµС‚РѕРґРѕРІ Р±РёРЅРґРµСЂР°:
 reload
 reinit
 load
@@ -11,7 +11,7 @@ net_spawn
 -------------------------------]]
 
 --*****************************************************************************************************
---[==[ --KRodin: выключено.
+--[==[ --KRodin: РІС‹РєР»СЋС‡РµРЅРѕ.
 
 local warn_check_timer = {}
 local snd_check_timer = {}
@@ -36,7 +36,7 @@ local function look_to_shot(object, who)
 end
 
 local function recognize_sound(sound_type)
-	-- Выясняем тип звука
+	-- Р’С‹СЏСЃРЅСЏРµРј С‚РёРї Р·РІСѓРєР°
 	local sn_t = "NIL"
 	
 	if bit_and(sound_type, snd_type.weapon) == snd_type.weapon then
@@ -118,8 +118,8 @@ local function check_sound(self, who, sound_type, sound_position, sound_power)
 		return 
 	end
 
-	-- Реакция на звуки --
-	-- Расстояния проверки
+	-- Р РµР°РєС†РёСЏ РЅР° Р·РІСѓРєРё --
+	-- Р Р°СЃСЃС‚РѕСЏРЅРёСЏ РїСЂРѕРІРµСЂРєРё
 	local who_dist = 1000
 	local check_dist = 25*sound_power
 	local who_dist = self:position():distance_to(who:position())
@@ -128,7 +128,7 @@ local function check_sound(self, who, sound_type, sound_position, sound_power)
 		return
 	end
 
-	-- Отсеиваем свои звуки и звуки друзей
+	-- РћС‚СЃРµРёРІР°РµРј СЃРІРѕРё Р·РІСѓРєРё Рё Р·РІСѓРєРё РґСЂСѓР·РµР№
 	if (who:is_monster() or who:is_stalker() or who:is_actor()) 
 	and (who:alive() and self:alive()) then
 		if who:id() == self:id() 
@@ -150,7 +150,7 @@ local function check_sound(self, who, sound_type, sound_position, sound_power)
 	blow.type = hit.wound
 	blow.direction = utils.vector_copy_by_val(self:position()):sub(who:position())
 --]=]
-	-- Если тип задан проверим реакцию на него
+	-- Р•СЃР»Рё С‚РёРї Р·Р°РґР°РЅ РїСЂРѕРІРµСЂРёРј СЂРµР°РєС†РёСЋ РЅР° РЅРµРіРѕ
 	if snd_t and snd_t ~= "NIL" and not self:best_enemy() then
 		if ( who:is_stalker() or who:is_actor() ) and self:relation(who) == game_object.enemy and self:binded_object():enemy_callback( self, who ) then
 			if snd_t == "WPN_empty" or
@@ -193,7 +193,7 @@ local function check_sound(self, who, sound_type, sound_position, sound_power)
 					self:make_object_visible_somewhen(who)
 				end
 			elseif snd_t == "WPN_shoot" then
-				-- self:hit(blow) -- попробуем без хита прямого, поглядим что будет
+				-- self:hit(blow) -- РїРѕРїСЂРѕР±СѓРµРј Р±РµР· С…РёС‚Р° РїСЂСЏРјРѕРіРѕ, РїРѕРіР»СЏРґРёРј С‡С‚Рѕ Р±СѓРґРµС‚
 				stop_play_sound(self)
 				self:set_mental_state(anim.danger)
 				self:set_sight(look.point,sound_position)
@@ -229,7 +229,7 @@ local function check_sound(self, who, sound_type, sound_position, sound_power)
 				self:set_mental_state(anim.danger)
 				self:make_object_visible_somewhen(who)
 			elseif snd_t == "MST_attack" then
-				--self:hit(blow) --KRodin: убрал хит и тут, посмотрим
+				--self:hit(blow) --KRodin: СѓР±СЂР°Р» С…РёС‚ Рё С‚СѓС‚, РїРѕСЃРјРѕС‚СЂРёРј
 				stop_play_sound(self)
 				self:set_sight(look.point,sound_position)
 				self:set_mental_state(anim.danger)
@@ -276,7 +276,7 @@ function motivator_binder:reinit()
     self.st = db.storage[self.object:id()]
 
 	if self.object:alive() then
-		self.st.state_mgr = state_mgr.bind_manager(self.object) --Создание менеджера контроля положений тела
+		self.st.state_mgr = state_mgr.bind_manager(self.object) --РЎРѕР·РґР°РЅРёРµ РјРµРЅРµРґР¶РµСЂР° РєРѕРЅС‚СЂРѕР»СЏ РїРѕР»РѕР¶РµРЅРёР№ С‚РµР»Р°
 
 		self.st.move_mgr = move_mgr.move_mgr(self.object)
 		self.st.move_mgr:initialize()
@@ -291,7 +291,7 @@ function motivator_binder:net_spawn(sobject)
 
 	db.add_obj(self.object)
 	--
-	if not self.loaded then --Загрузка историй для лагеря и не только. Там же выдаются инфопорции из кастомдаты. Делается походу при первом спавне каждого НПС. Нужно это делать для всех, и мертвых, и живых.
+	if not self.loaded then --Р—Р°РіСЂСѓР·РєР° РёСЃС‚РѕСЂРёР№ РґР»СЏ Р»Р°РіРµСЂСЏ Рё РЅРµ С‚РѕР»СЊРєРѕ. РўР°Рј Р¶Рµ РІС‹РґР°СЋС‚СЃСЏ РёРЅС„РѕРїРѕСЂС†РёРё РёР· РєР°СЃС‚РѕРјРґР°С‚С‹. Р”РµР»Р°РµС‚СЃСЏ РїРѕС…РѕРґСѓ РїСЂРё РїРµСЂРІРѕРј СЃРїР°РІРЅРµ РєР°Р¶РґРѕРіРѕ РќРџРЎ. РќСѓР¶РЅРѕ СЌС‚Рѕ РґРµР»Р°С‚СЊ РґР»СЏ РІСЃРµС…, Рё РјРµСЂС‚РІС‹С…, Рё Р¶РёРІС‹С….
 		local char_ini = self.object:spawn_ini() or dsh.cached_ini_file("scripts\\dummy.ltx")
 		xr_info.loadInfo(self.object, char_ini)
 	end
@@ -303,8 +303,8 @@ function motivator_binder:net_spawn(sobject)
 	if not self.object:alive() then
 		if rx_ai then rx_ai.corpse_net_spawn(self.object,self.loaded) end
 
-		--' Наносим небольшой импульс вперед.
---[=[ -- KRodin: выключено, если будут повисания трупов в воздухе - включить.
+		--' РќР°РЅРѕСЃРёРј РЅРµР±РѕР»СЊС€РѕР№ РёРјРїСѓР»СЊСЃ РІРїРµСЂРµРґ.
+--[=[ -- KRodin: РІС‹РєР»СЋС‡РµРЅРѕ, РµСЃР»Рё Р±СѓРґСѓС‚ РїРѕРІРёСЃР°РЅРёСЏ С‚СЂСѓРїРѕРІ РІ РІРѕР·РґСѓС…Рµ - РІРєР»СЋС‡РёС‚СЊ.
 		local h = hit()
 		h.draftsman = self.object
 		h.type = hit.fire_wound
@@ -317,7 +317,7 @@ function motivator_binder:net_spawn(sobject)
 		local s_obj = alife():object(self.object:id())
 		--log3("~~offline_dead [%s] is [%s], game.time() is [%s]", s_obj:name(), s_obj.offline_dead, game.time())
 		if s_obj.offline_dead == 0 then
-			if s_obj.treasure_processed then --Вечные трупы будут удаляться только после того как их обыщет актор
+			if s_obj.treasure_processed then --Р’РµС‡РЅС‹Рµ С‚СЂСѓРїС‹ Р±СѓРґСѓС‚ СѓРґР°Р»СЏС‚СЊСЃСЏ С‚РѕР»СЊРєРѕ РїРѕСЃР»Рµ С‚РѕРіРѕ РєР°Рє РёС… РѕР±С‹С‰РµС‚ Р°РєС‚РѕСЂ
 				--log3("--[%s] Added trup to delete: [%s]", script_name(), s_obj:name())
 				s_obj.offline_dead = game.time()+(1*24*60*60*1000)
 			end
@@ -327,7 +327,7 @@ function motivator_binder:net_spawn(sobject)
 		elseif s_obj.offline_dead > 1 and s_obj.offline_dead <= game.time() then
 			if
 				not death_manager.offline_dead_quest_check(self.object)
-				and self.object:position():distance_to( db.actor:position() ) > ( alife():switch_distance() / 2 ) --Удаляем только вдалеке от актора
+				and self.object:position():distance_to( db.actor:position() ) > ( alife():switch_distance() / 2 ) --РЈРґР°Р»СЏРµРј С‚РѕР»СЊРєРѕ РІРґР°Р»РµРєРµ РѕС‚ Р°РєС‚РѕСЂР°
 			then
 				log3("--[%s] Released trup: [%s]", script_name(), s_obj:name())
 				alife():release(s_obj, true)
@@ -352,7 +352,7 @@ function motivator_binder:net_spawn(sobject)
 	manager:remove_evaluator(stalker_ids.property_anomaly)
 	manager:add_evaluator(stalker_ids.property_anomaly, property_evaluator_const(false))
 	--
-	-- отключить движковую схему подбирания оружия
+	-- РѕС‚РєР»СЋС‡РёС‚СЊ РґРІРёР¶РєРѕРІСѓСЋ СЃС…РµРјСѓ РїРѕРґР±РёСЂР°РЅРёСЏ РѕСЂСѓР¶РёСЏ
 	manager:remove_evaluator( stalker_ids.property_items )
 	manager:add_evaluator(
 		stalker_ids.property_items, property_evaluator_const( false )
@@ -371,7 +371,7 @@ function motivator_binder:net_spawn(sobject)
 		manager:add_evaluator(ogsm_hideout.property_inhide, property_evaluator_const(false))
 	end
 	--
-	if not self.loaded then --Нужно для того, чтоб логика сохранялась/загружалась при перебросе непися в оффлайн/онлайн. В этом случае метод load() не вызывается. В том числе юзается при телепортации неписей с локи на локу. Они ведь в этом случае просто выйдут в онлайн, без load()
+	if not self.loaded then --РќСѓР¶РЅРѕ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР± Р»РѕРіРёРєР° СЃРѕС…СЂР°РЅСЏР»Р°СЃСЊ/Р·Р°РіСЂСѓР¶Р°Р»Р°СЃСЊ РїСЂРё РїРµСЂРµР±СЂРѕСЃРµ РЅРµРїРёСЃСЏ РІ РѕС„С„Р»Р°Р№РЅ/РѕРЅР»Р°Р№РЅ. Р’ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ РјРµС‚РѕРґ load() РЅРµ РІС‹Р·С‹РІР°РµС‚СЃСЏ. Р’ С‚РѕРј С‡РёСЃР»Рµ СЋР·Р°РµС‚СЃСЏ РїСЂРё С‚РµР»РµРїРѕСЂС‚Р°С†РёРё РЅРµРїРёСЃРµР№ СЃ Р»РѕРєРё РЅР° Р»РѕРєСѓ. РћРЅРё РІРµРґСЊ РІ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ РїСЂРѕСЃС‚Рѕ РІС‹Р№РґСѓС‚ РІ РѕРЅР»Р°Р№РЅ, Р±РµР· load()
 		self.loaded = xr_logic.load_logic_online(self.object)
 		local st = self.st
 		st.loaded_ini_filename = st.ini_filename
@@ -380,7 +380,7 @@ function motivator_binder:net_spawn(sobject)
 		st.loaded_gulag_name = st.gulag_name
 	end
 	--
-	self.am:call( "on_npc_before_spawn", self.object, self ) --тут происходит загрузка озвучки
+	self.am:call( "on_npc_before_spawn", self.object, self ) --С‚СѓС‚ РїСЂРѕРёСЃС…РѕРґРёС‚ Р·Р°РіСЂСѓР·РєР° РѕР·РІСѓС‡РєРё
 	--
 	xr_gulag.setup_gulag_and_logic_on_spawn( self.object, self.st, sobject, modules.stype_stalker, self.loaded )
 	--
@@ -471,16 +471,16 @@ function motivator_binder:before_hit_callback(hit_data)
 --log3("--Hit_data: who: [%s], who_id: [%s], dir.x: [%s], hit_type: [%s], weapon_id: [%s]", hit_data.who and hit_data.who:name() or "NIL", hit_data.who_id, hit_data.dir.x, hit_data.hit_type, hit_data.weapon_id)
 	if hit_data.who_id then
 		local obj = hit_data.who
-		if obj then -- если есть виновник хита
+		if obj then -- РµСЃР»Рё РµСЃС‚СЊ РІРёРЅРѕРІРЅРёРє С…РёС‚Р°
 			if
-				( bind_statpkm.pkm_captured and hit_data.who_id == bind_statpkm.pkm_captured ) -- если это турель
-				or ( ogse_car_control.current_car and ogse_car_control.current_car:id() == hit_data.who_id ) -- если это БТР, в котором сидит актор
-			then -- то надо заменить на реального виновника, т.е. ГГ
+				( bind_statpkm.pkm_captured and hit_data.who_id == bind_statpkm.pkm_captured ) -- РµСЃР»Рё СЌС‚Рѕ С‚СѓСЂРµР»СЊ
+				or ( ogse_car_control.current_car and ogse_car_control.current_car:id() == hit_data.who_id ) -- РµСЃР»Рё СЌС‚Рѕ Р‘РўР , РІ РєРѕС‚РѕСЂРѕРј СЃРёРґРёС‚ Р°РєС‚РѕСЂ
+			then -- С‚Рѕ РЅР°РґРѕ Р·Р°РјРµРЅРёС‚СЊ РЅР° СЂРµР°Р»СЊРЅРѕРіРѕ РІРёРЅРѕРІРЅРёРєР°, С‚.Рµ. Р“Р“
 				hit_data.who = db.actor
 				hit_data.who_id = db.actor:id()
-			elseif --Проверяем условия игнорирования урона от дружественного огня
+			elseif --РџСЂРѕРІРµСЂСЏРµРј СѓСЃР»РѕРІРёСЏ РёРіРЅРѕСЂРёСЂРѕРІР°РЅРёСЏ СѓСЂРѕРЅР° РѕС‚ РґСЂСѓР¶РµСЃС‚РІРµРЅРЅРѕРіРѕ РѕРіРЅСЏ
 				obj:is_stalker()
-				and ( hit_data.who_id ~= self.object:id() or hit_data.hit_type == hit.explosion ) --Попробую обработать ситуацию, когда тупой НПС себе гранату под ноги швырнул.
+				and ( hit_data.who_id ~= self.object:id() or hit_data.hit_type == hit.explosion ) --РџРѕРїСЂРѕР±СѓСЋ РѕР±СЂР°Р±РѕС‚Р°С‚СЊ СЃРёС‚СѓР°С†РёСЋ, РєРѕРіРґР° С‚СѓРїРѕР№ РќРџРЎ СЃРµР±Рµ РіСЂР°РЅР°С‚Сѓ РїРѕРґ РЅРѕРіРё С€РІС‹СЂРЅСѓР».
 				and (
 					( not self.object:is_relation_enemy( obj ) and not obj:is_relation_enemy( self.object ) )
 					or ( xr_companion.is_companion(self.object:id()) and xr_companion.is_companion(hit_data.who_id) )
@@ -488,13 +488,13 @@ function motivator_binder:before_hit_callback(hit_data)
 			then
 				--log3("~~[%s] Friendly-Fire detected! [%s --> %s]", script_name(), obj:name(), self.object:name())
 				hit_data.ignore_hit = true
-				return -- хит проигнорировали - дальше делать нечего.
+				return -- С…РёС‚ РїСЂРѕРёРіРЅРѕСЂРёСЂРѕРІР°Р»Рё - РґР°Р»СЊС€Рµ РґРµР»Р°С‚СЊ РЅРµС‡РµРіРѕ.
 			end
 			--
 			if hit_data.weapon_id then
 				local wpn = level.object_by_id(hit_data.weapon_id)
 				if hit_data.hit_type == hit.fire_wound and wpn and wpn:is_weapon_magazined() then
-					--Увеличим урон от оружия при стрельбе по нпс
+					--РЈРІРµР»РёС‡РёРј СѓСЂРѕРЅ РѕС‚ РѕСЂСѓР¶РёСЏ РїСЂРё СЃС‚СЂРµР»СЊР±Рµ РїРѕ РЅРїСЃ
 					local koef = get_float(wpn:section(), "multiply_hit_from_actor", 1)
 					--log3("~~[%s] Power of hit before: [%s], after [%s]", script_name(), hit_data.power, hit_data.power * koef)
 					hit_data.power = hit_data.power * koef
@@ -519,7 +519,7 @@ function motivator_binder:hit_callback(obj, amount, local_direction, who, bone_i
 	end
 	self.object:make_object_visible_somewhen(who)
 	--
---[=[ --Хрень. Выключаю.
+--[=[ --РҐСЂРµРЅСЊ. Р’С‹РєР»СЋС‡Р°СЋ.
 	local warn_timer = time_global()
 	if not ogse.is_quest_npc(self.object) and not xr_companion.is_companion(self.object:id()) then
 		if not warn_check_timer[self.object:id()] then
@@ -533,25 +533,25 @@ function motivator_binder:hit_callback(obj, amount, local_direction, who, bone_i
 	end
 --]=]
 	--
-	if amount < 0.3 and xr_companion.is_companion(self.object:id()) then --Зачем оно нужно? Типа напарник прекращает говорить когда слышит выстрелы где-то?
+	if amount < 0.3 and xr_companion.is_companion(self.object:id()) then --Р—Р°С‡РµРј РѕРЅРѕ РЅСѓР¶РЅРѕ? РўРёРїР° РЅР°РїР°СЂРЅРёРє РїСЂРµРєСЂР°С‰Р°РµС‚ РіРѕРІРѕСЂРёС‚СЊ РєРѕРіРґР° СЃР»С‹С€РёС‚ РІС‹СЃС‚СЂРµР»С‹ РіРґРµ-С‚Рѕ?
 		xr_sound.set_sound(self.object, nil)
 		stop_play_sound(self.object)
 	end
 	--
-	if amount == 0 or bone_index == 0 then return end --Далее не учитываем выстрелы в воздух. Причина:
+	if amount == 0 or bone_index == 0 then return end --Р”Р°Р»РµРµ РЅРµ СѓС‡РёС‚С‹РІР°РµРј РІС‹СЃС‚СЂРµР»С‹ РІ РІРѕР·РґСѓС…. РџСЂРёС‡РёРЅР°:
 --[=[
 	https://github.com/dsh2dsh/op2ogse/commit/cca8d619581116be44e48a54dfab8039b39a96db
-	Я делал все это в предположении, что перед любым hit_callback
-	вызывается before_hit_callback, а если был вызван hit_callback, значит
-	100% перед ним был вызван before_hit. Всегда. Но это не так. Если было
-	указано игнорирование хита, как в случае дружественного огня, то
-	hit_callback вызван не будет. Если движок нанесет хит для привлечения
-	внимания, с power == 0, то before_hit не будет вызван.
+	РЇ РґРµР»Р°Р» РІСЃРµ СЌС‚Рѕ РІ РїСЂРµРґРїРѕР»РѕР¶РµРЅРёРё, С‡С‚Рѕ РїРµСЂРµРґ Р»СЋР±С‹Рј hit_callback
+	РІС‹Р·С‹РІР°РµС‚СЃСЏ before_hit_callback, Р° РµСЃР»Рё Р±С‹Р» РІС‹Р·РІР°РЅ hit_callback, Р·РЅР°С‡РёС‚
+	100% РїРµСЂРµРґ РЅРёРј Р±С‹Р» РІС‹Р·РІР°РЅ before_hit. Р’СЃРµРіРґР°. РќРѕ СЌС‚Рѕ РЅРµ С‚Р°Рє. Р•СЃР»Рё Р±С‹Р»Рѕ
+	СѓРєР°Р·Р°РЅРѕ РёРіРЅРѕСЂРёСЂРѕРІР°РЅРёРµ С…РёС‚Р°, РєР°Рє РІ СЃР»СѓС‡Р°Рµ РґСЂСѓР¶РµСЃС‚РІРµРЅРЅРѕРіРѕ РѕРіРЅСЏ, С‚Рѕ
+	hit_callback РІС‹Р·РІР°РЅ РЅРµ Р±СѓРґРµС‚. Р•СЃР»Рё РґРІРёР¶РѕРє РЅР°РЅРµСЃРµС‚ С…РёС‚ РґР»СЏ РїСЂРёРІР»РµС‡РµРЅРёСЏ
+	РІРЅРёРјР°РЅРёСЏ, СЃ power == 0, С‚Рѕ before_hit РЅРµ Р±СѓРґРµС‚ РІС‹Р·РІР°РЅ.
 --]=]
 --log3("~~[%s] Called hit callback: obj: [%s], amount: [%s], local_direction: [%s], who: [%s], bone_index: [%s]", script_name(), self.object:name() or "nil", amount or "nil", local_direction or "nil", who:name() or "nil", bone_index or "nil")
 	--
-	-- FIXME: коллбеки неплохо было бы регистрировать в общем storage, а не посхемно...
-	-- просто всегда ставить их при включении схемы и снимать при отключении.
+	-- FIXME: РєРѕР»Р»Р±РµРєРё РЅРµРїР»РѕС…Рѕ Р±С‹Р»Рѕ Р±С‹ СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊ РІ РѕР±С‰РµРј storage, Р° РЅРµ РїРѕСЃС…РµРјРЅРѕ...
+	-- РїСЂРѕСЃС‚Рѕ РІСЃРµРіРґР° СЃС‚Р°РІРёС‚СЊ РёС… РїСЂРё РІРєР»СЋС‡РµРЅРёРё СЃС…РµРјС‹ Рё СЃРЅРёРјР°С‚СЊ РїСЂРё РѕС‚РєР»СЋС‡РµРЅРёРё.
 	if self.st.active_section then
 		xr_logic.issue_event(self.object, self.st[self.st.active_scheme], "hit_callback", self.object, amount, local_direction, who, bone_index)
 	end
@@ -600,7 +600,7 @@ function motivator_binder:death_callback(victim, who)
 
 	self:clear_callbacks()
 
-	xr_statistic.addKillCount(who, self.object) --Добавление опыта за убийство
+	xr_statistic.addKillCount(who, self.object) --Р”РѕР±Р°РІР»РµРЅРёРµ РѕРїС‹С‚Р° Р·Р° СѓР±РёР№СЃС‚РІРѕ
 
 	self.st.move_mgr = nil
 
@@ -693,9 +693,9 @@ function motivator_binder:hear_callback(obj, who, sound_type, sound_position, so
 	if xr_companion.is_companion(self.object:id()) then return end
 
 	if
-		who:id() == bind_statpkm.pkm_captured -- если это турель
-		or ( ogse_car_control.current_car and ogse_car_control.current_car:id() == who:id() ) -- если это БТР, в котором сидит актор
-	then -- то надо заменить на реального виновника, т.е. ГГ
+		who:id() == bind_statpkm.pkm_captured -- РµСЃР»Рё СЌС‚Рѕ С‚СѓСЂРµР»СЊ
+		or ( ogse_car_control.current_car and ogse_car_control.current_car:id() == who:id() ) -- РµСЃР»Рё СЌС‚Рѕ Р‘РўР , РІ РєРѕС‚РѕСЂРѕРј СЃРёРґРёС‚ Р°РєС‚РѕСЂ
+	then -- С‚Рѕ РЅР°РґРѕ Р·Р°РјРµРЅРёС‚СЊ РЅР° СЂРµР°Р»СЊРЅРѕРіРѕ РІРёРЅРѕРІРЅРёРєР°, С‚.Рµ. Р“Р“
 		who = db.actor
 	end
 
@@ -739,7 +739,7 @@ end
 function motivator_binder:on_item_drop(obj)
 	if not obj then return end
 	local sobj = alife():object(obj:id())
-	--if not sobj then return end --XRKRODIN: Это важно, чтобы правильно обновлять оружейный менежжер при удалении оружия из инвентаря нпс, не раскомментировать!
+	--if not sobj then return end --XRKRODIN: Р­С‚Рѕ РІР°Р¶РЅРѕ, С‡С‚РѕР±С‹ РїСЂР°РІРёР»СЊРЅРѕ РѕР±РЅРѕРІР»СЏС‚СЊ РѕСЂСѓР¶РµР№РЅС‹Р№ РјРµРЅРµР¶Р¶РµСЂ РїСЂРё СѓРґР°Р»РµРЅРёРё РѕСЂСѓР¶РёСЏ РёР· РёРЅРІРµРЅС‚Р°СЂСЏ РЅРїСЃ, РЅРµ СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ!
 
 	if obj:is_weapon() then
 		timer_drop_weapon(obj, obj:parent()):start()
@@ -771,13 +771,13 @@ function motivator_binder:on_item_take(obj)
 	self.am:call( "on_npc_item_take", self.object, obj, sobj )
 end
 
---Функция проверяет, может ли объект вступать в бой с предполагаемым противником (enemy_st).
---Если вернёт false - объект не будет вступать в бой.
---Вызывается:
---Одноименным калбеком из движка (для движковой боёвки)
---Из xr_danger
---Из xr_camper.action_patrol:process_danger()
---Из функции check_sound в мотиваторе
+--Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂСЏРµС‚, РјРѕР¶РµС‚ Р»Рё РѕР±СЉРµРєС‚ РІСЃС‚СѓРїР°С‚СЊ РІ Р±РѕР№ СЃ РїСЂРµРґРїРѕР»Р°РіР°РµРјС‹Рј РїСЂРѕС‚РёРІРЅРёРєРѕРј (enemy_st).
+--Р•СЃР»Рё РІРµСЂРЅС‘С‚ false - РѕР±СЉРµРєС‚ РЅРµ Р±СѓРґРµС‚ РІСЃС‚СѓРїР°С‚СЊ РІ Р±РѕР№.
+--Р’С‹Р·С‹РІР°РµС‚СЃСЏ:
+--РћРґРЅРѕРёРјРµРЅРЅС‹Рј РєР°Р»Р±РµРєРѕРј РёР· РґРІРёР¶РєР° (РґР»СЏ РґРІРёР¶РєРѕРІРѕР№ Р±РѕС‘РІРєРё)
+--РР· xr_danger
+--РР· xr_camper.action_patrol:process_danger()
+--РР· С„СѓРЅРєС†РёРё check_sound РІ РјРѕС‚РёРІР°С‚РѕСЂРµ
 local enemy_callback_freq = 1000
 function motivator_binder:enemy_callback( obj, enemy_st )
   local valid, enemy = validate_enemy_object( enemy_st )
@@ -820,7 +820,7 @@ function AddToMotivator(npc)
 	end
 end
 
--- Эвалюаторы, которые имеют высший приоритет, и, соответственно, перебивают остальные скрипты собой
+-- Р­РІР°Р»СЋР°С‚РѕСЂС‹, РєРѕС‚РѕСЂС‹Рµ РёРјРµСЋС‚ РІС‹СЃС€РёР№ РїСЂРёРѕСЂРёС‚РµС‚, Рё, СЃРѕРѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕ, РїРµСЂРµР±РёРІР°СЋС‚ РѕСЃС‚Р°Р»СЊРЅС‹Рµ СЃРєСЂРёРїС‚С‹ СЃРѕР±РѕР№
 function addCommonPrecondition(action)
 	action:add_precondition (world_property(xr_evaluators_id.stohe_meet_base + 1,false))
 	action:add_precondition (world_property(xr_evaluators_id.sidor_wounded_base + 0,  false))

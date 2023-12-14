@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 animations = {
 
@@ -283,14 +283,6 @@ otpad =     {
 vmordu =     { 
 	prop = { maxidle = 3, sumidle = 3, rnd = 100 }, 
 	into = { [0] = "udar_0", {f=xr_effects.actor_punch} },  
-	out = nil, 
-	idle = nil,
-	rnd = nil
-	},
-
-otpad =     { 
-	prop = { maxidle = 3, sumidle = 3, rnd = 100 }, 
-	into = { [0] = "test" },  
 	out = nil, 
 	idle = nil,
 	rnd = nil

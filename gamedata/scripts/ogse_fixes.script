@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function attach(sm)
 	sm:subscribe({ signal = "on_spawn", fun = this.on_spawn })
@@ -45,6 +45,13 @@ function on_spawn()
 	fox_can_hide()
 	--
 	fix_l01_escape_level_changer_to_darkscape()
+	--
+	fix_ecologs_flags()
+	--
+	fix_exit_to_yantar_01()
+	fix_l08_yantar_level_changer_to_rostok()
+	--
+	fix_l09_deadcity_ogse_water_restrictor()
 end
 
 function on_first_update()
@@ -127,6 +134,24 @@ function lc_question_add() --Переход "Припять - ЧАЭС" зада
 			log3( "~~[%s]: fixed ['exit_to_stancia_01']...", script_name() )
 		end
 	end
+end
+
+--Фиксим странные флаги экологов, из за них они не могут ходить между смартами в оффлайне
+function fix_ecologs_flags()
+	if ogse.var_exists("fix_ecologs_flags") then return end
+	for i = 1, 4 do
+		local sobj = alife():object("bar_ecolog_crush_"..i)
+		if sobj then
+			local pk = get_netpk( sobj, 1 )
+			ASSERT( ( pk and pk:isOk() ), "can't read netpacket of %s", sobj:name() )
+			local data = pk:get()
+			data.object_flags = bit_and( data.object_flags, bit_not( object_flags.OfflineNoMove ) ) -- снять флаг OfflineNoMove
+			data.object_flags = bit_or( data.object_flags, object_flags.Interactive ) -- установить флаг Interactive
+			pk:set( data )
+			log3( "--[%s]: Fixed object_flags for [%s]!", script_name(), sobj:name() )
+		end
+	end
+	ogse.save_var("fix_ecologs_flags", true)
 end
 
 
@@ -542,4 +567,80 @@ function fix_l01_escape_level_changer_to_darkscape()
   lc.dest_direction       = vector():set( 0.71428716182709, 0, -0.69985258579254 )
 
   ogse.save_var("fix_l01_escape_level_changer_to_darkscape", true)
+end
+
+
+--Передвинем переход ДТ - Янтарь дальше, чтобы можно было там артефакты собирать, места там достаточно, и аномалии спавнятся.
+function fix_exit_to_yantar_01()
+  if ogse.var_exists("fix_exit_to_yantar_01") then return end
+
+  local sobj = alife():object( "exit_to_yantar_01" )
+  if not sobj then return end
+
+  log3( "~~[%s]: fix %s (%s)", script_name(), sobj:name(), sobj.level_name )
+
+  local pk = get_netpk( sobj, 1 )
+  ASSERT( ( pk and pk:isOk() ), "can't read netpacket of %s", sobj:name() )
+  local data = pk:get()
+  for i = data.shapes:count(), 1, -1 do
+    data.shapes:remove( i )
+  end
+  data.shapes:addBox(
+    vector():set( 5.3630771636963, 0, 0 ),
+    vector():set( 0, 51.7493057250977, 0 ),
+    vector():set( 0, 0, 130.1936874389648 ),
+    vector():set( 0, 0, 0 )
+  )
+  pk:set( data )
+
+  sobj.game_vertex_id  = 1454
+  sobj.level_vertex_id = 34231
+  sobj.position        = vector():set( -165.875885, -10.614461, -322.959808 )
+  sobj.angle           = vector():set( -0.0813582167029381, 1.753351366519928, -0.0476411543786526 )
+
+  ogse.save_var("fix_exit_to_yantar_01", true)
+end
+
+--Передвигаем точку прибытия на ДТ с Янтаря
+function fix_l08_yantar_level_changer_to_rostok()
+  if ogse.var_exists("fix_l08_yantar_level_changer_to_rostok") then return end
+
+  local sobj = alife():object( "l08_yantar_level_changer_to_rostok" )
+  if not sobj then return end
+
+  log3( "~~[%s]: fix %s (%s)", script_name(), sobj:name(), sobj.level_name )
+  local lc = sobj:get_level_changer()
+  lc.dest_game_vertex_id  = 1454
+  lc.dest_level_vertex_id = 36624
+  lc.dest_position        = vector():set( -158.882507, -10.907034, -305.248718 )
+  lc.dest_direction       = vector():set( 0.162442, -0.010871, 0.986658 )
+
+  ogse.save_var("fix_l08_yantar_level_changer_to_rostok", true)
+end
+
+
+--Увеличим высоту рестриктора воды
+function fix_l09_deadcity_ogse_water_restrictor()
+  if ogse.var_exists("fix_l09_deadcity_ogse_water_restrictor") then return end
+
+  local sobj = alife():object( "l09_deadcity_ogse_water_restrictor" )
+  if not sobj then return end
+
+  log3( "~~[%s]: fix %s (%s)", script_name(), sobj:name(), sobj.level_name )
+
+  local pk = get_netpk( sobj, 1 )
+  ASSERT( ( pk and pk:isOk() ), "can't read netpacket of %s", sobj:name() )
+  local data = pk:get()
+  for i = data.shapes:count(), 1, -1 do
+    data.shapes:remove( i )
+  end
+  data.shapes:addBox(
+    vector():set( 55,0,0 ),
+    vector():set( 0,8,0 ),
+    vector():set( 0,0,81 ),
+    vector():set( 0,0,0 )
+  )
+  pk:set( data )
+
+  ogse.save_var("fix_l09_deadcity_ogse_water_restrictor", true)
 end

@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --------------------
 --Monster binding
@@ -29,7 +29,7 @@ function generic_object_binder:reinit()
 --log3("~~[%s] Start reinit [%s]", script_name(), self.object and self.object:name() or "nil")
 	object_binder.reinit(self)
 
-	-- У торговца нет поддержки перемещения
+	-- РЈ С‚РѕСЂРіРѕРІС†Р° РЅРµС‚ РїРѕРґРґРµСЂР¶РєРё РїРµСЂРµРјРµС‰РµРЅРёСЏ
 	if self.object:clsid() ~= clsid.script_trader then
 		self.object:set_patrol_extrapolate_callback(self.extrapolate_callback, self)
 	end
@@ -53,7 +53,7 @@ function generic_object_binder:net_spawn(sobject)
 	if not self.object:alive() then
 		if rx_ai then rx_ai.corpse_net_spawn(self.object, self.loaded) end
 
-		--' Наносим небольшой импульс вперед.
+		--' РќР°РЅРѕСЃРёРј РЅРµР±РѕР»СЊС€РѕР№ РёРјРїСѓР»СЊСЃ РІРїРµСЂРµРґ.
 		local h = hit()
 		h.draftsman = self.object
 		h.type = hit.fire_wound
@@ -70,7 +70,7 @@ function generic_object_binder:net_spawn(sobject)
 		elseif s_obj.offline_dead == 1 then
 			s_obj.offline_dead = game.time()+(1*24*60*60*1000)
 		elseif s_obj.offline_dead > 1 and s_obj.offline_dead <= game.time() then
-			if self.object:position():distance_to( db.actor:position() ) > alife():switch_distance() / 2 then --Удаляем только вдалеке от актора
+			if self.object:position():distance_to( db.actor:position() ) > alife():switch_distance() / 2 then --РЈРґР°Р»СЏРµРј С‚РѕР»СЊРєРѕ РІРґР°Р»РµРєРµ РѕС‚ Р°РєС‚РѕСЂР°
 				log3("--[%s] Released trup: [%s]", script_name(), s_obj:name())
 				alife():release(s_obj, true)
 			end
@@ -151,7 +151,7 @@ function generic_object_binder:extrapolate_callback()
 	local cur_pt = self.object:get_current_point_index() 
 	local patr = self.object:patrol()
 	if patr == "" then
-		--Такая ситуация - это норма, просто ванильный движок не вылетал при вызове patrol(""), а новый вылетает, проверено.
+		--РўР°РєР°СЏ СЃРёС‚СѓР°С†РёСЏ - СЌС‚Рѕ РЅРѕСЂРјР°, РїСЂРѕСЃС‚Рѕ РІР°РЅРёР»СЊРЅС‹Р№ РґРІРёР¶РѕРє РЅРµ РІС‹Р»РµС‚Р°Р» РїСЂРё РІС‹Р·РѕРІРµ patrol(""), Р° РЅРѕРІС‹Р№ РІС‹Р»РµС‚Р°РµС‚, РїСЂРѕРІРµСЂРµРЅРѕ.
 		log3("!![%s] Invalid patrol path name [%s] for object [%s]", script_name(), patr, self.object:name())
 	elseif patrol(patr):flags(cur_pt):get() == 0 then
 		return true
@@ -178,9 +178,9 @@ function generic_object_binder:death_callback(victim, who)
 		db.actor:give_info_portion("secret_villager_dead")
 	end
 
-	--if db.actor then -- добавлено KamikaZze  с целью отладки 25/02/2009
+	--if db.actor then -- РґРѕР±Р°РІР»РµРЅРѕ KamikaZze  СЃ С†РµР»СЊСЋ РѕС‚Р»Р°РґРєРё 25/02/2009
 	--	if who:is_actor() then
-	-- добавление опыта за убийство
+	-- РґРѕР±Р°РІР»РµРЅРёРµ РѕРїС‹С‚Р° Р·Р° СѓР±РёР№СЃС‚РІРѕ
 			xr_statistic.addKillCount(who, self.object)
 	--	end
 	--end
@@ -203,11 +203,11 @@ end
 function generic_object_binder:before_hit_callback(hit_data)
 --log3("--[%s] Called before_hit_callback for [%s]: %s", script_name(), self.object:name(), hit_data)
 --log3("--Hit_data: who: [%s], who_id: [%s], dir.x: [%s], hit_type: [%s], weapon_id: [%s]", hit_data.who and hit_data.who:name() or "NIL", hit_data.who_id, hit_data.dir.x, hit_data.hit_type, hit_data.weapon_id)
-	if hit_data.who then -- если есть виновник хита
+	if hit_data.who then -- РµСЃР»Рё РµСЃС‚СЊ РІРёРЅРѕРІРЅРёРє С…РёС‚Р°
 		if
-			hit_data.who_id == bind_statpkm.pkm_captured -- если это турель
-			or ( ogse_car_control.current_car and ogse_car_control.current_car:id() == hit_data.who_id ) -- если это БТР, в котором сидит актор
-		then -- то надо заменить на реального виновника, т.е. ГГ
+			hit_data.who_id == bind_statpkm.pkm_captured -- РµСЃР»Рё СЌС‚Рѕ С‚СѓСЂРµР»СЊ
+			or ( ogse_car_control.current_car and ogse_car_control.current_car:id() == hit_data.who_id ) -- РµСЃР»Рё СЌС‚Рѕ Р‘РўР , РІ РєРѕС‚РѕСЂРѕРј СЃРёРґРёС‚ Р°РєС‚РѕСЂ
+		then -- С‚Рѕ РЅР°РґРѕ Р·Р°РјРµРЅРёС‚СЊ РЅР° СЂРµР°Р»СЊРЅРѕРіРѕ РІРёРЅРѕРІРЅРёРєР°, С‚.Рµ. Р“Р“
 			hit_data.who = db.actor
 			hit_data.who_id = db.actor:id()
 		end
@@ -216,7 +216,7 @@ function generic_object_binder:before_hit_callback(hit_data)
 	if hit_data.weapon_id then
 		local wpn = level.object_by_id(hit_data.weapon_id)
 		if hit_data.hit_type == hit.fire_wound and wpn and wpn:is_weapon_magazined() then
-			--Увеличим урон от оружия при стрельбе по нпс
+			--РЈРІРµР»РёС‡РёРј СѓСЂРѕРЅ РѕС‚ РѕСЂСѓР¶РёСЏ РїСЂРё СЃС‚СЂРµР»СЊР±Рµ РїРѕ РЅРїСЃ
 			local koef = get_float(wpn:section(), "multiply_hit_from_actor", 1)
 			--log3("~~[%s] Power of hit before: [%s], after [%s]", script_name(), hit_data.power, hit_data.power * koef)
 			hit_data.power = hit_data.power * koef
@@ -233,7 +233,7 @@ end
 
 function generic_object_binder:hit_callback(obj, amount, local_direction, who, bone_index)
 --log3("--[%s] Called hit_callback for [%s]. Who: [%s], amount: [%s]", script_name(), self.object:name(), who:name(), amount)
-	if amount == 0 or bone_index == 0 then return end --Не учитываем выстрелы в воздух. Причину описал в мотиваторе.
+	if amount == 0 or bone_index == 0 then return end --РќРµ СѓС‡РёС‚С‹РІР°РµРј РІС‹СЃС‚СЂРµР»С‹ РІ РІРѕР·РґСѓС…. РџСЂРёС‡РёРЅСѓ РѕРїРёСЃР°Р» РІ РјРѕС‚РёРІР°С‚РѕСЂРµ.
 	--
 	if self.st.hit then
 		xr_logic.issue_event(self.object, self.st.hit, "hit_callback", self.object, amount, local_direction, who, bone_index)
@@ -321,20 +321,20 @@ function generic_object_binder:load(reader)
 --log3("--[%s] End load [%s]", script_name(), self.object and self.object:name() or "nil")
 end
 
---Функция проверяет, может ли объект вступать в бой с предполагаемым противником (enemy_st).
---Если вернёт false - объект не будет вступать в бой.
---Вызывается:
---Одноименным калбеком из движка (для движковой боёвки)
---Из xr_danger
---Из xr_camper.action_patrol:process_danger()
---Из функции check_sound в мотиваторе
+--Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂСЏРµС‚, РјРѕР¶РµС‚ Р»Рё РѕР±СЉРµРєС‚ РІСЃС‚СѓРїР°С‚СЊ РІ Р±РѕР№ СЃ РїСЂРµРґРїРѕР»Р°РіР°РµРјС‹Рј РїСЂРѕС‚РёРІРЅРёРєРѕРј (enemy_st).
+--Р•СЃР»Рё РІРµСЂРЅС‘С‚ false - РѕР±СЉРµРєС‚ РЅРµ Р±СѓРґРµС‚ РІСЃС‚СѓРїР°С‚СЊ РІ Р±РѕР№.
+--Р’С‹Р·С‹РІР°РµС‚СЃСЏ:
+--РћРґРЅРѕРёРјРµРЅРЅС‹Рј РєР°Р»Р±РµРєРѕРј РёР· РґРІРёР¶РєР° (РґР»СЏ РґРІРёР¶РєРѕРІРѕР№ Р±РѕС‘РІРєРё)
+--РР· xr_danger
+--РР· xr_camper.action_patrol:process_danger()
+--РР· С„СѓРЅРєС†РёРё check_sound РІ РјРѕС‚РёРІР°С‚РѕСЂРµ
 local enemy_callback_freq = 1000
 function generic_object_binder:enemy_callback( obj, enemy_st )
   local valid, enemy = validate_enemy_object( enemy_st )
   if not valid then return false end
 
   return true
---[=[ --Отключено, т.к. пока не используется.
+--[=[ --РћС‚РєР»СЋС‡РµРЅРѕ, С‚.Рє. РїРѕРєР° РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ.
   local res, ttl, t
   local cached = self[ "bind_monster.cached" ]
   if cached then

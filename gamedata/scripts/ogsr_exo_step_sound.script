@@ -1,0 +1,19 @@
+
+local exo_step_snd = "exo\\exo_step"
+
+local function on_footstep(obj, power)
+	local outfit = db.actor:item_in_slot(6)
+	if not outfit then return end
+
+	local is_exo = string.find(outfit:section(), "exo")
+	if is_exo then
+		local snd = xr_sound.get_safe_sound_object(exo_step_snd..math.random(4))
+		local volume = 1000 * math.clamp(power, 0.8, 1.3) --чет громкость даже так не особо прибавляется
+		snd:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), volume)
+	end
+end
+
+
+function attach(sm)
+	sm:subscribe({ signal = "on_footstep", fun = on_footstep })
+end

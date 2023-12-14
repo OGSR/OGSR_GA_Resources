@@ -1,8 +1,8 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -----------------------------------------------------------------------
 --- ogse_teleport_art_quest.script                                       
---- Функции, отвечающие за работу квеста "Неизвестный артефакт"                     
+--- Р¤СѓРЅРєС†РёРё, РѕС‚РІРµС‡Р°СЋС‰РёРµ Р·Р° СЂР°Р±РѕС‚Сѓ РєРІРµСЃС‚Р° "РќРµРёР·РІРµСЃС‚РЅС‹Р№ Р°СЂС‚РµС„Р°РєС‚"                     
 --- Mixser, Phoenix (c) OGS Evolution Team                                      
 --- version 1.1 (15/03/2012)                                             
 -----------------------------------------------------------------------
@@ -15,7 +15,7 @@ local spawn_db = ogse_spawn_db.script_spawn_registry.ogse_teleport_art_quest
 
 
 --SPAWN_V1
---local teleport_art_restrictor_position = vector():set(14.11, -1.97, -151.47) -- стартовая точка
+--local teleport_art_restrictor_position = vector():set(14.11, -1.97, -151.47) -- СЃС‚Р°СЂС‚РѕРІР°СЏ С‚РѕС‡РєР°
 --local teleport_art_restrictor_lvid = 412332
 --local teleport_art_restrictor_gvid = 2916
 
@@ -38,10 +38,10 @@ local teleport_position =
 }
 				
 
--- Спаун рестриктора + артефакта
+-- РЎРїР°СѓРЅ СЂРµСЃС‚СЂРёРєС‚РѕСЂР° + Р°СЂС‚РµС„Р°РєС‚Р°
 function init_teleport_art_and_zone()
 	local id_table = {}
-	-- Рестриктор
+	-- Р РµСЃС‚СЂРёРєС‚РѕСЂ
 	local obj = alife():create("space_restrictor", teleport_art_restrictor_position, teleport_art_restrictor_lvid, teleport_art_restrictor_gvid)
 	id_table.sr = obj.id
 	local packet = get_netpk(obj, 1)
@@ -52,22 +52,22 @@ function init_teleport_art_and_zone()
 	my_table.custom_data:set("[logic] \nactive = sr_idle \n[sr_idle] \non_actor_inside = %+ogse_teleport_art_actor_inside -ogse_teleport_art_actor_outside% \non_actor_outside = {+ogse_teleport_art_actor_inside} %+ogse_teleport_art_actor_outside -ogse_teleport_art_actor_inside%")
 	packet:set(my_table)
 
-	-- Артефакт
+	-- РђСЂС‚РµС„Р°РєС‚
 	local obj = alife():create("af_teleport_trap", teleport_art_restrictor_position, teleport_art_restrictor_lvid, teleport_art_restrictor_gvid)
 	id_table.art = obj.id
 	ogse.save_var("ogse_teleport_art_id", id_table, "table")
 end
 
--- Телепортация актора
+-- РўРµР»РµРїРѕСЂС‚Р°С†РёСЏ Р°РєС‚РѕСЂР°
 function teleport_actor(my_vector)
 	level.add_pp_effector ("teleport.ppe", 2006, false)
 	db.actor:set_actor_position(my_vector)
 end
 
--- Спаун ГГ с артефактом обратно или выпускание его обратно и спаун артефакта внутрь зоны
+-- РЎРїР°СѓРЅ Р“Р“ СЃ Р°СЂС‚РµС„Р°РєС‚РѕРј РѕР±СЂР°С‚РЅРѕ РёР»Рё РІС‹РїСѓСЃРєР°РЅРёРµ РµРіРѕ РѕР±СЂР°С‚РЅРѕ Рё СЃРїР°СѓРЅ Р°СЂС‚РµС„Р°РєС‚Р° РІРЅСѓС‚СЂСЊ Р·РѕРЅС‹
 function teleport_actor_in_zone()
-	if db.actor:has_info("ogse_teleport_art_actor_inside") then -- чтобы не срабатывало до того, как мы зашли в рестриктор
-		if db.actor:object("af_teleport_trap") and not db.actor:has_info("ogse_teleport_trap_research_art_actor_journey") then -- с артом выйти нельзя, когда мы уже долетали!
+	if db.actor:has_info("ogse_teleport_art_actor_inside") then -- С‡С‚РѕР±С‹ РЅРµ СЃСЂР°Р±Р°С‚С‹РІР°Р»Рѕ РґРѕ С‚РѕРіРѕ, РєР°Рє РјС‹ Р·Р°С€Р»Рё РІ СЂРµСЃС‚СЂРёРєС‚РѕСЂ
+		if db.actor:object("af_teleport_trap") and not db.actor:has_info("ogse_teleport_trap_research_art_actor_journey") then -- СЃ Р°СЂС‚РѕРј РІС‹Р№С‚Рё РЅРµР»СЊР·СЏ, РєРѕРіРґР° РјС‹ СѓР¶Рµ РґРѕР»РµС‚Р°Р»Рё!
 			teleport_actor(teleport_art_restrictor_position)
 			if db.actor:has_info("ogse_teleport_trap_find_art_get_trouble") then
 				local teleport_count = ogse.var_exists("teleport_count") and ogse.load_var("teleport_count") or false
@@ -87,13 +87,13 @@ function teleport_actor_in_zone()
 			if not db.actor:has_info("ogse_teleport_art_actor_teleported") then db.actor:give_info_portion("ogse_teleport_art_actor_teleported") end
 		else
 			if not db.actor:has_info("ogse_teleport_trap_find_art_get_trouble") and (db.actor:has_info("ogse_teleport_art_actor_teleported") or db.actor:has_info("ogse_teleport_trap_research_art_saharov_tell_about_complete"))  then
-				db.actor:give_info_portion("ogse_teleport_trap_find_art_get_trouble") -- тут начинаем веселье с попрыгушками
+				db.actor:give_info_portion("ogse_teleport_trap_find_art_get_trouble") -- С‚СѓС‚ РЅР°С‡РёРЅР°РµРј РІРµСЃРµР»СЊРµ СЃ РїРѕРїСЂС‹РіСѓС€РєР°РјРё
 			end
 		end
 	end
 end
 
--- Получение id ящика из "Изолята Пруденко"
+-- РџРѕР»СѓС‡РµРЅРёРµ id СЏС‰РёРєР° РёР· "РР·РѕР»СЏС‚Р° РџСЂСѓРґРµРЅРєРѕ"
 
 local telekill_case_id
 
@@ -108,7 +108,7 @@ function get_telekill_case()
 	end
 end
 
--- Биндер артефакта-ловушки
+-- Р‘РёРЅРґРµСЂ Р°СЂС‚РµС„Р°РєС‚Р°-Р»РѕРІСѓС€РєРё
 
 function af_teleport_trap_init(obj)
     local new_binder = af_teleport_trap_binder(obj)
@@ -120,7 +120,7 @@ class "af_teleport_trap_binder" (object_binder)
 function af_teleport_trap_binder:__init(obj) super(obj)
 	local id_table = ogse.var_exists("ogse_teleport_art_id") and ogse.load_var("ogse_teleport_art_id") or false
 	if id_table then
-		id_table.art = self.object:id() -- переопределяем id артефакта
+		id_table.art = self.object:id() -- РїРµСЂРµРѕРїСЂРµРґРµР»СЏРµРј id Р°СЂС‚РµС„Р°РєС‚Р°
 		ogse.save_var("ogse_teleport_art_id", id_table, "table")
 	end
 	self.id_table = id_table
@@ -142,7 +142,7 @@ function af_teleport_trap_binder:update(delta)
 	
 	if restrictor then
 		if not restrictor:inside(self.object:position()) and not db.actor:object(self.object:section()) then
-			--KRodin: фиксанул позицию, а то он стал проваливаться, хз почему.
+			--KRodin: С„РёРєСЃР°РЅСѓР» РїРѕР·РёС†РёСЋ, Р° С‚Рѕ РѕРЅ СЃС‚Р°Р» РїСЂРѕРІР°Р»РёРІР°С‚СЊСЃСЏ, С…Р· РїРѕС‡РµРјСѓ.
 			alife():teleport_object(self.id_table.art, vector():set(14.139, -1.356, -151.566), teleport_art_restrictor_lvid, teleport_art_restrictor_gvid)
 		end
 	end
@@ -191,16 +191,16 @@ function af_teleport_trap_binder:update(delta)
 end
 
 
--- Спавним смертельные зоны
+-- РЎРїР°РІРЅРёРј СЃРјРµСЂС‚РµР»СЊРЅС‹Рµ Р·РѕРЅС‹
 function spawn_dead_zone()
 
 
-	-- Вызовим типс с Сахоровым.
+	-- Р’С‹Р·РѕРІРёРј С‚РёРїСЃ СЃ РЎР°С…РѕСЂРѕРІС‹Рј.
 	saharov_end_research()
 
 	local dead_zone_id = {}
 
-	-- Внешнее ограждение, убивающее мгновенно
+	-- Р’РЅРµС€РЅРµРµ РѕРіСЂР°Р¶РґРµРЅРёРµ, СѓР±РёРІР°СЋС‰РµРµ РјРіРЅРѕРІРµРЅРЅРѕ
 --SPAWN_V1
 	--[[local out_zone = 
 	{
@@ -233,7 +233,7 @@ function spawn_dead_zone()
 		packet:set(my_table)
 	end
 
-	-- Сам лабиринт 
+	-- РЎР°Рј Р»Р°Р±РёСЂРёРЅС‚ 
 	local anom_type = {"noartf_nodetect_mosquito_bald", "noartf_nodetect_witches_galantine"}
 	local power_type = {"_average", "_strong"}
 	local anom_radius = 
@@ -321,7 +321,7 @@ function spawn_dead_zone()
 		my_table.max_power = sys_ini:r_float(anom_section, "max_start_power")
 		packet:set(my_table)
 	end
-	-- Рестриктор выхода
+	-- Р РµСЃС‚СЂРёРєС‚РѕСЂ РІС‹С…РѕРґР°
 	
 --SPAWN_V1
 	--[[local p = {}
@@ -370,12 +370,12 @@ function journey_step()
 	end	
 end
 
-function journey_timer_begin() -- отложим начало веселья
+function journey_timer_begin() -- РѕС‚Р»РѕР¶РёРј РЅР°С‡Р°Р»Рѕ РІРµСЃРµР»СЊСЏ
 	ogse.start_timer("art_trap", 5, script_name() .. ".journey_begin")
 end
 
 function journey_begin()
-	db.actor:give_info_portion("ogse_teleport_trap_research_art_actor_journey") -- начинаем телепортацию
+	db.actor:give_info_portion("ogse_teleport_trap_research_art_actor_journey") -- РЅР°С‡РёРЅР°РµРј С‚РµР»РµРїРѕСЂС‚Р°С†РёСЋ
 end
 
 function check_actor_leave_zone()
@@ -385,7 +385,7 @@ function check_actor_leave_zone()
 	if db.actor:has_info("ogse_teleport_trap_research_art_actor_journey_finish") and not db.actor:has_info("ogse_teleport_trap_research_art_actor_finish_dead_zone") then
 		local lname = level.name()
 		if lname ~= "k01_darkscape_ogse" then
-			--- хитрый засранец выбрался иначе
+			--- С…РёС‚СЂС‹Р№ Р·Р°СЃСЂР°РЅРµС† РІС‹Р±СЂР°Р»СЃСЏ РёРЅР°С‡Рµ
 			db.actor:give_info_portion("ogse_teleport_trap_research_art_actor_finish_dead_zone")
 		end
 	end
@@ -402,7 +402,7 @@ function ogse_teleport_trap_art_destiny_taction()
 	db.actor:give_info_portion("ogse_teleport_trap_art_destiny")
 end
 
--- Удаляем аномалии + тот рестриктор
+-- РЈРґР°Р»СЏРµРј Р°РЅРѕРјР°Р»РёРё + С‚РѕС‚ СЂРµСЃС‚СЂРёРєС‚РѕСЂ
 function delete_dead_zone()
 	level.add_pp_effector ("teleport.ppe", 2006, false)
 
@@ -411,7 +411,7 @@ function delete_dead_zone()
 		for _, id in pairs(dead_zone_id) do
 			local sobj = alife():object(id)
 			if sobj then
-				if IsAnomaly(sobj) and not ogse_anomaly.is_not_anomaly(sobj) then --С аномалиями разберется менеджер аномалий.
+				if IsAnomaly(sobj) and not ogse_anomaly.is_not_anomaly(sobj) then --РЎ Р°РЅРѕРјР°Р»РёСЏРјРё СЂР°Р·Р±РµСЂРµС‚СЃСЏ РјРµРЅРµРґР¶РµСЂ Р°РЅРѕРјР°Р»РёР№.
 					ogse_anomaly.set_anomaly_mode(id, "anom_off")
 				else
 					alife():release(sobj, true)
@@ -421,7 +421,7 @@ function delete_dead_zone()
 	end
 	ogse.delete_var("dead_zone_id")
 
-	--Делаем артефакт неподбираемым, а то один особо умный после удаления аномалий вернулся, забрал арт, сел в машину и уехал. Телепортация-то не действует, если актор в машине...
+	--Р”РµР»Р°РµРј Р°СЂС‚РµС„Р°РєС‚ РЅРµРїРѕРґР±РёСЂР°РµРјС‹Рј, Р° С‚Рѕ РѕРґРёРЅ РѕСЃРѕР±Рѕ СѓРјРЅС‹Р№ РїРѕСЃР»Рµ СѓРґР°Р»РµРЅРёСЏ Р°РЅРѕРјР°Р»РёР№ РІРµСЂРЅСѓР»СЃСЏ, Р·Р°Р±СЂР°Р» Р°СЂС‚, СЃРµР» РІ РјР°С€РёРЅСѓ Рё СѓРµС…Р°Р». РўРµР»РµРїРѕСЂС‚Р°С†РёСЏ-С‚Рѕ РЅРµ РґРµР№СЃС‚РІСѓРµС‚, РµСЃР»Рё Р°РєС‚РѕСЂ РІ РјР°С€РёРЅРµ...
 	for _, id in pairs( ogse.load_var("ogse_teleport_art_id") ) do
 		local obj = level.object_by_id(id)
 		if obj and obj:is_artefact() then
@@ -478,13 +478,13 @@ end
 
 function spawn_case_with_art()
 	level.add_pp_effector ("teleport.ppe", 2006, false)
-	-- Удаляем арт, зону, кейс, спавним кейс с артефактом
+	-- РЈРґР°Р»СЏРµРј Р°СЂС‚, Р·РѕРЅСѓ, РєРµР№СЃ, СЃРїР°РІРЅРёРј РєРµР№СЃ СЃ Р°СЂС‚РµС„Р°РєС‚РѕРј
 	local table_id = ogse.var_exists("ogse_teleport_art_id") and ogse.load_var("ogse_teleport_art_id") or false
 	if table_id then
 		for _, id in pairs(table_id) do
 			local sobj = alife():object(id)
 			if sobj then
-				if IsAnomaly(sobj) and not ogse_anomaly.is_not_anomaly(sobj) then --С аномалиями разберется менеджер аномалий.
+				if IsAnomaly(sobj) and not ogse_anomaly.is_not_anomaly(sobj) then --РЎ Р°РЅРѕРјР°Р»РёСЏРјРё СЂР°Р·Р±РµСЂРµС‚СЃСЏ РјРµРЅРµРґР¶РµСЂ Р°РЅРѕРјР°Р»РёР№.
 					ogse_anomaly.set_anomaly_mode(id, "anom_off")
 				else
 					alife():release(sobj, true)
@@ -506,7 +506,7 @@ function spawn_case_with_art()
 		ogse.delete_var("telekill_case_id")
 	end
 	
-	-- Спавним монстров
+	-- РЎРїР°РІРЅРёРј РјРѕРЅСЃС‚СЂРѕРІ
 --SPAWN_V1
 	--[[local p =
 	{

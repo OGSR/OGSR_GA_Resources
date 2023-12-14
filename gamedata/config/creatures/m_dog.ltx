@@ -62,27 +62,27 @@ ph_after_death_velocity_factor= 0.75
 ph_skel_shot_up_factor        = 0.25
 ;---------------------------------------------------------------------
 
-; Переопределение доп. анимаций, которых нет в ТЧ.
+; РџРµСЂРµРѕРїСЂРµРґРµР»РµРЅРёРµ РґРѕРї. Р°РЅРёРјР°С†РёР№, РєРѕС‚РѕСЂС‹С… РЅРµС‚ РІ РўР§.
 anim_stand_walk_smelling = stand_walk_smelling_
 anim_stand_growl_walk    = stand_growl_walk_
-anim_extra_1             = stand_idle_smelling_up_0 ;Нюхает вверх
-anim_extra_2             = stand_idle_smelling_down_0 ;Нюхает вниз
-anim_extra_3             = stand_idle_smelling_look_around_0 ;Нюхает по кругу
-anim_extra_4             = stand_idle_dig_ground_0 ;Обнюховает и роет землю
-anim_extra_5             = stand_idle_howl_0 ;Воет
-anim_extra_6             = stand_growl_idle_0 ;Рычит стоя
-anim_extra_7             = stand_idle_shake_0 ;Отряхивается
-anim_extra_10            = sit_idle_1 ;Чухается сидя
-anim_extra_11            = sit_idle_2 ;Оглядывается сидя
+anim_extra_1             = stand_idle_smelling_up_0 ;РќСЋС…Р°РµС‚ РІРІРµСЂС…
+anim_extra_2             = stand_idle_smelling_down_0 ;РќСЋС…Р°РµС‚ РІРЅРёР·
+anim_extra_3             = stand_idle_smelling_look_around_0 ;РќСЋС…Р°РµС‚ РїРѕ РєСЂСѓРіСѓ
+anim_extra_4             = stand_idle_dig_ground_0 ;РћР±РЅСЋС…РѕРІР°РµС‚ Рё СЂРѕРµС‚ Р·РµРјР»СЋ
+anim_extra_5             = stand_idle_howl_0 ;Р’РѕРµС‚
+anim_extra_6             = stand_growl_idle_0 ;Р С‹С‡РёС‚ СЃС‚РѕСЏ
+anim_extra_7             = stand_idle_shake_0 ;РћС‚СЂСЏС…РёРІР°РµС‚СЃСЏ
+anim_extra_10            = sit_idle_1 ;Р§СѓС…Р°РµС‚СЃСЏ СЃРёРґСЏ
+anim_extra_11            = sit_idle_2 ;РћРіР»СЏРґС‹РІР°РµС‚СЃСЏ СЃРёРґСЏ
 anim_jump_ataka_01       = jump_ataka_01
 anim_jump_ataka_02       = jump_ataka_02
 anim_jump_ataka_03       = jump_ataka_03
 
 ;---------------------------------------------------------------------
-; Squad seperation behaviour (расталкивание)
+; Squad seperation behaviour (СЂР°СЃС‚Р°Р»РєРёРІР°РЅРёРµ)
 ;---------------------------------------------------------------------
-separate_factor = 0.5 ; сила расталкивания
-separate_range  = 1   ; радиус в котором расталкивание действует
+separate_factor = 0.5 ; СЃРёР»Р° СЂР°СЃС‚Р°Р»РєРёРІР°РЅРёСЏ
+separate_range  = 1   ; СЂР°РґРёСѓСЃ РІ РєРѕС‚РѕСЂРѕРј СЂР°СЃС‚Р°Р»РєРёРІР°РЅРёРµ РґРµР№СЃС‚РІСѓРµС‚
 
 ;----------------------------------------------------------------------------
 ; Movement::Velocities & Acceleration
@@ -106,13 +106,13 @@ Accel_Aggressive		= 19.5 ;20.0
 ;--------------------------------------------------------------------------
 ; Mob-home parameters
 ;--------------------------------------------------------------------------
-anim_factor			= 50	;анимации воя/рытья vs анимаций обнюхивания, задается в процентах 1..100
-corpse_use_timeout	= 10	;таймаут на юзание трупа, сек.
-min_life_time		= 10	;минимальное время бодрствования, сек (расчитывается min_life_time + rand(10) * min_life_time)
-min_sleep_time		= 5		;минимальное время сна, сек. (расчитывается min_sleep_time + rand(5) * min_sleep_time)
-drive_out_time		= 5		;время, на протяжении которого собака будет пытаться выгнать врага
-min_move_dist		= 4		;минимальная длинна отрезка пути при патрулировании, м.
-max_move_dist		= 6		;максимальная длинна отрезка пути при патрулировании, м.
+anim_factor			= 50	;Р°РЅРёРјР°С†РёРё РІРѕСЏ/СЂС‹С‚СЊСЏ vs Р°РЅРёРјР°С†РёР№ РѕР±РЅСЋС…РёРІР°РЅРёСЏ, Р·Р°РґР°РµС‚СЃСЏ РІ РїСЂРѕС†РµРЅС‚Р°С… 1..100
+corpse_use_timeout	= 10	;С‚Р°Р№РјР°СѓС‚ РЅР° СЋР·Р°РЅРёРµ С‚СЂСѓРїР°, СЃРµРє.
+min_life_time		= 10	;РјРёРЅРёРјР°Р»СЊРЅРѕРµ РІСЂРµРјСЏ Р±РѕРґСЂСЃС‚РІРѕРІР°РЅРёСЏ, СЃРµРє (СЂР°СЃС‡РёС‚С‹РІР°РµС‚СЃСЏ min_life_time + rand(10) * min_life_time)
+min_sleep_time		= 5		;РјРёРЅРёРјР°Р»СЊРЅРѕРµ РІСЂРµРјСЏ СЃРЅР°, СЃРµРє. (СЂР°СЃС‡РёС‚С‹РІР°РµС‚СЃСЏ min_sleep_time + rand(5) * min_sleep_time)
+drive_out_time		= 5		;РІСЂРµРјСЏ, РЅР° РїСЂРѕС‚СЏР¶РµРЅРёРё РєРѕС‚РѕСЂРѕРіРѕ СЃРѕР±Р°РєР° Р±СѓРґРµС‚ РїС‹С‚Р°С‚СЊСЃСЏ РІС‹РіРЅР°С‚СЊ РІСЂР°РіР°
+min_move_dist		= 4		;РјРёРЅРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅРЅР° РѕС‚СЂРµР·РєР° РїСѓС‚Рё РїСЂРё РїР°С‚СЂСѓР»РёСЂРѕРІР°РЅРёРё, Рј.
+max_move_dist		= 6		;РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅРЅР° РѕС‚СЂРµР·РєР° РїСѓС‚Рё РїСЂРё РїР°С‚СЂСѓР»РёСЂРѕРІР°РЅРёРё, Рј.
 
 ;--------------------------------------------------------------------------
 ; Attack parameters
@@ -156,33 +156,33 @@ jump_auto_aim_factor		= 0.6
 ;-------------------------------------------------------------------------
 ; Entity Conditions
 ;-------------------------------------------------------------------------
-satiety_v 		= 0.0001				;0.01			;скорость уменьшения сытости со временем
-radiation_v 		= 0.00001		;0.004			;скорость уменьшения радиации
-satiety_power_v 	= 0.005		;0.01			;увеличение силы при уменьшении сытости 
-satiety_health_v 	= 0.005	;0.03			;увеличение здоровья при уменьшении сытости 
-satiety_critical 	= -1.0		;0.25			;критическое значения сытости (в процентах от 0..1) когда здоровье начианает уменьшаться
-radiation_health_v 	= 0.0	;0.006			;уменьшение здоровья при воздействии радиации
-morale_v		= 0.01					;скорость восстановления морали
-health_hit_part 	= 0.7		;0.8			;процент хита, уходящий на отнимание здоровья
-power_hit_part 		= 1.0		;0.9			;процент хита, уходящий на отнимание силы
-psy_health_v		= 0.1						;скорость восстановления psy-здоровья
+satiety_v 		= 0.0001				;0.01			;СЃРєРѕСЂРѕСЃС‚СЊ СѓРјРµРЅСЊС€РµРЅРёСЏ СЃС‹С‚РѕСЃС‚Рё СЃРѕ РІСЂРµРјРµРЅРµРј
+radiation_v 		= 0.00001		;0.004			;СЃРєРѕСЂРѕСЃС‚СЊ СѓРјРµРЅСЊС€РµРЅРёСЏ СЂР°РґРёР°С†РёРё
+satiety_power_v 	= 0.005		;0.01			;СѓРІРµР»РёС‡РµРЅРёРµ СЃРёР»С‹ РїСЂРё СѓРјРµРЅСЊС€РµРЅРёРё СЃС‹С‚РѕСЃС‚Рё 
+satiety_health_v 	= 0.005	;0.03			;СѓРІРµР»РёС‡РµРЅРёРµ Р·РґРѕСЂРѕРІСЊСЏ РїСЂРё СѓРјРµРЅСЊС€РµРЅРёРё СЃС‹С‚РѕСЃС‚Рё 
+satiety_critical 	= -1.0		;0.25			;РєСЂРёС‚РёС‡РµСЃРєРѕРµ Р·РЅР°С‡РµРЅРёСЏ СЃС‹С‚РѕСЃС‚Рё (РІ РїСЂРѕС†РµРЅС‚Р°С… РѕС‚ 0..1) РєРѕРіРґР° Р·РґРѕСЂРѕРІСЊРµ РЅР°С‡РёР°РЅР°РµС‚ СѓРјРµРЅСЊС€Р°С‚СЊСЃСЏ
+radiation_health_v 	= 0.0	;0.006			;СѓРјРµРЅСЊС€РµРЅРёРµ Р·РґРѕСЂРѕРІСЊСЏ РїСЂРё РІРѕР·РґРµР№СЃС‚РІРёРё СЂР°РґРёР°С†РёРё
+morale_v		= 0.01					;СЃРєРѕСЂРѕСЃС‚СЊ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РјРѕСЂР°Р»Рё
+health_hit_part 	= 0.7		;0.8			;РїСЂРѕС†РµРЅС‚ С…РёС‚Р°, СѓС…РѕРґСЏС‰РёР№ РЅР° РѕС‚РЅРёРјР°РЅРёРµ Р·РґРѕСЂРѕРІСЊСЏ
+power_hit_part 		= 1.0		;0.9			;РїСЂРѕС†РµРЅС‚ С…РёС‚Р°, СѓС…РѕРґСЏС‰РёР№ РЅР° РѕС‚РЅРёРјР°РЅРёРµ СЃРёР»С‹
+psy_health_v		= 0.1						;СЃРєРѕСЂРѕСЃС‚СЊ РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ psy-Р·РґРѕСЂРѕРІСЊСЏ
 
 immunities_sect		= dog_immunities
 
-;открытые раны
-bleeding_v						= 0.13				;потеря крови при номинальной ране в секунду
-wound_incarnation_v				= 0.008				;крутизна кривой заживления (какой процент раны останется после заживления в игровую секунду)
+;РѕС‚РєСЂС‹С‚С‹Рµ СЂР°РЅС‹
+bleeding_v						= 0.13				;РїРѕС‚РµСЂСЏ РєСЂРѕРІРё РїСЂРё РЅРѕРјРёРЅР°Р»СЊРЅРѕР№ СЂР°РЅРµ РІ СЃРµРєСѓРЅРґСѓ
+wound_incarnation_v				= 0.008				;РєСЂСѓС‚РёР·РЅР° РєСЂРёРІРѕР№ Р·Р°Р¶РёРІР»РµРЅРёСЏ (РєР°РєРѕР№ РїСЂРѕС†РµРЅС‚ СЂР°РЅС‹ РѕСЃС‚Р°РЅРµС‚СЃСЏ РїРѕСЃР»Рµ Р·Р°Р¶РёРІР»РµРЅРёСЏ РІ РёРіСЂРѕРІСѓСЋ СЃРµРєСѓРЅРґСѓ)
 min_wound_size					= 0.008
 
-sleep_health = 1.0		;1.5				;ъю¤ЇЇшЎшхэЄv ёъюЁюёЄхщ шчьхэхэш  ярЁрьхЄЁют тю тЁхь  ёэр
+sleep_health = 1.0		;1.5				;СЉСЋВ¤Р‡Р‡С€РЋС€С…СЌР„v С‘СЉСЋРЃСЋС‘Р„С…С‰ С€С‡СЊС…СЌС…СЌС€В  СЏСЂРЃСЂСЊС…Р„РЃСЋС‚ С‚СЋ С‚РЃС…СЊВ  С‘СЌСЂ
 sleep_power = 1.0		;1.5
 sleep_satiety = 1.0		;0.8
 sleep_radiation = 1.0	;1.1
 sleep_psy_health = 1.0
 
-eat_freq			=	5.0		; ўрёЄюЄр єъєёют т ёхъ
-eat_slice			=	0.01	; єтхышўхэшх ёvЄюёЄш яЁш 1 єъєёх
-eat_slice_weight	=	10.0	; єьхэ№°хэшх хфv є ЄЁєяр
+eat_freq			=	5.0		; СћСЂС‘Р„СЋР„СЂ С”СЉС”С‘СЋС‚ С‚ С‘С…СЉ
+eat_slice			=	0.01	; С”С‚С…С‹С€СћС…СЌС€С… С‘vР„СЋС‘Р„С€ СЏРЃС€ 1 С”СЉС”С‘С…
+eat_slice_weight	=	10.0	; С”СЊС…СЌв„–В°С…СЌС€С… С…С„v С” Р„РЃС”СЏСЂ
 
 satiety_threshold		= 0.5							; below this value monster fill hunger
 
@@ -206,9 +206,9 @@ Morale_Despondent_Threashold	= 0.4
 ;---------------------------------------------------------
 sound_idle				= monsters\dog\bdog_idle_
 sound_eat				= monsters\dog\bdog_eat_
-sound_aggressive		= monsters\dog\bdog_attack_ ; издается, когда монстр преследует противника
-; sound_attack			= ; звук для неудачной попытки ударить или укусить (рык)
-sound_attack_hit		= monsters\dog\attack_hit_ ; звук для успешной попытки ударить или укусить (рык)
+sound_aggressive		= monsters\dog\bdog_attack_ ; РёР·РґР°РµС‚СЃСЏ, РєРѕРіРґР° РјРѕРЅСЃС‚СЂ РїСЂРµСЃР»РµРґСѓРµС‚ РїСЂРѕС‚РёРІРЅРёРєР°
+; sound_attack			= ; Р·РІСѓРє РґР»СЏ РЅРµСѓРґР°С‡РЅРѕР№ РїРѕРїС‹С‚РєРё СѓРґР°СЂРёС‚СЊ РёР»Рё СѓРєСѓСЃРёС‚СЊ (СЂС‹Рє)
+sound_attack_hit		= monsters\dog\attack_hit_ ; Р·РІСѓРє РґР»СЏ СѓСЃРїРµС€РЅРѕР№ РїРѕРїС‹С‚РєРё СѓРґР°СЂРёС‚СЊ РёР»Рё СѓРєСѓСЃРёС‚СЊ (СЂС‹Рє)
 sound_take_damage		= monsters\dog\bdog_hurt_
 sound_die				= monsters\dog\bdog_die_
 sound_bkgnd				= monsters\biting\def_
@@ -218,7 +218,7 @@ sound_steal				= monsters\biting\def_
 sound_panic				= monsters\dog\bdog_panic_
 sound_growling			= monsters\biting\def_
 sound_die_in_anomaly	= monsters\dog\bdog_die_
-sound_distant_idle		= monsters\dog\bdog_distant_	; только для расстояний свыше 200м
+sound_distant_idle		= monsters\dog\bdog_distant_	; С‚РѕР»СЊРєРѕ РґР»СЏ СЂР°СЃСЃС‚РѕСЏРЅРёР№ СЃРІС‹С€Рµ 200Рј
 
 killer_clsids				= Z_MINCER,Z_GALANT,ZS_BFUZZ,ZS_MBALD,ZS_GALAN,ZS_MINCE
 
@@ -237,14 +237,14 @@ max_hear_dist		 = 80
 eye_fov				 = 160
 eye_range			 = 50
 
-min_view_distance   		= 0.7				; коэффициент, который множится на eye_range, в зависимости от угла
-max_view_distance	 		= 1.0				; коэффициент, который множится на eye_range, в зависимости от угла
-visibility_threshold	 	= 100.0				; значение, при достижении суммой которого объект считается видимым
+min_view_distance   		= 0.7				; РєРѕСЌС„С„РёС†РёРµРЅС‚, РєРѕС‚РѕСЂС‹Р№ РјРЅРѕР¶РёС‚СЃСЏ РЅР° eye_range, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СѓРіР»Р°
+max_view_distance	 		= 1.0				; РєРѕСЌС„С„РёС†РёРµРЅС‚, РєРѕС‚РѕСЂС‹Р№ РјРЅРѕР¶РёС‚СЃСЏ РЅР° eye_range, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СѓРіР»Р°
+visibility_threshold	 	= 100.0				; Р·РЅР°С‡РµРЅРёРµ, РїСЂРё РґРѕСЃС‚РёР¶РµРЅРёРё СЃСѓРјРјРѕР№ РєРѕС‚РѕСЂРѕРіРѕ РѕР±СЉРµРєС‚ СЃС‡РёС‚Р°РµС‚СЃСЏ РІРёРґРёРјС‹Рј
 always_visible_distance 	= 0.4
 time_quant					= 0.001
-decrease_value				= 0.01				; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
+decrease_value				= 0.01				; Р·РЅР°С‡РµРЅРёРµ, РЅР° РєРѕС‚РѕСЂРѕРµ СѓРјРµРЅСЊС€Р°РµС‚СЃСЏ РІРµСЃ, РµСЃР»Рё РѕР±СЉРµРєС‚ РїРѕРїР°Р» РІ С„СЂСѓСЃС‚СѓРј, РЅРѕ РѕС‚СЃС‘РєСЃСЏ РїРѕ РєР°РєРёРј-С‚Рѕ РїСЂРёС‡РёРЅР°Рј
 velocity_factor		     	= 0.5
-luminocity_factor			= 0.5 				; фактор освещения (только для Актёра)
+luminocity_factor			= 0.5 				; С„Р°РєС‚РѕСЂ РѕСЃРІРµС‰РµРЅРёСЏ (С‚РѕР»СЊРєРѕ РґР»СЏ РђРєС‚С‘СЂР°)
 transparency_threshold		= 0.25
 
 ;-------------------------------------------------------------------------
@@ -350,7 +350,7 @@ stand_drag_0		=	1,	 0.2,     0.75,	  0.25,    0.7,    0.7,	    0.75,     0.7,   
 ; IMMUNITIES
 ;===========================================================================
 [dog_immunities]
-burn_immunity = 1.0				;коэффициенты иммунитета 
+burn_immunity = 1.0				;РєРѕСЌС„С„РёС†РёРµРЅС‚С‹ РёРјРјСѓРЅРёС‚РµС‚Р° 
 strike_immunity = 1.0
 shock_immunity = 1.0
 wound_immunity = 0.9	;0.75	;1.0		
@@ -365,8 +365,8 @@ fire_wound_immunity  = 0.65
 ;=================================================================================
 [m_Dog_damage]
 ;bone_name		 = <hit_scale>,-1,<wound_scale>
-;<hit_scale>	- коэфф. изменения хита (уменьшения здоровья) 
-;<wound_scale>	- коэфф. изменения величины открытой раны
+;<hit_scale>	- РєРѕСЌС„С„. РёР·РјРµРЅРµРЅРёСЏ С…РёС‚Р° (СѓРјРµРЅСЊС€РµРЅРёСЏ Р·РґРѕСЂРѕРІСЊСЏ) 
+;<wound_scale>	- РєРѕСЌС„С„. РёР·РјРµРЅРµРЅРёСЏ РІРµР»РёС‡РёРЅС‹ РѕС‚РєСЂС‹С‚РѕР№ СЂР°РЅС‹
 
 default				= 0.5,	-1,	0.2
 
@@ -419,7 +419,7 @@ bip01_l_thigh
 ; DOG Terrain
 ;=================================================================================
 [dogs_terrain]
-	255,000,255,255 ;на всех уровнях, по графам без описания
+	255,000,255,255 ;РЅР° РІСЃРµС… СѓСЂРѕРІРЅСЏС…, РїРѕ РіСЂР°С„Р°Рј Р±РµР· РѕРїРёСЃР°РЅРёСЏ
 	
 ;*********************************************************************************
 ; WEAK PROFILE
@@ -438,7 +438,7 @@ eye_fov				 = 120
 eye_range			 = 20
 time_quant			 = 0.003
 
-;Снести с НИ!
+;РЎРЅРµСЃС‚Рё СЃ РќР!
 [dog_phantom_3]:dog_weak
 
 [dog_immunities_weak]
@@ -524,9 +524,9 @@ spec_rank			= strong
 community			= dog
 sound_idle				= monsters\dog1\bdog_idle_
 sound_eat				= monsters\dog1\bdog_eat_
-sound_aggressive		= monsters\dog1\bdog_attack_ ; издается, когда монстр преследует противника
-; sound_attack			= ; звук для неудачной попытки ударить или укусить (рык)
-sound_attack_hit		= monsters\dog1\attack_hit_ ; звук для успешной попытки ударить или укусить (рык)
+sound_aggressive		= monsters\dog1\bdog_attack_ ; РёР·РґР°РµС‚СЃСЏ, РєРѕРіРґР° РјРѕРЅСЃС‚СЂ РїСЂРµСЃР»РµРґСѓРµС‚ РїСЂРѕС‚РёРІРЅРёРєР°
+; sound_attack			= ; Р·РІСѓРє РґР»СЏ РЅРµСѓРґР°С‡РЅРѕР№ РїРѕРїС‹С‚РєРё СѓРґР°СЂРёС‚СЊ РёР»Рё СѓРєСѓСЃРёС‚СЊ (СЂС‹Рє)
+sound_attack_hit		= monsters\dog1\attack_hit_ ; Р·РІСѓРє РґР»СЏ СѓСЃРїРµС€РЅРѕР№ РїРѕРїС‹С‚РєРё СѓРґР°СЂРёС‚СЊ РёР»Рё СѓРєСѓСЃРёС‚СЊ (СЂС‹Рє)
 sound_take_damage		= monsters\dog1\bdog_hurt_
 sound_die				= monsters\dog1\bdog_die_
 sound_bkgnd				= monsters\dog1\bdog_idle_
@@ -536,7 +536,7 @@ sound_steal				= monsters\dog1\steal_
 sound_panic				= monsters\dog1\bdog_panic_
 sound_growling			= monsters\dog1\growling_
 sound_die_in_anomaly	= monsters\dog1\bdog_die_
-sound_distant_idle		= monsters\dog1\bdog_distant_	; только для расстояний свыше 200м
+sound_distant_idle		= monsters\dog1\bdog_distant_	; С‚РѕР»СЊРєРѕ РґР»СЏ СЂР°СЃСЃС‚РѕСЏРЅРёР№ СЃРІС‹С€Рµ 200Рј
 
 [dog_immunities_strong]
 burn_immunity			= 1.0
@@ -682,7 +682,7 @@ stand_attack_1 =	  	0.25,		0.6,	    600,        .0, 0.1, 01.0,		 -0.5, 0.5, -1.0
 stand_attack_2 =	  	0.25,		0.6,	    600,        .0, 0.1, 01.0,		 -0.5, 0.5, -1.0, 1.0,				 1.8
 stand_attack_3 =	  	0.25,		0.7,	    600,        .0, 0.1, 01.0,		 -0.5, 0.5, -1.0, 1.0,				 1.8
 
-;Снести с НИ!
+;РЎРЅРµСЃС‚Рё СЃ РќР!
 [dog_phantom_2]:dog_v_strong
 
 ;=====================================================================
@@ -711,9 +711,9 @@ fire_wound_immunity 		= 0.4
 
 sound_idle				= monsters\dog\bdog_idle_
 sound_eat				= monsters\dog\bdog_eat_
-sound_aggressive		= monsters\dog\bdog_attack_ ; издается, когда монстр преследует противника
-; sound_attack			= ; звук для неудачной попытки ударить или укусить (рык)
-sound_attack_hit		= monsters\dog\attack_hit_ ; звук для успешной попытки ударить или укусить (рык)
+sound_aggressive		= monsters\dog\bdog_attack_ ; РёР·РґР°РµС‚СЃСЏ, РєРѕРіРґР° РјРѕРЅСЃС‚СЂ РїСЂРµСЃР»РµРґСѓРµС‚ РїСЂРѕС‚РёРІРЅРёРєР°
+; sound_attack			= ; Р·РІСѓРє РґР»СЏ РЅРµСѓРґР°С‡РЅРѕР№ РїРѕРїС‹С‚РєРё СѓРґР°СЂРёС‚СЊ РёР»Рё СѓРєСѓСЃРёС‚СЊ (СЂС‹Рє)
+sound_attack_hit		= monsters\dog\attack_hit_ ; Р·РІСѓРє РґР»СЏ СѓСЃРїРµС€РЅРѕР№ РїРѕРїС‹С‚РєРё СѓРґР°СЂРёС‚СЊ РёР»Рё СѓРєСѓСЃРёС‚СЊ (СЂС‹Рє)
 sound_take_damage		= monsters\dog\bdog_hurt_
 sound_die				= monsters\dog\bdog_die_
 sound_bkgnd				= monsters\biting\def_
@@ -752,8 +752,8 @@ fire_wound_immunity 		= 0.2
 
 sound_idle				= monsters\dog\guard_dog_idle_
 sound_eat				= monsters\dog\guard_dog_eat_
-sound_aggressive		= monsters\dog\guard_dog_attack_ ; издается, когда монстр преследует противника
-sound_attack_hit		= monsters\dog\guard_dog_attack_hit ; звук для успешной попытки ударить или укусить (рык)
+sound_aggressive		= monsters\dog\guard_dog_attack_ ; РёР·РґР°РµС‚СЃСЏ, РєРѕРіРґР° РјРѕРЅСЃС‚СЂ РїСЂРµСЃР»РµРґСѓРµС‚ РїСЂРѕС‚РёРІРЅРёРєР°
+sound_attack_hit		= monsters\dog\guard_dog_attack_hit ; Р·РІСѓРє РґР»СЏ СѓСЃРїРµС€РЅРѕР№ РїРѕРїС‹С‚РєРё СѓРґР°СЂРёС‚СЊ РёР»Рё СѓРєСѓСЃРёС‚СЊ (СЂС‹Рє)
 sound_take_damage		= monsters\dog\guard_dog_hurt
 sound_die				= monsters\dog\guard_dog_die_
 sound_threaten			= monsters\dog\guard_dog_groan_

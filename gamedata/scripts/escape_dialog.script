@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --------------------------------------------------------------------------------------------------------
 -- Dialog & InfoPortions Function
@@ -193,10 +193,10 @@ end
 function trader_sdelka_done(first_speaker, second_speaker)
 	if (not db.actor:has_info("esc_kvest_sdelka_with_mils_start") and db.actor:has_info("agroprom_military_case")) then
 		--log1("a")
-		return false -- Вообще квест не взяли, поэтому никак не выполнили
+		return false -- Р’РѕРѕР±С‰Рµ РєРІРµСЃС‚ РЅРµ РІР·СЏР»Рё, РїРѕСЌС‚РѕРјСѓ РЅРёРєР°Рє РЅРµ РІС‹РїРѕР»РЅРёР»Рё
 	else
 		-- esc_serious_talk
-		-- Квест взяли, но его ещё не сдали/провалили
+		-- РљРІРµСЃС‚ РІР·СЏР»Рё, РЅРѕ РµРіРѕ РµС‰С‘ РЅРµ СЃРґР°Р»Рё/РїСЂРѕРІР°Р»РёР»Рё
 		if db.actor:has_info("esc_kvest_sdelka_with_mils_start") and not (db.actor:has_info("esc_kvest_sdelka_with_mils_complete") or db.actor:has_info("esc_kvest_sdelka_with_mils_fail")) then
 			--log1("a")
 			return false
@@ -223,10 +223,6 @@ function trader_doesnt_need_sdelka_with_mils()
 		end
 	end
 	return false
-	--if db.actor:has_info("esc_kvest_sdelka_with_mils_start") then log1("true") else log1("false") end
-	--log1(db.actor:has_info("esc_kvest_sdelka_with_mils_start"))
-	--return not (not db.actor:has_info("esc_kvest_sdelka_with_mils_start")) or (db.actor:has_info("esc_kvest_sdelka_with_mils_start") and (db.actor:has_info("esc_kvest_sdelka_with_mils_complete") or db.actor:has_info("esc_kvest_sdelka_with_mils_fail")))
-	
 end
 
 function sdelka_with_mils_done_fail_nan()
@@ -313,7 +309,7 @@ function have_artefact_from_fleshes(first_speaker, second_speaker)
 end
 
 
---' Ящик с блокпоста
+--' РЇС‰РёРє СЃ Р±Р»РѕРєРїРѕСЃС‚Р°
 function trader_need_blockpost_box(first_speaker, second_speaker)
     if has_alife_info("tutorial_end") and
 	   has_alife_info("esc_trader_speak") and
@@ -395,8 +391,8 @@ function give_wounded_flash(first_speaker, second_speaker)
 	dialogs.relocate_item_section(second_speaker, "medkit", "in")
 	dialogs.relocate_item_section(second_speaker, "medkit", "in")
 	dialogs.relocate_item_section(second_speaker, "repair_kit", "in")
-	level_tasks.remove_location_by_sid(story_ids.Escape_bridge_stalkers, "green_location") -- удаляем с Петрухи метку
-	level_tasks.remove_location_by_sid(story_ids.esc_bandits_factory, "green_location") -- удаляем с АТП метку
+	level_tasks.remove_location_by_sid(story_ids.Escape_bridge_stalkers, "green_location") -- СѓРґР°Р»СЏРµРј СЃ РџРµС‚СЂСѓС…Рё РјРµС‚РєСѓ
+	level_tasks.remove_location_by_sid(story_ids.esc_bandits_factory, "green_location") -- СѓРґР°Р»СЏРµРј СЃ РђРўРџ РјРµС‚РєСѓ
 end
 
 function give_knife_to_actor(first_speaker, second_speaker)
@@ -444,7 +440,7 @@ function wolf_precond_univ (actor, npc)
 	return has_alife_info("esc_kill_bandits_quest_done") or (has_alife_info("tutorial_wounded_give_info") and not has_alife_info("esc_kill_bandits_quest_have"))
 end
 
--- Функция удаления динамитного ящика из Волка
+-- Р¤СѓРЅРєС†РёСЏ СѓРґР°Р»РµРЅРёСЏ РґРёРЅР°РјРёС‚РЅРѕРіРѕ СЏС‰РёРєР° РёР· Р’РѕР»РєР°
 function delete_dynamite_box(actor, npc)
 	local dynamite = npc:object("dynamite")
 	if dynamite then
@@ -453,7 +449,7 @@ function delete_dynamite_box(actor, npc)
 end
 
 
--- Мирное получение Форта-15 у майора Кузнецова по заданию Сидоровича
+-- РњРёСЂРЅРѕРµ РїРѕР»СѓС‡РµРЅРёРµ Р¤РѕСЂС‚Р°-15 Сѓ РјР°Р№РѕСЂР° РљСѓР·РЅРµС†РѕРІР° РїРѕ Р·Р°РґР°РЅРёСЋ РЎРёРґРѕСЂРѕРІРёС‡Р°
 --' Soldiers on bridge
 function has_soldiers_bribe(actor, npc)
 	if has_alife_info("find_af_and_vodka_for_kuzya_done") then
@@ -471,14 +467,14 @@ function give_soldiers_bribe(actor, npc)
 	end
 end
 
--- проверка отсутствия форта-15 у гг
+-- РїСЂРѕРІРµСЂРєР° РѕС‚СЃСѓС‚СЃС‚РІРёСЏ С„РѕСЂС‚Р°-15 Сѓ РіРі
 function actor_dont_has_fort_m1()
 	if has_alife_info("find_fort_m1") then
 		return db.actor:object("wpn_fort_unic") == nil
 	end
 end
 
--- проверка наличия ломтя мяса у гг
+-- РїСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ Р»РѕРјС‚СЏ РјСЏСЃР° Сѓ РіРі
 function actor_has_af()
 	if db.actor:object("af_mincer_meat") ~= nil then
 		db.actor:give_info_portion("esc_actor_has_af")
@@ -489,7 +485,7 @@ function actor_has_af()
 	end
 end
 
--- проверка наличия водки у гг
+-- РїСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ РІРѕРґРєРё Сѓ РіРі
 function actor_has_vodka()
 	if db.actor:object("vodka") ~= nil then
 		db.actor:give_info_portion("esc_actor_has_vodka")
@@ -500,17 +496,17 @@ function actor_has_vodka()
 	end
 end
 
--- сообщение, что найден ломоть мяса
+-- СЃРѕРѕР±С‰РµРЅРёРµ, С‡С‚Рѕ РЅР°Р№РґРµРЅ Р»РѕРјРѕС‚СЊ РјСЏСЃР°
 function send_message_af_mincer_meat()
 	news_manager.send_tip(db.actor, "finde_af_mincer_meat", nil, nil, 6000, nil)
 end
 
--- сообщение, что найдена водка
+-- СЃРѕРѕР±С‰РµРЅРёРµ, С‡С‚Рѕ РЅР°Р№РґРµРЅР° РІРѕРґРєР°
 function send_message_vodka()
 	news_manager.send_tip(db.actor, "finde_vodka", nil, nil, 6000, nil)
 end
 
--- гг отдает ломоть мяса и водку Кузнецову
+-- РіРі РѕС‚РґР°РµС‚ Р»РѕРјРѕС‚СЊ РјСЏСЃР° Рё РІРѕРґРєСѓ РљСѓР·РЅРµС†РѕРІСѓ
 function actor_take_away_af_and_vodka(actor, npc)
 	if db.actor:object("af_mincer_meat") ~= nil then
 		dialogs.relocate_item_section(npc, "af_mincer_meat", "out")
@@ -521,10 +517,10 @@ function actor_take_away_af_and_vodka(actor, npc)
 	end
 end
 
--- Кузнецов отдает форт-15 гг, удаляем форт-15 из инвенторя Кузнецова
+-- РљСѓР·РЅРµС†РѕРІ РѕС‚РґР°РµС‚ С„РѕСЂС‚-15 РіРі, СѓРґР°Р»СЏРµРј С„РѕСЂС‚-15 РёР· РёРЅРІРµРЅС‚РѕСЂСЏ РљСѓР·РЅРµС†РѕРІР°
 function esc_kuzia_give_away_fort_m1(actor, npc)
 local npc = level_object_by_sid(032)
 	dialogs.relocate_item_section(npc, "wpn_fort_unic", "in")
 	ogse.remove_item_from_inventory_by_name("wpn_fort_unic", npc)
 end
--- Мирное получение Форта-15 у майора Кузнецова по заданию Сидоровича
+-- РњРёСЂРЅРѕРµ РїРѕР»СѓС‡РµРЅРёРµ Р¤РѕСЂС‚Р°-15 Сѓ РјР°Р№РѕСЂР° РљСѓР·РЅРµС†РѕРІР° РїРѕ Р·Р°РґР°РЅРёСЋ РЎРёРґРѕСЂРѕРІРёС‡Р°

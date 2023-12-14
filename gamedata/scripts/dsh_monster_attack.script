@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 
 function attach( sm )
@@ -333,7 +333,7 @@ function zombie_plague_attack( obj )
       zh.type      = hit.chemical_burn
       zh.direction = obj:position():sub( actor )
       zh:bone( get_string( db.actor:section(), "bone_torso", "bip01_spine" ) ) -- чтобы учитывалась броня
-      zh.power     = 2.5
+      zh.power     = 0.7
       zh.impulse   = 1.0
       db.actor:hit( zh )
     else

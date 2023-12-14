@@ -29,13 +29,13 @@ tm_defend_camp_1
 tm_monster_part_1
 tm_monster_part_2
 tm_monster_part_3
-;--хвост вожака стаи tm_monster_part_4
+;--С…РІРѕСЃС‚ РІРѕР¶Р°РєР° СЃС‚Р°Рё tm_monster_part_4
 
 ;--------Barmen----------------------------------------------------------
 ;-----------Eliminate Camp--------
 barmen_eliminate_camp_1
 barmen_eliminate_camp_2
-;--очистить хутор от бандитов barmen_eliminate_camp_3
+;--РѕС‡РёСЃС‚РёС‚СЊ С…СѓС‚РѕСЂ РѕС‚ Р±Р°РЅРґРёС‚РѕРІ barmen_eliminate_camp_3
 barmen_eliminate_camp_4
 barmen_eliminate_camp_5
 barmen_eliminate_camp_6
@@ -55,7 +55,7 @@ barmen_kill_stalker_5
 ;---------Find Item-----------
 barmen_find_item_1
 barmen_find_item_2
-;--найти модифицированный Винторез barmen_find_item_3
+;--РЅР°Р№С‚Рё РјРѕРґРёС„РёС†РёСЂРѕРІР°РЅРЅС‹Р№ Р’РёРЅС‚РѕСЂРµР· barmen_find_item_3
 ;---------Monster Part-----------
 barmen_monster_part_1
 barmen_monster_part_2
@@ -102,7 +102,7 @@ dolg_eliminate_lager_10
 dolg_eliminate_lager_11
 dolg_eliminate_lager_12
 dolg_eliminate_lager_13
-; гулага НЕТ dolg_eliminate_lager_14
+; РіСѓР»Р°РіР° РќР•Рў dolg_eliminate_lager_14
 ;----------Kill Staker-------
 dolg_kill_stalker_1
 ;----------Find Item---------
@@ -135,7 +135,7 @@ freedom_defend_lager_2
 ;tasks for zastava_commander
 zastava_commander_eliminate_lager
 ;tasks for wolf  
-;логово кабанов wolf_eliminate_lager_1
+;Р»РѕРіРѕРІРѕ РєР°Р±Р°РЅРѕРІ wolf_eliminate_lager_1
 wolf_eliminate_lager_2
 ;tasks for petrenko 
 petrenko_kill_stalker
@@ -229,14 +229,14 @@ type = storyline
 reward_reputation = -1000
 
 
-;time = 86400 - 1 день (86400 секунд).
-;time = 172800 - 2 дня.
-;time = 259200 - 3 дня.
-;time = 345600 - 4 дня.
-;time = 432000 - 5 дней.
-;time = 518400 - 6 дней.
-;time = 604800 - 7 дней.
-;----квесты Сидоровича----
+;time = 86400 - 1 РґРµРЅСЊ (86400 СЃРµРєСѓРЅРґ).
+;time = 172800 - 2 РґРЅСЏ.
+;time = 259200 - 3 РґРЅСЏ.
+;time = 345600 - 4 РґРЅСЏ.
+;time = 432000 - 5 РґРЅРµР№.
+;time = 518400 - 6 РґРЅРµР№.
+;time = 604800 - 7 РґРЅРµР№.
+;----РєРІРµСЃС‚С‹ РЎРёРґРѕСЂРѕРІРёС‡Р°----
 [tm_eliminate_camp_1]
 type = eliminate_lager
 community = actor
@@ -599,20 +599,20 @@ idle_time = 2592000
 reward_item = ammo_5.45x39_ap, ammo_5.45x39_ap, ammo_5.45x39_ap, ammo_5.45x39_ap, ammo_5.45x39_ap
 prior = 3
 
-;хвост вожака стаи [tm_monster_part_4]
+;С…РІРѕСЃС‚ РІРѕР¶Р°РєР° СЃС‚Р°Рё [tm_monster_part_4]
 ;type = monster_part
 ;community = actor
 ;text = tm_monster_part_3_text
 ;description = tm_monster_part_3_descr
 ;parent = trader
-;target = хвост вожака стаи
+;target = С…РІРѕСЃС‚ РІРѕР¶Р°РєР° СЃС‚Р°Рё
 ;reward_reputation = +20
 ;reward_rank = 5
 ;time = 259200
 ;reward_item = ammo_5.45x39_ap, ammo_5.45x39_ap, ammo_5.45x39_ap, ammo_5.45x39_ap, ammo_5.45x39_ap
 ;prior = 4
 
-;----квесты Бармена----
+;----РєРІРµСЃС‚С‹ Р‘Р°СЂРјРµРЅР°----
 [barmen_eliminate_camp_1]
 type = eliminate_lager
 community = actor
@@ -647,7 +647,7 @@ time = 259200
 idle_time = 2592000
 prior = 6
 
-;--очистить хутор от бандитов [barmen_eliminate_camp_3]
+;--РѕС‡РёСЃС‚РёС‚СЊ С…СѓС‚РѕСЂ РѕС‚ Р±Р°РЅРґРёС‚РѕРІ [barmen_eliminate_camp_3]
 ;--type = eliminate_lager
 ;--community = actor
 ;--text = barmen_eliminate_camp_3_text
@@ -846,7 +846,7 @@ condlist = {=is_alive_sid(828) +yan_kill_brain_done}
 text = barmen_kill_stalker_3_text
 description = barmen_kill_stalker_3_descr
 parent = barman
-; Был несуществующий таргет, исправил на лидера монолитовцев (Mixser)
+; Р‘С‹Р» РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ С‚Р°СЂРіРµС‚, РёСЃРїСЂР°РІРёР» РЅР° Р»РёРґРµСЂР° РјРѕРЅРѕР»РёС‚РѕРІС†РµРІ (Mixser)
 target = pri_monolith_leader
 reward_money = 16500
 reward_reputation = +200
@@ -912,7 +912,7 @@ reward_reputation = +35
 reward_rank = 6
 prior = 1
 
-;--найти модифицированный Винторез [barmen_find_item_3]
+;--РЅР°Р№С‚Рё РјРѕРґРёС„РёС†РёСЂРѕРІР°РЅРЅС‹Р№ Р’РёРЅС‚РѕСЂРµР· [barmen_find_item_3]
 ;--type = find_item
 ;--community = actor
 ;--text = barmen_find_item_3_text
@@ -1019,7 +1019,7 @@ idle_time = 2592000
 prior = 2
 
 
-;---- квесты Эколог (Сахаров) ----
+;---- РєРІРµСЃС‚С‹ Р­РєРѕР»РѕРі (РЎР°С…Р°СЂРѕРІ) ----
 [ecolog_eliminate_lager_1]
 type = eliminate_lager
 community = actor
@@ -1059,7 +1059,7 @@ prior = 2
 [ecolog_find_item_1]
 type = find_item
 community = actor
-; Запрет на задания пока доступна пси-защиты
+; Р—Р°РїСЂРµС‚ РЅР° Р·Р°РґР°РЅРёСЏ РїРѕРєР° РґРѕСЃС‚СѓРїРЅР° РїСЃРё-Р·Р°С‰РёС‚С‹
 condlist = {+bar_darklab_document_done}
 text = ecolog_find_item_1_text
 description = ecolog_find_item_1_descr
@@ -1251,7 +1251,7 @@ time = 172800
 idle_time = 2592000
 prior = 5
 
-;----квесты Долг (Воронин)----
+;----РєРІРµСЃС‚С‹ Р”РѕР»Рі (Р’РѕСЂРѕРЅРёРЅ)----
 [dolg_defend_lager_1]
 type = defend_lager
 community = actor
@@ -1493,7 +1493,7 @@ time = 259200
 idle_time = 2592000
 prior = 14
 
-; [dolg_eliminate_lager_14] -- не раскомментировать - такого гулага НЕТ
+; [dolg_eliminate_lager_14] -- РЅРµ СЂР°СЃРєРѕРјРјРµРЅС‚РёСЂРѕРІР°С‚СЊ - С‚Р°РєРѕРіРѕ РіСѓР»Р°РіР° РќР•Рў
 ; type = eliminate_lager
 ; community = actor
 ; condlist = {=gulag_population_ge(yan_tonnel_snorks:4)}
@@ -1557,7 +1557,7 @@ time = 172800
 idle_time = 2592000
 prior = 1
 
-;---- квесты Свобода ----
+;---- РєРІРµСЃС‚С‹ РЎРІРѕР±РѕРґР° ----
 [freedom_eliminate_camp_1]
 type = eliminate_lager
 community = actor

@@ -42,12 +42,7 @@
         </title>
 		<texture>amk_blank_01</texture>		
 	</chicon_frame_line>
-	
-	<a_static x="250" y="-3" width="32" height="32"	frames="16" duration="1000" columns="8" frame_width="32" frame_height="32" cyclic="1" autoplay="1">
-		<texture>ui\ui_pda_anims_03</texture>
-	</a_static>
 
-   
 	<right_auto_static x="8" y="52" width="4" height="420">
 		<texture>ui\amk_blank</texture>
 	</right_auto_static>
@@ -156,16 +151,16 @@
 
 		<detail_part_def x="0" y="0" width="350" height="25">
 			<text_0 x="0" y="0" width="20" height="20">
-				<text align="l" x="0" y="0" font="letterica18" a="200"/>
+				<text align="l" x="0" y="0" font="letterica18" a="200" vert_align="c"/>
 			</text_0>
 			<text_1 x="30" y="0" width="180" height="20" complex_mode="1">
-				<text align="l" x="0" y="0" font="letterica18" a="200"/>
+				<text align="l" x="0" y="0" font="letterica18" a="200" vert_align="c"/>
 			</text_1>
 			<text_2 x="200" y="0" width="30" height="20">
-				<text align="r" x="0" y="0" font="letterica16" a="200"/>
+				<text align="r" x="0" y="0" font="letterica16" a="200" vert_align="c"/>
 			</text_2>
 			<text_3 x="250" y="0" width="60" height="20">
-				<text align="r" x="0" y="0" font="letterica18" a="200"/>
+				<text align="r" x="0" y="0" font="letterica18" a="200" vert_align="c"/>
 			</text_3>
 			<auto>
 				<auto_static x="0" y="0" width="350" height="3" stretch="1">

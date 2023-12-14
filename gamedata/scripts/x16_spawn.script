@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ---------------Copyright_Quest_2009-------------------
 --------------Edited_by_stalbar_2009------------------
@@ -8,7 +8,7 @@ local zombie_types = {"rat_weak", "rat_plague", "rat_normal", "rat_strong"}
 
 function x16_rat1( actor, npc )
 	--log1("x16_rat1() called")
-	--'Крысы на полу недалеко от лестницы	
+	--'РљСЂС‹СЃС‹ РЅР° РїРѕР»Сѓ РЅРµРґР°Р»РµРєРѕ РѕС‚ Р»РµСЃС‚РЅРёС†С‹	
 --SPAWN_V1
 	--ogse.quest_spawn(zombie_types[math.random(4)], math.random(6), vector():set(99.01, 5.5, -16.01), 1, 6643, 1539)
 --SPAWN_V2
@@ -18,7 +18,7 @@ end
 
 function x16_rat2( actor, npc )
 	--log1("x16_rat2() called")
-	--'Крысы в туалете		
+	--'РљСЂС‹СЃС‹ РІ С‚СѓР°Р»РµС‚Рµ		
 --SPAWN_V1
 	--ogse.quest_spawn(zombie_types[math.random(4)], math.random(4), vector():set(94.3, 5.6, -32.914), 1, 6643, 1539)
 --SPAWN_V2
@@ -28,7 +28,7 @@ end
 
 function x16_rat3( actor, npc )
 	--log1("x16_rat3() called")
-	--'Крысы в тупике недалеко от бюреров
+	--'РљСЂС‹СЃС‹ РІ С‚СѓРїРёРєРµ РЅРµРґР°Р»РµРєРѕ РѕС‚ Р±СЋСЂРµСЂРѕРІ
 --SPAWN_V1
 	--ogse.quest_spawn(zombie_types[math.random(4)], math.random(4), vector():set(34.71, 5.9, -11.91), 1, 6643, 1539)	
 --SPAWN_V2

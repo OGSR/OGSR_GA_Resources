@@ -1,14 +1,14 @@
 ;==================================================================================================
-;--/ конфиг для модуля "Чтение-запись net-пакетов" (m_netpk.script)
+;--/ РєРѕРЅС„РёРі РґР»СЏ РјРѕРґСѓР»СЏ "Р§С‚РµРЅРёРµ-Р·Р°РїРёСЃСЊ net-РїР°РєРµС‚РѕРІ" (m_netpk.script)
 ;--/ last edit: 27.09.2013 (by Artos)
 ;==================================================================================================
-[options] ;--/ дебаговые опции для модуля "Нет-пакеты"
-disable_convert_client2server = false ;--/ отключить проверку на тип объекта и конвертирование в серверную сущность
-disable_convert_custom_data   = false ;--/ отключить конвертирование 'custom_data' из строки в таблицу (и обратно)
-disable_net_dummy             = false ;--/ отключить использование 'net_dummy' в хелперах
-enable_debug                  = false ;--/ (false|true) режим отладки (от|в)ключен
+[options] ;--/ РґРµР±Р°РіРѕРІС‹Рµ РѕРїС†РёРё РґР»СЏ РјРѕРґСѓР»СЏ "РќРµС‚-РїР°РєРµС‚С‹"
+disable_convert_client2server = false ;--/ РѕС‚РєР»СЋС‡РёС‚СЊ РїСЂРѕРІРµСЂРєСѓ РЅР° С‚РёРї РѕР±СЉРµРєС‚Р° Рё РєРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ РІ СЃРµСЂРІРµСЂРЅСѓСЋ СЃСѓС‰РЅРѕСЃС‚СЊ
+disable_convert_custom_data   = false ;--/ РѕС‚РєР»СЋС‡РёС‚СЊ РєРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ 'custom_data' РёР· СЃС‚СЂРѕРєРё РІ С‚Р°Р±Р»РёС†Сѓ (Рё РѕР±СЂР°С‚РЅРѕ)
+disable_net_dummy             = false ;--/ РѕС‚РєР»СЋС‡РёС‚СЊ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ 'net_dummy' РІ С…РµР»РїРµСЂР°С…
+enable_debug                  = false ;--/ (false|true) СЂРµР¶РёРј РѕС‚Р»Р°РґРєРё (РѕС‚|РІ)РєР»СЋС‡РµРЅ
 ;--/ ---------------------------------------------------------------------------------------------------------------
-[clsid_to_class] ;--/ массив соответствий (TODO: перепроверить)
+[clsid_to_class] ;--/ РјР°СЃСЃРёРІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёР№ (TODO: РїРµСЂРµРїСЂРѕРІРµСЂРёС‚СЊ)
 ;--/ script_clsid            = cse_server_object_class              | CLSID      |flg| server_object_class         | comments
 ;--/ ---------------------------------------------------------------------------------------------------------------
 art_bast_artefact            = cse_alife_item_artefact              , unknown    , 7 ,                             ;--/
@@ -141,8 +141,8 @@ script_stalker               = se_stalker                           , AI_STL_S  
 trader                       = cse_alife_trader                     , AI_TRADE_S , 7 ,                             ;--/
 script_trader                = se_trader                            , AI_TRD_S   , 3 , se_trader                   ;--/ SHoC|STCS
 script_zone                  = cse_alife_space_restrictor           , SCRIPTZN   , 7 ,                             ;--/
-sim_faction                  = se_sim_faction                       , SFACTION   , 2 ,                             ;--/ STCS Внимание! Только для чтения (в доработке!)
-;sim_faction                  = se_sim_faction                       , SCRIPTZN   , 4 ,                             ;--/ SCoP Внимание! Только для чтения (в доработке!)
+sim_faction                  = se_sim_faction                       , SFACTION   , 2 ,                             ;--/ STCS Р’РЅРёРјР°РЅРёРµ! РўРѕР»СЊРєРѕ РґР»СЏ С‡С‚РµРЅРёСЏ (РІ РґРѕСЂР°Р±РѕС‚РєРµ!)
+;sim_faction                  = se_sim_faction                       , SCRIPTZN   , 4 ,                             ;--/ SCoP Р’РЅРёРјР°РЅРёРµ! РўРѕР»СЊРєРѕ РґР»СЏ С‡С‚РµРЅРёСЏ (РІ РґРѕСЂР°Р±РѕС‚РєРµ!)
 smart_terrain                = se_smart_terrain                     , SMRTTRRN   , 7 ,                             ;--/
 smart_zone                   = cse_alife_smart_zone                 , SMRTZN     , 7 ,                             ;--/
 smart_cover                  = cse_smart_cover                      , SMRTCOVR   , 6 ,                             ;--/ STCS|SCoP
@@ -279,5 +279,5 @@ karlik_s                     = se_monster                           , SM_KARLO  
 giant                        = cse_alife_monster_base               , unknown    , 7 ,                             ;--/
 zone_mosquito_bald_s         = se_zone_anom                         , Z_MBALD    , 7 , se_zone_anom                ;--/
 ;--/----------------------------------------------------------------------------------------------------------------
-not_used                     = unknown                              , II_DOCF    , 0 ,                             ;--/# в качестве примера!
+not_used                     = unknown                              , II_DOCF    , 0 ,                             ;--/# РІ РєР°С‡РµСЃС‚РІРµ РїСЂРёРјРµСЂР°!
 ;===================================================================================================================

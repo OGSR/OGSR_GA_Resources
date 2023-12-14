@@ -1,8 +1,8 @@
-;Логика Оружейника в лагере новичков на Кордоне
+;Р›РѕРіРёРєР° РћСЂСѓР¶РµР№РЅРёРєР° РІ Р»Р°РіРµСЂРµ РЅРѕРІРёС‡РєРѕРІ РЅР° РљРѕСЂРґРѕРЅРµ
 
 [logic]
 active = walker@work
-;тест active = remark@base
+;С‚РµСЃС‚ active = remark@base
 danger = danger_ignore
 combat_ignore = combat_ignore
 on_death = death
@@ -28,11 +28,11 @@ on_death = death
 
 [remark@base]
 on_info = {=time_day} walker@podval									
-	;если больше 6 меньше 22 работаем
+	;РµСЃР»Рё Р±РѕР»СЊС€Рµ 6 РјРµРЅСЊС€Рµ 22 СЂР°Р±РѕС‚Р°РµРј
 on_info2 = {=time_evening} sleeper@podval							
-	;если больше равно 22 и меньше 24 спим
+	;РµСЃР»Рё Р±РѕР»СЊС€Рµ СЂР°РІРЅРѕ 22 Рё РјРµРЅСЊС€Рµ 24 СЃРїРёРј
 on_info3 = {=time_night} sleeper@podval							
-	;если больше 0 но меньше 6 спим
+	;РµСЃР»Рё Р±РѕР»СЊС€Рµ 0 РЅРѕ РјРµРЅСЊС€Рµ 6 СЃРїРёРј
 target = actor
 danger = danger_ignore
 combat_ignore = combat_ignore
@@ -45,9 +45,9 @@ on_death = death
 path_walk = esc_guns-repair_way
 path_look = esc_guns-repair_look
 on_info = {=time_evening} sleeper@podval							
-	;если больше равно 22 и меньше 24 спим
+	;РµСЃР»Рё Р±РѕР»СЊС€Рµ СЂР°РІРЅРѕ 22 Рё РјРµРЅСЊС€Рµ 24 СЃРїРёРј
 on_info2 = {=time_night} sleeper@podval 							
-	;если больше 0 но меньше 6 спим
+	;РµСЃР»Рё Р±РѕР»СЊС€Рµ 0 РЅРѕ РјРµРЅСЊС€Рµ 6 СЃРїРёРј
 target = actor
 danger = danger_ignore
 combat_ignore = combat_ignore
@@ -61,7 +61,7 @@ on_death = death
 lpath_main = esc_guns-repair_sleep-place
 path_main = esc_guns-repair_sleep-krovat
 on_info = {=time_day} walker@podval 									
-	;если больше 6 меньше 22 работаем
+	;РµСЃР»Рё Р±РѕР»СЊС€Рµ 6 РјРµРЅСЊС€Рµ 22 СЂР°Р±РѕС‚Р°РµРј
 target = actor
 danger = danger_ignore
 combat_ignore = combat_ignore

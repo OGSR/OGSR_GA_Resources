@@ -1,8 +1,8 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
--- Схема поведения НПС при выбросе и прилёте вертушек для OGSЕ --
-				--- включает Deadly Blowout by KamikaZze ----
------- Copyright 2007-2008 DEXXX, 2009 KamikaZze, небольшие фрагменты Monnoroch ------
+
+-- РЎС…РµРјР° РїРѕРІРµРґРµРЅРёСЏ РќРџРЎ РїСЂРё РІС‹Р±СЂРѕСЃРµ Рё РїСЂРёР»С‘С‚Рµ РІРµСЂС‚СѓС€РµРє РґР»СЏ OGSР• --
+				--- РІРєР»СЋС‡Р°РµС‚ Deadly Blowout by KamikaZze ----
+------ Copyright 2007-2008 DEXXX, 2009 KamikaZze, РЅРµР±РѕР»СЊС€РёРµ С„СЂР°РіРјРµРЅС‚С‹ Monnoroch ------
 
 property_base = 12221
 property_blowout = property_base+1
@@ -15,7 +15,7 @@ act_psy_effect = act_base+2
 act_inhide = act_base+3
 
 
-local locked_vertexes 		= {}		-- занятые вертексы
+local locked_vertexes 		= {}		-- Р·Р°РЅСЏС‚С‹Рµ РІРµСЂС‚РµРєСЃС‹
 
 local npc_psy = {}
 local npc_run = {}
@@ -29,7 +29,7 @@ local zombietime = {}
 local check_timer = {}
 local in_psy = {}
 
--- NPC, внесенные в эту табличку, не бегут в укрытия. Вносить name
+-- NPC, РІРЅРµСЃРµРЅРЅС‹Рµ РІ СЌС‚Сѓ С‚Р°Р±Р»РёС‡РєСѓ, РЅРµ Р±РµРіСѓС‚ РІ СѓРєСЂС‹С‚РёСЏ. Р’РЅРѕСЃРёС‚СЊ name
 local nonehide_npc =
 {
 	["first_neutral"] = true,
@@ -195,10 +195,10 @@ function is_hostile(comm,target)
 end
 ---<< from Monnoroch AI
 
-local count_update 			= 0	-- Счетчик апдейтов. Нельзя чтобы схема стартовала включенной сразу же, иначе 
-local engage_after_update 	= 10 -- будут глюки на переключении схем и выборе оружия
+local count_update 			= 0	-- РЎС‡РµС‚С‡РёРє Р°РїРґРµР№С‚РѕРІ. РќРµР»СЊР·СЏ С‡С‚РѕР±С‹ СЃС…РµРјР° СЃС‚Р°СЂС‚РѕРІР°Р»Р° РІРєР»СЋС‡РµРЅРЅРѕР№ СЃСЂР°Р·Сѓ Р¶Рµ, РёРЅР°С‡Рµ 
+local engage_after_update 	= 10 -- Р±СѓРґСѓС‚ РіР»СЋРєРё РЅР° РїРµСЂРµРєР»СЋС‡РµРЅРёРё СЃС…РµРј Рё РІС‹Р±РѕСЂРµ РѕСЂСѓР¶РёСЏ
 
--- Создаем эвалуатор - проверяем, начался ли выброс
+-- РЎРѕР·РґР°РµРј СЌРІР°Р»СѓР°С‚РѕСЂ - РїСЂРѕРІРµСЂСЏРµРј, РЅР°С‡Р°Р»СЃСЏ Р»Рё РІС‹Р±СЂРѕСЃ
 class "evaluator_blowout" (property_evaluator)
 function evaluator_blowout:__init(name, storage) super (nil, name)
 	self.st = storage
@@ -253,7 +253,7 @@ function evaluator_blowout:evaluate()
 	return false
 end
 
--- Создаем эвалуатор - проверяем, потерял ли непись укрытие
+-- РЎРѕР·РґР°РµРј СЌРІР°Р»СѓР°С‚РѕСЂ - РїСЂРѕРІРµСЂСЏРµРј, РїРѕС‚РµСЂСЏР» Р»Рё РЅРµРїРёСЃСЊ СѓРєСЂС‹С‚РёРµ
 class "evaluator_hideout" (property_evaluator)
 function evaluator_hideout:__init(name, storage) super (nil, name)
 	self.st = storage
@@ -283,7 +283,7 @@ function evaluator_hideout:evaluate()
 	return false
 end
 
--- Создаем эвалуатор - проверяем, сидит ли уже непись в укрытии
+-- РЎРѕР·РґР°РµРј СЌРІР°Р»СѓР°С‚РѕСЂ - РїСЂРѕРІРµСЂСЏРµРј, СЃРёРґРёС‚ Р»Рё СѓР¶Рµ РЅРµРїРёСЃСЊ РІ СѓРєСЂС‹С‚РёРё
 class "evaluator_inhide" (property_evaluator)
 function evaluator_inhide:__init(name, storage) super (nil, name)
 	self.st = storage
@@ -320,7 +320,7 @@ function evaluator_inhide:evaluate()
 end 
 
 
--- Создаем оператор - направляем НПС в укрытие
+-- РЎРѕР·РґР°РµРј РѕРїРµСЂР°С‚РѕСЂ - РЅР°РїСЂР°РІР»СЏРµРј РќРџРЎ РІ СѓРєСЂС‹С‚РёРµ
 class "action_hideout" (action_base)
 function action_hideout:__init(name, storage) super (nil, name)
 	self.st = storage
@@ -332,7 +332,7 @@ function action_hideout:initialize()
 	self.st.dest_lvid = nil
 	self.st.deadman = 0
 	if self.hide then
-		-- есть укрытие
+		-- РµСЃС‚СЊ СѓРєСЂС‹С‚РёРµ
 		self.st.dest_lvid = self.hide.obj:level_vertex_id()
 		if npc:accessible(self.st.dest_lvid) then
 			npc:movement_enabled(true)
@@ -344,7 +344,7 @@ function action_hideout:initialize()
 			-- self.st.deadman = 1
 		end
 	else
-		-- нет укрытия
+		-- РЅРµС‚ СѓРєСЂС‹С‚РёСЏ
 		self.st.deadman = 1
 	end
 end
@@ -374,7 +374,7 @@ function action_hideout:finalize()
 	npc_run[npc:id()] = 0
 end
 
--- Создаем оператор - колбасим НПС, если он не нашел укрытие
+-- РЎРѕР·РґР°РµРј РѕРїРµСЂР°С‚РѕСЂ - РєРѕР»Р±Р°СЃРёРј РќРџРЎ, РµСЃР»Рё РѕРЅ РЅРµ РЅР°С€РµР» СѓРєСЂС‹С‚РёРµ
 class "action_raskolbas" (action_base)
 function action_raskolbas:__init(name, storage) super (nil, name)
 	self.st = storage
@@ -453,7 +453,7 @@ function find_free_vtx(vid, npc)
 	local flag_locked = 0
 	for k, v in pairs(locked_vertexes) do
 		if v == vid and k ~= npc:id() then
-			flag_locked = 1 -- ищем другой
+			flag_locked = 1 -- РёС‰РµРј РґСЂСѓРіРѕР№
 		end	
 	end
 	if flag_locked == 0 then
@@ -469,7 +469,7 @@ function find_free_vtx(vid, npc)
 		local random_offset_2 = math.random(1, 3)	
 		local counter = 0
 		while node_1_vertex_id == nil do
-			-- проверяем точку слева
+			-- РїСЂРѕРІРµСЂСЏРµРј С‚РѕС‡РєСѓ СЃР»РµРІР°
 			local desired_direction = vector_rotate_y(vector():set(0,0,0), math.random(45,120) )
 			node_1_vertex_id = level.vertex_in_direction(around_vertex,
 				desired_direction,
@@ -484,7 +484,7 @@ function find_free_vtx(vid, npc)
 		end		
 		counter = 0
 		while node_2_vertex_id == nil do
-			-- проверяем точку справа
+			-- РїСЂРѕРІРµСЂСЏРµРј С‚РѕС‡РєСѓ СЃРїСЂР°РІР°
 			local desired_direction = vector_rotate_y(vector():set(0,0,0), -math.random(45,120) )
 			node_2_vertex_id = level.vertex_in_direction (  around_vertex,
 				desired_direction,
@@ -497,7 +497,7 @@ function find_free_vtx(vid, npc)
 				break
 			end		
 		end
-		-- Проверяем растояния до точек
+		-- РџСЂРѕРІРµСЂСЏРµРј СЂР°СЃС‚РѕСЏРЅРёСЏ РґРѕ С‚РѕС‡РµРє
 		if node_1_vertex_id ~= nil then
 			node_1_distance = npc:position():distance_to_sqr(level.vertex_position(node_1_vertex_id))
 		else
@@ -508,7 +508,7 @@ function find_free_vtx(vid, npc)
 		else
 			node_2_distance = -1
 		end
-		-- Выбираем ближайшую из существующих
+		-- Р’С‹Р±РёСЂР°РµРј Р±Р»РёР¶Р°Р№С€СѓСЋ РёР· СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС…
 		if node_1_distance == -1 and node_2_distance == -1 then
 			if vid then return vid else return npc:level_vertex_id() end			
 		end
@@ -531,7 +531,7 @@ function find_free_vtx(vid, npc)
 	if vid then return vid else return npc:level_vertex_id() end
 end
 
--- Создаем оператор - усаживаем НПС, если он нашел укрытие
+-- РЎРѕР·РґР°РµРј РѕРїРµСЂР°С‚РѕСЂ - СѓСЃР°Р¶РёРІР°РµРј РќРџРЎ, РµСЃР»Рё РѕРЅ РЅР°С€РµР» СѓРєСЂС‹С‚РёРµ
 class "action_inhide" (action_base)
 function action_inhide:__init(name, storage) super (nil, name)
 	self.st = storage
@@ -602,7 +602,7 @@ function action_inhide:finalize()
 end
 
 
--- Добавляем в планировщик нашу схему
+-- Р”РѕР±Р°РІР»СЏРµРј РІ РїР»Р°РЅРёСЂРѕРІС‰РёРє РЅР°С€Сѓ СЃС…РµРјСѓ
 function add_to_binder(object, char_ini, scheme, section, st)
 	local manager = object:motivation_action_manager()
 	local property_wounded = xr_evaluators_id.sidor_wounded_base
@@ -673,7 +673,7 @@ function add_to_binder(object, char_ini, scheme, section, st)
 end
 
 
--- Функции включения/выключения схемы
+-- Р¤СѓРЅРєС†РёРё РІРєР»СЋС‡РµРЅРёСЏ/РІС‹РєР»СЋС‡РµРЅРёСЏ СЃС…РµРјС‹
 function enable_scheme(npc, ini)
 	local st = xr_logic.assign_storage_and_bind(npc, ini, "ogsm_hideout")
 	st.enabled=true

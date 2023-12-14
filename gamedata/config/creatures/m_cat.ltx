@@ -71,14 +71,14 @@ max_hear_dist		 = 90
 eye_fov				 = 160
 eye_range			 = 50
 
-min_view_distance   		= 0.7				; коэффициент, который множится на eye_range, в зависимости от угла
-max_view_distance	 		= 1.0				; коэффициент, который множится на eye_range, в зависимости от угла
-visibility_threshold	 	= 100.0				; значение, при достижении суммой которого объект считается видимым
+min_view_distance   		= 0.7				; РєРѕСЌС„С„РёС†РёРµРЅС‚, РєРѕС‚РѕСЂС‹Р№ РјРЅРѕР¶РёС‚СЃСЏ РЅР° eye_range, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СѓРіР»Р°
+max_view_distance	 		= 1.0				; РєРѕСЌС„С„РёС†РёРµРЅС‚, РєРѕС‚РѕСЂС‹Р№ РјРЅРѕР¶РёС‚СЃСЏ РЅР° eye_range, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ СѓРіР»Р°
+visibility_threshold	 	= 100.0				; Р·РЅР°С‡РµРЅРёРµ, РїСЂРё РґРѕСЃС‚РёР¶РµРЅРёРё СЃСѓРјРјРѕР№ РєРѕС‚РѕСЂРѕРіРѕ РѕР±СЉРµРєС‚ СЃС‡РёС‚Р°РµС‚СЃСЏ РІРёРґРёРјС‹Рј
 always_visible_distance 	= 0.4
 time_quant					= 0.001
-decrease_value				= 0.01				; значение, на которое уменьшается вес, если объект попал в фрустум, но отсёкся по каким-то причинам
+decrease_value				= 0.01				; Р·РЅР°С‡РµРЅРёРµ, РЅР° РєРѕС‚РѕСЂРѕРµ СѓРјРµРЅСЊС€Р°РµС‚СЃСЏ РІРµСЃ, РµСЃР»Рё РѕР±СЉРµРєС‚ РїРѕРїР°Р» РІ С„СЂСѓСЃС‚СѓРј, РЅРѕ РѕС‚СЃС‘РєСЃСЏ РїРѕ РєР°РєРёРј-С‚Рѕ РїСЂРёС‡РёРЅР°Рј
 velocity_factor		     	= 0.5
-luminocity_factor			= 0.5 				; фактор освещения (только для Актёра)
+luminocity_factor			= 0.5 				; С„Р°РєС‚РѕСЂ РѕСЃРІРµС‰РµРЅРёСЏ (С‚РѕР»СЊРєРѕ РґР»СЏ РђРєС‚С‘СЂР°)
 transparency_threshold		= 0.25
 
 ; speed factors			linear | angular_real | angular_path | min |  max
@@ -102,12 +102,12 @@ MaxAttackDist		= 2.0
 as_min_dist				= 0.3
 as_step					= 0.4
 
-DayTime_Begin		= 6			; эрўрыр фэ  фы  ьюэёЄЁр
-DayTime_End			= 21		; ъюэхЎ фэ  фы  ьюэёЄЁр
-Min_Satiety		= 0.4	;0.6		; ьшэ. эюЁьр ёvЄюёЄш (ьхэ№°х - єцх уюыюфэvщ)
-Max_Satiety		= 1.0		; ьръё. эюЁьр ёvЄюёЄш (сюы№°х - юўхэ№ ёvЄvщ)
+DayTime_Begin		= 6			; СЌСЂСћСЂС‹СЂ С„СЌВ  С„С‹В  СЊСЋСЌС‘Р„РЃСЂ
+DayTime_End			= 21		; СЉСЋСЌС…РЋ С„СЌВ  С„С‹В  СЊСЋСЌС‘Р„РЃСЂ
+Min_Satiety		= 0.4	;0.6		; СЊС€СЌ. СЌСЋРЃСЊСЂ С‘vР„СЋС‘Р„С€ (СЊС…СЌв„–В°С… - С”С†С… СѓСЋС‹СЋС„СЌvС‰)
+Max_Satiety		= 1.0		; СЊСЂСЉС‘. СЌСЋРЃСЊСЂ С‘vР„СЋС‘Р„С€ (СЃСЋС‹в„–В°С… - СЋСћС…СЌв„– С‘vР„vС‰)
 
-distance_to_corpse	= 1.5		; фшёЄ. фю ЄЁєяр, яЁш ъюЄюЁющ юэ яхЁхїюфшЄ т ёюёЄю эшх хфv
+distance_to_corpse	= 1.5		; С„С€С‘Р„. С„СЋ Р„РЃС”СЏСЂ, СЏРЃС€ СЉСЋР„СЋРЃСЋС‰ СЋСЌ СЏС…РЃС…С—СЋС„С€Р„ С‚ С‘СЋС‘Р„СЋВ СЌС€С… С…С„v
 
 ;							  fSearchRange,fCoverFromEnemyWeight,fOptEnemyDistance,fOptEnemyDistanceWeight,fMinEnemyDistance,fMinEnemyDistanceWeight,fMaxEnemyDistance,fMaxEnemyDistanceWeight
 selector_cover           =      20.0,            -1000.0,                30.0,                 0.0,                  0.0,              100000.0,             100000.0,               1000.0,
@@ -142,9 +142,9 @@ psy_health_v					= 0.1
 immunities_sect					= cat_immunities
 
 
-;открытые раны
-bleeding_v						= 0.13				;потеря крови при номинальной ране в секунду
-wound_incarnation_v				= 0.007				;крутизна кривой заживления (какой процент раны останется после заживления в игровую секунду)
+;РѕС‚РєСЂС‹С‚С‹Рµ СЂР°РЅС‹
+bleeding_v						= 0.13				;РїРѕС‚РµСЂСЏ РєСЂРѕРІРё РїСЂРё РЅРѕРјРёРЅР°Р»СЊРЅРѕР№ СЂР°РЅРµ РІ СЃРµРєСѓРЅРґСѓ
+wound_incarnation_v				= 0.007				;РєСЂСѓС‚РёР·РЅР° РєСЂРёРІРѕР№ Р·Р°Р¶РёРІР»РµРЅРёСЏ (РєР°РєРѕР№ РїСЂРѕС†РµРЅС‚ СЂР°РЅС‹ РѕСЃС‚Р°РЅРµС‚СЃСЏ РїРѕСЃР»Рµ Р·Р°Р¶РёРІР»РµРЅРёСЏ РІ РёРіСЂРѕРІСѓСЋ СЃРµРєСѓРЅРґСѓ)
 min_wound_size					= 0.008
 
 
@@ -276,7 +276,7 @@ stand_drag_0		=	   1,	    0.2,     1,	    0.25,    0.7,    0.7,     1.0,     0.7
 ; IMMUNITIES
 ;===========================================================================
 [cat_immunities]
-burn_immunity 					= 1.0				;ъю¤ЇЇшЎшхэЄv шььєэшЄхЄр 
+burn_immunity 					= 1.0				;СЉСЋВ¤Р‡Р‡С€РЋС€С…СЌР„v С€СЊСЊС”СЌС€Р„С…Р„СЂ 
 strike_immunity 				= 0.5
 shock_immunity 					= 1.0
 wound_immunity 					= 0.65
@@ -289,8 +289,8 @@ fire_wound_immunity  			= 0.85
 
 [m_cat_damage]
 ;bone_name		 = <hit_scale>,-1,<wound_scale>
-;<hit_scale>	- коэфф. изменения хита (уменьшения здоровья) 
-;<wound_scale>	- коэфф. изменения величины открытой раны
+;<hit_scale>	- РєРѕСЌС„С„. РёР·РјРµРЅРµРЅРёСЏ С…РёС‚Р° (СѓРјРµРЅСЊС€РµРЅРёСЏ Р·РґРѕСЂРѕРІСЊСЏ) 
+;<wound_scale>	- РєРѕСЌС„С„. РёР·РјРµРЅРµРЅРёСЏ РІРµР»РёС‡РёРЅС‹ РѕС‚РєСЂС‹С‚РѕР№ СЂР°РЅС‹
 
 default				= 1, -1, 0.10
 
@@ -337,7 +337,7 @@ Tele_Time_To_Hold 		= 200
 sound_aggressive		= monsters\cat\cat_aggressive_2
 immunities_sect 			= cat_immunities_normal
 attack_params			= m_cat_attack_params_normal
-;--Имунитеты:
+;--РРјСѓРЅРёС‚РµС‚С‹:
 [cat_immunities_normal]:cat_immunities
 burn_immunity 					= 0.4
 strike_immunity 				= 0.4
@@ -371,7 +371,7 @@ Tele_Time_To_Hold 		= 200
 sound_aggressive		= monsters\cat\cat_aggressive_2
 immunities_sect 			= cat_immunities_strong
 attack_params			= m_cat_attack_params_strong
-;--Имунитеты:
+;--РРјСѓРЅРёС‚РµС‚С‹:
 [cat_immunities_strong]:cat_immunities
 burn_immunity 					= 0.4
 strike_immunity 				= 0.4

@@ -1,6 +1,6 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
 
--- ZRP - опция показывает точность первого выстрела, а не комбинированную из разных параметров.
+
+-- ZRP - РѕРїС†РёСЏ РїРѕРєР°Р·С‹РІР°РµС‚ С‚РѕС‡РЅРѕСЃС‚СЊ РїРµСЂРІРѕРіРѕ РІС‹СЃС‚СЂРµР»Р°, Р° РЅРµ РєРѕРјР±РёРЅРёСЂРѕРІР°РЅРЅСѓСЋ РёР· СЂР°Р·РЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ.
 local show_single_fire_accuracy = true
 
 local normalize = function(num) return math.clamp(num, 1, 100) end
@@ -17,15 +17,15 @@ end
 function GetRPM(section)
 	local ltx = sys_ini
 	
--- НАДЕЖНЕЙ local rpm = read_if_exist(ltx, section,"rpm", 1)
+-- РќРђР”Р•Р–РќР•Р™ local rpm = read_if_exist(ltx, section,"rpm", 1)
 	local rpm = ltx:r_float(section,"rpm")
 	local mag_size = ltx:r_float(section,"ammo_mag_size")
 
--- в ОГСЕ почему-то проверялось ПОСЛЕ вычислений (было 30)
+-- РІ РћР“РЎР• РїРѕС‡РµРјСѓ-С‚Рѕ РїСЂРѕРІРµСЂСЏР»РѕСЃСЊ РџРћРЎР›Р• РІС‹С‡РёСЃР»РµРЅРёР№ (Р±С‹Р»Рѕ 30)
 	if mag_size < 5	then rpm = 20 end
 	
 	if rpm > 200 then
--- если > 100 то rpm = (mag_size*(60/((mag_size/(rpm/60)) + 5.5)))/2.4
+-- РµСЃР»Рё > 100 С‚Рѕ rpm = (mag_size*(60/((mag_size/(rpm/60)) + 5.5)))/2.4
 		rpm = math.pow((rpm - 200)/720,2)*100 + 15
 	else
 		rpm = rpm/14
@@ -62,18 +62,18 @@ function GetDamageMP(section)
 end
 
 function GetHandling(section)
---надёжность
+--РЅР°РґС‘Р¶РЅРѕСЃС‚СЊ
 	local ltx = sys_ini
 
-	local misfire_probability	= ltx:r_float(section,"misfire_probability")			-- вероятность осечки при максимальном износе
+	local misfire_probability	= ltx:r_float(section,"misfire_probability")			-- РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РѕСЃРµС‡РєРё РїСЂРё РјР°РєСЃРёРјР°Р»СЊРЅРѕРј РёР·РЅРѕСЃРµ
 	--local misfire_condition_k = ltx:r_float(section,"misfire_condition_k")
 	local misfire_condition_k  = read_if_exist(ltx, section, "misfire_condition_k", 1)
-	local condition_shot_dec = ltx:r_float(section,"condition_shot_dec")				-- увеличение износа при каждом выстреле
+	local condition_shot_dec = ltx:r_float(section,"condition_shot_dec")				-- СѓРІРµР»РёС‡РµРЅРёРµ РёР·РЅРѕСЃР° РїСЂРё РєР°Р¶РґРѕРј РІС‹СЃС‚СЂРµР»Рµ
 
 	local ammo_list			= ltx:r_string(section,"ammo_class")
 	
 	local pos  = string.find(ammo_list,",",1)
-	local impair		-- коэффициент износа ствола от пули (у боеприпаса)	
+	local impair		-- РєРѕСЌС„С„РёС†РёРµРЅС‚ РёР·РЅРѕСЃР° СЃС‚РІРѕР»Р° РѕС‚ РїСѓР»Рё (Сѓ Р±РѕРµРїСЂРёРїР°СЃР°)	
 	if nil ~= pos then
 		local ammo = string.sub(ammo_list,1,pos - 1)
 		impair				= ltx:r_float(ammo, "impair");

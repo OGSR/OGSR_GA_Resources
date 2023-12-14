@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding="windows-1251"?>
+<?xml version='1.0' encoding="UTF-8"?>
 
 <xml>
 
@@ -6,7 +6,7 @@
     <name>GENERATE_NAME_stalker</name>
     <icon>ui_npc_u_stalker_militari_2</icon>
     <map_icon x="3" y="0"></map_icon>
-    <bio>Сталкер группировки "Монолит". Детальная информация отсутствует.</bio>
+    <bio>РЎС‚Р°Р»РєРµСЂ РіСЂСѓРїРїРёСЂРѕРІРєРё "РњРѕРЅРѕР»РёС‚". Р”РµС‚Р°Р»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚.</bio>
 
     <class>gen_monolit_sniper</class>
     <community>monolith</community>
@@ -39,7 +39,7 @@
     <name>GENERATE_NAME_stalker</name>
     <icon>ui_npc_u_stalker_militari_2</icon>
     <map_icon x="3" y="0"></map_icon>
-    <bio>Сталкер группировки "Монолит". Детальная информация отсутствует.</bio>
+    <bio>РЎС‚Р°Р»РєРµСЂ РіСЂСѓРїРїРёСЂРѕРІРєРё "РњРѕРЅРѕР»РёС‚". Р”РµС‚Р°Р»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚.</bio>
 
     <class>gen_monolit_assault</class>
     <community>monolith</community>
@@ -55,8 +55,8 @@
     <visual>actors\militari\stalker_warlab_guard</visual>
     <supplies>
       [spawn] \n
-	  		wpn_val \n
-            ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			wpn_walther \n
 			ammo_9x19_pbp \n
 			grenade_f1 = 2 \n
@@ -74,7 +74,7 @@
     <name>GENERATE_NAME_stalker</name>
     <icon>ui_npc_u_stalker_militari_2</icon>
     <map_icon x="3" y="0"></map_icon>
-    <bio>Сталкер группировки "Монолит". Детальная информация отсутствует.</bio>
+    <bio>РЎС‚Р°Р»РєРµСЂ РіСЂСѓРїРїРёСЂРѕРІРєРё "РњРѕРЅРѕР»РёС‚". Р”РµС‚Р°Р»СЊРЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚.</bio>
 
     <class>gen_monolit_patrol</class>
     <community>monolith</community>
@@ -126,8 +126,8 @@
 		<visual>actors\unic\npc_kap</visual>
 		<supplies>
 			[spawn] \n
-	  		wpn_val \n
-            ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			wpn_beretta \n
 			ammo_9x19_pbp \n
 			grenade_f1 \n			
@@ -161,8 +161,8 @@
 		
 		<supplies>
 			[spawn] \n
-	  		wpn_val \n
-            ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			wpn_beretta \n
 			ammo_9x19_pbp \n
 			grenade_f1 \n				
@@ -226,8 +226,8 @@
 		<visual>actors\unic\npc_cherep</visual>
 		<supplies>
 			[spawn] \n
-	  		wpn_val \n
-            ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			grenade_f1 \n				
 #include "gameplay\character_items.xml" \n
 #include "gameplay\character_drugs.xml" \n
@@ -258,8 +258,8 @@
 		<visual>actors\stalker_dolg\stalker_do_exoskeleton_spec</visual>
 		<supplies>
 			[spawn] \n
-	  		wpn_val \n
-            ammo_9x39_ap \n
+			wpn_pk \n
+			ammo_7.62x54_ap \n
 			wpn_pm \n
 			ammo_9x18_pmm \n
 			grenade_f1 \n				

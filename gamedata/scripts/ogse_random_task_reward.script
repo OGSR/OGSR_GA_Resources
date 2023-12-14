@@ -1,8 +1,8 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -----------------------------------------------------------------------
 --- ogse_random_task_reward.script
---- Модуль рандомных наград за однотипные квесты
+--- РњРѕРґСѓР»СЊ СЂР°РЅРґРѕРјРЅС‹С… РЅР°РіСЂР°Рґ Р·Р° РѕРґРЅРѕС‚РёРїРЅС‹Рµ РєРІРµСЃС‚С‹
 --- Mixser (c) OGS Evolution Team
 --- version 1.61 (18/11/2011)
 -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ class "random_task_reward"
 
 function random_task_reward:__init(trader_name, task_name)
 	--self.cycle_count = 0
-	self.random_task_reward_accept = 1 -- 1 - включены, 0 - отключены
+	self.random_task_reward_accept = 1 -- 1 - РІРєР»СЋС‡РµРЅС‹, 0 - РѕС‚РєР»СЋС‡РµРЅС‹
 		
 		
 	if self.random_task_reward_accept == 1 then
@@ -20,17 +20,17 @@ function random_task_reward:__init(trader_name, task_name)
 		self.task_info.task_name = task_name
 		self.diff_list = {"easy", "normal", "hard"}
 		self.items_list = {"art", "weapon", "outfit", "ammo", "device", "other"}
-		self.trader_list = self:get_trader_list() -- Торговцы, которые выдают рандомные награды
-		self.difficult_list = self:get_difficult_list() -- Занесение задания в таблицу по уровню сложности
+		self.trader_list = self:get_trader_list() -- РўРѕСЂРіРѕРІС†С‹, РєРѕС‚РѕСЂС‹Рµ РІС‹РґР°СЋС‚ СЂР°РЅРґРѕРјРЅС‹Рµ РЅР°РіСЂР°РґС‹
+		self.difficult_list = self:get_difficult_list() -- Р—Р°РЅРµСЃРµРЅРёРµ Р·Р°РґР°РЅРёСЏ РІ С‚Р°Р±Р»РёС†Сѓ РїРѕ СѓСЂРѕРІРЅСЋ СЃР»РѕР¶РЅРѕСЃС‚Рё
 		
 		if self.trader_list[self.trader] and self.difficult_list[self.task_info.task_name] then
-			self:set_task_info(self.task_info) -- Информация про текущее задание
-			self.scheme = self:get_scheme_by_type() -- Схема награды
-			self.money_koef = 1 -- Коэффициент для вещей
-			self.money_max = self:get_money_by_type() -- Денежная информация
+			self:set_task_info(self.task_info) -- РРЅС„РѕСЂРјР°С†РёСЏ РїСЂРѕ С‚РµРєСѓС‰РµРµ Р·Р°РґР°РЅРёРµ
+			self.scheme = self:get_scheme_by_type() -- РЎС…РµРјР° РЅР°РіСЂР°РґС‹
+			self.money_koef = 1 -- РљРѕСЌС„С„РёС†РёРµРЅС‚ РґР»СЏ РІРµС‰РµР№
+			self.money_max = self:get_money_by_type() -- Р”РµРЅРµР¶РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ
 			self.money_reward = 0 
-			self.final_list = {} -- Итоговый список предметов		
-			self.trader_items = self:get_trader_items() -- списки вещей у торговца.
+			self.final_list = {} -- РС‚РѕРіРѕРІС‹Р№ СЃРїРёСЃРѕРє РїСЂРµРґРјРµС‚РѕРІ		
+			self.trader_items = self:get_trader_items() -- СЃРїРёСЃРєРё РІРµС‰РµР№ Сѓ С‚РѕСЂРіРѕРІС†Р°.
 		end
 	end
 end
@@ -38,7 +38,7 @@ end
 function random_task_reward:__finalize()
 end
 --[[
--- вывод в лог
+-- РІС‹РІРѕРґ РІ Р»РѕРі
 function random_task_reward:inc_cycle_count()
 	self.cycle_count = self.cycle_count + 1
 end
@@ -48,7 +48,7 @@ function random_task_reward:print_cycle_count(text)
 end
 --]]
 
--- Заполнение массивов
+-- Р—Р°РїРѕР»РЅРµРЅРёРµ РјР°СЃСЃРёРІРѕРІ
 function random_task_reward:get_array_from_string(s)
 	local num = nil
 	local c = {}
@@ -58,7 +58,7 @@ function random_task_reward:get_array_from_string(s)
 	return c
 end
 
--- Получение списка торговцев, у которых включены рандомные задания
+-- РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° С‚РѕСЂРіРѕРІС†РµРІ, Сѓ РєРѕС‚РѕСЂС‹С… РІРєР»СЋС‡РµРЅС‹ СЂР°РЅРґРѕРјРЅС‹Рµ Р·Р°РґР°РЅРёСЏ
 function random_task_reward:get_trader_list()
 	--self:print_cycle_count("start get_trader_list")
 	local time_array = {}
@@ -73,7 +73,7 @@ function random_task_reward:get_trader_list()
 	return time_array
 end
 
--- Получение списка заданий по уровню сложности
+-- РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° Р·Р°РґР°РЅРёР№ РїРѕ СѓСЂРѕРІРЅСЋ СЃР»РѕР¶РЅРѕСЃС‚Рё
 function random_task_reward:get_difficult_list()
 	--self:print_cycle_count("start get_difficult_list")
 	local time_array = {}
@@ -89,7 +89,7 @@ function random_task_reward:get_difficult_list()
 	return time_array
 end
 
--- Получение информациии о текущем задании (сложность+тип)
+-- РџРѕР»СѓС‡РµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРёРё Рѕ С‚РµРєСѓС‰РµРј Р·Р°РґР°РЅРёРё (СЃР»РѕР¶РЅРѕСЃС‚СЊ+С‚РёРї)
 function random_task_reward:set_task_info(time_array)
 	--self:print_cycle_count("start set_task_info")	
 	
@@ -101,7 +101,7 @@ function random_task_reward:set_task_info(time_array)
 	--self:print_cycle_count("finish set_task_info")
 end
 
--- Уточнение, на кого именно будем охотится, уничтожая лагерь (на людей или монстров)
+-- РЈС‚РѕС‡РЅРµРЅРёРµ, РЅР° РєРѕРіРѕ РёРјРµРЅРЅРѕ Р±СѓРґРµРј РѕС…РѕС‚РёС‚СЃСЏ, СѓРЅРёС‡С‚РѕР¶Р°СЏ Р»Р°РіРµСЂСЊ (РЅР° Р»СЋРґРµР№ РёР»Рё РјРѕРЅСЃС‚СЂРѕРІ)
 function random_task_reward:get_eliminate_type()
 	--self:print_cycle_count("start get_eliminate_type")
 	local monster_lager = {}
@@ -115,7 +115,7 @@ function random_task_reward:get_eliminate_type()
 	if monster_lager[self:get_quest_target(self.task_info.task_name)] then return "eliminate_monster_lager" else return "eliminate_stalker_lager" end
 end
 
--- Получение денежной награды за предметы
+-- РџРѕР»СѓС‡РµРЅРёРµ РґРµРЅРµР¶РЅРѕР№ РЅР°РіСЂР°РґС‹ Р·Р° РїСЂРµРґРјРµС‚С‹
 function random_task_reward:get_money_reward(item_array)
 	local sum = 0
 	for k,v in pairs(item_array) do	
@@ -126,7 +126,7 @@ function random_task_reward:get_money_reward(item_array)
 	if self.money_reward > self.money_max then self.money_reward = self.money_max end
 end
 
--- Получение информации об денежной награде для текущей схемы
+-- РџРѕР»СѓС‡РµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё РѕР± РґРµРЅРµР¶РЅРѕР№ РЅР°РіСЂР°РґРµ РґР»СЏ С‚РµРєСѓС‰РµР№ СЃС…РµРјС‹
 function random_task_reward:get_money_by_type()
 	if self.task_info.type == "artefact" or self.task_info.type == "find_item" or self.task_info.type == "monster_part" then 
 		if self.task_info.type == "artefact" then self.money_koef = sys_ini:r_float("rndm_tsk_rwrd_money_koef", "art")
@@ -140,7 +140,7 @@ function random_task_reward:get_money_by_type()
 	end
 end
 
--- Получение схемы, по которой будут генерится вещи
+-- РџРѕР»СѓС‡РµРЅРёРµ СЃС…РµРјС‹, РїРѕ РєРѕС‚РѕСЂРѕР№ Р±СѓРґСѓС‚ РіРµРЅРµСЂРёС‚СЃСЏ РІРµС‰Рё
 function random_task_reward:get_scheme_by_type()
 	--self:print_cycle_count("start get_scheme_by_type")
 	local n = sys_ini:line_count("rndm_tsk_rwrd_"..self.trader.."_"..self.task_info.type.."_"..self.task_info.difficult.."_scheme")
@@ -156,7 +156,7 @@ function random_task_reward:get_scheme_by_type()
 	return time_array
 end
 
--- Получение вещей у торговцев
+-- РџРѕР»СѓС‡РµРЅРёРµ РІРµС‰РµР№ Сѓ С‚РѕСЂРіРѕРІС†РµРІ
 function random_task_reward:get_trader_items()
 	--self:print_cycle_count("start get_trader_items")
 	local time_array = {}
@@ -171,22 +171,22 @@ function random_task_reward:get_trader_items()
 	return time_array
 end
 
--- Возращение типа задания
+-- Р’РѕР·СЂР°С‰РµРЅРёРµ С‚РёРїР° Р·Р°РґР°РЅРёСЏ
 function random_task_reward:get_task_type(task_name)
 	return sys_ini:r_string(task_name, "type")
 end
 
--- Возращение цели задания (для квестов "принеси вещь")
+-- Р’РѕР·СЂР°С‰РµРЅРёРµ С†РµР»Рё Р·Р°РґР°РЅРёСЏ (РґР»СЏ РєРІРµСЃС‚РѕРІ "РїСЂРёРЅРµСЃРё РІРµС‰СЊ")
 function random_task_reward:get_quest_target(task_name)
 	return sys_ini:r_string(task_name, "target")
 end
 
 
--- Генерирование списка вещей для награды
+-- Р“РµРЅРµСЂРёСЂРѕРІР°РЅРёРµ СЃРїРёСЃРєР° РІРµС‰РµР№ РґР»СЏ РЅР°РіСЂР°РґС‹
 function random_task_reward:generate_reward_list()
 	self.cycle_count = 0
 	--self:print_cycle_count("start generate_reward_list")
-	if self.trader_list[self.trader] == true and self.difficult_list[self.task_info.task_name] then -- проверка на разрешение дальнейшей работы
+	if self.trader_list[self.trader] == true and self.difficult_list[self.task_info.task_name] then -- РїСЂРѕРІРµСЂРєР° РЅР° СЂР°Р·СЂРµС€РµРЅРёРµ РґР°Р»СЊРЅРµР№С€РµР№ СЂР°Р±РѕС‚С‹
 		self.final_list = {}
 		for k,v in pairs(self.scheme) do
 			if v == "art" then self:generate_art()
@@ -199,7 +199,7 @@ function random_task_reward:generate_reward_list()
 			end
 		end
 		self.money_reward = math.ceil(self.money_reward)
-		--self.trader_items = self:get_trader_items() -- возобновим все данные о предметах, дабы избежать вылета по пустому интервалу для рандома
+		--self.trader_items = self:get_trader_items() -- РІРѕР·РѕР±РЅРѕРІРёРј РІСЃРµ РґР°РЅРЅС‹Рµ Рѕ РїСЂРµРґРјРµС‚Р°С…, РґР°Р±С‹ РёР·Р±РµР¶Р°С‚СЊ РІС‹Р»РµС‚Р° РїРѕ РїСѓСЃС‚РѕРјСѓ РёРЅС‚РµСЂРІР°Р»Сѓ РґР»СЏ СЂР°РЅРґРѕРјР°
 	end
 	--self:print_cycle_count("finish generate_reward_list")
 end
@@ -207,35 +207,35 @@ end
 --[[
 	name
 	count
-	price (! цену устанавливаем здесь, а не в окошке выбора награды)
+	price (! С†РµРЅСѓ СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р·РґРµСЃСЊ, Р° РЅРµ РІ РѕРєРѕС€РєРµ РІС‹Р±РѕСЂР° РЅР°РіСЂР°РґС‹)
 --]]
 
--- Генерирование арта
+-- Р“РµРЅРµСЂРёСЂРѕРІР°РЅРёРµ Р°СЂС‚Р°
 function random_task_reward:generate_art()
 	local n = 1 --math.random(2, 3)
 	local time_array = {}
 	local money_info = {}
-	self:delete_art() -- удалим из списка арт, который мы только что сдали по заданию 
-	self:delete_saharov_art() -- удалим сахаровский арт
+	self:delete_art() -- СѓРґР°Р»РёРј РёР· СЃРїРёСЃРєР° Р°СЂС‚, РєРѕС‚РѕСЂС‹Р№ РјС‹ С‚РѕР»СЊРєРѕ С‡С‚Рѕ СЃРґР°Р»Рё РїРѕ Р·Р°РґР°РЅРёСЋ 
+	self:delete_saharov_art() -- СѓРґР°Р»РёРј СЃР°С…Р°СЂРѕРІСЃРєРёР№ Р°СЂС‚
 	for i=1, n do
 		if table.getn(self.trader_items["art"]) ~= 0 then
 			time_array = {}
 			local k = math.random(table.getn(self.trader_items["art"]))
 			time_array["name"] = self.trader_items["art"][k]
 			time_array["count"] = 1
-			time_array["price"] = self.money_koef*sys_ini:r_u32(time_array["name"], "cost") -- нужно больше денег, мой лорд! =)
+			time_array["price"] = self.money_koef*sys_ini:r_u32(time_array["name"], "cost") -- РЅСѓР¶РЅРѕ Р±РѕР»СЊС€Рµ РґРµРЅРµРі, РјРѕР№ Р»РѕСЂРґ! =)
 			if time_array["price"] > self.money_max then time_array["price"] = self.money_max end
 			table.insert(money_info, time_array)
-			self:check_table(time_array) -- проверка на вхождение элемента (если элемент уже есть в итоговой таблице, то просто увеличиваем count)
-			table.remove(self.trader_items["art"], k) -- удалим арт, чтобы не мешался под ногами
+			self:check_table(time_array) -- РїСЂРѕРІРµСЂРєР° РЅР° РІС…РѕР¶РґРµРЅРёРµ СЌР»РµРјРµРЅС‚Р° (РµСЃР»Рё СЌР»РµРјРµРЅС‚ СѓР¶Рµ РµСЃС‚СЊ РІ РёС‚РѕРіРѕРІРѕР№ С‚Р°Р±Р»РёС†Рµ, С‚Рѕ РїСЂРѕСЃС‚Рѕ СѓРІРµР»РёС‡РёРІР°РµРј count)
+			table.remove(self.trader_items["art"], k) -- СѓРґР°Р»РёРј Р°СЂС‚, С‡С‚РѕР±С‹ РЅРµ РјРµС€Р°Р»СЃСЏ РїРѕРґ РЅРѕРіР°РјРё
 		end
 	end
-	self:get_money_reward(money_info) -- получаем оценку, во сколько обходится данный набор
+	self:get_money_reward(money_info) -- РїРѕР»СѓС‡Р°РµРј РѕС†РµРЅРєСѓ, РІРѕ СЃРєРѕР»СЊРєРѕ РѕР±С…РѕРґРёС‚СЃСЏ РґР°РЅРЅС‹Р№ РЅР°Р±РѕСЂ
 end
 
--- Удаление арта из таблицы (случай, когда арт, который npc забрал в качестве награды, выставляет арт как награду)
+-- РЈРґР°Р»РµРЅРёРµ Р°СЂС‚Р° РёР· С‚Р°Р±Р»РёС†С‹ (СЃР»СѓС‡Р°Р№, РєРѕРіРґР° Р°СЂС‚, РєРѕС‚РѕСЂС‹Р№ npc Р·Р°Р±СЂР°Р» РІ РєР°С‡РµСЃС‚РІРµ РЅР°РіСЂР°РґС‹, РІС‹СЃС‚Р°РІР»СЏРµС‚ Р°СЂС‚ РєР°Рє РЅР°РіСЂР°РґСѓ)
 function random_task_reward:delete_art()	
-	local name = sys_ini:r_string(self.task_info.task_name, "target") -- название арта
+	local name = sys_ini:r_string(self.task_info.task_name, "target") -- РЅР°Р·РІР°РЅРёРµ Р°СЂС‚Р°
 	local t = 0
 	
 	for k,v in pairs(self.trader_items["art"]) do
@@ -246,7 +246,7 @@ function random_task_reward:delete_art()
 	if t > 0 then table.remove(self.trader_items["art"], t) end
 end
 
--- Удаление арта из таблицы (случай, когда Сахаров выдают награду, и одновременно просит в качестве поручение - ogse_yan_random_quest)
+-- РЈРґР°Р»РµРЅРёРµ Р°СЂС‚Р° РёР· С‚Р°Р±Р»РёС†С‹ (СЃР»СѓС‡Р°Р№, РєРѕРіРґР° РЎР°С…Р°СЂРѕРІ РІС‹РґР°СЋС‚ РЅР°РіСЂР°РґСѓ, Рё РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ РїСЂРѕСЃРёС‚ РІ РєР°С‡РµСЃС‚РІРµ РїРѕСЂСѓС‡РµРЅРёРµ - ogse_yan_random_quest)
 function random_task_reward:delete_saharov_art()
 	local art = ogse.load_variable("yan_random_quest_"..self.task_info.difficult.."_art", "")
 	if art ~= "" then
@@ -261,24 +261,24 @@ function random_task_reward:delete_saharov_art()
 	end
 end
 
--- Генерирование оружия и аддона к нему
+-- Р“РµРЅРµСЂРёСЂРѕРІР°РЅРёРµ РѕСЂСѓР¶РёСЏ Рё Р°РґРґРѕРЅР° Рє РЅРµРјСѓ
 function random_task_reward:generate_weapon()
 	local time_array = {}
 	local money_info = {}
 	local weapon = ""
-	-- Оружие
+	-- РћСЂСѓР¶РёРµ
 	time_array["name"] = self.trader_items["weapon"][math.random(table.getn(self.trader_items["weapon"]))]
-	weapon = time_array["name"] -- для аддона
+	weapon = time_array["name"] -- РґР»СЏ Р°РґРґРѕРЅР°
 	time_array["count"] = 1
 	time_array["price"] = sys_ini:r_u32(time_array["name"], "cost")
---	if time_array["price"] > self.money_max then time_array["price"] = self.money_max end		-- это нахера вообще было сделано???
+--	if time_array["price"] > self.money_max then time_array["price"] = self.money_max end		-- СЌС‚Рѕ РЅР°С…РµСЂР° РІРѕРѕР±С‰Рµ Р±С‹Р»Рѕ СЃРґРµР»Р°РЅРѕ???
 	if time_array["price"] > self.money_max then return end
 	table.insert(money_info, time_array)
 	self:check_table(time_array)
-	-- Выдаём по возможности аддон
+	-- Р’С‹РґР°С‘Рј РїРѕ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё Р°РґРґРѕРЅ
 	if math.random(100) > 30 then 
 		time_array = {}
-		local help = ogse_random_treasure.random_treasure("none", 0) -- для вызова аддона
+		local help = ogse_random_treasure.random_treasure("none", 0) -- РґР»СЏ РІС‹Р·РѕРІР° Р°РґРґРѕРЅР°
 		help.current_reward[1] = 
 		{
 			["section"] = weapon,
@@ -290,27 +290,27 @@ function random_task_reward:generate_weapon()
 --		if time_array["price"] > self.money_max then time_array["price"] = self.money_max end
 		if time_array["price"] > self.money_max then return end
 		table.insert(money_info, time_array)
-		self:check_table(time_array) -- проверка на вхождение элемента (если элемент уже есть в итоговой таблице, то просто увеличиваем count)
-		help = nil -- чистим неиспользуемое
+		self:check_table(time_array) -- РїСЂРѕРІРµСЂРєР° РЅР° РІС…РѕР¶РґРµРЅРёРµ СЌР»РµРјРµРЅС‚Р° (РµСЃР»Рё СЌР»РµРјРµРЅС‚ СѓР¶Рµ РµСЃС‚СЊ РІ РёС‚РѕРіРѕРІРѕР№ С‚Р°Р±Р»РёС†Рµ, С‚Рѕ РїСЂРѕСЃС‚Рѕ СѓРІРµР»РёС‡РёРІР°РµРј count)
+		help = nil -- С‡РёСЃС‚РёРј РЅРµРёСЃРїРѕР»СЊР·СѓРµРјРѕРµ
 	end
-	self:get_money_reward(money_info) -- получаем оценку, во сколько обходится данный набор
+	self:get_money_reward(money_info) -- РїРѕР»СѓС‡Р°РµРј РѕС†РµРЅРєСѓ, РІРѕ СЃРєРѕР»СЊРєРѕ РѕР±С…РѕРґРёС‚СЃСЏ РґР°РЅРЅС‹Р№ РЅР°Р±РѕСЂ
 end
 
--- Генерирование девайса
+-- Р“РµРЅРµСЂРёСЂРѕРІР°РЅРёРµ РґРµРІР°Р№СЃР°
 function random_task_reward:generate_device()
 	local time_array = {}
 	local money_info = {}
 	local device = ""
-	-- Оружие
+	-- РћСЂСѓР¶РёРµ
 	time_array["name"] = self.trader_items["device"][math.random(table.getn(self.trader_items["device"]))]
-	device = time_array["name"] -- для аддона
+	device = time_array["name"] -- РґР»СЏ Р°РґРґРѕРЅР°
 	time_array["count"] = 1
 	time_array["price"] = sys_ini:r_u32(time_array["name"], "cost")
---	if time_array["price"] > self.money_max then time_array["price"] = self.money_max end		-- это нахера вообще было сделано???
+--	if time_array["price"] > self.money_max then time_array["price"] = self.money_max end		-- СЌС‚Рѕ РЅР°С…РµСЂР° РІРѕРѕР±С‰Рµ Р±С‹Р»Рѕ СЃРґРµР»Р°РЅРѕ???
 	if time_array["price"] > self.money_max then return end
 	table.insert(money_info, time_array)
 	self:check_table(time_array)
-	self:get_money_reward(money_info) -- получаем оценку, во сколько обходится данный набор
+	self:get_money_reward(money_info) -- РїРѕР»СѓС‡Р°РµРј РѕС†РµРЅРєСѓ, РІРѕ СЃРєРѕР»СЊРєРѕ РѕР±С…РѕРґРёС‚СЃСЏ РґР°РЅРЅС‹Р№ РЅР°Р±РѕСЂ
 end
 
 function random_task_reward:generate_outfit()
@@ -323,7 +323,7 @@ function random_task_reward:generate_outfit()
 --	if time_array["price"] > self.money_max then time_array["price"] = self.money_max end
 	if time_array["price"] > self.money_max then return end
 	self:check_table(time_array)
-	self:get_money_reward(money_info) -- получаем оценку, во сколько обходится данный набор
+	self:get_money_reward(money_info) -- РїРѕР»СѓС‡Р°РµРј РѕС†РµРЅРєСѓ, РІРѕ СЃРєРѕР»СЊРєРѕ РѕР±С…РѕРґРёС‚СЃСЏ РґР°РЅРЅС‹Р№ РЅР°Р±РѕСЂ
 end
 
 function random_task_reward:generate_ammo()
@@ -331,7 +331,7 @@ function random_task_reward:generate_ammo()
 	local n = 3
 	local money_info = {}
 	--if table.getn(self.trader_items["ammo"][self.difficult]) > 5 then n = math.random(2,4) else n = math.random(1,3) end
-	local money_piece = math.ceil(self.money_max/n) -- поделим максимальную сумму на n частей
+	local money_piece = math.ceil(self.money_max/n) -- РїРѕРґРµР»РёРј РјР°РєСЃРёРјР°Р»СЊРЅСѓСЋ СЃСѓРјРјСѓ РЅР° n С‡Р°СЃС‚РµР№
 	for i=1, n do
 		if table.getn(self.trader_items["ammo"]) ~= 0 then
 			time_array = {}
@@ -340,7 +340,7 @@ function random_task_reward:generate_ammo()
 			time_array["price"] = sys_ini:r_u32(time_array["name"], "cost")
 --			if time_array["price"] > self.money_max then time_array["price"] = self.money_max end
 			if time_array["price"] > self.money_max then return end
-			time_array["count"] = math.ceil(money_piece/time_array["price"]) -- получаем количество пачек
+			time_array["count"] = math.ceil(money_piece/time_array["price"]) -- РїРѕР»СѓС‡Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РїР°С‡РµРє
 			if time_array["count"] > 0 then
 				table.insert(money_info, time_array)
 				self:check_table(time_array)
@@ -348,7 +348,7 @@ function random_task_reward:generate_ammo()
 			end
 		end
 	end
-	self:get_money_reward(money_info) -- получаем оценку, во сколько обходится данный набор
+	self:get_money_reward(money_info) -- РїРѕР»СѓС‡Р°РµРј РѕС†РµРЅРєСѓ, РІРѕ СЃРєРѕР»СЊРєРѕ РѕР±С…РѕРґРёС‚СЃСЏ РґР°РЅРЅС‹Р№ РЅР°Р±РѕСЂ
 end
 
 function random_task_reward:generate_other()
@@ -373,7 +373,7 @@ function random_task_reward:generate_other()
 			end
 		end
 	end
-	self:get_money_reward(money_info) -- получаем оценку, во сколько обходится данный набор
+	self:get_money_reward(money_info) -- РїРѕР»СѓС‡Р°РµРј РѕС†РµРЅРєСѓ, РІРѕ СЃРєРѕР»СЊРєРѕ РѕР±С…РѕРґРёС‚СЃСЏ РґР°РЅРЅС‹Р№ РЅР°Р±РѕСЂ
 end
 
 function random_task_reward:check_table(test_table)
@@ -396,24 +396,24 @@ function random_task_reward:get_other_count(other_name)
 	end
 end
 
--- Создание первых комплектов наград при первом взятии задания определённого уровня сложности
+-- РЎРѕР·РґР°РЅРёРµ РїРµСЂРІС‹С… РєРѕРјРїР»РµРєС‚РѕРІ РЅР°РіСЂР°Рґ РїСЂРё РїРµСЂРІРѕРј РІР·СЏС‚РёРё Р·Р°РґР°РЅРёСЏ РѕРїСЂРµРґРµР»С‘РЅРЅРѕРіРѕ СѓСЂРѕРІРЅСЏ СЃР»РѕР¶РЅРѕСЃС‚Рё
 function random_task_reward:generate_reward_complect()
 	local order_complect = ogse.load_variable("rr_"..self.trader.."_"..self.task_info.difficult.."_order", nil)
 	if not order_complect then
 		order_complect = {}
 		while table.getn(order_complect) <= 2 do
 			local index = tostring(table.getn(order_complect)+1)
-			self:generate_reward_list() -- генерируем комплект
+			self:generate_reward_list() -- РіРµРЅРµСЂРёСЂСѓРµРј РєРѕРјРїР»РµРєС‚
 			ogse.save_variable("rr_"..self.trader.."_"..self.task_info.difficult.."_money"..index, self.money_reward)
-			self:code_list(index, self.final_list) -- так как нельзя сохранить в сейве таблицу, то закодируем её в понятный системе формат.
+			self:code_list(index, self.final_list) -- С‚Р°Рє РєР°Рє РЅРµР»СЊР·СЏ СЃРѕС…СЂР°РЅРёС‚СЊ РІ СЃРµР№РІРµ С‚Р°Р±Р»РёС†Сѓ, С‚Рѕ Р·Р°РєРѕРґРёСЂСѓРµРј РµС‘ РІ РїРѕРЅСЏС‚РЅС‹Р№ СЃРёСЃС‚РµРјРµ С„РѕСЂРјР°С‚.
 			table.insert(order_complect, index)
 		end
-		self:code_complect(order_complect) -- сохраним таблицу в понятный системе вид
+		self:code_complect(order_complect) -- СЃРѕС…СЂР°РЅРёРј С‚Р°Р±Р»РёС†Сѓ РІ РїРѕРЅСЏС‚РЅС‹Р№ СЃРёСЃС‚РµРјРµ РІРёРґ
 		--ogse.save_variable("rr_"..self.trader.."_"..self.difficult.."_order", order_complect)
 	end
 end
 
--- Кодирование таблицы
+-- РљРѕРґРёСЂРѕРІР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 function random_task_reward:code_list(index, list)
 	for i=1, table.getn(list) do
 		ogse.save_variable("rr_"..self.trader.."_"..self.task_info.difficult.."_item"..index.."_name"..tostring(i), list[i].name)
@@ -424,7 +424,7 @@ function random_task_reward:code_list(index, list)
 	ogse.save_variable("rr_"..self.trader.."_"..self.task_info.difficult.."_item"..index.."_length", table.getn(list))
 end
 
--- Кодирование информации о комплектах (порядок очерёдности)
+-- РљРѕРґРёСЂРѕРІР°РЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РєРѕРјРїР»РµРєС‚Р°С… (РїРѕСЂСЏРґРѕРє РѕС‡РµСЂС‘РґРЅРѕСЃС‚Рё)
 function random_task_reward:code_complect(complect)
 	for i=1, table.getn(complect) do
 		ogse.save_variable("rr_"..self.trader.."_"..self.task_info.difficult.."_complect_item"..tostring(i), complect[i])
@@ -432,7 +432,7 @@ function random_task_reward:code_complect(complect)
 	ogse.save_variable("rr_"..self.trader.."_"..self.task_info.difficult.."_complect_length", table.getn(complect))
 end
 
--- Взятие комплекта награды
+-- Р’Р·СЏС‚РёРµ РєРѕРјРїР»РµРєС‚Р° РЅР°РіСЂР°РґС‹
 function random_task_reward:set_reward_complect()
 	local order_complect = self:recode_complect()
 
@@ -440,11 +440,11 @@ function random_task_reward:set_reward_complect()
 		local index = order_complect[1]
 		self.money_reward = ogse.load_variable("rr_"..self.trader.."_"..self.task_info.difficult.."_money"..index, 0)
 		log1("self.money_reward = "..tostring(self.money_reward))
-		self.final_list = self:recode_list(index) -- переведём информацию о вещах в удобоваримый вид
+		self.final_list = self:recode_list(index) -- РїРµСЂРµРІРµРґС‘Рј РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РІРµС‰Р°С… РІ СѓРґРѕР±РѕРІР°СЂРёРјС‹Р№ РІРёРґ
 	end
 end
 
--- Перекодирование информации о порядке очерёдности комплектов в таблицу
+-- РџРµСЂРµРєРѕРґРёСЂРѕРІР°РЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїРѕСЂСЏРґРєРµ РѕС‡РµСЂС‘РґРЅРѕСЃС‚Рё РєРѕРјРїР»РµРєС‚РѕРІ РІ С‚Р°Р±Р»РёС†Сѓ
 function random_task_reward:recode_complect()
 	local time_array = {}
 	local length = ogse.load_variable("rr_"..self.trader.."_"..self.task_info.difficult.."_complect_length", 0)
@@ -456,7 +456,7 @@ function random_task_reward:recode_complect()
 	return time_array
 end
 
--- Перекодирование информации о предметах в таблицу
+-- РџРµСЂРµРєРѕРґРёСЂРѕРІР°РЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїСЂРµРґРјРµС‚Р°С… РІ С‚Р°Р±Р»РёС†Сѓ
 function random_task_reward:recode_list(index)
 	local length = ogse.load_variable("rr_"..self.trader.."_"..self.task_info.difficult.."_item"..index.."_length", 0)
 	local time_array,a = {}
@@ -472,13 +472,13 @@ function random_task_reward:recode_list(index)
 	return time_array
 end
 
--- Добавляем новый комплект награды уже к имеющимся
+-- Р”РѕР±Р°РІР»СЏРµРј РЅРѕРІС‹Р№ РєРѕРјРїР»РµРєС‚ РЅР°РіСЂР°РґС‹ СѓР¶Рµ Рє РёРјРµСЋС‰РёРјСЃСЏ
 function random_task_reward:add_to_complect()
 	local order_complect = self:recode_complect()
 	
 	if order_complect then
 		local index = order_complect[1]
-		self:generate_reward_list() -- генерируем комплект
+		self:generate_reward_list() -- РіРµРЅРµСЂРёСЂСѓРµРј РєРѕРјРїР»РµРєС‚
 		ogse.save_variable("rr_"..self.trader.."_"..self.task_info.difficult.."_money"..index, self.money_reward)
 		self:code_list(index, self.final_list)
 		table.insert(order_complect, index)

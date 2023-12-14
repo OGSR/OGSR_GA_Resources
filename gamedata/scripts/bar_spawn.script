@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ---------------Copyright_Quest_2009-------------------
 ------------- Edited_by_stalbar_2009 -----------------
@@ -7,20 +7,20 @@
 local spawn_db = ogse_spawn_db.script_spawn_registry.bar_spawn
 
 
----' Служебные процедуры проверки численности
----' ограничивают спавн при наличии слишком
----' большого числа врагов на уровне,
----' стимулируют спавн подкреплений если
----' численность населения сильно снизилась
+---' РЎР»СѓР¶РµР±РЅС‹Рµ РїСЂРѕС†РµРґСѓСЂС‹ РїСЂРѕРІРµСЂРєРё С‡РёСЃР»РµРЅРЅРѕСЃС‚Рё
+---' РѕРіСЂР°РЅРёС‡РёРІР°СЋС‚ СЃРїР°РІРЅ РїСЂРё РЅР°Р»РёС‡РёРё СЃР»РёС€РєРѕРј
+---' Р±РѕР»СЊС€РѕРіРѕ С‡РёСЃР»Р° РІСЂР°РіРѕРІ РЅР° СѓСЂРѕРІРЅРµ,
+---' СЃС‚РёРјСѓР»РёСЂСѓСЋС‚ СЃРїР°РІРЅ РїРѕРґРєСЂРµРїР»РµРЅРёР№ РµСЃР»Рё
+---' С‡РёСЃР»РµРЅРЅРѕСЃС‚СЊ РЅР°СЃРµР»РµРЅРёСЏ СЃРёР»СЊРЅРѕ СЃРЅРёР·РёР»Р°СЃСЊ
 -------------------------------------------------------
----' Настроечные переменные
+---' РќР°СЃС‚СЂРѕРµС‡РЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ
 -------------------------------------------------------
-local max_enemies_on_bar = 10	--' предел численности врагов
-local max_monsters_on_bar = 15	--' предел численности монстров
-local min_loners_on_bar = 10	--' предел численности одиночек
-local min_dolgers_on_bar = 20	--' предел численности должан
+local max_enemies_on_bar = 10	--' РїСЂРµРґРµР» С‡РёСЃР»РµРЅРЅРѕСЃС‚Рё РІСЂР°РіРѕРІ
+local max_monsters_on_bar = 15	--' РїСЂРµРґРµР» С‡РёСЃР»РµРЅРЅРѕСЃС‚Рё РјРѕРЅСЃС‚СЂРѕРІ
+local min_loners_on_bar = 10	--' РїСЂРµРґРµР» С‡РёСЃР»РµРЅРЅРѕСЃС‚Рё РѕРґРёРЅРѕС‡РµРє
+local min_dolgers_on_bar = 20	--' РїСЂРµРґРµР» С‡РёСЃР»РµРЅРЅРѕСЃС‚Рё РґРѕР»Р¶Р°РЅ
 -------------------------------------------------------
----' Счётчики численности
+---' РЎС‡С‘С‚С‡РёРєРё С‡РёСЃР»РµРЅРЅРѕСЃС‚Рё
 -------------------------------------------------------
 bar_count_enemies = 0
 bar_count_monsters = 0
@@ -28,7 +28,7 @@ bar_count_loners = 0
 bar_count_dolgers = 0
 
 -------------------------------------------------------
----' Проверки разрешения на спавн
+---' РџСЂРѕРІРµСЂРєРё СЂР°Р·СЂРµС€РµРЅРёСЏ РЅР° СЃРїР°РІРЅ
 -------------------------------------------------------
 function can_spawn_monster()
 	local permission = false
@@ -49,7 +49,7 @@ function can_spawn_enemy()
 	return permission
 end
 -------------------------------------------------------
----' Спавн квестовых вещей - эту секцию НЕ трогать!
+---' РЎРїР°РІРЅ РєРІРµСЃС‚РѕРІС‹С… РІРµС‰РµР№ - СЌС‚Сѓ СЃРµРєС†РёСЋ РќР• С‚СЂРѕРіР°С‚СЊ!
 -------------------------------------------------------
 function arbalet( actor, npc )
 	ogse.spawn_object(spawn_db.val)
@@ -64,7 +64,7 @@ function spawn_cherep_svd()
 	local sobj = ogse.spawn_object(spawn_db.spawn_cherep_svd)
 end
 -------------------------------------------------------
----' Массивы атакующих
+---' РњР°СЃСЃРёРІС‹ Р°С‚Р°РєСѓСЋС‰РёС…
 -------------------------------------------------------
 
 local monsters_low_level = {"zombie_weak","zombie_strong", "zombie_normal", 
@@ -113,7 +113,7 @@ local humans =
 
 function type_info(obj)
  -- if type(obj)=="nil" then 
- -- -- log1("Параметр не существует!!!")
+ -- -- log1("РџР°СЂР°РјРµС‚СЂ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!!!")
  
  -- elseif type(obj)=="table" then
  
@@ -132,7 +132,7 @@ function type_info(obj)
 end	
 	
 -------------------------------------------------------
----' Атаки Бара, массированные и не особо. Приведено всё к единой функции + поправлены точки спавна.
+---' РђС‚Р°РєРё Р‘Р°СЂР°, РјР°СЃСЃРёСЂРѕРІР°РЅРЅС‹Рµ Рё РЅРµ РѕСЃРѕР±Рѕ. РџСЂРёРІРµРґРµРЅРѕ РІСЃС‘ Рє РµРґРёРЅРѕР№ С„СѓРЅРєС†РёРё + РїРѕРїСЂР°РІР»РµРЅС‹ С‚РѕС‡РєРё СЃРїР°РІРЅР°.
 -------------------------------------------------------
 --SPAWN_V1
 --[[local positions = {
@@ -186,15 +186,15 @@ function random_bar_attack( actor, npc)
 	end
 
 
-	-- Принудительно определяем тип атак. Сделано из-за соображений баланса. Однако этот параметр можно поменять...
+	-- РџСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕ РѕРїСЂРµРґРµР»СЏРµРј С‚РёРї Р°С‚Р°Рє. РЎРґРµР»Р°РЅРѕ РёР·-Р·Р° СЃРѕРѕР±СЂР°Р¶РµРЅРёР№ Р±Р°Р»Р°РЅСЃР°. РћРґРЅР°РєРѕ СЌС‚РѕС‚ РїР°СЂР°РјРµС‚СЂ РјРѕР¶РЅРѕ РїРѕРјРµРЅСЏС‚СЊ...
 	who="mutants" 
 
 	if who=="humans" then
-	-- Спавним людей
+	-- РЎРїР°РІРЅРёРј Р»СЋРґРµР№
 		if can_spawn_enemy() then
 			local enemy_group = communites[math.random(table.getn(communites))]
 			local current_enemy = humans[enemy_group][math.random(table.getn(humans[enemy_group]))]
-			local enemy_count = 0 -- текущее количество народа в баре
+			local enemy_count = 0 -- С‚РµРєСѓС‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РЅР°СЂРѕРґР° РІ Р±Р°СЂРµ
 			enemy_count = max_enemies_on_bar-math.random(5,7)
 			local level_spawn_db = spawn_db[cur_level_spawn]
 			local i = table.getn(level_spawn_db)
@@ -204,7 +204,7 @@ function random_bar_attack( actor, npc)
 			--end
 		end
 	else
-	 -- Спавним монстров
+	 -- РЎРїР°РІРЅРёРј РјРѕРЅСЃС‚СЂРѕРІ
 		if can_spawn_monster() then
 			local enemy_group = monsters_classes[math.random(table.getn(monsters_classes))]
 			local current_enemy = monsters[enemy_group][math.random(table.getn(monsters[enemy_group]))]
@@ -260,7 +260,7 @@ function give_text_message(who,where,count)
 	elseif iterate_array(monsters_classes,who) then	
 		ogse.send_tip(string.format(game.translate_string("bar_spawn_message_monsters_pattern_text"), places[where], monsters_classes[who]),"ogse_duty_text",nil,nil,ogse.tips_icons[3],"news")
 	else 
-		log1("Баг с выдаванием сообщения! "..who.." нет с ни одном из массивов!")
+		log1("Р‘Р°Рі СЃ РІС‹РґР°РІР°РЅРёРµРј СЃРѕРѕР±С‰РµРЅРёСЏ! "..who.." РЅРµС‚ СЃ РЅРё РѕРґРЅРѕРј РёР· РјР°СЃСЃРёРІРѕРІ!")
 	end
 
 end
@@ -280,22 +280,22 @@ function seldom_bar_attack_vibros( actor, npc )
 end
 
 function seldom_bar_attack_sleep( actor, npc )
-	-- Отключено...
+	-- РћС‚РєР»СЋС‡РµРЅРѕ...
 end
 
 -------------------------------------------------------
----' Спавн подкреплений на Бар
----' Одиночки
+---' РЎРїР°РІРЅ РїРѕРґРєСЂРµРїР»РµРЅРёР№ РЅР° Р‘Р°СЂ
+---' РћРґРёРЅРѕС‡РєРё
 -------------------------------------------------------
 function barman_room( actor, npc )
---'Одиночки и долговцы в каморке у бармена
+--'РћРґРёРЅРѕС‡РєРё Рё РґРѕР»РіРѕРІС†С‹ РІ РєР°РјРѕСЂРєРµ Сѓ Р±Р°СЂРјРµРЅР°
 	--if se_respawn.population_factions["stalker"] < se_respawn.factions_limit["stalker"] then
 		ogse.quest_spawn_ex(stalkers_plus_dolg[math.random(3,#stalkers_plus_dolg)], 1, spawn_db.barman_room)
 	--end
 end
 
 function stalker1( actor, npc, number )
-	--'Одиночки на Росток	
+	--'РћРґРёРЅРѕС‡РєРё РЅР° Р РѕСЃС‚РѕРє	
 	if not number then
 		--if se_respawn.population_factions["stalker"] < se_respawn.factions_limit["stalker"] then
 			ogse.quest_spawn_ex(stalkers_all_types[math.random(#stalkers_all_types)], math.random(1,2), spawn_db.stalker1_1)
@@ -310,7 +310,7 @@ function stalker1( actor, npc, number )
 end
 
 function stalker2( actor, npc, number )
-	--'Одиночки на Росток
+	--'РћРґРёРЅРѕС‡РєРё РЅР° Р РѕСЃС‚РѕРє
 	if not number then	
 		--if se_respawn.population_factions["stalker"] < se_respawn.factions_limit["stalker"] then
 			ogse.quest_spawn_ex(stalkers_all_types[math.random(#stalkers_all_types)], math.random(2,3), spawn_db.stalker2_1)
@@ -325,7 +325,7 @@ function stalker2( actor, npc, number )
 end
 
 function stalker3( actor, npc, number )
-	--'Одиночки на Росток
+	--'РћРґРёРЅРѕС‡РєРё РЅР° Р РѕСЃС‚РѕРє
 	if not number then	
 		--if se_respawn.population_factions["stalker"] < se_respawn.factions_limit["stalker"] then	
 			ogse.quest_spawn_ex(stalkers_all_types[math.random(#stalkers_all_types)], math.random(2,3), spawn_db.stalker3_1)
@@ -339,11 +339,11 @@ function stalker3( actor, npc, number )
 	end
 end
 -------------------------------------------------------
----' Спавн подкреплений на Бар
----' Долговцы
+---' РЎРїР°РІРЅ РїРѕРґРєСЂРµРїР»РµРЅРёР№ РЅР° Р‘Р°СЂ
+---' Р”РѕР»РіРѕРІС†С‹
 -------------------------------------------------------
 function dolg1( actor, npc, number )
-	--'Долг на Росток -- основная база
+	--'Р”РѕР»Рі РЅР° Р РѕСЃС‚РѕРє -- РѕСЃРЅРѕРІРЅР°СЏ Р±Р°Р·Р°
 	--if se_respawn.population_factions["dolg"] < se_respawn.factions_limit["dolg"] then
 		if not number then
 			ogse.quest_spawn_ex(dolg_all_types[math.random(#dolg_all_types)], math.random(1,2), spawn_db.dolg1_1)
@@ -358,7 +358,7 @@ function dolg1( actor, npc, number )
 end
 
 function dolg2( actor, npc, number )
-	--'Долг на Росток -- блокпосты
+	--'Р”РѕР»Рі РЅР° Р РѕСЃС‚РѕРє -- Р±Р»РѕРєРїРѕСЃС‚С‹
 	--if se_respawn.population_factions["dolg"] < se_respawn.factions_limit["dolg"] then
 		if not number then
 			ogse.quest_spawn_ex(dolg_all_types[math.random(#dolg_all_types)], math.random(2,3), spawn_db.dolg2_1)
@@ -371,14 +371,14 @@ function dolg2( actor, npc, number )
 end
 
 -------------------------------------------------------
----' Спавн атак на Бар
----' Зверьё и монстрьё
+---' РЎРїР°РІРЅ Р°С‚Р°Рє РЅР° Р‘Р°СЂ
+---' Р—РІРµСЂСЊС‘ Рё РјРѕРЅСЃС‚СЂСЊС‘
 -------------------------------------------------------
 
 function vibros3( actor, npc )
 	-- -- log1("vibros3() called")
 	if has_alife_info("val_actor_has_borov_key") then 
-		--'После получения первого спецзадания от бармена во время выброса спаунятся зомби и крысы
+		--'РџРѕСЃР»Рµ РїРѕР»СѓС‡РµРЅРёСЏ РїРµСЂРІРѕРіРѕ СЃРїРµС†Р·Р°РґР°РЅРёСЏ РѕС‚ Р±Р°СЂРјРµРЅР° РІРѕ РІСЂРµРјСЏ РІС‹Р±СЂРѕСЃР° СЃРїР°СѓРЅСЏС‚СЃСЏ Р·РѕРјР±Рё Рё РєСЂС‹СЃС‹
 		ogse.quest_spawn_ex(monsters_low_level[math.random(#monsters_low_level)], math.random(4), spawn_db.vibros3)
 	end		
 	-- -- log1("vibros3() completed")		
@@ -390,37 +390,37 @@ end
 
 
 function cat1( actor, npc )
-	--'После первого прохождения через заставу долга спаун кота на дороге в Бар
+	--'РџРѕСЃР»Рµ РїРµСЂРІРѕРіРѕ РїСЂРѕС…РѕР¶РґРµРЅРёСЏ С‡РµСЂРµР· Р·Р°СЃС‚Р°РІСѓ РґРѕР»РіР° СЃРїР°СѓРЅ РєРѕС‚Р° РЅР° РґРѕСЂРѕРіРµ РІ Р‘Р°СЂ
 	ogse.quest_spawn_ex("cat_v_normal", 1, spawn_db.cat1)
 end
 
 function cat2( actor, npc )
 	-- -- log1("cat2() called")		
-	--'После пропуска через заставу долга на дороге спавнятся коты
+	--'РџРѕСЃР»Рµ РїСЂРѕРїСѓСЃРєР° С‡РµСЂРµР· Р·Р°СЃС‚Р°РІСѓ РґРѕР»РіР° РЅР° РґРѕСЂРѕРіРµ СЃРїР°РІРЅСЏС‚СЃСЏ РєРѕС‚С‹
 	ogse.quest_spawn_ex("cat_v_normal", 3, spawn_db.cat2)
 	-- -- log1("cat2() completed")	
 end
 
 
 function flesh1( actor, npc )
-	--'Плоти у выхода на армейские склады	
+	--'РџР»РѕС‚Рё Сѓ РІС‹С…РѕРґР° РЅР° Р°СЂРјРµР№СЃРєРёРµ СЃРєР»Р°РґС‹	
 	ogse.quest_spawn_ex("flesh_strong", math.random(3), spawn_db.flesh1)
 end
 
 -------------------------------------------------------
----' Спавн атак на Бар
----' Бандючьё bandit8
+---' РЎРїР°РІРЅ Р°С‚Р°Рє РЅР° Р‘Р°СЂ
+---' Р‘Р°РЅРґСЋС‡СЊС‘ bandit8
 -------------------------------------------------------
 
 function bandits2( actor, npc )
-	--'Бандиты на необитаемой территории со стороны дикой территории
+	--'Р‘Р°РЅРґРёС‚С‹ РЅР° РЅРµРѕР±РёС‚Р°РµРјРѕР№ С‚РµСЂСЂРёС‚РѕСЂРёРё СЃРѕ СЃС‚РѕСЂРѕРЅС‹ РґРёРєРѕР№ С‚РµСЂСЂРёС‚РѕСЂРёРё
 	--if se_respawn.population_factions["bandit"] < se_respawn.factions_limit["bandit"] then
 		ogse.quest_spawn_ex(bandits[math.random(#bandits)], math.random(3), spawn_db.bandits2)
 	--end
 end
 
 function bandits3( actor, npc )
-	--'Бандиты  со стороны армейских складов
+	--'Р‘Р°РЅРґРёС‚С‹  СЃРѕ СЃС‚РѕСЂРѕРЅС‹ Р°СЂРјРµР№СЃРєРёС… СЃРєР»Р°РґРѕРІ
 	--if se_respawn.population_factions["bandit"] < se_respawn.factions_limit["bandit"] then
 		ogse.quest_spawn_ex(bandits[math.random(#bandits)], math.random(3), spawn_db.bandits3)
 	--end
@@ -428,7 +428,7 @@ end
 
 function bandit7( actor, npc )
 	if has_alife_info("val_actor_has_borov_key") then 
-		--'Спавн бандитов перед собаками
+		--'РЎРїР°РІРЅ Р±Р°РЅРґРёС‚РѕРІ РїРµСЂРµРґ СЃРѕР±Р°РєР°РјРё
 		--if se_respawn.population_factions["bandit"] < se_respawn.factions_limit["bandit"] then
 			ogse.quest_spawn_ex(bandits[math.random(#bandits)], math.random(3), spawn_db.bandit7)
 		--end
@@ -437,7 +437,7 @@ function bandit7( actor, npc )
 end	
 
 function bandit8( actor, npc )
-	--'Спавн бандитов перед собаками
+	--'РЎРїР°РІРЅ Р±Р°РЅРґРёС‚РѕРІ РїРµСЂРµРґ СЃРѕР±Р°РєР°РјРё
 	--if se_respawn.population_factions["bandit"] < se_respawn.factions_limit["bandit"] then
 		ogse.quest_spawn_ex(bandits[math.random(#bandits)], math.random(3), spawn_db.bandit8)
 	--end
@@ -446,7 +446,7 @@ end
 
 function bandit9( actor, npc )
 	-- -- log1("bandit9() called")		
-	--'Спавн бандитов со стороны ДТ
+	--'РЎРїР°РІРЅ Р±Р°РЅРґРёС‚РѕРІ СЃРѕ СЃС‚РѕСЂРѕРЅС‹ Р”Рў
 	--if se_respawn.population_factions["bandit"] < se_respawn.factions_limit["bandit"] then
 		ogse.quest_spawn_ex(bandits[math.random(#bandits)], math.random(3), spawn_db.bandit9)
 	--end	
@@ -454,8 +454,8 @@ function bandit9( actor, npc )
 end
 
 -------------------------------------------------------
----' Спавн атак на Бар
----' Укурки
+---' РЎРїР°РІРЅ Р°С‚Р°Рє РЅР° Р‘Р°СЂ
+---' РЈРєСѓСЂРєРё
 -------------------------------------------------------
 function freedom1( actor, npc )
 	--if se_respawn.population_factions["freedom"] < se_respawn.factions_limit["freedom"] then
@@ -470,7 +470,7 @@ function freedom2( actor, npc )
 end
 
 function freedom3( actor, npc )
-	-- Заглушено KamikaZze 10/03/2011 - причина: нестабильное место спавна аналогично zombied3
+	-- Р—Р°РіР»СѓС€РµРЅРѕ KamikaZze 10/03/2011 - РїСЂРёС‡РёРЅР°: РЅРµСЃС‚Р°Р±РёР»СЊРЅРѕРµ РјРµСЃС‚Рѕ СЃРїР°РІРЅР° Р°РЅР°Р»РѕРіРёС‡РЅРѕ zombied3
 end
 
 function freedom4( actor, npc )
@@ -482,12 +482,12 @@ function freedom4( actor, npc )
 end
 
 -------------------------------------------------------
----' Спавн атак на Бар
----' Наймиты
+---' РЎРїР°РІРЅ Р°С‚Р°Рє РЅР° Р‘Р°СЂ
+---' РќР°Р№РјРёС‚С‹
 -------------------------------------------------------
 function killer1( actor, npc )
 	-- -- log1("killer1() called")
-		--'Спавн наёмников возле перехода на Дикую территорию
+		--'РЎРїР°РІРЅ РЅР°С‘РјРЅРёРєРѕРІ РІРѕР·Р»Рµ РїРµСЂРµС…РѕРґР° РЅР° Р”РёРєСѓСЋ С‚РµСЂСЂРёС‚РѕСЂРёСЋ
 	--if se_respawn.population_factions["killer"] < se_respawn.factions_limit["killer"] then
 		ogse.quest_spawn_ex(killers[math.random(#killers)], math.random(2), spawn_db.killer1)
 	--end
@@ -496,7 +496,7 @@ end
 
 function killer2( actor, npc )
 	-- -- log1("killer2() called")		
-	--'Спавн наёмников возле перехода на Дикую территорию
+	--'РЎРїР°РІРЅ РЅР°С‘РјРЅРёРєРѕРІ РІРѕР·Р»Рµ РїРµСЂРµС…РѕРґР° РЅР° Р”РёРєСѓСЋ С‚РµСЂСЂРёС‚РѕСЂРёСЋ
 	--if se_respawn.population_factions["killer"] < se_respawn.factions_limit["killer"] then
 		ogse.quest_spawn_ex(killers[math.random(#killers)], math.random(2), spawn_db.killer2)
 	--end
@@ -504,13 +504,13 @@ function killer2( actor, npc )
 end
 
 function killer30( actor, npc )
-	-- Заглушено KamikaZze 10/03/2011 - причина: нестабильное место спавна аналогично zombied3
+	-- Р—Р°РіР»СѓС€РµРЅРѕ KamikaZze 10/03/2011 - РїСЂРёС‡РёРЅР°: РЅРµСЃС‚Р°Р±РёР»СЊРЅРѕРµ РјРµСЃС‚Рѕ СЃРїР°РІРЅР° Р°РЅР°Р»РѕРіРёС‡РЅРѕ zombied3
 end
 
 function killer4( actor, npc )
 	-- -- log1("killer4() called")
 	if has_alife_info("val_actor_has_borov_key") then 		
-		--'Спавн наёмников после документов X18
+		--'РЎРїР°РІРЅ РЅР°С‘РјРЅРёРєРѕРІ РїРѕСЃР»Рµ РґРѕРєСѓРјРµРЅС‚РѕРІ X18
 		--if se_respawn.population_factions["killer"] < se_respawn.factions_limit["killer"] then
 			ogse.quest_spawn_ex("ros_killer_respawn_2", math.random(4), spawn_db.killer4)
 		--end
@@ -521,7 +521,7 @@ end
 function killer5( actor, npc )
 	-- -- log1("killer5() called")
 	if has_alife_info("val_actor_has_borov_key") then	
-		--'Спавн наёмников после документов X18
+		--'РЎРїР°РІРЅ РЅР°С‘РјРЅРёРєРѕРІ РїРѕСЃР»Рµ РґРѕРєСѓРјРµРЅС‚РѕРІ X18
 		--if se_respawn.population_factions["killer"] < se_respawn.factions_limit["killer"] then
 			ogse.quest_spawn_ex("ros_killer_respawn_3", math.random(2), spawn_db.killer2)
 		--end
@@ -532,7 +532,7 @@ end
 function killer6( actor, npc )
 	-- -- log1("killer6() called")
 	if has_alife_info("val_actor_has_borov_key") then 	
-		--'Спавн наёмников после документов X18
+		--'РЎРїР°РІРЅ РЅР°С‘РјРЅРёРєРѕРІ РїРѕСЃР»Рµ РґРѕРєСѓРјРµРЅС‚РѕРІ X18
 		--if se_respawn.population_factions["killer"] < se_respawn.factions_limit["killer"] then
 			ogse.quest_spawn_ex("mil_killer_respawn_4", math.random(2), spawn_db.killer1)
 		--end		
@@ -541,13 +541,13 @@ function killer6( actor, npc )
 end
 
 -------------------------------------------------------
----' Спавн атак на Бар
----' Зомбированное мясо
+---' РЎРїР°РІРЅ Р°С‚Р°Рє РЅР° Р‘Р°СЂ
+---' Р—РѕРјР±РёСЂРѕРІР°РЅРЅРѕРµ РјСЏСЃРѕ
 -------------------------------------------------------
 
 function zombied1( actor, npc )
 	if has_alife_info("val_actor_has_borov_key") then 	
-		--'Спавн зомбированных сталкеров после  X16
+		--'РЎРїР°РІРЅ Р·РѕРјР±РёСЂРѕРІР°РЅРЅС‹С… СЃС‚Р°Р»РєРµСЂРѕРІ РїРѕСЃР»Рµ  X16
 		--if se_respawn.population_factions["zombied"] < se_respawn.factions_limit["zombied"] then
 			ogse.quest_spawn_ex("rad_zombied_respawn_1", math.random(2), spawn_db.zombied1)
 		--end		
@@ -557,7 +557,7 @@ end
 function zombied2( actor, npc )
 	--log1("GHOST TEST 15")
 	-- -- log1("zombied2() called")		
-	--'Спавн зобмированных сталкеров после  X16
+	--'РЎРїР°РІРЅ Р·РѕР±РјРёСЂРѕРІР°РЅРЅС‹С… СЃС‚Р°Р»РєРµСЂРѕРІ РїРѕСЃР»Рµ  X16
 	--if se_respawn.population_factions["zombied"] < se_respawn.factions_limit["zombied"] then
 		ogse.quest_spawn_ex("rad_zombied_respawn_2", math.random(2), spawn_db.zombied2)
 	--end	
@@ -566,11 +566,11 @@ function zombied2( actor, npc )
 end
 
 function zombied3( actor, npc )
-	-- Заглушено KamikaZze 10/03/2011 - причина: вылет на трупе Призрака, нестабильное место спавна
+	-- Р—Р°РіР»СѓС€РµРЅРѕ KamikaZze 10/03/2011 - РїСЂРёС‡РёРЅР°: РІС‹Р»РµС‚ РЅР° С‚СЂСѓРїРµ РџСЂРёР·СЂР°РєР°, РЅРµСЃС‚Р°Р±РёР»СЊРЅРѕРµ РјРµСЃС‚Рѕ СЃРїР°РІРЅР°
 end
 
 function zombied5( actor, npc )
-	--'Спавн зомбированных сталкеров после  X16
+	--'РЎРїР°РІРЅ Р·РѕРјР±РёСЂРѕРІР°РЅРЅС‹С… СЃС‚Р°Р»РєРµСЂРѕРІ РїРѕСЃР»Рµ  X16
 	--if se_respawn.population_factions["zombied"] < se_respawn.factions_limit["zombied"] then
 		ogse.quest_spawn_ex("yan_zombied_respawn_2", math.random(3), spawn_db.zombied5)
 	--end	

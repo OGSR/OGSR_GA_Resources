@@ -1,17 +1,17 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --[[ ---------------------------------------------------------------------------------------------------
  File        : tasks_functor.script
  Description : functions for new tasks
- Copyright   : 2012 © OGSE Mod Team
- Author      : Stalk15, Mixser, _призрак_, RvP, Phoenix
+ Copyright   : 2012 В© OGSE Mod Team
+ Author      : Stalk15, Mixser, _РїСЂРёР·СЂР°Рє_, RvP, Phoenix
  Last update : 16.07.2012
 --]]----------------------------------------------------------------------------------------------------
---local actor = db.actor -- <<== не надо так делать!!!
+--local actor = db.actor -- <<== РЅРµ РЅР°РґРѕ С‚Р°Рє РґРµР»Р°С‚СЊ!!!
 
 local spawn_db = ogse_spawn_db.script_spawn_registry.task_functor
 
-function attach(sm) -- для менеджера сигналов
+function attach(sm) -- РґР»СЏ РјРµРЅРµРґР¶РµСЂР° СЃРёРіРЅР°Р»РѕРІ
 	sm:subscribe({signal = "on_take", fun = this.on_take})
 	sm:subscribe({signal = "on_use", fun = this.on_use})
 	sm:subscribe({signal = "on_sleep_finished", fun = this.on_sleep_finished})
@@ -207,7 +207,7 @@ function on_sleep_finished()
 	end
 end
 
--- Для динамического подключения определенных модулей в разных частях игры
+-- Р”Р»СЏ РґРёРЅР°РјРёС‡РµСЃРєРѕРіРѕ РїРѕРґРєР»СЋС‡РµРЅРёСЏ РѕРїСЂРµРґРµР»РµРЅРЅС‹С… РјРѕРґСѓР»РµР№ РІ СЂР°Р·РЅС‹С… С‡Р°СЃС‚СЏС… РёРіСЂС‹
 function on_first_update()
 	on_first_update_firefly()
 	on_first_update_chameleon()
@@ -216,8 +216,8 @@ end
 
 local wolf_pos = vector():set(-200.87, -20.04, -147.76)
 
---------------------- Вспом. функции --------------------------
---/Проверка наличия итемов
+--------------------- Р’СЃРїРѕРј. С„СѓРЅРєС†РёРё --------------------------
+--/РџСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ РёС‚РµРјРѕРІ
 function Actor_Has_Items(ItemSec, CntItems)
 	if not CntItems or CntItems == 1 then
 		return db.actor:object(ItemSec)
@@ -243,7 +243,7 @@ function Actor_Has_Items(ItemSec, CntItems)
 	return iCnt >= CntItems
 end
 
---/Ф-ия для выдачи награды игроку за квест
+--/Р¤-РёСЏ РґР»СЏ РІС‹РґР°С‡Рё РЅР°РіСЂР°РґС‹ РёРіСЂРѕРєСѓ Р·Р° РєРІРµСЃС‚
 function give_reward_on_kvest(who, Money, tSections)
 	local Cnt
 	if type(tSections) == "table" then
@@ -274,11 +274,11 @@ end
 
 
 
---Ставим метку на объект.
---ObjId - обжект айди объекта на которого ставим метку
---VarName - имя метки. Произвольное
---Txt - имя метки
---location - необязательный параметр (вариант метки)
+--РЎС‚Р°РІРёРј РјРµС‚РєСѓ РЅР° РѕР±СЉРµРєС‚.
+--ObjId - РѕР±Р¶РµРєС‚ Р°Р№РґРё РѕР±СЉРµРєС‚Р° РЅР° РєРѕС‚РѕСЂРѕРіРѕ СЃС‚Р°РІРёРј РјРµС‚РєСѓ
+--VarName - РёРјСЏ РјРµС‚РєРё. РџСЂРѕРёР·РІРѕР»СЊРЅРѕРµ
+--Txt - РёРјСЏ РјРµС‚РєРё
+--location - РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ РїР°СЂР°РјРµС‚СЂ (РІР°СЂРёР°РЅС‚ РјРµС‚РєРё)
 function add_map_spot(ObjId, VarName, Txt, location)
 	if ObjId then
 		if not location then location = "green_location" end
@@ -289,8 +289,8 @@ function add_map_spot(ObjId, VarName, Txt, location)
 	end
 end
 
---VarName - имя метки
---Delete - удалять объект?
+--VarName - РёРјСЏ РјРµС‚РєРё
+--Delete - СѓРґР°Р»СЏС‚СЊ РѕР±СЉРµРєС‚?
 function delete_map_spot(VarName, Delete, location)
 	if not ogse.var_exists(VarName) then return end
 
@@ -312,23 +312,23 @@ function companion_start_following(actor, npc)
 	dialogs.companion_start_following(npc, actor)
 end
 
------------------------------------------- Проводники ------------------------------------------
+------------------------------------------ РџСЂРѕРІРѕРґРЅРёРєРё ------------------------------------------
 
 
 
-------------------------------------------// Сидор //------------------------------------------
+------------------------------------------// РЎРёРґРѕСЂ //------------------------------------------
 
 local task = {
-	not_avail = 0, -- не доступно
-	avail = 1, -- доступно
-	started = 2, -- начато
-	done = 3, -- выполнено
-	failed = 4, -- провалено
+	not_avail = 0, -- РЅРµ РґРѕСЃС‚СѓРїРЅРѕ
+	avail = 1, -- РґРѕСЃС‚СѓРїРЅРѕ
+	started = 2, -- РЅР°С‡Р°С‚Рѕ
+	done = 3, -- РІС‹РїРѕР»РЅРµРЅРѕ
+	failed = 4, -- РїСЂРѕРІР°Р»РµРЅРѕ
 }
 
 local sidor_tasks = {
 
-	--/"Гитара Сидоровича"
+	--/"Р“РёС‚Р°СЂР° РЎРёРґРѕСЂРѕРІРёС‡Р°"
 	["search_guitar"] = {
 		get_status = function()
 			if has_alife_info("escape_kvest_search_guitar_complete") then return task.done end
@@ -339,28 +339,7 @@ local sidor_tasks = {
 		end,
 	},
 
-	--/"Сделка с военными"
---[[	["sdelka_with_mils"] = {
-		get_status = function()
-			if has_alife_info("esc_kvest_sdelka_with_mils_complete") then return task.done end
-			if has_alife_info("esc_kvest_sdelka_with_mils_fail") then return task.failed end;
-			if has_alife_info("esc_kvest_sdelka_with_mils_start") then return task.started end
-			if has_alife_info("agroprom_military_case_done") then return task.avail end
-			return task.not_avail
-		end,
-	},]]
-	
-	--[[	--/"Спасти сталкера из плена вояк с блокпоста"
-	["plennik_of_blockpost"] = {
-		get_status = function()
-			if has_alife_info("esc_kvest_plennik_of_blockpost_complete") then return task.done end
-			if has_alife_info("esc_kvest_plennik_of_blockpost_fail") then return task.failed end;
-			if has_alife_info("esc_kvest_plennik_of_blockpost_start") then return task.started end
-			return task.avail -- всегда доступно
-		end,
-	},]]
-
-	--/"Военные у аномалий"
+	--/"Р’РѕРµРЅРЅС‹Рµ Сѓ Р°РЅРѕРјР°Р»РёР№"
 	["mils_near_anomaly"] = {
 		get_status = function()
 			if has_alife_info("esc_kvest_know_do_mils_near_anomaly_2_complete") then return task.done end
@@ -371,7 +350,7 @@ local sidor_tasks = {
 		end,
 	},
 
-	--/"Наемники на Кордоне"
+	--/"РќР°РµРјРЅРёРєРё РЅР° РљРѕСЂРґРѕРЅРµ"
 	["killers_lager"] = {
 		get_status = function()
 			if has_alife_info("esc_kvest_killers_mined_lager_2_complete") then return task.done end
@@ -382,7 +361,7 @@ local sidor_tasks = {
 		end,
 	},
 
-	--/"Гость на Элеваторе"
+	--/"Р“РѕСЃС‚СЊ РЅР° Р­Р»РµРІР°С‚РѕСЂРµ"
 	["guest_on_elevator"] = {
 		get_status = function()
 			if has_alife_info("esc_kvest_qest_on_elevator_show_wpn_complete") then return task.done end
@@ -394,7 +373,7 @@ local sidor_tasks = {
 	},
 }
 
---/Если есть квест сидора, но не выполнен или не провален
+--/Р•СЃР»Рё РµСЃС‚СЊ РєРІРµСЃС‚ СЃРёРґРѕСЂР°, РЅРѕ РЅРµ РІС‹РїРѕР»РЅРµРЅ РёР»Рё РЅРµ РїСЂРѕРІР°Р»РµРЅ
 function is_sidor_quest_started()
 	local result = false
 	for _,v in pairs(sidor_tasks) do
@@ -417,7 +396,7 @@ function have_sidor_no_quest()
 	return not is_sidor_quest_started() and not have_sidor_available_quest()
 end
 
--- Остались ли у Сидоровича поручения, которые мы не брали
+-- РћСЃС‚Р°Р»РёСЃСЊ Р»Рё Сѓ РЎРёРґРѕСЂРѕРІРёС‡Р° РїРѕСЂСѓС‡РµРЅРёСЏ, РєРѕС‚РѕСЂС‹Рµ РјС‹ РЅРµ Р±СЂР°Р»Рё
 function have_sidor_undone_quest()
 	local result = false
 	for _,v in pairs(sidor_tasks) do
@@ -426,7 +405,7 @@ function have_sidor_undone_quest()
 	return result
 end
 
---/Показ доступных квестов у Сидора
+--/РџРѕРєР°Р· РґРѕСЃС‚СѓРїРЅС‹С… РєРІРµСЃС‚РѕРІ Сѓ РЎРёРґРѕСЂР°
 function esc_show_trader_kvests(npc, actor)
     if not (has_alife_info("escape_kvest_search_guitar_start") or has_alife_info("escape_kvest_search_guitar_fail") or has_alife_info("escape_kvest_search_guitar_complete")) then
         db.actor:give_talk_message(game.translate_string("task_functor_esc_show_trader_kvests_1_text"), "ui\\ui_iconstotal", Frect():set(83,846,83,47), "other_iconed_answer_item")
@@ -455,21 +434,21 @@ function esc_deal_with_mils_fail_start_dialog_precondition(first_speaker, second
 	return db.actor:dont_has_info("esc_kvest_sdelka_with_mils_start") or db.actor:has_info("esc_kvest_sdelka_with_mils_fail") or db.actor:has_info("esc_kvest_sdelka_with_mils_complete")
 end
 
-------------------------------------------// Бармен //------------------------------------------
---/Показ доступных квестов у Бармена
+------------------------------------------// Р‘Р°СЂРјРµРЅ //------------------------------------------
+--/РџРѕРєР°Р· РґРѕСЃС‚СѓРїРЅС‹С… РєРІРµСЃС‚РѕРІ Сѓ Р‘Р°СЂРјРµРЅР°
 function bar_show_barman_kvests()
     if not has_alife_info("bar_kvest_friend_of_barman_start") then
         db.actor:give_talk_message(game.translate_string("task_functor_bar_show_barman_kvests_1_text"), "ui\\ui_iconstotal", Frect():set(83,846,83,47), "other_iconed_answer_item")
 	end
     --[[if not has_alife_info("bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start") then
-        db.actor:give_talk_message(game.translate_string("Сделка Долговцев с Наемниками"), "ui\\ui_iconstotal", Frect():set(0,282,83,47), "other_iconed_answer_item")
+        db.actor:give_talk_message(game.translate_string("РЎРґРµР»РєР° Р”РѕР»РіРѕРІС†РµРІ СЃ РќР°РµРјРЅРёРєР°РјРё"), "ui\\ui_iconstotal", Frect():set(0,282,83,47), "other_iconed_answer_item")
 	end--]]
     if not has_alife_info("captive_on_agr_mill_base_start") then
         db.actor:give_talk_message(game.translate_string("task_functor_bar_show_barman_kvests_2_text"), "ui\\ui_iconstotal", Frect():set(166,376,83,47), "other_iconed_answer_item")
 	end
 end
 
---/Если есть квест бармена, но не выполнен или не провален
+--/Р•СЃР»Рё РµСЃС‚СЊ РєРІРµСЃС‚ Р±Р°СЂРјРµРЅР°, РЅРѕ РЅРµ РІС‹РїРѕР»РЅРµРЅ РёР»Рё РЅРµ РїСЂРѕРІР°Р»РµРЅ
 function bar_have_one_kvest_of_barman()
     if (has_alife_info("bar_kvest_friend_of_barman_start")) and not (has_alife_info("bar_kvest_friend_of_barman_2_complete") or has_alife_info("bar_kvest_friend_of_barman_2_fail")) or
 	   (has_alife_info("bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start")) and not (has_alife_info("bar_kvest_sdelka_dolg_and_killers_slezhka_complete") or has_alife_info("bar_kvest_sdelka_dolg_and_killers_plennik_death")) or
@@ -486,7 +465,7 @@ function bar_dont_have_one_kvest_of_barman()
     return not bar_have_one_kvest_of_barman()
 end
 
---/Если брали все квесты у бермена, то убираем диалог с квестами
+--/Р•СЃР»Рё Р±СЂР°Р»Рё РІСЃРµ РєРІРµСЃС‚С‹ Сѓ Р±РµСЂРјРµРЅР°, С‚Рѕ СѓР±РёСЂР°РµРј РґРёР°Р»РѕРі СЃ РєРІРµСЃС‚Р°РјРё
 function bar_all_kvests_of_barman_completed()
     if has_alife_info("bar_kvest_friend_of_barman_start") and
 	   --has_alife_info("bar_kvest_sdelka_dolg_and_killers_talk_with_prapor_start") and
@@ -499,15 +478,15 @@ function bar_all_kvests_of_barman_completed()
   end
 end
 
-------------------------------------------// Макс //------------------------------------------
---/Показ доступных квестов у Максa
+------------------------------------------// РњР°РєСЃ //------------------------------------------
+--/РџРѕРєР°Р· РґРѕСЃС‚СѓРїРЅС‹С… РєРІРµСЃС‚РѕРІ Сѓ РњР°РєСЃa
 function mil_show_max_kvests()
     if not has_alife_info("mil_kvest_spasti_freedomer_on_radar_start") then
         db.actor:give_talk_message(game.translate_string("task_functor_mil_show_max_kvests_1_text"), "ui\\ui_iconstotal", Frect():set(249,752,83,47), "other_iconed_answer_item")
 	end
 end
 
---/Если есть квест макса, но не выполнен или не провален
+--/Р•СЃР»Рё РµСЃС‚СЊ РєРІРµСЃС‚ РјР°РєСЃР°, РЅРѕ РЅРµ РІС‹РїРѕР»РЅРµРЅ РёР»Рё РЅРµ РїСЂРѕРІР°Р»РµРЅ
 function mil_have_one_kvest_of_max()
     return has_alife_info("mil_kvest_spasti_freedomer_on_radar_start") and not (has_alife_info("mil_kvest_spasti_freedomer_on_radar_complete") or has_alife_info("mil_kvest_spasti_freedomer_on_radar_fail"))
 end
@@ -516,12 +495,12 @@ function mil_dont_have_one_kvest_of_max()
     return not mil_have_one_kvest_of_max()
 end
 
---/Если брали все квесты у макса, то убираем диалог с квестами
+--/Р•СЃР»Рё Р±СЂР°Р»Рё РІСЃРµ РєРІРµСЃС‚С‹ Сѓ РјР°РєСЃР°, С‚Рѕ СѓР±РёСЂР°РµРј РґРёР°Р»РѕРі СЃ РєРІРµСЃС‚Р°РјРё
 function mil_all_kvests_of_max_completed()
     return not has_alife_info("mil_kvest_spasti_freedomer_on_radar_start")
 end
 
------------------------ Квест "Гитара Сидоровича" -----------------------
+----------------------- РљРІРµСЃС‚ "Р“РёС‚Р°СЂР° РЎРёРґРѕСЂРѕРІРёС‡Р°" -----------------------
 function spawn_guitar_for_kvest_guitar()
 	ogse.spawn_object_rand(spawn_db.GuiPoses)
 end
@@ -541,10 +520,19 @@ function give_reward_on_kvest_guitar_of_sidor(first_speaker, second_speaker)
 	this.give_reward(second_speaker, 1000, t)
 end
 
------------------------ Квест "Сделка с военными" -----------------------
+----------------------- РљРІРµСЃС‚ "РЎРґРµР»РєР° СЃ РІРѕРµРЅРЅС‹РјРё" -----------------------
 
 function precond_give_yashik_to_actor()
-	return ogse_car_control.car_in_range_exist(story_ids.esc_kuznetsov, "vehicle_zaz", 20.0)
+	if level.name() == "l01_escape" then
+		local car = level_object_by_sid(story_ids.esc_zaz_in_novice_lager)
+		local kuz = level_object_by_sid(story_ids.esc_kuznetsov)
+		if car and kuz then
+			if car:position():distance_to(kuz:position()) < 20 then
+				return true
+			end
+		end
+	end
+	return false
 end
 
 function precond_zaz_on_level()
@@ -564,16 +552,35 @@ function give_dynamite_for_mils_to_actor(first_speaker, second_speaker)
 end
 
 function give_dynamite_for_mils_to_npc(first_speaker, second_speaker)
-	dialogs.relocate_item_section(second_speaker, "dynamite_for_mils", "out")
-	local object = db.actor:object("dynamite_for_mils")
-	if object then
-		local sobject = alife():object(object:id())
-		if sobject then alife():release(sobject, true) end
+	local car = level_object_by_sid(story_ids.esc_zaz_in_novice_lager)
+	if car and dsh_rukzak.is_item_in_rukzak(car:id(), "dynamite_for_mils") then
+		dsh_rukzak.remove_item_from_rukzak( car:id(), "dynamite_for_mils" )
+		db.actor:give_info_portion("esc_kvest_sdelka_with_mils_trunk_clear")
+	else
+		dialogs.relocate_item_section(second_speaker, "dynamite_for_mils", "out")
+		local object = db.actor:object("dynamite_for_mils")
+		if object then
+			local sobject = alife():object(object:id())
+			if sobject then alife():release(sobject, true) end
+		end
 	end
 end
 
 function is_dynamite_with_actor(first_speaker, second_speaker)
-	return db.actor:object("dynamite_for_mils") or db.actor:has_info("esc_kvest_sdelka_with_mils_get_car")
+	--return db.actor:object("dynamite_for_mils") or db.actor:has_info("esc_kvest_sdelka_with_mils_get_car")
+
+	if level.name() == "l01_escape" then
+		local car = level_object_by_sid(story_ids.esc_zaz_in_novice_lager)
+		local kuz = level_object_by_sid(story_ids.esc_kuznetsov)
+		if car and kuz then
+			if car:position():distance_to(kuz:position()) < 20 then
+				if dsh_rukzak.is_item_in_rukzak(car:id(), "dynamite_for_mils") then
+					return true
+				end
+			end
+		end
+	end
+	return db.actor:object("dynamite_for_mils")
 end
 
 function give_yashik_weapon_to_actor(first_speaker, second_speaker)
@@ -594,7 +601,7 @@ end
 
 function set_start_dlg_to_kuznecov()
 	local o = level_object_by_sid(story_ids.esc_kuznetsov)
-	if o and o:get_start_dialog() ~= "esc_give_dinamyte_to_mils_dialog" and distance_between(db.actor, o) < 10 then	--50^2
+	if o and distance_between(db.actor, o) < 10 then
 		o:set_start_dialog("esc_give_dinamyte_to_mils_dialog")
 	end
 end
@@ -620,7 +627,7 @@ function drive_yashik_to_lager()
 	if level.name() == "l01_escape" then
 		local car = level_object_by_sid(story_ids.esc_zaz_in_novice_lager)
 		if car and has_alife_info("escape_kvest_with_military_give_din_to_mils") then
-			if car:position():distance_to(wolf_pos) < 10 then
+			if car:position():distance_to(wolf_pos) < 20 then
 				if dsh_rukzak.is_item_in_rukzak(car:id(), "yashik_weapon") then
 					return true
 				end
@@ -700,7 +707,7 @@ function esc_kvest_sdelka_with_mils_give_arts_to_mils_fail()
 	return false
 end
 
------------------------ Квест "Спасти сталкера из плена вояк с блокпоста" -----------------------
+----------------------- РљРІРµСЃС‚ "РЎРїР°СЃС‚Рё СЃС‚Р°Р»РєРµСЂР° РёР· РїР»РµРЅР° РІРѕСЏРє СЃ Р±Р»РѕРєРїРѕСЃС‚Р°" -----------------------
 function spawn_specotryad_for_kill_blockpost()
 	local esc_specotryad_leader = ogse.spawn_object(spawn_db.esc_specotryad_leader)
 	add_map_spot(esc_specotryad_leader.id, "esc_otryad_spot_id", "spawn_specotryad_for_kill_blockpost_1_text")
@@ -746,7 +753,7 @@ function give_reward_on_kvest_plennik_blockposta_2(first_speaker, second_speaker
 	give_reward_on_kvest(second_speaker, 1000, t)
 end
 
------------------------ Квест "Военные у аномалий" -----------------------
+----------------------- РљРІРµСЃС‚ "Р’РѕРµРЅРЅС‹Рµ Сѓ Р°РЅРѕРјР°Р»РёР№" -----------------------
 function have_af_esc_anomalyr()
     if Actor_Has_Items("af_esc_anomaly") then
 		if not has_alife_info("esc_talk_with_anmaly_military_leader_2") then
@@ -860,12 +867,12 @@ function delete_mils_near_anoms()
         end
 	end
 end]]
------------------------ Квест "Наемники на Кордоне" -----------------------
+----------------------- РљРІРµСЃС‚ "РќР°РµРјРЅРёРєРё РЅР° РљРѕСЂРґРѕРЅРµ" -----------------------
 --todo:
---1. ГГ не должен подходить слишком близко когда пишет звук
---2. ГГ не должны заметить
---3. Наймов нужно обезопасить от собак
---4. Места для бомбы на Кордоне
+--1. Р“Р“ РЅРµ РґРѕР»Р¶РµРЅ РїРѕРґС…РѕРґРёС‚СЊ СЃР»РёС€РєРѕРј Р±Р»РёР·РєРѕ РєРѕРіРґР° РїРёС€РµС‚ Р·РІСѓРє
+--2. Р“Р“ РЅРµ РґРѕР»Р¶РЅС‹ Р·Р°РјРµС‚РёС‚СЊ
+--3. РќР°Р№РјРѕРІ РЅСѓР¶РЅРѕ РѕР±РµР·РѕРїР°СЃРёС‚СЊ РѕС‚ СЃРѕР±Р°Рє
+--4. РњРµСЃС‚Р° РґР»СЏ Р±РѕРјР±С‹ РЅР° РљРѕСЂРґРѕРЅРµ
 local garb_forest = vector():set(257, -8, -138)
 function actor_near_esc_killers()
 	if level.name() == "l02_garbage" and db.actor:position():distance_to(garb_forest) < 75 then
@@ -1104,7 +1111,7 @@ function give_reward_on_kvest_killers_mined(first_speaker, second_speaker)
 	this.give_reward(second_speaker, 2000, t)
 end
 
------------------------ Квест "Друг Бармена" -----------------------
+----------------------- РљРІРµСЃС‚ "Р”СЂСѓРі Р‘Р°СЂРјРµРЅР°" -----------------------
 
 function spawn_pda_friend_barman()
 	local spda = ogse.spawn_object(spawn_db.pda_friend_barman)
@@ -1117,7 +1124,7 @@ function val_spawn_scene_st_sv()
     local stl3 = ogse.spawn_object(spawn_db.val_stalkers_barman3)
     local stl4 = ogse.spawn_object(spawn_db.val_stalkers_barman4)
 	local bomb = ogse.spawn_object(spawn_db.bomba_easy)
-	-- Запомним ID Швида, дабы не плодить лишнего SID'а (да и остальных на всякий случай)
+	-- Р—Р°РїРѕРјРЅРёРј ID РЁРІРёРґР°, РґР°Р±С‹ РЅРµ РїР»РѕРґРёС‚СЊ Р»РёС€РЅРµРіРѕ SID'Р° (РґР° Рё РѕСЃС‚Р°Р»СЊРЅС‹С… РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№)
 	ogse.save_var("shvid_id", shvid_sobj.id, "u16")
 	ogse.save_var("val_stalkers_barman_ids", { stl1.id, stl2.id, stl3.id, stl4.id }, "array", "u16")
 	ogse.save_variable("val_bomba_id", bomb.id)
@@ -1131,7 +1138,7 @@ function val_delete_all_from_quest()
 			alife():release(sObj, true)
 		end
 	else
-		log1("В квесте друг Бармена произошла маленькая ошибка, не сохранилось id бомбы")
+		log1("Р’ РєРІРµСЃС‚Рµ РґСЂСѓРі Р‘Р°СЂРјРµРЅР° РїСЂРѕРёР·РѕС€Р»Р° РјР°Р»РµРЅСЊРєР°СЏ РѕС€РёР±РєР°, РЅРµ СЃРѕС…СЂР°РЅРёР»РѕСЃСЊ id Р±РѕРјР±С‹")
 	end
 end
 
@@ -1215,7 +1222,7 @@ function add_spot_friend_barman()
 	local sobj = alife():object(id)
 	ASSERT(sobj, "")
 	if ogse.check_offline_npc(sobj) == true then
-		-- ogse.send_tip("Швид жив, id = "..id)
+		-- ogse.send_tip("РЁРІРёРґ Р¶РёРІ, id = "..id)
 		level_tasks.add_location_by_id(id, "blue_location", game.translate_string("scvid_location_string"))		
 	end
 end
@@ -1229,7 +1236,7 @@ function bar_kvest_friend_of_barman_check_status_of_bomb()
 	local shvid_obj = level.object_by_id(id)
 	local sobj = alife():object(id)
 	if sobj and not shvid_obj then
-		return -- Пока Швид в оффлайне
+		return -- РџРѕРєР° РЁРІРёРґ РІ РѕС„С„Р»Р°Р№РЅРµ
 	end
 
 	if shvid_obj and not shvid_obj:alive() then
@@ -1253,13 +1260,13 @@ function bar_kvest_friend_of_barman_check_status_of_bomb()
 end
 
 function bar_kvest_friend_of_barman_id_dead()
-	-- Отключаем таймер
+	-- РћС‚РєР»СЋС‡Р°РµРј С‚Р°Р№РјРµСЂ
 	if ogse_st_mgr.timer_exists("bar_kvest_friend_of_barman_bomb_explose") then
 		local bomb_timer = ogse_st_mgr.get_timer("bar_kvest_friend_of_barman_bomb_explose")
 		bomb_timer:stop()
 	end
 
-	-- При выходе в оффлайн удалим товарищей-пленников
+	-- РџСЂРё РІС‹С…РѕРґРµ РІ РѕС„С„Р»Р°Р№РЅ СѓРґР°Р»РёРј С‚РѕРІР°СЂРёС‰РµР№-РїР»РµРЅРЅРёРєРѕРІ
 	local tbl = ogse.load_var("val_stalkers_barman_ids")
 	for i=1, #tbl do
 		local id = tbl[i]
@@ -1275,7 +1282,7 @@ function bar_kvest_friend_of_barman_id_dead()
 	end
 	ogse.delete_var("val_stalkers_barman_ids")
 
-	-- Если есть возможность - удалим и Швида
+	-- Р•СЃР»Рё РµСЃС‚СЊ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ - СѓРґР°Р»РёРј Рё РЁРІРёРґР°
 
 	local id = ogse.load_var("shvid_id")
 	local sobj = alife():object(id)
@@ -1290,7 +1297,7 @@ function bar_kvest_friend_of_barman_id_dead()
 		ogse.delete_var("shvid_id")
 	end
 
-	-- Да и бомбу все же удалим
+	-- Р”Р° Рё Р±РѕРјР±Сѓ РІСЃРµ Р¶Рµ СѓРґР°Р»РёРј
 	local id = ogse.load_variable("val_bomba_id",-1)
 	local sobj = alife():object(id)
 	if sobj then
@@ -1303,7 +1310,7 @@ function bar_kvest_friend_of_barman_id_dead()
 		ogse.del_variable("val_bomba_id")
 	end
 
-	-- Удалим ССИ
+	-- РЈРґР°Р»РёРј РЎРЎР
 	friend_of_barman_disable_infoportion()
 end
 
@@ -1339,7 +1346,7 @@ function give_reward_on_kvest_friend_of_barman(first_speaker, second_speaker)
 	friend_of_barman_disable_infoportion()
 end
 
--- Удаляем ССИ
+-- РЈРґР°Р»СЏРµРј РЎРЎР
 function friend_of_barman_disable_infoportion()
 	local my_table =
 	{
@@ -1368,7 +1375,7 @@ function friend_of_barman_disable_infoportion()
 	end
 end
 
------------------------ Квест "Сделка Долга и Наемников" -----------------------
+----------------------- РљРІРµСЃС‚ "РЎРґРµР»РєР° Р”РѕР»РіР° Рё РќР°РµРјРЅРёРєРѕРІ" -----------------------
 local UpHealthDolgPlennik = 0
 function spawn_dolg_for_sdelka()
 	local obj = ogse.spawn_object(spawn_db.gar_dolg_on_sdelka_1)
@@ -1442,9 +1449,9 @@ function give_reward_on_kvest_sdelka_dolg_and_killers(first_speaker, second_spea
 	give_reward_on_kvest(second_speaker, 5500, t)
 end
 
------------------------ Квест "Пленник на базе Военных" -----------------------
+----------------------- РљРІРµСЃС‚ "РџР»РµРЅРЅРёРє РЅР° Р±Р°Р·Рµ Р’РѕРµРЅРЅС‹С…" -----------------------
 
--- Функция, проверяющая, находится ли актор на локации "Агропром"
+-- Р¤СѓРЅРєС†РёСЏ, РїСЂРѕРІРµСЂСЏСЋС‰Р°СЏ, РЅР°С…РѕРґРёС‚СЃСЏ Р»Рё Р°РєС‚РѕСЂ РЅР° Р»РѕРєР°С†РёРё "РђРіСЂРѕРїСЂРѕРј"
 function captive_on_agr_mill_base_save_is_on_agroprom()
 	if level.name() == "l03_agroprom" then
 		captive_on_agr_mill_base_send_tip_about_heli()
@@ -1461,7 +1468,7 @@ function is_captive_dead()
 	return not is_captive_alive()
 end
 
--- Вывод типса на экран о вертолёте + таймер + спаун рестрикторов
+-- Р’С‹РІРѕРґ С‚РёРїСЃР° РЅР° СЌРєСЂР°РЅ Рѕ РІРµСЂС‚РѕР»С‘С‚Рµ + С‚Р°Р№РјРµСЂ + СЃРїР°СѓРЅ СЂРµСЃС‚СЂРёРєС‚РѕСЂРѕРІ
 function captive_on_agr_mill_base_send_tip_about_heli()
 	local timeout = 15
 	local showtime = 20
@@ -1474,33 +1481,33 @@ function captive_on_agr_mill_base_start_heli_timer()
 	ogse_st_mgr.start_visual_timer("captive_on_agr_mill_base_start_heli", 6*60, script_name()..".captive_on_agr_mill_base_save_start_heli")
 end
 
--- Вертолет летит по душу пленника
+-- Р’РµСЂС‚РѕР»РµС‚ Р»РµС‚РёС‚ РїРѕ РґСѓС€Сѓ РїР»РµРЅРЅРёРєР°
 function captive_on_agr_mill_base_save_start_heli()
-	--ogse.send_tip("Вылет вертолёта для забирания пленника!")
+	--ogse.send_tip("Р’С‹Р»РµС‚ РІРµСЂС‚РѕР»С‘С‚Р° РґР»СЏ Р·Р°Р±РёСЂР°РЅРёСЏ РїР»РµРЅРЅРёРєР°!")
 	db.actor:give_info_portion("captive_on_agr_mill_base_spawn_heli")
 end
 
--- Вертолет летит высаживать спецназ
+-- Р’РµСЂС‚РѕР»РµС‚ Р»РµС‚РёС‚ РІС‹СЃР°Р¶РёРІР°С‚СЊ СЃРїРµС†РЅР°Р·
 function captive_on_agr_mill_base_actor_inside_building()
 	if ogse_st_mgr.timer_exists("captive_on_agr_mill_base_start_heli") then
 		local timer = ogse_st_mgr.get_timer("captive_on_agr_mill_base_start_heli")
 		timer:stop()
-		--ogse.send_tip("Вылет вертолёта для высадки десанта!")
+		--ogse.send_tip("Р’С‹Р»РµС‚ РІРµСЂС‚РѕР»С‘С‚Р° РґР»СЏ РІС‹СЃР°РґРєРё РґРµСЃР°РЅС‚Р°!")
 		db.actor:give_info_portion("captive_on_agr_mill_base_spawn_specnaz")
 		db.actor:give_info_portion("captive_on_agr_mill_base_spawn_heli")
 	end
 end
 
--- 1) Проверка на вход в здание
--- 2) Отслеживание состояния квеста
+-- 1) РџСЂРѕРІРµСЂРєР° РЅР° РІС…РѕРґ РІ Р·РґР°РЅРёРµ
+-- 2) РћС‚СЃР»РµР¶РёРІР°РЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РєРІРµСЃС‚Р°
 function captive_on_agr_mill_base_get_status_of_quest()
-	-- Определяем, а внутри ли мы здания
+	-- РћРїСЂРµРґРµР»СЏРµРј, Р° РІРЅСѓС‚СЂРё Р»Рё РјС‹ Р·РґР°РЅРёСЏ
 	local sobj = alife():object("agr_nii_sr_building")
 	if sobj then
 		local restrictor = level.object_by_id(sobj.id)
 		if restrictor then
 			if restrictor:inside(db.actor:position()) then
-				-- Если да, то выдаем флажок, что спасать мужика не надо, а надо просто высаживать спецназ на вертолётах
+				-- Р•СЃР»Рё РґР°, С‚Рѕ РІС‹РґР°РµРј С„Р»Р°Р¶РѕРє, С‡С‚Рѕ СЃРїР°СЃР°С‚СЊ РјСѓР¶РёРєР° РЅРµ РЅР°РґРѕ, Р° РЅР°РґРѕ РїСЂРѕСЃС‚Рѕ РІС‹СЃР°Р¶РёРІР°С‚СЊ СЃРїРµС†РЅР°Р· РЅР° РІРµСЂС‚РѕР»С‘С‚Р°С…
 				if not db.actor:has_info("captive_on_agr_mill_base_actor_inside_building") then
 					db.actor:give_info_portion("captive_on_agr_mill_base_actor_inside_building")
 				end
@@ -1517,7 +1524,7 @@ function captive_on_agr_mill_base_get_status_of_quest()
 	end
 end
 
--- Проверка на фейл таска
+-- РџСЂРѕРІРµСЂРєР° РЅР° С„РµР№Р» С‚Р°СЃРєР°
 function captive_on_agr_mill_base_go_to_rescue_point_is_fail()
 	if db.actor:has_info("captive_on_agr_mill_base_killed") then
 		return true
@@ -1526,7 +1533,7 @@ function captive_on_agr_mill_base_go_to_rescue_point_is_fail()
 	end
 end
 
--- Спаун рестрикторов, связанных с охранниками Связиста
+-- РЎРїР°СѓРЅ СЂРµСЃС‚СЂРёРєС‚РѕСЂРѕРІ, СЃРІСЏР·Р°РЅРЅС‹С… СЃ РѕС…СЂР°РЅРЅРёРєР°РјРё РЎРІСЏР·РёСЃС‚Р°
 function captive_on_agr_mill_base_spawn_guard_restr()
 	local logic = "[logic]\nactive = sr_idle\n[sr_idle]\non_actor_inside = nil %+captive_on_agr_mill_base_actor_guards_attack%"
 	for _,v in pairs(spawn_db.captive_on_agr_mill_base_spawn_guard_restr) do
@@ -1541,7 +1548,7 @@ function captive_on_agr_mill_base_spawn_guard_restr()
 	end
 end
 
--- Связист находится в радиусе 15 метров?
+-- РЎРІСЏР·РёСЃС‚ РЅР°С…РѕРґРёС‚СЃСЏ РІ СЂР°РґРёСѓСЃРµ 15 РјРµС‚СЂРѕРІ?
 function captive_on_agr_mill_base_is_captive_near()
 	local captive = level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist)
 	if captive and captive:alive() then
@@ -1552,12 +1559,12 @@ function captive_on_agr_mill_base_is_captive_near()
 	return false
 end
 
--- Связист дальше 15 метров?
+-- РЎРІСЏР·РёСЃС‚ РґР°Р»СЊС€Рµ 15 РјРµС‚СЂРѕРІ?
 function captive_on_agr_mill_base_is_captive_far()
 	return not captive_on_agr_mill_base_is_captive_near()
 end
 
--- Убираем напарничество
+-- РЈР±РёСЂР°РµРј РЅР°РїР°СЂРЅРёС‡РµСЃС‚РІРѕ
 function captive_on_agr_mill_base_disable_captive_companion()
 	local captive = level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist)
 	local pos = nil
@@ -1570,7 +1577,7 @@ function captive_on_agr_mill_base_disable_captive_companion()
 	end	
 	--agr_plennik_on_base_mils
 	if level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist) and level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist):alive() then
-		rx_utils.switch_offline(id_by_sid(story_ids.captive_on_agr_mill_base_svyazist)) -- принудительно сбрасываем в оффлайн
+		rx_utils.switch_offline(id_by_sid(story_ids.captive_on_agr_mill_base_svyazist)) -- РїСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕ СЃР±СЂР°СЃС‹РІР°РµРј РІ РѕС„С„Р»Р°Р№РЅ
 		ogse.kill_living_npc(id_by_sid(story_ids.captive_on_agr_mill_base_svyazist))
 		if pos and gv and lv then
 			local sobj = alife():create("agr_plennik_on_base_mils", pos, lv, gv)
@@ -1578,7 +1585,7 @@ function captive_on_agr_mill_base_disable_captive_companion()
 	end	
 end
 
--- Спаун спецназа в НИИ
+-- РЎРїР°СѓРЅ СЃРїРµС†РЅР°Р·Р° РІ РќРР
 function captive_on_agr_mill_base_spawn_specnaz_on_nii()
 	local respawns = {"val_soldier_respawn_1", "rad_specnaz_respawn_specnaz", "esc_soldier_respawn_specnaz", "agr_soldier_veteran"}
 	for k,v in pairs(spawn_db.captive_on_agr_mill_base_spawn_specnaz_on_nii) do
@@ -1600,15 +1607,15 @@ function captive_on_agr_mill_base_spawn_dolg_squad()
 	alife():assign_story_id(commander_obj.id, story_ids.captive_on_agr_mill_base_dolg_commander)
 end
 
--- Вызывается, когда отлетает вертолет
+-- Р’С‹Р·С‹РІР°РµС‚СЃСЏ, РєРѕРіРґР° РѕС‚Р»РµС‚Р°РµС‚ РІРµСЂС‚РѕР»РµС‚
 function captive_on_agr_mill_base_final_chance()
 	--ogse.send_tip("captive_on_agr_mill_base_final_chance")
-	-- 1. Удаляем Связиста
+	-- 1. РЈРґР°Р»СЏРµРј РЎРІСЏР·РёСЃС‚Р°
 	if level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist) and level_object_by_sid(story_ids.captive_on_agr_mill_base_svyazist):alive() then
-		rx_utils.switch_offline(id_by_sid(story_ids.captive_on_agr_mill_base_svyazist)) -- принудительно сбрасываем в оффлайн
+		rx_utils.switch_offline(id_by_sid(story_ids.captive_on_agr_mill_base_svyazist)) -- РїСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕ СЃР±СЂР°СЃС‹РІР°РµРј РІ РѕС„С„Р»Р°Р№РЅ
 		ogse.kill_living_npc(id_by_sid(story_ids.captive_on_agr_mill_base_svyazist))
 	end
-	-- 2 Удаляем охрану
+	-- 2 РЈРґР°Р»СЏРµРј РѕС…СЂР°РЅСѓ
 	if level_object_by_sid(story_ids.captive_on_agr_mill_base_guard_1) and level_object_by_sid(story_ids.captive_on_agr_mill_base_guard_1):alive() then
 		rx_utils.switch_offline(id_by_sid(story_ids.captive_on_agr_mill_base_guard_1))
 		ogse.kill_living_npc(id_by_sid(story_ids.captive_on_agr_mill_base_guard_1))
@@ -1617,9 +1624,9 @@ function captive_on_agr_mill_base_final_chance()
 		rx_utils.switch_offline(id_by_sid(story_ids.captive_on_agr_mill_base_guard_2))
 		ogse.kill_living_npc(id_by_sid(story_ids.captive_on_agr_mill_base_guard_2))
 	end
-	-- 3. Ставим метку на вертолёт - пленник как бы на борту
+	-- 3. РЎС‚Р°РІРёРј РјРµС‚РєСѓ РЅР° РІРµСЂС‚РѕР»С‘С‚ - РїР»РµРЅРЅРёРє РєР°Рє Р±С‹ РЅР° Р±РѕСЂС‚Сѓ
 	level_tasks.add_location_by_sid(story_ids.captive_on_agr_mill_base_heli, "blue_location", "prisoner_map_mark_text")
-	-- 4. Удаляем долговский отряд
+	-- 4. РЈРґР°Р»СЏРµРј РґРѕР»РіРѕРІСЃРєРёР№ РѕС‚СЂСЏРґ
 	for _, sid in ipairs({"captive_on_agr_mill_base_dolg_quard1", "captive_on_agr_mill_base_dolg_quard2", "captive_on_agr_mill_base_dolg_quard3", "captive_on_agr_mill_base_dolg_commander"}) do
 		local sobj = alife():story_object(story_ids[sid])
 		if sobj then
@@ -1630,25 +1637,25 @@ function captive_on_agr_mill_base_final_chance()
 	end
 end
 
--- Вызывается, когда вертолет уходит
+-- Р’С‹Р·С‹РІР°РµС‚СЃСЏ, РєРѕРіРґР° РІРµСЂС‚РѕР»РµС‚ СѓС…РѕРґРёС‚
 function captive_on_agr_mill_base_delete_heli()
-	-- Проваливаем задание, если вертолет улетел с пленником
+	-- РџСЂРѕРІР°Р»РёРІР°РµРј Р·Р°РґР°РЅРёРµ, РµСЃР»Рё РІРµСЂС‚РѕР»РµС‚ СѓР»РµС‚РµР» СЃ РїР»РµРЅРЅРёРєРѕРј
 	if db.actor:has_info("captive_on_agr_mill_base_final_chance") then
 		db.actor:give_info_portion("captive_on_agr_mill_base_fail")
 	end
-	-- Удаляем вертолет из игры
+	-- РЈРґР°Р»СЏРµРј РІРµСЂС‚РѕР»РµС‚ РёР· РёРіСЂС‹
 	local sobj = alife():story_object(story_ids.captive_on_agr_mill_base_heli)
 	if sobj then
 		alife():release(sobj, true)
 	end
 end
 
--- Умирает ли пленник/спасем его - выдаём ССИ о завершении
+-- РЈРјРёСЂР°РµС‚ Р»Рё РїР»РµРЅРЅРёРє/СЃРїР°СЃРµРј РµРіРѕ - РІС‹РґР°С‘Рј РЎРЎР Рѕ Р·Р°РІРµСЂС€РµРЅРёРё
 function captive_on_agr_mill_base_go_to_reward()
 	db.actor:give_info_portion("captive_on_agr_mill_base_go_to_reward")
 end
 
--- Подчищаем за собой хвосты
+-- РџРѕРґС‡РёС‰Р°РµРј Р·Р° СЃРѕР±РѕР№ С…РІРѕСЃС‚С‹
 function captive_on_agr_mill_base_clean_ssi()
 	local my_table =
 	{
@@ -1685,21 +1692,21 @@ function captive_on_agr_mill_base_shutdown_news()
 	:start()
 end
 
--- Награда за фиговую концовку
+-- РќР°РіСЂР°РґР° Р·Р° С„РёРіРѕРІСѓСЋ РєРѕРЅС†РѕРІРєСѓ
 function captive_on_agr_mill_base_reward_captive_dead(first_speaker, second_speaker)
 	give_reward_on_kvest(second_speaker, 5000, nil)
 	captive_on_agr_mill_base_clean_ssi()
 end
 
--- Награда за хорошую концовку
+-- РќР°РіСЂР°РґР° Р·Р° С…РѕСЂРѕС€СѓСЋ РєРѕРЅС†РѕРІРєСѓ
 function captive_on_agr_mill_base_reward_captive_alive(first_speaker, second_speaker)
 	local reward = {{[1]="wpn_p90_tact"}}
 	give_reward_on_kvest(second_speaker, 10000, reward)
 	captive_on_agr_mill_base_clean_ssi()
 end
---                           ******** Квесты у других разных НПС ********                         --
+--                           ******** РљРІРµСЃС‚С‹ Сѓ РґСЂСѓРіРёС… СЂР°Р·РЅС‹С… РќРџРЎ ********                         --
 
------------------------ Квест "Поиск дочери старика" -----------------------
+----------------------- РљРІРµСЃС‚ "РџРѕРёСЃРє РґРѕС‡РµСЂРё СЃС‚Р°СЂРёРєР°" -----------------------
 function spawn_doch_of_starik()
 	local obj = ogse.spawn_object(spawn_db.af_of_doch_starik)
 	add_map_spot(obj.id, "pri_doch_of_starik", "pri_kvest_search_doch_of_starik_text5_task")
@@ -1776,7 +1783,7 @@ function give_reward_on_kvest_search_doch_of_starik(first_speaker, second_speake
 	end
 end
 
------------------------ Квест "Устроить встречу Долга Свободы" -----------------------
+----------------------- РљРІРµСЃС‚ "РЈСЃС‚СЂРѕРёС‚СЊ РІСЃС‚СЂРµС‡Сѓ Р”РѕР»РіР° РЎРІРѕР±РѕРґС‹" -----------------------
 function give_reward_on_kvest_make_meet_dolg_freedom(first_speaker, second_speaker)
 	give_reward_on_kvest(second_speaker, 1700, nil)
 end
@@ -1785,7 +1792,7 @@ function give_reward_on_kvest_make_meet_dolg_freedom_2(first_speaker, second_spe
 	give_reward_on_kvest(second_speaker, 1700, nil)
 end
 
------------------------ Квест "Спасти свободовца на радаре" -----------------------
+----------------------- РљРІРµСЃС‚ "РЎРїР°СЃС‚Рё СЃРІРѕР±РѕРґРѕРІС†Р° РЅР° СЂР°РґР°СЂРµ" -----------------------
 function on_spot_feedomer_on_radar()
 	local obj = ogse.spawn_object(spawn_db.on_spot_feedomer_on_radar_kolbasa)
 	add_map_spot(obj.id, "radar_vert_spot", "spawn_feedomer_on_radar_text")
@@ -1836,7 +1843,7 @@ function give_reward_on_kvest_spasti_freedomer_on_radar(first_speaker, second_sp
 	give_reward_on_kvest(second_speaker, 4000, t)
 end
 
------------------------ Квест "Помочь тетереву" -----------------------
+----------------------- РљРІРµСЃС‚ "РџРѕРјРѕС‡СЊ С‚РµС‚РµСЂРµРІСѓ" -----------------------
 function spawn_bandits_of_teterev()
 	ogse.spawn_objects(spawn_db.spawn_bandits_of_teterev)
 end
@@ -1860,7 +1867,7 @@ end
 function spawn_art_for_teterev_2(EBandOfTeterevID)
 	local EBandOfTeterev = level.object_by_id(EBandOfTeterevID)
 	ogse.spawn_item_in_inv("af_star_teterev", EBandOfTeterev)
-	news_manager.send_tip(db.actor, "Спавн.af_star_teterev", 0, "stalker", 7000)
+	news_manager.send_tip(db.actor, "РЎРїР°РІРЅ.af_star_teterev", 0, "stalker", 7000)
 end
 
 function take_art_for_teterev()
@@ -1886,7 +1893,7 @@ function give_af_night_star_to_actor(first_speaker, second_speaker)
 	give_reward_on_kvest(second_speaker, nil, t)
 end
 
------------------------ Квест "Гость на Элеваторе" -------------------------------
+----------------------- РљРІРµСЃС‚ "Р“РѕСЃС‚СЊ РЅР° Р­Р»РµРІР°С‚РѕСЂРµ" -------------------------------
 function spawn_metka_qest_on_elevator()
 	local obj = ogse.spawn_object(spawn_db.spawn_metka_qest_on_elevator)
 	--
@@ -1958,7 +1965,7 @@ function give_reward_on_kvest_qest_on_elevator(first_speaker, second_speaker)
 	give_reward_on_kvest(second_speaker, 10000, nil)
 end
 
------------------------ Квест "Секрет Янтаря" -----------------------
+----------------------- РљРІРµСЃС‚ "РЎРµРєСЂРµС‚ РЇРЅС‚Р°СЂСЏ" -----------------------
 
 function set_neutral_chuk(actorw, chuk)
 	local cchuk = level.object_by_id(chuk:id())
@@ -2071,16 +2078,16 @@ function on_actor_zombie_2()
 	else
 		log1("ERROR! No chuk!")
 	end
-	-- Запустим таймер окончания зомбирования
+	-- Р—Р°РїСѓСЃС‚РёРј С‚Р°Р№РјРµСЂ РѕРєРѕРЅС‡Р°РЅРёСЏ Р·РѕРјР±РёСЂРѕРІР°РЅРёСЏ
 	ogse_st_mgr.start_visual_timer(nil, 420, script_name() .. ".make_actor_normal")
 end
 
 function make_actor_normal()
 	ogse_quests.turn_pnv_off()
 	level.add_pp_effector("deadcity_wake.ppe", 2008, false)
-	dialogs.actor_clear_community(db.actor, db.actor) -- чистим коммунити главгероя
+	dialogs.actor_clear_community(db.actor, db.actor) -- С‡РёСЃС‚РёРј РєРѕРјРјСѓРЅРёС‚Рё РіР»Р°РІРіРµСЂРѕСЏ
 	if has_alife_info("actor_set_zombied") then
-		db.actor:disable_info_portion("actor_set_zombied")-- зачищаем инфу о том, что ГГ зомби
+		db.actor:disable_info_portion("actor_set_zombied")-- Р·Р°С‡РёС‰Р°РµРј РёРЅС„Сѓ Рѕ С‚РѕРј, С‡С‚Рѕ Р“Р“ Р·РѕРјР±Рё
 	end
 end
 
@@ -2232,7 +2239,7 @@ function give_zapisi_tomson_to_npc(first_speaker, second_speaker)
 	dialogs.relocate_item_section(second_speaker, "unknow_zapisi_tomsona", "out")
 end
 
------------------------ Квест "Доброжелатель" -----------------------
+----------------------- РљРІРµСЃС‚ "Р”РѕР±СЂРѕР¶РµР»Р°С‚РµР»СЊ" -----------------------
 local WpnToSvyaznoi = nil
 
 function start_kvest_yan_search_case()
@@ -2255,8 +2262,8 @@ function start_kvest_yan_search_case()
 end
 
 function spawn_mines_near_yan_search_case()
-	-- Радость тестеров не была бы полной, если не мины на полу рядом с кейсом :D
-	-- Работает теперь нормально, починил всё. Нетпакеты не виноваты. KamikaZze 27/08/12
+	-- Р Р°РґРѕСЃС‚СЊ С‚РµСЃС‚РµСЂРѕРІ РЅРµ Р±С‹Р»Р° Р±С‹ РїРѕР»РЅРѕР№, РµСЃР»Рё РЅРµ РјРёРЅС‹ РЅР° РїРѕР»Сѓ СЂСЏРґРѕРј СЃ РєРµР№СЃРѕРј :D
+	-- Р Р°Р±РѕС‚Р°РµС‚ С‚РµРїРµСЂСЊ РЅРѕСЂРјР°Р»СЊРЅРѕ, РїРѕС‡РёРЅРёР» РІСЃС‘. РќРµС‚РїР°РєРµС‚С‹ РЅРµ РІРёРЅРѕРІР°С‚С‹. KamikaZze 27/08/12
 	for _,v in pairs(spawn_db.mines_table) do
 		local obj = ogse.spawn_object(v)
 		local pk = get_netpk(obj, 1)
@@ -2480,13 +2487,13 @@ end
 
 function if_svyaznoy_is_dead()
 	local items = {["zapis_3_a_case"] = 1}
-	jekan_work.spawn_items_in_treasure_box(5201, items) -- спауним фиготень в ящик
+	jekan_work.spawn_items_in_treasure_box(5201, items) -- СЃРїР°СѓРЅРёРј С„РёРіРѕС‚РµРЅСЊ РІ СЏС‰РёРє
 end
 
 function rad_kvest_dobrozhelatel_spawn_letter_in_treasure()
 	if db.actor:has_info("rad_kvest_dobrozhelatel_help_to_svyaznoy") then return end
 	local text = game.translate_string("rad_kvest_dobrozhelatel_spawn_letter_in_treasure_text")
-	ogse.send_tip(text, "Доброжелатель:", 0, 10, "stalker", "task")
+	ogse.send_tip(text, "Р”РѕР±СЂРѕР¶РµР»Р°С‚РµР»СЊ:", 0, 10, "stalker", "task")
 	db.actor:give_info_portion("rad_kvest_dobrozhelatel_letter_start")
 	if_svyaznoy_is_dead()
 end
@@ -2544,8 +2551,9 @@ function ui_bun_comp:InitCallBacks()
 end
 
 function ui_bun_comp:ok()
-  local password = self.EditBoxPassword:GetText()
-	if password == "cnfkrthrksr" and ogse.var_exists("help_to_svyaznoy") then
+	local password = self.EditBoxPassword:GetText():gsub("%s+", "") --РћС‡РµРЅСЊ РІР°Р¶РЅРѕ РІС‹СЂРµР·Р°С‚СЊ С‚Р°Р±С‹ РёР· СЃС‚СЂРѕРєРё. РќРµРєРѕС‚РѕСЂС‹Рµ РёРіСЂРѕРєРё РїСЂРё РІРІРѕРґРµ РєРѕРґР° Р°Р»СЊС‚-С‚Р°Р±Р°СЋС‚СЃСЏ Рё С‚Р°Р±С‹ РґРѕР±Р°РІР»СЏСЋС‚СЃСЏ РІ С‚РµРєСЃС‚, С…РѕС‚СЏ РІ РёРіСЂРµ РёС… РЅРµ РІРёРґРЅРѕ.
+	log3("--Radar password is: [%s], cond1: [%s], cond2: [%s]", password, password == "cnfkrthrksr", password == "14539782568")
+	if (password == "cnfkrthrksr" or password == "14539782568") and ogse.var_exists("help_to_svyaznoy") then
 		db.actor:give_info_portion("rad_kvest_dobrozhelatel_password_enter")
 		self:quit_ui_bun_comp()
 		delete_dobroshelatel_docs()
@@ -2561,10 +2569,12 @@ function ui_bun_comp:quit_ui_bun_comp()
 	self:ClearCallbacks()
 end
 
-function ui_bun_comp:OnKeyboard(dik, keyboard_action) --не тестил
+function ui_bun_comp:OnKeyboard(dik, keyboard_action)
 	CUIScriptWnd.OnKeyboard(self,dik,keyboard_action)
 	if keyboard_action == ui_events.WINDOW_KEY_PRESSED then
-		if dik == DIK_keys.DIK_ESCAPE  then
+		if dik == DIK_keys.DIK_RETURN or dik == DIK_keys.DIK_NUMPADENTER then
+			self:ok()
+		elseif dik == DIK_keys.DIK_ESCAPE then
 			self:ClearCallbacks()
 		end
 	end
@@ -2584,7 +2594,7 @@ function delete_dobroshelatel_docs()
 		end
 	end
 end
------------------------ Квест "Последняя просьба" -----------------------
+----------------------- РљРІРµСЃС‚ "РџРѕСЃР»РµРґРЅСЏСЏ РїСЂРѕСЃСЊР±Р°" -----------------------
 function death_esc_scoryi()
 	local Scoryi = level.object_by_id(ogse.load_variable("ScoryiID"))
 	if Scoryi then
@@ -2616,14 +2626,14 @@ end
 
 function kvest_scoryi_talk_with_sidor()
 	db.actor:give_info_portion("esc_kvest_help_to_scoryi_talk_with_sidor_start")
-    news_manager.send_tip(db.actor, "Зайди-ка ко мне, тут одно дельце наклевывается.", 0, "trader", 20000)
+    news_manager.send_tip(db.actor, "Р—Р°Р№РґРё-РєР° РєРѕ РјРЅРµ, С‚СѓС‚ РѕРґРЅРѕ РґРµР»СЊС†Рµ РЅР°РєР»РµРІС‹РІР°РµС‚СЃСЏ.", 0, "trader", 20000)
 end
 
 function spawn_val_kvest_sniper()
 	ogse.spawn_object(spawn_db.val_kvest_sniper)
 end
 
---Итого из 3 огромных, пышных блоков я оставил только проверку здоровья, а все остальное ушло в логику
+--РС‚РѕРіРѕ РёР· 3 РѕРіСЂРѕРјРЅС‹С…, РїС‹С€РЅС‹С… Р±Р»РѕРєРѕРІ СЏ РѕСЃС‚Р°РІРёР» С‚РѕР»СЊРєРѕ РїСЂРѕРІРµСЂРєСѓ Р·РґРѕСЂРѕРІСЊСЏ, Р° РІСЃРµ РѕСЃС‚Р°Р»СЊРЅРѕРµ СѓС€Р»Рѕ РІ Р»РѕРіРёРєСѓ
 function shpion_to_orlov_complete()
 	if has_alife_info("val_orlov_last_request_teleport_to_the_prison") then return true end
 	local Orlov = level_object_by_sid(story_ids.val_orlov)
@@ -2637,7 +2647,7 @@ end
 
 function shpion_to_orlov_fail()
 	local Orlov = level_object_by_sid(story_ids.val_orlov)
-	--А собственно зачем нам нужно проверять дистанцию? Нам нужнен только переход в оффлайн :), А все остальное загоним в логику
+	--Рђ СЃРѕР±СЃС‚РІРµРЅРЅРѕ Р·Р°С‡РµРј РЅР°Рј РЅСѓР¶РЅРѕ РїСЂРѕРІРµСЂСЏС‚СЊ РґРёСЃС‚Р°РЅС†РёСЋ? РќР°Рј РЅСѓР¶РЅРµРЅ С‚РѕР»СЊРєРѕ РїРµСЂРµС…РѕРґ РІ РѕС„С„Р»Р°Р№РЅ :), Рђ РІСЃРµ РѕСЃС‚Р°Р»СЊРЅРѕРµ Р·Р°РіРѕРЅРёРј РІ Р»РѕРіРёРєСѓ
 	if has_alife_info("val_orlov_wait_end") and not Orlov then del_orlov() return true end
 	if has_alife_info("esc_kvest_help_to_scoryi_orlov_killed") then return true end
 	return false
@@ -2709,7 +2719,7 @@ function rob_actor (item)
 	if percent then
 		percent = 100-percent*4
 	end
-	--math.random()  -- вызов-пустышка
+	--math.random()  -- РІС‹Р·РѕРІ-РїСѓСЃС‚С‹С€РєР°
 	local rnd = math.random(0,100)
 	if rnd<percent then
 		local cbox = level_object_by_sid(story_ids.val_simulation_box_2)
@@ -2820,8 +2830,8 @@ function have_notebook_mercs()
 		end
 		db.actor:give_info_portion("val_killers_kvest_on_combat")
 		dialogs.actor_clear_community()
-		news_manager.send_tip(db.actor, "Беги!", 0, "stalker", 5000)
-		level_object_by_sid(story_ids.val_orlov):set_character_community("stalker",0,0)	--ОРЛОВ
+		news_manager.send_tip(db.actor, "Р‘РµРіРё!", 0, "stalker", 5000)
+		level_object_by_sid(story_ids.val_orlov):set_character_community("stalker",0,0)	--РћР Р›РћР’
 		return true
 	end
   return false
@@ -2931,7 +2941,7 @@ function set_hp_to_sitnik()
 end
 
 function add_tip_about_pass_from_kuzn()
-	news_manager.send_tip( db.actor, "Еще раз спасибо, Меченый. Теперь проход под мостом для тебя бесплатный.", nil, "trader", nil )
+	news_manager.send_tip( db.actor, "Р•С‰Рµ СЂР°Р· СЃРїР°СЃРёР±Рѕ, РњРµС‡РµРЅС‹Р№. РўРµРїРµСЂСЊ РїСЂРѕС…РѕРґ РїРѕРґ РјРѕСЃС‚РѕРј РґР»СЏ С‚РµР±СЏ Р±РµСЃРїР»Р°С‚РЅС‹Р№.", nil, "trader", nil )
 end
 
 function return_old_comm_to_actor()
@@ -2968,7 +2978,7 @@ function esc_last_request_load_mils_in_gaz66()
 end
 
 function set_kuzn_health_normaly()
---Да, это фактически читерство. Но что поделать - иначе кузнецова в первые секунды пристрелят!
+--Р”Р°, СЌС‚Рѕ С„Р°РєС‚РёС‡РµСЃРєРё С‡РёС‚РµСЂСЃС‚РІРѕ. РќРѕ С‡С‚Рѕ РїРѕРґРµР»Р°С‚СЊ - РёРЅР°С‡Рµ РєСѓР·РЅРµС†РѕРІР° РІ РїРµСЂРІС‹Рµ СЃРµРєСѓРЅРґС‹ РїСЂРёСЃС‚СЂРµР»СЏС‚!
 	local ckuzn = level_object_by_sid(story_ids.esc_kuznetsov)
 	if ckuzn and ckuzn.health < 0.8 then
 		ckuzn.health = 1.0 - ckuzn.health
@@ -3013,12 +3023,12 @@ end
 function give_reward_on_kvest_end_prosba(first_speaker, second_speaker)
 	give_reward_on_kvest(second_speaker, 10000, nil)
 end
------------------------ Квест "Исцеление" -----------------------
+----------------------- РљРІРµСЃС‚ "РСЃС†РµР»РµРЅРёРµ" -----------------------
 local NumSndKillPreobr = 0
 
 function spawn_pda_preobr()
 	local pda_preobr = ogse.spawn_object(spawn_db.pda_preobr)
-	add_map_spot(pda_preobr.id, "pda_preobr_spot", "Найти Преображенского")
+	add_map_spot(pda_preobr.id, "pda_preobr_spot", "РќР°Р№С‚Рё РџСЂРµРѕР±СЂР°Р¶РµРЅСЃРєРѕРіРѕ")
 end
 
 function search_preobr_complete()
@@ -3121,7 +3131,7 @@ end
 
 function wait_lechenie_sidor_end()
 	db.actor:give_info_portion("esc_kvest_iscelenie_talk_with_sidor_start")
-	news_manager.send_tip(db.actor, "Меченый, зайди ко мне, разговор к тебе есть.", 0, "trader", 15000)
+	news_manager.send_tip(db.actor, "РњРµС‡РµРЅС‹Р№, Р·Р°Р№РґРё РєРѕ РјРЅРµ, СЂР°Р·РіРѕРІРѕСЂ Рє С‚РµР±Рµ РµСЃС‚СЊ.", 0, "trader", 15000)
 end
 
 
@@ -3152,7 +3162,7 @@ function val_uzh_on_combat()
 end
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------Призрак-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------РџСЂРёР·СЂР°Рє-----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function spawn_esc_spawn_box_in_car()
 	local car = ogse_car_control.get_nearest_car_by_section("vehicle_zaz")
@@ -3189,17 +3199,17 @@ function actor_bad_boy()
 end
 
 -- Mixser --
--- Функции под новые квесты --
--- + многочисленные правки предыдуших --
+-- Р¤СѓРЅРєС†РёРё РїРѕРґ РЅРѕРІС‹Рµ РєРІРµСЃС‚С‹ --
+-- + РјРЅРѕРіРѕС‡РёСЃР»РµРЅРЅС‹Рµ РїСЂР°РІРєРё РїСЂРµРґС‹РґСѓС€РёС… --
 
--- Таймеры --
+-- РўР°Р№РјРµСЂС‹ --
 
--- Таймер, удаляющий объект, когда он уходит в оффлайн
--- Данные таймера сохраняются даже после окончания текущей игровой сессии
+-- РўР°Р№РјРµСЂ, СѓРґР°Р»СЏСЋС‰РёР№ РѕР±СЉРµРєС‚, РєРѕРіРґР° РѕРЅ СѓС…РѕРґРёС‚ РІ РѕС„С„Р»Р°Р№РЅ
+-- Р”Р°РЅРЅС‹Рµ С‚Р°Р№РјРµСЂР° СЃРѕС…СЂР°РЅСЏСЋС‚СЃСЏ РґР°Р¶Рµ РїРѕСЃР»Рµ РѕРєРѕРЅС‡Р°РЅРёСЏ С‚РµРєСѓС‰РµР№ РёРіСЂРѕРІРѕР№ СЃРµСЃСЃРёРё
 
 class "delete_when_offline" (ogse_st_mgr.savable_timer)
-function delete_when_offline:__init(npc_id) super(npc_id) --НЕ НАДО ТАК ДЕЛАТЬ! В конструкторе должно быть не npc_id, а уникальное имя таймера! А так могут и дублирования имён таймеров возникнуть, что вызовет вылет.
-	-- обязательная строка с именем класса таймера
+function delete_when_offline:__init(npc_id) super(npc_id) --РќР• РќРђР”Рћ РўРђРљ Р”Р•Р›РђРўР¬! Р’ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РЅРµ npc_id, Р° СѓРЅРёРєР°Р»СЊРЅРѕРµ РёРјСЏ С‚Р°Р№РјРµСЂР°! Рђ С‚Р°Рє РјРѕРіСѓС‚ Рё РґСѓР±Р»РёСЂРѕРІР°РЅРёСЏ РёРјС‘РЅ С‚Р°Р№РјРµСЂРѕРІ РІРѕР·РЅРёРєРЅСѓС‚СЊ, С‡С‚Рѕ РІС‹Р·РѕРІРµС‚ РІС‹Р»РµС‚.
+	-- РѕР±СЏР·Р°С‚РµР»СЊРЅР°СЏ СЃС‚СЂРѕРєР° СЃ РёРјРµРЅРµРј РєР»Р°СЃСЃР° С‚Р°Р№РјРµСЂР°
 	self.class = script_name()..".delete_when_offline"
 	self.npc_id = npc_id
 end
@@ -3221,7 +3231,7 @@ end
 function delete_when_offline:action()
 	local sobj = alife():object(self.npc_id)
 	if sobj then 
-		if IsAnomaly(sobj) and not ogse_anomaly.is_not_anomaly(sobj) then --С аномалиями разберется менеджер аномалий.
+		if IsAnomaly(sobj) and not ogse_anomaly.is_not_anomaly(sobj) then --РЎ Р°РЅРѕРјР°Р»РёСЏРјРё СЂР°Р·Р±РµСЂРµС‚СЃСЏ РјРµРЅРµРґР¶РµСЂ Р°РЅРѕРјР°Р»РёР№.
 			ogse_anomaly.set_anomaly_mode(sobj.id, "anom_off")
 		else
 			alife():release(sobj, true)
@@ -3229,17 +3239,17 @@ function delete_when_offline:action()
 	end
 end
 
--- Таймер переодевания дезертира
+-- РўР°Р№РјРµСЂ РїРµСЂРµРѕРґРµРІР°РЅРёСЏ РґРµР·РµСЂС‚РёСЂР°
 
 class "clothes_changing_actor_dont_see" (ogse_qt.quick_timer)
 function clothes_changing_actor_dont_see:__init(npc_id) super()
-	self.npc_id = npc_id -- запоминаем в таймере id непися
+	self.npc_id = npc_id -- Р·Р°РїРѕРјРёРЅР°РµРј РІ С‚Р°Р№РјРµСЂРµ id РЅРµРїРёСЃСЏ
 end
 function clothes_changing_actor_dont_see:condition()
 	return ( not db.actor:see(level.object_by_id(self.npc_id)) )
 end
 function clothes_changing_actor_dont_see:action()
-	ogse.send_tip("Меченый, я готов! Пошли потихоньку.", game.translate_string(level.object_by_id(self.npc_id):character_name())..":")
+	ogse.send_tip("РњРµС‡РµРЅС‹Р№, СЏ РіРѕС‚РѕРІ! РџРѕС€Р»Рё РїРѕС‚РёС…РѕРЅСЊРєСѓ.", game.translate_string(level.object_by_id(self.npc_id):character_name())..":")
 
 	local novice_visuals =
 	{
@@ -3309,18 +3319,18 @@ function clothes_changing_actor_dont_see:action()
 end
 
 
--- Таймер, выдающий через определенное время ССИ, дающий возможность получить записку от Психа
+-- РўР°Р№РјРµСЂ, РІС‹РґР°СЋС‰РёР№ С‡РµСЂРµР· РѕРїСЂРµРґРµР»РµРЅРЅРѕРµ РІСЂРµРјСЏ РЎРЎР, РґР°СЋС‰РёР№ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РїРѕР»СѓС‡РёС‚СЊ Р·Р°РїРёСЃРєСѓ РѕС‚ РџСЃРёС…Р°
 function ogse_military_psycho_surprise_taction()
 	db.actor:give_info_portion("military_psycho_spawn_note_when_sleeping")
 end
 
--- Включение сталкеровской сети через сутки
+-- Р’РєР»СЋС‡РµРЅРёРµ СЃС‚Р°Р»РєРµСЂРѕРІСЃРєРѕР№ СЃРµС‚Рё С‡РµСЂРµР· СЃСѓС‚РєРё
 function captive_on_agr_mill_base_shutdown_news_timer_taction()
 	ogse.delete_var("need_shutdown_stalker_news")
 end
 
 
--- Функции для работы с дезертиром на Агропроме
+-- Р¤СѓРЅРєС†РёРё РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РґРµР·РµСЂС‚РёСЂРѕРј РЅР° РђРіСЂРѕРїСЂРѕРјРµ
 function agr_swamp_ratcatcher_actor_has_stalker_outfit()
 	return db.actor:has_info("agr_swamp_ratcatcher_go_to_novice_outfit") and (db.actor:object("novice_outfit") or db.actor:object("stalker_outfit"))
 end
@@ -3356,10 +3366,10 @@ end
 
 function agr_swamp_ratcatcher_spawn_report_about_lc()
 	local items = {["bp_mily_otschet"] = 1}
-	jekan_work.spawn_items_in_treasure_box(2010, items) -- спауним фиготень в ящик
+	jekan_work.spawn_items_in_treasure_box(2010, items) -- СЃРїР°СѓРЅРёРј С„РёРіРѕС‚РµРЅСЊ РІ СЏС‰РёРє
 end
 
--- Функции по работе с Психом
+-- Р¤СѓРЅРєС†РёРё РїРѕ СЂР°Р±РѕС‚Рµ СЃ РџСЃРёС…РѕРј
 
 function military_psycho_talk_about_psycho_precondition()
 	return (level_object_by_sid(story_ids.Mil_Crazy) and level_object_by_sid(story_ids.Mil_Crazy):alive())
@@ -3386,7 +3396,7 @@ function military_psycho_drop_weapon()
 		if best_weapon then
 			alife():release(alife():object(best_weapon:id()), true)
 		end
-		-- если у психа нет пистолета, выдадим, на случай, если актор его "раздел"
+		-- РµСЃР»Рё Сѓ РїСЃРёС…Р° РЅРµС‚ РїРёСЃС‚РѕР»РµС‚Р°, РІС‹РґР°РґРёРј, РЅР° СЃР»СѓС‡Р°Р№, РµСЃР»Рё Р°РєС‚РѕСЂ РµРіРѕ "СЂР°Р·РґРµР»"
 		if not psycho:object("wpn_pm") then
 			ogse.spawn_item_in_inv("wpn_pm", psycho) 
 		end
@@ -3396,16 +3406,16 @@ function military_psycho_drop_weapon()
 end
 
 function military_psycho_surprise()
-	-- закрываем инвентарь
+	-- Р·Р°РєСЂС‹РІР°РµРј РёРЅРІРµРЅС‚Р°СЂСЊ
 	local wnd = level.main_input_receiver()
 	if wnd then
 		wnd:GetHolder():start_stop_menu(wnd, true)
 	end
 
-	-- Именно тут и удалим тело со вспышкой и музыкой
-	level.add_pp_effector ("teleport.ppe", 2006, false) -- вспышка
+	-- РРјРµРЅРЅРѕ С‚СѓС‚ Рё СѓРґР°Р»РёРј С‚РµР»Рѕ СЃРѕ РІСЃРїС‹С€РєРѕР№ Рё РјСѓР·С‹РєРѕР№
+	level.add_pp_effector ("teleport.ppe", 2006, false) -- РІСЃРїС‹С€РєР°
 	local thunder_sound = xr_sound.get_safe_sound_object([[nature\thunder-3]])
-	thunder_sound:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) -- гроза
+	thunder_sound:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 1.0) -- РіСЂРѕР·Р°
 	local psycho = level_object_by_sid(story_ids.Mil_Crazy)
 	if psycho then
 		alife():release(alife():object(psycho:id()), true)
@@ -3414,15 +3424,15 @@ function military_psycho_surprise()
 end
 
 function military_psycho_delete_body()
-	-- Через 6 часов во время сна нам может придти записка
+	-- Р§РµСЂРµР· 6 С‡Р°СЃРѕРІ РІРѕ РІСЂРµРјСЏ СЃРЅР° РЅР°Рј РјРѕР¶РµС‚ РїСЂРёРґС‚Рё Р·Р°РїРёСЃРєР°
 	ogse_st_mgr.delayed_fun_start("ogse_military_psycho_surprise")
 	:set_gdelayDHMS(0, 6, 0, 0)
 	:init(script_name()..".ogse_military_psycho_surprise_taction")
 	:start()
 end
 
--- Цена бессмертия
--- Часть первая
+-- Р¦РµРЅР° Р±РµСЃСЃРјРµСЂС‚РёСЏ
+-- Р§Р°СЃС‚СЊ РїРµСЂРІР°СЏ
 
 function question_of_immortality_get_all_arts(first_speaker, second_speaker)
 	return db.actor:object("af_muten") and db.actor:object("af_firefly") and db.actor:object("af_chameleon") and not db.actor:has_info("dead_stalker_question_of_immortality_first_part_complete")
@@ -3450,11 +3460,11 @@ function spawn_psy_art(store_prefix, spawn_db, r_min, r_max, custom_data)
 	my_table.restrictor_type = 3
 	my_table.custom_data:set(custom_data)
 	packet:set(my_table)
-	ogse.save_var(store_prefix.."_ps_id", ps_obj.id, "u16") -- удалим после квеста данную пси-зону
+	ogse.save_var(store_prefix.."_ps_id", ps_obj.id, "u16") -- СѓРґР°Р»РёРј РїРѕСЃР»Рµ РєРІРµСЃС‚Р° РґР°РЅРЅСѓСЋ РїСЃРё-Р·РѕРЅСѓ
 end
 
 function delete_psy_art_trash(store_prefix)
-	-- Удалим пси-зону при сдаче артефакта
+	-- РЈРґР°Р»РёРј РїСЃРё-Р·РѕРЅСѓ РїСЂРё СЃРґР°С‡Рµ Р°СЂС‚РµС„Р°РєС‚Р°
 	local id = ogse.load_var(store_prefix.."_ps_id")
 	local sobj = alife():object(id)
 	if sobj then
@@ -3465,7 +3475,7 @@ function delete_psy_art_trash(store_prefix)
 end
 
 function question_of_immortality_fisrt_part_spawn_muten()
-	-- Спауним Мутень
+	-- РЎРїР°СѓРЅРёРј РњСѓС‚РµРЅСЊ
 	local cd = "[logic] \nactive = ogsm_effector \n[ogsm_effector]"
 	spawn_psy_art("muten", spawn_db.question_of_immortality_fisrt_part_spawn_muten, 3, 5, cd)
 end
@@ -3476,10 +3486,10 @@ function question_of_immortality_fisrt_part_delete_muten_trash()
 end
 
 --[[
--- Сначала спавнятся зеленая электра и ее обычный заместитель
--- Зеленая электра включается на время дождя
--- На время дождя спавнится "Светляк". Когда дождь заканчивается, артефакт удаляется.
--- Когда подбираем артефакт, отключаем зеленую электру, включаем обычную и ставим их на удаление
+-- РЎРЅР°С‡Р°Р»Р° СЃРїР°РІРЅСЏС‚СЃСЏ Р·РµР»РµРЅР°СЏ СЌР»РµРєС‚СЂР° Рё РµРµ РѕР±С‹С‡РЅС‹Р№ Р·Р°РјРµСЃС‚РёС‚РµР»СЊ
+-- Р—РµР»РµРЅР°СЏ СЌР»РµРєС‚СЂР° РІРєР»СЋС‡Р°РµС‚СЃСЏ РЅР° РІСЂРµРјСЏ РґРѕР¶РґСЏ
+-- РќР° РІСЂРµРјСЏ РґРѕР¶РґСЏ СЃРїР°РІРЅРёС‚СЃСЏ "РЎРІРµС‚Р»СЏРє". РљРѕРіРґР° РґРѕР¶РґСЊ Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ, Р°СЂС‚РµС„Р°РєС‚ СѓРґР°Р»СЏРµС‚СЃСЏ.
+-- РљРѕРіРґР° РїРѕРґР±РёСЂР°РµРј Р°СЂС‚РµС„Р°РєС‚, РѕС‚РєР»СЋС‡Р°РµРј Р·РµР»РµРЅСѓСЋ СЌР»РµРєС‚СЂСѓ, РІРєР»СЋС‡Р°РµРј РѕР±С‹С‡РЅСѓСЋ Рё СЃС‚Р°РІРёРј РёС… РЅР° СѓРґР°Р»РµРЅРёРµ
 ]]
 
 function question_of_immortality_fisrt_part_prepare_spawn_firefly()
@@ -3492,7 +3502,7 @@ function question_of_immortality_fisrt_part_prepare_spawn_firefly()
 		packet:set(my_table)
 	end
 
-	-- Темная долина идет 2 раза в списке специально. Юра сказал шанс спавна на ней в 2 раза выше :)
+	-- РўРµРјРЅР°СЏ РґРѕР»РёРЅР° РёРґРµС‚ 2 СЂР°Р·Р° РІ СЃРїРёСЃРєРµ СЃРїРµС†РёР°Р»СЊРЅРѕ. Р®СЂР° СЃРєР°Р·Р°Р» С€Р°РЅСЃ СЃРїР°РІРЅР° РЅР° РЅРµР№ РІ 2 СЂР°Р·Р° РІС‹С€Рµ :)
 	local lvls = {"l01_escape", "l03_agroprom", "l04_darkvalley", "l04_darkvalley", "l07_military", "l08_yantar"}
 	local lvl = lvls[math.random(#lvls)]
 	local spawn_tbl = spawn_db.question_of_immortality_fisrt_part_spawn_firefly[lvl]
@@ -3520,7 +3530,7 @@ function on_first_update_firefly()
 	firefly_upd_signal = { signal = "on_update", fun = this.on_firefly_update, queued = true }
 	ogse_signals.get_mgr():subscribe( firefly_upd_signal )
 
-	--KRodin: будем респавнить арт после каждой загрузки сейва
+	--KRodin: Р±СѓРґРµРј СЂРµСЃРїР°РІРЅРёС‚СЊ Р°СЂС‚ РїРѕСЃР»Рµ РєР°Р¶РґРѕР№ Р·Р°РіСЂСѓР·РєРё СЃРµР№РІР°
 	local art_spawned = ogse.var_exists("art_firefly_id")
 	if art_spawned then
 		question_of_immortality_fisrt_part_delete_firefly()
@@ -3589,7 +3599,7 @@ function question_of_immortality_fisrt_part_spawn_firefly()
 	local green_anom = alife():object(ogse.load_var("green_anomaly_id"))
 	ASSERT(green_anom, "green_anom ~= nil")
 	local art = alife():create("af_firefly", green_anom.position, green_anom.m_level_vertex_id, green_anom.m_game_vertex_id)
-	alife():use_ai_locations( art, false ) --Может поможет от проваливания
+	alife():use_ai_locations( art, false ) --РњРѕР¶РµС‚ РїРѕРјРѕР¶РµС‚ РѕС‚ РїСЂРѕРІР°Р»РёРІР°РЅРёСЏ
 	ogse.save_var("art_firefly_id", art.id, "u16")
 	level.client_spawn_manager():add( art.id, -1, function() fix_art(art.id, "root") end )
 end
@@ -3665,7 +3675,7 @@ function question_of_immortality_fisrt_part_delete_chameleon()
 	end
 end
 
--- Часть вторая
+-- Р§Р°СЃС‚СЊ РІС‚РѕСЂР°СЏ
 
 function question_of_immortality_second_part_return_arts(first_speaker, second_speaker)
 	dialogs.relocate_item_section(second_speaker, "af_muten", "in")
@@ -3688,7 +3698,7 @@ function question_of_immortality_second_part_find_black_soul()
 	local anom_pos = vector():set(2.544, 4.686, -12.925)
 	local distance = db.actor:position():distance_to_sqr(anom_pos)
 	if distance < 4 then
-		-- Удаляем артефакты, спауним Душу, добавляем сюрпризы
+		-- РЈРґР°Р»СЏРµРј Р°СЂС‚РµС„Р°РєС‚С‹, СЃРїР°СѓРЅРёРј Р”СѓС€Сѓ, РґРѕР±Р°РІР»СЏРµРј СЃСЋСЂРїСЂРёР·С‹
 		ogse.remove_item_from_inventory_by_name("af_muten", db.actor)
 		ogse.remove_item_from_inventory_by_name("af_firefly", db.actor)
 		ogse.remove_item_from_inventory_by_name("af_chameleon", db.actor)
@@ -3702,7 +3712,7 @@ function question_of_immortality_second_part_find_black_soul()
 	end
 end
 
--- Маленький гигант
+-- РњР°Р»РµРЅСЊРєРёР№ РіРёРіР°РЅС‚
 
 function dead_stalker_little_pseudogigant_spawn_sound_zone()
 	local obj = ogse.spawn_object(spawn_db.dead_stalker_little_pseudogigant_spawn_sound_zone)
@@ -3723,5 +3733,5 @@ function dead_stalker_little_pseudogigant_spawn_gigant()
 end
 
 function dead_stalker_little_pseudogigant_give_reward()
-	-- Тут будет награда - наводка на тайник
+	-- РўСѓС‚ Р±СѓРґРµС‚ РЅР°РіСЂР°РґР° - РЅР°РІРѕРґРєР° РЅР° С‚Р°Р№РЅРёРє
 end

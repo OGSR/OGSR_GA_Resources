@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 class "se_outfit" (cse_alife_item_custom_outfit)
 function se_outfit:__init (section) super (section)
@@ -48,7 +48,7 @@ function se_item_torch:__init (section) super (section)
 end
 --*********************************************************************************
 
---' ÔÈçîáúåêòû
+--' Ð¤Ð˜Ð·Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹
 class "se_physic" (cse_alife_object_physic)
 function se_physic:__init (section) super (section)
 end

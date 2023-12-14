@@ -23,24 +23,24 @@ hit_power            	= 0.5, 0.5, 0.5, 0.5
 hit_impulse      		= 120
 hit_type 			= fire_wound
 fire_distance            	= 100
-bullet_speed			= 230		;начальная скорость пули
-rpm                      	= 85            ;60 = 1 секунда
+bullet_speed			= 230		;РЅР°С‡Р°Р»СЊРЅР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ РїСѓР»Рё
+rpm                      	= 85            ;60 = 1 СЃРµРєСѓРЅРґР°
 rpm_empty_click 	   	= 200
 
 hud                      	= wpn_wincheaster1300_hud
 
-misfire_probability        = 0.005 ;вероятность осечки при максимальном износе  !!!old - now not working
-;изношенность, при которой появляется шанс осечки
+misfire_probability        = 0.005 ;РІРµСЂРѕСЏС‚РЅРѕСЃС‚СЊ РѕСЃРµС‡РєРё РїСЂРё РјР°РєСЃРёРјР°Р»СЊРЅРѕРј РёР·РЅРѕСЃРµ  !!!old - now not working
+;РёР·РЅРѕС€РµРЅРЅРѕСЃС‚СЊ, РїСЂРё РєРѕС‚РѕСЂРѕР№ РїРѕСЏРІР»СЏРµС‚СЃСЏ С€Р°РЅСЃ РѕСЃРµС‡РєРё
 misfire_start_condition		= 0.7
-;изношеность при которой шанс осечки становится константным
+;РёР·РЅРѕС€РµРЅРѕСЃС‚СЊ РїСЂРё РєРѕС‚РѕСЂРѕР№ С€Р°РЅСЃ РѕСЃРµС‡РєРё СЃС‚Р°РЅРѕРІРёС‚СЃСЏ РєРѕРЅСЃС‚Р°РЅС‚РЅС‹Рј
 misfire_end_condition		= 0.1
-;шанс осечки при изношености больше чем misfireStartCondition
+;С€Р°РЅСЃ РѕСЃРµС‡РєРё РїСЂРё РёР·РЅРѕС€РµРЅРѕСЃС‚Рё Р±РѕР»СЊС€Рµ С‡РµРј misfireStartCondition
 misfire_start_prob	     	= 0.002
-;шанс осечки при изношености больше чем misfireEndCondition
+;С€Р°РЅСЃ РѕСЃРµС‡РєРё РїСЂРё РёР·РЅРѕС€РµРЅРѕСЃС‚Рё Р±РѕР»СЊС€Рµ С‡РµРј misfireEndCondition
 misfire_end_prob	     	= 0.25
-;увеличение изношености при одиночном выстреле
-condition_shot_dec      	= 0.00038
-;увеличение изношености при выстреле очередью
+;СѓРІРµР»РёС‡РµРЅРёРµ РёР·РЅРѕС€РµРЅРѕСЃС‚Рё РїСЂРё РѕРґРёРЅРѕС‡РЅРѕРј РІС‹СЃС‚СЂРµР»Рµ
+condition_shot_dec      	= 0.00076
+;СѓРІРµР»РёС‡РµРЅРёРµ РёР·РЅРѕС€РµРЅРѕСЃС‚Рё РїСЂРё РІС‹СЃС‚СЂРµР»Рµ РѕС‡РµСЂРµРґСЊСЋ
 condition_queue_shot_dec	= 0.00035
 
 tri_state_reload			= on
@@ -50,20 +50,20 @@ ammo_mag_size		 		= 5
 ammo_class           	                        = ammo_12x70_kart, ammo_12x76_zhekan
 fire_modes					= 1
 
-;--дисперсия----------------------------------------------------------------------------
-;базовая дисперсия
-fire_dispersion_base		= 0.3  ;угол (в градусах) базовой дисперсии оружия (оружия зажатого в тисках)
+;--РґРёСЃРїРµСЂСЃРёСЏ----------------------------------------------------------------------------
+;Р±Р°Р·РѕРІР°СЏ РґРёСЃРїРµСЂСЃРёСЏ
+fire_dispersion_base		= 0.3  ;СѓРіРѕР» (РІ РіСЂР°РґСѓСЃР°С…) Р±Р°Р·РѕРІРѕР№ РґРёСЃРїРµСЂСЃРёРё РѕСЂСѓР¶РёСЏ (РѕСЂСѓР¶РёСЏ Р·Р°Р¶Р°С‚РѕРіРѕ РІ С‚РёСЃРєР°С…)
 control_inertion_factor		= 1.3f
 crosshair_inertion			= 6.85
 
-;отдача
+;РѕС‚РґР°С‡Р°
 cam_return				= 0
-cam_relax_speed         = 10	;скорость возврата в исходное положение
+cam_relax_speed         = 10	;СЃРєРѕСЂРѕСЃС‚СЊ РІРѕР·РІСЂР°С‚Р° РІ РёСЃС…РѕРґРЅРѕРµ РїРѕР»РѕР¶РµРЅРёРµ
 cam_relax_speed_ai      = 360
-cam_dispersion          = 5.1	;увеличения угла (в градусах) с каждым выстрелом
-cam_dispersion_inc		= 2.4	;увеличениe cam_dispersion с каждым выстрелом
+cam_dispersion          = 5.1	;СѓРІРµР»РёС‡РµРЅРёСЏ СѓРіР»Р° (РІ РіСЂР°РґСѓСЃР°С…) СЃ РєР°Р¶РґС‹Рј РІС‹СЃС‚СЂРµР»РѕРј
+cam_dispersion_inc		= 2.4	;СѓРІРµР»РёС‡РµРЅРёe cam_dispersion СЃ РєР°Р¶РґС‹Рј РІС‹СЃС‚СЂРµР»РѕРј
 cam_dispersion_frac		= 0.7
-cam_max_angle			= 15.0	;максимальный угол отдачи
+cam_max_angle			= 15.0	;РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СѓРіРѕР» РѕС‚РґР°С‡Рё
 cam_max_angle_horz		= 15.0	;(degree) maximum shot horizontal degree
 cam_step_angle_horz		= 3.0	;(degree) size of step camera moved in horizontal position while shooting
 
@@ -82,14 +82,14 @@ zoom_cam_max_angle			= 15.0
 zoom_cam_max_angle_horz		= 15.0
 zoom_cam_step_angle_horz	= 3.0
 
-fire_dispersion_condition_factor = 2.5	;увеличение дисперсии в процентах при максимальном износе
+fire_dispersion_condition_factor = 2.5	;СѓРІРµР»РёС‡РµРЅРёРµ РґРёСЃРїРµСЂСЃРёРё РІ РїСЂРѕС†РµРЅС‚Р°С… РїСЂРё РјР°РєСЃРёРјР°Р»СЊРЅРѕРј РёР·РЅРѕСЃРµ
 
 ;---DOF-------------------------------------------------------------------------
 zoom_dof					= 0.5, 1.0, 180
 ;reload_dof           = 0.0, 0.5, 5, 1.7
 ;-------------------------------------------------------------------------------
-holder_range_modifier	= 1.0               ; во сколько раз увеличивается eye_range
-holder_fov_modifier		= 1.0              ; во сколько раз увеличивается eye_fov
+holder_range_modifier	= 1.0               ; РІРѕ СЃРєРѕР»СЊРєРѕ СЂР°Р· СѓРІРµР»РёС‡РёРІР°РµС‚СЃСЏ eye_range
+holder_fov_modifier		= 1.0              ; РІРѕ СЃРєРѕР»СЊРєРѕ СЂР°Р· СѓРІРµР»РёС‡РёРІР°РµС‚СЃСЏ eye_fov
 
 min_radius               	= 0
 max_radius               	= 30
@@ -133,7 +133,7 @@ flame_particles		   	= weapons\generic_weapon05
 smoke_particles		   	= weapons\generic_shoot_00
 
 ;--STRAP PARAMETERS-----------------------------------------------------------------
-;под мишкой
+;РїРѕРґ РјРёС€РєРѕР№
 strap_bone0					= bip01_spine2
 strap_bone1					= bip01_spine1
 
@@ -179,7 +179,7 @@ scope_respawn_wpn_addon_scope_elcan                  = wpn_wincheaster1300_elcan
 scope_respawn_wpn_addon_scope_susat_night            = wpn_wincheaster1300_susat_night
 
 
-;звуки
+;Р·РІСѓРєРё
 snd_draw		    = weapons\winchester1300\winchester1300_draw
 snd_holster		    = weapons\winchester1300\winchester1300_hide
 snd_shoot		    = weapons\winchester1300\winchester1300_shoot
@@ -236,44 +236,44 @@ aim_hud_offset_pos_16x9 = 0.000000,-0.001200,0.00
 aim_hud_offset_rot_16x9 = -0.0120000,0.000000,0.000000
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-;Идл обычный
+;РРґР» РѕР±С‹С‡РЅС‹Р№
 
 anm_idle				= winchester1300_pistol_idle
 anm_idle_empty			= winchester1300_pistol_idle
 anm_idle_jammed			= winchester1300_pistol_idle, idle_jammed
 
-;Идл - сосредоточенный
+;РРґР» - СЃРѕСЃСЂРµРґРѕС‚РѕС‡РµРЅРЅС‹Р№
 anm_idle_slow			= winchester1300_pistol_idle
 anm_idle_slow_empty		= winchester1300_pistol_idle
 anm_idle_slow_jammed	= winchester1300_pistol_idle, idle_jammed
 
-;Идл - присев
+;РРґР» - РїСЂРёСЃРµРІ
 anm_idle_crouch			= winchester1300_pistol_idle
 anm_idle_crouch_empty	= winchester1300_pistol_idle
 anm_idle_crouch_jammed	= winchester1300_pistol_idle, idle_jammed
 
-;Идл - сосредоточенный и присев
+;РРґР» - СЃРѕСЃСЂРµРґРѕС‚РѕС‡РµРЅРЅС‹Р№ Рё РїСЂРёСЃРµРІ
 anm_idle_crouch_slow		= winchester1300_pistol_idle
 anm_idle_crouch_slow_empty	= winchester1300_pistol_idle
 anm_idle_crouch_slow_jammed	= winchester1300_pistol_idle, idle_jammed
 
 ;//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-;Обычное движение
+;РћР±С‹С‡РЅРѕРµ РґРІРёР¶РµРЅРёРµ
 anm_idle_moving						= winchester1300_pistol_walk
 anm_idle_moving_empty				= winchester1300_pistol_walk
 anm_idle_moving_jammed				= winchester1300_pistol_walk, idle_jammed
 
-;Замедленное движение
+;Р—Р°РјРµРґР»РµРЅРЅРѕРµ РґРІРёР¶РµРЅРёРµ
 anm_idle_moving_slow			= winchester1300_pistol_walk_slow
 anm_idle_moving_slow_empty		= winchester1300_pistol_walk_slow
 anm_idle_moving_slow_jammed		= winchester1300_pistol_walk_slow, idle_jammed
 
-;Движение в присяде
+;Р”РІРёР¶РµРЅРёРµ РІ РїСЂРёСЃСЏРґРµ
 anm_idle_moving_crouch				= winchester1300_pistol_walk_slow_down
 anm_idle_moving_crouch_empty		= winchester1300_pistol_walk_slow_down
 anm_idle_moving_crouch_jammed		= winchester1300_pistol_walk_slow_down, idle_jammed
 
-;Замедленное движение в присяде
+;Р—Р°РјРµРґР»РµРЅРЅРѕРµ РґРІРёР¶РµРЅРёРµ РІ РїСЂРёСЃСЏРґРµ
 anm_idle_moving_crouch_slow			= winchester1300_pistol_walk_slow_super
 anm_idle_moving_crouch_slow_empty	= winchester1300_pistol_walk_slow_super
 anm_idle_moving_crouch_slow_jammed	= winchester1300_pistol_walk_slow_super, idle_jammed
@@ -281,12 +281,12 @@ anm_idle_moving_crouch_slow_jammed	= winchester1300_pistol_walk_slow_super, idle
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-; включаем анимы движения в прицеливании по направлениям
+; РІРєР»СЋС‡Р°РµРј Р°РЅРёРјС‹ РґРІРёР¶РµРЅРёСЏ РІ РїСЂРёС†РµР»РёРІР°РЅРёРё РїРѕ РЅР°РїСЂР°РІР»РµРЅРёСЏРј
 enable_directions_anm_idle_aim = true
 
 
 
-;вход в прицеливание
+;РІС…РѕРґ РІ РїСЂРёС†РµР»РёРІР°РЅРёРµ
 anm_idle_aim_start			= winchester1300_pistol_aim_start, winchester1300_aim_start
 anm_idle_aim_start_empty	= winchester1300_pistol_aim_start, winchester1300_aim_start
 anm_idle_aim_start_jammed	= winchester1300_pistol_aim_start, winchester1300_aim_start_jammed
@@ -299,7 +299,7 @@ lock_time_anm_idle_aim_start = 0.25
 lock_time_anm_idle_aim_start_empty = 0.25
 lock_time_anm_idle_aim_start_jammed = 0.25
 
-;выход из прицеливания
+;РІС‹С…РѕРґ РёР· РїСЂРёС†РµР»РёРІР°РЅРёСЏ
 anm_idle_aim_end			= winchester1300_pistol_aim_end, winchester1300_aim_end
 anm_idle_aim_end_empty		= winchester1300_pistol_aim_end, winchester1300_aim_end
 anm_idle_aim_end_jammed		= winchester1300_pistol_aim_end, winchester1300_aim_end_jammed
@@ -312,63 +312,63 @@ lock_time_anm_idle_aim_end = 0.25
 lock_time_anm_idle_aim_end_empty = 0.25
 lock_time_anm_idle_aim_end_jammed = 0.25
 
-;прицеливание - стоя на месте
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - СЃС‚РѕСЏ РЅР° РјРµСЃС‚Рµ
 anm_idle_aim			= winchester1300_pistol_aim, winchester1300_aim
 anm_idle_aim_empty		= winchester1300_pistol_aim, winchester1300_aim
 anm_idle_aim_jammed		= winchester1300_pistol_aim, winchester1300_aim_jammed
 
-;прицеливание с оптикой - стоя на месте
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ СЃ РѕРїС‚РёРєРѕР№ - СЃС‚РѕСЏ РЅР° РјРµСЃС‚Рµ
 anm_idle_aim_scope				= winchester1300_pistol_aim, winchester1300_aim
 anm_idle_aim_scope_empty		= winchester1300_pistol_aim, winchester1300_aim
 anm_idle_aim_scope_jammed		= winchester1300_pistol_aim, winchester1300_aim_jammed
 
-;прицеливание - идем вперед
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РІРїРµСЂРµРґ
 anm_idle_aim_moving_forward			= winchester1300_pistol_aim_walk, winchester1300_aim
 anm_idle_aim_moving_forward_empty	= winchester1300_pistol_aim_walk, winchester1300_aim
 anm_idle_aim_moving_forward_jammed	= winchester1300_pistol_aim_walk, winchester1300_aim_jammed
 
-;прицеливание - идем назад
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РЅР°Р·Р°Рґ
 anm_idle_aim_moving_back			= winchester1300_pistol_aim_walk, winchester1300_aim
 anm_idle_aim_moving_back_empty		= winchester1300_pistol_aim_walk, winchester1300_aim
 anm_idle_aim_moving_back_jammed		= winchester1300_pistol_aim_walk, winchester1300_aim_jammed
 
-;прицеливание - идем влево
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РІР»РµРІРѕ
 anm_idle_aim_moving_left			= winchester1300_pistol_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_left_empty		= winchester1300_pistol_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_left_jammed		= winchester1300_pistol_aim_walk_left, winchester1300_aim_jammed
 
-;прицеливание - идем вправо
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РІРїСЂР°РІРѕ
 anm_idle_aim_moving_right		    = winchester1300_pistol_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_right_empty		= winchester1300_pistol_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_right_jammed	= winchester1300_pistol_aim_walk_right, winchester1300_aim_jammed
 
-;прицеливание - идем вперед и вправо
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РІРїРµСЂРµРґ Рё РІРїСЂР°РІРѕ
 anm_idle_aim_moving_forward_right		    = winchester1300_pistol_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_forward_right_empty		= winchester1300_pistol_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_forward_right_jammed	= winchester1300_pistol_aim_walk_right, winchester1300_aim_jammed
 
-;прицеливание - идем вперед и влево
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РІРїРµСЂРµРґ Рё РІР»РµРІРѕ
 anm_idle_aim_moving_forward_left		    = winchester1300_pistol_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_forward_left_empty		= winchester1300_pistol_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_forward_left_jammed		= winchester1300_pistol_aim_walk_left, winchester1300_aim_jammed
 
-;прицеливание - идем назад и вправо
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РЅР°Р·Р°Рґ Рё РІРїСЂР°РІРѕ
 anm_idle_aim_moving_back_right			    = winchester1300_pistol_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_back_right_empty		= winchester1300_pistol_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_back_right_jammed		= winchester1300_pistol_aim_walk_right, winchester1300_aim_jammed
 
-;прицеливание - идем назад и влево
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РЅР°Р·Р°Рґ Рё РІР»РµРІРѕ
 anm_idle_aim_moving_back_left			    = winchester1300_pistol_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_back_left_empty		    = winchester1300_pistol_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_back_left_jammed		= winchester1300_pistol_aim_walk_left, winchester1300_aim_jammed
 
-;прицеливание с оптикой - идем вперед
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ СЃ РѕРїС‚РёРєРѕР№ - РёРґРµРј РІРїРµСЂРµРґ
 anm_idle_aim_scope_moving		                = winchester1300_pistol_aim_walk, winchester1300_aim
 anm_idle_aim_scope_moving_empty	                = winchester1300_pistol_aim_walk, winchester1300_aim
 anm_idle_aim_scope_moving_jammed	            = winchester1300_pistol_aim_walk, winchester1300_aim_jammed
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-;вход в спринт
+;РІС…РѕРґ РІ СЃРїСЂРёРЅС‚
 anm_idle_sprint_start             = winchester1300_pistol_sprint_start
 anm_idle_sprint_start_empty       = winchester1300_pistol_sprint_start
 anm_idle_sprint_start_jammed      = winchester1300_pistol_sprint_start, idle_jammed
@@ -377,7 +377,7 @@ lock_time_anm_idle_sprint_start = 0.15
 lock_time_anm_idle_sprint_start_empty = 0.15
 lock_time_anm_idle_sprint_start_jammed = 0.15
 
-;выход из спринта
+;РІС‹С…РѕРґ РёР· СЃРїСЂРёРЅС‚Р°
 anm_idle_sprint_end             = winchester1300_pistol_sprint_end
 anm_idle_sprint_end_empty       = winchester1300_pistol_sprint_end
 anm_idle_sprint_end_jammed      = winchester1300_pistol_sprint_end, idle_jammed
@@ -386,14 +386,14 @@ lock_time_anm_idle_sprint_end        = 0.25
 lock_time_anm_idle_sprint_end_empty  = 0.25
 lock_time_anm_idle_sprint_end_jammed = 0.25
 
-;собственно спринт
+;СЃРѕР±СЃС‚РІРµРЅРЅРѕ СЃРїСЂРёРЅС‚
 anm_idle_sprint			    = winchester1300_pistol_sprint
 anm_idle_sprint_empty		= winchester1300_pistol_sprint
 anm_idle_sprint_jammed		= winchester1300_pistol_sprint, idle_jammed
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-;начало релоада
+;РЅР°С‡Р°Р»Рѕ СЂРµР»РѕР°РґР°
 anm_open			        = winchester1300_reload_idle
 anm_open_stop_k			    = 0.001
 anm_open_speed_k			= 999
@@ -401,40 +401,40 @@ anm_open_speed_k			= 999
 ;anm_open			        = winchester1300_pistol_reload_start, winchester1300_reload_start
 ;anm_open_empty		        = winchester1300_pistol_reload_empty_start, winchester1300_reload_empty_start
 
-;add_cartridge_in_open = true	;Говорим, что open содержит в себе добавление в магазин патрона
-;empty_preload_mode = true	;после анимы anm_open_empty надо играть add_cartridge_preloaded или close_preloaded (т.к. в anm_open_empty загоняется патрон в патронник)
+;add_cartridge_in_open = true	;Р“РѕРІРѕСЂРёРј, С‡С‚Рѕ open СЃРѕРґРµСЂР¶РёС‚ РІ СЃРµР±Рµ РґРѕР±Р°РІР»РµРЅРёРµ РІ РјР°РіР°Р·РёРЅ РїР°С‚СЂРѕРЅР°
+;empty_preload_mode = true	;РїРѕСЃР»Рµ Р°РЅРёРјС‹ anm_open_empty РЅР°РґРѕ РёРіСЂР°С‚СЊ add_cartridge_preloaded РёР»Рё close_preloaded (С‚.Рє. РІ anm_open_empty Р·Р°РіРѕРЅСЏРµС‚СЃСЏ РїР°С‚СЂРѕРЅ РІ РїР°С‚СЂРѕРЅРЅРёРє)
 
-;lock_time_start_anm_open =  0.01 ;время от старта анимации до зарядки (обновления счетчика) патрона  (если патрон заряжается в open, иначе ставить просто один параметр lock_time_anm_open)
-;lock_time_end_anm_open = 1.02 	;время от момента зарядки патрона (обновления счетчика) до момента, когда можно прерывать аниму
-				;если lock_time_start + lock_time_end превышают время проигрывания анимации, то прервать выстрелом набивание магазина будет невозможно! Целесообразно устанавливать время суммарного лока так, чтобы оно было на не менее 100мс меньше времени анимы, чтобы апдейт на остановку стрельбы успел пройти
+;lock_time_start_anm_open =  0.01 ;РІСЂРµРјСЏ РѕС‚ СЃС‚Р°СЂС‚Р° Р°РЅРёРјР°С†РёРё РґРѕ Р·Р°СЂСЏРґРєРё (РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‡РµС‚С‡РёРєР°) РїР°С‚СЂРѕРЅР°  (РµСЃР»Рё РїР°С‚СЂРѕРЅ Р·Р°СЂСЏР¶Р°РµС‚СЃСЏ РІ open, РёРЅР°С‡Рµ СЃС‚Р°РІРёС‚СЊ РїСЂРѕСЃС‚Рѕ РѕРґРёРЅ РїР°СЂР°РјРµС‚СЂ lock_time_anm_open)
+;lock_time_end_anm_open = 1.02 	;РІСЂРµРјСЏ РѕС‚ РјРѕРјРµРЅС‚Р° Р·Р°СЂСЏРґРєРё РїР°С‚СЂРѕРЅР° (РѕР±РЅРѕРІР»РµРЅРёСЏ СЃС‡РµС‚С‡РёРєР°) РґРѕ РјРѕРјРµРЅС‚Р°, РєРѕРіРґР° РјРѕР¶РЅРѕ РїСЂРµСЂС‹РІР°С‚СЊ Р°РЅРёРјСѓ
+				;РµСЃР»Рё lock_time_start + lock_time_end РїСЂРµРІС‹С€Р°СЋС‚ РІСЂРµРјСЏ РїСЂРѕРёРіСЂС‹РІР°РЅРёСЏ Р°РЅРёРјР°С†РёРё, С‚Рѕ РїСЂРµСЂРІР°С‚СЊ РІС‹СЃС‚СЂРµР»РѕРј РЅР°Р±РёРІР°РЅРёРµ РјР°РіР°Р·РёРЅР° Р±СѓРґРµС‚ РЅРµРІРѕР·РјРѕР¶РЅРѕ! Р¦РµР»РµСЃРѕРѕР±СЂР°Р·РЅРѕ СѓСЃС‚Р°РЅР°РІР»РёРІР°С‚СЊ РІСЂРµРјСЏ СЃСѓРјРјР°СЂРЅРѕРіРѕ Р»РѕРєР° С‚Р°Рє, С‡С‚РѕР±С‹ РѕРЅРѕ Р±С‹Р»Рѕ РЅР° РЅРµ РјРµРЅРµРµ 100РјСЃ РјРµРЅСЊС€Рµ РІСЂРµРјРµРЅРё Р°РЅРёРјС‹, С‡С‚РѕР±С‹ Р°РїРґРµР№С‚ РЅР° РѕСЃС‚Р°РЅРѕРІРєСѓ СЃС‚СЂРµР»СЊР±С‹ СѓСЃРїРµР» РїСЂРѕР№С‚Рё
 ;lock_time_start_anm_open_empty = 0.01	
 ;lock_time_end_anm_open_empty = 2.09 	
 
 
-;добавление патрона
+;РґРѕР±Р°РІР»РµРЅРёРµ РїР°С‚СЂРѕРЅР°
 anm_add_cartridge			        = winchester1300_pistol_reload_ammo, winchester1300_reload_ammo
 anm_add_cartridge_empty			    = winchester1300_pistol_reload_empty_start, winchester1300_reload_empty_start
 
-;возможно добавить эти звуки.
+;РІРѕР·РјРѕР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ СЌС‚Рё Р·РІСѓРєРё.
 ;anm_add_cartridge_preloaded		    = winchester1300_pistol_reload_empty_second_ammo, winchester1300_reload_empty_second_ammo
-;anm_add_cartridge_empty_preloaded   = winchester1300_pistol_reload_empty_second_ammo, winchester1300_reload_empty_second_ammo 	;указывать аналогично обычному anm_add_cartridge_preloaded, затычка от потенциального вылета
+;anm_add_cartridge_empty_preloaded   = winchester1300_pistol_reload_empty_second_ammo, winchester1300_reload_empty_second_ammo 	;СѓРєР°Р·С‹РІР°С‚СЊ Р°РЅР°Р»РѕРіРёС‡РЅРѕ РѕР±С‹С‡РЅРѕРјСѓ anm_add_cartridge_preloaded, Р·Р°С‚С‹С‡РєР° РѕС‚ РїРѕС‚РµРЅС†РёР°Р»СЊРЅРѕРіРѕ РІС‹Р»РµС‚Р°
 
-;lock_time_start_anm_add_cartridge           = 0.66		;аналогично параметрам у open
+;lock_time_start_anm_add_cartridge           = 0.66		;Р°РЅР°Р»РѕРіРёС‡РЅРѕ РїР°СЂР°РјРµС‚СЂР°Рј Сѓ open
 ;lock_time_end_anm_add_cartridge             = 0.01
-;lock_time_start_anm_add_cartridge_empty	    = 0.66		;аналогично параметрам у open
+;lock_time_start_anm_add_cartridge_empty	    = 0.66		;Р°РЅР°Р»РѕРіРёС‡РЅРѕ РїР°СЂР°РјРµС‚СЂР°Рј Сѓ open
 ;lock_time_end_anm_add_cartridge_empty	    = 0.01
 ;lock_time_start_anm_add_cartridge_preloaded = 0.99		
 ;lock_time_end_anm_add_cartridge_preloaded   = 0.01
 
 
-;конец релоада
+;РєРѕРЅРµС† СЂРµР»РѕР°РґР°
 anm_close			                = winchester1300_pistol_reload_end, winchester1300_reload_end
 ;anm_close_empty			            = winchester1300_pistol_reload_empty_end, winchester1300_reload_end
 ;anm_close_preloaded		            = winchester1300_pistol_reload_empty_end, winchester1300_reload_end
-;anm_close_empty_preloaded           = winchester1300_pistol_reload_empty_end, winchester1300_reload_end 	;указывать аналогично обычному anm_close_preloaded, затычка от потенциального вылета при выбрасывании во время релоада всех патронов на землю
+;anm_close_empty_preloaded           = winchester1300_pistol_reload_empty_end, winchester1300_reload_end 	;СѓРєР°Р·С‹РІР°С‚СЊ Р°РЅР°Р»РѕРіРёС‡РЅРѕ РѕР±С‹С‡РЅРѕРјСѓ anm_close_preloaded, Р·Р°С‚С‹С‡РєР° РѕС‚ РїРѕС‚РµРЅС†РёР°Р»СЊРЅРѕРіРѕ РІС‹Р»РµС‚Р° РїСЂРё РІС‹Р±СЂР°СЃС‹РІР°РЅРёРё РІРѕ РІСЂРµРјСЏ СЂРµР»РѕР°РґР° РІСЃРµС… РїР°С‚СЂРѕРЅРѕРІ РЅР° Р·РµРјР»СЋ
 
 
-;Разрядка//////////////////////////////////////////////////////////////////////////
+;Р Р°Р·СЂСЏРґРєР°//////////////////////////////////////////////////////////////////////////
 use_unloadmag_anim = true
 lock_time_anm_unload_mag = 0.8
 anm_unload_mag                               = winchester1300_pistol_draw
@@ -444,7 +444,7 @@ lock_time_anm_unload_mag_empty = 0.8
 anm_unload_mag_empty                         = winchester1300_pistol_draw
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-;скука - включить при необходимости
+;СЃРєСѓРєР° - РІРєР»СЋС‡РёС‚СЊ РїСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё
 disable_bore = true
 
 anm_bore			    = winchester1300_pistol_dry
@@ -452,19 +452,19 @@ anm_bore_empty			= winchester1300_pistol_dry
 anm_bore_jammed			= winchester1300_pistol_dry, idle_jammed
 
 
-;доставание
+;РґРѕСЃС‚Р°РІР°РЅРёРµ
 anm_show			    = winchester1300_pistol_draw
 anm_show_empty			= winchester1300_pistol_draw
 anm_show_jammed			= winchester1300_pistol_draw, idle_jammed
 
 
-;убирание
+;СѓР±РёСЂР°РЅРёРµ
 anm_hide			    = winchester1300_pistol_hide
 anm_hide_empty			= winchester1300_pistol_hide
 anm_hide_jammed			= winchester1300_pistol_hide, idle_jammed
 
 
-;Стрельба
+;РЎС‚СЂРµР»СЊР±Р°
 anm_shoot			     = winchester1300_pistol_shoot
 anm_shoot_sil		     = winchester1300_pistol_shoot
 anm_shoot_last			 = winchester1300_pistol_shoot
@@ -478,7 +478,7 @@ anm_shoot_aim_scope_sil	 = winchester1300_pistol_aim_shoot_scope
 anm_shoot_aim_scope_last = winchester1300_pistol_aim_shoot_scope
 anm_shoot_aim_scope_last_sil = winchester1300_pistol_aim_shoot_scope
 
-; выстрел с переходом в состояние клина
+; РІС‹СЃС‚СЂРµР» СЃ РїРµСЂРµС…РѕРґРѕРј РІ СЃРѕСЃС‚РѕСЏРЅРёРµ РєР»РёРЅР°
 anm_shoot_jammed		    	= winchester1300_pistol_shoot_jammed, winchester1300_shoot_jammed
 anm_shoot_jammed_sil	    	= winchester1300_pistol_shoot_jammed, winchester1300_shoot_jammed
 anm_shoot_aim_jammed			= winchester1300_pistol_aim_shoot_jammed, winchester1300_aim_shoot_jammed
@@ -486,7 +486,7 @@ anm_shoot_aim_jammed_sil		= winchester1300_pistol_aim_shoot_jammed, winchester13
 anm_shoot_aim_scope_jammed		= winchester1300_pistol_aim_shoot_jammed, winchester1300_aim_shoot_jammed
 anm_shoot_aim_scope_jammed_sil	= winchester1300_pistol_aim_shoot_jammed, winchester1300_aim_shoot_jammed
 
-;Осечки
+;РћСЃРµС‡РєРё
 anm_fakeshoot_empty 		    = winchester1300_pistol_dry_empty
 anm_fakeshoot_jammed 		    = winchester1300_pistol_dry, idle_jammed
 anm_fakeshoot_aim_empty         = winchester1300_pistol_aim_dry, winchester1300_aim
@@ -497,11 +497,11 @@ lock_time_anm_fakeshoot_jammed = 1.20
 lock_time_anm_fakeshoot_aim_empty = 0.22
 lock_time_anm_fakeshoot_aim_jammed = 0.22
 
-;расклин
+;СЂР°СЃРєР»РёРЅ
 anm_reload_jammed			= winchester1300_pistol_revival, winchester1300_revival
 anm_reload_jammed_last		= winchester1300_pistol_revival, winchester1300_revival
 
-;Включение ЛЦУ//////////////////////////////////////////////////////////////////////////
+;Р’РєР»СЋС‡РµРЅРёРµ Р›Р¦РЈ//////////////////////////////////////////////////////////////////////////
 anm_laser_on = winchester1300_pistol_tac_lam
 lock_time_start_anm_laser_on = 0.45
 lock_time_end_anm_laser_on = 0.65
@@ -515,7 +515,7 @@ lock_time_start_anm_laser_on_jammed = 0.45
 lock_time_end_anm_laser_on_jammed = 0.65
 
 
-;Выключение ЛЦУ//////////////////////////////////////////////////////////////////////////
+;Р’С‹РєР»СЋС‡РµРЅРёРµ Р›Р¦РЈ//////////////////////////////////////////////////////////////////////////
 anm_laser_off = winchester1300_pistol_tac_lam
 lock_time_start_anm_laser_off = 0.45
 lock_time_end_anm_laser_off = 0.65
@@ -528,7 +528,7 @@ anm_laser_off_jammed = winchester1300_pistol_tac_lam, idle_jammed
 lock_time_start_anm_laser_off_jammed = 0.45
 lock_time_end_anm_laser_off_jammed = 0.65
 
-;Включение фонаря//////////////////////////////////////////////////////////////////////////
+;Р’РєР»СЋС‡РµРЅРёРµ С„РѕРЅР°СЂСЏ//////////////////////////////////////////////////////////////////////////
 anm_torch_on = winchester1300_pistol_tac_lam
 lock_time_start_anm_torch_on = 0.45
 lock_time_end_anm_torch_on = 0.65
@@ -542,7 +542,7 @@ lock_time_start_anm_torch_on_jammed = 0.45
 lock_time_end_anm_torch_on_jammed = 0.65
 
 
-;Выключение фонаря//////////////////////////////////////////////////////////////////////////
+;Р’С‹РєР»СЋС‡РµРЅРёРµ С„РѕРЅР°СЂСЏ//////////////////////////////////////////////////////////////////////////
 anm_torch_off = winchester1300_pistol_tac_lam
 lock_time_start_anm_torch_off = 0.45
 lock_time_end_anm_torch_off = 0.65
@@ -556,7 +556,7 @@ lock_time_start_anm_torch_off_jammed = 0.45
 lock_time_end_anm_torch_off_jammed = 0.65
 
 
-;включение налобника//////////////////////////////////////////////////////////////////////////
+;РІРєР»СЋС‡РµРЅРёРµ РЅР°Р»РѕР±РЅРёРєР°//////////////////////////////////////////////////////////////////////////
 anm_headlamp_on = winchester1300_pistol_headflash
 lock_time_start_anm_headlamp_on = 0.58
 lock_time_end_anm_headlamp_on = 0.5
@@ -569,7 +569,7 @@ anm_headlamp_on_jammed = winchester1300_pistol_headflash, idle_jammed
 lock_time_start_anm_headlamp_on_jammed = 0.58
 lock_time_end_anm_headlamp_on_jammed = 0.5
 
-;выключение налобника//////////////////////////////////////////////////////////////////////////
+;РІС‹РєР»СЋС‡РµРЅРёРµ РЅР°Р»РѕР±РЅРёРєР°//////////////////////////////////////////////////////////////////////////
 anm_headlamp_off = winchester1300_pistol_headflash
 lock_time_start_anm_headlamp_off = 0.58
 lock_time_end_anm_headlamp_off = 0.5
@@ -583,13 +583,13 @@ lock_time_start_anm_headlamp_off_jammed = 0.58
 lock_time_end_anm_headlamp_off_jammed = 0.5
 
 
-;включение пнв//////////////////////////////////////////////////////////////////////////
+;РІРєР»СЋС‡РµРЅРёРµ РїРЅРІ//////////////////////////////////////////////////////////////////////////
 anm_nv_on = winchester1300_pistol_headflash
 anm_nv_on_empty = winchester1300_pistol_headflash
 anm_nv_on_jammed = winchester1300_pistol_headflash, idle_jammed
 
 
-;выключение пнв//////////////////////////////////////////////////////////////////////////
+;РІС‹РєР»СЋС‡РµРЅРёРµ РїРЅРІ//////////////////////////////////////////////////////////////////////////
 anm_nv_off = winchester1300_pistol_headflash
 anm_nv_off_empty = winchester1300_pistol_headflash
 anm_nv_off_jammed = winchester1300_pistol_headflash, idle_jammed
@@ -693,8 +693,6 @@ inv_weight = 3.1
 ammo_elapsed		 		= 8
 ammo_mag_size		 		= 8
 
-condition_shot_dec      	= 0.00035
-
 fire_dispersion_base		= 0.4
 
 bullet_speed			    = 270
@@ -703,7 +701,7 @@ hit_power            	= 0.675, 0.675, 0.675, 0.675
 hit_impulse      			= 150
 
 misfire_start_condition		= 0.6
-condition_shot_dec      	= 0.0003
+condition_shot_dec      	= 0.0006
 
 inv_grid_width				= 5
 inv_grid_height				= 2
@@ -771,133 +769,133 @@ anm_suicide			= winchester1300_tac_suicide
 anm_stop_suicide 		= winchester1300_tac_suicide_end
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-;€дл обычный
+;в‚¬РґР» РѕР±С‹С‡РЅС‹Р№
 
 anm_idle			    = winchester1300_tac_idle
 anm_idle_empty			= winchester1300_tac_idle
 anm_idle_jammed			= winchester1300_tac_idle, idle_jammed
 
-;€дл - сосредоточенный
+;в‚¬РґР» - СЃРѕСЃСЂРµРґРѕС‚РѕС‡РµРЅРЅС‹Р№
 anm_idle_slow			= winchester1300_tac_idle
 anm_idle_slow_empty		= winchester1300_tac_idle
 anm_idle_slow_jammed	= winchester1300_tac_idle, idle_jammed
 
-;€дл - присев
+;в‚¬РґР» - РїСЂРёСЃРµРІ
 anm_idle_crouch			= winchester1300_tac_idle
 anm_idle_crouch_empty	= winchester1300_tac_idle
 anm_idle_crouch_jammed	= winchester1300_tac_idle, idle_jammed
 
-;€дл - сосредоточенный и присев
+;в‚¬РґР» - СЃРѕСЃСЂРµРґРѕС‚РѕС‡РµРЅРЅС‹Р№ Рё РїСЂРёСЃРµРІ
 anm_idle_crouch_slow		= winchester1300_tac_idle
 anm_idle_crouch_slow_empty	= winchester1300_tac_idle
 anm_idle_crouch_slow_jammed	= winchester1300_tac_idle, idle_jammed
 
 ;//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-;Ћбычное движение
+;Р‹Р±С‹С‡РЅРѕРµ РґРІРёР¶РµРЅРёРµ
 anm_idle_moving			            = winchester1300_tac_walk
 anm_idle_moving_empty		        = winchester1300_tac_walk
 anm_idle_moving_jammed		        = winchester1300_tac_walk, idle_jammed
 
-;‡амедленное движение
+;вЂЎР°РјРµРґР»РµРЅРЅРѕРµ РґРІРёР¶РµРЅРёРµ
 anm_idle_moving_slow			= winchester1300_tac_walk_slow
 anm_idle_moving_slow_empty		= winchester1300_tac_walk_slow
 anm_idle_moving_slow_jammed		= winchester1300_tac_walk_slow, idle_jammed
 
-;„вижение в присЯде
+;вЂћРІРёР¶РµРЅРёРµ РІ РїСЂРёСЃРЇРґРµ
 anm_idle_moving_crouch			    = winchester1300_tac_walk_slow_down
 anm_idle_moving_crouch_empty		= winchester1300_tac_walk_slow_down
 anm_idle_moving_crouch_jammed		= winchester1300_tac_walk_slow_down, idle_jammed
 
-;‡амедленное движение в присЯде
+;вЂЎР°РјРµРґР»РµРЅРЅРѕРµ РґРІРёР¶РµРЅРёРµ РІ РїСЂРёСЃРЇРґРµ
 anm_idle_moving_crouch_slow		    = winchester1300_tac_walk_slow_super
 anm_idle_moving_crouch_slow_empty	= winchester1300_tac_walk_slow_super
 anm_idle_moving_crouch_slow_jammed	= winchester1300_tac_walk_slow_super, idle_jammed
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-;вход в прицеливание
+;РІС…РѕРґ РІ РїСЂРёС†РµР»РёРІР°РЅРёРµ
 anm_idle_aim_start		    = winchester1300_tac_aim_start, winchester1300_aim_start
 anm_idle_aim_start_empty	= winchester1300_tac_aim_start, winchester1300_aim_start
 anm_idle_aim_start_jammed	= winchester1300_tac_aim_start, winchester1300_aim_start_jammed
 
-;выход из прицеливаниЯ
+;РІС‹С…РѕРґ РёР· РїСЂРёС†РµР»РёРІР°РЅРёРЇ
 anm_idle_aim_end		    = winchester1300_tac_aim_end, winchester1300_aim_end
 anm_idle_aim_end_empty		= winchester1300_tac_aim_end, winchester1300_aim_end
 anm_idle_aim_end_jammed		= winchester1300_tac_aim_end, winchester1300_aim_end_jammed
 
-;прицеливание - стоЯ на месте
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - СЃС‚РѕРЇ РЅР° РјРµСЃС‚Рµ
 anm_idle_aim			= winchester1300_tac_aim, winchester1300_aim
 anm_idle_aim_empty		= winchester1300_tac_aim, winchester1300_aim
 anm_idle_aim_jammed		= winchester1300_tac_aim, winchester1300_aim_jammed
 
-;прицеливание с оптикой - стоЯ на месте
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ СЃ РѕРїС‚РёРєРѕР№ - СЃС‚РѕРЇ РЅР° РјРµСЃС‚Рµ
 anm_idle_aim_scope			    = winchester1300_tac_aim, winchester1300_aim
 anm_idle_aim_scope_empty		= winchester1300_tac_aim, winchester1300_aim
 anm_idle_aim_scope_jammed		= winchester1300_tac_aim, winchester1300_aim_jammed
 
-;прицеливание - идем вперед
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РІРїРµСЂРµРґ
 anm_idle_aim_moving_forward		    = winchester1300_tac_aim_walk, winchester1300_aim
 anm_idle_aim_moving_forward_empty	= winchester1300_tac_aim_walk, winchester1300_aim
 anm_idle_aim_moving_forward_jammed	= winchester1300_tac_aim_walk, winchester1300_aim_jammed
 
-;прицеливание - идем назад
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РЅР°Р·Р°Рґ
 anm_idle_aim_moving_back		    = winchester1300_tac_aim_walk, winchester1300_aim
 anm_idle_aim_moving_back_empty		= winchester1300_tac_aim_walk, winchester1300_aim
 anm_idle_aim_moving_back_jammed		= winchester1300_tac_aim_walk, winchester1300_aim_jammed
 
-;прицеливание - идем влево
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РІР»РµРІРѕ
 anm_idle_aim_moving_left		    = winchester1300_tac_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_left_empty		= winchester1300_tac_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_left_jammed		= winchester1300_tac_aim_walk_left, winchester1300_aim_jammed
 
-;прицеливание - идем вправо
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РІРїСЂР°РІРѕ
 anm_idle_aim_moving_right		    = winchester1300_tac_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_right_empty		= winchester1300_tac_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_right_jammed	= winchester1300_tac_aim_walk_right, winchester1300_aim_jammed
 
-;прицеливание - идем вперед и вправо
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РІРїРµСЂРµРґ Рё РІРїСЂР°РІРѕ
 anm_idle_aim_moving_forward_right		    = winchester1300_tac_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_forward_right_empty		= winchester1300_tac_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_forward_right_jammed	= winchester1300_tac_aim_walk_right, winchester1300_aim_jammed
 
-;прицеливание - идем вперед и влево
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РІРїРµСЂРµРґ Рё РІР»РµРІРѕ
 anm_idle_aim_moving_forward_left		    = winchester1300_tac_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_forward_left_empty		= winchester1300_tac_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_forward_left_jammed		= winchester1300_tac_aim_walk_left, winchester1300_aim_jammed
 
-;прицеливание - идем назад и вправо
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РЅР°Р·Р°Рґ Рё РІРїСЂР°РІРѕ
 anm_idle_aim_moving_back_right			    = winchester1300_tac_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_back_right_empty		= winchester1300_tac_aim_walk_right, winchester1300_aim
 anm_idle_aim_moving_back_right_jammed		= winchester1300_tac_aim_walk_right, winchester1300_aim_jammed
 
-;прицеливание - идем назад и влево
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ - РёРґРµРј РЅР°Р·Р°Рґ Рё РІР»РµРІРѕ
 anm_idle_aim_moving_back_left			    = winchester1300_tac_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_back_left_empty		    = winchester1300_tac_aim_walk_left, winchester1300_aim
 anm_idle_aim_moving_back_left_jammed		= winchester1300_tac_aim_walk_left, winchester1300_aim_jammed
 
-;прицеливание с оптикой - идем вперед
+;РїСЂРёС†РµР»РёРІР°РЅРёРµ СЃ РѕРїС‚РёРєРѕР№ - РёРґРµРј РІРїРµСЂРµРґ
 anm_idle_aim_scope_moving		                = winchester1300_tac_aim_walk, winchester1300_aim
 anm_idle_aim_scope_moving_empty	                = winchester1300_tac_aim_walk, winchester1300_aim
 anm_idle_aim_scope_moving_jammed	            = winchester1300_tac_aim_walk, winchester1300_aim_jammed
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-;вход в спринт
+;РІС…РѕРґ РІ СЃРїСЂРёРЅС‚
 anm_idle_sprint_start             = winchester1300_tac_sprint_start
 anm_idle_sprint_start_empty       = winchester1300_tac_sprint_start
 anm_idle_sprint_start_jammed      = winchester1300_tac_sprint_start, idle_jammed
 
-;выход из спринта
+;РІС‹С…РѕРґ РёР· СЃРїСЂРёРЅС‚Р°
 anm_idle_sprint_end             = winchester1300_tac_sprint_end
 anm_idle_sprint_end_empty       = winchester1300_tac_sprint_end
 anm_idle_sprint_end_jammed      = winchester1300_tac_sprint_end, idle_jammed
 
-;собственно спринт
+;СЃРѕР±СЃС‚РІРµРЅРЅРѕ СЃРїСЂРёРЅС‚
 anm_idle_sprint			    = winchester1300_tac_sprint
 anm_idle_sprint_empty		= winchester1300_tac_sprint
 anm_idle_sprint_jammed		= winchester1300_tac_sprint, idle_jammed
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-;начало релоада
+;РЅР°С‡Р°Р»Рѕ СЂРµР»РѕР°РґР°
 anm_open			        = winchester1300_reload_idle
 anm_open_stop_k			    = 0.001
 anm_open_speed_k			= 999
@@ -905,19 +903,19 @@ anm_open_speed_k			= 999
 ;anm_open			        = winchester1300_tac_reload_start, winchester1300_reload_start
 ;anm_open_empty		        = winchester1300_tac_reload_empty_start, winchester1300_reload_empty_start	
 
-;добавление патрона
+;РґРѕР±Р°РІР»РµРЅРёРµ РїР°С‚СЂРѕРЅР°
 anm_add_cartridge			        = winchester1300_tac_reload_ammo, winchester1300_reload_ammo
 anm_add_cartridge_empty			    = winchester1300_tac_reload_empty_start, winchester1300_reload_empty_start
 ;anm_add_cartridge_preloaded		    = winchester1300_tac_reload_empty_second_ammo, winchester1300_reload_empty_second_ammo
-;anm_add_cartridge_empty_preloaded   = winchester1300_tac_reload_empty_second_ammo, winchester1300_reload_empty_second_ammo 	;указывать аналогично обычному anm_add_cartridge_preloaded, затычка от потенциального вылета
+;anm_add_cartridge_empty_preloaded   = winchester1300_tac_reload_empty_second_ammo, winchester1300_reload_empty_second_ammo 	;СѓРєР°Р·С‹РІР°С‚СЊ Р°РЅР°Р»РѕРіРёС‡РЅРѕ РѕР±С‹С‡РЅРѕРјСѓ anm_add_cartridge_preloaded, Р·Р°С‚С‹С‡РєР° РѕС‚ РїРѕС‚РµРЅС†РёР°Р»СЊРЅРѕРіРѕ РІС‹Р»РµС‚Р°
 
-;конец релоада
+;РєРѕРЅРµС† СЂРµР»РѕР°РґР°
 anm_close			                = winchester1300_tac_reload_end, winchester1300_reload_end
-;anm_close_empty			            = winchester1300_tac_reload_end, winchester1300_reload_end	;бесполезен, когда add_cartridge_in_open=true; иначе играетсЯ, если мы вдруг передумали зарЯжать пустое ружье, не зарЯдив ни одного патрона туда
+;anm_close_empty			            = winchester1300_tac_reload_end, winchester1300_reload_end	;Р±РµСЃРїРѕР»РµР·РµРЅ, РєРѕРіРґР° add_cartridge_in_open=true; РёРЅР°С‡Рµ РёРіСЂР°РµС‚СЃРЇ, РµСЃР»Рё РјС‹ РІРґСЂСѓРі РїРµСЂРµРґСѓРјР°Р»Рё Р·Р°СЂРЇР¶Р°С‚СЊ РїСѓСЃС‚РѕРµ СЂСѓР¶СЊРµ, РЅРµ Р·Р°СЂРЇРґРёРІ РЅРё РѕРґРЅРѕРіРѕ РїР°С‚СЂРѕРЅР° С‚СѓРґР°
 ;anm_close_preloaded		            = winchester1300_tac_reload_empty_end, winchester1300_reload_end
-;anm_close_empty_preloaded           = winchester1300_tac_reload_empty_end, winchester1300_reload_end 	;указывать аналогично обычному anm_close_preloaded, затычка от потенциального вылета при выбрасывании во времЯ релоада всех патронов на землю
+;anm_close_empty_preloaded           = winchester1300_tac_reload_empty_end, winchester1300_reload_end 	;СѓРєР°Р·С‹РІР°С‚СЊ Р°РЅР°Р»РѕРіРёС‡РЅРѕ РѕР±С‹С‡РЅРѕРјСѓ anm_close_preloaded, Р·Р°С‚С‹С‡РєР° РѕС‚ РїРѕС‚РµРЅС†РёР°Р»СЊРЅРѕРіРѕ РІС‹Р»РµС‚Р° РїСЂРё РІС‹Р±СЂР°СЃС‹РІР°РЅРёРё РІРѕ РІСЂРµРјРЇ СЂРµР»РѕР°РґР° РІСЃРµС… РїР°С‚СЂРѕРЅРѕРІ РЅР° Р·РµРјР»СЋ
 
-;ђазрЯдка//////////////////////////////////////////////////////////////////////////
+;С’Р°Р·СЂРЇРґРєР°//////////////////////////////////////////////////////////////////////////
 anm_unload_mag                               = winchester1300_tac_draw
 anm_unload_mag_jammed                        = winchester1300_tac_draw  
 anm_unload_mag_empty                         = winchester1300_tac_draw
@@ -929,19 +927,19 @@ anm_bore_empty			= winchester1300_tac_dry
 anm_bore_jammed			= winchester1300_tac_dry, idle_jammed
 
 
-;доставание
+;РґРѕСЃС‚Р°РІР°РЅРёРµ
 anm_show			    = winchester1300_tac_draw
 anm_show_empty			= winchester1300_tac_draw
 anm_show_jammed			= winchester1300_tac_draw, idle_jammed
 
 
-;убирание
+;СѓР±РёСЂР°РЅРёРµ
 anm_hide			    = winchester1300_tac_hide
 anm_hide_empty			= winchester1300_tac_hide
 anm_hide_jammed			= winchester1300_tac_hide, idle_jammed
 
 
-;‘трельба
+;вЂС‚СЂРµР»СЊР±Р°
 anm_shoot			     		= winchester1300_tac_shoot
 anm_shoot_sil			     	= winchester1300_tac_shoot
 anm_shoot_last			 		= winchester1300_tac_shoot
@@ -955,7 +953,7 @@ anm_shoot_aim_scope_sil			= winchester1300_tac_aim_shoot_scope
 anm_shoot_aim_scope_last 		= winchester1300_tac_aim_shoot_scope
 anm_shoot_aim_scope_last_sil 	= winchester1300_tac_aim_shoot_scope
 
-; выстрел с переходом в состоЯние клина
+; РІС‹СЃС‚СЂРµР» СЃ РїРµСЂРµС…РѕРґРѕРј РІ СЃРѕСЃС‚РѕРЇРЅРёРµ РєР»РёРЅР°
 anm_shoot_jammed		    	= winchester1300_tac_shoot_jammed, winchester1300_shoot_jammed
 anm_shoot_jammed_sil		    = winchester1300_tac_shoot_jammed, winchester1300_shoot_jammed
 anm_shoot_aim_jammed			= winchester1300_tac_aim_shoot_jammed, winchester1300_aim_shoot_jammed
@@ -963,65 +961,65 @@ anm_shoot_aim_jammed_sil		= winchester1300_tac_aim_shoot_jammed, winchester1300_
 anm_shoot_aim_scope_jammed		= winchester1300_tac_aim_shoot_jammed, winchester1300_aim_shoot_jammed
 anm_shoot_aim_scope_jammed_sil	= winchester1300_tac_aim_shoot_jammed, winchester1300_aim_shoot_jammed
 
-;Ћсечки
+;Р‹СЃРµС‡РєРё
 anm_fakeshoot_empty 		    = winchester1300_tac_dry_empty
 anm_fakeshoot_jammed 		    = winchester1300_tac_dry, idle_jammed
 anm_fakeshoot_aim_empty         = winchester1300_tac_aim_dry, winchester1300_aim
 anm_fakeshoot_aim_jammed        = winchester1300_tac_aim_dry, winchester1300_aim_jammed
 
-;расклин
+;СЂР°СЃРєР»РёРЅ
 anm_reload_jammed			= winchester1300_tac_revival, winchester1300_revival
 anm_reload_jammed_last		= winchester1300_tac_revival, winchester1300_revival
 
-;‚ключение ‹–“//////////////////////////////////////////////////////////////////////////
+;вЂљРєР»СЋС‡РµРЅРёРµ вЂ№вЂ“вЂњ//////////////////////////////////////////////////////////////////////////
 anm_laser_on = winchester1300_tac_lam
 
 anm_laser_on_empty = winchester1300_tac_lam
 
 anm_laser_on_jammed = winchester1300_tac_lam, idle_jammed
 
-;‚ыключение ‹–“//////////////////////////////////////////////////////////////////////////
+;вЂљС‹РєР»СЋС‡РµРЅРёРµ вЂ№вЂ“вЂњ//////////////////////////////////////////////////////////////////////////
 anm_laser_off = winchester1300_tac_lam
 
 anm_laser_off_empty = winchester1300_tac_lam
 
 anm_laser_off_jammed = winchester1300_tac_lam, idle_jammed
 
-;‚ключение фонарЯ//////////////////////////////////////////////////////////////////////////
+;вЂљРєР»СЋС‡РµРЅРёРµ С„РѕРЅР°СЂРЇ//////////////////////////////////////////////////////////////////////////
 anm_torch_on = winchester1300_tac_lam
 
 anm_torch_on_empty = winchester1300_tac_lam
 
 anm_torch_on_jammed = winchester1300_tac_lam, idle_jammed
 
-;‚ыключение фонарЯ//////////////////////////////////////////////////////////////////////////
+;вЂљС‹РєР»СЋС‡РµРЅРёРµ С„РѕРЅР°СЂРЇ//////////////////////////////////////////////////////////////////////////
 anm_torch_off = winchester1300_tac_lam
 
 anm_torch_off_empty = winchester1300_tac_lam
 
 anm_torch_off_jammed = winchester1300_tac_lam, idle_jammed
 
-;включение налобника//////////////////////////////////////////////////////////////////////////
+;РІРєР»СЋС‡РµРЅРёРµ РЅР°Р»РѕР±РЅРёРєР°//////////////////////////////////////////////////////////////////////////
 anm_headlamp_on = winchester1300_tac_headflash
 
 anm_headlamp_on_empty = winchester1300_tac_headflash
 
 anm_headlamp_on_jammed = winchester1300_tac_headflash, idle_jammed
 
-;выключение налобника//////////////////////////////////////////////////////////////////////////
+;РІС‹РєР»СЋС‡РµРЅРёРµ РЅР°Р»РѕР±РЅРёРєР°//////////////////////////////////////////////////////////////////////////
 anm_headlamp_off = winchester1300_tac_headflash
 
 anm_headlamp_off_empty = winchester1300_tac_headflash
 
 anm_headlamp_off_jammed = winchester1300_tac_headflash, idle_jammed
 
-;включение пнв//////////////////////////////////////////////////////////////////////////
+;РІРєР»СЋС‡РµРЅРёРµ РїРЅРІ//////////////////////////////////////////////////////////////////////////
 anm_nv_on = winchester1300_tac_headflash
 anm_nv_on_empty = winchester1300_tac_headflash
 anm_nv_on_jammed = winchester1300_tac_headflash, idle_jammed
 
 
-;выключение пнв//////////////////////////////////////////////////////////////////////////
+;РІС‹РєР»СЋС‡РµРЅРёРµ РїРЅРІ//////////////////////////////////////////////////////////////////////////
 anm_nv_off = winchester1300_tac_headflash
 anm_nv_off_empty = winchester1300_tac_headflash
 anm_nv_off_jammed = winchester1300_tac_headflash, idle_jammed

@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ---------------Copyright_Quest_2009-------------------
 --------------Edited_by_stalbar_2009------------------
@@ -9,7 +9,7 @@ local zombie_types_1 = {"zombie_v_strong", "zombie_v_normal", "rat_weak","cat_v_
 						"flesh_v_strong","flesh_strong","pseudodog_v_strong"}
 
 function random_garbage1( actor, npc )
-	--'После появления Фаната на кордоне на свалке происходит рэндомный спаун
+	--'РџРѕСЃР»Рµ РїРѕСЏРІР»РµРЅРёСЏ Р¤Р°РЅР°С‚Р° РЅР° РєРѕСЂРґРѕРЅРµ РЅР° СЃРІР°Р»РєРµ РїСЂРѕРёСЃС…РѕРґРёС‚ СЂСЌРЅРґРѕРјРЅС‹Р№ СЃРїР°СѓРЅ
 	ogse.quest_spawn_ex(zombie_types_1[table.getn(zombie_types_1)], math.random(3,6), spawn_db.random_garbage1)
 end
 

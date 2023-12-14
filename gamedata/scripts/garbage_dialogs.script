@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function has_dolg_bribe(actor, npc)
     return actor:money() >= 100000

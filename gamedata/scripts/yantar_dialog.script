@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function yantar_give_bad_psy_helmet(first_speaker, second_speaker)
 	dialogs.relocate_item_section(second_speaker, "bad_psy_helmet", "in")

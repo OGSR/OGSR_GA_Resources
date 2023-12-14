@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 --------------------------------------------------------------------------------
 local max_corpse_dist = 10
@@ -47,7 +47,7 @@ function mob_kicker:common ()
 		return false
 	end
 	
-	-- Монстр после выхода из alife может уже быть не под скриптом, поэтому взять опять под скрипт
+	-- РњРѕРЅСЃС‚СЂ РїРѕСЃР»Рµ РІС‹С…РѕРґР° РёР· alife РјРѕР¶РµС‚ СѓР¶Рµ Р±С‹С‚СЊ РЅРµ РїРѕРґ СЃРєСЂРёРїС‚РѕРј, РїРѕСЌС‚РѕРјСѓ РІР·СЏС‚СЊ РѕРїСЏС‚СЊ РїРѕРґ СЃРєСЂРёРїС‚
 	if not xr_logic.mob_captured(self.object) then
 		self:reset_scheme ()
 		return false
@@ -95,7 +95,7 @@ function mob_kicker:move_and_kick   ()
           local constant = 200000
           self.pshell:apply_force (constant * self.dir.x, constant * self.dir.y, constant * self.dir.z)
           self.state = state_move_to_start
-          self.time = device ():time_global () + math.random (300, 400)
+          self.time = time_global() + math.random (300, 400)
           self.start_point = self:select_point ()
           self.set = false
           return

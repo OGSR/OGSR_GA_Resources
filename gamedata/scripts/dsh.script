@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 function attach( sm )
   sm:subscribe({ signal = "se_monster_on_before_register", fun = this.se_on_before_register })
@@ -102,13 +102,12 @@ end
 -------------------------------------------------------------
 
 
-function remove_quotes( s ) --Вырезать все кавычки из строки
-  return string.gsub( s, "[«»\"\']", "" )
+function remove_quotes( s ) --Р’С‹СЂРµР·Р°С‚СЊ РІСЃРµ РєР°РІС‹С‡РєРё РёР· СЃС‚СЂРѕРєРё
+  return string.gsub( s, "[\"\']", "" )
 end
 
-function strip_quotes( s ) --Срезать кавычки с начала и с конца строки
-  --return string.gsub( s, '^[«»\"\']*(.-)[«»\"\']*$', '%1') --Срезает ВСЕ кавычки слева и справа.
-  return string.gsub( s, '^[«»\"\'](.*)[«»\"\']$', '%1') --Срезает самую первую кавычку слева и самую последнюю кавычку справа.
+function strip_quotes( s ) --РЎСЂРµР·Р°С‚СЊ РєР°РІС‹С‡РєРё СЃ РЅР°С‡Р°Р»Р° Рё СЃ РєРѕРЅС†Р° СЃС‚СЂРѕРєРё
+  return string.gsub( s, '^[\"\'](.*)[\"\']$', '%1') --РЎСЂРµР·Р°РµС‚ СЃР°РјСѓСЋ РїРµСЂРІСѓСЋ РєР°РІС‹С‡РєСѓ СЃР»РµРІР° Рё СЃР°РјСѓСЋ РїРѕСЃР»РµРґРЅСЋСЋ РєР°РІС‹С‡РєСѓ СЃРїСЂР°РІР°.
 end
 
 
@@ -129,7 +128,7 @@ function set_none_smart_terrain( sobj )
   sobj:save_spawn_ini()
 end
 
--- Создать свободного моба, которого не затянет в какой-нибудь гулаг.
+-- РЎРѕР·РґР°С‚СЊ СЃРІРѕР±РѕРґРЅРѕРіРѕ РјРѕР±Р°, РєРѕС‚РѕСЂРѕРіРѕ РЅРµ Р·Р°С‚СЏРЅРµС‚ РІ РєР°РєРѕР№-РЅРёР±СѓРґСЊ РіСѓР»Р°Рі.
 function create_free_mob( ... )
   is_creating_free_mob = true
   return alife():create( ... )
@@ -146,14 +145,14 @@ function cached_ini_file( fname )
 end
 
 
---Можно использовать эту функцию, если по каким-то причинам недоступен метод alife():use_ai_locations(sobj, false)
+--РњРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС‚Сѓ С„СѓРЅРєС†РёСЋ, РµСЃР»Рё РїРѕ РєР°РєРёРј-С‚Рѕ РїСЂРёС‡РёРЅР°Рј РЅРµРґРѕСЃС‚СѓРїРµРЅ РјРµС‚РѕРґ alife():use_ai_locations(sobj, false)
 function clear_used_ai_locations( sobj )
   local pk = get_netpk( sobj, 1 )
   ASSERT( ( pk and pk:isOk() ), "can't read netpacket of %s", sobj:name() )
   local data = pk:get()
   data.object_flags = bit_and(
     data.object_flags, bit_not( object_flags.UsedAI_Locations )
-  ) -- снять флаг flUsedAI_Locations
+  ) -- СЃРЅСЏС‚СЊ С„Р»Р°Рі flUsedAI_Locations
   pk:set( data )
 end
 
@@ -185,12 +184,12 @@ function cached_condlist:pick_section_from_condlist( actor, npc )
 end
 
 
--- создать костер для лагеря сталкеров
--- Пример:
+-- СЃРѕР·РґР°С‚СЊ РєРѕСЃС‚РµСЂ РґР»СЏ Р»Р°РіРµСЂСЏ СЃС‚Р°Р»РєРµСЂРѕРІ
+-- РџСЂРёРјРµСЂ:
 -- local p = patrol( "yan_st_stalker3_kamp_1" )
 -- dsh.create_campfire( p:point( 0 ), p:level_vertex_id( 0 ), p:game_vertex_id( 0 ), "objects\\koster_palki_nastil", 0.7 )
 function create_campfire( pos, lvid, gvid, vis, lamp_height )
-  -- кострище
+  -- РєРѕСЃС‚СЂРёС‰Рµ
   if vis then
     local sobj = alife():create( "physic_object", pos, lvid, gvid )
     local pk   = get_netpk( sobj, 1 )
@@ -212,7 +211,7 @@ function create_campfire( pos, lvid, gvid, vis, lamp_height )
     sobj:save_spawn_ini()
   end
 
-  -- аномалия
+  -- Р°РЅРѕРјР°Р»РёСЏ
   local sobj = ogse_anomaly.spawn_anomaly(
     "zone_flame_small",
      pos, lvid, gvid,
@@ -221,7 +220,7 @@ function create_campfire( pos, lvid, gvid, vis, lamp_height )
   local sr = sobj:get_space_restrictor()
   sr.restrictor_type = global_flags.eRestrictorTypeNone
 
-  -- лампочка
+  -- Р»Р°РјРїРѕС‡РєР°
   local sobj = alife():create(
     "lights_hanging_lamp_campfire",
      vector():set( pos.x, pos.y + ( lamp_height or 0 ), pos.z ), lvid, gvid
@@ -259,7 +258,7 @@ function copy_hit_data( hd, t )
 end
 
 
-function my_name_is_strelok() --Вызывается по инфопоршню esc_find_doctor_done
+function my_name_is_strelok() --Р’С‹Р·С‹РІР°РµС‚СЃСЏ РїРѕ РёРЅС„РѕРїРѕСЂС€РЅСЋ esc_find_doctor_done
   local new_name = game.translate_string("actor_name2")
   db.actor:get_inventory_owner():SetName( new_name )
   local sobj   = alife():object( db.actor:id() )
@@ -339,10 +338,10 @@ end
 
 
 -------------------------------------------------------------
-function safe_file_name( fname ) --Вырезаем неподдерживаемые FS символы и пробелы по краям.
+function safe_file_name( fname ) --Р’С‹СЂРµР·Р°РµРј РЅРµРїРѕРґРґРµСЂР¶РёРІР°РµРјС‹Рµ FS СЃРёРјРІРѕР»С‹ Рё РїСЂРѕР±РµР»С‹ РїРѕ РєСЂР°СЏРј.
   fname = fname:clear():gsub( '[%(%)]*', "" ):trim()
-  if fname:len() > 60 then
-    fname = fname:sub( 1, 58 ) .. "..."
+  if fname:len() > 120 then
+    fname = fname:sub( 1, 118 ) .. "..."
   end
   return fname
 end
@@ -379,7 +378,7 @@ end
 -------------------------------------------------------------
 
 
--- Удаление всех участников сцены на ДТ (Круглов и ко)
+-- РЈРґР°Р»РµРЅРёРµ РІСЃРµС… СѓС‡Р°СЃС‚РЅРёРєРѕРІ СЃС†РµРЅС‹ РЅР° Р”Рў (РљСЂСѓРіР»РѕРІ Рё РєРѕ)
 function clean_bar_ecolog_professor()
   if level.name() == "l06_rostok" then return end
   if not has_alife_info("bar_rescue_research_done") or not has_alife_info("bar_rescue_research_fail") then return end
@@ -392,7 +391,7 @@ function clean_bar_ecolog_professor()
     "bar_freedom_attacker_3",
     "bar_freedom_attacker_5",
     "bar_ecolog_professor",
-    --Эти четверо теперь останутся на ДТ в смарте ros_smart_stalker_bandits1
+    --Р­С‚Рё С‡РµС‚РІРµСЂРѕ С‚РµРїРµСЂСЊ РѕСЃС‚Р°РЅСѓС‚СЃСЏ РЅР° Р”Рў РІ СЃРјР°СЂС‚Рµ ros_smart_stalker_bandits1
     --"bar_ecolog_crush_1",
     --"bar_ecolog_crush_3",
     --"bar_ecolog_crush_2",

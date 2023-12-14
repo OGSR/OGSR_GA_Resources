@@ -1,8 +1,8 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -----------------------------------------------------------------------
 --- ui_ogse_random_reward_choose_item.script
---- Модуль отображения выбора предметов в качестве награды (основано на нароботках KamikaZze "Багажник для машин")
+--- РњРѕРґСѓР»СЊ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РІС‹Р±РѕСЂР° РїСЂРµРґРјРµС‚РѕРІ РІ РєР°С‡РµСЃС‚РІРµ РЅР°РіСЂР°РґС‹ (РѕСЃРЅРѕРІР°РЅРѕ РЅР° РЅР°СЂРѕР±РѕС‚РєР°С… KamikaZze "Р‘Р°РіР°Р¶РЅРёРє РґР»СЏ РјР°С€РёРЅ")
 --- Mixser (c) OGS Evolution Team
 --- version 1.1 (18/11/2011)
 -----------------------------------------------------------------------
@@ -83,45 +83,45 @@ end
 function choose_item:Get_Data()
 	local random_reward = ogse_random_task_reward.random_task_reward(self.trader_name, self.task_name)
 	--random_reward:set_reward_complect()
-	random_reward:generate_reward_list() -- генерим список + вещи
-	self.trader_items = random_reward.final_list -- таблица вещей, которые торговец выставит в качестве награды
-	self.reward_items = {} -- таблица для вещей, которые пойдут в качестве награды
+	random_reward:generate_reward_list() -- РіРµРЅРµСЂРёРј СЃРїРёСЃРѕРє + РІРµС‰Рё
+	self.trader_items = random_reward.final_list -- С‚Р°Р±Р»РёС†Р° РІРµС‰РµР№, РєРѕС‚РѕСЂС‹Рµ С‚РѕСЂРіРѕРІРµС† РІС‹СЃС‚Р°РІРёС‚ РІ РєР°С‡РµСЃС‚РІРµ РЅР°РіСЂР°РґС‹
+	self.reward_items = {} -- С‚Р°Р±Р»РёС†Р° РґР»СЏ РІРµС‰РµР№, РєРѕС‚РѕСЂС‹Рµ РїРѕР№РґСѓС‚ РІ РєР°С‡РµСЃС‚РІРµ РЅР°РіСЂР°РґС‹
 	self.current_money = random_reward.money_reward
-	self.money_old = self.current_money -- сохраняем первоначальную денежную награду, чтобы выдать её по кнопке "Взять деньги"
-	--random_reward:add_to_complect() -- дополняем комплект
+	self.money_old = self.current_money -- СЃРѕС…СЂР°РЅСЏРµРј РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅСѓСЋ РґРµРЅРµР¶РЅСѓСЋ РЅР°РіСЂР°РґСѓ, С‡С‚РѕР±С‹ РІС‹РґР°С‚СЊ РµС‘ РїРѕ РєРЅРѕРїРєРµ "Р’Р·СЏС‚СЊ РґРµРЅСЊРіРё"
+	--random_reward:add_to_complect() -- РґРѕРїРѕР»РЅСЏРµРј РєРѕРјРїР»РµРєС‚
 end
 
 function choose_item:InitControls()
 	
-	-- здесь определяем координаты левого верхнего угла и ширину-высоту
+	-- Р·РґРµСЃСЊ РѕРїСЂРµРґРµР»СЏРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ Р»РµРІРѕРіРѕ РІРµСЂС…РЅРµРіРѕ СѓРіР»Р° Рё С€РёСЂРёРЅСѓ-РІС‹СЃРѕС‚Сѓ
 	self:Init(100,100,900,700) --550,450
 
-	-- файл-описатель наших элементов
+	-- С„Р°Р№Р»-РѕРїРёСЃР°С‚РµР»СЊ РЅР°С€РёС… СЌР»РµРјРµРЅС‚РѕРІ
 	local xml = CScriptXmlInit()
 	xml:ParseFile("ui_ogse_random_reward_choose_item_wnd.xml")
 	
-	-- видео на заднем плане
+	-- РІРёРґРµРѕ РЅР° Р·Р°РґРЅРµРј РїР»Р°РЅРµ
 	xml:InitStatic("back_video", self)
-	-- рамка
+	-- СЂР°РјРєР°
 	xml:InitStatic("background", self)
 	
-	-- видео на заднем плане
+	-- РІРёРґРµРѕ РЅР° Р·Р°РґРЅРµРј РїР»Р°РЅРµ
 	xml:InitStatic("back_video2", self)
-	-- рамка
+	-- СЂР°РјРєР°
 	xml:InitStatic("background2", self)
 	
-	-- рамка предмета
+	-- СЂР°РјРєР° РїСЂРµРґРјРµС‚Р°
 	xml:InitStatic("item_frame", self)
-	-- рамка предмета
+	-- СЂР°РјРєР° РїСЂРµРґРјРµС‚Р°
 	xml:InitStatic("item_frame2", self)	
 	
-	-- изображение актора
+	-- РёР·РѕР±СЂР°Р¶РµРЅРёРµ Р°РєС‚РѕСЂР°
 	xml:InitStatic("actor_frame", self)
 	
 	self.message_box = CUIMessageBoxEx()
 	self:Register(self.message_box,"message_box")
 	
-	-- список предметов
+	-- СЃРїРёСЃРѕРє РїСЂРµРґРјРµС‚РѕРІ
 	xml:InitFrame("list_frame", self)
 	xml:InitFrame("list2_frame", self)
 	
@@ -133,7 +133,7 @@ function choose_item:InitControls()
 	ctrl:ShowSelectedItem(true)
 	self:Register(ctrl, "list2_window")
 	
-	-- Кнопки
+	-- РљРЅРѕРїРєРё
 	self:Register(xml:Init3tButton("window_name", self),"window_name")
 	self:Register(xml:Init3tButton("window_name2", self),"window_name")
 
@@ -150,8 +150,8 @@ function choose_item:InitControls()
 	self:Register(xml:Init3tButton("caption2", self),"caption2")
 	self:Register(xml:Init3tButton("caption3", self),"caption3")
 	
-	self:DrawMoney(tostring(self.current_money)..game.translate_string("rub_string"), money_x, money_y) -- отрисовка денег
-	self:DrawTaskName(game.translate_string(self.task_name), money_x - 10, money_y - 25) -- отрисовка названия задания
+	self:DrawMoney(tostring(self.current_money)..game.translate_string("rub_string"), money_x, money_y) -- РѕС‚СЂРёСЃРѕРІРєР° РґРµРЅРµРі
+	self:DrawTaskName(game.translate_string(self.task_name), money_x - 10, money_y - 25) -- РѕС‚СЂРёСЃРѕРІРєР° РЅР°Р·РІР°РЅРёСЏ Р·Р°РґР°РЅРёСЏ
 	--self:DrawTraderIcon(self.trader_name, 0, 0)
 	
 end
@@ -223,14 +223,14 @@ function choose_item:AddItemToList1(item_num, item_name, item_price, item_count)
 end
 
 function choose_item:FillList2()
-	if table.getn(self.reward_items) == 0 then self.btn_take_item:Enable(false) end -- если ничего игрок не выбрал из предметов, то лочим кнопку "Взять вещи"
+	if table.getn(self.reward_items) == 0 then self.btn_take_item:Enable(false) end -- РµСЃР»Рё РЅРёС‡РµРіРѕ РёРіСЂРѕРє РЅРµ РІС‹Р±СЂР°Р» РёР· РїСЂРµРґРјРµС‚РѕРІ, С‚Рѕ Р»РѕС‡РёРј РєРЅРѕРїРєСѓ "Р’Р·СЏС‚СЊ РІРµС‰Рё"
 	for k,v in pairs(self.reward_items) do
 		self:AddItemToList2(k, v.name, v.price, v.count)
 	end
 end
 
 function choose_item:AddItemToList2(item_num, item_name, item_price, item_count)
-	if self.btn_take_item:IsEnabled() == false then self.btn_take_item:Enable(true) end -- делаем активной кнопку "Взять вещи", если игрок что-то выбрал
+	if self.btn_take_item:IsEnabled() == false then self.btn_take_item:Enable(true) end -- РґРµР»Р°РµРј Р°РєС‚РёРІРЅРѕР№ РєРЅРѕРїРєСѓ "Р’Р·СЏС‚СЊ РІРµС‰Рё", РµСЃР»Рё РёРіСЂРѕРє С‡С‚Рѕ-С‚Рѕ РІС‹Р±СЂР°Р»
 	local itm = select_actor_items()
 	itm.itmnum:SetText (item_num)
 	itm.itmn:SetText (game.translate_string(get_inv_name(item_name)))
@@ -311,7 +311,7 @@ function choose_item:take_item()
 	
 	if not item then return end
 	
-		-- Сперва посмотрим, если в self.reward_items предмет, который мы хотим передать
+		-- РЎРїРµСЂРІР° РїРѕСЃРјРѕС‚СЂРёРј, РµСЃР»Рё РІ self.reward_items РїСЂРµРґРјРµС‚, РєРѕС‚РѕСЂС‹Р№ РјС‹ С…РѕС‚РёРј РїРµСЂРµРґР°С‚СЊ
 	if self.current_money - self.trader_items[index+1].price >= 0 then -- sys_ini:r_s32(self.trader_items[index+1].name, "cost")
 		local already_have = false
 		local reward_items_index = 0
@@ -323,7 +323,7 @@ function choose_item:take_item()
 			end
 		end
 	
-		-- Если есть, то просто увеличиваем счётчик в reward_items, иначе добавляем такую таблицу.
+		-- Р•СЃР»Рё РµСЃС‚СЊ, С‚Рѕ РїСЂРѕСЃС‚Рѕ СѓРІРµР»РёС‡РёРІР°РµРј СЃС‡С‘С‚С‡РёРє РІ reward_items, РёРЅР°С‡Рµ РґРѕР±Р°РІР»СЏРµРј С‚Р°РєСѓСЋ С‚Р°Р±Р»РёС†Сѓ.
 	
 		if already_have == true then
 			self.reward_items[reward_items_index].count = self.reward_items[reward_items_index].count + 1
@@ -352,7 +352,7 @@ function choose_item:take_item()
 end
 
 function choose_item:update_data(index1)
-	-- Уменьшаем count предмета в self.trader_items, если count = 0, то удаляем всякое напоминание о предмете
+	-- РЈРјРµРЅСЊС€Р°РµРј count РїСЂРµРґРјРµС‚Р° РІ self.trader_items, РµСЃР»Рё count = 0, С‚Рѕ СѓРґР°Р»СЏРµРј РІСЃСЏРєРѕРµ РЅР°РїРѕРјРёРЅР°РЅРёРµ Рѕ РїСЂРµРґРјРµС‚Рµ
 	
 	self.current_money = self.current_money - self.trader_items[index1+1].price --sys_ini:r_u32(self.trader_items[index1+1].name, "cost")
 	
@@ -362,7 +362,7 @@ function choose_item:update_data(index1)
 		table.remove(self.trader_items, index1+1)
 	end
 	
-	-- Обновляем списки
+	-- РћР±РЅРѕРІР»СЏРµРј СЃРїРёСЃРєРё
 	
 	local list_box = self:GetListWnd("list_window")
 	local list2_box = self:GetListWnd("list2_window")
@@ -397,7 +397,7 @@ function choose_item:return_item()
 	
 	self.current_money = self.current_money + self.reward_items[index+1].price --sys_ini:r_u32(self.reward_items[index+1].name, "cost")
 		
-	-- Сперва посмотрим, если в self.trader_items предмет, который мы хотим передать
+	-- РЎРїРµСЂРІР° РїРѕСЃРјРѕС‚СЂРёРј, РµСЃР»Рё РІ self.trader_items РїСЂРµРґРјРµС‚, РєРѕС‚РѕСЂС‹Р№ РјС‹ С…РѕС‚РёРј РїРµСЂРµРґР°С‚СЊ
 	
 	local already_have = false
 	local trader_items_index = 0
@@ -410,7 +410,7 @@ function choose_item:return_item()
 		end
 	end
 	
-	-- Если есть, то просто увеличиваем счётчик в self.trader_items, иначе добавляем такую таблицу.
+	-- Р•СЃР»Рё РµСЃС‚СЊ, С‚Рѕ РїСЂРѕСЃС‚Рѕ СѓРІРµР»РёС‡РёРІР°РµРј СЃС‡С‘С‚С‡РёРє РІ self.trader_items, РёРЅР°С‡Рµ РґРѕР±Р°РІР»СЏРµРј С‚Р°РєСѓСЋ С‚Р°Р±Р»РёС†Сѓ.
 	
 	if already_have == true then
 		self.trader_items[trader_items_index].count = self.trader_items[trader_items_index].count + 1
@@ -424,7 +424,7 @@ function choose_item:return_item()
 		table.insert(self.trader_items, time_array)
 	end
 	
-	-- Уменьшаем count предмета в trader_items, если count = 0, то удаляем всякое напоминание о предмете
+	-- РЈРјРµРЅСЊС€Р°РµРј count РїСЂРµРґРјРµС‚Р° РІ trader_items, РµСЃР»Рё count = 0, С‚Рѕ СѓРґР°Р»СЏРµРј РІСЃСЏРєРѕРµ РЅР°РїРѕРјРёРЅР°РЅРёРµ Рѕ РїСЂРµРґРјРµС‚Рµ
 	
 	self.reward_items[index+1].count = self.reward_items[index+1].count - 1
 	
@@ -434,7 +434,7 @@ function choose_item:return_item()
 	
 	
 	
-	-- Обновляем списки
+	-- РћР±РЅРѕРІР»СЏРµРј СЃРїРёСЃРєРё
 	
 	local list_box = self:GetListWnd("list_window")
 	local list2_box = self:GetListWnd("list2_window")
@@ -555,7 +555,7 @@ function choose_item:DrawCurItem2(de_item, x, y)
 	self.cur_rem_textur2:Init(x,y,tw/2,th/2)
 end
 
---Название предмета, который разбираем
+--РќР°Р·РІР°РЅРёРµ РїСЂРµРґРјРµС‚Р°, РєРѕС‚РѕСЂС‹Р№ СЂР°Р·Р±РёСЂР°РµРј
 function choose_item:DrawCurItemName2(de_item, x, y)
 if x == nil then x = 0 end
 if y == nil then y = 0 end

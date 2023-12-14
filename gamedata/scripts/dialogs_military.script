@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -------------------------------------------------------------------------
 --	created:	2005/02/12
@@ -12,7 +12,7 @@
 --	purpose:	dialog support for military
 -------------------------------------------------------------------------
 
--- Оплата долговцем наших услуг по устранению снайпера
+-- РћРїР»Р°С‚Р° РґРѕР»РіРѕРІС†РµРј РЅР°С€РёС… СѓСЃР»СѓРі РїРѕ СѓСЃС‚СЂР°РЅРµРЅРёСЋ СЃРЅР°Р№РїРµСЂР°
 function mil_dolg_payment (stalker, player)
     if not has_alife_info("military_scull_give_reward_1") then
 	dialogs.relocate_money(stalker, 14000, "in")
@@ -31,13 +31,13 @@ function lukash_payment (stalker, player)
     dialogs.relocate_money (stalker, 7000, "in")
 end
 
--- Отмечаем провал задачи
+-- РћС‚РјРµС‡Р°РµРј РїСЂРѕРІР°Р» Р·Р°РґР°С‡Рё
 function mil_dolg_sniper_failed (stalker, player)
     level_tasks.set_task_state (task.fail, "mil_kill_sniper", 0)
     level_tasks.set_task_state (task.fail, "mil_kill_sniper", 1)
 end
 
--- отмечаем выполнение задачи
+-- РѕС‚РјРµС‡Р°РµРј РІС‹РїРѕР»РЅРµРЅРёРµ Р·Р°РґР°С‡Рё
 function mil_dolg_sniper_complete (stalker, player)
     level_tasks.set_task_state (task.completed, "mil_kill_sniper", 0)
 end
@@ -88,7 +88,7 @@ function actor_dont_has_weapon (stalker, player)
     return not xr_conditions.actor_has_weapon (player, stalker)
 end
 
--- Банальную передачу водки заменяем конкретным бухаловым за счет Меченого
+-- Р‘Р°РЅР°Р»СЊРЅСѓСЋ РїРµСЂРµРґР°С‡Сѓ РІРѕРґРєРё Р·Р°РјРµРЅСЏРµРј РєРѕРЅРєСЂРµС‚РЅС‹Рј Р±СѓС…Р°Р»РѕРІС‹Рј Р·Р° СЃС‡РµС‚ РњРµС‡РµРЅРѕРіРѕ
 function transfer_vodka (actor)
     if db.actor:object ("vodka") == nil then return end
 	local vodka = db.actor:object("vodka")
@@ -183,7 +183,7 @@ function mil_leader_dialog_check (actor, npc)
 	return has_alife_info("mil_lukash_delay") or has_alife_info("mil_lukash_dolg_task_complete")
 end
 
---[[ -- перенесено в xml. Зачем вообще это скриптовое наполнение?!
+--[[ -- РїРµСЂРµРЅРµСЃРµРЅРѕ РІ xml. Р—Р°С‡РµРј РІРѕРѕР±С‰Рµ СЌС‚Рѕ СЃРєСЂРёРїС‚РѕРІРѕРµ РЅР°РїРѕР»РЅРµРЅРёРµ?!
 function init_actor_take_arsenal_key_dlg(dlg)
     phr0 = dlg:AddPhrase("actor_take_arsenal_key_0", "0", "", -10000)
     phr1 = dlg:AddPhrase("actor_take_arsenal_key_1", "1", "0", -10000)

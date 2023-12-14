@@ -1,11 +1,11 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 -------------------------------------------
------ Скрипт определения реальной брони
------ по визуалу непися, OGSE мод,
------ автор KamikaZze
+----- РЎРєСЂРёРїС‚ РѕРїСЂРµРґРµР»РµРЅРёСЏ СЂРµР°Р»СЊРЅРѕР№ Р±СЂРѕРЅРё
+----- РїРѕ РІРёР·СѓР°Р»Сѓ РЅРµРїРёСЃСЏ, OGSE РјРѕРґ,
+----- Р°РІС‚РѕСЂ KamikaZze
 -------------------------------------------
-local cached = {} --таблица вида { [visual_name] = [section] }
+local cached = {} --С‚Р°Р±Р»РёС†Р° РІРёРґР° { [visual_name] = [section] }
 
 function vis_to_armor(npc)
 	local vis = table.remove( string.explode( "\\", npc:get_visual_name() ) )

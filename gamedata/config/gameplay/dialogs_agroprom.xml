@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <game_dialogs>
 	<dialog id="agr_krot_about_agroprom">
 		<has_info>agr_help_krot_done</has_info>
@@ -245,7 +245,7 @@
 			<phrase id="1">
 				<text>agr_swamp_ratcatcher_lc_info_1</text>
 				<!-- <action>ogse_lc_mngr.lc1_agr_esc</action> -->
-				<!-- насколько я понял этого перехода больше не будет -->
+				<!-- РЅР°СЃРєРѕР»СЊРєРѕ СЏ РїРѕРЅСЏР» СЌС‚РѕРіРѕ РїРµСЂРµС…РѕРґР° Р±РѕР»СЊС€Рµ РЅРµ Р±СѓРґРµС‚ -->
 				<give_info>agr_info_lc</give_info>
 				<next>2</next>
 			</phrase>
@@ -387,7 +387,7 @@
 			</phrase>
 		</phrase_list>
 	</dialog>
-	<!--Квест Крота на патроны-->
+	<!--РљРІРµСЃС‚ РљСЂРѕС‚Р° РЅР° РїР°С‚СЂРѕРЅС‹-->
 	<dialog id="agr_krot_find_ammo_box_start">
 		<dont_has_info>agr_help_krot_ammo_box_pause</dont_has_info>
 		<dont_has_info>agr_help_krot_ammo_box_find</dont_has_info>
@@ -930,10 +930,30 @@
 			</phrase>
 			<phrase id="2_2_6">
 				<next>2_2_7</next>
+				<dont_has_info>btr_control_set</dont_has_info>
 				<text>military_trader_2_2_6</text>
+			</phrase>
+			<phrase id="2_2_66">
+				<next>2_2_77</next>
+				<has_info>btr_control_set</has_info>
+				<text>military_trader_2_2_66</text>
+			</phrase>
+			<phrase id="2_2_77">
+				<next>2_2_78</next>
+				<text>military_trader_2_2_77</text>
+			</phrase>
+			<phrase id="2_2_78">
+				<next>2_2_79</next>
+				<text>military_trader_2_2_78</text>
+				<precondition>ogse_quests.enough_money_for_upgrade</precondition>
+			</phrase>
+			<phrase id="2_2_79">
+				<action>ogse_quests.give_upgrade_actor</action>
+				<text>military_trader_2_2_16</text>
 			</phrase>
 			<phrase id="2_2_5">
 				<next>2_2_6</next>
+				<next>2_2_66</next>
 				<text>military_trader_2_2_5</text>
 			</phrase>
 			<phrase id="2_2_4">
@@ -948,7 +968,7 @@
 				<text>military_trader_buy</text>
 			</phrase>
 			<phrase id="2_2">
-				<dont_has_info>btr_control_set</dont_has_info>
+				<dont_has_info>btr_targeting_computer</dont_has_info>
 				<has_info>btr_get_computer</has_info>
 				<next>2_2_1</next>
 				<text>military_trader_2_2</text>
@@ -974,7 +994,7 @@
 			</phrase>
 		</phrase_list>
 	</dialog>
-	<!-- Выдача переходов на Топь Кротом, если погиб Дезертир -->
+	<!-- Р’С‹РґР°С‡Р° РїРµСЂРµС…РѕРґРѕРІ РЅР° РўРѕРїСЊ РљСЂРѕС‚РѕРј, РµСЃР»Рё РїРѕРіРёР± Р”РµР·РµСЂС‚РёСЂ -->
 	<dialog id="agr_krot_give_info_about_lc">
 		<has_info>agr_help_krot_ammo_box_give</has_info>
 		<has_info>agr_dezerter_died</has_info>
@@ -991,5 +1011,5 @@
 			</phrase>
 		</phrase_list>
 	</dialog>
-	<!-- Выдача переходов на Топь Кротом, если погиб Дезертир -->
+	<!-- Р’С‹РґР°С‡Р° РїРµСЂРµС…РѕРґРѕРІ РЅР° РўРѕРїСЊ РљСЂРѕС‚РѕРј, РµСЃР»Рё РїРѕРіРёР± Р”РµР·РµСЂС‚РёСЂ -->
 </game_dialogs>

@@ -1,8 +1,8 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 ---------------------- Copyright 2008-2010 OGSE Team -----------------------
------------------- 2010 FEAR93, KamikaZze для OGSE -------------------------
---------------------------- по мотивам Р.М.А. ------------------------------
+------------------ 2010 FEAR93, KamikaZze РґР»СЏ OGSE -------------------------
+--------------------------- РїРѕ РјРѕС‚РёРІР°Рј Р .Рњ.Рђ. ------------------------------
 
 function attach(sm)
 	sm:subscribe({signal = "on_spawn", fun = this.on_spawn})
@@ -50,7 +50,7 @@ function on_spawn()
 	subscribe()
 end
 
---Взял ли ГГ артефакт
+--Р’Р·СЏР» Р»Рё Р“Р“ Р°СЂС‚РµС„Р°РєС‚
 function have_artefact(actor, trader)
 	local art = db.actor:object("af_blood_tutorial")
 	if art then
@@ -68,7 +68,7 @@ function not_have_knife(actor, trader)
 	return db.actor:object("wpn_knife") == nil
 end
 
---Спасение Толика в процессе
+--РЎРїР°СЃРµРЅРёРµ РўРѕР»РёРєР° РІ РїСЂРѕС†РµСЃСЃРµ
 function is_tolik_quest_running(actor, trader)
 	if has_alife_info("tutorial_wounded_start") and not
 	(has_alife_info("tutorial_wounded_die") or
@@ -112,7 +112,7 @@ function first_quests_ended(actor, trader)
 	end
 end
 
---Вертушка ещё летает
+--Р’РµСЂС‚СѓС€РєР° РµС‰С‘ Р»РµС‚Р°РµС‚
 function heli_still_in_air(actor, trader)
 	if has_alife_info("esc_heli_go") and not
 	has_alife_info("tutorial_wounded_start") then
@@ -126,12 +126,12 @@ function heli_already_done(actor, trader)
 	return heli_still_in_air(actor, trader) == false 
 end
 
---Взял ли ГГ артефакт
+--Р’Р·СЏР» Р»Рё Р“Р“ Р°СЂС‚РµС„Р°РєС‚
 function not_have_artefact(actor, trader)
 	return db.actor:object("af_blood_tutorial") == nil
 end
 
--- Закончена ли сценка с Толиком
+-- Р—Р°РєРѕРЅС‡РµРЅР° Р»Рё СЃС†РµРЅРєР° СЃ РўРѕР»РёРєРѕРј
 function tolik_end(actor, trader)
 	if has_alife_info("tutorial_wounded_die") or
 	has_alife_info("tutorial_wounded_help") or
@@ -142,24 +142,24 @@ function tolik_end(actor, trader)
 	end
 end
 
---А не выбросил ли он его по дороге
+--Рђ РЅРµ РІС‹Р±СЂРѕСЃРёР» Р»Рё РѕРЅ РµРіРѕ РїРѕ РґРѕСЂРѕРіРµ
 function dont_have_artefact(actor, trader)
 	return db.actor:object("af_blood_tutorial") == nil or not has_alife_info("artefact_gain")
 end
 
---Если нет, то гони артефакт торговцу
+--Р•СЃР»Рё РЅРµС‚, С‚Рѕ РіРѕРЅРё Р°СЂС‚РµС„Р°РєС‚ С‚РѕСЂРіРѕРІС†Сѓ
 function give_artefact(actor, trader)
 	dialogs.relocate_item_section(trader, "af_blood_tutorial", "out")
 end
 
---Награда Волка за спасение новичка, возле вагончика	
+--РќР°РіСЂР°РґР° Р’РѕР»РєР° Р·Р° СЃРїР°СЃРµРЅРёРµ РЅРѕРІРёС‡РєР°, РІРѕР·Р»Рµ РІР°РіРѕРЅС‡РёРєР°	
 function give_nagrada(first_speaker, second_speaker)
 	dialogs.relocate_item_section(first_speaker, "medkit_army", "in")
 	dialogs.relocate_item_section(first_speaker, "bandage", "in")
 	dialogs.relocate_item_section(first_speaker, "bandage", "in")
 end	
 
---Проверка факта того, что Толик спасся и жив
+--РџСЂРѕРІРµСЂРєР° С„Р°РєС‚Р° С‚РѕРіРѕ, С‡С‚Рѕ РўРѕР»РёРє СЃРїР°СЃСЃСЏ Рё Р¶РёРІ
 function tolik_saved()
 	if has_alife_info("esc_wounded_arrive") then
 		local tolik = level_object_by_sid(story_ids.esc_vagon_wounded)
@@ -187,11 +187,11 @@ end
 
 function on_timer_hel1()
 	local actor = db.actor
-	--log1("HELI_SCENE: Финита ля комедия")
+	--log1("HELI_SCENE: Р¤РёРЅРёС‚Р° Р»СЏ РєРѕРјРµРґРёСЏ")
 	for k, v in pairs(deadman) do
 		local npc = level.object_by_id(v)
 		if npc and npc:alive() then
-			--log1("HELI_SCENE: Контрольный третьему если ещё шевелится")
+			--log1("HELI_SCENE: РљРѕРЅС‚СЂРѕР»СЊРЅС‹Р№ С‚СЂРµС‚СЊРµРјСѓ РµСЃР»Рё РµС‰С‘ С€РµРІРµР»РёС‚СЃСЏ")
 			local heli = level_object_by_sid(story_ids.esc_helicopter)
 			local st = db.storage[heli:id()]
 			st.combat.enemy_id = npc:id()	
@@ -213,7 +213,7 @@ function on_timer_hel1()
 		end
 		actor:give_info_portion("esc_heli_fire")
 		actor:give_info_portion("tolik_help")			
-		actor:give_info_portion("tutorial_wounded_start") --'Спавн трупа и Толика
+		actor:give_info_portion("tutorial_wounded_start") --'РЎРїР°РІРЅ С‚СЂСѓРїР° Рё РўРѕР»РёРєР°
 		ogse.del_variable("heli_quest_1")
 		ogse.del_variable("heli_quest_2")
 		ogse.del_variable("heli_quest_3")
@@ -231,7 +231,7 @@ function on_timer_hel()
 	for k, v in pairs(deadman) do
 		local npc = level.object_by_id(v)
 		if npc and npc:alive() then
-			--log1("HELI_SCENE: Контрольный второму если ещё шевелится")
+			--log1("HELI_SCENE: РљРѕРЅС‚СЂРѕР»СЊРЅС‹Р№ РІС‚РѕСЂРѕРјСѓ РµСЃР»Рё РµС‰С‘ С€РµРІРµР»РёС‚СЃСЏ")
 			local heli = level_object_by_sid(story_ids.esc_helicopter)
 			local st = db.storage[heli:id()]
 			st.combat.enemy_id = npc:id()	
@@ -248,7 +248,7 @@ function on_timer_hel()
 	
 	-- log1("CREATE")
 	---' Third Tolik companion
-	--log1("HELI_SCENE: Третий пошел")
+	--log1("HELI_SCENE: РўСЂРµС‚РёР№ РїРѕС€РµР»")
 	local spawn_obj = ogse.spawn_object(spawn_db.esc_stalker_respawn_1)
 	switch_online(spawn_obj.id)
 	deadman[spawn_obj.id] = spawn_obj.id
@@ -256,7 +256,7 @@ function on_timer_hel()
 	ogse_st_mgr.start_timer("hel1", 10, script_name()..".on_timer_hel1")
 end
 
--- Запуск по сигналу esc_heli_direct из логики вертолета	
+-- Р—Р°РїСѓСЃРє РїРѕ СЃРёРіРЅР°Р»Сѓ esc_heli_direct РёР· Р»РѕРіРёРєРё РІРµСЂС‚РѕР»РµС‚Р°	
 function esc_heli_combat()
 	ogse_st_mgr.start_timer("hel", 5, script_name()..".on_timer_hel")
 end
@@ -271,7 +271,7 @@ function esc_heli_cancel()
 		for k, v in pairs(deadman) do
 			local npc = level.object_by_id(v)
 			if npc and npc:alive() then
-				--log1("HELI_SCENE: Таймаут - прибили второго")
+				--log1("HELI_SCENE: РўР°Р№РјР°СѓС‚ - РїСЂРёР±РёР»Рё РІС‚РѕСЂРѕРіРѕ")
 				local blow = hit()
 				blow.direction = vector():set(0,0,0)
 				blow.impulse = 0.1
@@ -291,7 +291,7 @@ function on_timer_hel0()
 		for k, v in pairs(deadman) do
 			local npc = level.object_by_id(v)
 			if npc and npc:alive() then
-				--log1("HELI_SCENE: Таймаут - прибили первого")
+				--log1("HELI_SCENE: РўР°Р№РјР°СѓС‚ - РїСЂРёР±РёР»Рё РїРµСЂРІРѕРіРѕ")
 				local blow = hit()
 				blow.direction = vector():set(0,0,0)
 				blow.impulse = 0.1
@@ -301,7 +301,7 @@ function on_timer_hel0()
 				npc:hit(blow)
 			end	
 		end
-		--log1("HELI_SCENE: Второй пошел")
+		--log1("HELI_SCENE: Р’С‚РѕСЂРѕР№ РїРѕС€РµР»")
 		---' Second Tolik companion
 		snd_obj = xr_sound.get_safe_sound_object( [[helicopter\hit_2]] )
 		snd_obj:play( db.actor, 0, sound_object.s2d )
@@ -318,7 +318,7 @@ end
 function esc_hit_heli()
 	local heli = id_by_sid(story_ids.esc_helicopter)
 	if heli then
-		--log1("HELI_SCENE: Первый пошел")
+		--log1("HELI_SCENE: РџРµСЂРІС‹Р№ РїРѕС€РµР»")
 		---' First Tolik companion
 		local spawn_obj = ogse.spawn_object(spawn_db.esc_stalker_respawn_1)
 		switch_online(spawn_obj.id)
@@ -334,10 +334,10 @@ function esc_hit_heli()
 	ogse_st_mgr.start_timer("hel0", 10, script_name()..".on_timer_hel0")
 end
 
---' спавн вертолёта и Толика
+--' СЃРїР°РІРЅ РІРµСЂС‚РѕР»С‘С‚Р° Рё РўРѕР»РёРєР°
 function esc_heli() 
 	if db.actor and db.actor:dont_has_info("esc_heli_go") then
-		db.actor:give_info_portion("esc_heli_go") --'Спавн вертолёта
+		db.actor:give_info_portion("esc_heli_go") --'РЎРїР°РІРЅ РІРµСЂС‚РѕР»С‘С‚Р°
 		soundtrack.heli_attacks()
 
 		subscribe()
@@ -346,15 +346,15 @@ end
 
 function esc_heli_scene()
 	if db.actor then
-		--log1("HELI_SCENE: Старт сценки")
-		esc_heli() --' спавн вертолёта и Толика
+		--log1("HELI_SCENE: РЎС‚Р°СЂС‚ СЃС†РµРЅРєРё")
+		esc_heli() --' СЃРїР°РІРЅ РІРµСЂС‚РѕР»С‘С‚Р° Рё РўРѕР»РёРєР°
 		esc_hit_heli()
 	end
 end
 
 local timeout = 0
 
--- Сценка с вертушкой на Кордоне
+-- РЎС†РµРЅРєР° СЃ РІРµСЂС‚СѓС€РєРѕР№ РЅР° РљРѕСЂРґРѕРЅРµ
 function show_heli_scene()	
 	if has_alife_info("esc_heli_go") and not has_alife_info("tolik_help") then
 		local heli_id = id_by_sid(story_ids.esc_helicopter)
@@ -367,7 +367,7 @@ function show_heli_scene()
 					if npc then
 						local dist_from_self_to_actor = npc:position():distance_to(db.actor:position())
 						if npc:alive() then
-							-- получим текущее оружие
+							-- РїРѕР»СѓС‡РёРј С‚РµРєСѓС‰РµРµ РѕСЂСѓР¶РёРµ
 							local act_slot = npc:active_slot()
 							if act_slot ~= 255 then
 							local act_item = npc:item_in_slot(act_slot)
@@ -377,7 +377,7 @@ function show_heli_scene()
 									alife():release(s_obj, true)
 								end
 								timeout = time_global() + 1000
-								-- Вертолеты не входят в поддерживаемые объекты для отношений
+								-- Р’РµСЂС‚РѕР»РµС‚С‹ РЅРµ РІС…РѕРґСЏС‚ РІ РїРѕРґРґРµСЂР¶РёРІР°РµРјС‹Рµ РѕР±СЉРµРєС‚С‹ РґР»СЏ РѕС‚РЅРѕС€РµРЅРёР№
 --								ogse.set_npc_relation(npc, heli, "enemy")
 								local blow = hit()
 								blow.direction = vector():set(0,0,0)
@@ -402,7 +402,7 @@ function show_heli_scene()
 
 							local pos = heli:position()
 							state_mgr.set_state( script_name(),  npc, "idle", nil, nil, nil )
-							--log1("HELI_SCENE: Заставляем непися стрелять")
+							--log1("HELI_SCENE: Р—Р°СЃС‚Р°РІР»СЏРµРј РЅРµРїРёСЃСЏ СЃС‚СЂРµР»СЏС‚СЊ")
 							npc:set_sight(look.direction,pos)
 							npc:movement_enabled(false)
 							npc:set_movement_type(move.standing)
@@ -434,7 +434,7 @@ function show_heli_scene()
 	end
 end	
 
---Динамит Волку
+--Р”РёРЅР°РјРёС‚ Р’РѕР»РєСѓ
 function have_esc_dynamite()
 	return db.actor:object("dynamite") ~= nil
 end
@@ -457,9 +457,9 @@ end
 function esc_dynamite_message()
 	 news_manager.send_tip(db.actor, "wolf_esc_dinamite", 10, "wolf", 5000, nil)
 end
---Динамит Волку Конец
+--Р”РёРЅР°РјРёС‚ Р’РѕР»РєСѓ РљРѕРЅРµС†
 
---'Выдача сообщения
+--'Р’С‹РґР°С‡Р° СЃРѕРѕР±С‰РµРЅРёСЏ
 function set_msg() 
   local news = game.translate_string("pma_esc_quest_msg_1_text")
   local from = game.translate_string("escape_trader_name") 
@@ -468,7 +468,7 @@ function set_msg()
   soundtrack.sidor_go_help()
 end
 
---'Выдача сообщения
+--'Р’С‹РґР°С‡Р° СЃРѕРѕР±С‰РµРЅРёСЏ
 function set_msg_alt() 
   local news = game.translate_string("pma_esc_quest_msg_2_text")
   local from = game.translate_string("escape_trader_name") 
@@ -477,7 +477,7 @@ function set_msg_alt()
   soundtrack.sidor_go_help_alt()
 end
 
---'Выдача сообщения
+--'Р’С‹РґР°С‡Р° СЃРѕРѕР±С‰РµРЅРёСЏ
 function esc_tolike_kiled_by_actor() 
   local news = game.translate_string("pma_esc_quest_msg_3_text")
   local from = game.translate_string("escape_trader_name") 
@@ -485,7 +485,7 @@ function esc_tolike_kiled_by_actor()
   db.actor:give_game_news(news_text, "ui\\ui_iconsTotal", Frect():set(332,893,83,47), 0, 13000)
 end
 
---'Выдача сообщения
+--'Р’С‹РґР°С‡Р° СЃРѕРѕР±С‰РµРЅРёСЏ
 function esc_tolike_kiled() 
   local news = game.translate_string("pma_esc_quest_msg_4_text")
   local from = game.translate_string("escape_trader_name") 
@@ -493,7 +493,7 @@ function esc_tolike_kiled()
   db.actor:give_game_news(news_text, "ui\\ui_iconsTotal", Frect():set(332,893,83,47), 0, 13000)
 end
 
---'Выдача сообщения
+--'Р’С‹РґР°С‡Р° СЃРѕРѕР±С‰РµРЅРёСЏ
 function esc_tolike_help()
   local news = game.translate_string("pma_esc_quest_msg_5_text")
   local from = game.translate_string("escape_trader_name") 
@@ -506,7 +506,7 @@ function disble_tolik_help()
 	db.actor:disable_info_portion("tutorial_wounded_give_info")
 end
 
---'Даём ГГ аптечку
+--'Р”Р°С‘Рј Р“Р“ Р°РїС‚РµС‡РєСѓ
 function give_medkit_for_tolik(first_speaker, second_speaker)
 	if db.actor and not db.actor:object("medkit") then
 		dialogs.relocate_item_section(second_speaker, "medkit", "in")

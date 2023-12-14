@@ -1,4 +1,4 @@
--- -*- mode: lua; coding: windows-1251-dos -*-
+
 
 
 
@@ -108,6 +108,16 @@ function action_particle:is_end ()
         end    
     end        
     self.st.signals["particle_end"] = true
+    --
+    -- Лень править кучу логики из оллспавна потому удалим тут кучу рестрикторов партиклов которые срабатывают каждый раз после сейвлоада
+    if self.st.name:find("teleport_out_00") and object_level_name(self.object) == "l12_stancia_2" then
+       local sobj = alife():object(self.object:id())
+       if sobj then
+          log3("~~[%s] released [%s]", script_name(), self.object:name())
+          alife():release(sobj)
+       end
+    end
+    --
     return true
 end
 ------------------------
