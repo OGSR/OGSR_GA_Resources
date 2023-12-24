@@ -27,7 +27,9 @@ function se_car:on_unregister() --Вызывается не только при 
 	--log3("--[%s] Called on_unregister for [%s]", script_name(), self:name())
 	cse_alife_car.on_unregister( self )
 	--
-	dsh_rukzak.delete_rukzak_data( self.id ) --Удаляем данные багажника
+	if ogse_unist.is_ready() then -- на всякий случай
+		dsh_rukzak.delete_rukzak_data( self.id ) --Удаляем данные багажника
+	end
 end
 
 --****************************************************

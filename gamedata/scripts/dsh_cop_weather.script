@@ -590,17 +590,22 @@ end
 local function update_env_descriptors_params(wname1, wname2, forced)
 	local env = level.environment()
 	for idx = forced and 0 or 1, 1 do
-		local wt = weather_transitions_common[idx == 0 and wname1 or wname2]
+		local wname = idx == 0 and wname1 or wname2
+		local wt = weather_transitions_common[wname]
 		if not wt then goto CONTINUE end
 
 		local env_desc = env:getCurrentWeather( idx )
 		env_desc.wind_velocity = wt.wind_velocity() --Силу ветра берем из таблицы
 		env_desc.wind_direction = utils.deg2rad(math.random(360)) --Угол ветра будет всегда рандомный
-		--Силу раскачки деревьев будем считать от силы ветра
-		local def_min_TAI, def_max_TAI = 0.01, 0.07
-		local def_TAI = def_min_TAI + ((env_desc.wind_velocity * 0.001) * (def_max_TAI - def_min_TAI));
-		env_desc.m_fTreeAmplitudeIntensity = def_TAI
-		log3("--[%s][%s] wind_velocity: [%s], wind_direction: [%s], TreeAmplitudeIntensity: [%s]", script_name(), idx == 0 and wname1 or wname2, env_desc.wind_velocity, env_desc.wind_direction, env_desc.m_fTreeAmplitudeIntensity)
+		--Силу раскачки деревьев будем считать от силы ветра --Теперь не используется
+		--local def_min_TAI, def_max_TAI = 0.01, 0.07
+		--local def_TAI = def_min_TAI + ((env_desc.wind_velocity * 0.001) * (def_max_TAI - def_min_TAI));
+		--env_desc.m_fTreeAmplitudeIntensity = def_TAI
+		--if wname:find("^clear") or wname:find("^cloudy") or wname:find("^swtc") or wname:find("^fog") then
+			--Рандомная интенсивность лучей
+			env_desc.m_fSunShaftsIntensity = math.random(3000) * 0.0001
+		--end
+		log3("--[%s][%s] wind_velocity: [%s], wind_direction: [%s], m_fSunShaftsIntensity: [%s]", script_name(), wname, env_desc.wind_velocity, env_desc.wind_direction, env_desc.m_fSunShaftsIntensity)
 
 		::CONTINUE::
 	end

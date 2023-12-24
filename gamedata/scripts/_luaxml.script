@@ -450,11 +450,12 @@ end
 function xml.save(var, filename)
 	if var and filename and #filename ~= 0 then
 		stdfs.VerifyPath(filename)
+		local var_str = xml.str(var)
 
 		local file = io.open(filename, 'w')
 		assert(file, "[xml.save] Can't create file: "..filename)
-		file:write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n")
-		file:write(xml.str(var))
+		file:write('<?xml version=\"1.0\" encoding=\"'..( game.StringHasUTF8(var_str) and 'UTF-8' or ( get_string("string_table", "language") == "spa" and 'Windows-1252' or 'Windows-1251' ) )..'\"?>\n\n')
+		file:write(var_str)
 		file:flush()
 		file:close()
 
