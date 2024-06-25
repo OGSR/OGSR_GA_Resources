@@ -46,7 +46,7 @@
 
 
 	<hud_timer x="150" y="15" width="157" height="67" light_anim="ui_slow_blinking_alpha" la_cyclic="1" la_texture="0" la_text="1" la_alpha="1">
-		<text x="20" y="17" font="graffiti32" r="240" g="217" b="182" a="255" align="c"/>
+		<text x="20" y="17" font="ui_font_digital_32" r="240" g="217" b="182" a="255" align="c"/>
 		<texture>ui_hud_frame_clock</texture>
 	</hud_timer>
 	
@@ -144,7 +144,7 @@
 	
 <!-- clock on HUD -->
     <hud_time_text x="15" y="155" width="20" height="20">
-        <text x="0" y="0" font="letterica18" r="240" g="217" b="182" a="255" align="c"/>
+        <text x="0" y="0" font="ui_font_digital_18" r="240" g="217" b="182" a="255" align="c"/>
     </hud_time_text>
 	
 <!-- BTR HUD -->	
@@ -300,5 +300,20 @@
 		</progress>
 	</anim_progress>
 	</static_anim>
+
+	<indicator_booster_psy x="90" y="730" width="25" height="35" stretch="1" heading="1" priority="10" light_anim="ui_slow_blinking" la_cyclic="1" la_alpha="1">
+		<text font="ui_font_digital_14" x="0" y="-10" align="c"/>
+		<texture>ui_inGame2_shield_Psy</texture>
+	</indicator_booster_psy>
+
+	<indicator_booster_rad x="120" y="730" width="25" height="35" stretch="1" heading="1" priority="10" light_anim="ui_slow_blinking" la_cyclic="1" la_alpha="1">
+		<text font="ui_font_digital_14" x="0" y="-10" align="c"/>
+		<texture>ui_inGame2_shield_Radiation</texture>
+	</indicator_booster_rad>
+
+	<indicator_booster_power x="150" y="730" width="25" height="35" stretch="1" heading="1" priority="10" light_anim="ui_slow_blinking" la_cyclic="1" la_alpha="1">
+		<text font="ui_font_digital_14" x="0" y="-10" align="c"/>
+		<texture>ui_inGame2_shield_stamina</texture>
+	</indicator_booster_power>
 
 </header>

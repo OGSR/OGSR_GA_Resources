@@ -1,0 +1,25 @@
+;--------------------------------------------------------
+;Цифровой шрифт для таймеров и тп.
+[ui_font_digital_14]
+skip_prefix = true ;двиг не будет требовать добавлять `font_prefix` (из [string_table]) к имени текстуры такого шрифта
+shader    = font ;Нигде не менять шейдер на hud\font! он замыливает буквы, особенно при увеличении размера.
+texture   = ui\fonts\Digital52
+scale_x   = 0.25
+scale_y   = 0.25
+
+[ui_font_digital_16]:ui_font_digital_14
+scale_x   = 0.30
+scale_y   = 0.30
+
+[ui_font_digital_18]:ui_font_digital_14
+scale_x   = 0.35
+scale_y   = 0.35
+
+[ui_font_digital_32]:ui_font_digital_14
+scale_x   = 0.65
+scale_y   = 0.65
+
+[ui_font_digital_50]:ui_font_digital_14
+scale_x   = 0.85
+scale_y   = 0.85
+;--------------------------------------------------------

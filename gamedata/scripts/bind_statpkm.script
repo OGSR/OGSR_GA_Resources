@@ -63,7 +63,7 @@ function on_item_use(item)
 		create_stat_pkm_on_actor()
 		soundtrack.pkm_activate()
 		local wnd = level.get_inventory_wnd()
-		if wnd then
+		if wnd and wnd:IsShown() then
 			level.start_stop_menu(wnd, true)
 		end
 		ogse.autohiding_msg("pkm_mounting", 5000)

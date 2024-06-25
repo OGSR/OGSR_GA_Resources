@@ -59,6 +59,12 @@ ammo_elapsed            = 6
 ammo_mag_size        	= 6
 
 ammo_class           	= ammo_12x70_kart, ammo_12x76_zhekan
+
+;Имена текстур пуль прописанных в модели, которые будут заменяться
+bullet_textures_in_model = wpn\wpn_ammo_12x70_diff
+;Пары "название секции патронов, текстура для пуль из этой секции"
+bullet_textures_for_ammos = ammo_12x76_zhekan, wpn\wpn_ammo_12x70_blue_diff, ammo_12x70_kart, wpn\wpn_ammo_12x70_diff
+
 grenade_class        	= ammo_vog-25         
 
 launch_speed            = 0
@@ -391,7 +397,9 @@ anm_fakeshoot_aim_jammed     = mr133_aim_dry, idle_aim
 ;Перезарядка/////////////////////////////////////////////////////////////////////
 anm_open			= mr133_reload_start
 anm_add_cartridge		= mr133_reload, reload_add
+lock_time_end_anm_add_cartridge = 0.001
 ;anm_add_cartridge_empty		= mr133_reload_start_new, reload_add
+;lock_time_end_anm_add_cartridge_empty = 0.001
 anm_close_empty			= mr133_reload_empty, reload_empty
 anm_close_jammed		= mr133_revival, revival
 anm_close			= mr133_reload_end

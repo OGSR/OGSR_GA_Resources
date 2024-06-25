@@ -1050,6 +1050,18 @@ function military_dolg_dead()
 	return true
 end
 
+function make_mil_dolg_enemy_to_actor()
+	local gulag = xr_gulag.get_gulag_by_name( "mil_dolg" )
+	for obj_id, _ in pairs( gulag.Object_begin_job ) do
+		local sobj = alife():object( obj_id )
+		if sobj then
+			if sobj:alive() and object_level_name( sobj ) == "l07_military" then
+				relation_registry.set_personal_goodwill(obj_id, db.actor:id(), -3000)
+			end
+		end
+	end
+end
+
 function mil_patrol_death_check (actor, npc)
     if has_alife_info("mil_patrol_man1_dead") and has_alife_info("mil_patrol_man2_dead") and has_alife_info("mil_patrol_man3_dead") then
        actor:give_info_portion ("mil_patrol_dead") 

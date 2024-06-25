@@ -1,4 +1,4 @@
-[wpn_wincheaster1300]:identity_immunities,base_wpn_zoom
+[wpn_wincheaster1300]:identity_immunities,base_wpn_zoom,base_wpn_shotgun
 GroupControlSection			= spawn_group
 $spawn                   	= "weapons\winchester1300"					; option for Level Editor
 $npc			 			= on				; option for Level Editor
@@ -198,7 +198,8 @@ snd_open_weapon             = $no_sound, 0
 ;snd_open_weapon_empty       = weapons\winchester1300\winchester1300_reload_empty_start
 snd_add_cartridge	    = weapons\winchester1300\winchester1300_reload_ammo
 snd_add_cartridge_empty     = weapons\winchester1300\winchester1300_reload_empty_start
-snd_add_cartridge_preloaded = weapons\winchester1300\winchester1300_reload_empty_second_ammo
+snd_add_cartridge_second    = weapons\winchester1300\winchester1300_reload_empty_second_ammo
+snd_add_cartridge_start     = weapons\winchester1300\winchester1300_reload_start
 snd_close_weapon            = weapons\winchester1300\winchester1300_reload_end
 snd_close_weapon_empty      = weapons\winchester1300\winchester1300_reload_end
 snd_close_weapon_preloaded  = weapons\winchester1300\winchester1300_reload_end
@@ -394,44 +395,21 @@ anm_idle_sprint_jammed		= winchester1300_pistol_sprint, idle_jammed
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ;начало релоада
-anm_open			        = winchester1300_reload_idle
-anm_open_stop_k			    = 0.001
-anm_open_speed_k			= 999
-
 ;anm_open			        = winchester1300_pistol_reload_start, winchester1300_reload_start
 ;anm_open_empty		        = winchester1300_pistol_reload_empty_start, winchester1300_reload_empty_start
 
-;add_cartridge_in_open = true	;Говорим, что open содержит в себе добавление в магазин патрона
-;empty_preload_mode = true	;после анимы anm_open_empty надо играть add_cartridge_preloaded или close_preloaded (т.к. в anm_open_empty загоняется патрон в патронник)
-
-;lock_time_start_anm_open =  0.01 ;время от старта анимации до зарядки (обновления счетчика) патрона  (если патрон заряжается в open, иначе ставить просто один параметр lock_time_anm_open)
-;lock_time_end_anm_open = 1.02 	;время от момента зарядки патрона (обновления счетчика) до момента, когда можно прерывать аниму
-				;если lock_time_start + lock_time_end превышают время проигрывания анимации, то прервать выстрелом набивание магазина будет невозможно! Целесообразно устанавливать время суммарного лока так, чтобы оно было на не менее 100мс меньше времени анимы, чтобы апдейт на остановку стрельбы успел пройти
-;lock_time_start_anm_open_empty = 0.01	
-;lock_time_end_anm_open_empty = 2.09 	
-
 
 ;добавление патрона
-anm_add_cartridge			        = winchester1300_pistol_reload_ammo, winchester1300_reload_ammo
+anm_add_cartridge			    = winchester1300_pistol_reload_ammo, winchester1300_reload_ammo
+anm_add_cartridge_start			    = winchester1300_pistol_reload_start, winchester1300_reload_start
+lock_time_end_anm_add_cartridge_start = 0.1
 anm_add_cartridge_empty			    = winchester1300_pistol_reload_empty_start, winchester1300_reload_empty_start
-
-;возможно добавить эти звуки.
-;anm_add_cartridge_preloaded		    = winchester1300_pistol_reload_empty_second_ammo, winchester1300_reload_empty_second_ammo
-;anm_add_cartridge_empty_preloaded   = winchester1300_pistol_reload_empty_second_ammo, winchester1300_reload_empty_second_ammo 	;указывать аналогично обычному anm_add_cartridge_preloaded, затычка от потенциального вылета
-
-;lock_time_start_anm_add_cartridge           = 0.66		;аналогично параметрам у open
-;lock_time_end_anm_add_cartridge             = 0.01
-;lock_time_start_anm_add_cartridge_empty	    = 0.66		;аналогично параметрам у open
-;lock_time_end_anm_add_cartridge_empty	    = 0.01
-;lock_time_start_anm_add_cartridge_preloaded = 0.99		
-;lock_time_end_anm_add_cartridge_preloaded   = 0.01
-
+lock_time_end_anm_add_cartridge_empty = 0.1
+anm_add_cartridge_second		    = winchester1300_pistol_reload_empty_second_ammo, winchester1300_reload_empty_second_ammo
 
 ;конец релоада
 anm_close			                = winchester1300_pistol_reload_end, winchester1300_reload_end
-;anm_close_empty			            = winchester1300_pistol_reload_empty_end, winchester1300_reload_end
-;anm_close_preloaded		            = winchester1300_pistol_reload_empty_end, winchester1300_reload_end
-;anm_close_empty_preloaded           = winchester1300_pistol_reload_empty_end, winchester1300_reload_end 	;указывать аналогично обычному anm_close_preloaded, затычка от потенциального вылета при выбрасывании во время релоада всех патронов на землю
+anm_close_empty			            = winchester1300_pistol_reload_empty_end, winchester1300_reload_end
 
 
 ;Разрядка//////////////////////////////////////////////////////////////////////////

@@ -55,6 +55,8 @@ scope_zoom_factor		= 1.7
 ironsight_zoom_factor	= 1.0
 
 CartridgeInTheChamberEnabled = true
+dont_interrupt_shot_anm = true
+is_gunslinger_weapon = true
 
 snd_fire_modes  = weapons\firemode_switch, 0.1 ;звук переключения режимов огня
 snd_zoom_change = weapons\zoom_change, 0.2 ;звук при изменении зума
@@ -88,6 +90,12 @@ show_condition			= true
 icon_group      = 2
 
 multiply_hit_from_actor = 1.7
+
+[base_wpn_shotgun]
+;Имена текстур пуль прописанных в модели, которые будут заменяться
+bullet_textures_in_model = wpn\ammo_12x70_blue, wpn\ammo_12x70
+;Пары "название секции патронов, текстура для пуль из этой секции"
+bullet_textures_for_ammos = ammo_12x76_zhekan, wpn\ammo_12x70_blue, ammo_12x70_kart, wpn\ammo_12x70_red
 
 [common_ph_friction_params_on_npc_death] ;Параметры для задания изменения трения в момент смерти персонажа
 ; Эта секция общая для мутантов и сталкеров, т.ч. тут самое место всунуть исключения детектора аномалий.

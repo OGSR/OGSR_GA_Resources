@@ -11,7 +11,7 @@ local hud = get_hud()
 local rad_hud = hud:GetCustomStatic("static_radiation")
 local psy_hud = hud:GetCustomStatic("static_psy")
 
-if db.actor:alive() or not level.main_input_receiver() then
+if db.actor:alive() then
 
 	local xml = CScriptXmlInit()
 	xml:ParseFile("ui_custom_msgs.xml")

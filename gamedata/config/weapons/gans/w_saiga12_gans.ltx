@@ -1,4 +1,4 @@
-[wpn_saiga12]:identity_immunities,base_wpn_zoom
+[wpn_saiga12]:identity_immunities,base_wpn_zoom,base_wpn_shotgun
 GroupControlSection     = spawn_group
 $spawn               	= "weapons\saiga12"   ; name and section in level editor
 $npc              = on
@@ -423,7 +423,10 @@ anm_fakeshoot_aim_jammed     = aks74u_aim_dry, idle_aim_jammed
 
 ;Перезарядка/////////////////////////////////////////////////////////////////////
 anm_reload                      = aks74u_reload
+lock_time_end_anm_reload = 1.2
 anm_reload_empty                = aks74u_reload_full
+lock_time_end_anm_reload_empty = 1.2
+
 anm_reload_jammed                    = aks74u_revival
 anm_reload_jammed_last               = aks74u_revival
 

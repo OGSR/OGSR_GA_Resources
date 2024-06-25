@@ -284,7 +284,7 @@ function dolg_zahvat(obj)
 		jekan_work.actor_dolg_zahvat()
 
 		local wnd = level.get_car_body_wnd()
-		if wnd then --Закроем окно обыска
+		if wnd and wnd:IsShown() then --Закроем окно обыска
 			level.start_stop_menu(wnd, true)
 		end
 

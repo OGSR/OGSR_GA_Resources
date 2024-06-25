@@ -1,4 +1,4 @@
-[wpn_bm16]:identity_immunities,base_wpn_zoom
+[wpn_bm16]:identity_immunities,base_wpn_zoom,base_wpn_shotgun
 GroupControlSection		= spawn_group
 $spawn                  = "weapons\bm16"		; option for Level Editor
 $npc			 		= on						; option for Level Editor
@@ -390,10 +390,17 @@ anm_idle_sprint_end_jammed_2   = toz66_sprint_end, idle_1
 
 
 anm_reload				= toz66_reload_full
+lock_time_end_anm_reload = 1.4 ;1.25
 anm_reload_0				= toz66_reload_full
+lock_time_end_anm_reload_0 = 1.4 ;1.25
 anm_reload_only_0		        = toz66_reload_last
+lock_time_end_anm_reload_only_0 = 1.4 ;1.25
 anm_reload_1				= toz66_reload
+lock_time_end_anm_reload_1 = 1.4 ;1.25
 anm_reload_2				= toz66_reload_full
+lock_time_end_anm_reload_2 = 1.4 ;1.25
+
+
 anm_reload_jammed_1			= toz66_revival_last
 anm_reload_jammed_2			= toz66_revival
 anm_shoot_1				= toz66_shoot_last

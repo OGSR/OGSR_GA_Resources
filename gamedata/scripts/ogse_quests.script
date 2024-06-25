@@ -1938,6 +1938,7 @@ function on_transponder_to_belt(obj)
 			ogse.save_variable("actor_orig_comm", comm)
 			dialogs.set_actor_milstalker()
 		end
+		relation_registry.set_community_goodwill("military", db.actor:id(), 2500)
 		--if not db.actor:has_info("esc_bridge_pass_on") then
 		--	db.actor:give_info_portion("esc_bridge_pass_on")
 		--end
@@ -1952,6 +1953,7 @@ function on_transponder_to_ruck(obj)
 			local run_funct = return_functions[comm] or return_functions["actor"]
 			run_funct()		
 		end
+		relation_registry.set_community_goodwill("military", db.actor:id(), -2500)
 		--if db.actor:has_info("esc_bridge_pass_on") then
 		--	db.actor:disable_info_portion("esc_bridge_pass_on")
 		--end

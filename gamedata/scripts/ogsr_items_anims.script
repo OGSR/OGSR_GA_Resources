@@ -44,8 +44,6 @@ local function apply_item( sect )
 
 	if sect == "voda" then
 		ogse_healing.use_voda(sect)
-	elseif sect == "vodka" then
-		ogse_healing.use_vodka(sect)
 	end
 end
 
@@ -78,7 +76,7 @@ local function play_item_use(item)
     if outfit then
         if string.find(outfit:section(), "_exo") and ( string.find(item, "^medkit") or item == "antirad" ) then
             item_hud = get_string(item, "hud_exo")
-            used_time = get_string(item, "item_used_timing_exo")
+            used_time = get_u32(item, "item_used_timing_exo")
             snd = get_string(item, "snd_use_exo_anm")
             cam_effect = get_string(item, "cam_effect_exo")
         elseif (outfit:section() == "scientific_outfit" or outfit:section() == "ecolog_outfit" or outfit:section() == "protection_outfit") and string.find(item, "^medkit") then
@@ -119,7 +117,7 @@ local function play_item_use(item)
 		local anim_progress = xml:InitProgressBar("static_anim:anim_progress", anim_hud_wnd)
 		anim_progress:Show(true)
 
-		dsh.timeout(used_time, function()
+		dsh.timeout(math.min(used_time, anm_duration), function()
 			apply_item(item)
 		end)
 

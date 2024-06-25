@@ -459,7 +459,7 @@ function musicbox_base:InitLuaXml()
         local timer_static_text = timer_static:append('text')
             timer_static_text.align = 'c'
             timer_static_text.vert_align = 'c'
-            timer_static_text.font  = 'graffiti50'
+            timer_static_text.font  = 'ui_font_digital_50'
             timer_static_text.r     = 204
             timer_static_text.g     = 102
             timer_static_text.b     = 0

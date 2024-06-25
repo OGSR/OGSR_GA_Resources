@@ -1291,7 +1291,7 @@ end
 
 function actor_disable_inventory()
 	local wnd = level.get_inventory_wnd()
-	if wnd then
+	if wnd and wnd:IsShown() then
 		level.start_stop_menu(wnd, true)
 	end
 end
@@ -1476,10 +1476,9 @@ function give_dar_road_deton()
 	ogse.spawn_item_in_inv("dar_road_detonator", db.actor)
 end
 
-local DarRoadBomb = nil
 function dar_road_bomb_expl()
 	local road_bomb = ogse.spawn_object(spawn_db.bomba_fake)
-	DarRoadBomb = road_bomb.id
+	ogse.save_var( script_name()..".DarRoadBomb", road_bomb.id, "u16" )
 	ogse.start_timer("road_bomb",1)
 end
 
@@ -1542,7 +1541,7 @@ function btr_spawn_desant()
 end
 
 function road_bomb_hit()
-	hit_obj_by_id_simple(DarRoadBomb, 1000, 0)
+	hit_obj_by_id_simple(ogse.load_var(script_name()..".DarRoadBomb"), 1000, 0)
 end
 
 function merc_signal_detonate()

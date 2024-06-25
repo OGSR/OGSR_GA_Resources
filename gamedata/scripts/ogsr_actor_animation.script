@@ -175,17 +175,20 @@ local function multipickup(dist, radius)
 	local dir = device().cam_dir
 	pos = pos:add(dir:mul(dist))
 	level.iterate_nearest(pos, dist, function(obj)
-		if not transfered[obj:id()] and obj:get_inventory_item() and pos:distance_to(obj:position()) <= radius then
+		if not transfered[obj:id()] and obj:get_inventory_item() and obj:actor_can_take() and pos:distance_to(obj:position()) <= radius then
 			db.actor:transfer_item(obj, db.actor)
 			transfered[obj:id()] = true
 		end
 	end)
 end
 
-local function take_delay(obj)
+local function take_delay(obj_id)
 	transfered = {}
-	db.actor:transfer_item(obj, db.actor)
-	transfered[obj:id()] = true
+	local obj = level.object_by_id(obj_id)
+	if obj then
+		db.actor:transfer_item(obj, db.actor)
+		transfered[obj_id] = true
+	end
 	multipickup(1.5, 0.75)
 	multipickup(1, 0.5)
 	multipickup(0.5, 0.25)
@@ -239,7 +242,7 @@ function on_item_before_pickup(obj)
 			dsh.timeout( pickup_anm_time - 100, toggle_force_crouch )
 		end
 
-		dsh.timeout( pickup_anm_time - 300, take_delay, obj )
+		dsh.timeout( pickup_anm_time - 300, take_delay, obj:id() )
 
 		if bugfix_detector then --возвращаем детектор обратно
 			dsh.timeout(pickup_anm_time + 500, function()

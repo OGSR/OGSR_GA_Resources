@@ -15,6 +15,12 @@ function attach(sm) -- для менеджера сигналов
 	sm:subscribe({signal = "on_actor_before_hit", fun = this.on_actor_before_hit})
 end
 
+local booster_hud = {
+    ["bipsizon"] = "indicator_booster_psy",
+    ["dix"]      = "indicator_booster_power",
+    ["yod"]      = "indicator_booster_rad",
+}
+
 -----------------------------------------------------------------------
 --- Общие параметры
 -----------------------------------------------------------------------
@@ -559,11 +565,6 @@ function use_bipsizon(section, item)
 	return post_use_action.do_nothing 
 end
 
-
-function use_vodka(item, section)
-	db.actor.psy_health = db.actor.psy_health + 1.0
-end
-
 -- ключ - секция предмета
 -- значение - функция использования
 local usable_sections = {
@@ -574,7 +575,6 @@ local usable_sections = {
 	["yod"]             = use_B190,
 	["dix"]             = use_dix,
 	["bipsizon"]        = use_bipsizon,
-	["vodka"]           = use_vodka,
 }
 
 -- Событие предшествующее использованию предмета. Используется для реализации
@@ -630,6 +630,7 @@ local function get_immunities_effects(section)
 	end
 	return res
 end
+
 ------------ Таймер замедленных эффектов здоровья с добавленным изменением иммунитетов -------------
 class "health_effect_timer_ex" (health_effect_timer)
 function health_effect_timer_ex:__init(name) super(name)
@@ -671,20 +672,44 @@ end
 function health_effect_timer_ex:condition()
 	local current_time = game.get_game_time()
 	local dt = current_time:diffSec(self.last_time)
-	local relative_time = current_time:diffSec(self:get_start_time()) / self.total_time
-	--log1("DEBUG!! Medicine ["..self.section.."] time ["..relative_time.."]")
+	local passed_time = current_time:diffSec(self:get_start_time()) --прошедшее время, self.total_time - полная длительность эффекта
+	local relative_time = passed_time / self.total_time
 	for immunity_name,values in pairs(self.immunities) do
-		--immunities[immunity_name] = immunities[immunity_name] or {}
 		timers_immunities[immunity_name][self.id] = values[1] + (values[2] - values[1]) * relative_time
 	end
+
+	self.booster_st = booster_hud[self.section]
+	if self.booster_st then
+		if not self.booster_wnd then
+			self.booster_wnd = get_hud():AddCustomStatic(self.booster_st, true):wnd()
+		end
+
+		self.booster_wnd:SetText(string.format("-%0.f", (self.total_time - passed_time) / default_time_factor))
+
+		local r, g, b = 0, 0, 0
+		local diff = passed_time / self.total_time
+		if diff < 0.5 then --Переход от зеленого (0, 255, 0) к желтому (255, 255, 0)
+			g = 255;
+			r = 2.0 * diff * 255.0;
+		else --Переход от желтого (255, 255, 0) к красному (255, 0, 0)
+			r = 255;
+			g = 2.0 * (1.0 - diff) * 255.0;
+		end
+		self.booster_wnd:SetTextColor(255, r, g, b)
+		self.booster_wnd:SetColor(GetARGB(255, r, g, b))
+	end
+
     return health_effect_timer.condition(self)
 end
 function health_effect_timer_ex:action() -- обнуляем все иммунитеты, связанные с этим таймером
 	for immunity_name,_ in pairs(timers_immunities) do
 		timers_immunities[immunity_name][self.id] = nil
 	end
-	--log1("DEBUG!! Medicine ["..self.section.."] STOP!")
-	--self:stop()
+
+	if self.booster_st then
+		self.booster_wnd = nil
+		get_hud():RemoveCustomStatic(self.booster_st)
+	end
 end
 function health_effect_timer_ex:taction()
 	self:action() -- на тот случай, если сработает по времени
@@ -722,6 +747,4 @@ end
 function dix_timer:action() -- обнуляем все иммунитеты, связанные с этим таймером
 	db.actor.max_power = self.normal_max_power --[[ - db.actor.max_power]] -- KD: в движке SET
 	health_effect_timer_ex.action(self)
-	--log1("DEBUG!! Medicine [DIX] STOP!")
-	--self:stop()
 end

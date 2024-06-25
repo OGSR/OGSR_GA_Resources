@@ -513,12 +513,13 @@ end
 [20.06.22 13:03:53.439] --FOUND ALLSPAWN WEAPON! NAME: ['cit_wpn_ak74_0002'], SECT: ['wpn_ak74']
 [20.06.22 13:03:53.439] --FOUND ALLSPAWN WEAPON! NAME: ['mil_wpn_colt1911_unic'], SECT: ['wpn_colt1911_unic']
 [20.06.22 13:03:53.441] --FOUND ALLSPAWN WEAPON! NAME: ['rad_wpn_vintorez'], SECT: ['wpn_vintorez']
+[20.06.22 13:03:53.441] --FOUND ALLSPAWN WEAPON! NAME: ['mil_wpn_vintorez'], SECT: ['wpn_vintorez']
 --]====]
 function fix_allspawn_weapons()
 	if ogse.var_exists("fix_allspawn_weapons") then return end
 	ogse.save_var("fix_allspawn_weapons", true)
 
-	for _, name in ipairs({"kat_gunslinger_ak", "val_wpn_ak74u", "val_wpn_ak74u_0000", "val_wpn_ak74u_0001", "dar_wpn_ak74", "mil_wpn_ak0001", "mil_wpn_ak0002", "mil_wpn_ak74u", "cit_wpn_ak74_0000", "cit_wpn_ak74_0001", "cit_wpn_ak74_0002", "mil_wpn_colt1911_unic", "rad_wpn_vintorez"}) do
+	for _, name in ipairs({"kat_gunslinger_ak", "val_wpn_ak74u", "val_wpn_ak74u_0000", "val_wpn_ak74u_0001", "dar_wpn_ak74", "mil_wpn_ak0001", "mil_wpn_ak0002", "mil_wpn_ak74u", "cit_wpn_ak74_0000", "cit_wpn_ak74_0001", "cit_wpn_ak74_0002", "mil_wpn_colt1911_unic", "rad_wpn_vintorez", "mil_wpn_vintorez"}) do
 		local sobj = alife():object(name)
 		if sobj and sobj.parent_id == 65535 then
 			local addons = flags8():zero()
@@ -552,9 +553,9 @@ function fox_can_hide()
 end
 
 
---Фикс Кордон - Лощина, чтобы dest_position была за туннелем.
+--Передвигаем точку прибытия в Лощину с Кордона, чтобы можно было проехать на машине
 function fix_l01_escape_level_changer_to_darkscape()
-  if ogse.var_exists("fix_l01_escape_level_changer_to_darkscape") then return end
+  if ogse.var_exists("fix_l01_escape_level_changer_to_darkscape2") then return end
 
   local sobj = alife():object( "l01_escape_level_changer_to_darkscape" )
   if not sobj then return end
@@ -562,11 +563,11 @@ function fix_l01_escape_level_changer_to_darkscape()
   log3( "~~[%s]: fix %s (%s)", script_name(), sobj:name(), sobj.level_name )
   local lc = sobj:get_level_changer()
   lc.dest_game_vertex_id  = 3199
-  lc.dest_level_vertex_id = 2394
-  lc.dest_position        = vector():set( -588.11633300781, -1.7542750835419, -411.06097412109 )
-  lc.dest_direction       = vector():set( 0.71428716182709, 0, -0.69985258579254 )
+  lc.dest_level_vertex_id = 3409
+  lc.dest_position        = vector():set( -581.890015, -0.160574, -414.895569 )
+  lc.dest_direction       = vector():set( 0.796327,-0.049380,-0.602847 )
 
-  ogse.save_var("fix_l01_escape_level_changer_to_darkscape", true)
+  ogse.save_var("fix_l01_escape_level_changer_to_darkscape2", true)
 end
 
 
