@@ -842,6 +842,22 @@ function get_vector2(section, param, def_val, ini_file)
 	end
 end
 
+function get_vector4(section, param, def_val, ini_file)
+    ASSERT(section, "get_vector: section not defined, param=" .. param)
+    local ini = ini_file or sys_ini
+    ASSERT(ini:section_exist(section), "get_vector: section '" .. section .. "' doesn't exist")
+    if ini:line_exist(section, param) then
+        local pos = get_names(section, param, ini)
+        return vector4():set(tonumber(pos[1]), tonumber(pos[2]), tonumber(pos[3]), tonumber(pos[4]))
+    else
+        if def_val then
+            return def_val
+        else
+            return vector4():set(0, 0, 0, 0)
+        end
+    end
+end
+
 -- Берём параметры иконки из конфигов
 function get_inventory_icon_rect(sect)
 	return 50*sys_ini:r_u32(sect, "inv_grid_x"), 50*sys_ini:r_u32(sect, "inv_grid_y"), 50*sys_ini:r_u32(sect, "inv_grid_width"), 50*sys_ini:r_u32(sect, "inv_grid_height")

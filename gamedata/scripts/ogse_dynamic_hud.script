@@ -30,6 +30,7 @@ local function check_my_suit_hud()
 		cmd("r2_visor_refl_intensity 0")	
 		cmd("r2_visor_refl_control 0")
 		switch_shader_effects("off")
+		cmd("r2_mask_control 0")
 		return
 	end
 
@@ -39,6 +40,7 @@ local function check_my_suit_hud()
 		cmd("r2_visor_refl_control 1")
 		cmd("r2_visor_refl_intensity 0.2")
 		switch_shader_effects("on")
+		cmd("r2_mask_control 1")
 	elseif outfit then
 		local outfitname = outfit:section()
 		local control = get_string(outfitname, "control" )
@@ -46,10 +48,12 @@ local function check_my_suit_hud()
 		cmd("r2_visor_refl_control "..control)
 		cmd("r2_visor_refl_intensity "..intensity)
 		switch_shader_effects(tonumber(control) > 0 and "on" or "off")
+		cmd("r2_mask_control "..control)
 	else
 		cmd("r2_visor_refl_intensity 0")
 		cmd("r2_visor_refl_control 0")
 		switch_shader_effects("off")
+		cmd("r2_mask_control 0")
 	end
 end
 
@@ -78,4 +82,5 @@ function off_shader_effects()
 	switch_shader_effects("off")
 	cmd("r2_visor_refl_intensity 0")
 	cmd("r2_visor_refl_control 0")
+	cmd("r2_mask_control 0")
 end

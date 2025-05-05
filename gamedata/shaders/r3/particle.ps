@@ -13,12 +13,20 @@ struct v2p
     float4 hpos : SV_Position;
 };
 
+struct p_particle_out
+{
+    float4 main : SV_Target0;
+    float4 additional : SV_Target1;
+};
+
 //	Must be less than view near
 #define DEPTH_EPSILON 0.1h
 //////////////////////////////////////////////////////////////////////////////////////////
 // Pixel
-float4 main(v2p I) : SV_Target
+p_particle_out main(v2p I) : SV_Target
 {
+    p_particle_out O;
+
     float4 result = I.c * s_base.Sample(smp_base, I.tc0);
 
     //	Igor: additional depth test
@@ -37,5 +45,17 @@ float4 main(v2p I) : SV_Target
 
     clip(result.a - (0.01f / 255.0f));
     result.a *= I.fog * I.fog; // ForserX: Port Skyloader fog fix
-    return result;
+
+    O.main = result;
+
+    if (result.a > 0.2)
+    {
+        O.additional = float4(0.0, (result.r + result.g + result.b) / 3.0f, 0.0, 1.0);
+    }
+    else
+    {
+        O.additional = float4(0.0, 0.0, 0.0, 0.0);
+    }
+
+    return O;
 }

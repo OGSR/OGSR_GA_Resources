@@ -555,19 +555,17 @@ end
 
 --Передвигаем точку прибытия в Лощину с Кордона, чтобы можно было проехать на машине
 function fix_l01_escape_level_changer_to_darkscape()
-  if ogse.var_exists("fix_l01_escape_level_changer_to_darkscape2") then return end
-
   local sobj = alife():object( "l01_escape_level_changer_to_darkscape" )
   if not sobj then return end
 
-  log3( "~~[%s]: fix %s (%s)", script_name(), sobj:name(), sobj.level_name )
   local lc = sobj:get_level_changer()
+  if lc.dest_level_vertex_id == 3409 then return end
+
+  log3( "~~[%s]: fix %s (%s)", script_name(), sobj:name(), sobj.level_name )
   lc.dest_game_vertex_id  = 3199
   lc.dest_level_vertex_id = 3409
   lc.dest_position        = vector():set( -581.890015, -0.160574, -414.895569 )
   lc.dest_direction       = vector():set( 0.796327,-0.049380,-0.602847 )
-
-  ogse.save_var("fix_l01_escape_level_changer_to_darkscape2", true)
 end
 
 

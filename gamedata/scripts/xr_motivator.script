@@ -303,17 +303,6 @@ function motivator_binder:net_spawn(sobject)
 	if not self.object:alive() then
 		if rx_ai then rx_ai.corpse_net_spawn(self.object,self.loaded) end
 
-		--' Наносим небольшой импульс вперед.
---[=[ -- KRodin: выключено, если будут повисания трупов в воздухе - включить.
-		local h = hit()
-		h.draftsman = self.object
-		h.type = hit.fire_wound
-		h.direction = db.actor:position():sub(self.object:position())
-		h:bone( get_string( self.object:section(), "bone_torso", "bip01_spine" ) )
-		h.power = 0.01
-		h.impulse = 1
-		self.object:hit(h)
---]=]
 		local s_obj = alife():object(self.object:id())
 		--log3("~~offline_dead [%s] is [%s], game.time() is [%s]", s_obj:name(), s_obj.offline_dead, game.time())
 		if s_obj.offline_dead == 0 then

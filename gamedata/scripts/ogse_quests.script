@@ -1479,14 +1479,12 @@ function reward_actor(first_speaker, second_speaker) --Выдача наград
 		tasks_functor.make_actor_normal()
 	end
 
-	xr_gulag.setGulagFriend("esc_blokpost", db.actor)
-
 	dialogs.relocate_item_section(second_speaker, "mil_transponder", "in")
-	dialogs.relocate_item_section(second_speaker, "military_outfit", "in") --лучше тут экзу выдавать, наверно
+	dialogs.relocate_item_section(second_speaker, "military_outfit", "in")
 	dialogs.relocate_item_section(second_speaker, "wpn_ak101_tact", "in")
 	dialogs.relocate_item_section(second_speaker, "wpn_addon_sil_556", "in")
 
-	dialogs.relocate_money(second_speaker, 55000, "in") --а деньги можно и не выдавать, если прописать выше более серьезную награду
+	dialogs.relocate_money(second_speaker, 55000, "in")
 
 	--check_subscribe_transponder_enemy_callback()
 
@@ -1948,6 +1946,21 @@ end
 
 function on_transponder_to_ruck(obj)
 	if obj:section() == "mil_transponder" then
+		if not ogse.var_exists( "transponder_first_take" ) then
+			dsh.exec_on_update(function()
+				if not db.actor:move_to_belt(obj) then
+					for i = 0, db.actor:belt_count() - 1 do
+						local item = db.actor:item_on_belt( i )
+						db.actor:move_to_ruck(item)
+						db.actor:move_to_belt(obj)
+						return
+					end
+				end
+			end)
+			ogse.save_var("transponder_first_take", true)
+			return true
+		end
+
 		if db.actor:has_info("actor_set_milstalker") and not db.actor:has_info("actor_set_zombied") then
 			local comm = ogse.load_variable("actor_orig_comm", "actor")
 			local run_funct = return_functions[comm] or return_functions["actor"]

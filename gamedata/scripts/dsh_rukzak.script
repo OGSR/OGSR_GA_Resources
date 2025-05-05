@@ -52,6 +52,7 @@ function on_rukzak_use( obj )
 end
 
 local override_game_types = {
+	[ "guitar_f" ] = "",
 	[ "treasure_item" ] = "",
 	[ "amk_metka" ] = "",
 	[ "bioradar" ] = "",
