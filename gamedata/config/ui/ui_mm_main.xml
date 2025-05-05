@@ -105,9 +105,22 @@
 	<dlc_version x="247" y="740" width="530" height="30">
 		<text align="c" font="small" r="205" g="205" b="205" complex_mode="0"/>
 	</dlc_version>	
-	
-	
-	
+
+	<btn_github x="5" y="725" width="40" height="40" hint="OGSR GitHub" stretch="1">
+		<texture_e>ui\menu_links\github_e</texture_e>
+		<texture_h>ui\menu_links\github_h</texture_h>
+	</btn_github>
+
+	<btn_discord x="55" y="725" width="40" height="40" hint="OGSR Discord" stretch="1">
+		<texture_e>ui\menu_links\discord_e</texture_e>
+		<texture_h>ui\menu_links\discord_h</texture_h>
+	</btn_discord>
+
+	<btn_steam x="105" y="725" width="40" height="40" hint="S.T.A.L.K.E.R.: Shadow of Chernobyl on Steam" stretch="1">
+		<texture_e>ui\menu_links\steam_e</texture_e>
+		<texture_h>ui\menu_links\steam_h</texture_h>
+	</btn_steam>
+
 	<txt_press_any_key x="0" y="0" width="1024" height="768" light_anim="ui_press_any_key_warning" la_cyclic="1" la_texture="0" la_text="1" la_alpha="1">
 		<texture>ui\ui_load</texture>
 		<text align="c" font="letterica18" r="255" g="255" b="255" x="0" y="695" complex_mode="0">ui_load_press_any_key_to_start</text>

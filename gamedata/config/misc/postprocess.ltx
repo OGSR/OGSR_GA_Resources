@@ -147,10 +147,6 @@ cam_eff_name	= camera_effects\hit_front_right.anm
 [effector_fire_hit_7]:effector_fire_hit
 cam_eff_name	= camera_effects\hit_back_right.anm
 
-[effector_nightvision]
-pp_eff_name		= nightvision.ppe
-pp_eff_cyclic	= 0
-
 [snd_shock_effector]
 ;pp_eff_name		= duality_circle.ppe
 pp_eff_name		= snd_shock.ppe
@@ -208,26 +204,84 @@ cam_eff_name	= camera_effects\hit_front_right.anm
 [effector_monster_hit_7]:effector_monster_hit
 cam_eff_name	= camera_effects\hit_back_right.anm
 
-;Postprocesss
-[effector_nightvision_bad]
+
+[pnv_params_base]
+pnv_color = 0.2, 0.8, 0.6    ;Цвет
+
+r_pnv_alfa_vignete = 1.      ;Режим прозрачности виньетки, как он выглядит уже не помню
+r_pnv_gain_current = 2.      ;Какая то яркость (вроде хеми)
+r_pnv_gain_offset = 1.       ;Вроде дополнительная яркость ярких элементов
+r_pnv_glitch = 0.            ;Интенсивность помех (лажа на самом деле)
+r_pnv_mode = 2               ;Режим работы пнв 0-выкл, 1-вкл пнв, 2-вкл тепловизор, 3-вкл не цветной тепловизор
+r_pnv_noise = 0.05           ;Шум
+r_pnv_num_tubes = 4.         ;Режим виньетки 1-круг по центру, 2-2 круга по центру со смещением, 3 - пусто, 4-3 круга по центру со смещением
+r_pnv_position = 100.        ;Координаты по вертикали
+r_pnv_radius = 0.5           ;Радиус виньетки
+r_pnv_scanlines = 0.05       ;Горизонтальные полосы
+r_pnv_scintillation = 0.998  ;Интенсивность крупных точек шума
+r_pnv_size_vignet = 0.1      ;Вроде как сатурация виньетки
+r_pnv_washout_thresh = 0.1   ;0.02  ;Засвет источников света
+
+heat_fade_distance = 13, 20, 0, 0
+heat_vision_blurring = 1, 1, 1.1, 1.1
+heat_vision_steps = -0.5, 0, 0, 1
+
+; зеленый плохого качества
+[effector_nightvision_bad]:pnv_params_base
 pp_eff_name = nightvision.ppe
 pp_eff_cyclic = 1
 
-[effector_nightvision_good]
+pnv_color                                = 0.66, 1, 0.45
+r_pnv_mode                               = 1
+r_pnv_gain_current                       = 1
+r_pnv_noise                              = 0.3
+r_pnv_scanlines                          = 4
+r_pnv_num_tubes                          = 2; 1
+
+[effector_nightvision]:effector_nightvision_bad
+
+; желтая подсветка
+[effector_nightvision_good]:pnv_params_base
 pp_eff_name = nightvision_good.ppe
 pp_eff_cyclic = 1
 
-[effector_nightvision_grey]
+pnv_color                                = 2.28, 2.09, 0.86
+r_pnv_mode                               = 1
+r_pnv_gain_current                       = 1.1
+r_pnv_noise                              = 0.1
+r_pnv_scanlines                          = 1.2
+r_pnv_num_tubes                          = 2
+
+; синий с помехами
+[effector_nightvision_grey]:pnv_params_base
 pp_eff_name = nightvision_grey.ppe
 pp_eff_cyclic = 1
 
-[effector_nightvision_elite]
+pnv_color                                = 0.28, 0.28, 0.6
+r_pnv_mode                               = 1
+r_pnv_gain_current                       = 1.1
+r_pnv_noise                              = 0.2
+r_pnv_scanlines                          = 1.4
+r_pnv_num_tubes                          = 2
+
+; белый с помехами
+[effector_nightvision_elite]:pnv_params_base
 pp_eff_name = nightvision_elite.ppe
 pp_eff_cyclic = 1
 
-[effector_nightvision_scope]
+pnv_color                                = 0.96, 0.96, 0.96
+r_pnv_mode                               = 1
+r_pnv_gain_current                       = 1.2
+r_pnv_noise                              = 0.05
+r_pnv_scanlines                          = 1
+r_pnv_num_tubes                          = 4
+
+[effector_nightvision_thermal]:pnv_params_base
+
+[effector_nightvision_scope]:effector_nightvision_bad
 pp_eff_name = nightvision_scope.ppe
 pp_eff_cyclic = 1
+
 
 [none]
 ppe_file		= snd_shock.ppe

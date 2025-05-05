@@ -53,16 +53,6 @@ function generic_object_binder:net_spawn(sobject)
 	if not self.object:alive() then
 		if rx_ai then rx_ai.corpse_net_spawn(self.object, self.loaded) end
 
-		--' Наносим небольшой импульс вперед.
-		local h = hit()
-		h.draftsman = self.object
-		h.type = hit.fire_wound
-		h.direction = db.actor:position():sub(self.object:position())
-		h:bone( get_string( self.object:section(), "bone_torso", "bip01_spine" ) )
-		h.power = 0.01
-		h.impulse = 1
-		self.object:hit(h)	
-
 		local s_obj = alife():object(self.object:id())
 		if s_obj.offline_dead == 0 then
 			--log3("--[%s] Added trup to delete: [%s]", script_name(), s_obj:name())

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <string_table>
 	<string id="cant_walk">
-		<text>Take a rest or get energy drink</text>
+		<text>Rest or drink an energy drink</text>
 	</string>
 	<string id="cant_walk_weight">
-		<text>You can't take it all, drop something...</text>
+		<text>Can't take it all, drop something...</text>
 	</string>
 	<string id="dar_poltergeist_hold_the_door">
-		<text>Someone is holding the door.</text>
+		<text>Something is holding the door.</text>
 	</string>
 	<string id="Global Map">
 		<text>Global map</text>
 	</string>
 	<string id="gun_jammed">
-		<text>The weapon has jammed.You need to reload.</text>
+		<text>Weapon jammed, reload to clear.</text>
 	</string>
 	<string id="inventory_box_use">
 		<text>Search the box ($$ACTION_USE$$)</text>
@@ -74,13 +74,13 @@
 		<text>Use turret ($$ACTION_USE$$), \nAssemble turret (Shift+$$ACTION_USE$$)</text>
 	</string>
 	<string id="pkm_mounting">
-		<text>Turret mounting...</text>
+		<text>Mounting turret...</text>
 	</string>
 	<string id="pkm_dismounting">
-		<text>Turret disassembling..</text>
+		<text>Disassembling turret..</text>
 	</string>
 	<string id="pkm_case_use">
-		<text>Assemble turret</text>
+		<text>Mount turret</text>
 	</string>
 	<string id="tower_box_use">
 		<text>Unknown device</text>
@@ -95,7 +95,7 @@
 		<text>Drink moonshine from Zaharych</text>
 	</string>
 	<string id="moonshine_apparat_use_empty">
-		<text>Hands off! Device is charging yet.</text>
+		<text>Hands off! The device is charging.</text>
 	</string>
 	<string id="city_tower_box_use">
 		<text>Examine stash</text>
@@ -110,7 +110,7 @@
 		<text>Position header</text>
 	</string>
 	<string id="add_new_lc_string">
-		<text>Add new level changer</text>
+		<text>New route discovered</text>
 	</string>
 	<string id="add_new_string">
 		<text>Add</text>
@@ -164,19 +164,19 @@
 		<text>Yes, sleep for a while.</text>
 	</string>
 	<string id="cheb_snort_string">
-		<text>Hr-r-r-r...</text>
+		<text>(Snoring)</text>
 	</string>
 	<string id="cheb_wake_up_you_bastard_string">
-		<text>Wake up.</text>
+		<text>Wake up</text>
 	</string>
 	<string id="cheb_lets_take_a_look_string">
 		<text>Need to take a look.</text>
 	</string>
 	<string id="cheb_stash_found_1_string">
-		<text>There is some loot. I add to your PDA a spot</text>
+		<text>There is some loot. I added the spot to your PDA</text>
 	</string>
 	<string id="cheb_stash_found_2_string">
-		<text>where valuable artifact is hid. One stalker found it, locked</text>
+		<text>with a valuable artifact. A stalker found it, locked</text>
 	</string>
 	<string id="cheb_stash_found_3_string">
 		<text>it in container and died later. Poor guy...</text>
@@ -275,7 +275,7 @@
 		<text>Stop</text>
 	</string>
 	<string id="message_box_teleport_loc_del_string">
-		<text>Delete level changer?</text>
+		<text>Delete route?</text>
 	</string>
 	<string id="tower_box_1_string">
 		<text>Break with crowbar</text>
@@ -305,7 +305,7 @@
 		<text>Buy car</text>
 	</string>
 	<string id="gps_name_string">
-		<text>Type beacon name</text>
+		<text>Input beacon name</text>
 	</string>
 	<string id="gps_set_beacon_string">
 		<text>Place beacon</text>
@@ -317,19 +317,19 @@
 		<text>Choose</text>
 	</string>
 	<string id="handradio_string">
-		<text>Handradio</text>
+		<text>Hand radio</text>
 	</string>
 	<string id="handradio_actions_string">
-		<text>Your actions:</text>
+		<text>Actions:</text>
 	</string>
 	<string id="handradio_public_string">
-		<text>Listen public channel</text>
+		<text>Listen to public channel</text>
 	</string>
 	<string id="handradio_ask_buddy_string">
 		<text>Call companion</text>
 	</string>
 	<string id="handradio_stay_buddy_string">
-		<text>Order companion to stay here</text>
+		<text>Order companion to hold position</text>
 	</string>
 	<string id="handradio_hide_buddy_string">
 		<text>Order companion to hide</text>
@@ -362,97 +362,97 @@
 		<text>What part of what mutant scientists can make some medicines\n most popular of which is antirad?</text>
 	</string>
 	<string id="minigames_know_questino_2_string">
-		<text>Which anomaly can create "Moonlight" artifact?</text>
+		<text>Which anomaly can create a "Moonlight" artifact?</text>
 	</string>
 	<string id="minigames_know_questino_3_string">
-		<text>Which anomaly can create "Spring" artifact?</text>
+		<text>Which anomaly can create a "Spring" artifact?</text>
 	</string>
 	<string id="minigames_know_questino_4_string">
-		<text>How many types of artifacts anomaly "Burnt Fuzz" can create?</text>
+		<text>How many types of artifacts can a "Burnt Fuzz" anomaly create?</text>
 	</string>
 	<string id="minigames_know_questino_5_string">
-		<text>Which artifact of listed below can create "Vortex" anomaly?\n"Slime", "Mica", "Stone Flower".</text>
+		<text>Which artifact can create a "Vortex" anomaly?\n"Slime", "Mica", or "Stone Flower?"</text>
 	</string>
 	<string id="minigames_know_questino_6_string">
-		<text>Name artifact that don't harm his host: \n"Gold Fish", "Kolobok", "Moonlight".</text>
+		<text>Name artifact that doesn't harm its host: \n"Gold Fish", "Kolobok", or "Moonlight."</text>
 	</string>
 	<string id="minigames_know_questino_7_string">
-		<text>Flesh is mutant: Bulldog, Boar, Calf, Pig?</text>
+		<text>A flesh is mutant: Bulldog, Boar, Calf, or Pig?</text>
 	</string>
 	<string id="minigames_know_questino_8_string">
-		<text>Psudodogs derived from: Dogs, Pigs, Rabbits, Wolves?</text>
+		<text>Psudodogs are derived from on of these: Dogs, Pigs, Rabbits, or Wolves?</text>
 	</string>
 	<string id="minigames_know_questino_9_string">
-		<text>Two stalkers arguing. One tell other that decimal logarithm of\n100000 is 5, other insists that it equal 4. Who's right?</text>
+		<text>Two stalkers are arguing. One tells the other that the decimal logarithm of\n100000 is 5, other insists that it equals 4. Who's right?</text>
 	</string>
 	<string id="minigames_know_questino_10_string">
-		<text>Which anomaly doesn't exist?: "Elevator", "Time Machine", "Rusty Hair", "Geyser".</text>
+		<text>Which anomaly doesn't exist?: "Elevator", "Time Machine", "Rusty Hair", or "Geyser?"</text>
 	</string>	
 	<string id="minigames_know_questino_11_string">
-		<text>Which artifact significantly gain power of its host?: "Soul", "Moonlight",\n"Kolobok", "Urchin".</text>
+		<text>Which artifact significantly increases the power of its host?: "Soul", "Moonlight",\n"Kolobok", or "Urchin".</text>
 	</string>
 	<string id="minigames_know_questino_12_string">
-		<text>Which anomaly can create artifacts that gain power to its host?</text>
+		<text>Which anomaly can create artifacts that give power to their hosts?</text>
 	</string>
 	<string id="minigames_know_questino_13_string">
 		<text>If one wears two artifacts, his rupture resistance gains by 10%.\nName these artifacts:\n1)Crystal and Crystal Thorn.\n2)Battery and Kolobok.\n3)Soul and Urchin.\n4)Gold Fish and Kolobok.</text>
 	</string>
 	<string id="minigames_know_questino_14_string">
-		<text>Which anomaly can create these artifacts?: Jellyfish, Stone Flower, Night Soul.</text>
+		<text>Which anomaly can create these artifacts?: Jellyfish, Stone Flower, and Night Soul.</text>
 	</string>
 	<string id="minigames_know_questino_15_string">
 		<text>"This is a most misterious faction in the Zone, many stalkers don't believe in its\nexistance at all". What's this?</text>
 	</string>
 	<string id="minigames_know_questino_16_string">
-		<text>Stalker - silent assasin, who killed "Last Day" faction leader according one legend.\n What was his name?</text>
+		<text>A silent assasin stalker who killed the "Last Day" faction leader according to legend.\n What was his name?</text>
 	</string>
 	<string id="minigames_know_questino_17_string">
-		<text>"He died and his loot was under the cross in common grave in Pripyat". Who is it?</text>
+		<text>He died and his loot was under a cross by a Pripyat street. Who was it?</text>
 	</string>
 	<string id="minigames_know_questino_18_string">
-		<text>Name modern modification of AK-74 assault rifle.</text>
+		<text>Name the modern modification of the AK-74 assault rifle.</text>
 	</string>
 	<string id="minigames_know_questino_19_string">
-		<text>Sniper rifle with bull-pup butt, popular in the Zone.</text>
+		<text>What's the most popular bullpup sniper rifle in the Zone?</text>
 	</string>
 	<string id="minigames_know_questino_20_string">
-		<text>Name rail for scope mounting for NATO weapon.</text>
+		<text>Name the standard scope attachment rail on NATO weapons.</text>
 	</string>
 	<string id="minigames_know_questino_21_string">
-		<text>What's "Dovetail"?:\n1) Part of grenade\n2) Women faction in zone\n3) Rail for scope mounting\n4) Rail for under-barrel grenade launcher</text>
+		<text>What's "Dovetail"?:\n1) A part of a grenade\n2) All-female faction in the Zone\n3) Rail for scope mounting\n4) Rail for underbarrel grenade launchers</text>
 	</string>
 	<string id="minigames_know_questino_22_string">
-		<text>Helicopter that fell in stone forest on Radar.</text>
+		<text>Helicopter that fell in the stone forest by the Radar.</text>
 	</string>
 	<string id="minigames_know_questino_23_string">
 		<text>Under-barrel grenade launcher for assault rifles using in Warsaw pact countries.</text>
 	</string>
 	<string id="minigames_know_questino_24_string">
-		<text>When was developed AK-74 assault rifle?</text>
+		<text>When was the AK-74 assault rifle developed?</text>
 	</string>
 	<string id="minigames_know_questino_25_string">
-		<text>It's using by US army forces, US police and many other military\nunits world wide. It's popular also in criminal world due to powerful\nammo and large cartridge. What's it?</text>
+		<text>It's used by US army forces, US police and many other military\nunits world wide. It's also popular in the criminal world due to its powerful\nammo and large cartridge. What is it?</text>
 	</string>
 	<string id="minigames_know_questino_26_string">
-		<text>Police purpose pistol of Ukraine production, which substituted\n PMm.Has better accuracy, handling, pistol's cartridge contains mor bullets.\nReliability is reduced. What is this weapon?</text>
+		<text>Police-purpose pistol of Ukrainian production, which replaced the\n PM. Has better accuracy, handling, and higher mag capacity,\nthough reliability is reduced. What is this weapon?</text>
 	</string>
 	<string id="minigames_know_questino_27_string">
-		<text>Name pistol with 13 bullets in cartridge:\nBrowning HPSA, Colt M1911, HK USP Compact, Beretta 92.</text>
+		<text>Name the pistol with 13 cartridges in a standard magazine:\nBrowning HPSA, Colt M1911, HK USP Compact, or Beretta 92.</text>
 	</string>
 	<string id="minigames_know_questino_28_string">
-		<text>Which faction claims that Zone must not be hid from humanity?</text>
+		<text>Which faction claims that Zone must not be hidden from humanity?</text>
 	</string>
 	<string id="minigames_know_questino_29_string">
 		<text>How many types of artifacts can anomaly "Buzz" can create?</text>
 	</string>
 	<string id="minigames_know_questino_30_string">
-		<text>Which anomaly can create "Mincer Meat" artifact?</text>
+		<text>Which anomaly can create a "Meat Chunk" artifact?</text>
 	</string>
 	<string id="minigames_game_katala_string">
-		<text>"Where the ball" game</text>
+		<text>"Where's the ball" game</text>
 	</string>
 	<string id="minigames_game_100_string">
-		<text>"Guess number" game</text>
+		<text>"Guess the number" game</text>
 	</string>
 	<string id="minigames_game_100_ok_string">
 		<text>Guess a number</text>

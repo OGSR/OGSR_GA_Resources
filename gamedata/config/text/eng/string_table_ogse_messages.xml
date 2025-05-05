@@ -6,31 +6,31 @@
   <text>Your belt can only hold one '%s'</text>
 </string>
 <string id="ui_inventory_art_burn_warning">
-  <text>Don't wear artifacts in your belt which add up to a combined fire protection greater than %4.2f%% - you may burn alive!</text>
+  <text>Don't wear artifacts which add up to a combined fire protection greater than %4.2f%% - you'll burn alive!</text>
 </string>
 <string id="ui_inventory_art_strike_warning">
-  <text>Don't wear artifacts in your belt which add up to a combined impact protection greater than %4.2f%% - you would die from internal organ hardening!</text>
+  <text>Don't wear artifacts which add up to a combined impact protection greater than %4.2f%% - you'll die from internal organ hardening!</text>
 </string>
 <string id="ui_inventory_art_shock_warning">
-  <text>Don't wear artifacts in your belt which add up to a combined electric protection greater than %4.2f%% - the static discharges from them will kill you!</text>
+  <text>Don't wear artifacts which add up to a combined electric protection greater than %4.2f%% - the static discharges from them will kill you!</text>
 </string>
 <string id="ui_inventory_art_wound_warning">
-  <text>Don't wear artifacts in your belt which add up to a combined rupture protection greater than %4.2f%% - the stress will tear your muscles apart!</text>
+  <text>Don't wear artifacts which add up to a combined rupture protection greater than %4.2f%% - the stress will tear your muscles apart!</text>
 </string>
 <string id="ui_inventory_art_radiation_warning">
-  <text>Don't wear artifacts in your belt which add up to a combined radiation protection greater than %4.2f%% - you'd be much more irradiated!</text>
+  <text>Don't wear artifacts which add up to a combined radiation protection greater than %4.2f%% - the artifacts will begin discharging radiation instead!</text>
 </string>
 <string id="ui_inventory_art_telepatic_warning">
-  <text>Don't wear artifacts in your belt which add up to a combined psychic protection greater than %4.2f%% - you could go insane!</text>
+  <text>Don't wear artifacts which add up to a combined psychic protection greater than %4.2f%% - you could go insane!</text>
 </string>
 <string id="ui_inventory_art_chemical_burn_warning">
-  <text>Don't wear artifacts in your belt which add up to a combined protection against chemical burns greater than %4.2f%% - you would die from irreversible changes in blood composition!</text>
+  <text>Don't wear artifacts which add up to a combined protection against chemical burns greater than %4.2f%% - you'll die from irreversible changes in blood composition!</text>
 </string>
 <string id="ui_inventory_art_explosion_warning">
-  <text>Don't wear artifacts in your belt which add up to a combined explosion protection greater than %4.2f%% - you would die from internal organ hardening</text>
+  <text>Don't wear artifacts which add up to a combined explosion protection greater than %4.2f%% - you'll from internal organ hardening</text>
 </string>
 <string id="ui_inventory_art_fire_wound_warning">
-  <text>Don't wear artifacts in your belt which add up to a combined firearms protection greater than %4.2f%% - you would die from internal organ hardening</text>
+  <text>Don't wear artifacts which add up to a combined firearms protection greater than %4.2f%% - you'll die from internal organ hardening</text>
 </string>
 <string id="msg_crash_1_text">
   <text>-----------------------------</text>
@@ -63,7 +63,7 @@
   <text>ATTENTION! FAILURE IN THE GAME! SEND A FULL LOG TO THE DEVELOPERS!!!</text>
 </string>
 <string id="bar_spawn_message_pattern_text">
-  <text>Attention, attention! From the %s comes %s! Everybody gets ready to fight! All soldiers take a position!</text>
+  <text>Attention, attention! From the %s comes %s! Everybody gets ready to fight! All soldiers - in position!</text>
 </string>	
 <string id="bar_spawn_message_monsters_pattern_text">
   <text>Attention, attention! In the %s we've discovered %s! Everybody in the area, help the Duty to destroy the mutants!</text>
@@ -315,7 +315,7 @@
   <text>One corpse more or less, who gives a shit?</text>
 </string>
 <string id="death_news_comments_2_text">
-  <text>Oh, Sidorovitch! Even though I did not kill him, you still owe me!</text>
+  <text>Oh, Sidorovich! Even though I did not kill him, you still owe me!</text>
 </string>
 <string id="death_news_comments_3_text">
   <text>Now what, Barkeep? ---- Okay, fine, I'll go search the corpse. The info is burned on a flash drive? I'll PM you when I find something.</text>
@@ -423,7 +423,7 @@
   <text>You died from the premature activation of the body-heat warmed artifact while taking it from your belt. Remember, artifacts can only be taken in your hands from the backpack!</text>
 </string>
 <string id="inventory_art_warning_pattern_text">
-  <text>Don't wear artifacts in your belt which add up to a combined %s protection exceeding %s - %s</text>
+  <text>Don't wear artifacts which add up to a combined %s protection exceeding %s - %s</text>
 </string>
 <string id="inventory_fire_protect_text">
   <text>fire</text>
@@ -660,100 +660,100 @@
   <text>There is no available\nslot for this add-on.</text>
 </string>
 <string id="ogse_autodoc_message_head_text">
-  <text>Individual Diagnostic-Treatment Complex.</text>
+  <text>Individual Diagnostic-Treatment Complex</text>
 </string>
 <string id="ogse_autodoc_start_check_text">
   <text>Starting. Verification...</text>
 </string>
 <string id="ogse_autodoc_ad_healing_msg_text">
-  <text>Low health! Medicinal preparation applied.</text>
+  <text>Injuries detected - painkiller administered</text>
 </string>
 <string id="ogse_autodoc_ad_stimulator_msg_text">
-  <text>Low stamina! Stimulant used.</text>
+  <text>Exhaustion detected - stimulant administered</text>
 </string>
 <string id="ogse_autodoc_is_not_on_belt_text">
-  <text>First, place the IDTC on the belt!</text>
+  <text>Place the IDTC on the belt</text>
 </string>	
 <string id="ogse_autodoc_is_disabled_text">
-  <text>IDTC disabled!</text>
+  <text>IDTC disabled</text>
 </string>
 <string id="ogse_autodoc_no_healing_charges_text">
-  <text>No therapeutic drug charges! Therapeutic subsystem disabled!</text>
+  <text>[!] Therapeutic subsystem empty</text>
 </string>
 <string id="ogse_autodoc_healing_on_charges_text">
-  <text>Therapeutic subsystem enabled. Charges - </text>
+  <text>Therapeutic subsystem enabled. Charges: </text>
 </string>
 <string id="ogse_autodoc_healing_off_text">
-  <text>Therapeutic subsystem disabled by the user. Charges - </text>
+  <text>Therapeutic subsystem disabled by user. Charges: </text>
 </string>	
 <string id="ogse_autodoc_no_stimpack_charges_text">
-  <text>No stimulant charges! Stimulating subsystem disabled!</text>
+  <text>[!] Stimulant subsystem empty</text>
 </string>
 <string id="ogse_autodoc_stimpack_on_charges_text">
-  <text>Stimulating subsystem enabled. Charges - </text>
+  <text>Stimulant subsystem enabled. Charges: </text>
 </string>
 <string id="ogse_autodoc_stimpack_off_text">
-  <text>Stimulating subsystem disabled by the user. Charges - </text>
+  <text>Stimulant subsystem disabled by user. Charges: </text>
 </string>
 <string id="ogse_autodoc_no_antirad_charges_text">
-  <text>No antirad charges! Anti-radiation subsystem disabled!</text>
+  <text>[!] Anti-radiation subsystem empty</text>
 </string>
 <string id="ogse_autodoc_antirad_on_charges_text">
-  <text>Anti-radiation subsystem enabled. Charges - </text>
+  <text>Anti-radiation subsystem enabled. Charges: </text>
 </string>
 <string id="ogse_autodoc_antirad_off_text">
-  <text>Anti-radiation subsystem disabled by the user. Charges - </text>
+  <text>Anti-radiation subsystem disabled by user. Charges: </text>
 </string>
 <string id="ogse_autodoc_health_charges_remaining_text">
-  <text>Remaining therapeutic drug charges - </text>
+  <text>Remaining painkiller charges: </text>
 </string>
 <string id="ogse_autodoc_health_empty_text">
-  <text>Device is out of therapeutic drug charges! Therapeutic subsystem disabled.</text>
+  <text>[!] Therapeutic subsystem empty</text>
 </string>	
 <string id="ogse_autodoc_stim_charges_remaining_text">
-  <text>Remaining stimulant charges - </text>
+  <text>Remaining stimulant charges: </text>
 </string>
 <string id="ogse_autodoc_stim_empty_text">
-  <text>Device is out of stimulant charges! Stimulant subsystem disabled.</text>
+  <text>[!] Stimulant subsystem empty</text>
 </string>
 <string id="ogse_autodoc_antirad_charges_remaining_text">
-  <text>Remaining antirad charges - </text>
+  <text>Remaining antirad charges: </text>
 </string>
 <string id="ogse_autodoc_antirad_empty_text">
-  <text>Device is out of antirad charges! Anti-radiation subsystem disabled.</text>
+  <text>[!] Anti-radiation subsystem empty</text>
 </string>
 <string id="ogse_autodoc_rad_long_exposure_1_text">
-  <text>Warning! Long stay in a heightened radiation field!</text>
+  <text>[!] Extended radiation exposure detected</text>
 </string>
 <string id="ogse_autodoc_rad_long_exposure_2_text">
-  <text>Anti-radiation drug used.</text>
+  <text>Anti-radiation drug administered</text>
 </string>
 <string id="ogse_autodoc_rad_long_exposure_3_text">
-  <text>Recieving high amount of radiation!</text>
+  <text>[!] High radiation dose detected</text>
 </string>
 <string id="ogse_autodoc_rad_long_exposure_4_text">
-  <text>Anti-radiation drug used.</text>
+  <text>Anti-radiation drug administered</text>
 </string>	
 <string id="ogse_autodoc_rad_warning_1_text">
-  <text>WARNING! Long stay in a heightened radiation field! No anti-radiation drug available!</text>
+  <text>[!] Extended radiation exposure detected, anti-radiation subsystem empty</text>
 </string>
 <string id="ogse_autodoc_rad_warning_2_text">
-  <text>DANGER! Recieving high amount of radiation! No anti-radiation drug available!</text>
+  <text>[!] High radiation dose detected, anti-radiation subsystem empty</text>
 </string>
 <string id="ogse_autodoc_health_sys_name_text">
   <text>Therapeutic</text>
 </string>
 <string id="ogse_autodoc_stim_sys_name_text">
-  <text>Stimulating</text>
+  <text>Stimulant</text>
 </string>
 <string id="ogse_autodoc_antirad_sys_name_text">
   <text>Anti-radiation</text>
 </string>
 <string id="ogse_autodoc_pattern_1_text">
-  <text>%s All device subsystems reloaded and enabled. Each %d charges</text>
+  <text>%s All device subsystems loaded and enabled. Each %d charges</text>
 </string>
 <string id="ogse_autodoc_pattern_2_text">
-  <text>%s %s subsystem reloaded and enabled. Charges: %d</text>
+  <text>%s %s subsystem loaded and enabled. Charges: %d</text>
 </string>
 <string id="ogse_car_no_fuel_text">
   <text>No fuel in inventory.</text>
@@ -789,13 +789,13 @@
   <text>HUMAN GUNNER</text>
 </string>
 <string id="ogse_car_automatic_text">
-  <text>AUTOMATIC.</text>
+  <text>AUTOMATIC</text>
 </string>
 <string id="ogse_car_broken_text">
   <text>DEFECTIVE</text>
 </string>	
 <string id="ogse_car_semiauto_text">
-  <text>SEMI-AUTO.</text>
+  <text>SEMI-AUTO</text>
 </string>
 <string id="ogse_car_manual_text">
   <text>MANUAL</text>
@@ -804,13 +804,13 @@
   <text>FRIEND/FOE: </text>
 </string>
 <string id="ogse_car_blocked_text">
-  <text>BLOCKED.</text>
+  <text>BLOCKED</text>
 </string>
 <string id="ogse_car_on_text">
-  <text>ON.</text>
+  <text>ON</text>
 </string>
 <string id="ogse_car_off_text">
-  <text>OFF.</text>
+  <text>OFF</text>
 </string>
 <string id="ogse_car_no_targ_text">
   <text>- NO TARGET -</text>
@@ -825,7 +825,7 @@
   <text>- TARGET NOT RECOGNIZED -</text>
 </string>
 <string id="ogse_car_stalkers_comm2desc_1_text">
-  <text>STALKER-LONER</text>
+  <text>LONER</text>
 </string>
 <string id="ogse_car_stalkers_comm2desc_2_text">
   <text>STALKER</text>
@@ -834,13 +834,13 @@
   <text>BANDIT</text>
 </string>
 <string id="ogse_car_stalkers_comm2desc_4_text">
-  <text>STALKER F. BROTHERHOOD</text>
+  <text>BROTHERHOOD</text>
 </string>
 <string id="ogse_car_stalkers_comm2desc_5_text">
-  <text>STALKER F. SEEKERS</text>
+  <text>SEEKER</text>
 </string>	
 <string id="ogse_car_stalkers_comm2desc_6_text">
-  <text>STALKER F. MONOLITH</text>
+  <text>MONOLITH</text>
 </string>
 <string id="ogse_car_stalkers_comm2desc_7_text">
   <text>MILITARY</text>
@@ -852,10 +852,10 @@
   <text>SCIENTIST</text>
 </string>
 <string id="ogse_car_stalkers_comm2desc_10_text">
-  <text>STALKER F. DUTY</text>
+  <text>DUTY</text>
 </string>
 <string id="ogse_car_stalkers_comm2desc_11_text">
-  <text>STALKER F. FREEDOM</text>
+  <text>FREEDOM</text>
 </string>	
 <string id="ogse_car_stalkers_comm2desc_12_text">
   <text>ZOMBIFIED STALKER</text>
@@ -867,7 +867,7 @@
   <text>TRADER</text>
 </string>	
 <string id="ogse_car_stalkers_comm2desc_15_text">
-  <text>STALKER F. CLEAR SKY</text>
+  <text>CLEAR SKY</text>
 </string>
 <string id="ogse_car_objects_sec2desc_1_text">
   <text>BOAR</text>
@@ -918,7 +918,7 @@
   <text>RAT</text>
 </string>
 <string id="ogse_car_objects_sec2desc_17_text">
-  <text>JERBOA</text>
+  <text>TUSHKANO</text>
 </string>
 <string id="ogse_car_objects_sec2desc_18_text">
   <text>HELICOPTER</text>
@@ -939,7 +939,7 @@
   <text>Cordon</text>
 </string>
 <string id="ogse_car_trade_desc_1_text">
-  <text>At the Cordon you can have a Goat. A GAZ-69, if you prefer. A bit old, but still going. You can have it for 9000 rubbles. Take it by the ATP garage. Money up front! That or you can take the Zapor near the penultimate house... granted it starts, hehehe!.. Hey but that one's FREE!</text>
+  <text>At the Cordon you can have a "Goat". A GAZ-69, if you prefer. A bit old, but still going. You can have it for 9000 rubbles. Take it by the ATP garage. Money up front! That or you can take the Zaporozhets near the second-to-last house... granted it starts, hehehe!.. But hey, that one's free!</text>
 </string>
 <string id="ogse_car_trade_name_2_text">
   <text>Moskvitch 412</text>
@@ -948,61 +948,61 @@
   <text>Garbage</text>
 </string>
 <string id="ogse_car_trade_desc_2_text">
-  <text>At the Garbage... Yeah... There's a M-412. It'll be abandoned by the parking lot. Meanwhile, perhaps, you could lend a hand there. You pay cash, as usual!</text>
+  <text>At the Garbage... Yeah... There's a M-412. It'll be left by the parking lot. Meanwhile, perhaps, you could lend a hand there. You pay cash, as usual!</text>
 </string>
 <string id="ogse_car_trade_name_3_text">
-  <text>UAZ</text>
+  <text>GAZ-69 jeep</text>
 </string>	
 <string id="ogse_car_trade_loc_3_text">
   <text>Garbage</text>
 </string>
 <string id="ogse_car_trade_desc_3_text">
-  <text>In the Garbage, I can hook you up with a UAZ. It will wait by the ruins, in front of the Duty checkpoint.</text>
+  <text>In the Garbage, I can hook you up with a UAZ. It'll be by the ruins in front of the Duty checkpoint.</text>
 </string>
 <string id="ogse_car_trade_name_4_text">
-  <text>UAZ</text>
+  <text>GAZ-69 jeep</text>
 </string>	
 <string id="ogse_car_trade_loc_4_text">
   <text>Agroprom</text>
 </string>
 <string id="ogse_car_trade_desc_4_text">
-  <text>I can have you a Goat. It'll be near the railway tunnel.</text>
+  <text>I can get you a GAZ-69 "Goat" jeep. It'll be near the railway tunnel.</text>
 </string>
 <string id="ogse_car_trade_name_5_text">
-  <text>Niva VAZ-2121</text>
+  <text>VAZ-2121 Laza Niva</text>
 </string>	
 <string id="ogse_car_trade_loc_5_text">
   <text>Agroprom</text>
 </string>
 <string id="ogse_car_trade_desc_5_text">
-  <text>There may still be a Niva. You'll find it... along the road after leaving the institute...</text>
+  <text>As far as I know, there's stil a Niva where it was before. You'll find it along the road after leaving the institute.</text>
 </string>
 <string id="ogse_car_trade_name_6_text">
-  <text>UAZ "Bread Loaf"</text>
+  <text>UAZ-452 "Bread Loaf" van</text>
 </string>	
 <string id="ogse_car_trade_loc_6_text">
   <text>Dark Valley</text>
 </string>
 <string id="ogse_car_trade_desc_6_text">
-  <text>In the Dark Valley there's a "Loaf" you could drive. For 15000. It will be at the gas station, across from Borov's base.</text>
+  <text>In the Dark Valley, there's a UAZ-452 "Loaf" van you could drive. For 15000. It will be at the gas station, across from Borov's base.</text>
 </string>
 <string id="ogse_car_trade_name_7_text">
-  <text>Niva VAZ-2121</text>
+  <text>VAZ-2121 Lada Niva</text>
 </string>	
 <string id="ogse_car_trade_loc_7_text">
   <text>Bar</text>
 </string>
 <string id="ogse_car_trade_desc_7_text">
-  <text>At the Bar... At the Bar there is a Niva. By the roadside, opposite to the tanker.</text>
+  <text>At the Bar... At the Bar there's a Niva. By the roadside, opposite the tanker.</text>
 </string>
 <string id="ogse_car_trade_name_8_text">
-  <text>VAZ-965 "Humpback"</text>
+  <text>VAZ-965 "Humpback" Zaporozhets</text>
 </string>	
 <string id="ogse_car_trade_loc_8_text">
   <text>Yantar</text>
 </string>
 <string id="ogse_car_trade_desc_8_text">
-  <text>At Yantar - the Humpback! Small and robust! All ready to go! Upon entering from the Valley, you can't miss it!</text>
+  <text>At Yantar: the Humpback! Small and robust! All ready to go! Upon entering from the Valley, you can't miss it!</text>
 </string>
 <string id="ogse_car_trade_name_9_text">
   <text>Buggy</text>
@@ -1020,16 +1020,16 @@
   <text>Army Warehouses</text>
 </string>
 <string id="ogse_car_trade_desc_10_text">
-  <text>If you don't want the buggy, I can still adapt the Moskvitch. In the bloodsucker's village... Hunt some while you're there! Hehe!</text>
+  <text>If you don't want the buggy, I can get the Moskvitch ready for you. In the bloodsucker's village... hunt some while you're there, hehe!</text>
 </string>
 <string id="ogse_car_trade_name_11_text">
-  <text>UAZ-469</text>
+  <text>UAZ-469 jeep</text>
 </string>	
 <string id="ogse_car_trade_loc_11_text">
   <text>Radar</text>
 </string>
 <string id="ogse_car_trade_desc_11_text">
-  <text>At the Radar? There was a little something there...  Who knows what's on the tray, but the car's yours. It'll drive you straight through the "Monolith" checkpoint. Full service, so to speak.</text>
+  <text>At the Radar? There was a little something there...  Who knows what's in it, but the jeep's yours. It'll drive you straight through the Monolith checkpoint. Full service, so to speak.</text>
 </string>
 <string id="ogse_dbg_tel_1_text">
   <text>Error on X axis</text>
@@ -1044,10 +1044,10 @@
   <text>ATTENTION! GAME'S A-LIFE CRASHED!!! SEND A FULL LOG TO THE DEV TEAM!!!</text>
 </string>
 <string id="dinhud_gatling_text">
-  <text>You have acquired the Gatling gun M134, however, it should be obvious to anyone that without an exoskeleton one should not even try to fire it...</text>
+  <text>You have acquired an M134 Minigun, however, it should be obvious to anyone that without an exoskeleton one should not even try to fire it...</text>
 </string>
 <string id="dinhud_gasmask_text">
-  <text>You attempted to pull on the second gasmask over the one you already wore, and even -somehow- managed to do it, but you can't breath through both masks simultaneously - you had difficulties pulling it off...</text>
+  <text>You attempted to pull on the second gasmask over the one you already wore, and even -somehow- managed to do it, but you can't breathe through both masks simultaneously - you had difficulties pulling it off...</text>
 </string>
 <string id="ogse_healing_first_intoxication_warning_text">
   <text>Medkits' effectiveness decreased!</text>
@@ -1059,7 +1059,7 @@
   <text>Medkits' effectiveness decreased to a critical level!</text>
 </string>
 <string id="ogse_healing_forth_intoxication_warning_text">
-  <text>Intoxication exceeds the critical level!</text>
+  <text>Intoxication exceeds critical level!</text>
 </string>
 <string id="ogse_healing_text_using_voda_text">
   <text>Medkits' efficiency fully restored.</text>
@@ -1071,10 +1071,10 @@
   <text>You can't use a medkit with "Autodoctor" activated, because of possible overdose.</text>
 </string>
 <string id="ogse_healing_text_overdose_error_text">
-  <text>You can't re-use that drug because of possible overdose!</text>
+  <text>You can't reuse that drug because of possible overdose!</text>
 </string>
 <string id="ogse_healing_text_yod_error_text">
-  <text>The drug is unefficient for active ailments! It is required that you take it in advance!</text>
+  <text>The drug is ineffective for active ailments! It must be taken as a preventative measure.</text>
 </string>	
 <string id="ogse_repair_short_1_text">
   <text>Anomalous</text>
@@ -1104,13 +1104,13 @@
   <text>Military</text>
 </string>	
 <string id="ogse_repair_short_10_text">
-  <text>Mlt.</text>
+  <text>Mil.</text>
 </string>	
 <string id="ogse_repair_short_11_text">
   <text>Military</text>
 </string>	
 <string id="ogse_repair_short_12_text">
-  <text>Mlt.</text>
+  <text>Mil.</text>
 </string>
 <string id="ogse_repair_short_13_text">
   <text>Armor kit</text>
@@ -1131,10 +1131,10 @@
   <text> (worn)</text>
 </string>
 <string id="ogse_sleep_mgr_warn_1_text">
-  <text>You can't sleep during a blow-out</text>
+  <text>You can't sleep during an emission</text>
 </string>
 <string id="ogse_sleep_mgr_warn_2_text">
-  <text>You can't sleep during a psy-emission</text>
+  <text>You can't sleep during a psi-emission</text>
 </string>
 <string id="ogse_sleep_mgr_warn_3_text">
   <text>You woke up with an acute feeling of danger</text>
@@ -1155,7 +1155,7 @@
   <text>This place is too dangerous to sleep</text>
 </string>
 <string id="ogse_sleep_mgr_warn_9_text">
-  <text>You can't sleep because of stimulants' actions</text>
+  <text>You can't sleep due to stimulants</text>
 </string>
 <string id="ogse_sleep_mgr_warn_10_text">
   <text>You can't sleep - \nyou will go mad</text>
@@ -1164,10 +1164,10 @@
   <text>You can't sleep while you are zombified</text>
 </string>
 <string id="ogse_tp_art_1_text">
-  <text>Hm, something doesn't allow you to leave...</text>
+  <text>Something doesn't allow you to leave...</text>
 </string>
 <string id="ogse_tp_art_2_text">
-  <text>It is possible that the artifacts you found can't come out...</text>
+  <text>It is possible that the artifact you found can't leave...</text>
 </string>
 <string id="ogse_tp_art_3_text">
   <text>You should leave that artifact and go talk about this problem with Sakharov...</text>
@@ -1182,7 +1182,7 @@
   <text>Marked One, the AAA didn't scan the artifact correctly - pick it up and try again!</text>
 </string>
 <string id="ogse_tp_art_7_text">
-  <text>Marked One, you alive? The AAA tracker showed that you were moving at a tremendous speed. Man I hope that it didn't really happen to you. Come now, I'm looking forward to it!</text>
+  <text>Marked One, are you alive? The AAA tracker showed that you were moving at a tremendous speed. I hope that's not what happened! Come back now, I'm looking forward to it!</text>
 </string>
 <string id="ogse_yan_rand_part_1_text">
   <text>Marked One, hello! Here is a list of the necessary components for our research, as you requested: \n</text>
@@ -1221,7 +1221,7 @@
   <text>Waking up, you find a note in your hand, and an unusual artifact in your backpack.</text>
 </string>
 <string id="task_functor_esc_show_trader_kvests_1_text">
-  <text>Find the guitar in the beginners' village</text>
+  <text>Find the guitar in the rookie village</text>
 </string>
 <string id="task_functor_esc_show_trader_kvests_2_text">
   <text>Military near the anomaly</text>
@@ -1266,7 +1266,7 @@
   <text>Impossible to record the conversation.</text>
 </string>
 <string id="tips_yan_sold">
-  <text>He is doing something with the generator! Stop him!</text>
+  <text>He's doing something with the generator! Stop him!</text>
 </string>
 <string id="tips_actor_hit_soldier">
   <text>It seems that the generator is running!</text>
@@ -1287,34 +1287,34 @@
   <text>Yeah, that's Swede's PDA, good job! But where he is now, I wonder... Marked One, try to find my friend, he's probably in the Dark valley. Search his PDA, you might find something to help.</text>
 </string>
 <string id="on_hit_sv_enemy_text">
-  <text>This freak is trying to save our prisoners! Undermine them, quick!</text>
+  <text>This freak is trying to let our prisoners out! Stop him, quick!</text>
 </string>	
 <string id="spawn_dolg_for_sdelka_text">
-  <text>Meet with a detachment of the Duty</text>
+  <text>Meet with the Duty detachment</text>
 </string>
 <string id="meet_with_dolg_otryad_text">
-  <text>Take a point for observation.</text>
+  <text>Get to an observation point</text>
 </string>
 <string id="talking_dolg_with_killers_1_text">
-  <text>Well, without further ado, let us go already.</text>
+  <text>Well, without further ado, let's go.</text>
 </string>	
 <string id="talking_dolg_with_killers_2_text">
   <text>Money up front. We are businessmen, nothing personal. First the money, then the prisoner.</text>
 </string>
 <string id="talking_dolg_with_killers_3_text">
-  <text>It seems you overshot with the payment.</text>
+  <text>It seems you undershot with the payment.</text>
 </string>
 <string id="talking_dolg_with_killers_4_text">
-  <text>What you think isn't our problem. If you want the prisoner for free, all you'll receive is a plastic bag with pieces of him inside.</text>
+  <text>What you think isn't our problem. If you want the prisoner for free, you can have him... chopped up in a plastic bag.</text>
 </string>
 <string id="talking_dolg_with_killers_5_text">
   <text>Are you that stupid, you forgot who to contact? Let go of us immediately and get lost!</text>
 </string>
 <string id="talking_dolg_with_killers_6_text">
-  <text>Clearly, talking business with you is bound to fail. Don't worry though, the following will be smarter. Team, shoot to kill!</text>
+  <text>Clearly, talking business with you is bound to fail. Don't worry though, the next guy will be smarter. Team, shoot to kill!</text>
 </string>
 <string id="thanks_of_dolg_on_sdelka_text">
-  <text>Thanks for covering us, Stalker. Without you we'd be six feet under by now.</text>
+  <text>Thanks for covering us, Stalker. Without you, we'd be six feet under by now.</text>
 </string>
 <string id="prisoner_map_mark_text">
   <text>Prisoner</text>
@@ -1401,7 +1401,7 @@
   <text>Upgraded computer for a "Ward"-class APC</text>
 </string>
 <string id="btr_upgrade_full_desc">
-  <text>This is a robotized fire module, eliminating the need to bring along an onboard shooter. Performs an autonomous control over the selection of targets and fire.</text>
+  <text>This is a robotic fire module, eliminating the need to bring along an onboard shooter. Performs autonomous control over the acquisition of targets and fire.</text>
 </string>	
 <string id="ds_get_btr_for_freedom_computer_find_quest_desc">
   <text>The APC's onboard computer is defective and must be replaced. Screw says that there are regular APC patrols near the military base in Agroprom. There certainly should be a spare part there. I'll have to search for it in the buildings near the garages. Also I remember that somewhere at Agroprom was ensign Zadov, haggling munitions. It is worth asking him, maybe he can get me a module without a fight.</text>
@@ -1428,10 +1428,10 @@
   <text>I know the location of the C-Consciousness lab, but to go there alone would be suicide. It is certainly protected by the elite of the "Monolith", with the best equipment and weapons. I must speak with the head of every group, perhaps I'll be able to form a strike force that can distract the main protection force long enough for me to penetrate the complex.</text>
 </string>	
 <string id="final_assemble_force_dolg_text">
-  <text>Request the support of the Duty</text>
+  <text>Request the support of Duty</text>
 </string>
 <string id="final_assemble_force_freedom_text">
-  <text>Request the support of the Freedom</text>
+  <text>Request the support of Freedom</text>
 </string>
 <string id="final_assemble_force_military_text">
   <text>Request the support of the Army</text>
@@ -1440,22 +1440,22 @@
   <text>%c[100,50,250,50]Wow, look who I see back online! Strelok, is that you? Alive? That can't be! Come see me if you're around. Catch the mark on your map.%c[default]</text>
 </string>	
 <string id="generators_timer_str">
-  <text>Time before the blow</text>
+  <text>Time until detonation</text>
 </string>		
 <string id="thunderbird_2h">
-  <text>Two hours before the emission.</text>
+  <text>Two hours until emission.</text>
 </string>
 <string id="thunderbird_1h">
-  <text>One hour before the emission.</text>
+  <text>One hour until emission.</text>
 </string>
 <string id="thunderbird_halfh">
-  <text>Less than half an hour before the emission!</text>
+  <text>Less than half an hour until emission!</text>
 </string>	
 <string id="thunderbird_now">
-  <text>The emission begins!</text>
+  <text>The emission has started!</text>
 </string>
 <string id="thunderbird_until_next_emission">
-  <text>Until the next emission.: </text>
+  <text>Time until next emission.: </text>
 </string>
 <string id="thunderbird_until_next_emission_hours">
   <text> hrs.</text>

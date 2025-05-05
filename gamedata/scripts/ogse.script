@@ -735,7 +735,9 @@ local selector = {
 		if sKolya then
 			alife():release(sKolya, true)
 		end
-		quest_deadcity.ps_snow:stop()
+		if quest_deadcity.ps_snow then
+			quest_deadcity.ps_snow:stop()
+		end
 		db.actor:give_info_portion("cheb_finish_his_magic")
 	end,
 
@@ -977,9 +979,6 @@ function spawn_item_in_inv(section, npc, num)
 	local game_obj = level.object_by_id(pid)
 	for i = 1, num do
 		sobj = alife():create(section, pos, lvi, gvi, pid)
-		if not is_actor and game_obj then
-			level.client_spawn_manager():add(sobj.id, -1, fix_spawn_item_in_inv, game_obj) --Фикс пропадания доспавненного предмета при сейв/лоаде
-		end
 	end
 	if num == 1 then
 		return alife():object(sobj.id)
@@ -1003,16 +1002,9 @@ function spawn_ammo_in_inv(section, num, npc)
 	local game_obj = level.object_by_id(pid)
 	local num_in_box = get_u32(section, "box_size")
 	while num > num_in_box or num > 0 do
-		local sitem = alife():create_ammo(section, pos, lvi, gvi, pid, num < num_in_box and num or num_in_box)
-		if not is_actor and game_obj then
-			level.client_spawn_manager():add(sitem.id, -1, fix_spawn_item_in_inv, game_obj) --Фикс пропадания доспавненного предмета при сейв/лоаде
-		end
+		alife():create_ammo(section, pos, lvi, gvi, pid, num < num_in_box and num or num_in_box)
 		num = num - num_in_box
 	end
-end
-
-function fix_spawn_item_in_inv(obj, item_id, item_obj) --Фикс пропадания доспавненного предмета при сейв/лоаде
-    obj:transfer_item(item_obj, obj)
 end
 -----------------------------------------------------------------------------------------------------------
 
@@ -1547,7 +1539,9 @@ end
 function on_spawn()
   if not is_developer_mode() then
     for _, k in ipairs({
-      --[["g_god", "g_unlimitedammo", "g_zones_dbg", "g_vertex_dbg",]] "g_crosshair_dbg", "g_ammunition_on_belt"
+      --[["g_god", "g_unlimitedammo", "g_zones_dbg", "g_vertex_dbg",]] "g_crosshair_dbg", "g_ammunition_on_belt",
+      "r2_disable_dynamic", "r2_disable_light", "r2_disable_particles", "r2_disable_static_lod", "r2_disable_static_normal",
+      "r2_disable_static_progressive", "r2_disable_static_tree", "r2_disable_static_tree_progressive"
     }) do
       cmd( k, "off" )
     end
@@ -1565,6 +1559,9 @@ function on_spawn()
       --"hud_draw",
       --[["hud_adjust_mode", "show_wnd_rect", "show_wnd_rect_all",]]
       --[["demo_record",]] "jump_to_level", "time_factor", "set_weather"
+      , "fov", "hud_fov", --Simp: настройки фова в консоли отключены, потому что тут их нужно настраивать через меню, т.к. они сохраняются в сейве.
+      "r2_disable_dynamic", "r2_disable_light", "r2_disable_particles", "r2_disable_static_lod", "r2_disable_static_normal",
+      "r2_disable_static_progressive", "r2_disable_static_tree", "r2_disable_static_tree_progressive"
     }) do
       get_console():disable_command( k )
     end
