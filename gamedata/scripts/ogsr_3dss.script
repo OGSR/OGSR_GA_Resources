@@ -1,0 +1,205 @@
+-----------------------------
+--|Управление 3DSS
+--|xrSimpodin © 2025
+-----------------------------
+
+--TODO: Сделать чтобы динамический зум работал только если в конфиге прицела/оружия scope_dynamic_zoom = true. Но в GA он у всех оружий разрешен, так что пока не добавлял проверки.
+
+function attach(sm)
+	sm:subscribe({ signal = "on_update", fun = this.weapon_update })
+	sm:subscribe({ signal = "on_wheel", fun = this.on_wheel })
+	sm:subscribe({ signal = "on_key_down", fun = this.on_key_down })
+end
+
+local IT_NONE, IT_NV, IT_THERMAL, IT_THERMAL_COLOR = 0, 1, 2, 3
+local scope_min_zoom = 1.5
+local scope_zoom_step = 0.20
+local snd_zoom = xr_sound.get_safe_sound_object([[weapons\zoom_change]])
+local snd_press = xr_sound.get_safe_sound_object([[device\pda\pda_btn_press]])
+
+local last_weapon_id = false
+local last_weapon_zoom = scope_min_zoom
+local last_weapon_zoom_max = scope_min_zoom
+local last_scope_name = ""
+
+local function reset_shader_zoom_params()
+	--обязательно обнуляем когда прицел неактивен, w используется в двиге для определения, активен ли 3д прицел.
+	shader_set_custom_param("s3ds_param_2", 0, 0, 0, 0)
+	last_weapon_id = false
+end
+
+local function scope_control(wpn, scope_name, scope_status)
+	if scope_status < 1 and not scope_name then
+		reset_shader_zoom_params()
+		return
+	end
+
+	local enabled = get_bool(scope_name, "3dss_enabled", false)
+	if not enabled then
+		reset_shader_zoom_params()
+		return
+	end
+
+	last_scope_name = scope_name
+
+	if last_weapon_id and last_weapon_id == wpn:id() then return end
+	last_weapon_id = wpn:id()
+
+	local reticle_size = get_float(scope_name, "3d_reticle_size", 4)
+	local eye_relief = get_float(scope_name, "3d_eye_relief", 4)
+	local exit_pupil = get_float(scope_name, "3d_exit_pupil", 0.3)
+	local ffp = get_float(scope_name, "3d_ffp", 0)
+
+	local min_zoom = get_float(scope_name, "3d_min_zoom", 0)
+
+	local zoom_factor = get_float(scope_name, "3d_zoom_factor", 0)
+	if zoom_factor == 0 then
+		local zf = get_float(scope_name, "scope_zoom_factor", 0)
+		--zf = math.min(zf, 17)
+
+		zoom_factor = zf / (zf < 10 and 3 or (zf < 16 and 4.5 or 5.5))
+		--zoom_factor = zf / (zf < 10 and 3 or (zf < 16 and 4.5 or 6))
+	end
+
+	last_weapon_zoom_max = zoom_factor
+	last_weapon_zoom = math.clamp(last_weapon_zoom, scope_min_zoom, zoom_factor)
+
+	local reflection_hue = get_float(scope_name, "3d_reflection_hue", 0)
+	local image_type = get_float(scope_name, "3d_image_type", 0)
+	local reticle_type = get_float(scope_name, "3d_reticle_type", 0)
+	local dirt_intensity = get_float(scope_name, "3d_dirt_intensity", 0)
+	local chroma_power = get_float(scope_name, "3d_chroma_power", 0.02)
+
+	local lens_color = get_vector(scope_name, "3d_lens_color", vector():set(1, 1, 1))
+
+	local mark_number = get_float(scope_name, "mark_number", 0)
+
+	local function pack_binary_settings()
+		local NVG_BLUR = get_bool(scope_name, "3d_nvg_blur", false)
+		local PARALLAX_SHADOW = get_bool(scope_name, "3d_parallax_shadow", true)
+		local SEE_THROUGH = get_bool(scope_name, "3d_see_through", true)
+		local THERMAL_PIXELATION = get_bool(scope_name, "3d_thermal_pixelation", true)
+		local CHROMATISM = get_bool(scope_name, "3d_chromatism", true)
+
+		return (NVG_BLUR and 1 or 0)
+			+ (PARALLAX_SHADOW and 1 or 0) * 2
+			+ (SEE_THROUGH and 1 or 0) * 4
+			+ (THERMAL_PIXELATION and 1 or 0) * 8
+			+ (CHROMATISM and 1 or 0) * 16
+	end
+
+	shader_set_custom_param("s3ds_param_1", reticle_size, eye_relief, exit_pupil, ffp)
+	shader_set_custom_param("s3ds_param_2", reflection_hue, last_weapon_zoom_max, min_zoom, last_weapon_zoom)
+	shader_set_custom_param("s3ds_param_3", image_type, reticle_type, dirt_intensity, chroma_power)
+	shader_set_custom_param("s3ds_param_4", lens_color.x, lens_color.y, lens_color.z, pack_binary_settings())
+
+	shader_set_custom_param("mark_number", mark_number, 0, 0, 0)
+	log3("--[%s] called scope_control for [%s], zoom: [%s]", script_name(), scope_name, zoom_factor)
+end
+
+function weapon_update()
+	if
+		not get_console():get_bool("g_3d_scopes")
+		or not db.actor:alive()
+	then
+		reset_shader_zoom_params()
+		return
+	end
+
+	local wpn = db.actor:active_item()
+	if not wpn then
+		reset_shader_zoom_params()
+		return
+	end
+
+	if wpn:get_gl_mode() then
+		reset_shader_zoom_params()
+		return
+	end
+
+	local section = wpn:section()
+
+	--можно отключить 3д прицел в конфиге конкретного оружия
+	local enabled = get_bool(section, "3dss_enabled", true)
+	if not enabled then
+		reset_shader_zoom_params()
+		return
+	end
+
+	local scope_status = get_u32(section, "scope_status", 0)
+	local scope_name = scope_status > 1 and get_string(section, "scope_name") or section
+	local scope_texture = get_string(scope_name, "scope_texture")
+
+	if scope_texture then
+		scope_control(wpn, scope_name, scope_status)
+	else
+		reset_shader_zoom_params()
+	end
+end
+
+function on_wheel(vol)
+	if
+		vol == 0
+		or not get_console():get_bool("g_3d_scopes")
+		or level.main_input_receiver()
+		or not db.actor:alive()
+	then
+		return
+	end
+
+	local act_it = db.actor:active_item()
+	if
+		act_it
+		and db.actor:zoom_mode()
+		and last_weapon_id == act_it:id()
+		and not act_it:get_gl_mode()
+		and ogse_wpn_utils.is_aiming_complete(act_it)
+	then
+		local new_zoom = last_weapon_zoom + ((vol > 0 and 1 or -1) * scope_zoom_step)
+		if new_zoom >= scope_min_zoom and new_zoom <= last_weapon_zoom_max then
+			last_weapon_zoom = new_zoom
+
+			local s3ds_param_2 = shader_get_custom_param_vector("s3ds_param_2")
+			s3ds_param_2.w = last_weapon_zoom
+			shader_set_custom_param_vector("s3ds_param_2", s3ds_param_2)
+
+			snd_zoom:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 0.025)
+			--log3("~~[%s] new zoom for last weapon: [%s]", script_name(), new_zoom)
+		end
+	end
+end
+
+function on_key_down(key, bind) --Действие при нажатии клавиши ПНВ
+	if
+		bind ~= key_bindings.kNIGHT_VISION
+		or not get_console():get_bool("g_3d_scopes")
+		or level.main_input_receiver()
+		or not db.actor:alive()
+		--or (ogse_night_vision.is_nv_working() and db.actor:item_in_slot(11) and db.actor:item_in_slot(11):section() ~= "device_termovizor")
+	then
+		return
+	end
+
+	local act_it = db.actor:active_item()
+	if
+		act_it
+		and db.actor:zoom_mode()
+		and last_weapon_id == act_it:id()
+		and not act_it:get_gl_mode()
+		and ogse_wpn_utils.is_aiming_complete(act_it)
+		and (last_scope_name:find("night") or last_scope_name:find("detector") or last_scope_name:find("gauss"))
+	then
+		local s3ds_param_3 = shader_get_custom_param_vector("s3ds_param_3")
+		if s3ds_param_3.x == IT_NONE then
+			s3ds_param_3.x = last_scope_name:find("susat") and IT_THERMAL or (last_scope_name:find("gauss") and IT_THERMAL_COLOR or IT_NV)
+		else
+			s3ds_param_3.x = IT_NONE
+		end
+		shader_set_custom_param_vector("s3ds_param_3", s3ds_param_3)
+
+		snd_press:play_no_feedback(db.actor, sound_object.s2d, 0, vector(), 0.2)
+
+		log3("--[%s] set s3ds_param_3: [%s,%s,%s,%s]", script_name(), s3ds_param_3.x, s3ds_param_3.y, s3ds_param_3.z, s3ds_param_3.w)
+		return true --это важно, далее не идем обрабатывать это нажатие в скрипт пнв.
+	end
+end
