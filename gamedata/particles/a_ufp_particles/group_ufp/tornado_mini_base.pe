@@ -1,0 +1,187 @@
+[_effect]
+version                          = 1
+max_particles                    = 512
+flags                            = 20481
+action_count                     = 13
+ 
+[sprite]
+shader                           = ufp_shaders\ufp_blend
+texture                          = pfx\pfx_smoke_b
+ 
+[timelimit]
+value                            = 25.000000
+ 
+[action_0000]
+action_type                      = 29
+version                          = 1
+action_name                      = vortex
+flags                            = 1
+flt_0000                         = 3.000000
+flt_0001                         = 65.000000
+flt_0002                         = 10.000000
+vec_0000                         = 0.000000, 1.000000, 0.000000
+vec_0001                         = 0.000000, 1.000000, 0.000000
+bool_0000                        = true
+ 
+[action_0001]
+action_type                      = 29
+version                          = 1
+action_name                      = vortex_00
+flags                            = 1
+flt_0000                         = 3.000000
+flt_0001                         = 55.000000
+flt_0002                         = 10.000000
+vec_0000                         = 0.000000, 8.000000, 0.000000
+vec_0001                         = 0.000000, 8.000000, 0.000000
+bool_0000                        = true
+ 
+[action_0002]
+action_type                      = 29
+version                          = 1
+action_name                      = vortex_01
+flags                            = 1
+flt_0000                         = 3.000000
+flt_0001                         = 40.000000
+flt_0002                         = 10.000000
+vec_0000                         = 0.000000, 15.000000, 0.000000
+vec_0001                         = 0.000000, 15.000000, 0.000000
+bool_0000                        = true
+ 
+[action_0003]
+action_type                      = 29
+version                          = 1
+action_name                      = vortex_02
+flags                            = 1
+flt_0000                         = 3.000000
+flt_0001                         = 30.000000
+flt_0002                         = 10.000000
+vec_0000                         = 0.000000, 20.000000, 0.000000
+vec_0001                         = 0.000000, 20.000000, 0.000000
+bool_0000                        = true
+ 
+[action_0004]
+action_type                      = 29
+version                          = 1
+action_name                      = vortex_03
+flags                            = 1
+flt_0000                         = 3.000000
+flt_0001                         = 25.000000
+flt_0002                         = 10.000000
+vec_0000                         = 0.000000, 25.000000, 0.000000
+vec_0001                         = 0.000000, 25.000000, 0.000000
+bool_0000                        = true
+ 
+[action_0005]
+action_type                      = 21
+version                          = 1
+action_name                      = source
+flags                            = 1
+flt_0000                         = 0.000000
+flt_0001                         = 0.300000
+flt_0002                         = 0.000000
+flt_0003                         = 12.000000
+flt_0004                         = 0.050000
+bool_0000                        = true
+bool_0001                        = false
+ 
+[domain_action_0005_0000]
+type                             = 2
+v0                               = 0.305882, 0.301961, 0.301961
+v1                               = 0.235294, 0.235294, 0.235294
+v2                               = 0.133333, 0.133333, 0.133333
+ 
+[domain_action_0005_0001]
+type                             = 6
+v0                               = 1.000000, 2.000000, 1.000000
+v1                               = -1.000000, 5.000000, -1.000000
+v2                               = 0.500000, 1.000000, 0.000000
+ 
+[domain_action_0005_0002]
+type                             = 6
+v0                               = -17.453293, -17.453293, -17.453293
+v1                               = 1.000004, 17.453293, 17.453293
+v2                               = 1.000000, 5.000000, 0.000000
+ 
+[domain_action_0005_0003]
+type                             = 0
+v0                               = 8.000000, 8.000000, 8.000000
+v1                               = 0.000000, 0.000000, 0.000000
+v2                               = 0.000000, 0.000000, 0.000000
+ 
+[domain_action_0005_0004]
+type                             = 6
+v0                               = 2.000000, 0.000000, 2.000000
+v1                               = -2.000000, 9.000000, -2.000000
+v2                               = 0.500000, 1.500000, 0.000000
+ 
+[action_0006]
+action_type                      = 8
+version                          = 1
+action_name                      = gravity
+flags                            = 1
+vec_0000                         = 0.000000, 0.200000, 0.000000
+bool_0000                        = true
+ 
+[action_0007]
+action_type                      = 1
+version                          = 1
+action_name                      = bounce
+flags                            = 1
+flt_0000                         = 0.050000
+flt_0001                         = -0.100000
+flt_0002                         = 0.500000
+bool_0000                        = true
+ 
+[domain_action_0007_0000]
+type                             = 9
+v0                               = 0.000000, 1.000000, 0.000000
+v1                               = 0.000000, 9.000000, 0.000000
+v2                               = 0.200000, 1.000000, 0.000000
+ 
+[action_0008]
+action_type                      = 19
+version                          = 1
+action_name                      = sink
+flags                            = 1
+bool_0000                        = true
+bool_0001                        = false
+ 
+[domain_action_0008_0000]
+type                             = 3
+v0                               = 2.000000, -0.500000, 2.000000
+v1                               = -2.000000, 5.000000, -2.000000
+v2                               = 0.000000, 0.000000, 0.000000
+ 
+[action_0009]
+action_type                      = 30
+version                          = 1
+action_name                      = turbulence
+flags                            = 1
+flt_0000                         = 0.040000
+flt_0001                         = 0.600000
+flt_0002                         = 2.000000
+vec_0000                         = 0.800000, 0.200000, 0.700000
+int_0000                         = 2
+ 
+[action_0010]
+action_type                      = 12
+version                          = 1
+action_name                      = move
+flags                            = 1
+ 
+[action_0011]
+action_type                      = 10
+version                          = 1
+action_name                      = killold
+flags                            = 1
+flt_0000                         = 25.000000
+bool_0000                        = false
+ 
+[action_0012]
+action_type                      = 24
+version                          = 1
+action_name                      = targetsize
+flags                            = 1
+vec_0000                         = 0.100000, 0.100000, 0.100000
+vec_0001                         = 9.000000, 9.000000, 9.000000
+ 

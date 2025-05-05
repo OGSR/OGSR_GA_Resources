@@ -1,0 +1,24 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 2
+timelimit                        = 1.000000
+ 
+[effect_0000]
+effect_name                      = _ecp\group_items\weapon_generic_shoot
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.200000
+flags                            = 4
+ 
+[effect_0001]
+effect_name                      = _ecp\group_items\weapon_shotgun_smoke
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 3.000000
+flags                            = 4
+ 

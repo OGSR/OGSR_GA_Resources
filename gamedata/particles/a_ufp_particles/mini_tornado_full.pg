@@ -1,0 +1,51 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 5
+timelimit                        = 25.000000
+ 
+[effect_0000]
+effect_name                      = a_ufp_particles\group_ufp\tornado_mini_base
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 25.000000
+flags                            = 5
+ 
+[effect_0001]
+effect_name                      = a_ufp_particles\group_ufp\tornado_mini_splits
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 1.000000
+time1                            = 25.000000
+flags                            = 5
+ 
+[effect_0002]
+effect_name                      = a_ufp_particles\group_ufp\tornado_mini_smoke
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 1.500000
+time1                            = 25.500000
+flags                            = 5
+ 
+[effect_0003]
+effect_name                      = a_ufp_particles\group_ufp\tornado_mini_parts
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 2.000000
+time1                            = 25.000000
+flags                            = 5
+ 
+[effect_0004]
+effect_name                      = a_ufp_particles\group_ufp\tornado_smoke_wave
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.500000
+time1                            = 25.000000
+flags                            = 5
+ 

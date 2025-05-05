@@ -1,0 +1,42 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 4
+timelimit                        = 900.000000
+ 
+[effect_0000]
+effect_name                      = ghoul\anomal-01-bl-flares
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 900.000000
+flags                            = 4
+ 
+[effect_0001]
+effect_name                      = ghoul\anomal-01-bl-flashes
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 900.000000
+flags                            = 4
+ 
+[effect_0002]
+effect_name                      = ghoul\anomal-01-bl-particles
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 900.000000
+flags                            = 4
+ 
+[effect_0003]
+effect_name                      = ghoul\anomal-01-bl-expl
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 4
+ 

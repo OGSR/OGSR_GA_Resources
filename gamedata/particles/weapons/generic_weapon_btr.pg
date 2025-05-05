@@ -1,0 +1,51 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 5
+timelimit                        = 0.100000
+ 
+[effect_0000]
+effect_name                      = weapons\group_items\weapon_test_02_sparks
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.100000
+flags                            = 4
+ 
+[effect_0001]
+effect_name                      = weapons\group_items\weapon_shot_invert_glow
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.100000
+flags                            = 4
+ 
+[effect_0002]
+effect_name                      = weapons\weapon\weapon_test_01a
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.100000
+flags                            = 4
+ 
+[effect_0003]
+effect_name                      = weapons\group_items\weapon_shot_invert_big
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.100000
+flags                            = 4
+ 
+[effect_0004]
+effect_name                      = weapons\weapon\weapon_test_01c
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.100000
+flags                            = 4
+ 

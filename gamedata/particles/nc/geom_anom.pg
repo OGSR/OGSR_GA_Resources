@@ -1,0 +1,15 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 1
+timelimit                        = 5.000000
+ 
+[effect_0000]
+effect_name                      = nc\group_items\x1_geom
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   = nc\group_items\x2_geom
+time0                            = 0.000000
+time1                            = 0.500000
+flags                            = 69
+ 

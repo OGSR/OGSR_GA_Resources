@@ -1,0 +1,96 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 10
+timelimit                        = 0.000000
+ 
+[effect_0000]
+effect_name                      = anomaly2\generator\emiters\generator_work_sparks_emiter_low_idle
+on_play_child                    =
+on_birth_child                   = anomaly2\generator\emiters\generator_work_sparks_emiter_glow
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 52
+ 
+[effect_0001]
+effect_name                      = anomaly2\generator\emiters\generator_work_sparks_emiter_fast_idle
+on_play_child                    =
+on_birth_child                   = anomaly2\generator\emiters\generator_work_sparks_emiter_glow
+on_death_child                   =
+time0                            = 3.000000
+time1                            = 0.000000
+flags                            = 36
+ 
+[effect_0002]
+effect_name                      = anomaly2\generator\emiters\generator_face_align_idle
+on_play_child                    =
+on_birth_child                   = anomaly2\generator\emiters\generator_work_sparks_emiter_glow
+on_death_child                   =
+time0                            = 3.000000
+time1                            = 0.000000
+flags                            = 52
+ 
+[effect_0003]
+effect_name                      = anomaly2\generator\emiters\generator_glow_00_idle
+on_play_child                    =
+on_birth_child                   = anomaly2\generator\emiters\generator_vacuum_dust
+on_death_child                   =
+time0                            = 7.000000
+time1                            = 0.000000
+flags                            = 36
+ 
+[effect_0004]
+effect_name                      = anomaly2\generator\emiters\generator_glow_01
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 5.000000
+time1                            = 0.000000
+flags                            = 4
+ 
+[effect_0005]
+effect_name                      = anomaly2\generator\emiters\generator_electro_hit_idle
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 5.000000
+time1                            = 0.000000
+flags                            = 4
+ 
+[effect_0006]
+effect_name                      = anomaly2\generator\emiters\generator_electro_hit_explode_idle
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 10.000000
+time1                            = 0.000000
+flags                            = 4
+ 
+[effect_0007]
+effect_name                      = anomaly2\generator\emiters\generator_glow_02
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 10.000000
+time1                            = 0.000000
+flags                            = 4
+ 
+[effect_0008]
+effect_name                      = anomaly2\generator\emiters\generator_face_align_explode_dist_idle
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 10.000000
+time1                            = 0.000000
+flags                            = 4
+ 
+[effect_0009]
+effect_name                      = static\static_lava_01
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 4
+ 

@@ -1,0 +1,24 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 2
+timelimit                        = 3.000000
+ 
+[effect_0000]
+effect_name                      = anomaly2\group_items\poletr_flash_00
+on_play_child                    =
+on_birth_child                   = anomaly2\group_items\polter_glow_07
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 36
+ 
+[effect_0001]
+effect_name                      = anomaly2\group_items\polter_sparks_leader
+on_play_child                    = anomaly2\group_items\polter_trails_03
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.050000
+time1                            = 0.000000
+flags                            = 6
+ 

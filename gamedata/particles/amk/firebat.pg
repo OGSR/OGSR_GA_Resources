@@ -1,0 +1,42 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 4
+timelimit                        = 1.500000
+ 
+[effect_0000]
+effect_name                      = amk\_flame_burst_00
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.300000
+flags                            = 5
+ 
+[effect_0001]
+effect_name                      = amk\_flame_burst_face
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   = amk\napalm_drops
+time0                            = 0.000000
+time1                            = 0.300000
+flags                            = 69
+ 
+[effect_0002]
+effect_name                      = amk\_flame_burst_hot
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.300000
+flags                            = 5
+ 
+[effect_0003]
+effect_name                      = amk\_flame_burst_line_glow_00
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.300000
+flags                            = 5
+ 

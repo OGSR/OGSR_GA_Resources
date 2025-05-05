@@ -1,0 +1,33 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 3
+timelimit                        = 0.000000
+ 
+[effect_0000]
+effect_name                      = _ecp\group_items\anomaly_studen_idle
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   = _ecp\group_items\anomaly_studen_hit_drops
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 68
+ 
+[effect_0001]
+effect_name                      = _ecp\group_items\anomaly_studen_idle_glow
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 4
+ 
+[effect_0002]
+effect_name                      = _ecp\group_items\anomaly_studen_idle_par_up
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 4
+ 

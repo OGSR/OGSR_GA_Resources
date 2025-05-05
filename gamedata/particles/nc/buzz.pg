@@ -1,0 +1,33 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 3
+timelimit                        = 0.000000
+ 
+[effect_0000]
+effect_name                      = nc\galant
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   = nc\galant_00
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 69
+ 
+[effect_0001]
+effect_name                      = anomaly2\group_items\studen_buble_distort01
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 1
+ 
+[effect_0002]
+effect_name                      = nc\galant_01
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 5
+ 

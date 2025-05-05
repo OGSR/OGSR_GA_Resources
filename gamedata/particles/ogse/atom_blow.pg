@@ -1,0 +1,123 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 13
+timelimit                        = 60.000000
+ 
+[effect_0000]
+effect_name                      = a_ufp_particles\group_ufp\atom_flame
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 1.000000
+time1                            = 50.000000
+flags                            = 4
+ 
+[effect_0001]
+effect_name                      = a_ufp_particles\group_ufp\atom_glow
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 1.500000
+time1                            = 20.000000
+flags                            = 5
+ 
+[effect_0002]
+effect_name                      = a_ufp_particles\group_ufp\atom_flame_2
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 2.500000
+time1                            = 0.000000
+flags                            = 5
+ 
+[effect_0003]
+effect_name                      = a_ufp_particles\group_ufp\atom_glow_2
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 3.000000
+time1                            = 10.000000
+flags                            = 5
+ 
+[effect_0004]
+effect_name                      = a_ufp_particles\group_ufp\atom_smoke
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.500000
+time1                            = 50.000000
+flags                            = 5
+ 
+[effect_0005]
+effect_name                      = a_ufp_particles\group_ufp\atom_smoke_2
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 2.000000
+time1                            = 50.000000
+flags                            = 5
+ 
+[effect_0006]
+effect_name                      = a_ufp_particles\group_ufp\atom_sparks
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.100000
+time1                            = 0.000000
+flags                            = 5
+ 
+[effect_0007]
+effect_name                      = a_ufp_particles\group_ufp\atom_wave
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 3.000000
+time1                            = 0.000000
+flags                            = 5
+ 
+[effect_0008]
+effect_name                      = a_ufp_particles\group_ufp\atom_wave_2
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.100000
+time1                            = 0.000000
+flags                            = 5
+ 
+[effect_0009]
+effect_name                      = explosions\group_items\expl_glow_grenade
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 5
+ 
+[effect_0010]
+effect_name                      = a_ufp_particles\group_ufp\atom_glow_3
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.200000
+time1                            = 0.000000
+flags                            = 5
+ 
+[effect_0011]
+effect_name                      = a_ufp_particles\group_ufp\atom_glow_4
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.100000
+time1                            = 10.000000
+flags                            = 5
+ 
+[effect_0012]
+effect_name                      = a_ufp_particles\group_ufp\atom_wave_4
+on_play_child                    =
+on_birth_child                   =
+on_death_child                   =
+time0                            = 0.500000
+time1                            = 8.000000
+flags                            = 4
+ 

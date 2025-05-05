@@ -1,0 +1,15 @@
+[_group]
+version                          = 3
+flags                            = 0
+effects_count                    = 1
+timelimit                        = 0.000000
+ 
+[effect_0000]
+effect_name                      = samples\tut1
+on_play_child                    = samples\smoke
+on_birth_child                   =
+on_death_child                   = samples\smoke00
+time0                            = 0.000000
+time1                            = 0.000000
+flags                            = 70
+ 
