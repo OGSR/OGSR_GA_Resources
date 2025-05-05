@@ -43,7 +43,12 @@ function on_npc_spawn( obj, binder )
 
   if
     --[=[( not obj:is_relation_enemy( db.actor ) and not get_anomaly_invisibility( obj ) )
-    or--]=] ( obj:character_community() == "kulg_band_2" or obj:character_community() == "ecolog" or obj:story_id() == story_ids.colonel_prohorov ) --KRodin: квестовая хрень, нормально фиксить лень.
+    or--]=] (
+      obj:character_community() == "kulg_band_2"
+      or obj:character_community() == "ecolog"
+      or obj:story_id() == story_ids.colonel_prohorov
+      or obj:character_community():find("bratstvo_")
+    ) --Simp: квестовая хрень, нормально фиксить лень.
   then
     --log3("--[%s] set_anomaly_invisibility for [%s] comm: [%s]", script_name(), obj:name(), obj:character_community())
     set_anomaly_invisibility( obj, true )

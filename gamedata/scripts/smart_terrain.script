@@ -688,18 +688,20 @@ end
 -- вызывается движком после включения непися в состав смарта
 -- задание в оффлайне заключается попросту топать к смарту, где непись 
 -- выйдет в онлайн и будет подхвачен уже логикой гулага
+local def_task = false
 function se_smart_terrain:task( obj )
-  	local path_name = self.gulag:get_obj_job_path_name( obj.id )
-	if not path_name then
-		log1("!!WARNING: NO PATH ["..obj.id.."] ["..obj:name().."] ["..self:name().."] PATH ["..tostring(path_name).."]")
-		--log3("[smart_terrain %s] task: obj=%s job_path=nil, CLEARING", self:name(), obj:name() )
-		self.gulag:free_obj( obj.id )
-		self:unregister_npc(obj) --'Затычка против вылета.
-		self:reset_npc_logic(obj)
-		return CALifeSmartTerrainTask("simulation_default_path")
-	end
+    local task = self.gulag:get_obj_job_task(obj.id)
+    if not task then
+        self.gulag:free_obj( obj.id )
+        self:unregister_npc(obj) --Затычка против вылета.
+        self:reset_npc_logic(obj)
 
-	return CALifeSmartTerrainTask( path_name )
+        if not def_task then
+            def_task = CALifeSmartTerrainTask("simulation_default_path")
+        end
+        return def_task
+    end
+    return task
 end
 
 -- может ли данный гулаг создаться в данный момент?
